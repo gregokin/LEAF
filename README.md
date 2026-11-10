@@ -6,7 +6,7 @@ supplies wind transport, SYRUP supplies water and sediment processes, and MASY
 coordinates alternating events.
 
 LEAF owns plant state. Species-specific allometry connects **aboveground dry
-biomass** to canopy height and width for MAPLE shear-stress partitioning. Porosity
+biomass** to shared canopy height and width for MAPLE and SYRUP. Porosity
 is initially constant, unused by LEAF ecology but used by native MAPLE wind. The
 [canopy coupling requirement](agent_handoffs/project_brief.md#canopy-allometry-and-maple-coupling--2026-11-08)
 also defines feedback for vegetation damage and burial. Native SYRUP moisture
@@ -33,6 +33,14 @@ loading, placement and allometry calls for prescribed vegetation, without requir
 growth or hydrology. It includes stable-ID event sockets and safe handling of
 buried or elevated canopies. No MAPLE or SYRUP source was changed for Phase 0.
 Example allometry and ecological traits are uncalibrated fixtures.
+
+The [shared canopy interface](docs/shared-canopy.md), `leaf.canopy.canopy_view`,
+provides one derived representation for both consumers: locations, dimensions,
+porosity, identities and burial/exposure diagnostics. The existing
+`maple_vegetation_view` is a thin adapter over it, retaining MAPLE's native
+format restrictions. SYRUP can consume the common view directly; upstream
+adoption and model-specific physics remain future work. Allometry and surface
+geometry have one implementation, so updates reach both consumers together.
 
 Run from this checkout with the existing environment (NumPy alone is sufficient
 for the Phase 0 core):
@@ -88,8 +96,9 @@ weekly growth and root-map updates, without its own soil store. NumPy, Numba
 and CUDA paths are independently qualified. Storm/MASY scheduling, evolving
 soil remapping and calibrated ecology remain separate work.
 
-The [current Phase 0 source lock](dependencies/phase0-vegetation.lock.json) records
+The [current shared-canopy source lock](dependencies/canopy-view.lock.json) records
 the installed LEAF code and qualified upstream identities. The earlier
+[Phase 0 lock](dependencies/phase0-vegetation.lock.json),
 [growth lock](dependencies/stepwat-growth.lock.json) and
 [water-coupling lock](dependencies/syrup-subsurface.lock.json) remain historical
 evidence; a Git HEAD alone is insufficient for these uncommitted sources.

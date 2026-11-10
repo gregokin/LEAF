@@ -1,0 +1,33 @@
+{
+  "at_utc": "2026-11-10T13:43:22.075334+00:00",
+  "source": "revision_02",
+  "files": {
+    "leaf/canopy.py": {
+      "sha256": "6f16b97e7fbd248685495959b4e0322f44ef9b2ba950bb35ded0d70826adde0e",
+      "size_bytes": 33687
+    },
+    "leaf/__init__.py": {
+      "sha256": "722eda1e6d3f3f89b5403011846e63ec0b541ae45fb7696509142b4d1641bbf1",
+      "size_bytes": 2412
+    },
+    "tests/test_phase0.py": {
+      "sha256": "a22c5a34652ffcdf0d3d4fa10ebc4701326a4eef67135dc685b7c77cfd3a0472",
+      "size_bytes": 109479
+    },
+    "docs/phase0-vegetation.md": {
+      "sha256": "137b560ede6677cdddb7f5381e71939a84170ab92d35e46355ee27aca73f4158",
+      "size_bytes": 26026
+    },
+    "docs/maple-leaf-integration.md": {
+      "sha256": "291fbf86d41d89cd48bec6363565bc0e63f7df60d28ad911359f83648cc14ad2",
+      "size_bytes": 9875
+    },
+    "docs/shared-canopy.md": {
+      "sha256": "394c282e5541977b3a7747c5f8e11c1df0427e6ede1b932fe468b15997ec206d",
+      "size_bytes": 10738
+    }
+  },
+  "exact_frozen_match": true,
+  "canopy_numerical_functions_AST_unchanged": true,
+  "existing_test_functions_AST_unchanged": true
+}

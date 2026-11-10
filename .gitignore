@@ -38,6 +38,7 @@ agent_handoffs/tasks/**/*.webp
 agent_handoffs/tasks/**/*.zip
 !agent_handoffs/tasks/phase0_vegetation_20261110/revision_*/examples/phase0/plants.csv
 !agent_handoffs/tasks/phase0_vegetation_20261110/checkpoint_*/examples/phase0/plants.csv
+!agent_handoffs/tasks/shared_canopy_view_20261110/revision_*/examples/phase0/plants.csv
 
 # Generated user runs; examples/phase0 remains versioned.
 runs/

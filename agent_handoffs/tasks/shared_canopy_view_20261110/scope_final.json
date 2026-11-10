@@ -1,0 +1,26 @@
+{
+  "at_utc": "2026-11-10T13:43:22.075334+00:00",
+  "baseline_head": "316d9f65113b11d8d849fe444bd5f3c48ea2b4a4",
+  "baseline_tracked_files": 1563,
+  "allowed_changes": [
+    ".gitignore",
+    "README.md",
+    "agent_handoffs/claude_report.md",
+    "agent_handoffs/codex_review.md",
+    "agent_handoffs/current_prompt.md",
+    "agent_handoffs/decisions.md",
+    "agent_handoffs/orchestration_state.md",
+    "agent_handoffs/project_brief.md",
+    "agent_handoffs/verification.md",
+    "docs/maple-leaf-integration.md",
+    "docs/phase0-vegetation.md",
+    "docs/shared-canopy.md",
+    "leaf/__init__.py",
+    "leaf/canopy.py",
+    "tests/test_phase0.py"
+  ],
+  "unexpected_changes": [],
+  "root_AGENTS_preserved": true,
+  "prior_archives_locks_traits_numerical_sources_preserved": true,
+  "source_lock": "dependencies/canopy-view.lock.json"
+}

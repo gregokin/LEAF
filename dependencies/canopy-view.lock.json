@@ -1,0 +1,115 @@
+{
+  "schema": "leaf-shared-canopy-source-lock-v1",
+  "created_at_utc": "2026-11-10T13:43:22.075334+00:00",
+  "task": "shared_canopy_view_20261110",
+  "revision": 2,
+  "scope": "Consumer-neutral canopy_view and legacy MAPLE projection; numerical algorithms unchanged.",
+  "interfaces": {
+    "canopy_view": "leaf.canopy_view v1",
+    "maple_vegetation_view": "leaf.maple_vegetation_view v2"
+  },
+  "previous_qualification": {
+    "path": "phase0-vegetation.lock.json",
+    "sha256": "4d6041045dfd3f5684dc21830644e86215c50829d287a5c4fa30914e76d4becb",
+    "size_bytes": 17970,
+    "note": "Historical upstream/environment, scientific limits and physical driver qualification retained. LEAF hashes below supersede its LEAF file identities."
+  },
+  "leaf": {
+    "root": "/home/okin/leaf",
+    "runtime_files": {
+      "leaf/__init__.py": {
+        "sha256": "722eda1e6d3f3f89b5403011846e63ec0b541ae45fb7696509142b4d1641bbf1",
+        "size_bytes": 2412
+      },
+      "leaf/__main__.py": {
+        "sha256": "83b4589b1aeab57d43ad04c69d32b80daf6eb976004b38ae4b57410d861b8ee1",
+        "size_bytes": 15896
+      },
+      "leaf/canopy.py": {
+        "sha256": "6f16b97e7fbd248685495959b4e0322f44ef9b2ba950bb35ded0d70826adde0e",
+        "size_bytes": 33687
+      },
+      "leaf/coupling.py": {
+        "sha256": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+        "size_bytes": 28207
+      },
+      "leaf/events.py": {
+        "sha256": "2ec912dac4a5bb4ae1f52a64ef99e74e973d7f7dc68993f0f083fceb3cbed98e",
+        "size_bytes": 15605
+      },
+      "leaf/initialization.py": {
+        "sha256": "25e58f759761b525c2021eb18d64cd2b6bede8543b22ba983a8eb2d65967aeab",
+        "size_bytes": 32214
+      },
+      "leaf/recording.py": {
+        "sha256": "12ea3fee1dd660756b2e800adb20265f25b867a42604f456f01ea2728fa2c584",
+        "size_bytes": 8084
+      },
+      "leaf/runtime.py": {
+        "sha256": "abbea7b0f873d87139f92c9eb4a6989f657def504c2080379d728f7ceb121826",
+        "size_bytes": 22606
+      },
+      "leaf/state.py": {
+        "sha256": "187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0",
+        "size_bytes": 48690
+      },
+      "leaf/stepwat.py": {
+        "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+        "size_bytes": 32213
+      },
+      "leaf/traits.py": {
+        "sha256": "40b98b4b16a90c432c8b1a666efec45c1a0cd14d22fcdfaa99d94d665871cbb2",
+        "size_bytes": 22792
+      }
+    },
+    "tests": {
+      "tests/test_coupling.py": {
+        "sha256": "13dcea19c2137c3dde3e813beedf5efe76e5b2c26fdac5027d4e336ece5e7efb",
+        "size_bytes": 35905
+      },
+      "tests/test_daily_water_growth.py": {
+        "sha256": "c73ae335a1a89d965e9af8dde83bfb8e252e39393154afabc26bda5ebf39deb4",
+        "size_bytes": 35234
+      },
+      "tests/test_phase0.py": {
+        "sha256": "a22c5a34652ffcdf0d3d4fa10ebc4701326a4eef67135dc685b7c77cfd3a0472",
+        "size_bytes": 109479
+      },
+      "tests/test_spatial_mapping.py": {
+        "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0",
+        "size_bytes": 12394
+      },
+      "tests/test_stepwat.py": {
+        "sha256": "5b41f10aa3b5b9eda7e05adb72b1166f00c6a802c3b03827f40563c12f89d609",
+        "size_bytes": 45666
+      }
+    }
+  },
+  "upstream_recheck": {
+    "current_git_heads": {
+      "MAPLE": {
+        "head": "9f466d2cfcd52991b24496cf67f4562d6268afa9",
+        "branch": "main"
+      },
+      "SYRUP": {
+        "head": "c76c603dde4e8f79ec48b18d954a386580d8bc89",
+        "branch": "feature/subsurface-hydrology"
+      }
+    },
+    "syrup_runtime_hashes_match_previous": 71,
+    "maple_native_container_hash_matches_previous": {
+      "sha256": "b92ea5ae6890c3094686441e348ef40357c50ebcf1e5aee0f75bd86924f0943e",
+      "size_bytes": 32726
+    },
+    "note": "No upstream writes; native MAPLE ABI rechecked. This does not requalify unrelated upstream physics or all dirty source beyond the named qualification."
+  },
+  "numerics": "derive_geometry, cover bounds/measurement, root/growth/water kernels, traits and fixtures unchanged.",
+  "qualification": "Full CPU suite plus five-case exact legacy equivalence and shared-array/ID/purity/import checks; native MAPLE container validation. No new GPU performance or integrated scenario claim.",
+  "remaining_scope": [
+    "upstream adoption",
+    "hydrological canopy physics",
+    "coupled event scheduling",
+    "ecological injury laws",
+    "calibrated allometry"
+  ]
+}

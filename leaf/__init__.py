@@ -3,7 +3,8 @@
 Phase 0 (independent, NumPy + stdlib only; no numba/cupy/MAPLE/SYRUP imports):
   leaf.traits          versioned species catalog JSON, power-law allometry, canonical catalog hash
   leaf.state           Domain, canonical PlantState (SoA, stable int64 IDs), plant-state CSV, SURFACE anchors
-  leaf.canopy          derived geometry, MAPLE-compatible canopy view, bounded union-cover measurement
+  leaf.canopy          derived geometry, shared canopy_view (one aboveground representation for MAPLE AND
+                       SYRUP), thin MAPLE adapter maple_vegetation_view, bounded union-cover measurement
   leaf.initialization  cover-driven multispecies generator (overlap allowed / global canopy exclusion)
   leaf.recording       cadence snapshot writer (atomic, no overwrite, no fabricated states)
   leaf.events          MAPLE/SYRUP surface-event diagnostics + ecological response socket

@@ -724,6 +724,204 @@ class TestCanopy(unittest.TestCase):
         self.assertLessEqual(fine, math.pi * float((r * r).sum()) / 256.0 + 1e-9)  # union <= nominal
 
 
+# =============================================================== shared canopy view (MAPLE + SYRUP) / thin MAPLE adapter
+def assert_projection_of(tc, view, shared):
+    '''Every field and sidecar of `view` equals the `shared` canopy_view entry with the same plant_id (exact).'''
+    lookup = {int(pid): i for i, pid in enumerate(shared['sidecar']['plant_id'])}
+    pos = np.array([lookup[int(p)] for p in view['sidecar']['plant_id']], dtype=np.int64)
+    tc.assertEqual(list(view['fields']), list(shared['fields']))
+    tc.assertEqual(set(view['sidecar']), set(shared['sidecar']))
+    for name, arr in view['fields'].items():
+        np.testing.assert_array_equal(arr, shared['fields'][name][pos], err_msg=name)
+    for name, arr in view['sidecar'].items():
+        np.testing.assert_array_equal(arr, shared['sidecar'][name][pos], err_msg=name)
+    for key in ('catalog_hash', 'time_days', 'domain', 'statuses_included', 'excluded_by_status',
+                'excluded_zero_diameter', 'height_mode', 'surface_reference'):
+        tc.assertEqual(view['meta'][key], shared['meta'][key], key)
+    tc.assertEqual(view['meta']['derived_from']['schema'], 'leaf.canopy_view')
+    tc.assertEqual(view['meta']['derived_from']['n_objects'], shared['meta']['n_objects'])
+
+
+class TestSharedCanopyView(unittest.TestCase):
+    '''Shared-interface separation: canopy_view is the single consumer-neutral aboveground representation;
+    maple_vegetation_view is a projection of it that only adds the native-MAPLE container policy.'''
+
+    def setUp(self):
+        self.cat = example_catalog()
+
+    def offset_case(self):
+        dom = state.Domain(10, 10, 1.0, 1.0, 50.0, -20.0)
+        recs = [rec(11, 'grass', 52.0, -18.0, 7.0, 0.1), rec(12, 'shrub', 55.5, -15.5, 7.0, 2.0),
+                rec(13, 'grass', 58.0, -12.0, 7.0, 0.05, status='dead_standing'),
+                rec(14, 'shrub', 51.0, -11.0, 7.0, 0.0, status='removed')]
+        s = state.PlantState.from_records(self.cat, dom, recs)
+        cur = state.constant_surface(dom, 7.0)
+        cur[2, 2] = 10.0    # grass 11 at (52, -18) -> row 2, col 2: fully buried under 3 m of deposition
+        cur[4, 5] = 6.5     # shrub 12 at (55.5, -15.5) -> row 4, col 5: eroded anchor, canopy base 0.5 m above the surface
+        return s, cur
+
+    def test_shared_view_retains_buried_and_elevated_plants_with_diagnostics(self):
+        s, cur = self.offset_case()
+        snap = snapshot(s)
+        with self.assertRaises(ValueError):
+            canopy.canopy_view(s, self.cat, None)                         # the current surface is required
+        with self.assertRaises(ValueError):
+            canopy.canopy_view(s, self.cat, cur, height_mode='bogus')
+        v = canopy.canopy_view(s, self.cat, cur)
+        self.assertEqual((v['meta']['schema'], v['meta']['schema_version']), ('leaf.canopy_view', 1))
+        self.assertEqual(list(v['fields']), list(canopy.CANOPY_FIELDS))
+        self.assertIs(canopy.MAPLE_FIELDS, canopy.CANOPY_FIELDS)        # compatibility alias, one field list
+        self.assertEqual(v['meta']['n_objects'], 3)                      # removed excluded by status; NOTHING else dropped
+        np.testing.assert_array_equal(v['sidecar']['plant_id'], [11, 12, 13])
+        np.testing.assert_array_equal(v['sidecar']['status'], ['live', 'live', 'dead_standing'])  # buried plant is still live
+        np.testing.assert_array_equal(v['sidecar']['fully_buried'], [True, False, False])
+        np.testing.assert_array_equal(v['sidecar']['elevated_base'], [False, True, False])
+        np.testing.assert_array_equal(v['sidecar']['native_maple_valid'], [False, False, True])   # informational only
+        np.testing.assert_allclose(v['fields']['center_x_m'], [2.0, 5.5, 8.0])     # domain-local (origin subtracted)
+        np.testing.assert_allclose(v['fields']['center_y_m'], [2.0, 4.5, 8.0])
+        np.testing.assert_array_equal(v['sidecar']['current_ground_m'], [10.0, 6.5, 7.0])
+        np.testing.assert_array_equal(v['sidecar']['establishment_ground_m'], 7.0)
+        np.testing.assert_allclose(v['sidecar']['burial_depth_m'], [3.0, 0.0, 0.0])
+        np.testing.assert_allclose(v['sidecar']['exposure_depth_m'], [0.0, 0.5, 0.0])
+        intact = v['sidecar']['intact_height_m']
+        self.assertEqual(v['fields']['height_m'][0], 0.0)                # fully buried: exposed height 0, plant RETAINED
+        self.assertEqual(v['fields']['height_m'][1], intact[1])          # elevated base: nothing buried, plant RETAINED
+        self.assertEqual(v['fields']['height_m'][2], intact[2])
+        np.testing.assert_array_equal(v['fields']['height_m'], v['sidecar']['exposed_height_m'])
+        np.testing.assert_array_equal(v['fields']['semi_major_m'], v['fields']['semi_minor_m'])
+        np.testing.assert_array_equal(v['fields']['orientation_deg'], 0.0)
+        np.testing.assert_array_equal(v['fields']['porosity'], 0.2)
+        np.testing.assert_array_equal(v['fields']['drag_coefficient'], 1.0)
+        for arr in list(v['fields'].values()) + list(v['sidecar'].values()):
+            self.assertEqual(arr.shape, (3,))
+        m = v['meta']
+        self.assertEqual((m['n_fully_buried'], m['n_elevated_base']), (1, 1))
+        self.assertEqual(m['native_maple_compatibility']['n_unsupported'], 2)
+        self.assertFalse(m['native_maple_compatibility']['all_representable'])
+        self.assertNotIn('native_maple_valid', m)                        # no whole-view MAPLE verdict on the shared view
+        self.assertEqual((m['excluded_by_status'], m['excluded_zero_diameter']), (1, 0))
+        self.assertEqual(m['statuses_included'], ['live', 'dead_standing'])
+        self.assertEqual(m['catalog_hash'], self.cat.hash)
+        self.assertEqual(m['domain'], s.domain.to_dict())
+        for key in ('units', 'sidecar_units', 'coordinates', 'coordinate_frame', 'height_anchor', 'height_definition',
+                    'visibility_note', 'authority', 'boundary_note', 'time_days'):
+            self.assertIn(key, m)
+        self.assertEqual(set(m['units']), set(canopy.CANOPY_FIELDS))
+        self.assertEqual(set(m['sidecar_units']), set(v['sidecar']))
+        # diagnostic heights: intact everywhere, informational flags all False, plants still retained
+        d = canopy.canopy_view(s, self.cat, cur, height_mode='intact_diagnostic', drag_coefficient=0.5)
+        self.assertEqual(d['meta']['n_objects'], 3)
+        np.testing.assert_array_equal(d['fields']['height_m'], intact)
+        np.testing.assert_array_equal(d['sidecar']['native_maple_valid'], False)
+        np.testing.assert_array_equal(d['fields']['drag_coefficient'], 0.5)
+        self.assertIn('DIAGNOSTIC', d['meta']['height_definition'])
+        self.assertEqual(canopy.canopy_view(s, self.cat, cur, statuses=('live',))['meta']['n_objects'], 2)
+        assert_unchanged(self, s, snap)                                  # pure: nothing written back to the state
+        # invalid / unresolved inputs still fail
+        bad = cur.copy()
+        bad[0, 0] = np.nan
+        with self.assertRaises(state.StateError):
+            canopy.canopy_view(s, self.cat, bad)
+        with self.assertRaises(state.StateError):
+            canopy.canopy_view(s, self.cat, cur[:, :9])
+        with self.assertRaises(state.StateError):
+            canopy.canopy_view(s, consistent_catalog(), cur)              # catalog hash mismatch
+        unres = small_state(self.cat, resolved=False)
+        with self.assertRaises(state.StateError):
+            canopy.canopy_view(unres, self.cat, state.constant_surface(unres.domain, 1.0))
+        empty = state.PlantState.empty(self.cat, s.domain)
+        e = canopy.canopy_view(empty, self.cat, cur)
+        self.assertEqual(e['meta']['n_objects'], 0)
+        self.assertTrue(e['meta']['native_maple_compatibility']['all_representable'])
+
+    def test_maple_adapter_is_a_projection_of_the_shared_view_by_id(self):
+        s = small_state(self.cat)                     # ids 1..6, id 6 removed
+        cur = state.constant_surface(s.domain, 100.0)
+        cur[3, 2] = 105.0     # grass 1 at (2.5, 3.5): fully buried
+        cur[12, 7] = 99.5     # grass 2 at (7.25, 12.75): eroded anchor (elevated base)
+        # shrub 3 (anchor 99.9) is partially buried by 0.1 m; 4 and 5 sit exactly on the surface
+        shared = canopy.canopy_view(s, self.cat, cur)
+        np.testing.assert_array_equal(shared['sidecar']['plant_id'], [1, 2, 3, 4, 5])
+        np.testing.assert_array_equal(shared['sidecar']['fully_buried'], [True, False, False, False, False])
+        np.testing.assert_array_equal(shared['sidecar']['elevated_base'], [False, True, False, False, False])
+        self.assertAlmostEqual(shared['fields']['height_m'][2], shared['sidecar']['intact_height_m'][2] - 0.1)
+        # legacy policies preserved: default refuses with the offending ids ...
+        with self.assertRaises(state.StateError) as cm:
+            canopy.maple_vegetation_view(s, self.cat, cur)
+        self.assertIn('[1, 2]', str(cm.exception))
+        with self.assertRaises(ValueError):
+            canopy.maple_vegetation_view(s, self.cat, cur, unsupported_policy='drop')
+        # ... exclude applies ONE selection to every array and keeps exact geometry by id
+        ex = canopy.maple_vegetation_view(s, self.cat, cur, unsupported_policy='exclude')
+        self.assertEqual((ex['meta']['schema'], ex['meta']['schema_version']), ('leaf.maple_vegetation_view', 2))
+        np.testing.assert_array_equal(ex['sidecar']['plant_id'], [3, 4, 5])
+        self.assertEqual((ex['meta']['n_objects'], ex['meta']['n_unsupported'], ex['meta']['n_unsupported_excluded'],
+                          ex['meta']['n_unsupported_flagged_kept']), (3, 2, 2, 0))
+        self.assertTrue(ex['meta']['native_maple_valid'])
+        self.assertEqual(ex['meta']['fields'], list(canopy.CANOPY_FIELDS))
+        assert_projection_of(self, ex, shared)
+        # ... flag keeps everything: arrays identical to the shared view, whole-view verdict False
+        fl = canopy.maple_vegetation_view(s, self.cat, cur, unsupported_policy='flag')
+        np.testing.assert_array_equal(fl['sidecar']['plant_id'], shared['sidecar']['plant_id'])
+        self.assertFalse(fl['meta']['native_maple_valid'])
+        self.assertEqual((fl['meta']['n_unsupported'], fl['meta']['n_unsupported_flagged_kept']), (2, 2))
+        np.testing.assert_array_equal(fl['sidecar']['native_maple_valid'], [False, False, True, True, True])
+        self.assertEqual(fl['fields']['height_m'][0], 0.0)
+        assert_projection_of(self, fl, shared)
+        # clean surface: nothing unsupported, identical arrays, legacy verdict valid
+        flat = state.constant_surface(s.domain, 100.0)
+        ok = canopy.maple_vegetation_view(s, self.cat, flat)
+        shared_flat = canopy.canopy_view(s, self.cat, flat)
+        self.assertTrue(ok['meta']['native_maple_valid'])
+        self.assertTrue(shared_flat['meta']['native_maple_compatibility']['all_representable'])
+        self.assertEqual(ok['meta']['n_objects'], shared_flat['meta']['n_objects'])
+        assert_projection_of(self, ok, shared_flat)
+        # intact_diagnostic through both paths: same heights by id, legacy verdict never valid
+        dg = canopy.maple_vegetation_view(s, self.cat, cur, height_mode='intact_diagnostic', unsupported_policy='exclude')
+        ds = canopy.canopy_view(s, self.cat, cur, height_mode='intact_diagnostic')
+        self.assertFalse(dg['meta']['native_maple_valid'])
+        np.testing.assert_array_equal(dg['sidecar']['plant_id'], [3, 4, 5])
+        assert_projection_of(self, dg, ds)
+        np.testing.assert_array_equal(dg['fields']['height_m'], ds['sidecar']['intact_height_m'][2:])
+
+    def test_maple_adapter_delegates_to_shared_computation_without_recomputing(self):
+        s, cur = self.offset_case()
+        calls = {'canopy_view': [], 'derive_geometry': 0}
+        real_view, real_geo = canopy.canopy_view, canopy.derive_geometry
+
+        def counting_geo(*a, **k):
+            calls['derive_geometry'] += 1
+            return real_geo(*a, **k)
+
+        def doctored_view(*a, **k):
+            calls['canopy_view'].append(k)
+            out = real_view(*a, **k)
+            out['fields']['height_m'] = out['fields']['height_m'] + 1.0          # doctor the SHARED output ...
+            out['sidecar']['root_radius_m'] = out['sidecar']['root_radius_m'] * 2.0
+            return out
+
+        canopy.derive_geometry, canopy.canopy_view = counting_geo, doctored_view
+        try:
+            fl = canopy.maple_vegetation_view(s, self.cat, cur, unsupported_policy='flag', statuses=('live',), drag_coefficient=0.7)
+            ex = canopy.maple_vegetation_view(s, self.cat, cur, unsupported_policy='exclude')
+        finally:
+            canopy.derive_geometry, canopy.canopy_view = real_geo, real_view
+        self.assertEqual(calls['derive_geometry'], 2)                  # ONE geometry evaluation per adapter call
+        self.assertEqual(len(calls['canopy_view']), 2)
+        self.assertEqual(calls['canopy_view'][0], {'statuses': ('live',), 'height_mode': 'exposed', 'drag_coefficient': 0.7})
+        self.assertEqual(calls['canopy_view'][1], {'statuses': ('live', 'dead_standing'), 'height_mode': 'exposed',
+                                                   'drag_coefficient': 1.0})
+        ref = canopy.canopy_view(s, self.cat, cur, statuses=('live',), drag_coefficient=0.7)
+        np.testing.assert_array_equal(fl['fields']['height_m'], ref['fields']['height_m'] + 1.0)      # ... and the adapter
+        np.testing.assert_array_equal(fl['sidecar']['root_radius_m'], ref['sidecar']['root_radius_m'] * 2.0)  # passed it through
+        np.testing.assert_array_equal(fl['fields']['drag_coefficient'], 0.7)
+        np.testing.assert_array_equal(fl['sidecar']['plant_id'], [11, 12])
+        ref_all = canopy.canopy_view(s, self.cat, cur)
+        np.testing.assert_array_equal(ex['sidecar']['plant_id'], [13])
+        np.testing.assert_array_equal(ex['fields']['height_m'], ref_all['fields']['height_m'][2:] + 1.0)
+        np.testing.assert_array_equal(ex['fields']['center_x_m'], ref_all['fields']['center_x_m'][2:])
+
+
 # =============================================================== generator
 class TestGeneration(unittest.TestCase):
     def setUp(self):

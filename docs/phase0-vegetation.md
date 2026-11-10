@@ -158,30 +158,59 @@ plant_id,species,x_m,y_m,establishment_ground_m,agb_dry_kg,seasonal_agb_dry_kg,a
 
 ---
 
-## 3. Geometry, safe MAPLE publication and cover (`leaf.canopy`)
+## 3. Geometry, shared canopy view, MAPLE adapter and cover (`leaf.canopy`)
 
 `derive_geometry(state, catalog, current_surface=None)` validates the state and returns O(P) arrays for all
 plants: `diameter_m`, `radius_m` (circles), **intact** `height_m`, `root_radius_m`, anchors, constant
 `porosity`, …; non-finite derived outputs are refused. With `current_surface`: `surface_delta_m = current −
 establishment` (+ deposition, − erosion), `burial_depth_m`, `exposure_depth_m`, `exposed_height_m`,
-`fully_buried` (geometric diagnostics only).
+`fully_buried` (geometric diagnostics only). On the canopy export path it is the **single** allometry /
+surface-sampling implementation; every view below is built from it.
+
+### 3.1 Shared canopy view — primary API (`canopy_view`, schema `leaf.canopy_view` v1)
+
+`canopy_view(state, catalog, current_surface, *, statuses=('live','dead_standing'), height_mode='exposed',
+drag_coefficient=1.0)` is the **one consumer-neutral aboveground representation for MAPLE and SYRUP**
+(`docs/shared-canopy.md` is the contract). The current surface is **required**. It returns
+`{'fields', 'sidecar', 'meta'}` with O(P) arrays for the selected standing population (status in
+`statuses`, diameter > 0): `CANOPY_FIELDS = center_x_m, center_y_m` (domain-local metres), `semi_major_m =
+semi_minor_m` (canopy radius), `orientation_deg = 0`, `height_m`, constant `porosity`, uniform
+`drag_coefficient`; sidecars `plant_id, species, status, establishment_ground_m, current_ground_m,
+burial_depth_m, exposure_depth_m, intact_height_m, exposed_height_m, root_radius_m, elevated_base,
+fully_buried, native_maple_valid`. `MAPLE_FIELDS` is kept as an alias of `CANOPY_FIELDS`.
+
+* `height_mode='exposed'` (default): `height_m = max(intact − burial, 0)`; the visible canopy base is at
+  `max(establishment_ground_m, current_ground_m)` — the current ground under partial burial, the **fixed
+  establishment ground** under erosion (intact height unchanged, `exposure_depth_m` is the separate gap
+  below the base); a fully buried plant has height 0, no visible canopy and keeps its anchor.
+  `'intact_diagnostic'`: intact height, base at the establishment ground, labelled a
+  **DIAGNOSTIC APPROXIMATION**.
+* `removed` plants are **excluded by default** (an explicit `statuses` selection can include removed
+  records with a positive diameter). Consumers using the same state, catalog and surface at matching
+  coupling times obtain consistent geometry; upstream adoption is pending.
+* **Fully buried and elevated-base (eroded-anchor) plants are RETAINED** with correct diagnostics
+  (`fully_buried`, `elevated_base`, depths, exposed height 0 when buried). Geometric visibility is distinct
+  from death/removal, which only `status` expresses. Per-plant `native_maple_valid` flags and
+  `meta['native_maple_compatibility']` are **informational** (MAPLE container limits), not a validity
+  judgment of the view; there is no whole-view `native_maple_valid` verdict here.
+* Pure and uncached: derived from the authoritative `PlantState`; recompute after any state or surface
+  change; pair consumers by `plant_id`. Invalid/unresolved state or surface still fails (`StateError`).
+* Metadata carries explicit units, coordinate frame, height definition/anchor, catalog hash, time, domain
+  conventions, boundary note and exclusion/visibility counts.
+
+### 3.2 Thin MAPLE adapter (`maple_vegetation_view`, schema `leaf.maple_vegetation_view` v2)
 
 `maple_vegetation_view(state, catalog, current_surface, *, statuses=('live','dead_standing'),
-height_mode='exposed', unsupported_policy='error')` — **the current surface is required**: every canopy is
-validated against its establishment anchor.
-
-* Safe default `height_mode='exposed'`: `height = intact − burial`, canopy base on the current surface.
-* Unsupported for native MAPLE: **eroded anchors** (base above the surface) and **fully buried plants**
-  (exposed height ≤ 0). `'error'` refuses the whole view (default), `'exclude'` drops them (counted),
-  `'flag'` keeps them (zero/exposed height) with `sidecar['native_maple_valid'] = False` and
-  `meta['native_maple_valid'] = False`.
-* `height_mode='intact_diagnostic'` publishes intact heights ignoring burial; it is labelled a
-  **DIAGNOSTIC APPROXIMATION** and is never `native_maple_valid`. Partially or fully buried plants never
-  silently reappear at full height on deposited soil.
-* Fields: `center_x_m, center_y_m` (domain-local), `semi_major_m = semi_minor_m`, `orientation_deg = 0`,
-  `height_m`, `porosity`, `drag_coefficient`; sidecars: `plant_id, species, status, establishment_ground_m,
-  current_ground_m, burial_depth_m, exposure_depth_m, intact_height_m, exposed_height_m, elevated_base,
-  fully_buried, native_maple_valid`. See `docs/maple-leaf-integration.md`.
+height_mode='exposed', unsupported_policy='error', drag_coefficient=1.0)` — unchanged signature, defaults
+and schema; now a **projection of `canopy_view`** that contains no allometry, surface sampling, canopy
+geometry or coordinate conversion. It only applies the native-MAPLE policy for plants MAPLE's current
+object container cannot hold (**eroded anchors** and **fully buried plants**): `'error'` refuses the whole
+view with the offending IDs (default), `'exclude'` drops them (counted) with **one index selection over
+every field and sidecar array**, `'flag'` keeps them with `sidecar['native_maple_valid'] = False` and
+`meta['native_maple_valid'] = False`. `intact_diagnostic` is never `native_maple_valid`. Fields and
+sidecars are **exactly** the shared values by `plant_id`; `meta['derived_from']` names the shared schema.
+These restrictions are MAPLE-specific; SYRUP calls `canopy_view` directly and does not inherit them. See
+`docs/maple-leaf-integration.md`.
 
 `measure_cover(domain, x, y, radius, group_index, n_groups, subsamples=4, max_cover_cells, max_cover_bytes,
 max_working_bytes)` — per-group projected union cover clipped to the finite domain (same-group overlap
@@ -333,3 +362,6 @@ report's `generation_config` + catalog hash.
 No growth, water use, recruitment, mortality, injury, dislodgement, surface remapping or calibration.
 Cover is sampled, not analytic. The CSV is vegetation state only. The legacy driver's area law restricts
 replay into it (§7). Exclusion placement is a bounded initialisation algorithm, not a packing proof.
+The shared canopy view (§3.1) is an interface contract: MAPLE and SYRUP have not yet adopted it, no
+SYRUP adapter, roughness law or rasterizer is defined, and porosity/height have no qualified hydrological
+interpretation; no integrated MAPLE/SYRUP execution is claimed.

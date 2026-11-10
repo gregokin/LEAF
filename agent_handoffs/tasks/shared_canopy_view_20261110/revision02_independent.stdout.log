@@ -1,0 +1,15 @@
+{
+  "pass": true,
+  "legacy_cases": {
+    "flat": true,
+    "partial": true,
+    "disturbed_flag": true,
+    "disturbed_exclude": true,
+    "diagnostic_flag": true
+  },
+  "shared_single_geometry_call": true,
+  "same_geometry_by_id_for_both_consumers": true,
+  "buried_and_exposed_retained_without_mortality": true,
+  "state_unmodified": true,
+  "native_imports_blocked": true
+}

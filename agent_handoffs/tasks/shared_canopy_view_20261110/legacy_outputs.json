@@ -1,0 +1,760 @@
+{
+  "flat": {
+    "fields": {
+      "center_x_m": [
+        0.5,
+        2.5,
+        3.5
+      ],
+      "center_y_m": [
+        0.5,
+        2.5,
+        3.5
+      ],
+      "semi_major_m": [
+        0.2181102179978388,
+        1.3928809012737986,
+        0.1168823717790447
+      ],
+      "semi_minor_m": [
+        0.2181102179978388,
+        1.3928809012737986,
+        0.1168823717790447
+      ],
+      "orientation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "height_m": [
+        0.37022031763200575,
+        1.624504792712471,
+        0.2442543189221426
+      ],
+      "porosity": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "drag_coefficient": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "sidecar": {
+      "plant_id": [
+        11,
+        22,
+        33
+      ],
+      "species": [
+        "grass",
+        "shrub",
+        "grass"
+      ],
+      "status": [
+        "live",
+        "live",
+        "dead_standing"
+      ],
+      "establishment_ground_m": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "current_ground_m": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "burial_depth_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exposure_depth_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "intact_height_m": [
+        0.37022031763200575,
+        1.624504792712471,
+        0.2442543189221426
+      ],
+      "exposed_height_m": [
+        0.37022031763200575,
+        1.624504792712471,
+        0.2442543189221426
+      ],
+      "root_radius_m": [
+        0.4362204359956776,
+        4.178642703821396,
+        0.2337647435580894
+      ],
+      "elevated_base": [
+        false,
+        false,
+        false
+      ],
+      "fully_buried": [
+        false,
+        false,
+        false
+      ],
+      "native_maple_valid": [
+        true,
+        true,
+        true
+      ]
+    },
+    "meta": {
+      "schema": "leaf.maple_vegetation_view",
+      "schema_version": 2,
+      "n_objects": 3,
+      "fields": [
+        "center_x_m",
+        "center_y_m",
+        "semi_major_m",
+        "semi_minor_m",
+        "orientation_deg",
+        "height_m",
+        "porosity",
+        "drag_coefficient"
+      ],
+      "coordinates": "domain-local metres: center = landscape position - domain origin; +x east, +y north; MAPLE cell centres ((col+0.5)*dx, (row+0.5)*dy) with dx=1.0, dy=1.0",
+      "domain": {
+        "nx": 4,
+        "ny": 4,
+        "dx_m": 1.0,
+        "dy_m": 1.0,
+        "origin_x_m": 5.0,
+        "origin_y_m": -3.0,
+        "axes": "(ny, nx): row = y north, col = x east",
+        "cell_sampling": "containing_cell_closed_upper",
+        "edges": "finite closed domain, non-periodic",
+        "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)"
+      },
+      "catalog_hash": "sha256:aa9bd336fb1046127bf22f653a75401d34ad46a5451d2bb8bcf65ac43cd7054e",
+      "time_days": 0.0,
+      "height_mode": "exposed",
+      "height_definition": "exposed height = intact allometric height - burial depth; canopy base on the current surface",
+      "native_maple_valid": true,
+      "validity_note": "every object is representable by native MAPLE (base on the current surface, positive exposed height)",
+      "surface_reference": "current surface sampled at each plant (containing cell) vs stored establishment anchor",
+      "statuses_included": [
+        "live",
+        "dead_standing"
+      ],
+      "excluded_by_status": 1,
+      "excluded_zero_diameter": 0,
+      "unsupported_policy": "error",
+      "n_unsupported": 0,
+      "n_unsupported_excluded": 0,
+      "n_unsupported_flagged_kept": 0,
+      "porosity_note": "constant per-species catalog value; native MAPLE wind uses it, LEAF ecology does not",
+      "drag_coefficient_note": "uniform pass-through metadata value, not a LEAF trait",
+      "boundary_note": "finite closed non-periodic domain: canopies are clipped at the domain edge for cover and never wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster interpretation would change both cover and overlap and must be requalified by the adapter, not assumed equal",
+      "rasterization": "performed by MAPLE's existing rasterizer; LEAF keeps plant_id sidecars beside it"
+    }
+  },
+  "partial": {
+    "fields": {
+      "center_x_m": [
+        0.5,
+        2.5,
+        3.5
+      ],
+      "center_y_m": [
+        0.5,
+        2.5,
+        3.5
+      ],
+      "semi_major_m": [
+        0.2181102179978388,
+        1.3928809012737986,
+        0.1168823717790447
+      ],
+      "semi_minor_m": [
+        0.2181102179978388,
+        1.3928809012737986,
+        0.1168823717790447
+      ],
+      "orientation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "height_m": [
+        0.36022031763200596,
+        1.624504792712471,
+        0.2442543189221426
+      ],
+      "porosity": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "drag_coefficient": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "sidecar": {
+      "plant_id": [
+        11,
+        22,
+        33
+      ],
+      "species": [
+        "grass",
+        "shrub",
+        "grass"
+      ],
+      "status": [
+        "live",
+        "live",
+        "dead_standing"
+      ],
+      "establishment_ground_m": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "current_ground_m": [
+        10.01,
+        10.0,
+        10.0
+      ],
+      "burial_depth_m": [
+        0.009999999999999787,
+        0.0,
+        0.0
+      ],
+      "exposure_depth_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "intact_height_m": [
+        0.37022031763200575,
+        1.624504792712471,
+        0.2442543189221426
+      ],
+      "exposed_height_m": [
+        0.36022031763200596,
+        1.624504792712471,
+        0.2442543189221426
+      ],
+      "root_radius_m": [
+        0.4362204359956776,
+        4.178642703821396,
+        0.2337647435580894
+      ],
+      "elevated_base": [
+        false,
+        false,
+        false
+      ],
+      "fully_buried": [
+        false,
+        false,
+        false
+      ],
+      "native_maple_valid": [
+        true,
+        true,
+        true
+      ]
+    },
+    "meta": {
+      "schema": "leaf.maple_vegetation_view",
+      "schema_version": 2,
+      "n_objects": 3,
+      "fields": [
+        "center_x_m",
+        "center_y_m",
+        "semi_major_m",
+        "semi_minor_m",
+        "orientation_deg",
+        "height_m",
+        "porosity",
+        "drag_coefficient"
+      ],
+      "coordinates": "domain-local metres: center = landscape position - domain origin; +x east, +y north; MAPLE cell centres ((col+0.5)*dx, (row+0.5)*dy) with dx=1.0, dy=1.0",
+      "domain": {
+        "nx": 4,
+        "ny": 4,
+        "dx_m": 1.0,
+        "dy_m": 1.0,
+        "origin_x_m": 5.0,
+        "origin_y_m": -3.0,
+        "axes": "(ny, nx): row = y north, col = x east",
+        "cell_sampling": "containing_cell_closed_upper",
+        "edges": "finite closed domain, non-periodic",
+        "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)"
+      },
+      "catalog_hash": "sha256:aa9bd336fb1046127bf22f653a75401d34ad46a5451d2bb8bcf65ac43cd7054e",
+      "time_days": 0.0,
+      "height_mode": "exposed",
+      "height_definition": "exposed height = intact allometric height - burial depth; canopy base on the current surface",
+      "native_maple_valid": true,
+      "validity_note": "every object is representable by native MAPLE (base on the current surface, positive exposed height)",
+      "surface_reference": "current surface sampled at each plant (containing cell) vs stored establishment anchor",
+      "statuses_included": [
+        "live",
+        "dead_standing"
+      ],
+      "excluded_by_status": 1,
+      "excluded_zero_diameter": 0,
+      "unsupported_policy": "error",
+      "n_unsupported": 0,
+      "n_unsupported_excluded": 0,
+      "n_unsupported_flagged_kept": 0,
+      "porosity_note": "constant per-species catalog value; native MAPLE wind uses it, LEAF ecology does not",
+      "drag_coefficient_note": "uniform pass-through metadata value, not a LEAF trait",
+      "boundary_note": "finite closed non-periodic domain: canopies are clipped at the domain edge for cover and never wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster interpretation would change both cover and overlap and must be requalified by the adapter, not assumed equal",
+      "rasterization": "performed by MAPLE's existing rasterizer; LEAF keeps plant_id sidecars beside it"
+    }
+  },
+  "disturbed_flag": {
+    "fields": {
+      "center_x_m": [
+        0.5,
+        2.5,
+        3.5
+      ],
+      "center_y_m": [
+        0.5,
+        2.5,
+        3.5
+      ],
+      "semi_major_m": [
+        0.2181102179978388,
+        1.3928809012737986,
+        0.1168823717790447
+      ],
+      "semi_minor_m": [
+        0.2181102179978388,
+        1.3928809012737986,
+        0.1168823717790447
+      ],
+      "orientation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "height_m": [
+        0.36022031763200596,
+        1.624504792712471,
+        0.0
+      ],
+      "porosity": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "drag_coefficient": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "sidecar": {
+      "plant_id": [
+        11,
+        22,
+        33
+      ],
+      "species": [
+        "grass",
+        "shrub",
+        "grass"
+      ],
+      "status": [
+        "live",
+        "live",
+        "dead_standing"
+      ],
+      "establishment_ground_m": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "current_ground_m": [
+        10.01,
+        9.5,
+        110.0
+      ],
+      "burial_depth_m": [
+        0.009999999999999787,
+        0.0,
+        100.0
+      ],
+      "exposure_depth_m": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "intact_height_m": [
+        0.37022031763200575,
+        1.624504792712471,
+        0.2442543189221426
+      ],
+      "exposed_height_m": [
+        0.36022031763200596,
+        1.624504792712471,
+        0.0
+      ],
+      "root_radius_m": [
+        0.4362204359956776,
+        4.178642703821396,
+        0.2337647435580894
+      ],
+      "elevated_base": [
+        false,
+        true,
+        false
+      ],
+      "fully_buried": [
+        false,
+        false,
+        true
+      ],
+      "native_maple_valid": [
+        true,
+        false,
+        false
+      ]
+    },
+    "meta": {
+      "schema": "leaf.maple_vegetation_view",
+      "schema_version": 2,
+      "n_objects": 3,
+      "fields": [
+        "center_x_m",
+        "center_y_m",
+        "semi_major_m",
+        "semi_minor_m",
+        "orientation_deg",
+        "height_m",
+        "porosity",
+        "drag_coefficient"
+      ],
+      "coordinates": "domain-local metres: center = landscape position - domain origin; +x east, +y north; MAPLE cell centres ((col+0.5)*dx, (row+0.5)*dy) with dx=1.0, dy=1.0",
+      "domain": {
+        "nx": 4,
+        "ny": 4,
+        "dx_m": 1.0,
+        "dy_m": 1.0,
+        "origin_x_m": 5.0,
+        "origin_y_m": -3.0,
+        "axes": "(ny, nx): row = y north, col = x east",
+        "cell_sampling": "containing_cell_closed_upper",
+        "edges": "finite closed domain, non-periodic",
+        "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)"
+      },
+      "catalog_hash": "sha256:aa9bd336fb1046127bf22f653a75401d34ad46a5451d2bb8bcf65ac43cd7054e",
+      "time_days": 0.0,
+      "height_mode": "exposed",
+      "height_definition": "exposed height = intact allometric height - burial depth; canopy base on the current surface",
+      "native_maple_valid": false,
+      "validity_note": "NOT native-MAPLE-valid: contains flagged unsupported objects and/or diagnostic heights; do not feed to native wind without explicit handling",
+      "surface_reference": "current surface sampled at each plant (containing cell) vs stored establishment anchor",
+      "statuses_included": [
+        "live",
+        "dead_standing"
+      ],
+      "excluded_by_status": 1,
+      "excluded_zero_diameter": 0,
+      "unsupported_policy": "flag",
+      "n_unsupported": 2,
+      "n_unsupported_excluded": 0,
+      "n_unsupported_flagged_kept": 2,
+      "porosity_note": "constant per-species catalog value; native MAPLE wind uses it, LEAF ecology does not",
+      "drag_coefficient_note": "uniform pass-through metadata value, not a LEAF trait",
+      "boundary_note": "finite closed non-periodic domain: canopies are clipped at the domain edge for cover and never wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster interpretation would change both cover and overlap and must be requalified by the adapter, not assumed equal",
+      "rasterization": "performed by MAPLE's existing rasterizer; LEAF keeps plant_id sidecars beside it"
+    }
+  },
+  "disturbed_exclude": {
+    "fields": {
+      "center_x_m": [
+        0.5
+      ],
+      "center_y_m": [
+        0.5
+      ],
+      "semi_major_m": [
+        0.2181102179978388
+      ],
+      "semi_minor_m": [
+        0.2181102179978388
+      ],
+      "orientation_deg": [
+        0.0
+      ],
+      "height_m": [
+        0.36022031763200596
+      ],
+      "porosity": [
+        0.2
+      ],
+      "drag_coefficient": [
+        1.0
+      ]
+    },
+    "sidecar": {
+      "plant_id": [
+        11
+      ],
+      "species": [
+        "grass"
+      ],
+      "status": [
+        "live"
+      ],
+      "establishment_ground_m": [
+        10.0
+      ],
+      "current_ground_m": [
+        10.01
+      ],
+      "burial_depth_m": [
+        0.009999999999999787
+      ],
+      "exposure_depth_m": [
+        0.0
+      ],
+      "intact_height_m": [
+        0.37022031763200575
+      ],
+      "exposed_height_m": [
+        0.36022031763200596
+      ],
+      "root_radius_m": [
+        0.4362204359956776
+      ],
+      "elevated_base": [
+        false
+      ],
+      "fully_buried": [
+        false
+      ],
+      "native_maple_valid": [
+        true
+      ]
+    },
+    "meta": {
+      "schema": "leaf.maple_vegetation_view",
+      "schema_version": 2,
+      "n_objects": 1,
+      "fields": [
+        "center_x_m",
+        "center_y_m",
+        "semi_major_m",
+        "semi_minor_m",
+        "orientation_deg",
+        "height_m",
+        "porosity",
+        "drag_coefficient"
+      ],
+      "coordinates": "domain-local metres: center = landscape position - domain origin; +x east, +y north; MAPLE cell centres ((col+0.5)*dx, (row+0.5)*dy) with dx=1.0, dy=1.0",
+      "domain": {
+        "nx": 4,
+        "ny": 4,
+        "dx_m": 1.0,
+        "dy_m": 1.0,
+        "origin_x_m": 5.0,
+        "origin_y_m": -3.0,
+        "axes": "(ny, nx): row = y north, col = x east",
+        "cell_sampling": "containing_cell_closed_upper",
+        "edges": "finite closed domain, non-periodic",
+        "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)"
+      },
+      "catalog_hash": "sha256:aa9bd336fb1046127bf22f653a75401d34ad46a5451d2bb8bcf65ac43cd7054e",
+      "time_days": 0.0,
+      "height_mode": "exposed",
+      "height_definition": "exposed height = intact allometric height - burial depth; canopy base on the current surface",
+      "native_maple_valid": true,
+      "validity_note": "every object is representable by native MAPLE (base on the current surface, positive exposed height)",
+      "surface_reference": "current surface sampled at each plant (containing cell) vs stored establishment anchor",
+      "statuses_included": [
+        "live",
+        "dead_standing"
+      ],
+      "excluded_by_status": 1,
+      "excluded_zero_diameter": 0,
+      "unsupported_policy": "exclude",
+      "n_unsupported": 2,
+      "n_unsupported_excluded": 2,
+      "n_unsupported_flagged_kept": 0,
+      "porosity_note": "constant per-species catalog value; native MAPLE wind uses it, LEAF ecology does not",
+      "drag_coefficient_note": "uniform pass-through metadata value, not a LEAF trait",
+      "boundary_note": "finite closed non-periodic domain: canopies are clipped at the domain edge for cover and never wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster interpretation would change both cover and overlap and must be requalified by the adapter, not assumed equal",
+      "rasterization": "performed by MAPLE's existing rasterizer; LEAF keeps plant_id sidecars beside it"
+    }
+  },
+  "diagnostic_flag": {
+    "fields": {
+      "center_x_m": [
+        0.5,
+        2.5,
+        3.5
+      ],
+      "center_y_m": [
+        0.5,
+        2.5,
+        3.5
+      ],
+      "semi_major_m": [
+        0.2181102179978388,
+        1.3928809012737986,
+        0.1168823717790447
+      ],
+      "semi_minor_m": [
+        0.2181102179978388,
+        1.3928809012737986,
+        0.1168823717790447
+      ],
+      "orientation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "height_m": [
+        0.37022031763200575,
+        1.624504792712471,
+        0.2442543189221426
+      ],
+      "porosity": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "drag_coefficient": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "sidecar": {
+      "plant_id": [
+        11,
+        22,
+        33
+      ],
+      "species": [
+        "grass",
+        "shrub",
+        "grass"
+      ],
+      "status": [
+        "live",
+        "live",
+        "dead_standing"
+      ],
+      "establishment_ground_m": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "current_ground_m": [
+        10.01,
+        9.5,
+        110.0
+      ],
+      "burial_depth_m": [
+        0.009999999999999787,
+        0.0,
+        100.0
+      ],
+      "exposure_depth_m": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "intact_height_m": [
+        0.37022031763200575,
+        1.624504792712471,
+        0.2442543189221426
+      ],
+      "exposed_height_m": [
+        0.36022031763200596,
+        1.624504792712471,
+        0.0
+      ],
+      "root_radius_m": [
+        0.4362204359956776,
+        4.178642703821396,
+        0.2337647435580894
+      ],
+      "elevated_base": [
+        false,
+        true,
+        false
+      ],
+      "fully_buried": [
+        false,
+        false,
+        true
+      ],
+      "native_maple_valid": [
+        false,
+        false,
+        false
+      ]
+    },
+    "meta": {
+      "schema": "leaf.maple_vegetation_view",
+      "schema_version": 2,
+      "n_objects": 3,
+      "fields": [
+        "center_x_m",
+        "center_y_m",
+        "semi_major_m",
+        "semi_minor_m",
+        "orientation_deg",
+        "height_m",
+        "porosity",
+        "drag_coefficient"
+      ],
+      "coordinates": "domain-local metres: center = landscape position - domain origin; +x east, +y north; MAPLE cell centres ((col+0.5)*dx, (row+0.5)*dy) with dx=1.0, dy=1.0",
+      "domain": {
+        "nx": 4,
+        "ny": 4,
+        "dx_m": 1.0,
+        "dy_m": 1.0,
+        "origin_x_m": 5.0,
+        "origin_y_m": -3.0,
+        "axes": "(ny, nx): row = y north, col = x east",
+        "cell_sampling": "containing_cell_closed_upper",
+        "edges": "finite closed domain, non-periodic",
+        "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)"
+      },
+      "catalog_hash": "sha256:aa9bd336fb1046127bf22f653a75401d34ad46a5451d2bb8bcf65ac43cd7054e",
+      "time_days": 0.0,
+      "height_mode": "intact_diagnostic",
+      "height_definition": "DIAGNOSTIC APPROXIMATION: intact allometric height ignoring burial/exposure; NOT a native-MAPLE-valid canopy set",
+      "native_maple_valid": false,
+      "validity_note": "NOT native-MAPLE-valid: contains flagged unsupported objects and/or diagnostic heights; do not feed to native wind without explicit handling",
+      "surface_reference": "current surface sampled at each plant (containing cell) vs stored establishment anchor",
+      "statuses_included": [
+        "live",
+        "dead_standing"
+      ],
+      "excluded_by_status": 1,
+      "excluded_zero_diameter": 0,
+      "unsupported_policy": "flag",
+      "n_unsupported": 2,
+      "n_unsupported_excluded": 0,
+      "n_unsupported_flagged_kept": 2,
+      "porosity_note": "constant per-species catalog value; native MAPLE wind uses it, LEAF ecology does not",
+      "drag_coefficient_note": "uniform pass-through metadata value, not a LEAF trait",
+      "boundary_note": "finite closed non-periodic domain: canopies are clipped at the domain edge for cover and never wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster interpretation would change both cover and overlap and must be requalified by the adapter, not assumed equal",
+      "rasterization": "performed by MAPLE's existing rasterizer; LEAF keeps plant_id sidecars beside it"
+    }
+  }
+}

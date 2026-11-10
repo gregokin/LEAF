@@ -1,18 +1,16 @@
 # Current Codex Review
 
-Verdict: **accept** — Phase 0 vegetation, revision 3, 2026-11-10.
+Verdict: **accept** — shared canopy interface revision 2, 2026-11-10.
 
-Claude implemented the bounded candidate; Codex independently reviewed, verified
-and installed it. See the [final review](tasks/phase0_vegetation_20261110/codex_review_03.md),
-[evidence](tasks/phase0_vegetation_20261110/verification.md) and [source lock](../dependencies/phase0-vegetation.lock.json).
-Installed suite: 127 pass / 7 CUDA skips on CPU; 133 pass / 1 intentional skip
-with physical GPU 1 (134 checks each). Independent invariants, native MAPLE ABI,
-actual CUDA bridge, five CLI commands and source-distribution checks pass.
+Claude implemented the candidate; Codex independently verified and installed it.
+See [durable review](tasks/shared_canopy_view_20261110/codex_review_02.md) and [evidence](tasks/shared_canopy_view_20261110/verification.md).
+`canopy_view` is the primary MAPLE/SYRUP geometry API; the existing MAPLE function
+is a thin projection, preserving legacy geometry, policy and CLI behavior.
 
-Root AGENTS.md, legacy numerical sources, historical locks/accepted archives and
-upstream sources are preserved. Scientific calibration, injury/recruitment laws,
-MAPLE adoption and complete coupled restart remain future scope.
+137 CPU checks: 130 pass / 7 CUDA skips. Exact legacy fields/sidecars match five
+frozen cases; shared identity/geometry, single computation, import isolation,
+state purity and native MAPLE ABI pass. Historical numerical/GPU qualification
+remains applicable to unchanged kernels; no new GPU or integrated run claim.
 
-Phase 0 commit `250c0ef` is published to the user-supplied remote
-`https://github.com/gregokin/LEAF`, branch `main`. The remote was empty before
-publication, and its branch hash was independently verified after the push.
+Current source lock: [canopy-view.lock.json](../dependencies/canopy-view.lock.json).
+Commit/push authority continues for this bounded Phase 0 refinement.

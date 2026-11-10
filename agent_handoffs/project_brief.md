@@ -2,6 +2,24 @@
 
 LEAF stands for **Landscape Ecohydrology with Agent-based Flora**.
 
+## Shared aboveground representation — 2026-11-10
+
+User clarification: MAPLE and SYRUP must share as much vegetation code as possible
+so common changes do not produce inconsistent representations. The primary API is
+`leaf.canopy.canopy_view`, derived from the same PlantState/species catalog/current
+surface for both consumers. Species allometry, coordinates, canopy dimensions,
+constant porosity, IDs and burial/exposure are calculated once through common code.
+
+The existing `maple_vegetation_view` delegates to this shared representation and
+applies only native-MAPLE representation policies. The shared view retains buried
+and elevated-base standing plants with their geometry and IDs; MAPLE's container
+limits do not become SYRUP requirements or imply mortality. No second SYRUP
+allometry or plant population is introduced. Consumers refresh derived views after
+plant or surface updates and retain ID association. See the
+[shared contract](../docs/shared-canopy.md). Upstream adoption, roughness/shear
+physics and ecological injury remain separately scoped work; the current CLI
+export retains its MAPLE-compatible behavior.
+
 ## Phase 0 implementation — 2026-11-10
 
 The user authorized implementation, automatic Codex–Claude orchestration and

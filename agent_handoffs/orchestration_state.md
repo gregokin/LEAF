@@ -1,35 +1,28 @@
 # Orchestration State
 
-Status: **idle — Phase 0 accepted and installed**, 2026-11-10.
-Latest task: [tasks/phase0_vegetation_20261110](tasks/phase0_vegetation_20261110/codex_review_03.md), revision 3.
-Automatic Codex–Claude collaboration remains enabled for user-requested bounded
-tasks. This record assigns no new work and creates no daemon or scheduler.
+Status: **idle — shared canopy interface accepted and installed**, 2026-11-10.
+Latest task: [tasks/shared_canopy_view_20261110](tasks/shared_canopy_view_20261110/codex_review_02.md), revision 2.
+Automatic Codex–Claude collaboration and authorized bounded sharing remain enabled
+for user-requested tasks. No writer is active; no daemon/scheduler is created.
 
-The user authorized Phase 0, sharing with Anthropic/Claude, automatic correction
-loops and Codex commit/push after acceptance. All three writer revisions of
-session `4d15920a-3229-4638-af00-10ca863c8c8f` completed successfully and were reaped.
-No writer remains active; no implementation scope is currently assigned.
-Codex owns final Git operations and the documentation/control records.
+Claude session `a71f51bb-359e-4900-bf96-e903d709713c` completed two scoped revisions;
+structured success, exit 0, both children reaped. Codex independently reviewed,
+tested and installed the final source. [Evidence](tasks/shared_canopy_view_20261110/verification.md): 137 CPU
+checks, 130 pass / 7 CUDA skips, plus exact five-case legacy equivalence, shared
+arrays by ID, single computation, purity/import isolation and native MAPLE ABI.
 
-[Installed evidence](tasks/phase0_vegetation_20261110/verification.md): CPU 127 pass / 7 CUDA skips;
-GPU 133 pass / 1 intentional skip (134 checks each), plus independent invariants,
-native MAPLE ABI, real CUDA bridge, CLI and source-distribution qualification.
-[Current source lock](../dependencies/phase0-vegetation.lock.json) pins the current
-runtime; previous locks and accepted archives are historical and unchanged.
+Primary common API is `leaf.canopy.canopy_view`, with one geometry implementation
+for MAPLE/SYRUP. Existing `maple_vegetation_view` is a thin compatibility adapter.
+Both consumers must use matching state/catalog/current surface and refresh at
+matching coupling times; no duplicate allometry or plant population. Upstream
+adoption and physical interpretation still require separate integration work.
 
-Git was initialized only after the original 1,796-file hash baseline, for the
-user-authorized commit, not to establish the baseline. Git history records the
-authorized local commit. The user supplied `https://github.com/gregokin/LEAF`;
-the remote advertised no refs before publication. Origin is configured to that
-repository and `main` tracks `origin/main`. Phase 0 commit
-`250c0efe2f35c36052b6ad08bab2fb87f0ea0618` was pushed without force and independently
-verified against the remote branch. See the
-[publication record](tasks/phase0_vegetation_20261110/publication_20261110.json).
+[Current lock](../dependencies/canopy-view.lock.json) supersedes LEAF identities in
+historical Phase 0 locks. Numerical drivers, original geometry/cover algorithms,
+traits, fixtures, AGENTS.md, previous archives/locks and upstreams are preserved.
+See [shared guide](../docs/shared-canopy.md) and [MAPLE handoff](../docs/maple-leaf-integration.md).
 
-Delivered: independent NumPy-only plant state, species JSON, list/generated
-initialization, age/output cadence, allometric MAPLE view, diagnostic/response
-sockets and optional legacy biomass bridge. See [Phase 0 guide](../docs/phase0-vegetation.md)
-and [MAPLE handoff](../docs/maple-leaf-integration.md). No upstream source edits.
-Scientific trait calibration, recruitment/mortality/injury laws, MAPLE adoption,
-evolving soil remapping, full MASY scheduling and complete coupled restart are
-future scope. Earlier research/implementation evidence remains under tasks/.
+Continuing Phase 0 commit/push authority applies to this bounded refinement.
+Origin: https://github.com/gregokin/LEAF.git; main tracks origin/main. Codex handles
+accepted Git publication. Prior Phase 0/publication commits are 250c0ef/316d9f6;
+Git history records the follow-up commit. No new implementation is assigned.

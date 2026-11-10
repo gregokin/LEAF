@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/shared_canopy_view_20261110/independent_view_check.py",
+    "verify"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 8,
+  "start_ticks": "178961388",
+  "started_at_utc": "2026-11-10T13:43:42.179254+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-phase0-cupy",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

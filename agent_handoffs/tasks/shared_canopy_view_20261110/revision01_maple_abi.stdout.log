@@ -1,0 +1,9 @@
+{
+  "pass": true,
+  "native_validator": true,
+  "plants": 1,
+  "nonzero_origin": true,
+  "id_sidecar_preserved": true,
+  "wind_or_raster_run": false,
+  "upstream_writes": false
+}

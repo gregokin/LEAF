@@ -1,5 +1,22 @@
 # Decisions and Open Questions
 
+## Share canopy geometry across wind and water consumers — 2026-11-10
+
+User requests neutral naming and shared implementations so vegetation changes
+apply consistently to MAPLE and SYRUP. Use `leaf.canopy.canopy_view` as the common
+aboveground representation derived from authoritative PlantState, the species
+catalog and current surface. Compute allometry, positions, dimensions, porosity
+and burial/exposure through one code path. Keep stable IDs throughout.
+
+Retain `maple_vegetation_view` as a compatibility adapter that delegates to that
+common path and applies MAPLE's current native error/exclude/flag policies.
+The shared view retains valid buried/exposed standing plants; native-MAPLE
+restrictions are not universal plant validity or mortality rules. No duplicate
+SYRUP allometry/rasterizer or new water/drag law. The CLI retains its existing
+MAPLE projection. Upstream consumers still require integration and qualification;
+they must not independently recalculate or store competing canopy geometries.
+See [shared API and consumer responsibilities](../docs/shared-canopy.md).
+
 ## Phase 0 state and prescribed vegetation — 2026-11-10
 
 User-approved scope implemented with Claude as sole candidate writer and Codex

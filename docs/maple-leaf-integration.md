@@ -1,19 +1,28 @@
-# MAPLE ↔ LEAF integration handoff (Phase 0, revision 2)
+# MAPLE ↔ LEAF integration handoff (Phase 0, revision 3 — shared canopy view)
 
 For the Codex-Claude MAPLE developers. **No MAPLE change is part of this task**; this document states what
 LEAF provides and how MAPLE should consume it. LEAF never imports MAPLE or SYRUP.
+
+**Primary shared API: `leaf.canopy.canopy_view`** (`docs/shared-canopy.md`) — the one aboveground
+representation for MAPLE and SYRUP. Common code yields consistent geometry when both consumers use the
+**same plant state, catalog and current surface** and refresh at matching coupling times; upstream adoption
+by either model is still pending and no integrated run is claimed.
+This guide describes the **thin MAPLE adapter** `maple_vegetation_view` on top of it. The adapter exists
+because MAPLE's *current* `VegetationObjectSet` cannot hold fully buried or elevated-base objects; those
+restrictions are MAPLE-specific and are not part of the shared view.
 
 ## 1. Three vegetation modes
 
 | mode | vegetation source | LEAF calls | notes |
 |---|---|---|---|
 | no vegetation | none | none | unchanged MAPLE |
-| **prescribed LEAF vegetation** (wind-only, Phase 0) | LEAF population (CSV or generator), static or updated only by calendar/event bookkeeping | `read_plant_csv` / `generate_population`, `resolve_establishment`, `maple_vegetation_view(state, catalog, current_surface)`, `advance_time`, `SnapshotWriter`, `events.*` | no soil water, ET, growth, numba, cupy |
+| **prescribed LEAF vegetation** (wind-only, Phase 0) | LEAF population (CSV or generator), static or updated only by calendar/event bookkeeping | `read_plant_csv` / `generate_population`, `resolve_establishment`, `canopy_view(state, catalog, current_surface)` → `maple_vegetation_view(...)` for the native object set, `advance_time`, `SnapshotWriter`, `events.*` | no soil water, ET, growth, numba, cupy |
 | fully coupled (later) | LEAF population exchanged with the growth/water drivers | adds `leaf.runtime.capture_snapshot` / `legacy_inputs_from_state` | wind, water and growth/T occupy exclusive intervals; not in scope now |
 
 In all vegetation modes MAPLE should call the **shared LEAF loading/placement/allometry** code instead of
 re-implementing it: species catalog (`leaf.traits.SpeciesCatalog`), plant list / generator
-(`leaf.state`, `leaf.initialization`), geometry and view (`leaf.canopy`).
+(`leaf.state`, `leaf.initialization`), geometry and views (`leaf.canopy`: `derive_geometry` is the single
+allometry implementation on the canopy export path; `canopy_view` the single canopy representation).
 
 ## 2. Canonical handoff sequence (prescribed vegetation)
 
@@ -22,11 +31,16 @@ from leaf import traits, state, canopy
 cat = traits.SpeciesCatalog.from_file('species.json')
 pop = state.read_plant_csv('plants.csv', cat, domain=state.Domain(nx, ny, dx_m, dy_m))   # or generated
 pop.resolve_establishment(initial_surface)            # (ny, nx) elevation; resolves SURFACE anchors ONCE
-view = canopy.maple_vegetation_view(pop, cat, current_surface)   # current surface REQUIRED (== initial at t0)
-assert view['meta']['native_maple_valid']
+shared = canopy.canopy_view(pop, cat, current_surface)  # the SHARED geometry (same call SYRUP makes)
+view = canopy.maple_vegetation_view(pop, cat, current_surface)   # MAPLE projection of the same geometry;
+assert view['meta']['native_maple_valid']                       # current surface REQUIRED (== initial at t0)
 objects = VegetationObjectSet(**view['fields'])       # MAPLE side: its existing rasterizer rasterizes them
 ids = view['sidecar']['plant_id']                     # keep beside the raster for feedback by ID
 ```
+
+`view['fields']` / `view['sidecar']` are **exactly** `shared['fields']` / `shared['sidecar']` for the same
+`plant_id` (the adapter adds no geometry); `view['meta']['derived_from']` names the shared schema. The
+`export-canopy` CLI keeps writing this MAPLE-compatible projection.
 
 * **Fields** (`view['fields']`, one float64 array each, same order): `center_x_m`, `center_y_m`,
   `semi_major_m`, `semi_minor_m` (equal: circles), `orientation_deg` (0), `height_m`, `porosity`,
@@ -45,24 +59,29 @@ ids = view['sidecar']['plant_id']                     # keep beside the raster f
 * **Porosity** is a constant per-species catalog value, unused by LEAF ecology; native MAPLE wind uses it.
   The example value 0.20 matches the current MAPLE default and is uncalibrated.
 * Statuses `live` and `dead_standing` are published by default (both exert drag); `removed` plants are
-  retained in the LEAF state but never published.
+  retained in the LEAF state and **excluded by default** (an explicit `statuses` selection can include a
+  removed record with a positive diameter).
 
-## 3. Heights, burial and elevated bases (safe publication)
+## 3. Heights, burial and elevated bases (the thin adapter's only job)
 
-MAPLE's object set places every canopy base on the **current** surface. `maple_vegetation_view` therefore
-requires the current surface and compares it with each plant's establishment anchor:
+MAPLE's object set places every canopy base on the **current** surface. The shared `canopy_view` already
+requires the current surface, compares it with each plant's establishment anchor and publishes exposed
+heights; it **retains** buried and elevated-base plants with diagnostics. `maple_vegetation_view` takes that
+view and applies only the native-MAPLE container policy:
 
 * default `height_mode='exposed'`: `height_m = intact allometric height − burial depth` (partially buried
-  plants shrink; nothing reappears at full height on deposited soil);
-* **unsupported** (not representable natively): eroded anchors (canopy base above the surface,
-  `exposure_depth_m > 0`) and fully buried plants (exposed height ≤ 0);
+  plants shrink; nothing reappears at full height on deposited soil) — computed in `canopy_view`;
+* **unsupported by the native container** (a MAPLE limitation, not a physical verdict): eroded anchors
+  (canopy base above the surface, `exposure_depth_m > 0`) and fully buried plants (exposed height ≤ 0);
 * `unsupported_policy='error'` (default) refuses the whole publication with the offending IDs;
-  `'exclude'` drops them (`meta['n_unsupported_excluded']`); `'flag'` keeps them with
-  `sidecar['native_maple_valid'] = False` and `meta['native_maple_valid'] = False`;
+  `'exclude'` drops them (`meta['n_unsupported_excluded']`) using **one index selection over every field
+  and sidecar array**; `'flag'` keeps them with `sidecar['native_maple_valid'] = False` and
+  `meta['native_maple_valid'] = False`;
 * `height_mode='intact_diagnostic'` ignores burial and is labelled a diagnostic approximation; it is
   **never** `native_maple_valid`. MAPLE must check `meta['native_maple_valid']` before feeding native wind.
 
-Burial/exposure diagnostics never imply dislodgement or mortality.
+Burial/exposure diagnostics never imply dislodgement or mortality; `status` alone carries death/removal.
+If MAPLE's container is later extended, the adapter policy can be relaxed without touching the shared view.
 
 ## 4. Boundaries: finite clipped cover vs a periodic raster
 
@@ -99,7 +118,8 @@ Schema `leaf.surface_event_diagnostics` v1 (`leaf.events.SurfaceEventDiagnostics
   plug into the `handler` socket; proposals are applied all-or-nothing against the IDs resolved before the
   handler ran, and a failing or misbehaving handler changes nothing. No threshold mortality.
 * MAPLE keeps authority over the surface; LEAF performs no surface remapping. Supply the *current* surface
-  to `derive_geometry` / `maple_vegetation_view` for burial/exposure diagnostics and exposed heights.
+  to `canopy_view` / `maple_vegetation_view` (or `derive_geometry`) for burial/exposure diagnostics and
+  exposed heights, and call them again after every surface change (the views are uncached snapshots).
 
 ## 7. What the fully coupled mode will add (not now)
 
