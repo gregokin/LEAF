@@ -1,0 +1,1214 @@
+{
+  "benchmark": "daily_water_growth",
+  "version": "0.2.0",
+  "status": "ok",
+  "n_results": 1,
+  "results": [
+    {
+      "benchmark": "daily_water_growth",
+      "version": "0.2.0",
+      "status": "ok",
+      "case": {
+        "name": "june_hectare_3layers_roots5",
+        "nx": 400,
+        "ny": 400,
+        "dx": 0.25,
+        "grass_count": 35764,
+        "shrub_count": 541,
+        "grass_diameter": 0.15,
+        "shrub_diameter": 2.0,
+        "root_multiplier": 5.0,
+        "pattern": "uniform",
+        "seed": 20261030,
+        "layers": 3,
+        "max_edges": 10000000,
+        "max_bytes": 1500000000
+      },
+      "backend": "gpu",
+      "days_requested": 10950,
+      "report_every": 365,
+      "fixture": {
+        "label": "synthetic benchmark fixture, not calibrated ecology",
+        "storage_m": 0.15,
+        "initial_fill_fraction": 0.5,
+        "recharge_m": 0.01,
+        "recharge_period_days": 14,
+        "demand_m_per_day": 0.003,
+        "biomass_density_kg_m2": 1.0,
+        "water_density_kg_m3": 1000.0,
+        "wue_grass_kg_per_kg": 0.002,
+        "wue_shrub_kg_per_kg": 0.0015,
+        "turnover_rate_per_day": 0.003,
+        "week_days": 7,
+        "days_per_year": 365,
+        "default_years": 30
+      },
+      "environment": {
+        "python": "3.12.3",
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+        "numpy": "2.5.3",
+        "numba": "0.67.0",
+        "cupy": "14.2.0",
+        "device": {
+          "id": 0,
+          "name": "NVIDIA GeForce GTX 1080 Ti",
+          "compute_capability": "61"
+        },
+        "gpu_status": {
+          "available": true,
+          "device_name": "NVIDIA GeForce GTX 1080 Ti",
+          "compute_capability": 61,
+          "context_init_seconds": 0.10933416394982487,
+          "cupy_version": "14.2.0",
+          "cuda_runtime_version": 12090
+        }
+      },
+      "source": {
+        "geometry_module": "benchmarks.spatial_mapping",
+        "geometry_file": "/home/okin/leaf/benchmarks/spatial_mapping.py",
+        "geometry_scope_limitations": [
+          "Generic synthetic benchmark; no ecological, hydrological, growth, mortality, wind or water process is modelled.",
+          "Root edge weights are UNIFORM over the cells a root circle positively overlaps (sum to 1 per plant). They are NOT area weighted and encode no scientific allocation law.",
+          "Vertical layer weights are factorized as a uniform 1/L per layer (separability assumption); no dense plant-by-layer-by-cell tensor is formed.",
+          "The layered reduction scatters a synthetic unit demand per plant; it measures graph traversal and atomic contention, not water competition.",
+          "Canopy cover is an 8x8 midpoint sample per cell capped at 1; it is coverage only, not an exact circle union and not area conserving. Small circles can be missed entirely (aliasing); missed plants are counted and reported.",
+          "Domain is finite, rectangular, non-periodic with square cells; circles are clipped at the boundary and root weights renormalize over retained cells.",
+          "Plant positions (uniform or clumped) are synthetic seeded samples, not an ecological spatial pattern.",
+          "CPU compiled loops are single-threaded; GPU atomics are order-nondeterministic, so CPU/GPU agreement is checked with tolerances, never bitwise.",
+          "ru_maxrss is a cumulative process peak; CuPy pool numbers are sampled at stage boundaries and are not a true allocation peak."
+        ]
+      },
+      "throughput": {
+        "model_days_completed": 10950,
+        "model_days_per_wall_s": 88.92743051555722,
+        "model_years_per_wall_min": 14.618207755982008,
+        "simulated_seconds_per_wall_s": 7683329.996544144
+      },
+      "counters": {
+        "day": 10950,
+        "weeks_done": 1564,
+        "pending_days": 2,
+        "maps_built": 1565,
+        "demand_map_builds": 1565,
+        "recharge_events": 783,
+        "population": 36305,
+        "n_edges": 2090247,
+        "latched_failure": null
+      },
+      "audit": {
+        "day": 10950,
+        "ok": true,
+        "checks": {
+          "water_finite": true,
+          "water_nonnegative": true,
+          "water_le_capacity": true,
+          "biomass_finite_positive": true,
+          "population_retained": true,
+          "positive_root_counts": true,
+          "weights_normalized": true,
+          "root_canopy_ratio": true,
+          "calendar": true,
+          "water_budget": true,
+          "plant_grid_flux": true,
+          "biomass_budget": true,
+          "root_profiles_valid": true,
+          "requested_demand_total": true
+        },
+        "water": {
+          "initial": 750.0,
+          "recharge_events": 783,
+          "input": 78300.00000000001,
+          "overflow": 336.2502240044249,
+          "grid_removed": 78589.95224184745,
+          "plant_uptake": 78589.95224184744,
+          "pending_week_uptake": 25.58958678499277,
+          "total": 123.79753414813675,
+          "residual": 7.105427357601002e-13,
+          "flux_residual": -1.4551915228366852e-11,
+          "tolerance": 7.905000100000002e-05,
+          "flux_tolerance": 7.858995324184745e-05,
+          "min": 6.018218064634597e-05,
+          "max": 0.003107689390524014,
+          "capacity_per_layer_cell": 0.0031249999999999997
+        },
+        "biomass": {
+          "initial": 2331.6036736963706,
+          "growth": 139516.20645440716,
+          "turnover": 137582.87899727141,
+          "total": 4264.931130832134,
+          "residual": 1.4551915228366852e-11,
+          "tolerance": 0.00014184781112810353,
+          "min": 2.8589815947486907e-05
+        },
+        "graph": {
+          "n_edges": 2090247,
+          "min_count": 1,
+          "max_weight_sum_deviation": 1.3988810110276972e-13,
+          "max_root_canopy_ratio_deviation": 8.881784197001252e-16
+        },
+        "root_profiles": {
+          "names": [
+            "grass",
+            "shrub"
+          ],
+          "n_profiles": 2,
+          "id_min": 0,
+          "id_max": 1,
+          "max_row_sum_deviation": 1.1102230246251565e-16,
+          "requested_total": 12.794793392496402,
+          "potential_total": 12.794793392496402,
+          "requested_residual": 0.0,
+          "requested_tolerance": 1.2794893392496403e-07
+        },
+        "calendar": {
+          "day": 10950,
+          "weeks_done": 1564,
+          "pending_days": 2,
+          "maps_built": 1565,
+          "demand_map_builds": 1565,
+          "recharge_events": 783,
+          "population": 36305,
+          "n_edges": 2090247,
+          "latched_failure": null
+        }
+      },
+      "memory": {
+        "live_arrays": [
+          {
+            "name": "W",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "R",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "scale",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "removed_cum",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "overflow_cum",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "B",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "canopy",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "root",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "Dp",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "uptake_week",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "uptake_cum",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "gain_cum",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "loss_cum",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "wue",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "wsum",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_Bc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_cc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_rc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_Dc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_gc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_lc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "root_profile_ids",
+            "dtype": "int32",
+            "shape": [
+              36305
+            ],
+            "nbytes": 145220,
+            "where": "device"
+          },
+          {
+            "name": "root_layer_fractions",
+            "dtype": "float64",
+            "shape": [
+              2,
+              3
+            ],
+            "nbytes": 48,
+            "where": "device"
+          },
+          {
+            "name": "graph.offsets",
+            "dtype": "int64",
+            "shape": [
+              36306
+            ],
+            "nbytes": 290448,
+            "where": "device"
+          },
+          {
+            "name": "graph.counts",
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "graph.cells",
+            "dtype": "int32",
+            "shape": [
+              2090247
+            ],
+            "nbytes": 8360988,
+            "where": "device"
+          },
+          {
+            "name": "graph.weights",
+            "dtype": "float64",
+            "shape": [
+              2090247
+            ],
+            "nbytes": 16721976,
+            "where": "device"
+          },
+          {
+            "name": "inputs.x",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "inputs.y",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "inputs.canopy_radius",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "inputs.root_radius",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "inputs.ids",
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          }
+        ],
+        "live_bytes": 25444508,
+        "graph_bytes": 25663852,
+        "rebuild_peak_bytes": 86279971,
+        "rebuild_peak_label": "ESTIMATED admission peak: state + old graph + new graph + reserved scratch allowance + host mirrors (max over init and weekly ledgers); not an observed allocator peak (use an external profiler for measured live peak)",
+        "max_bytes": 1500000000,
+        "admission_ledger": {
+          "population": 36305,
+          "ncells": 160000,
+          "layers": 3,
+          "n_edges_bound": 2090247,
+          "n_profiles": 2,
+          "profile_table_bytes": 48,
+          "profile_ids_bytes": 145220,
+          "state_bytes": 25444508,
+          "old_graph_bytes": 25928944,
+          "new_graph_bytes": 25663860,
+          "scratch_allowance_bytes": 6229126,
+          "host_mirror_bytes": 1633773,
+          "total_bytes": 84900211,
+          "stage": "rebuild_actual",
+          "day": 10948
+        },
+        "scratch_allowance_bytes": 6229126,
+        "host_mirror_bytes": 1633773,
+        "process_peak_rss_bytes": 511631360,
+        "process_peak_rss_label": "ru_maxrss whole-process peak (not per array)",
+        "cupy_pool_used_bytes": 51118592,
+        "cupy_pool_total_bytes": 895585280,
+        "cupy_pool_label": "sampled at end of run"
+      },
+      "transfer_record": {
+        "seconds": 0.0008336870232596993,
+        "bytes": 1452200
+      },
+      "profile_transfer_record": {
+        "arrays": {
+          "root_profile_ids": 145220,
+          "root_layer_fractions": 48
+        },
+        "bytes": 145268,
+        "wall_s": 0.00017398607451468706,
+        "label": "profile IDs/table H2D copy, timed separately from sm.to_device (synchronized once at setup)"
+      },
+      "transfer_summary": {
+        "input_arrays_bytes": 1452200,
+        "profile_bytes": 145268,
+        "trait_bytes": 290440,
+        "total_setup_h2d_bytes": 1887908,
+        "profile_wall_s": 0.00017398607451468706,
+        "label": "setup transfers: 5 input arrays (sm.to_device record has its own geometry-copy timing) + profile IDs/table (profile_wall_s times only this copy) + WUE traits (included only in total initialization_s); no daily transfers or readbacks"
+      },
+      "traits": {
+        "n_grass": 35764,
+        "n_shrub": 541,
+        "assignment": "nearest initial canopy diameter (ties: index < grass_count)"
+      },
+      "root_profiles": {
+        "names": [
+          "grass",
+          "shrub"
+        ],
+        "n_profiles": 2,
+        "layers": 3,
+        "table": [
+          [
+            0.7,
+            0.2,
+            0.1
+          ],
+          [
+            0.15,
+            0.25,
+            0.6
+          ]
+        ],
+        "table_dtype": "float64",
+        "table_bytes": 48,
+        "ids_dtype": "int32",
+        "ids_bytes": 145220,
+        "source": "default",
+        "id_assignment": "default class row (grass/shrub) from initial canopy-diameter class",
+        "fixed_across_weekly_growth": true,
+        "label": "uncalibrated benchmark fixture; fractions are potential-uptake weights per layer, not volumetric root density or guaranteed actual uptake"
+      },
+      "timing": {
+        "startup_cache_load_s": 0.4341050119837746,
+        "initialization_s": 0.037992788944393396,
+        "loop_wall_s": 123.26854802202433,
+        "audit_report_wall_s": 0.13443814706988633,
+        "integration_wall_s": 123.13410987495445,
+        "daily_block_wall_s": 90.23289511061739,
+        "weekly_update_wall_s": 32.868155974312685,
+        "end_to_end_wall_s": 123.30654081096873,
+        "note": "wall clock; GPU synchronized at weekly and report boundaries; no asynchronous dispatch times are summed",
+        "run_case_wall_s": 123.85216164507437,
+        "since_module_import_wall_s": 124.14128953800537
+      },
+      "progress": [
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 365,
+          "year": 1.0,
+          "water_total_m3": 587.7266060775862,
+          "water_residual": 6.821210263296962e-13,
+          "flux_residual": 9.094947017729282e-13,
+          "biomass_total_kg": 3679.03161066505,
+          "biomass_residual": -4.547473508864641e-13,
+          "pending_uptake_m3": 11.037094831995148,
+          "n_edges": 1838824,
+          "audit_ok": true,
+          "elapsed_s": 1.6824076949851587,
+          "block_wall_s": 1.0234073647297919,
+          "weekly_wall_s": 0.6396227788645774,
+          "pool_used_bytes": 48100864,
+          "pool_total_bytes": 697431552
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 730,
+          "year": 2.0,
+          "water_total_m3": 356.76485613991497,
+          "water_residual": 3.410605131648481e-13,
+          "flux_residual": 9.094947017729282e-13,
+          "biomass_total_kg": 4152.642060253999,
+          "biomass_residual": -9.094947017729282e-13,
+          "pending_uptake_m3": 24.915852361523974,
+          "n_edges": 2071471,
+          "audit_ok": true,
+          "elapsed_s": 3.9092694129794836,
+          "block_wall_s": 2.5263713556341827,
+          "weekly_wall_s": 1.358713457477279,
+          "pool_used_bytes": 50892800,
+          "pool_total_bytes": 1235025920
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 1095,
+          "year": 3.0,
+          "water_total_m3": 250.5071025998647,
+          "water_residual": -1.1937117960769683e-12,
+          "flux_residual": 1.8189894035458565e-12,
+          "biomass_total_kg": 4239.545410437218,
+          "biomass_residual": -3.637978807091713e-12,
+          "pending_uptake_m3": 38.15575970672592,
+          "n_edges": 2123353,
+          "audit_ok": true,
+          "elapsed_s": 6.518091120989993,
+          "block_wall_s": 4.3137021225411445,
+          "weekly_wall_s": 2.1751281225588173,
+          "pool_used_bytes": 51515392,
+          "pool_total_bytes": 267979264
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 1460,
+          "year": 4.0,
+          "water_total_m3": 190.29152334007165,
+          "water_residual": 7.958078640513122e-13,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4248.223751605581,
+          "biomass_residual": -1.8189894035458565e-12,
+          "pending_uptake_m3": 50.867111447093734,
+          "n_edges": 2136242,
+          "audit_ok": true,
+          "elapsed_s": 9.285466675995849,
+          "block_wall_s": 6.258530764607713,
+          "weekly_wall_s": 2.992909904336557,
+          "pool_used_bytes": 51670016,
+          "pool_total_bytes": 715979776
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 1825,
+          "year": 5.0,
+          "water_total_m3": 154.043345416933,
+          "water_residual": 5.684341886080801e-13,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4244.136327529744,
+          "biomass_residual": -3.637978807091713e-12,
+          "pending_uptake_m3": 62.25730932127254,
+          "n_edges": 2141034,
+          "audit_ok": true,
+          "elapsed_s": 12.186950781033374,
+          "block_wall_s": 8.30514440080151,
+          "weekly_wall_s": 3.8429137563798577,
+          "pool_used_bytes": 51727360,
+          "pool_total_bytes": 1165597696
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 2190,
+          "year": 6.0,
+          "water_total_m3": 131.8671197709748,
+          "water_residual": 1.1368683772161603e-12,
+          "flux_residual": -1.8189894035458565e-12,
+          "biomass_total_kg": 4241.995542120152,
+          "biomass_residual": 0.0,
+          "pending_uptake_m3": 71.18041344702885,
+          "n_edges": 2143094,
+          "audit_ok": true,
+          "elapsed_s": 15.174926758976653,
+          "block_wall_s": 10.43142719217576,
+          "weekly_wall_s": 4.69953890319448,
+          "pool_used_bytes": 51751936,
+          "pool_total_bytes": 1494602752
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 2555,
+          "year": 7.0,
+          "water_total_m3": 117.63559027969059,
+          "water_residual": 1.0942358130705543e-12,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4294.621668432712,
+          "biomass_residual": 0.0,
+          "pending_uptake_m3": 0.0,
+          "n_edges": 2167906,
+          "audit_ok": true,
+          "elapsed_s": 18.292355648009107,
+          "block_wall_s": 12.630349816172384,
+          "weekly_wall_s": 5.613339587347582,
+          "pool_used_bytes": 52049920,
+          "pool_total_bytes": 444420096
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 2920,
+          "year": 8.0,
+          "water_total_m3": 107.36548013575052,
+          "water_residual": -1.0516032489249483e-12,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4297.494360746789,
+          "biomass_residual": 2.7284841053187847e-12,
+          "pending_uptake_m3": 5.8685052585948005,
+          "n_edges": 2169399,
+          "audit_ok": true,
+          "elapsed_s": 21.477066701976582,
+          "block_wall_s": 14.916868756059557,
+          "weekly_wall_s": 6.506849450059235,
+          "pool_used_bytes": 52067840,
+          "pool_total_bytes": 739361792
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 3285,
+          "year": 9.0,
+          "water_total_m3": 99.23480305873937,
+          "water_residual": -2.4442670110147446e-12,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4301.042927765734,
+          "biomass_residual": -4.547473508864641e-12,
+          "pending_uptake_m3": 10.801877157713111,
+          "n_edges": 2169743,
+          "audit_ok": true,
+          "elapsed_s": 24.784672369016334,
+          "block_wall_s": 17.308725398150273,
+          "weekly_wall_s": 7.417817117180675,
+          "pool_used_bytes": 52072448,
+          "pool_total_bytes": 843505664
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 3650,
+          "year": 10.0,
+          "water_total_m3": 92.39193135093599,
+          "water_residual": -3.566924533515703e-12,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4304.4990331094705,
+          "biomass_residual": -1.0913936421275139e-11,
+          "pending_uptake_m3": 14.929580472091786,
+          "n_edges": 2169649,
+          "audit_ok": true,
+          "elapsed_s": 28.221756762010045,
+          "block_wall_s": 19.80340842914302,
+          "weekly_wall_s": 8.355138924205676,
+          "pool_used_bytes": 52070912,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 4015,
+          "year": 11.0,
+          "water_total_m3": 86.78319682421929,
+          "water_residual": 5.7696070143720135e-12,
+          "flux_residual": -3.637978807091713e-12,
+          "biomass_total_kg": 4307.245925968008,
+          "biomass_residual": 4.547473508864641e-12,
+          "pending_uptake_m3": 18.12192016806723,
+          "n_edges": 2168760,
+          "audit_ok": true,
+          "elapsed_s": 31.78582642704714,
+          "block_wall_s": 22.403539199498482,
+          "weekly_wall_s": 9.31410064199008,
+          "pool_used_bytes": 52060160,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 4380,
+          "year": 12.0,
+          "water_total_m3": 82.45387269846691,
+          "water_residual": 2.2168933355715126e-12,
+          "flux_residual": -3.637978807091713e-12,
+          "biomass_total_kg": 4309.341015929591,
+          "biomass_residual": 1.8189894035458565e-12,
+          "pending_uptake_m3": 20.285113374326894,
+          "n_edges": 2167352,
+          "audit_ok": true,
+          "elapsed_s": 35.47140457201749,
+          "block_wall_s": 25.10305926424917,
+          "weekly_wall_s": 10.294632331002504,
+          "pool_used_bytes": 52043264,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 4745,
+          "year": 13.0,
+          "water_total_m3": 79.05554842289091,
+          "water_residual": 1.0658141036401503e-12,
+          "flux_residual": -7.275957614183426e-12,
+          "biomass_total_kg": 4311.116973832836,
+          "biomass_residual": 4.547473508864641e-12,
+          "pending_uptake_m3": 21.539421085532254,
+          "n_edges": 2165413,
+          "audit_ok": true,
+          "elapsed_s": 39.298301996081136,
+          "block_wall_s": 27.904909129138105,
+          "weekly_wall_s": 11.31459090008866,
+          "pool_used_bytes": 52020224,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 5110,
+          "year": 14.0,
+          "water_total_m3": 76.23184436370673,
+          "water_residual": 8.981260180007666e-12,
+          "flux_residual": -7.275957614183426e-12,
+          "biomass_total_kg": 4261.605508549195,
+          "biomass_residual": -1.8189894035458565e-12,
+          "pending_uptake_m3": 0.0,
+          "n_edges": 2140763,
+          "audit_ok": true,
+          "elapsed_s": 43.28782567800954,
+          "block_wall_s": 30.808018446085043,
+          "weekly_wall_s": 12.396043733460829,
+          "pool_used_bytes": 51724288,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 5475,
+          "year": 15.0,
+          "water_total_m3": 160.9972261193061,
+          "water_residual": 1.000444171950221e-11,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4262.770800480495,
+          "biomass_residual": -7.275957614183426e-12,
+          "pending_uptake_m3": 12.788312401441505,
+          "n_edges": 2138075,
+          "audit_ok": true,
+          "elapsed_s": 47.37404942000285,
+          "block_wall_s": 33.81599412835203,
+          "weekly_wall_s": 13.469192995224148,
+          "pool_used_bytes": 51692032,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 5840,
+          "year": 16.0,
+          "water_total_m3": 146.11507687398623,
+          "water_residual": -3.666400516522117e-12,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4263.685576583009,
+          "biomass_residual": 1.1823431123048067e-11,
+          "pending_uptake_m3": 25.58211345949806,
+          "n_edges": 2135173,
+          "audit_ok": true,
+          "elapsed_s": 51.600666261976585,
+          "block_wall_s": 36.91842389293015,
+          "weekly_wall_s": 14.588015942135826,
+          "pool_used_bytes": 51657728,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 6205,
+          "year": 17.0,
+          "water_total_m3": 131.22219381529482,
+          "water_residual": -6.764366844436154e-12,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4264.4030132048665,
+          "biomass_residual": -1.2732925824820995e-11,
+          "pending_uptake_m3": 38.379088296666,
+          "n_edges": 2131985,
+          "audit_ok": true,
+          "elapsed_s": 55.951090206974186,
+          "block_wall_s": 40.12309857737273,
+          "weekly_wall_s": 15.727329866262153,
+          "pool_used_bytes": 51619328,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 6570,
+          "year": 18.0,
+          "water_total_m3": 116.548839958786,
+          "water_residual": -6.0822458181064576e-12,
+          "flux_residual": -7.275957614183426e-12,
+          "biomass_total_kg": 4264.885886154791,
+          "biomass_residual": -1.6370904631912708e-11,
+          "pending_uptake_m3": 51.01843222812069,
+          "n_edges": 2128720,
+          "audit_ok": true,
+          "elapsed_s": 60.43342530797236,
+          "block_wall_s": 43.43287508212961,
+          "weekly_wall_s": 16.894754313630983,
+          "pool_used_bytes": 51579904,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 6935,
+          "year": 19.0,
+          "water_total_m3": 103.25296033323451,
+          "water_residual": -2.3305801732931286e-12,
+          "flux_residual": -7.275957614183426e-12,
+          "biomass_total_kg": 4265.35737763399,
+          "biomass_residual": 1.3642420526593924e-11,
+          "pending_uptake_m3": 62.19721738184984,
+          "n_edges": 2125480,
+          "audit_ok": true,
+          "elapsed_s": 65.04586305003613,
+          "block_wall_s": 46.84522488480434,
+          "weekly_wall_s": 18.08985772554297,
+          "pool_used_bytes": 51540992,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 7300,
+          "year": 20.0,
+          "water_total_m3": 92.61378800564592,
+          "water_residual": -2.6147972675971687e-12,
+          "flux_residual": -7.275957614183426e-12,
+          "biomass_total_kg": 4265.621615396714,
+          "biomass_residual": 3.637978807091713e-12,
+          "pending_uptake_m3": 70.77112083975821,
+          "n_edges": 2122394,
+          "audit_ok": true,
+          "elapsed_s": 69.79046192299575,
+          "block_wall_s": 50.35609618201852,
+          "weekly_wall_s": 19.318508082884364,
+          "pool_used_bytes": 51504128,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 7665,
+          "year": 21.0,
+          "water_total_m3": 83.82931194759418,
+          "water_residual": -6.0396132539608516e-12,
+          "flux_residual": -7.275957614183426e-12,
+          "biomass_total_kg": 4316.859160703039,
+          "biomass_residual": 1.4551915228366852e-11,
+          "pending_uptake_m3": 0.0,
+          "n_edges": 2141308,
+          "audit_ok": true,
+          "elapsed_s": 74.68094355007634,
+          "block_wall_s": 53.96679163200315,
+          "weekly_wall_s": 20.59268629096914,
+          "pool_used_bytes": 51730432,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 8030,
+          "year": 22.0,
+          "water_total_m3": 75.96414055745477,
+          "water_residual": 3.595346242946107e-12,
+          "flux_residual": -7.275957614183426e-12,
+          "biomass_total_kg": 4316.955872039005,
+          "biomass_residual": 1.4551915228366852e-11,
+          "pending_uptake_m3": 5.9747820660805235,
+          "n_edges": 2137797,
+          "audit_ok": true,
+          "elapsed_s": 79.66214782907628,
+          "block_wall_s": 57.667675149510615,
+          "weekly_wall_s": 21.868379055638798,
+          "pool_used_bytes": 51688960,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 8395,
+          "year": 23.0,
+          "water_total_m3": 69.16548717247134,
+          "water_residual": 3.652189661806915e-12,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4316.875302875436,
+          "biomass_residual": -7.275957614183426e-12,
+          "pending_uptake_m3": 11.09087946382507,
+          "n_edges": 2135038,
+          "audit_ok": true,
+          "elapsed_s": 84.75125587708317,
+          "block_wall_s": 61.457072633551434,
+          "weekly_wall_s": 23.163008203031495,
+          "pool_used_bytes": 51655168,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 8760,
+          "year": 24.0,
+          "water_total_m3": 63.44819943517035,
+          "water_residual": -3.240074875066057e-12,
+          "flux_residual": 7.275957614183426e-12,
+          "biomass_total_kg": 4316.746547015147,
+          "biomass_residual": -3.637978807091713e-12,
+          "pending_uptake_m3": 15.276052446401955,
+          "n_edges": 2131425,
+          "audit_ok": true,
+          "elapsed_s": 89.94930307904724,
+          "block_wall_s": 65.32994516205508,
+          "weekly_wall_s": 24.482601087423973,
+          "pool_used_bytes": 51612160,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 9125,
+          "year": 25.0,
+          "water_total_m3": 58.860474423178474,
+          "water_residual": -6.750155989720952e-12,
+          "flux_residual": 1.4551915228366852e-11,
+          "biomass_total_kg": 4316.620837371434,
+          "biomass_residual": 1.8189894035458565e-12,
+          "pending_uptake_m3": 18.456077490697684,
+          "n_edges": 2128129,
+          "audit_ok": true,
+          "elapsed_s": 95.24958030099515,
+          "block_wall_s": 69.28870548284613,
+          "weekly_wall_s": 25.81904948630836,
+          "pool_used_bytes": 51573248,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 9490,
+          "year": 26.0,
+          "water_total_m3": 55.54461242113695,
+          "water_residual": -7.901235221652314e-12,
+          "flux_residual": 0.0,
+          "biomass_total_kg": 4316.475270504868,
+          "biomass_residual": -2.091837814077735e-11,
+          "pending_uptake_m3": 20.50827806783555,
+          "n_edges": 2124835,
+          "audit_ok": true,
+          "elapsed_s": 100.65979846206028,
+          "block_wall_s": 73.32497486949433,
+          "weekly_wall_s": 27.18789389205631,
+          "pool_used_bytes": 51533312,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 9855,
+          "year": 27.0,
+          "water_total_m3": 53.269467038129505,
+          "water_residual": 1.2505552149377763e-11,
+          "flux_residual": -1.4551915228366852e-11,
+          "biomass_total_kg": 4316.394196937934,
+          "biomass_residual": 2.546585164964199e-11,
+          "pending_uptake_m3": 21.58624227368739,
+          "n_edges": 2121527,
+          "audit_ok": true,
+          "elapsed_s": 106.15930097701494,
+          "block_wall_s": 77.44013250956777,
+          "weekly_wall_s": 28.567128796014003,
+          "pool_used_bytes": 51493376,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 10220,
+          "year": 28.0,
+          "water_total_m3": 51.58237210987918,
+          "water_residual": 7.823075520718703e-12,
+          "flux_residual": 1.4551915228366852e-11,
+          "biomass_total_kg": 4265.005753826729,
+          "biomass_residual": 3.001332515850663e-11,
+          "pending_uptake_m3": 0.0,
+          "n_edges": 2096312,
+          "audit_ok": true,
+          "elapsed_s": 111.78383377706632,
+          "block_wall_s": 81.63472894835286,
+          "weekly_wall_s": 29.99227891198825,
+          "pool_used_bytes": 51190784,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 10585,
+          "year": 29.0,
+          "water_total_m3": 137.55600826543588,
+          "water_residual": -5.172751116333529e-12,
+          "flux_residual": 1.4551915228366852e-11,
+          "biomass_total_kg": 4264.9969360296955,
+          "biomass_residual": -9.094947017729282e-13,
+          "pending_uptake_m3": 12.794990808089153,
+          "n_edges": 2093211,
+          "audit_ok": true,
+          "elapsed_s": 117.48385849199258,
+          "block_wall_s": 85.8990479282802,
+          "weekly_wall_s": 31.42289207864087,
+          "pool_used_bytes": 51153920,
+          "pool_total_bytes": 895585280
+        },
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots5",
+          "backend": "gpu",
+          "day": 10950,
+          "year": 30.0,
+          "water_total_m3": 123.79753414813675,
+          "water_residual": 7.105427357601002e-13,
+          "flux_residual": -1.4551915228366852e-11,
+          "biomass_total_kg": 4264.931130832134,
+          "biomass_residual": 1.4551915228366852e-11,
+          "pending_uptake_m3": 25.58958678499277,
+          "n_edges": 2090247,
+          "audit_ok": true,
+          "elapsed_s": 123.26844681007788,
+          "block_wall_s": 90.23289511061739,
+          "weekly_wall_s": 32.868155974312685,
+          "pool_used_bytes": 51118592,
+          "pool_total_bytes": 895585280
+        }
+      ],
+      "independent_case_wall_seconds": 123.85225555708166,
+      "allocation_profile": {
+        "cupy_live_rounded_peak_bytes": 79009792,
+        "cupy_live_rounded_at_case_start_bytes": 0,
+        "cupy_live_rounded_at_case_end_bytes": 0,
+        "unknown_free_events_cumulative": 0,
+        "weekly_samples": 1565,
+        "pool_used_weekly_sample_max_bytes": 52075520,
+        "pool_reserved_weekly_sample_max_bytes": 1494602752,
+        "pool_sampling_scope": "after synchronized weekly updates, including tiny startup warmup; reserved peak is sampled, live hook peak includes all observed temporaries",
+        "scope": "CuPy pool malloc/free hooks including temporaries; excludes driver/context and other allocators"
+      }
+    }
+  ],
+  "process": {
+    "peak_rss_bytes": 511631360,
+    "label": "ru_maxrss whole process",
+    "wall_since_import_s": 124.14143322606105
+  },
+  "independent_profile": {
+    "whole_process_wall_seconds_including_imports": 124.43194103892893,
+    "cpu_affinity_count": 20,
+    "gpu_uuid_selection": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "cupy_live_rounded_peak_bytes": 79009792,
+    "cupy_live_rounded_at_end_bytes": 0,
+    "unknown_free_events": 0,
+    "allocation_events": 69131,
+    "allocator_policy": {
+      "pool_limit_bytes": 1500000000,
+      "previous_pool_limit_bytes": 0,
+      "inherited_CUPY_GPU_MEMORY_LIMIT": null,
+      "source": "unchanged fixture max_bytes",
+      "scope": "CuPy pool reservation; excludes CUDA context and other allocators",
+      "state_discarded": false,
+      "resource_cap_raised": false
+    },
+    "scope": "Actual rounded CuPy pool allocations only; reserved pool memory and CPU RSS reported separately.",
+    "source_sha256": {
+      "benchmarks/daily_water_growth.py": "ca850088b77146af3f7c60ff7c27aa2fa7730ee89b96a7169e82f857f9aa1522",
+      "benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "wrapper_sha256": "00f7d2affe1360a77fbb6109520619a4811cd5a3d3dcb1954e96e5a97316cefe"
+  }
+}

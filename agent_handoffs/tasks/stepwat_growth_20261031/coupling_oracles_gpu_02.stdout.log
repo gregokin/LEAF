@@ -1,0 +1,1 @@
+{"ok": true, "backend": "cuda", "oracles": ["native two-area E/T accounting", "actual uptake to analytical biomass", "365-day partial period", "year-end refusal and single retry", "following partial week", "invalid forcing before water mutation"]}

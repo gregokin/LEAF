@@ -1,0 +1,9 @@
+{
+  "files": {
+    "benchmarks/daily_water_growth.py": "650b197b92acbd8bc6f741f8feac9dd3a3f5dade2d9f58ceae5f10db82e81c8f",
+    "tests/test_daily_water_growth.py": "abf6b48401de127e689535a748f13c2f631f36964d966e38fecda6c95d5e5674",
+    "benchmarks/daily-water-growth.md": "304fd88ec2dcb6ca920ddd05fd4de3a3baaa6bd7ec5f3e07509956b357d34802"
+  },
+  "verdict": "correct",
+  "reason": "Two actual CPU/GPU test failures, overconservative initial bound and incomplete memory accounting/profiler scope; short GPU numerical parity passed."
+}

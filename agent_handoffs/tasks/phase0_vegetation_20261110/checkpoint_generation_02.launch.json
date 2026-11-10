@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-X",
+    "faulthandler",
+    "-c",
+    "import faulthandler,sys; sys.path.insert(0,\"/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110\"); faulthandler.dump_traceback_later(60,exit=True); import generation_oracles as g; old=g.config; g.config=lambda *a,**k:dict(old(*a,**k),limits={\"max_attempts\":50000}); sys.argv=[\"generation_oracles.py\",\"--capacity\"]; g.main()"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/checkpoint_02",
+  "pid": 8,
+  "start_ticks": "178378681",
+  "started_at_utc": "2026-11-10T12:06:35.108474+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/checkpoint_02:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

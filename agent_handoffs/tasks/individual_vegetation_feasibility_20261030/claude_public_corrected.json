@@ -1,0 +1,179 @@
+{
+  "report_markdown": "# Corrected public-only report: spatial individual-plant demography coupled to multilayer soil water, and generic CPU/GPU consequences\n\n**Evidence status.** Three evidence classes are used: (V) verified by me earlier from public code or open text; (R) reviewer-supplied primary-source pointers and summaries, accepted as corrections but *not* re-inspected here (no tools enabled); (I) inference. A list of corrected and withdrawn claims is at the end.\n\n## 1. Tietjen, Zehe & Jeltsch 2009 (WRR) and Tietjen et al. 2010 (Ecohydrology)\n\n(V) The 2009 Crossref abstract describes a generic, process-based, spatially explicit two-layer soil moisture model tested at Israeli sites and emphasizing intra-annual rainfall variability. The 2010 OpenAlex abstract describes daily two-layer soil moisture with shrubs and grasses as two competing functional types applied to a Namibian savanna, including a CO\u2082 effect on plant water-use efficiency.\n\n(R) The original texts (2009 full text; 2010 author PDF, methods pp. 2\u20133) specify 5 m cells; hourly rainfall/runoff sub-steps in the hydrology; two cover types (grass, shrub) per cell; biweekly wet-season logistic cover growth driven by the preceding 14-day mean layer water availability and root competition; and seasonal mortality and dispersal. My earlier report inferred the original method from the 2022 EcoHyD descendant (Irob et al. 2022, V: 30 \u00d7 30 cells of 5 \u00d7 5 m, three meta-PFTs, biweekly wet-season vegetation step, R scripts on figshare); that inference is withdrawn in favour of the original-source description above.\n\n(I) Classification: a cover-fraction, cell-based ecohydrological model, not individual-based. Reusable methods: two-layer budget with PFT-specific root fractions; hourly surface/daily soil/biweekly vegetation/seasonal demography time-scale separation; logistic cover growth as a function of lagged layer water availability. **Not** to be attributed to the original equations: a transpiration-to-individual-biomass WUE mass balance (the CO\u2082/WUE effect is a growth modifier on cover, per the abstract, not a tracked carbon ledger). Missing for an individual model: positions, allometry, roots crossing cells, size structure; terrain burial/erosion not found.\n\n## 2. STEPWAT2 revision 003cb9b4 with SOILWAT2 b05f410\n\nAll items (V) from the pinned revisions; current master may differ.\n\n**Individuals.** `indiv_st` stores id, age, `relsize` (size relative to a full-sized individual), `res_required`, `res_avail`, `pr`, and `Next/Prev` list pointers; individuals form a doubly linked list per species, `calloc`-allocated and freed on death. There are no x/y, canopy or per-individual root-geometry fields. The plot is 1.0 m\u00b2 (`plot.in`), and densities/seed rates in #/m\u00b2 are converted to #/plot. Biomass = `relsize \u00d7 mature_biomass`.\n\n**Water\u2192resource coupling.** Each demographic year `SXW_Run_SOILWAT` converts resource-group biomass to SOILWAT2 vegetation inputs and runs a full daily year; monthly transpiration by layer is collected and smoothed over a multi-year window. Group allocation accumulates relative active roots (root profile \u00d7 phenology, rescaled annually by biomass) times transpiration per layer-month. Within a group individuals get water in proportion to size; `pr = res_required/res_avail` divides the growth modifier when > 1; growth is logistic in `relsize`; surplus becomes temporary \u201cextra growth\u201d removed at year end. (I) This is a biomass-ratio limitation, not a carbon/WUE budget.\n\n**Time scales and persistence.** The demographic timestep is annual (species may be annual or perennial; annuals use a seedbank with beta-distributed establishment, perennials a fecundity-based `Species_NumEstablish`; clonal `max_vegunits` permits regrowth rather than new individuals). SOILWAT2 is daily. Non-gridded runs carry soil water across years. In gridded mode each cell is a full plot whose globals are swapped by `load_cell/unload_cell`; at this revision `load_cell` re-initialises SOILWAT2 weather, flow, soil temperature and soil water each year, with an in-code WARNING that a cell should ideally continue its previous state and a FIXME tied to SOILWAT2 re-entrancy. Cells interact via seed dispersal and colonization; `ST_seedDispersal.c` iterates source cells and candidate recipient cells with an exponential distance kernel and uniform draws (I: pairwise over cells as read; scaling with N not measured). RNG: seven streams designed to be unique per iteration/year/cell. Types: `RealF`=float, `RealD`=double, tolerance macros `EQ/GT/LT`; `MAX_LAYERS`=25, `MAX_TRANSP_REGIONS`=4 (other counts in SW_Defines.h left unverified).\n\n**SOILWAT2 flow.** (V, summary-level) per-type potential transpiration followed by per-type `remove_from_soil`, stored as `transpiration[k][i]`. Whether type order affects results was not line-verified and is excluded from recommendations.\n\n**Palmquist et al. 2018** (V abstract): individuals compete for multilayer soil water via temporal matching of water with active root distributions by depth; CoMSES lists Zenodo code.\n\n(I) Reusable: root \u00d7 phenology \u00d7 layer-transpiration weighting; transpiration smoothing; per-cell RNG stream design; plot-area scaling. Adaptations: arrays instead of linked lists, positions/footprints, a re-entrant per-cell water model, roots over several cells. Missing: canopy overlap, lateral flow, carbon/WUE, terrain.\n\n## 3. ECOTONE (Peters 2002)\n\n(V) The USDA ARS record describes an individual-plant-based model of recruitment, growth and mortality in which temporal and spatial partitioning of soil water drove grass\u2013shrub coexistence. (R/public record) annual demography with daily multilayer soil water. (I) Conceptual ancestor of STEPWAT2 (gap plot, daily water, species root distributions, staged recruitment). **Unknown in public-only terms:** plot size (conflicting snippets), layer count, the rule dividing layer water among individuals, growth/allocation form, positions. My earlier statement that ECOTONE uses biomass-ratio water limitation is withdrawn: no inspected public code supports it, and implementations can differ.\n\n## 4. Caylor 2004 (GCB), Caylor & Shugart 2004 (LE), Caylor et al. 2005 (Ecosystems), Caylor et al. 2006 (WRR)\n\n(V) GCB 2004: principal components of measured patch structure parameterize an ecophysiology productivity model across four sites (879\u2013365 mm). LE 2004 (search-level): a daily productivity model applied to horizontal structure distributions from field 3-D canopy data. Ecosystems 2005 (search/EIS-level): daily soil-moisture bucket, stochastic storms, Priestley\u2013Taylor ET, five surface components (canopy; grass and bare soil under/between canopies); canopies reduce under-canopy stress mid-gradient. (V Crossref + R full text) WRR 2006: tree centres as a 2-D Poisson process with circular canopy radius r, circular root radius R, ratio a_t = R/r, and local counts of overlapping roots/canopies; the stress/uptake optimality implies roots become **less laterally extended** (not shallower) with rainfall.\n\n(I) These are structure-driven productivity and under/between-canopy stress analyses; the public abstracts/texts I read do not describe recruitment\u2013growth\u2013mortality loops, but abstracts alone cannot prove every implementation was static, and whether they share one code base is undocumented (2003 dissertation restricted). Caylor 2006 **does** provide a lateral root/canopy-overlap geometry precedent (statistical landscape formulation, not a tracked demographic simulator); my earlier \u201cmissing lateral root geometry\u201d claim is corrected. Reusable: Poisson-canopy initial conditions and overlap statistics; under/between-canopy ET partitioning.\n\n## 5. Additional close precedents\n\n**Hi-sAFe (R; Dupraz et al. 2019, MDPI; code github.com/hisafe/hisafe).** Daily individual-tree/crop competition with 3-D soil voxels, tree roots overlapping voxels, demand/supply-based water uptake. (I) Closest direct precedent for roots crossing horizontal resource cells with conservative competition; agroforestry-specific and not a simple GPU-ready transplant.\n\n**TROLL 4.0 (V open text).** Explicit 3-D individuals; layered soil with coarse horizontal voxels (e.g. 25 m \u00d7 25 m); root depth 0.35\u00b7dbh^0.54 with exponential fine-root profile; conductance-weighted uptake; daily water balance; allometric growth from wood NPP; seed bank per 1 m\u00b2 cell; stress/starvation/treefall mortality; C++ via rcontroll (README states 3.1.7). Roots are explicitly confined to the column under the stem. (I) Strong allometry/carbon/demography precedent; weaker than Hi-sAFe on horizontal root sharing.\n\n**GRASSMIND 2.0 (R; UFZ method PDF).** Daily physiology with WUE-based resource/demographic methods for grass individuals competing within 1 m patches **without** explicit within-patch locations. UFZ states v3.0 is under testing and not compared with v2.0; do not transfer v2 validation. (I) Useful as a grass demography/WUE comparator, not as a positional precedent.\n\n**Holdo 2013 (V open).** Horizontally implicit; eight layers to 70 cm; Beta root profiles; Michaelis\u2013Menten uptake by layer moisture and root mass; daily; code in Source S1. Compact per-layer competition kernel. SEIB-DGVM and TreeGrass remain unverified leads.\n\n(I) WUE/carbon accounting: TROLL, GRASSMIND, Holdo (assimilation\u2192biomass); Tietjen cover equations use water-driven logistic growth with a WUE modifier; STEPWAT2 uses biomass-ratio limitation. PFT/species: SOILWAT2 vegetation types vs STEPWAT2 groups/species; Tietjen two cover types; TROLL species traits. Vegetative spread: STEPWAT2 clonal regrowth; Tietjen grass dispersal. Terrain burial/erosion: not found in any inspected source.\n\n## 6. Generic array/GPU design \u2014 hypotheses only\n\nSymbols: N cells, L layers, P plants, E nonzero plant\u2013(cell,layer) entries; 32-bit float/index 4 B, double 8 B. No benchmarks; no cost ranking is asserted.\n\n- **Layout.** Linked records (STEPWAT2 style) defeat coalescing; NVIDIA\u2019s best-practices guide prioritizes unit-stride warp access. A structure-of-arrays with stable IDs, a live mask and periodic compaction is the standard alternative (I).\n- **Sparse incidence.** Footprints form a P \u00d7 (N\u00b7L) sparse matrix. One shared weight/index array of E entries plus a transpose permutation (E indices) avoids duplicating weights into two CSR views; memory \u2248 E\u00b7(4 idx + 4 weight + 4 perm) + (P+1)\u00b74 + (N\u00b7L+1)\u00b74. Formats and trade-offs follow Bell & Garland.\n- **Conservative uptake.** A demand pass (plant-major), a per-(cell,layer) segmented reduction giving scale = min(1, supply/demand), and a gather pass yield uptake sums that equal removal in exact arithmetic (Hi-sAFe-style demand/supply, R). Floating-point residuals remain and must be audited; fixed-order segmented reductions aid run-to-run reproducibility but do not guarantee bitwise CPU/GPU identity. CUDA atomics are interference-free read-modify-writes and `atomicAdd` supports float/double, but their accumulation order is unspecified.\n- **Graph refresh.** Incidence must be rebuilt whenever plant or soil geometry changes (recruitment, growth, death, terrain change), not necessarily once per year; count \u2192 exclusive scan \u2192 fill, with transpose by sort or second count. Which phase dominates (daily N\u00b7L water, irregular root links, spatial rebuild/sorting, canopy mapping, or host\u2013device transfers) is unknown without measurement.\n- **Persistent vs scratch.** Persistent: soil water N\u00b7L (double, as SOILWAT2), plant SoA, incidence, RNG counters. Scratch: per-(cell,layer), per-plant, per-entry temporaries, preallocated.\n- **Widths.** 32-bit indices suffice while E, P, N\u00b7L < 2\u00b3\u00b9; size the E index type separately. Float for weights needs a numerical check against long-run drift and small-flux cancellation; keep the water balance in double unless tested.\n- **RNG/restart.** Counter-based generators (Random123/Philox) are stateless functions of (key, counter) and support scheduling-independent reproducibility only with an explicit key/counter/draw-index contract and complete checkpointing of counters and all persistent arrays.\n- **CPU/GPU split.** Branchy annual demography can stay on the CPU with device-resident soil state if transfers (P \u00d7 attribute bytes) are bounded; pairwise dispersal should be bounded by a kernel radius before scaling N (I).\n\n## Corrections and unverified items from the original report\n\nCorrected: (1) Tietjen 2009/2010 methods now from original texts (5 m cells, hourly rainfall/runoff, biweekly logistic cover growth, seasonal mortality/dispersal), no WUE mass balance attributed. (2) Caylor 2006 recognized as a lateral root/canopy overlap geometry precedent; \u201cshallower roots\u201d \u2192 less laterally extended; static-structure classification softened to \u201cnot described in abstracts.\u201d (3) ECOTONE biomass-ratio claim withdrawn. (4) Hi-sAFe added as the strongest roots-crossing-cells precedent; GRASSMIND added as a non-positional WUE comparator. (5) \u201cDaily water is dominant,\u201d \u201cfloat is adequate,\u201d annual-only rebuilds, bitwise reproducibility and exact conservation statements downgraded to hypotheses with qualifications. (6) O(N\u00b2) dispersal, SOILWAT type-order effects and NVEGTYPES removed from recommendations. (7) \u201cPlants are annual\u201d restated as an annual demographic timestep.\n\nLeft unverified: ECOTONE plot size/layers/allocation rule; SOILWAT2 vegetation-type count and order effects; SEIB-DGVM and TreeGrass details; whether Caylor studies share one implementation; TROLL simultaneous vs sequential column update; current STEPWAT2/SOILWAT2 master behaviour.",
+  "primary_sources": [
+    {
+      "url": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2007WR006589",
+      "claim": "(R) Tietjen, Zehe & Jeltsch 2009 full text: 5 m cells; hourly rainfall/runoff sub-steps; two-layer daily soil moisture."
+    },
+    {
+      "url": "https://www.biodiversity-plants.de/downloads/Tietjen_etal_2009_Ecohydro.pdf",
+      "claim": "(R) Tietjen et al. 2010 author PDF, methods pp. 2\u20133: grass/shrub cover per 5 m cell; biweekly wet-season logistic growth from 14-day mean layer water availability and root competition; seasonal mortality/dispersal."
+    },
+    {
+      "url": "https://api.crossref.org/works/10.1029/2007WR006589",
+      "claim": "(V) 2009 abstract: generic, process-based, spatially explicit two-layer soil moisture model; Israeli sites."
+    },
+    {
+      "url": "https://api.openalex.org/works/doi:10.1002/eco.70?select=title,publication_year,abstract_inverted_index",
+      "claim": "(V) 2010 abstract: two functional types competing for water; Namibian savanna; CO2 effect on water-use efficiency."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8931791",
+      "claim": "(V) EcoHyD 2022 descendant: 30\u00d730 cells of 5\u00d75 m, three meta-PFTs, biweekly wet-season vegetation step; used only as lineage context."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_structs.h",
+      "claim": "(V) indiv_st fields; no x/y or canopy fields; doubly linked list pointers."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_indivs.c",
+      "claim": "(V) Individuals calloc-allocated in per-species linked lists; freed on death."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/sxw_resource.c",
+      "claim": "(V) Group water = relative active roots (root \u00d7 phenology) \u00d7 transpiration per layer-month; annual rescaling by biomass."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/sxw.c",
+      "claim": "(V) Full daily SOILWAT2 year per demographic year; multi-year transpiration window; soil water persists in non-gridded runs."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_grid.c",
+      "claim": "(V) Per-cell globals swapped by load_cell; SOILWAT2 state re-initialised per cell-year with WARNING/FIXME on re-entrancy."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_seedDispersal.c",
+      "claim": "(V) Pairwise source\u2013recipient cell iteration with exponential distance kernel and uniform draws (scaling not measured)."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_main.c",
+      "claim": "(V) Iteration \u00d7 year loop; establish \u2192 env \u2192 partition \u2192 grow \u2192 mortality; seven RNG streams per iteration/year/cell."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_resgroups.c",
+      "claim": "(V) Size-proportional partition; pr divides growth modifier; logistic growth; extra growth removed; seedbank annuals, fecundity perennials, clonal regrowth."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/testing.sagebrush.master/Stepwat_Inputs/Input/plot.in",
+      "claim": "(V) plotsize = 1.0 m\u00b2."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_params.c",
+      "claim": "(V) #/m\u00b2 densities and seed rates converted to #/plot; species mature biomass, max age, clonal and dispersal parameters."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/SOILWAT2/b05f410a9e96a5f26857bd37247fe7152e9861d8/include/SW_Defines.h",
+      "claim": "(V) MAX_LAYERS 25, MAX_TRANSP_REGIONS 4; other counts unverified."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/SOILWAT2/b05f410a9e96a5f26857bd37247fe7152e9861d8/include/generic.h",
+      "claim": "(V) RealF=float, RealD=double; tolerance comparison macros."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/SOILWAT2/b05f410a9e96a5f26857bd37247fe7152e9861d8/src/SW_Flow.c",
+      "claim": "(V summary-level) Per-type potential transpiration then per-type remove_from_soil; transpiration[k][i]; order effects not line-verified."
+    },
+    {
+      "url": "https://pubs.usgs.gov/publication/70198963",
+      "claim": "(V) Palmquist et al. 2018 abstract: individuals compete for multilayer water via temporal matching with active root distributions."
+    },
+    {
+      "url": "https://catalog.comses.net/publications/289762",
+      "claim": "(V) CoMSES record with Zenodo code link for STEPWAT2."
+    },
+    {
+      "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=125438",
+      "claim": "(V) Peters 2002 ECOTONE: individual-plant recruitment/growth/mortality; soil water partitioning drives coexistence."
+    },
+    {
+      "url": "https://jornada.nmsu.edu/files/bibliography/JRN00362.pdf",
+      "claim": "(V pointer only) Public PDF of Peters 2002; text not reliably extracted."
+    },
+    {
+      "url": "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2005WR004683",
+      "claim": "(R) Caylor et al. 2006 full text: 2-D Poisson tree centres, canopy radius r, root radius R, a_t=R/r, overlapping root/canopy counts; roots less laterally extended with rainfall."
+    },
+    {
+      "url": "https://api.crossref.org/works/10.1029/2005WR004683",
+      "claim": "(V) Caylor 2006 abstract: Poisson distribution of individual tree canopies; uptake/stress optimization."
+    },
+    {
+      "url": "https://api.openalex.org/works/doi:10.1111/j.1365-2486.2003.00704.x?select=title,publication_year,abstract_inverted_index",
+      "claim": "(V) Caylor et al. 2004 GCB: PCA of measured patch structure drives an ecophysiology productivity model."
+    },
+    {
+      "url": "https://the-eis.com/elibrary/search/16150",
+      "claim": "(V) Caylor et al. 2005: canopies reduce under-canopy soil moisture stress mid-gradient."
+    },
+    {
+      "url": "https://www.mdpi.com/2071-1050/11/8/2293",
+      "claim": "(R) Hi-sAFe 2019: daily tree/crop competition, 3-D soil voxels, roots overlapping voxels, demand/supply water uptake."
+    },
+    {
+      "url": "https://github.com/hisafe/hisafe",
+      "claim": "(R) Hi-sAFe authors' source repository."
+    },
+    {
+      "url": "https://formind.org/wp-content/uploads/2020/05/Grassmind_ModelDescription.pdf",
+      "claim": "(R) GRASSMIND 2.0 method: individuals compete within 1 m patches without explicit within-patch locations; daily physiology/WUE/demography."
+    },
+    {
+      "url": "https://www.ufz.de/index.php?en=48444",
+      "claim": "(R) UFZ GRASSMIND page: v3.0 in testing, not compared with v2.0."
+    },
+    {
+      "url": "https://gmd.copernicus.org/articles/18/5143/2025/",
+      "claim": "(V) TROLL 4.0: coarse horizontal soil voxels; roots confined to the stem column; RD=0.35 dbh^0.54; conductance-weighted uptake; daily water; demography; C++."
+    },
+    {
+      "url": "https://github.com/sylvainschmitt/rcontroll",
+      "claim": "(V) rcontroll README: wraps TROLL (3.1.7 stated), C++ core, GPL-3."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3741314/",
+      "claim": "(V) Holdo 2013: eight layers, Beta root profiles, Michaelis\u2013Menten layer uptake, daily, code in Source S1."
+    },
+    {
+      "url": "https://docs.nvidia.com/cuda/archive/12.2.0/cuda-c-programming-guide/index.html#atomic-functions",
+      "claim": "(V) Atomic functions defined as interference-free read-modify-write operations."
+    },
+    {
+      "url": "https://docs.nvidia.com/cuda/archive/12.4.0/cuda-c-programming-guide/index.html#atomic-functions",
+      "claim": "(V) atomicAdd supports float, double and __half."
+    },
+    {
+      "url": "https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#coalesced-access-to-global-memory",
+      "claim": "(V) High-priority coalescing guidance; strided/misaligned penalties."
+    },
+    {
+      "url": "https://www.thesalmons.org/john/random123/releases/1.00/docs/index.html",
+      "claim": "(V) Counter-based RNGs are stateless functions of (counter, key)."
+    },
+    {
+      "url": "https://www.bu.edu/pasi/files/2011/01/NathanBell2-11-1130.pdf",
+      "claim": "(V pointer) Bell & Garland sparse formats COO/CSR/ELL/HYB."
+    }
+  ],
+  "unverified_or_uncertain": [
+    "Reviewer-supplied (R) items\u2014Tietjen 2009/2010 original methods, Caylor 2006 geometry, Hi-sAFe methods, GRASSMIND method/status\u2014were not re-inspected in this correction and are reported as supplied.",
+    "ECOTONE (Peters 2002): plot size, soil layer count, per-layer water allocation among individuals, growth/allocation form, and position handling remain unknown from public text I could read.",
+    "SOILWAT2 b05f410: vegetation-type count and whether per-type sequential removal makes results order-dependent were not line-verified.",
+    "STEPWAT2 seed dispersal computational scaling with cell count was read as pairwise but not measured; MAX_CELLS 10000 is a compile constant only.",
+    "Caylor 2004 (GCB, LE) and 2005 methods rest on abstracts/search summaries; absence of demographic loops is not proven; shared implementation across the four studies undocumented.",
+    "TROLL 4.0: simultaneous vs sequential soil update among trees sharing a column not stated in text read; rcontroll version mismatch (3.1.7 vs 4.0).",
+    "SEIB-DGVM (30 \u00d7 30 m plot, 20 layers) and TreeGrass details unverified; listed as leads only.",
+    "All GPU statements are untested hypotheses: no phase has been shown to dominate; float adequacy, conservation residuals and reproducibility require numerical audits.",
+    "Statements apply to STEPWAT2 003cb9b4 and SOILWAT2 b05f410; current master branches were not compared.",
+    "Terrain burial/erosion: not found in inspected sources; not proof of absence in full texts."
+  ],
+  "questions_for_independent_review": [
+    "In the original Tietjen 2010 equations, how exactly do layer water availability and root competition enter the biweekly logistic cover growth, and is the CO2/WUE effect a multiplier on growth or on transpiration?",
+    "What rule does ECOTONE (Peters 2002) use to divide plant-available water in each layer among individuals, and what plot size and layer count were used?",
+    "In Hi-sAFe, how is voxel water supply split among overlapping tree and crop roots when total demand exceeds supply, and is the update simultaneous across plants?",
+    "Does Caylor 2006 give closed-form overlap statistics (expected number of overlapping root discs at a point) that could initialize or test a tracked individual model?",
+    "In SOILWAT2 b05f410 SW_Flow.c, does per-type sequential remove_from_soil make transpiration depend on vegetation-type order, and has later STEPWAT2 restored per-cell soil-water persistence?",
+    "For a shared-weight array with a transpose permutation, do fixed-order segmented reductions give deterministic CPU/GPU results within a stated tolerance, and what conservation residual is acceptable per (cell,layer) per day?",
+    "Under what plant density and root-radius/cell-size ratios does E (plant\u2013cell\u2013layer entries) rather than N\u00b7L drive memory and refresh cost, and how often does geometry actually change?",
+    "Should individual growth be WUE/carbon-based (GRASSMIND, TROLL, Holdo) or biomass-ratio-based (STEPWAT2) when individuals have explicit footprints, and how do recruitment and mortality thresholds change accordingly?"
+  ]
+}

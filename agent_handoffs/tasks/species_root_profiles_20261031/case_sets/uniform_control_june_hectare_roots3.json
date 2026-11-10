@@ -1,0 +1,30 @@
+[
+  {
+    "name": "uniform_control_june_hectare_roots3",
+    "nx": 400,
+    "ny": 400,
+    "dx": 0.25,
+    "grass_count": 35764,
+    "shrub_count": 541,
+    "grass_diameter": 0.15,
+    "shrub_diameter": 2.0,
+    "root_multiplier": 3,
+    "pattern": "uniform",
+    "seed": 20261030,
+    "layers": 3,
+    "max_edges": 10000000,
+    "max_bytes": 1500000000,
+    "root_layer_fractions": {
+      "grass": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "shrub": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ]
+    }
+  }
+]

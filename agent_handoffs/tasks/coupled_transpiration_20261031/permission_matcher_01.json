@@ -1,0 +1,9 @@
+{
+  "at_utc": "2026-10-31T19:04:12.560078+00:00",
+  "classification": "tool_error",
+  "reason": "Claude ordinary scoped Edit/Write path matcher denied intended candidate paths; originals unchanged.",
+  "literal_prefix": "Permission to use Edit has been denied because Claude Code is running in don't ask mode.",
+  "signal": "SIGTERM",
+  "identity_checked": true,
+  "next_action": "Correct the absolute-path matching syntax, preserve exact scope and resume same session."
+}

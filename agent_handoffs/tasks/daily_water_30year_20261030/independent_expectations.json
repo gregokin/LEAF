@@ -1,0 +1,80 @@
+[
+  {
+    "case": "june_hectare_3layers_roots3",
+    "domain_area_m2": 10000.0,
+    "plants": 36305,
+    "days": 10950,
+    "growth_updates": 1564,
+    "pending_days": 2,
+    "maps": 1565,
+    "recharge_pulses": 783,
+    "initial_water_m3": 750.0,
+    "recharge_input_m3": 78300.0,
+    "total_storage_capacity_m3": 1500.0
+  },
+  {
+    "case": "june_hectare_3layers_roots5",
+    "domain_area_m2": 10000.0,
+    "plants": 36305,
+    "days": 10950,
+    "growth_updates": 1564,
+    "pending_days": 2,
+    "maps": 1565,
+    "recharge_pulses": 783,
+    "initial_water_m3": 750.0,
+    "recharge_input_m3": 78300.0,
+    "total_storage_capacity_m3": 1500.0
+  },
+  {
+    "case": "june_hectare_2layers_roots5",
+    "domain_area_m2": 10000.0,
+    "plants": 36305,
+    "days": 10950,
+    "growth_updates": 1564,
+    "pending_days": 2,
+    "maps": 1565,
+    "recharge_pulses": 783,
+    "initial_water_m3": 750.0,
+    "recharge_input_m3": 78300.0,
+    "total_storage_capacity_m3": 1500.0
+  },
+  {
+    "case": "june_512_3layers_roots5",
+    "domain_area_m2": 16384.0,
+    "plants": 59483,
+    "days": 10950,
+    "growth_updates": 1564,
+    "pending_days": 2,
+    "maps": 1565,
+    "recharge_pulses": 783,
+    "initial_water_m3": 1228.8,
+    "recharge_input_m3": 128286.72,
+    "total_storage_capacity_m3": 2457.6
+  },
+  {
+    "case": "grass_bound_hectare_3layers_roots3",
+    "domain_area_m2": 10000.0,
+    "plants": 547588,
+    "days": 10950,
+    "growth_updates": 1564,
+    "pending_days": 2,
+    "maps": 1565,
+    "recharge_pulses": 783,
+    "initial_water_m3": 750.0,
+    "recharge_input_m3": 78300.0,
+    "total_storage_capacity_m3": 1500.0
+  },
+  {
+    "case": "grass_bound_hectare_3layers_roots5",
+    "domain_area_m2": 10000.0,
+    "plants": 547588,
+    "days": 10950,
+    "growth_updates": 1564,
+    "pending_days": 2,
+    "maps": 1565,
+    "recharge_pulses": 783,
+    "initial_water_m3": 750.0,
+    "recharge_input_m3": 78300.0,
+    "total_storage_capacity_m3": 1500.0
+  }
+]

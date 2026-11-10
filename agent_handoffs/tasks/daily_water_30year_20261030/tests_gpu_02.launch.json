@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 2072769,
+  "proc_stat_at_launch": "2072769 (python) R 2072768 2072769 2072769 0 -1 4194304 13 0 0 0 0 0 0 0 20 0 1 0 87553627 8450048 0 18446744073709551615 4325376 7352253 140726275271024 0 0 0 0 0 0 0 0 0 17 4 0 0 0 0 0 10653128 12216448 232882176 140726275280033 140726275280105 140726275280105 140726275284945 0\n",
+  "start_ticks": "87553627",
+  "started_at_utc": "2026-10-30T23:49:04.570558+00:00",
+  "timeout_seconds": 120.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/benchmarks/daily_water_growth.py": "650b197b92acbd8bc6f741f8feac9dd3a3f5dade2d9f58ceae5f10db82e81c8f",
+    "/home/okin/leaf/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+  },
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/benchmarks/results/daily_water_30year_20261030/numba-cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/benchmarks/results/daily_water_30year_20261030/cupy-cache",
+    "CUDA_CACHE_PATH": "/home/okin/leaf/benchmarks/results/daily_water_30year_20261030/cuda-cache",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  }
+}

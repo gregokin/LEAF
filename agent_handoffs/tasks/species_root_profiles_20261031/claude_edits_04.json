@@ -1,0 +1,26 @@
+{
+  "edits": [
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "Status: independently reviewed and executed by the project orchestrator (unit suites including the\nexecuted CPU/GPU parity check, and complete 30-year runs with conservation and calendar checks).\nEvidence, pool-budget measurement policy and measured results: `../docs/daily-water-30year.md`.\nThe author of this module did not execute it; nothing here reports timing values.",
+      "new": "Status: the author of this module did not execute it; nothing here reports timing values. Independent\nverification and measurements are recorded by the project orchestrator: the current species-root-profile\nversion (0.2.0) is covered by the follow-up `../docs/species-root-profiles.md`; the historical 0.1.0\nequal-layer results (unit suites, CPU/GPU parity, complete 30-year runs with conservation and calendar\nchecks) are in `../docs/daily-water-30year.md`."
+    },
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "`scratch_allowance`, `default_root_layer_fractions(L)`, `validate_root_layer_fractions(mapping, L)`,\n`resolve_root_profiles(case)`.",
+      "new": "`scratch_allowance`, `default_root_layer_fractions(L)`, `validate_root_layer_fractions(mapping, L)`,\n`resolve_root_profile_names(case)`, `build_root_profile_table(case, names)`, `check_profile_ids(ids, P, S)`."
+    },
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "arrays listed in the ledger; the sampled pool numbers are reservations, not live state. The\npool-budget measurement policy and measured results are in `../docs/daily-water-30year.md`.",
+      "new": "arrays listed in the ledger; the sampled pool numbers are reservations, not live state. The\npool-budget measurement policy and measured results for the current version are in\n`../docs/species-root-profiles.md`; the historical 0.1.0 equal-layer results remain in\n`../docs/daily-water-30year.md`."
+    },
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "- Admission peaks are ledger estimates (state + old/new graph + scratch allowance + mirrors), not\n  observed allocator peaks; measured peaks come from the independent profiler in the linked report.",
+      "new": "- Admission peaks are ledger estimates (state + old/new graph + scratch allowance + mirrors), not\n  observed allocator peaks; measured peaks come from the independent profiler in the linked reports\n  (`../docs/species-root-profiles.md` for the current version, `../docs/daily-water-30year.md` for 0.1.0)."
+    }
+  ],
+  "report": "Documentation-only: corrected the API list to the actual revision-2 function names (resolve_root_profile_names, build_root_profile_table, check_profile_ids), replaced the opening status paragraph with a neutral statement (author did not execute; orchestrator records verification, current follow-up at ../docs/species-root-profiles.md, historical 0.1.0 results at ../docs/daily-water-30year.md), and pointed the pool-budget and profiler references to the current follow-up while preserving the historical link. No rules, formulas, examples, code or tests changed.",
+  "known_limitations": "The follow-up document path is referenced as given; its content/completion is not asserted here. The Tests section sentence listing test names was left unchanged."
+}

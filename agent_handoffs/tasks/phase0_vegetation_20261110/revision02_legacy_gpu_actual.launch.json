@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-X",
+    "faulthandler",
+    "-c",
+    "import faulthandler,unittest; faulthandler.dump_traceback_later(60,exit=True); unittest.main(module=None,argv=[\"unittest\",\"discover\",\"-s\",\"/home/okin/leaf/tests\",\"-v\"])"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/revision_02",
+  "pid": 2498404,
+  "start_ticks": "178444570",
+  "started_at_utc": "2026-11-10T12:17:33.998535+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/revision_02:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-phase0-cupy",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": "1"
+  }
+}

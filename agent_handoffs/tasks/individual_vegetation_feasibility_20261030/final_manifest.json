@@ -1,0 +1,198 @@
+{
+  "at_utc": "2026-10-30T13:06:58.868349+00:00",
+  "scope": "Completed assessment authored docs, preserved guidance and this task evidence; manifest excludes itself. Task evidence append-only after closeout.",
+  "files": {
+    "AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "claude.md": {
+      "size_bytes": 2731,
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714"
+    },
+    "CLAUDE.md": {
+      "size_bytes": 374,
+      "sha256": "5ccf4233963ba0515e0872c2b441c046905e516905ce947ac1982936619e1eb4"
+    },
+    "README.md": {
+      "size_bytes": 1771,
+      "sha256": "b24b13a148ef73f442aecfb927ec12f1d1eb428b85007042eef2b894ec0071db"
+    },
+    "agent_handoffs/claude_report.md": {
+      "size_bytes": 1455,
+      "sha256": "eaa46165c4813911e41edcb925f661327d36ee86bc113672bc70ee42794de7f0"
+    },
+    "agent_handoffs/codex_review.md": {
+      "size_bytes": 1538,
+      "sha256": "faa1ad6308dea8930384e5244585d43e5c5b43f4b39615021a9acdeb5aafbe7a"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "size_bytes": 681,
+      "sha256": "9cefe33859939da0418774ef8485a1844bb1db2a077baebb4e15eb7ab487a576"
+    },
+    "agent_handoffs/decisions.md": {
+      "size_bytes": 4305,
+      "sha256": "8b4d77febac68efcf49af737e6039e526f78c7d793e7538f81333f785be08108"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "size_bytes": 1427,
+      "sha256": "9e03ad3afd9f6078d20d00faa66c91bc6c184f21d97310ebde2d234da0b6934c"
+    },
+    "agent_handoffs/project_brief.md": {
+      "size_bytes": 7652,
+      "sha256": "fb85a7510c8f74145d33fef0cae5ec04e1fccb71819c36a6c9c80128d9c25720"
+    },
+    "agent_handoffs/upstreams.md": {
+      "size_bytes": 4021,
+      "sha256": "73e1cb443db989263175499943f06c45636276b076e15a6bdb8bd9f147d97c47"
+    },
+    "agent_handoffs/verification.md": {
+      "size_bytes": 3463,
+      "sha256": "ea362e458eb5ecac13fb0346a157a2ca2c93b58db02081603e54d35e8d9de4e0"
+    },
+    "docs/individual-vegetation-feasibility.md": {
+      "size_bytes": 28289,
+      "sha256": "f725a104458d00bd18b765d595829d41e191611de26dd326dc83c9a2c69ede77"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/codex_review_public_02.md": {
+      "size_bytes": 2510,
+      "sha256": "e59c197be0e46b11ea6581a11091012f764e0851c1aae4a5227d05bb143d49ea"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/closeout.md": {
+      "size_bytes": 2954,
+      "sha256": "47b26549b555e28fa78aca91e7c34d7f360dbb29c0ad204139819a33ffc97b63"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/archived_source_verification.json": {
+      "size_bytes": 2767,
+      "sha256": "5072f47603e4ed477ad8d50e660d37a76ac135dbd96ee602247f6e09fc80e1ea"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/baseline.json": {
+      "size_bytes": 2554,
+      "sha256": "a510309f71b0be008e00370dbca34c0b82cbe6cd4c05cef2903c75d607b4a7a7"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_execution_verification.json": {
+      "size_bytes": 1499,
+      "sha256": "8b46d9842a24ed1197ca626bc6f34a39f235bcf866426e8a97616f25747a540f"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_help.txt": {
+      "size_bytes": 22344,
+      "sha256": "13dd71866e4b6fde1a11de6fa26bd4f5866308794307ff0fb37804c03db8e0b2"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_01.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_01.stdout.jsonl": {
+      "size_bytes": 786643,
+      "sha256": "3ea4db6cdbe6340c567e97f0137e05ab8e2613e18bbbbed5b3dd94b5404a24d2"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_02.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_02.stdout.jsonl": {
+      "size_bytes": 62828,
+      "sha256": "16b75d11317f0a94fd9b2786f077e4be77b6763dcbfcbd9c1a3e3f6366f42c86"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_corrected.json": {
+      "size_bytes": 25932,
+      "sha256": "3ba1f6e1833c7ba7f03d4d65aef5f683a06f9dbe228b7e96707dc47eb1307108"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_prompt_01.txt": {
+      "size_bytes": 4171,
+      "sha256": "c50e9beb36ac59be08a10e02deafa3162e859dabe0bf25678e8d44cb98760c66"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_prompt_02_correction.txt": {
+      "size_bytes": 4687,
+      "sha256": "d434c93f371556413edf313485cf9e3640cdd4681b1f6ba05433343f6eb8d2f5"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_report.md": {
+      "size_bytes": 16900,
+      "sha256": "90fab2c4cf715bd44a905e8e19e1045e9e364d5ebe38e98208ffb2cd29790143"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_report_02.md": {
+      "size_bytes": 13602,
+      "sha256": "c2baaae180da3ee0174a062aad7e6e52eea6775993275aa8cf0ca2fd3f9ce74b"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_result.json": {
+      "size_bytes": 31244,
+      "sha256": "2c7bc6554c38ac4ca9a3550a94336f44feffa0d00959984edec8826eea4d05e9"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_sources.json": {
+      "size_bytes": 13950,
+      "sha256": "7627aab51f42fdb216d2c2c8a3dff513c88f61f934f203a5d0892a11f607aae1"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_version.txt": {
+      "size_bytes": 22,
+      "sha256": "137c91ab68b8a7a011de6f45c0bdbb962abd1fa261daafa7f7fe4dbac82ba604"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/codex_review_public_01.md": {
+      "size_bytes": 1123,
+      "sha256": "08e244aa0fc78a06f44e45d2f4cbe657aa64f6ad998d5b0f29a5e9904f96c138"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/codex_scope.md": {
+      "size_bytes": 4104,
+      "sha256": "942266c020b8c5f5fccfdf61f50f03657ca1df7a723a126ab1765f00ad3e8795"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/dependency_environment_metadata.json": {
+      "size_bytes": 49964,
+      "sha256": "edf7c3ef42814d3dbb8b1babea1c9f5d85edd9d0cd8b1e0cce7e61ebe44f8cf1"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/exit_public_01.json": {
+      "size_bytes": 209,
+      "sha256": "91d961b85d3a4c7a4126976d5f621090bdb07210c7e9c1e85d10e6c32c0792d8"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/exit_public_02.json": {
+      "size_bytes": 211,
+      "sha256": "11438f4d32c487db3b989e1b59a905c18360bbd149bdce3b732d0edb9c43b00d"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/final_acceptance.json": {
+      "size_bytes": 2649,
+      "sha256": "d5a8fef57d2eb934a9f37e28758cd6cca3dd0953e6f7385279afce93c97166b0"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/gpu_metadata.json": {
+      "size_bytes": 688,
+      "sha256": "9108dce407ada7ed062b9c8d632991866eede20f0a0a9755c2becdefead6bc1b"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/launch_public_01.json": {
+      "size_bytes": 1749,
+      "sha256": "996bc75eec09d37ae3c51726187139ffc3e04fba06a7fee88e78b1cd927fa10b"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/launch_public_02.json": {
+      "size_bytes": 1499,
+      "sha256": "2a07026065589069e969b030ebb6e190f3688616f1c68f68c6be16707d305af5"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/memory_estimates.json": {
+      "size_bytes": 5467,
+      "sha256": "a00eed9367f389341ee6ce7040ad2599078d04708a1f840947b5631d0876694d"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/previous_claude_report.md": {
+      "size_bytes": 1339,
+      "sha256": "91d9e1692d8dbbf76126d2f3f64d48e0dd585289f1eba35b5175a84e7f30bcd8"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/previous_codex_review.md": {
+      "size_bytes": 1788,
+      "sha256": "6154aae60ef129ca22444ef735449367b831b3cb00360ae078b37560c9d984cb"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/previous_verification.md": {
+      "size_bytes": 2153,
+      "sha256": "c206ae07680faa64bf58f427160eb115487fc138af01e8b5c6946804c1a6a786"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/source_provenance_after.json": {
+      "size_bytes": 1567451,
+      "sha256": "11b7bad64471faa0fe51f5851b60d415cf6e4cf3ff591b72ced6a4664a80347f"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/source_provenance_before.json": {
+      "size_bytes": 1567735,
+      "sha256": "2f0dc3613ecff5d2ab158b4c2b95ffb62bd33cd86e7fa9badaef27bf5ea944eb"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/target_scale.md": {
+      "size_bytes": 573,
+      "sha256": "2a9c89b216696ea0e8a1cd699d989abefe739413749d4c7604025205e1d6372f"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/upstream_preservation.json": {
+      "size_bytes": 745,
+      "sha256": "e1db4bb7ebd5cf7caee467f6536a7ccc6d22ad07fe14339c3c40cdb5cb787f61"
+    }
+  }
+}

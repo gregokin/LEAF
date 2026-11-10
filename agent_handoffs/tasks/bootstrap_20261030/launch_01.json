@@ -1,0 +1,38 @@
+{
+  "started_at_utc": "2026-10-30T09:58:50.828005+00:00",
+  "cwd": "/home/okin/leaf",
+  "argv": [
+    "claude",
+    "--print",
+    "--output-format",
+    "json",
+    "--session-id",
+    "bd128122-927d-441e-824b-6a7fe77502c2",
+    "--tools",
+    "Read,Glob,Grep,Write,Edit",
+    "--allowedTools",
+    "Read,Glob,Grep,Write,Edit",
+    "--permission-mode",
+    "dontAsk",
+    "--permission-prompts",
+    "none",
+    "--strict-mcp-config"
+  ],
+  "session_id": "bd128122-927d-441e-824b-6a7fe77502c2",
+  "pid": 13,
+  "proc_stat_at_launch": "13 (claude) R 3 13 13 0 -1 4194304 20 0 0 0 0 0 0 0 20 0 1 0 82572252 242036736 86 18446744073709551615 26388480 89069872 140720566790080 0 0 0 0 0 0 0 0 0 17 8 0 0 0 0 0 89073968 243716096 783060992 140720566795707 140720566795940 140720566795940 140720566800347 0\n",
+  "prompt": "agent_handoffs/tasks/bootstrap_20261030/prompt_01.md",
+  "prompt_sha256": "cdaaaff888f299872ae9b21731b2b7f0a069c2b33594c96aa0e7ceef8085d088",
+  "tools": [
+    "Read",
+    "Glob",
+    "Grep",
+    "Write",
+    "Edit"
+  ],
+  "permission_mode": "dontAsk",
+  "permission_bypass": false,
+  "stdout": "agent_handoffs/tasks/bootstrap_20261030/claude_01.stdout.json",
+  "stderr": "agent_handoffs/tasks/bootstrap_20261030/claude_01.stderr.log",
+  "timeout_seconds": 480
+}

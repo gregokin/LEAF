@@ -1,0 +1,188 @@
+{
+  "pass": true,
+  "cases": [
+    {
+      "grid": [
+        128,
+        128
+      ],
+      "dx_m": 0.25,
+      "overlap": "allowed",
+      "plants": 3243,
+      "generation_wall_seconds": 0.1003871951252222,
+      "plant_array_bytes": 201066,
+      "cover_measurement": {
+        "method": "midpoint_raster_union",
+        "subsamples": 4,
+        "raster_shape": [
+          512,
+          512
+        ],
+        "resolution_m": [
+          0.0625,
+          0.0625
+        ],
+        "raster_cells": 262144,
+        "raster_bytes": 524288,
+        "working_bytes": 1048576,
+        "rows_per_chunk": 224,
+        "index_bytes": 51888,
+        "error_basis": "midpoint sampling at resolution dx/s: each circle boundary is resolved to about one raster cell, relative error per circle ~ resolution / radius; sampled, not analytic",
+        "definition": "per-group projected union ground cover clipped to the finite non-periodic domain (same-group overlap counted once; cross-group overlap counted in each group); nominal = sum of unclipped crown areas / domain area",
+        "boundary_note": "finite closed non-periodic domain: canopies are clipped at the domain edge for cover and never wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster interpretation would change both cover and overlap and must be requalified by the adapter, not assumed equal"
+      },
+      "species": [
+        {
+          "species": "BOER",
+          "count": 3227,
+          "target": 0.06,
+          "reported_union": 0.058441162109375,
+          "independent_union": {
+            "fraction": 0.059272,
+            "standard_error": 0.00047226615384124237,
+            "samples": 250000,
+            "seed": 9123,
+            "method": "independent uniform probes and SciPy cKDTree"
+          }
+        },
+        {
+          "species": "PROS",
+          "count": 16,
+          "target": 0.05,
+          "reported_union": 0.054141998291015625,
+          "independent_union": {
+            "fraction": 0.054288,
+            "standard_error": 0.0004531702243351829,
+            "samples": 250000,
+            "seed": 9124,
+            "method": "independent uniform probes and SciPy cKDTree"
+          }
+        }
+      ],
+      "minimum_nonoverlap_clearance_m": null,
+      "peak_process_rss_kib": 81380
+    },
+    {
+      "grid": [
+        128,
+        128
+      ],
+      "dx_m": 0.25,
+      "overlap": "disallowed",
+      "plants": 3145,
+      "generation_wall_seconds": 0.16936086397618055,
+      "plant_array_bytes": 194990,
+      "cover_measurement": {
+        "method": "midpoint_raster_union",
+        "subsamples": 4,
+        "raster_shape": [
+          512,
+          512
+        ],
+        "resolution_m": [
+          0.0625,
+          0.0625
+        ],
+        "raster_cells": 262144,
+        "raster_bytes": 524288,
+        "working_bytes": 1048576,
+        "rows_per_chunk": 224,
+        "index_bytes": 50320,
+        "error_basis": "midpoint sampling at resolution dx/s: each circle boundary is resolved to about one raster cell, relative error per circle ~ resolution / radius; sampled, not analytic",
+        "definition": "per-group projected union ground cover clipped to the finite non-periodic domain (same-group overlap counted once; cross-group overlap counted in each group); nominal = sum of unclipped crown areas / domain area",
+        "boundary_note": "finite closed non-periodic domain: canopies are clipped at the domain edge for cover and never wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster interpretation would change both cover and overlap and must be requalified by the adapter, not assumed equal"
+      },
+      "species": [
+        {
+          "species": "BOER",
+          "count": 3129,
+          "target": 0.06,
+          "reported_union": 0.060546875,
+          "independent_union": {
+            "fraction": 0.060384,
+            "standard_error": 0.00047639383935563234,
+            "samples": 250000,
+            "seed": 9123,
+            "method": "independent uniform probes and SciPy cKDTree"
+          }
+        },
+        {
+          "species": "PROS",
+          "count": 16,
+          "target": 0.05,
+          "reported_union": 0.052043914794921875,
+          "independent_union": {
+            "fraction": 0.051396,
+            "standard_error": 0.00044160820274990364,
+            "samples": 250000,
+            "seed": 9124,
+            "method": "independent uniform probes and SciPy cKDTree"
+          }
+        }
+      ],
+      "minimum_nonoverlap_clearance_m": 0.0002958225964434513,
+      "peak_process_rss_kib": 81456
+    },
+    {
+      "grid": [
+        512,
+        512
+      ],
+      "dx_m": 0.25,
+      "overlap": "allowed",
+      "plants": 51893,
+      "generation_wall_seconds": 1.6349848120007664,
+      "plant_array_bytes": 3217366,
+      "cover_measurement": {
+        "method": "midpoint_raster_union",
+        "subsamples": 4,
+        "raster_shape": [
+          2048,
+          2048
+        ],
+        "resolution_m": [
+          0.0625,
+          0.0625
+        ],
+        "raster_cells": 4194304,
+        "raster_bytes": 8388608,
+        "working_bytes": 1042432,
+        "rows_per_chunk": 53,
+        "index_bytes": 830288,
+        "error_basis": "midpoint sampling at resolution dx/s: each circle boundary is resolved to about one raster cell, relative error per circle ~ resolution / radius; sampled, not analytic",
+        "definition": "per-group projected union ground cover clipped to the finite non-periodic domain (same-group overlap counted once; cross-group overlap counted in each group); nominal = sum of unclipped crown areas / domain area",
+        "boundary_note": "finite closed non-periodic domain: canopies are clipped at the domain edge for cover and never wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster interpretation would change both cover and overlap and must be requalified by the adapter, not assumed equal"
+      },
+      "species": [
+        {
+          "species": "BOER",
+          "count": 51631,
+          "target": 0.06,
+          "reported_union": 0.06002688407897949,
+          "independent_union": {
+            "fraction": 0.05908,
+            "standard_error": 0.0006087668059281813,
+            "samples": 150000,
+            "seed": 9123,
+            "method": "independent uniform probes and SciPy cKDTree"
+          }
+        },
+        {
+          "species": "PROS",
+          "count": 262,
+          "target": 0.05,
+          "reported_union": 0.04984235763549805,
+          "independent_union": {
+            "fraction": 0.05004,
+            "standard_error": 0.0005629446296040136,
+            "samples": 150000,
+            "seed": 9124,
+            "method": "independent uniform probes and SciPy cKDTree"
+          }
+        }
+      ],
+      "minimum_nonoverlap_clearance_m": null,
+      "peak_process_rss_kib": 89584
+    }
+  ]
+}

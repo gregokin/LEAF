@@ -1,0 +1,65 @@
+[
+  {
+    "name": "dataone_harvest",
+    "url": "https://cn.dataone.org/cn/v2/query/solr/?q=title%3A%22Seasonal+reference+harvest+measurements%22&fl=id%2Ctitle%2CbeginDate%2CendDate%2CdatePublished%2CreplicaMN%2Csize%2CformatId%2CseriesId%2CobsoletedBy&wt=json&rows=8",
+    "retrieved_utc": "2026-10-31T22:55:01.940799+00:00",
+    "status": 200,
+    "bytes": 2765,
+    "sha256": "4555542488b7fd09e6954f2a7aa13b628491cb6c7ef1f93fb4e53abaa7a37d49",
+    "file": "dataone_harvest.json"
+  },
+  {
+    "name": "dataone_soil_water",
+    "url": "https://cn.dataone.org/cn/v2/query/solr/?q=title%3A%22Soil+volumetric+water+content+calculated+from+neutron%22&fl=id%2Ctitle%2CbeginDate%2CendDate%2CdatePublished%2CreplicaMN%2Csize%2CformatId%2CseriesId%2CobsoletedBy&wt=json&rows=8",
+    "retrieved_utc": "2026-10-31T22:55:01.941386+00:00",
+    "status": 200,
+    "bytes": 2624,
+    "sha256": "ca26417a9ca6e9177f141a16058d2ff48ef2ea4944aa3e2b7e3615603ddde1ae",
+    "file": "dataone_soil_water.json"
+  },
+  {
+    "name": "dataone_rain_experiment",
+    "url": "https://cn.dataone.org/cn/v2/query/solr/?q=title%3A%22Aboveground+vegetation+cover+and+biomass%22+AND+title%3A%22altered+precipitation%22&fl=id%2Ctitle%2CbeginDate%2CendDate%2CdatePublished%2CreplicaMN%2Csize%2CformatId%2CseriesId%2CobsoletedBy&wt=json&rows=8",
+    "retrieved_utc": "2026-10-31T22:55:01.941892+00:00",
+    "status": 200,
+    "bytes": 485,
+    "sha256": "925bf2ac63f9231ce2095a91828760fd7e25dd5156deaf08935ce44cc61e57a0",
+    "file": "dataone_rain_experiment.json"
+  },
+  {
+    "name": "neon_site_jorn",
+    "url": "https://data.neonscience.org/api/v0/sites/JORN",
+    "retrieved_utc": "2026-10-31T22:55:01.942374+00:00",
+    "status": 200,
+    "bytes": 326244,
+    "sha256": "c7bb28ea5c5beaa1b3ca86d5ff2ee86ec1a2d1d60ee84b97b7f16828636ad3dd",
+    "file": "neon_site_jorn.json"
+  },
+  {
+    "name": "neon_herbaceous",
+    "url": "https://data.neonscience.org/api/v0/products/DP1.10023.001",
+    "retrieved_utc": "2026-10-31T22:55:02.363395+00:00",
+    "status": 200,
+    "bytes": 133754,
+    "sha256": "7ba0505936944875d52574cf87b47881822a046e0d88a510e09e88ac2af2d168",
+    "file": "neon_herbaceous.json"
+  },
+  {
+    "name": "neon_woody",
+    "url": "https://data.neonscience.org/api/v0/products/DP1.10098.001",
+    "retrieved_utc": "2026-10-31T22:55:02.370491+00:00",
+    "status": 200,
+    "bytes": 159426,
+    "sha256": "58b6e210f3b53aa1f1d87192ab4355d9d12b1981684675bf5bef1709381055f8",
+    "file": "neon_woody.json"
+  },
+  {
+    "name": "neon_soil_water",
+    "url": "https://data.neonscience.org/api/v0/products/DP1.00094.001",
+    "retrieved_utc": "2026-10-31T22:55:02.419118+00:00",
+    "status": 200,
+    "bytes": 527107,
+    "sha256": "db75bababa7ec733803846203e860f24476eab57ac251312de93a35aac2b4a97",
+    "file": "neon_soil_water.json"
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/profile_daily_bounded.py",
+    "--cases-json",
+    "/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/case_sets/uniform_control_june_hectare_roots3.json",
+    "--output",
+    "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/gpu_uniform_control_june_hectare_roots3_weighted.json",
+    "--backend",
+    "gpu",
+    "--years",
+    "30",
+    "--report-every",
+    "365"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 2086871,
+  "proc_stat_at_launch": "2086871 (python) R 2086870 2086871 2086871 0 -1 4194304 7 0 0 0 0 0 0 0 20 0 1 0 91714337 8450048 0 18446744073709551615 4325376 7352253 140734123330352 0 0 0 0 0 0 0 0 0 17 13 0 0 0 0 0 10653128 12216448 783814656 140734123338539 140734123338976 140734123338976 140734123343825 0\n",
+  "start_ticks": "91714337",
+  "started_at_utc": "2026-10-31T11:22:31.668479+00:00",
+  "timeout_seconds": 1800.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/benchmarks/daily_water_growth.py": "ca850088b77146af3f7c60ff7c27aa2fa7730ee89b96a7169e82f857f9aa1522",
+    "/home/okin/leaf/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/case_sets/uniform_control_june_hectare_roots3.json": "e28c8e83cc55f820cfd4e4b581518ec5a1942ae2bd83aa512e5296811ca99162"
+  },
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/numba-cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/cupy-cache",
+    "CUDA_CACHE_PATH": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/cuda-cache",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  }
+}

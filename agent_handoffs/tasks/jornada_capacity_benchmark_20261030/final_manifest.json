@@ -1,0 +1,282 @@
+{
+  "at_utc": "2026-10-30T18:27:01.481508+00:00",
+  "scope": "Completed bounded prototype, report and task evidence; excludes self and derived caches. Evidence append-only after closeout.",
+  "files": {
+    "AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "CLAUDE.md": {
+      "size_bytes": 374,
+      "sha256": "5ccf4233963ba0515e0872c2b441c046905e516905ce947ac1982936619e1eb4"
+    },
+    "claude.md": {
+      "size_bytes": 2731,
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714"
+    },
+    "benchmarks/spatial_mapping.py": {
+      "size_bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "tests/test_spatial_mapping.py": {
+      "size_bytes": 12394,
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0"
+    },
+    "benchmarks/README.md": {
+      "size_bytes": 5595,
+      "sha256": "f66f20a4d400c94776c269b0e5b0efbe5fe607157768525cdaaf468da01b912d"
+    },
+    "docs/jornada-capacity.md": {
+      "size_bytes": 12673,
+      "sha256": "448390e40ec4fe05d276c1831e72e8b6e2293fb384efe25f2ba956a403c6b0fc"
+    },
+    "benchmarks/results/jornada_20261030/profiled_results.json": {
+      "size_bytes": 155305,
+      "sha256": "857f44f24ca5210fb3ab6bd204464121dd0ad68c0b94f2dad20436563c57066c"
+    },
+    "benchmarks/results/jornada_20261030/summary.csv": {
+      "size_bytes": 3004,
+      "sha256": "50a8d2ff8144cdd550a1fcad1d3d6321ae2669b044d704ca384e27e01eb15afd"
+    },
+    "README.md": {
+      "size_bytes": 2940,
+      "sha256": "f2953cc9b9aa574b7042833201704740d72cfc9e438d9042a82a6aadfdb5fa66"
+    },
+    "agent_handoffs/claude_report.md": {
+      "size_bytes": 1216,
+      "sha256": "24ec44eec624fe0b035afb4f69b4a71daa81982923d5253b7e0e38d23274d9e6"
+    },
+    "agent_handoffs/codex_review.md": {
+      "size_bytes": 1360,
+      "sha256": "e3887d928ca3718b440f77fab4bf912c816483f4425ba6a495162caea731e92d"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "size_bytes": 651,
+      "sha256": "115608149dcce07b0cc373a03a25368e1ccbf8bc9ca9a0914d6e50a71341920c"
+    },
+    "agent_handoffs/decisions.md": {
+      "size_bytes": 5311,
+      "sha256": "063448cc11c758242d6bc03883d6d96c6889ae62d00e2fb34c86867f6b4fd40c"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "size_bytes": 1265,
+      "sha256": "1bf7b297056535fdfc42311f1d786b5f3275616e358b23e9c4285cd4ab4724b0"
+    },
+    "agent_handoffs/project_brief.md": {
+      "size_bytes": 8164,
+      "sha256": "bf3a1ee6d5cc41fe048237ac0d3c3279377188a7e5774e0bd0a1b767595a59c2"
+    },
+    "agent_handoffs/verification.md": {
+      "size_bytes": 2615,
+      "sha256": "f0a6f2d287edb75f880c3633aabf22d2d8500167b89d6b42434bd0abc51b6fa0"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/baseline.json": {
+      "size_bytes": 17442,
+      "sha256": "1f2932795c9a5c37498736ac37b9ef1f124e6694f463ff482c5f2d7fdaf0c914"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/benchmark_01.exit.json": {
+      "size_bytes": 166,
+      "sha256": "ade2802981d2b4dfe2878681f6f4e401ab3d40e0cf54548fe4bc6af5ed4ba257"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/benchmark_01.launch.json": {
+      "size_bytes": 1197,
+      "sha256": "42c66398a3421bd180cfb0852f5e49c600ef76332a6b4e3ee1370b2b038bc4cd"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/benchmark_01.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/benchmark_01.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/benchmark_cases.json": {
+      "size_bytes": 3720,
+      "sha256": "a269349c2660bb5f7f318b00d6cfcc6bff821ba0f85388880fb592e32ee129d5"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/canopy_aliasing_reference.json": {
+      "size_bytes": 3114,
+      "sha256": "8bc808f5117d47dba476af49c30c218cc6afa4a29a089a63d6d15cf6f7b8e523"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/capacity_estimates.json": {
+      "size_bytes": 178416,
+      "sha256": "2dbe1aa89d3baa82bcdd9c818b0231ebe2a2c26c10382ac7906efa7062ca2022"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_01.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_01.stdout.jsonl": {
+      "size_bytes": 287976,
+      "sha256": "b01813d6f93a3e197d99f41b6bd61f615e62e80bcb9780336d8b1b184f08e213"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_02.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_02.stdout.jsonl": {
+      "size_bytes": 92049,
+      "sha256": "ed6a90bfed5b8e3ada1a34f1274e1478299ffc8153838437e9ae8fa953c97bad"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_edits_02.json": {
+      "size_bytes": 19360,
+      "sha256": "2327670b0b2b0d8bc6dc7f0e258a8fa66e8204947b0b21af664613c98ab3c5ef"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_execution_verification.json": {
+      "size_bytes": 727,
+      "sha256": "ac4346e4b04abf050eceef08f2356618f8cce12f175349a2ab785531f269f5d2"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_generated_01.json": {
+      "size_bytes": 61417,
+      "sha256": "e15f7c15bedec3f8219d645b0a6b2b011a7e73d6f18c7e08192d4b18f7a41a06"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_help.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_help.txt": {
+      "size_bytes": 22344,
+      "sha256": "13dd71866e4b6fde1a11de6fa26bd4f5866308794307ff0fb37804c03db8e0b2"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_prompt_01.txt": {
+      "size_bytes": 5959,
+      "sha256": "bd56b9c91d57605287387595d504e5bb62a4976d37339e18c81c0baf7a0950c9"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_prompt_02.txt": {
+      "size_bytes": 3083,
+      "sha256": "98389fd92cfdaab0972866da14187ab53a154bab6a11164df134f42efe0c16b3"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_version.txt": {
+      "size_bytes": 22,
+      "sha256": "137c91ab68b8a7a011de6f45c0bdbb962abd1fa261daafa7f7fe4dbac82ba604"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/closeout.md": {
+      "size_bytes": 1211,
+      "sha256": "dfc63213caacfea50f9592dc2ffeff961141f987143a7f33773231718dc5a8c6"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/codex_scope.md": {
+      "size_bytes": 1907,
+      "sha256": "2146f4ef50846a25534761778b78ccee18e03c4f2538f7760e41142247bc6dd2"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/correction_02.diff": {
+      "size_bytes": 15517,
+      "sha256": "469152b27218bcce10901f3484573d2d6d48a9c5110437fa5cdf436fb0c81f65"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/cover_sources.json": {
+      "size_bytes": 2070,
+      "sha256": "096e5b03661ea02b6f36b3f39c26aad7a0ee4c2bd4cc72e11586888f27f7cf4d"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/draft_tests_gpu_01.exit.json": {
+      "size_bytes": 584,
+      "sha256": "be62b8b2fed8184c3818782ea5a943c8eafee5716bf499438020c85c254cfcca"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/draft_tests_gpu_01.stderr.log": {
+      "size_bytes": 1989,
+      "sha256": "a5a9cd96908a74e35245192407ca930b21fbd7db22942c3dbd9b22003f162366"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/draft_tests_gpu_01.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/exit_01.json": {
+      "size_bytes": 211,
+      "sha256": "b1843b82391da754582e195a8855b0c593d80ab2725aabe7af49d003d51d54dc"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/exit_02.json": {
+      "size_bytes": 211,
+      "sha256": "7562ad877c4cdc972f900e87634887246e60cebabed92122723f173d10685083"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/final_acceptance.json": {
+      "size_bytes": 1722,
+      "sha256": "23be8836734bbcef782e8b2418adca6a50ec2f26f02e3f8e23d723288dcff6e8"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/gpu_preflight.json": {
+      "size_bytes": 450,
+      "sha256": "5f6ce41758bb6f42ca2c2383aadcf83ca87e1eb14d9b69d09c283efadc52b5f0"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/independent_capacity_review.md": {
+      "size_bytes": 1191,
+      "sha256": "6c4dd76bedb740a83aec6df8b0f2709d921c4c5c5ba8e14ade5acd1e79da41de"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/launch_01.json": {
+      "size_bytes": 1456,
+      "sha256": "357e615390aaab259cd4ae74a610872602de2d91d5e097ac15fa39e731e5087f"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/launch_02.json": {
+      "size_bytes": 1229,
+      "sha256": "4ca17b26851da7709b2462793848744b1fc493d73ea4e21a08b21bdbd627a85e"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/maple_concurrent_status_change.json": {
+      "size_bytes": 315,
+      "sha256": "fd75ad0eef87b372236e3ea1891c6caad6b56dfd4ed5d3c6ed7a25850fd9a6a5"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/previous_claude_report.md": {
+      "size_bytes": 1455,
+      "sha256": "eaa46165c4813911e41edcb925f661327d36ee86bc113672bc70ee42794de7f0"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/previous_codex_review.md": {
+      "size_bytes": 1538,
+      "sha256": "faa1ad6308dea8930384e5244585d43e5c5b43f4b39615021a9acdeb5aafbe7a"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/previous_current_prompt.md": {
+      "size_bytes": 681,
+      "sha256": "9cefe33859939da0418774ef8485a1844bb1db2a077baebb4e15eb7ab487a576"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/previous_orchestration_state.md": {
+      "size_bytes": 1427,
+      "sha256": "9e03ad3afd9f6078d20d00faa66c91bc6c184f21d97310ebde2d234da0b6934c"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/previous_verification.md": {
+      "size_bytes": 3463,
+      "sha256": "ea362e458eb5ecac13fb0346a157a2ca2c93b58db02081603e54d35e8d9de4e0"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/profile_geometry.py": {
+      "size_bytes": 3734,
+      "sha256": "6e383362317e34a2ce39aa22194e5b5ac514230441ee1fb74cbb76a69bdfe793"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/review_adjustment_02.md": {
+      "size_bytes": 574,
+      "sha256": "05de3abfc4a240a050d274e4396df685585b0275915145d6d70b2f87377b89db"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/review_corrected_02.md": {
+      "size_bytes": 1554,
+      "sha256": "6439edacf3ef78dc80b3d83b31fa5936073dac28ab4db1fa4fe2b2079b9570b2"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/review_draft_01.md": {
+      "size_bytes": 499,
+      "sha256": "6f80e8f11b43a2d3b62ffd54cbed300a0f1cda46beca8a1e8fc0822ed4c75d50"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/runtime_identity.json": {
+      "size_bytes": 1317,
+      "sha256": "f65746eb19c952369ab3b20ddb5904b9944b61ffd7db6ea83f968d67482d6f5e"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/source_after_correction.json": {
+      "size_bytes": 374,
+      "sha256": "013e0417de672a5da14c1184cdeac55ffd54ba9a605190ff8f2547f20327aff5"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/source_provenance_after.json": {
+      "size_bytes": 1521216,
+      "sha256": "5b0b23e569d3e2c01a1b8bbc154cb45ff19905f4eb76a30e84b266ae09cd4b29"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/source_provenance_before.json": {
+      "size_bytes": 1521257,
+      "sha256": "ba4cddfc94beeffc478de53c394bd0e920c64c7fc2b9d9d68c4606560effdc8b"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/tests_02.exit.json": {
+      "size_bytes": 457,
+      "sha256": "6b4c4a576ffd27cc0b2baac626fd523131a04e05a752b29a247f645879daf87f"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/tests_02.stderr.log": {
+      "size_bytes": 2660,
+      "sha256": "94286b5650cdea4f45a987258e8884711b25d4c26fabc5265b55de1b611ed9b5"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/tests_02.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/upstream_preservation.json": {
+      "size_bytes": 400,
+      "sha256": "9f902e1785ac0f4619e295f40f60eda720bd3710d9935c09353f3faef36aa01e"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":14,
+    "params":{
+      "q":"title:\"Plant Cover at Permanent Quad\" AND -obsoletedBy:*",
+      "fl":"id,title,beginDate,endDate,datePublished,formatId",
+      "rows":"25",
+      "wt":"json"
+    }
+  },
+  "response":{
+    "numFound":1,
+    "start":0,
+    "maxScore":13.607401,
+    "numFoundExact":true,
+    "docs":[{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210351001/49",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "title":"Plant Cover at Permanent Quad Locations on the Jornada Experimental Range, 1915-ongoing",
+      "beginDate":"1915-06-04T00:00:00Z",
+      "endDate":"2016-12-15T00:00:00Z",
+      "datePublished":"2020-02-09T00:00:00Z"
+    }]
+  }
+}

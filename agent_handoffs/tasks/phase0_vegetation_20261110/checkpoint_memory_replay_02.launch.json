@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/cover_memory_replay_oracles.py"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/checkpoint_02",
+  "pid": 8,
+  "start_ticks": "178399084",
+  "started_at_utc": "2026-11-10T12:09:59.140105+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/checkpoint_02:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

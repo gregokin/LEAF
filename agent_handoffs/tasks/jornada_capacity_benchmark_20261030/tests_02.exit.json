@@ -1,0 +1,17 @@
+{
+  "started_at_utc": "2026-10-30T18:16:19.020244+00:00",
+  "finished_at_utc": "2026-10-30T18:16:24.303584+00:00",
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 5.283334785955958,
+  "source_sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+  "gpu_uuid": "GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871"
+}

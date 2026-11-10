@@ -1,0 +1,13 @@
+{
+  "recorded_at_utc": "2026-10-30T09:58:20.602199+00:00",
+  "workspace": "/home/okin/leaf",
+  "git_baseline": null,
+  "git_status": "No usable Git metadata; do not initialize Git for setup.",
+  "files": {
+    "AGENTS.md": {
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+      "size_bytes": 2353
+    }
+  },
+  "note": "Baseline before bootstrap implementation; hidden reserved directories contain no project source."
+}

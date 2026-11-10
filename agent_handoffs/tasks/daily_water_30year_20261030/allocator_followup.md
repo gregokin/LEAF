@@ -1,0 +1,5 @@
+# Allocator follow-up
+
+The first completed full runs satisfy live-array admission but reserve more cached CuPy memory than the 1.5 billion-byte array/scratch budget: approximately 3.16 GB for roots3 and 8.04 GB for roots5. Preserve those reference runs and raw evidence. The independent measurement wrapper now has a separate bounded variant, applying the existing case max_bytes unchanged through CuPy MemoryPool.set_limit. This changes cache retention, not numerical rules or state. No array, individual, pending uptake or connection is discarded. Run the same six full 30-year GPU cases in fresh processes after the default suite finishes, and compare raw budgets, populations, final graph and biomass/water totals. CPU reference source remains unchanged.
+
+The pool limit excludes CUDA context and other allocators; report actual observed live peak and sampled reserved peak, plus host RSS. Do not claim the total process device footprint is equal to the pool limit. No source-code change to the benchmark or upstream projects.

@@ -1,0 +1,168 @@
+{
+  "checked_at_utc": "2026-10-31T00:11:36.928289+00:00",
+  "root_agents_preserved": true,
+  "allowed_changed_baseline_paths": [
+    "README.md",
+    "agent_handoffs/orchestration_state.md",
+    "agent_handoffs/current_prompt.md"
+  ],
+  "preserved_baseline_paths": [
+    "CLAUDE.md",
+    "claude.md",
+    "AGENTS.md",
+    "benchmarks/spatial_mapping.py",
+    "benchmarks/README.md",
+    "tests/test_spatial_mapping.py",
+    "agent_handoffs/verification.md",
+    "agent_handoffs/project_brief.md",
+    "agent_handoffs/decisions.md",
+    "agent_handoffs/codex_review.md",
+    "agent_handoffs/claude_report.md",
+    "agent_handoffs/README.md",
+    "agent_handoffs/upstreams.md",
+    "agent_handoffs/AGENTS.md"
+  ],
+  "live_matching_recorded_processes": [],
+  "process_identity_checks": [
+    {
+      "launch": "calibration_cpu_02.launch.json",
+      "pid": 3,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "calibration_gpu_02.launch.json",
+      "pid": 2072917,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "cpu_june_hectare_3layers_roots3_final.launch.json",
+      "pid": 4,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "cpu_june_hectare_3layers_roots5_final.launch.json",
+      "pid": 8,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_grass_bound_hectare_3layers_roots3_bounded.launch.json",
+      "pid": 2074084,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_grass_bound_hectare_3layers_roots3_final.launch.json",
+      "pid": 2073739,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_grass_bound_hectare_3layers_roots5_bounded.launch.json",
+      "pid": 2074122,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_grass_bound_hectare_3layers_roots5_final.launch.json",
+      "pid": 2073766,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_june_512_3layers_roots5_bounded.launch.json",
+      "pid": 2074042,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_june_512_3layers_roots5_final.launch.json",
+      "pid": 2073553,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_june_hectare_2layers_roots5_bounded.launch.json",
+      "pid": 2074014,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_june_hectare_2layers_roots5_final.launch.json",
+      "pid": 2073521,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_june_hectare_3layers_roots3_bounded.launch.json",
+      "pid": 2073918,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_june_hectare_3layers_roots3_final.launch.json",
+      "pid": 2073396,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_june_hectare_3layers_roots5_bounded.launch.json",
+      "pid": 2073963,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "gpu_june_hectare_3layers_roots5_final.launch.json",
+      "pid": 2073419,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "launch_01.json",
+      "pid": 2071324,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "launch_02.json",
+      "pid": 2072369,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "launch_03.json",
+      "pid": 2072850,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "launch_04.json",
+      "pid": 2073175,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "launch_05.json",
+      "pid": 2073833,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "result_checks_final.launch.json",
+      "pid": 3,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "tests_cpu_02.launch.json",
+      "pid": 3,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "tests_cpu_03.launch.json",
+      "pid": 3,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "tests_cpu_final.launch.json",
+      "pid": 3,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "tests_gpu_02.launch.json",
+      "pid": 2072769,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "tests_gpu_03.launch.json",
+      "pid": 2073145,
+      "same_start_identity_still_active": false
+    },
+    {
+      "launch": "tests_gpu_final.launch.json",
+      "pid": 2073356,
+      "same_start_identity_still_active": false
+    }
+  ]
+}

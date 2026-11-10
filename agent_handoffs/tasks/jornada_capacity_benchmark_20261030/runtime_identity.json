@@ -1,0 +1,33 @@
+{
+  "at_utc": "2026-10-30T18:23:03.667221+00:00",
+  "interpreter": "/home/okin/MAPLE/.venv-cupy/bin/python",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "modules": {
+    "numpy": {
+      "origin": "/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/__init__.py",
+      "sha256": "09295a80660f17925ae23765ce8cbd7ff7ceae968d5f2f89349f1cb74c0b9e11",
+      "version": "2.5.3"
+    },
+    "numba": {
+      "origin": "/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numba/__init__.py",
+      "sha256": "ad86000e18ba728805be54c5a249d212ef2631d8bcbc086bed8959076ea25656",
+      "version": "0.67.0"
+    },
+    "cupy": {
+      "origin": "/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/__init__.py",
+      "sha256": "8c4724758587dea5f1c1d7c217c74a9fa0e4ed7f9d76a2b86fa001117cf3c718",
+      "version": "14.2.0"
+    },
+    "benchmarks.spatial_mapping": {
+      "origin": "/home/okin/leaf/benchmarks/spatial_mapping.py",
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+      "version": null
+    }
+  },
+  "installed_versions": {
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "cupy-cuda12x": "14.2.0"
+  },
+  "scope": "Existing environment identity receipt, not an installation or solver import. No environment or dependency changed."
+}

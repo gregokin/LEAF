@@ -1,0 +1,2720 @@
+{
+  "study": "study_parameterization_20261101",
+  "revision": 1,
+  "generated_on": "2026-11-01",
+  "inputs": {
+    "images": "/home/okin/leaf/agent_handoffs/tasks/study_parameterization_20261101/public_evidence/setaria_image_scalars.csv",
+    "weights": "/home/okin/leaf/agent_handoffs/tasks/paired_growth_et_survey_20261101/public_evidence/selected/setaria_snapshots.csv",
+    "harvest": "/home/okin/leaf/agent_handoffs/tasks/paired_growth_et_survey_20261101/public_evidence/selected/setaria_harvest.csv",
+    "zoom": "/home/okin/leaf/agent_handoffs/tasks/study_parameterization_20261101/public_evidence/zoom_calibration_data.txt",
+    "peterson": "/home/okin/leaf/agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_figure_readings.json"
+  },
+  "settings": {
+    "planting_date": "2014-01-13",
+    "window_dap": [
+      17,
+      33
+    ],
+    "holdout": "sha256(genotype) % 5 == 0",
+    "seed": 20261101,
+    "n_boot": 100,
+    "max_image_gap_days": 3,
+    "large_daily_loss_g_sensitivity_only": 600.0,
+    "dispenser_tol_g": 5.0,
+    "qc_day_label": "end",
+    "study_qc_policy": {
+      "exclude_nonpositive_daily_loss": true,
+      "large_loss_days_g": {
+        "17": 200.0,
+        "32": 200.0,
+        "33": 200.0
+      },
+      "dry_treatment_days_g": {
+        "32": 145.0
+      }
+    },
+    "placeholder_sentinel": -1.0
+  },
+  "zoom_calibration": {
+    "model": "rel_area = a*exp(b*camera_zoom); camera_zoom = 1 + 5*(raw_zoom-1)/5999",
+    "a": 0.3440916149365331,
+    "b": 0.8851048600636515,
+    "n_rows": 35,
+    "rmse_rel_area": 0.2658264402686526,
+    "max_abs_relative_residual": 0.16618395834853028,
+    "fitted_to": "all rows (TV and SV, raised and car-top) as the contract requires"
+  },
+  "dry_mass_calibration": {
+    "coefficient_k_g_per_normalized_px": 1.8052281906197532e-05,
+    "coefficient_k_kg_per_normalized_px": 1.8052281906197532e-08,
+    "fit": "zero-intercept least squares on TRAIN genotypes only",
+    "n_harvest_rows": 179,
+    "n_joined_with_final_area": 176,
+    "n_fitable": 176,
+    "n_train": 141,
+    "n_heldout": 35,
+    "train_metrics_g": {
+      "n": 141,
+      "rmse": 1.2133772286344222,
+      "mae": 0.9086804946179103,
+      "bias": 0.1739702521520848,
+      "r2_about_mean": 0.7050104770564243,
+      "median_abs_relative_error": 0.24903150175042507
+    },
+    "heldout_metrics_g": {
+      "n": 35,
+      "rmse": 1.609469892681347,
+      "mae": 1.0353307439827624,
+      "bias": -0.16303014536954208,
+      "r2_about_mean": 0.6724001939476862,
+      "median_abs_relative_error": 0.250348768916423
+    },
+    "heldout_by_genotype_g": {
+      "Dr102": {
+        "n": 3,
+        "rmse": 0.5755546132769668,
+        "mae": 0.5532037173236737,
+        "bias": 0.3307725577842399,
+        "r2_about_mean": 0.8489360443569762,
+        "median_abs_relative_error": 0.2763921995193975
+      },
+      "Dr113": {
+        "n": 5,
+        "rmse": 0.9557625056456219,
+        "mae": 0.8970970574054125,
+        "bias": 0.23312969486295537,
+        "r2_about_mean": 0.8084712184955672,
+        "median_abs_relative_error": 0.18993843127376275
+      },
+      "Dr170": {
+        "n": 2,
+        "rmse": 3.2480846182219345,
+        "mae": 2.537331166410061,
+        "bias": -2.537331166410061,
+        "r2_about_mean": 0.3406216445543794,
+        "median_abs_relative_error": 0.28128328172039474
+      },
+      "Dr173": {
+        "n": 4,
+        "rmse": 0.4367377129943244,
+        "mae": 0.37648188159362816,
+        "bias": 0.37648188159362816,
+        "r2_about_mean": -0.016093650482505772,
+        "median_abs_relative_error": 0.3066592184566904
+      },
+      "Dr183": {
+        "n": 6,
+        "rmse": 0.6404435853304971,
+        "mae": 0.5933248982104332,
+        "bias": 0.5933248982104332,
+        "r2_about_mean": 0.7551662232003491,
+        "median_abs_relative_error": 0.34492336038184285
+      },
+      "Dr186": {
+        "n": 3,
+        "rmse": 0.8585565556260366,
+        "mae": 0.7387674021854093,
+        "bias": 0.6213050380793995,
+        "r2_about_mean": 0.795253469514404,
+        "median_abs_relative_error": 0.1462826125925989
+      },
+      "Dr45": {
+        "n": 2,
+        "rmse": 0.7422219437657044,
+        "mae": 0.7422198527220569,
+        "bias": 0.7422198527220569,
+        "r2_about_mean": 0.5232939631737454,
+        "median_abs_relative_error": 0.4737427513823965
+      },
+      "Dr6": {
+        "n": 2,
+        "rmse": 0.46848520257438914,
+        "mae": 0.33456885513760826,
+        "bias": 0.32793607029888694,
+        "r2_about_mean": 0.8500933098619177,
+        "median_abs_relative_error": 0.24625187429294237
+      },
+      "Dr86": {
+        "n": 4,
+        "rmse": 2.803094989602058,
+        "mae": 2.2045625910704283,
+        "bias": -2.2045625910704283,
+        "r2_about_mean": -0.0414316605231666,
+        "median_abs_relative_error": 0.22858131674937623
+      },
+      "Dr91": {
+        "n": 4,
+        "rmse": 2.5296751371393404,
+        "mae": 1.6907025913460256,
+        "bias": -0.7603031036042085,
+        "r2_about_mean": 0.25243206277252117,
+        "median_abs_relative_error": 0.23367077904771072
+      }
+    },
+    "final_image_dap_distribution": {
+      "30": 64,
+      "31": 60,
+      "32": 52
+    },
+    "harvest_ids_without_image_join": [
+      "Dr102AA0001759",
+      "Dr6AA001532",
+      "Dr86AB001654"
+    ],
+    "harvest_ids_unparsed_barcode": [],
+    "note": "Harvest dry mass is an independent destructive measurement; all trajectory masses are image-derived (k * zoom-normalised SV area) with this single calibration. Trajectories are not anchored to their own harvest.",
+    "harvest_ids_without_weight_join": [
+      "Dr102AA0001759",
+      "Dr6AA001532",
+      "Dr86AB001654"
+    ],
+    "sensitivity_in_bounds_only": {
+      "coefficient_k_g_per_normalized_px": 1.8751565102768782e-05,
+      "heldout_metrics_g": {
+        "n": 35,
+        "rmse": 1.9017594993807987,
+        "mae": 1.163303680333802,
+        "bias": -0.1686841276514661,
+        "r2_about_mean": 0.5426074248556381,
+        "median_abs_relative_error": 0.2987829717778703
+      },
+      "n_train": 141
+    }
+  },
+  "water_rate_and_support": {
+    "window_dap": [
+      17,
+      33
+    ],
+    "max_image_gap_days": 3,
+    "primary_selection": "complete 1-day physical chains passing the published study QC policy",
+    "period_exclusions_primary": {
+      "not_complete_daily": 8,
+      "outside_window": 11405,
+      "no_mass_series": 0,
+      "mass_missing_at_period_end": 1499
+    },
+    "candidate_train": {
+      "scope": "TRAIN genotypes only (sha256 holdout excluded)",
+      "pooled": {
+        "n_periods": 13970,
+        "n_plants": 959,
+        "sum_U_m3": 0.873344,
+        "integral_B_kg_days": 26.569173882931295,
+        "delta_B_kg": 3.201528662752753,
+        "q_m3_per_kg_day": 0.032870574141601674,
+        "C_balance_kg_per_m3": 0.08334889483812839,
+        "production_ratio_kg_per_m3": 3.6658277411337945
+      },
+      "by_treatment": {
+        "wet": {
+          "n_periods": 6983,
+          "n_plants": 478,
+          "sum_U_m3": 0.608024,
+          "integral_B_kg_days": 18.144173164835443,
+          "delta_B_kg": 2.1483479331637176,
+          "q_m3_per_kg_day": 0.03351070310431059,
+          "C_balance_kg_per_m3": 0.08175674556481748,
+          "production_ratio_kg_per_m3": 3.533327521880251
+        },
+        "dry": {
+          "n_periods": 6987,
+          "n_plants": 481,
+          "sum_U_m3": 0.26531999999999994,
+          "integral_B_kg_days": 8.425000718095854,
+          "delta_B_kg": 1.0531807295890352,
+          "q_m3_per_kg_day": 0.031491985446378136,
+          "C_balance_kg_per_m3": 0.08699756425526844,
+          "production_ratio_kg_per_m3": 3.969473577525386
+        }
+      },
+      "T_fraction_sensitivity": {
+        "1.0": {
+          "assumed_T_fraction_of_ET": 1.0,
+          "q_T_m3_per_kg_day": 0.032870574141601674,
+          "C_balance_T_kg_per_m3": 0.08334889483812839,
+          "production_ratio_T_kg_per_m3": 3.6658277411337945
+        },
+        "0.9": {
+          "assumed_T_fraction_of_ET": 0.9,
+          "q_T_m3_per_kg_day": 0.029583516727441507,
+          "C_balance_T_kg_per_m3": 0.09260988315347599,
+          "production_ratio_T_kg_per_m3": 4.073141934593105
+        },
+        "0.8": {
+          "assumed_T_fraction_of_ET": 0.8,
+          "q_T_m3_per_kg_day": 0.02629645931328134,
+          "C_balance_T_kg_per_m3": 0.10418611854766048,
+          "production_ratio_T_kg_per_m3": 4.582284676417243
+        }
+      },
+      "bootstrap_genotype": {
+        "n_genotypes": 160,
+        "n_boot": 100,
+        "seed": 20261101,
+        "unit": "genotype",
+        "q_m3_per_kg_day": {
+          "p2.5": 0.03227894799954076,
+          "p50": 0.03281375282853011,
+          "p97.5": 0.03350471149806292,
+          "n_finite": 100
+        },
+        "C_balance_kg_per_m3": {
+          "p2.5": 0.08177136704734767,
+          "p50": 0.08349322582120434,
+          "p97.5": 0.08487655932151239,
+          "n_finite": 100
+        },
+        "production_ratio_kg_per_m3": {
+          "p2.5": 3.607083652310252,
+          "p50": 3.6685664108578617,
+          "p97.5": 3.7296875231715405,
+          "n_finite": 100
+        }
+      },
+      "conditioning_note": "Bootstrap resamples genotypes of the water/area periods only and conditions on the single fitted image calibration k (not refitted per resample); intervals are therefore not complete uncertainty (allometry fixed)."
+    },
+    "descriptive": {
+      "pooled_all": {
+        "n_periods": 16523,
+        "n_plants": 1137,
+        "sum_U_m3": 1.03817,
+        "integral_B_kg_days": 31.74070003941956,
+        "delta_B_kg": 3.81085483984312,
+        "q_m3_per_kg_day": 0.03270784824249846,
+        "C_balance_kg_per_m3": 0.08376356668542437,
+        "production_ratio_kg_per_m3": 3.670742594992265
+      },
+      "pooled_heldout": {
+        "n_periods": 2553,
+        "n_plants": 178,
+        "sum_U_m3": 0.16482599999999997,
+        "integral_B_kg_days": 5.171526156488269,
+        "delta_B_kg": 0.6093261770903668,
+        "q_m3_per_kg_day": 0.031871829516555185,
+        "C_balance_kg_per_m3": 0.08596073927837009,
+        "production_ratio_kg_per_m3": 3.6967843488913577
+      },
+      "by_treatment_all": {
+        "wet": {
+          "n_periods": 8242,
+          "n_plants": 566,
+          "sum_U_m3": 0.72221,
+          "integral_B_kg_days": 21.685525407400554,
+          "delta_B_kg": 2.5577410393509625,
+          "q_m3_per_kg_day": 0.0333037815054983,
+          "C_balance_kg_per_m3": 0.08226471300098293,
+          "production_ratio_kg_per_m3": 3.5415475268287095
+        },
+        "dry": {
+          "n_periods": 8281,
+          "n_plants": 571,
+          "sum_U_m3": 0.31596,
+          "integral_B_kg_days": 10.055174632019007,
+          "delta_B_kg": 1.2531138004921576,
+          "q_m3_per_kg_day": 0.03142262681285303,
+          "C_balance_kg_per_m3": 0.08718959250970737,
+          "production_ratio_kg_per_m3": 3.9660520334604303
+        }
+      },
+      "bootstrap_genotype_all_descriptive": {
+        "n_genotypes": 191,
+        "n_boot": 100,
+        "seed": 20261101,
+        "unit": "genotype",
+        "q_m3_per_kg_day": {
+          "p2.5": 0.032181669603428185,
+          "p50": 0.03271952447798991,
+          "p97.5": 0.033389906402037976,
+          "n_finite": 100
+        },
+        "C_balance_kg_per_m3": {
+          "p2.5": 0.0820531014916971,
+          "p50": 0.0837336776165005,
+          "p97.5": 0.08513321595398249,
+          "n_finite": 100
+        },
+        "production_ratio_kg_per_m3": {
+          "p2.5": 3.616755104062413,
+          "p50": 3.677234294819142,
+          "p97.5": 3.7348469635830206,
+          "n_finite": 100
+        }
+      },
+      "sensitivity_retained_flagged_train": {
+        "n_periods": 13970,
+        "n_plants": 959,
+        "sum_U_m3": 0.873344,
+        "integral_B_kg_days": 26.569173882931295,
+        "delta_B_kg": 3.201528662752753,
+        "q_m3_per_kg_day": 0.032870574141601674,
+        "C_balance_kg_per_m3": 0.08334889483812839,
+        "production_ratio_kg_per_m3": 3.6658277411337945
+      },
+      "sensitivity_retained_flagged_all": {
+        "n_periods": 16524,
+        "n_plants": 1137,
+        "sum_U_m3": 1.038526,
+        "integral_B_kg_days": 31.74610076370511,
+        "delta_B_kg": 3.8109522955004906,
+        "q_m3_per_kg_day": 0.0327134978790004,
+        "C_balance_kg_per_m3": 0.0837491006779791,
+        "production_ratio_kg_per_m3": 3.669578128521087
+      },
+      "sensitivity_retained_flagged_exclusions": {
+        "not_complete_daily": 4,
+        "outside_window": 11405,
+        "no_mass_series": 0,
+        "mass_missing_at_period_end": 1502
+      },
+      "sensitivity_including_multi_day_periods_le3_train": {
+        "n_periods": 13970,
+        "n_plants": 959,
+        "sum_U_m3": 0.873344,
+        "integral_B_kg_days": 26.569173882931295,
+        "delta_B_kg": 3.201528662752753,
+        "q_m3_per_kg_day": 0.032870574141601674,
+        "C_balance_kg_per_m3": 0.08334889483812839,
+        "production_ratio_kg_per_m3": 3.6658277411337945
+      },
+      "per_plant_q_quantiles_all": {
+        "5": 0.02521172754046411,
+        "25": 0.028845944261324162,
+        "50": 0.032730669569823026,
+        "75": 0.03786627569449787,
+        "95": 0.0563636558772524
+      },
+      "per_plant_n_all": 1137
+    },
+    "definitions": {
+      "q_m3_per_kg_day": "sum(U)/integral(B dt); U = pot water loss (ET) in m3, B image-derived dry mass kg",
+      "C_balance_kg_per_m3": "integral(B dt)/(365*sum(U)); annual balance SUPPORT threshold, not biomass per water",
+      "production_ratio_kg_per_m3": "sum(delta_B)/sum(U) over the same periods (empirical)",
+      "qc_day_label": "end"
+    }
+  },
+  "step_diagnostic_fit": {
+    "n_trajectories": 1135,
+    "n_train": 958,
+    "n_heldout": 177,
+    "trajectory_exclusions": {
+      "no_mass": 0,
+      "no_water": 0,
+      "run_shorter_than_block": 3,
+      "unparsed_barcode": 1
+    },
+    "block_days": 7,
+    "assumptions": [
+      "activity = temperature = live fraction = 1",
+      "no seasonal extra biomass",
+      "gain capped at M-B",
+      "M scenarios are multiples of the maximum TRAIN endpoint mass, not mature mass inferred from a seedling harvest"
+    ],
+    "max_train_endpoint_mass_kg": 0.008795912302949118,
+    "scenarios_train": {
+      "M_2x": {
+        "M_kg": 0.017591824605898237,
+        "bounded_r_le_1": {
+          "C": 1.0000000011978276,
+          "r_year": 0.9999999999999999,
+          "sse": 12986.469904646854,
+          "n_residuals": 2482,
+          "rmse_log": 2.2874134378277,
+          "r_max_bound": 1.0,
+          "r_at_upper_bound": true,
+          "C_at_bound": false
+        },
+        "unbounded_positive": {
+          "C": 0.014881503308953067,
+          "r_year": 295.08115633577165,
+          "sse": 140.59370434523166,
+          "n_residuals": 2482,
+          "rmse_log": 0.2380027901105692,
+          "r_max_bound": 10000.0,
+          "r_at_upper_bound": false,
+          "C_at_bound": false
+        }
+      },
+      "M_4x": {
+        "M_kg": 0.035183649211796474,
+        "bounded_r_le_1": {
+          "C": 1.0000000011983223,
+          "r_year": 0.9999999999999999,
+          "sse": 12983.718746149354,
+          "n_residuals": 2482,
+          "rmse_log": 2.287171132940759,
+          "r_max_bound": 1.0,
+          "r_at_upper_bound": true,
+          "C_at_bound": false
+        },
+        "unbounded_positive": {
+          "C": 0.014377050497657317,
+          "r_year": 294.9472458427895,
+          "sse": 141.83503977463062,
+          "n_residuals": 2482,
+          "rmse_log": 0.23905117285890445,
+          "r_max_bound": 10000.0,
+          "r_at_upper_bound": false,
+          "C_at_bound": false
+        }
+      },
+      "M_10x": {
+        "M_kg": 0.08795912302949119,
+        "bounded_r_le_1": {
+          "C": 1.00000000119858,
+          "r_year": 0.9999999999999999,
+          "sse": 12982.068276904818,
+          "n_residuals": 2482,
+          "rmse_log": 2.287025757580344,
+          "r_max_bound": 1.0,
+          "r_at_upper_bound": true,
+          "C_at_bound": false
+        },
+        "unbounded_positive": {
+          "C": 0.014049922149043373,
+          "r_year": 295.60475825328336,
+          "sse": 143.12391747533252,
+          "n_residuals": 2482,
+          "rmse_log": 0.24013486463499745,
+          "r_max_bound": 10000.0,
+          "r_at_upper_bound": false,
+          "C_at_bound": false
+        }
+      }
+    },
+    "selected_scenario_bounded": "M_10x",
+    "selected_scenario_unbounded": "M_2x",
+    "fitted_C_bounded_kg_per_m3": 1.00000000119858,
+    "fitted_r_bounded": 0.9999999999999999,
+    "fitted_C_unbounded_kg_per_m3": 0.014881503308953067,
+    "fitted_r_unbounded": 295.08115633577165,
+    "water_balance_C_kg_per_m3_for_comparison": 0.08334889483812839,
+    "heldout_image_derived_shape_bounded": {
+      "n_plants": 177,
+      "trajectory_rmse_log_mean": 2.1543505297333794,
+      "endpoint_relative_error_median": -0.9146384833461416,
+      "endpoint_relative_error_p10": -0.9430746340800562,
+      "endpoint_relative_error_p90": -0.8609544477703486,
+      "observed_growth_factor_median": 12.14307538150272,
+      "predicted_growth_factor_median": 1.0392548783324669,
+      "by_genotype": {
+        "Dr1": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.395326709092981,
+          "endpoint_relative_error_median": -0.8819783403246558
+        },
+        "Dr100": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0473637137931817,
+          "endpoint_relative_error_median": -0.9062037431228902
+        },
+        "Dr102": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.7566075095241278,
+          "endpoint_relative_error_median": -0.8688512057788644
+        },
+        "Dr107": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 2.057080915150542,
+          "endpoint_relative_error_median": -0.9053603533599084
+        },
+        "Dr108": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 2.3948011362800687,
+          "endpoint_relative_error_median": -0.9331571427108803
+        },
+        "Dr113": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9821443161340317,
+          "endpoint_relative_error_median": -0.8946267149264493
+        },
+        "Dr114": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0990929051080176,
+          "endpoint_relative_error_median": -0.8979644968196593
+        },
+        "Dr12": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1288532602716206,
+          "endpoint_relative_error_median": -0.9153559576407652
+        },
+        "Dr132": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.2682664609212595,
+          "endpoint_relative_error_median": -0.9306075536439948
+        },
+        "Dr151": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.947741032050512,
+          "endpoint_relative_error_median": -0.8815005557098605
+        },
+        "Dr152": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.5759705297492865,
+          "endpoint_relative_error_median": -0.9461186746334811
+        },
+        "Dr161": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.064498832045406,
+          "endpoint_relative_error_median": -0.9121214609438081
+        },
+        "Dr165": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1959751382531425,
+          "endpoint_relative_error_median": -0.920445254304228
+        },
+        "Dr170": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8003272560827401,
+          "endpoint_relative_error_median": -0.8666735214456543
+        },
+        "Dr173": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1456697327103313,
+          "endpoint_relative_error_median": -0.92225871727098
+        },
+        "Dr18": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3484498574693498,
+          "endpoint_relative_error_median": -0.9227726231543709
+        },
+        "Dr183": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.204948352794257,
+          "endpoint_relative_error_median": -0.9229262077786107
+        },
+        "Dr186": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9649347918700932,
+          "endpoint_relative_error_median": -0.8958125266165131
+        },
+        "Dr19": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.6087193194826814,
+          "endpoint_relative_error_median": -0.9352110148879829
+        },
+        "Dr190": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.4826495519002267,
+          "endpoint_relative_error_median": -0.9396361584062177
+        },
+        "Dr39": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.876654242742596,
+          "endpoint_relative_error_median": -0.881406872754156
+        },
+        "Dr4": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.307369835271639,
+          "endpoint_relative_error_median": -0.9162246357702373
+        },
+        "Dr45": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8886624850831737,
+          "endpoint_relative_error_median": -0.8886406705400671
+        },
+        "Dr52": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8995726858190707,
+          "endpoint_relative_error_median": -0.8724062612031467
+        },
+        "Dr57": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.244010788970742,
+          "endpoint_relative_error_median": -0.9197092636674224
+        },
+        "Dr6": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 2.4177313460648984,
+          "endpoint_relative_error_median": -0.9314691344019809
+        },
+        "Dr77": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8383212157413855,
+          "endpoint_relative_error_median": -0.8669094987952826
+        },
+        "Dr8": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 2.4243960492809014,
+          "endpoint_relative_error_median": -0.9234567513239275
+        },
+        "Dr83": {
+          "n": 1,
+          "trajectory_rmse_log_mean": 2.14294000864485,
+          "endpoint_relative_error_median": -0.9206806467093686
+        },
+        "Dr86": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0689365200978385,
+          "endpoint_relative_error_median": -0.9018651833690702
+        },
+        "Dr91": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.310109043733845,
+          "endpoint_relative_error_median": -0.931285354487166
+        }
+      }
+    },
+    "heldout_image_derived_shape_unbounded": {
+      "n_plants": 177,
+      "trajectory_rmse_log_mean": 0.16229040918977033,
+      "endpoint_relative_error_median": -0.001293782276238331,
+      "endpoint_relative_error_p10": -0.2180454142541905,
+      "endpoint_relative_error_p90": 0.3378697181405401,
+      "observed_growth_factor_median": 12.14307538150272,
+      "predicted_growth_factor_median": 11.714424645592482,
+      "by_genotype": {
+        "Dr1": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.3752148501148626,
+          "endpoint_relative_error_median": 0.2964928189836604
+        },
+        "Dr100": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.08965633775119196,
+          "endpoint_relative_error_median": -0.05869407324913167
+        },
+        "Dr102": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1289531525401818,
+          "endpoint_relative_error_median": 0.14291370511579315
+        },
+        "Dr107": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 0.11277818889953392,
+          "endpoint_relative_error_median": 0.032855409070726926
+        },
+        "Dr108": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 0.2687096961171119,
+          "endpoint_relative_error_median": 0.34203285431452013
+        },
+        "Dr113": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12280821766621286,
+          "endpoint_relative_error_median": -0.024959984625012033
+        },
+        "Dr114": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10820842224827293,
+          "endpoint_relative_error_median": -0.0801588270008669
+        },
+        "Dr12": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.18980305433435782,
+          "endpoint_relative_error_median": 0.011803957306801671
+        },
+        "Dr132": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09731384201893985,
+          "endpoint_relative_error_median": -0.014200763435176567
+        },
+        "Dr151": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11900126234735982,
+          "endpoint_relative_error_median": 0.12955926174673926
+        },
+        "Dr152": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.2166697017561845,
+          "endpoint_relative_error_median": -0.21901221595310766
+        },
+        "Dr161": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1197946803411667,
+          "endpoint_relative_error_median": 0.06663994606720236
+        },
+        "Dr165": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16524632729152808,
+          "endpoint_relative_error_median": -0.15834947051696402
+        },
+        "Dr170": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10804948063278774,
+          "endpoint_relative_error_median": 0.08378352773995179
+        },
+        "Dr173": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.36253178379856604,
+          "endpoint_relative_error_median": 0.4112136810451329
+        },
+        "Dr18": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.13651702833558113,
+          "endpoint_relative_error_median": 0.2046342166995474
+        },
+        "Dr183": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09129221668470378,
+          "endpoint_relative_error_median": 0.00613951008214908
+        },
+        "Dr186": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.20324113546038747,
+          "endpoint_relative_error_median": 0.043674576100291074
+        },
+        "Dr19": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.2519878811673802,
+          "endpoint_relative_error_median": 0.07022979188252232
+        },
+        "Dr190": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14513092803196267,
+          "endpoint_relative_error_median": -0.15227397641670853
+        },
+        "Dr39": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12337472824650238,
+          "endpoint_relative_error_median": 0.08514523890071035
+        },
+        "Dr4": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.15125956373708435,
+          "endpoint_relative_error_median": -0.0516099648819931
+        },
+        "Dr45": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.19871421258914798,
+          "endpoint_relative_error_median": 0.11679966117815932
+        },
+        "Dr52": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1366403251997466,
+          "endpoint_relative_error_median": -0.10215862570513168
+        },
+        "Dr57": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14329172378492733,
+          "endpoint_relative_error_median": -0.09955808596793847
+        },
+        "Dr6": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 0.12050303178519708,
+          "endpoint_relative_error_median": -0.06635610005857184
+        },
+        "Dr77": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.15395194239528417,
+          "endpoint_relative_error_median": 0.15865786164709228
+        },
+        "Dr8": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 0.17394477000007627,
+          "endpoint_relative_error_median": -0.10622727587731717
+        },
+        "Dr83": {
+          "n": 1,
+          "trajectory_rmse_log_mean": 0.07913904664518687,
+          "endpoint_relative_error_median": 0.02829481220732566
+        },
+        "Dr86": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10767754713314859,
+          "endpoint_relative_error_median": -0.06585362012222479
+        },
+        "Dr91": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16476714538162604,
+          "endpoint_relative_error_median": -0.2064933585225326
+        }
+      }
+    },
+    "heldout_harvest_replay_bounded": {
+      "eligibility": {
+        "n_trajectories": 177,
+        "n_without_harvest_row": 142,
+        "n_harvest_dry_wt_missing": 0,
+        "n_final_image_dap_missing": 0,
+        "n_endpoint_dap_mismatch": 1,
+        "n_eligible": 34
+      },
+      "note": "endpoint compared to withheld destructive dry mass only when end DAP == last-image DAP; last image is the source's sampling proxy for harvest date, not a verified exact date",
+      "metrics_kg": {
+        "n": 34,
+        "rmse": 0.004332098686035762,
+        "mae": 0.0034630710384932544,
+        "bias": -0.0034630710384932544,
+        "r2_about_mean": -1.3978895220636298,
+        "median_abs_relative_error": 0.9000070230748234
+      },
+      "relative_error_median": -0.9000070230748234,
+      "by_genotype": {
+        "Dr102": {
+          "n": 3,
+          "relative_error_median": -0.8395627661828848
+        },
+        "Dr113": {
+          "n": 5,
+          "relative_error_median": -0.8459344835906415
+        },
+        "Dr170": {
+          "n": 2,
+          "relative_error_median": -0.9020698356728463
+        },
+        "Dr173": {
+          "n": 4,
+          "relative_error_median": -0.8794770162727148
+        },
+        "Dr183": {
+          "n": 6,
+          "relative_error_median": -0.909441277096888
+        },
+        "Dr186": {
+          "n": 3,
+          "relative_error_median": -0.9021515776751485
+        },
+        "Dr45": {
+          "n": 2,
+          "relative_error_median": -0.835660587468896
+        },
+        "Dr6": {
+          "n": 2,
+          "relative_error_median": -0.9135962376432403
+        },
+        "Dr86": {
+          "n": 3,
+          "relative_error_median": -0.9359675303378339
+        },
+        "Dr91": {
+          "n": 4,
+          "relative_error_median": -0.9313338024574807
+        }
+      }
+    },
+    "heldout_harvest_replay_unbounded": {
+      "eligibility": {
+        "n_trajectories": 177,
+        "n_without_harvest_row": 142,
+        "n_harvest_dry_wt_missing": 0,
+        "n_final_image_dap_missing": 0,
+        "n_endpoint_dap_mismatch": 1,
+        "n_eligible": 34
+      },
+      "note": "endpoint compared to withheld destructive dry mass only when end DAP == last-image DAP; last image is the source's sampling proxy for harvest date, not a verified exact date",
+      "metrics_kg": {
+        "n": 34,
+        "rmse": 0.0015246986892417371,
+        "mae": 0.0009288315002774035,
+        "bias": -0.00021368166623336187,
+        "r2_about_mean": 0.7029698455133366,
+        "median_abs_relative_error": 0.2568630086275895
+      },
+      "relative_error_median": 0.05571023054573032,
+      "by_genotype": {
+        "Dr102": {
+          "n": 3,
+          "relative_error_median": 0.23339185241714433
+        },
+        "Dr113": {
+          "n": 5,
+          "relative_error_median": -0.0066618774399423986
+        },
+        "Dr170": {
+          "n": 2,
+          "relative_error_median": -0.1759387786347778
+        },
+        "Dr173": {
+          "n": 4,
+          "relative_error_median": 0.7852707144767281
+        },
+        "Dr183": {
+          "n": 6,
+          "relative_error_median": 0.24750441126439615
+        },
+        "Dr186": {
+          "n": 3,
+          "relative_error_median": -0.05267783528101211
+        },
+        "Dr45": {
+          "n": 2,
+          "relative_error_median": 0.5736061488029657
+        },
+        "Dr6": {
+          "n": 2,
+          "relative_error_median": 0.21731161841186553
+        },
+        "Dr86": {
+          "n": 3,
+          "relative_error_median": -0.30946421456615103
+        },
+        "Dr91": {
+          "n": 4,
+          "relative_error_median": -0.16202716663914224
+        }
+      }
+    },
+    "train_eval_bounded": {
+      "n_plants": 958,
+      "trajectory_rmse_log_mean": 2.2289568208858075,
+      "endpoint_relative_error_median": -0.918313295058221,
+      "endpoint_relative_error_p10": -0.9525648298979391,
+      "endpoint_relative_error_p90": -0.8696997227923112,
+      "observed_growth_factor_median": 12.69251005850197,
+      "predicted_growth_factor_median": 1.0393797580608508,
+      "by_genotype": {
+        "Dp1": {
+          "n": 25,
+          "trajectory_rmse_log_mean": 2.3622878410877393,
+          "endpoint_relative_error_median": -0.9330740969176783
+        },
+        "Dp2": {
+          "n": 28,
+          "trajectory_rmse_log_mean": 2.2689118687584338,
+          "endpoint_relative_error_median": -0.9187196096386693
+        },
+        "Dr10": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3535073734784695,
+          "endpoint_relative_error_median": -0.9376356274081177
+        },
+        "Dr103": {
+          "n": 2,
+          "trajectory_rmse_log_mean": 1.481522184752058,
+          "endpoint_relative_error_median": -0.8066160658017355
+        },
+        "Dr104": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9509921341667,
+          "endpoint_relative_error_median": -0.8925768424311309
+        },
+        "Dr105": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1412417712300997,
+          "endpoint_relative_error_median": -0.9094532457687026
+        },
+        "Dr106": {
+          "n": 2,
+          "trajectory_rmse_log_mean": 2.7134647417218165,
+          "endpoint_relative_error_median": -0.9547060162081968
+        },
+        "Dr109": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.966025669675891,
+          "endpoint_relative_error_median": -0.9109828097115049
+        },
+        "Dr11": {
+          "n": 1,
+          "trajectory_rmse_log_mean": 2.0301253430646016,
+          "endpoint_relative_error_median": -0.9133643307670934
+        },
+        "Dr110": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1439106713334426,
+          "endpoint_relative_error_median": -0.9086746902210276
+        },
+        "Dr111": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0034492835802333,
+          "endpoint_relative_error_median": -0.8965841589945711
+        },
+        "Dr112": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8621270497236353,
+          "endpoint_relative_error_median": -0.8597306731075933
+        },
+        "Dr115": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8221924141784374,
+          "endpoint_relative_error_median": -0.8787949472336248
+        },
+        "Dr116": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.068833816930516,
+          "endpoint_relative_error_median": -0.9029100885827667
+        },
+        "Dr117": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1057920907752115,
+          "endpoint_relative_error_median": -0.8916618511451433
+        },
+        "Dr118": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.7628263092937893,
+          "endpoint_relative_error_median": -0.8436383325782749
+        },
+        "Dr119": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.2871571365583123,
+          "endpoint_relative_error_median": -0.9155407024697474
+        },
+        "Dr120": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.432384585706553,
+          "endpoint_relative_error_median": -0.9365625176799472
+        },
+        "Dr121": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9472299239442024,
+          "endpoint_relative_error_median": -0.8992283541546566
+        },
+        "Dr122": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3226196424311962,
+          "endpoint_relative_error_median": -0.9198247407355762
+        },
+        "Dr123": {
+          "n": 4,
+          "trajectory_rmse_log_mean": 2.234454724841149,
+          "endpoint_relative_error_median": -0.9231170919223266
+        },
+        "Dr124": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9652548912797727,
+          "endpoint_relative_error_median": -0.8951623014446279
+        },
+        "Dr125": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.322666266647562,
+          "endpoint_relative_error_median": -0.9152142073111427
+        },
+        "Dr126": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 2.19412387033433,
+          "endpoint_relative_error_median": -0.9193521539775756
+        },
+        "Dr127": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.22378354068775,
+          "endpoint_relative_error_median": -0.9273765748515114
+        },
+        "Dr128": {
+          "n": 4,
+          "trajectory_rmse_log_mean": 2.2519984522937175,
+          "endpoint_relative_error_median": -0.9234918981317635
+        },
+        "Dr129": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0731917216545015,
+          "endpoint_relative_error_median": -0.9093893846370876
+        },
+        "Dr13": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.09010036008233,
+          "endpoint_relative_error_median": -0.903400230112446
+        },
+        "Dr130": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9887740888039824,
+          "endpoint_relative_error_median": -0.8818961750407646
+        },
+        "Dr131": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.340847053249067,
+          "endpoint_relative_error_median": -0.9265735461451161
+        },
+        "Dr133": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9276922779832992,
+          "endpoint_relative_error_median": -0.8864931672748242
+        },
+        "Dr134": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.2157273694464874,
+          "endpoint_relative_error_median": -0.9082226883956381
+        },
+        "Dr135": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.329165335979653,
+          "endpoint_relative_error_median": -0.9290998823176542
+        },
+        "Dr136": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1509040006825497,
+          "endpoint_relative_error_median": -0.9000626627672583
+        },
+        "Dr137": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8216457280709097,
+          "endpoint_relative_error_median": -0.864729833464862
+        },
+        "Dr138": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.182635292592641,
+          "endpoint_relative_error_median": -0.9182355003013096
+        },
+        "Dr139": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.5170692016783343,
+          "endpoint_relative_error_median": -0.9490676311996263
+        },
+        "Dr14": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.4384475313608402,
+          "endpoint_relative_error_median": -0.9357940439664454
+        },
+        "Dr140": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.2379291781974704,
+          "endpoint_relative_error_median": -0.9180039162603382
+        },
+        "Dr141": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 2.3077805190895733,
+          "endpoint_relative_error_median": -0.9263716087020436
+        },
+        "Dr142": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.165718419325972,
+          "endpoint_relative_error_median": -0.90840414696274
+        },
+        "Dr143": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9373138074511538,
+          "endpoint_relative_error_median": -0.8712224352834443
+        },
+        "Dr144": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.301790887594598,
+          "endpoint_relative_error_median": -0.9232829054785879
+        },
+        "Dr145": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1510657319945676,
+          "endpoint_relative_error_median": -0.9028375754624286
+        },
+        "Dr146": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.28657466502816,
+          "endpoint_relative_error_median": -0.9384089793573336
+        },
+        "Dr147": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.5290922892301757,
+          "endpoint_relative_error_median": -0.9447829370052264
+        },
+        "Dr148": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9756375216490365,
+          "endpoint_relative_error_median": -0.8827863156833143
+        },
+        "Dr149": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.269681456468103,
+          "endpoint_relative_error_median": -0.9165995052841409
+        },
+        "Dr15": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.6874720994087204,
+          "endpoint_relative_error_median": -0.9491028506686525
+        },
+        "Dr150": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3096156938615287,
+          "endpoint_relative_error_median": -0.9279605562332063
+        },
+        "Dr153": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.292590952955756,
+          "endpoint_relative_error_median": -0.9150610723280344
+        },
+        "Dr154": {
+          "n": 3,
+          "trajectory_rmse_log_mean": 2.1969297670245407,
+          "endpoint_relative_error_median": -0.9324600372005791
+        },
+        "Dr155": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.4454900976909903,
+          "endpoint_relative_error_median": -0.9388327267018124
+        },
+        "Dr156": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9818233321576286,
+          "endpoint_relative_error_median": -0.9124275190390863
+        },
+        "Dr157": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.164510600203234,
+          "endpoint_relative_error_median": -0.9234541070888985
+        },
+        "Dr158": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0500826435539516,
+          "endpoint_relative_error_median": -0.8848346801601826
+        },
+        "Dr159": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 2.5343239625369307,
+          "endpoint_relative_error_median": -0.9385029044477294
+        },
+        "Dr16": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.4807924411155993,
+          "endpoint_relative_error_median": -0.9327776380986279
+        },
+        "Dr160": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.2027687359554187,
+          "endpoint_relative_error_median": -0.9154873964143093
+        },
+        "Dr162": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.6963249489695391,
+          "endpoint_relative_error_median": -0.8506388448584086
+        },
+        "Dr163": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.266041572147697,
+          "endpoint_relative_error_median": -0.9114146640683164
+        },
+        "Dr164": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9392834649294084,
+          "endpoint_relative_error_median": -0.8973104492100676
+        },
+        "Dr166": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.5221260470168976,
+          "endpoint_relative_error_median": -0.930234172544484
+        },
+        "Dr167": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3298195800579227,
+          "endpoint_relative_error_median": -0.9407119807180252
+        },
+        "Dr168": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.440254762033467,
+          "endpoint_relative_error_median": -0.938003702401982
+        },
+        "Dr169": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.072215021051924,
+          "endpoint_relative_error_median": -0.9164493175551578
+        },
+        "Dr17": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 2.6823343836790903,
+          "endpoint_relative_error_median": -0.9615513250660884
+        },
+        "Dr171": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.12261036857678,
+          "endpoint_relative_error_median": -0.9088899837273648
+        },
+        "Dr172": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1295856928713297,
+          "endpoint_relative_error_median": -0.9183711122937837
+        },
+        "Dr174": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.250160525523507,
+          "endpoint_relative_error_median": -0.9246908089391197
+        },
+        "Dr175": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.275524273343486,
+          "endpoint_relative_error_median": -0.9274485659181742
+        },
+        "Dr176": {
+          "n": 4,
+          "trajectory_rmse_log_mean": 2.754904730130714,
+          "endpoint_relative_error_median": -0.9530052151188102
+        },
+        "Dr177": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 2.504937000972634,
+          "endpoint_relative_error_median": -0.9357654943984032
+        },
+        "Dr178": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.585740484908086,
+          "endpoint_relative_error_median": -0.9522774781809151
+        },
+        "Dr179": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.524574416058237,
+          "endpoint_relative_error_median": -0.9475919512366149
+        },
+        "Dr180": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.603509408067741,
+          "endpoint_relative_error_median": -0.9450500982227424
+        },
+        "Dr181": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.2888912806165496,
+          "endpoint_relative_error_median": -0.9165537334261638
+        },
+        "Dr182": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0995028127541637,
+          "endpoint_relative_error_median": -0.9173440750912767
+        },
+        "Dr184": {
+          "n": 4,
+          "trajectory_rmse_log_mean": 2.569145295980136,
+          "endpoint_relative_error_median": -0.9416685075928135
+        },
+        "Dr185": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1400171907998193,
+          "endpoint_relative_error_median": -0.9137147639607854
+        },
+        "Dr187": {
+          "n": 3,
+          "trajectory_rmse_log_mean": 2.1332551989416992,
+          "endpoint_relative_error_median": -0.911456419654839
+        },
+        "Dr188": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9373220086359144,
+          "endpoint_relative_error_median": -0.898945375352789
+        },
+        "Dr189": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9276108169247392,
+          "endpoint_relative_error_median": -0.8878113338322735
+        },
+        "Dr2": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9447456753920196,
+          "endpoint_relative_error_median": -0.8798752899760871
+        },
+        "Dr20": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.211936925457254,
+          "endpoint_relative_error_median": -0.9252695766936332
+        },
+        "Dr21": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.4103625038714234,
+          "endpoint_relative_error_median": -0.9412721110301097
+        },
+        "Dr22": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.272199532029612,
+          "endpoint_relative_error_median": -0.9203754112224537
+        },
+        "Dr23": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1744737041615756,
+          "endpoint_relative_error_median": -0.909616773889447
+        },
+        "Dr24": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3549241824706306,
+          "endpoint_relative_error_median": -0.9245656389112495
+        },
+        "Dr25": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0627642533086665,
+          "endpoint_relative_error_median": -0.907653049822563
+        },
+        "Dr26": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.405259958140487,
+          "endpoint_relative_error_median": -0.9335011668120962
+        },
+        "Dr27": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.264440175941431,
+          "endpoint_relative_error_median": -0.9142441100180247
+        },
+        "Dr28": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.37032989169543,
+          "endpoint_relative_error_median": -0.9303935597550377
+        },
+        "Dr29": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1796611135145603,
+          "endpoint_relative_error_median": -0.9110381205490137
+        },
+        "Dr3": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.395309583260617,
+          "endpoint_relative_error_median": -0.941053953229186
+        },
+        "Dr30": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3806544073311393,
+          "endpoint_relative_error_median": -0.9365237968787747
+        },
+        "Dr31": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3306835004574045,
+          "endpoint_relative_error_median": -0.9399302581729209
+        },
+        "Dr32": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0939310704579857,
+          "endpoint_relative_error_median": -0.9353497439515885
+        },
+        "Dr33": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.409442060836881,
+          "endpoint_relative_error_median": -0.9358345827853622
+        },
+        "Dr34": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.360860858586132,
+          "endpoint_relative_error_median": -0.9351936158906775
+        },
+        "Dr35": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.264856424794973,
+          "endpoint_relative_error_median": -0.9149411403482507
+        },
+        "Dr36": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.5123301673868266,
+          "endpoint_relative_error_median": -0.9147385214782691
+        },
+        "Dr37": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.7851263967224784,
+          "endpoint_relative_error_median": -0.955331705240898
+        },
+        "Dr38": {
+          "n": 2,
+          "trajectory_rmse_log_mean": 3.0294151864743215,
+          "endpoint_relative_error_median": -0.9663019954435854
+        },
+        "Dr40": {
+          "n": 2,
+          "trajectory_rmse_log_mean": 1.4643909395697787,
+          "endpoint_relative_error_median": -0.7975479504540539
+        },
+        "Dr41": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.208160109860701,
+          "endpoint_relative_error_median": -0.9400673461567184
+        },
+        "Dr42": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3392162268769408,
+          "endpoint_relative_error_median": -0.9314842354253543
+        },
+        "Dr43": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8757489092263064,
+          "endpoint_relative_error_median": -0.8863324432095562
+        },
+        "Dr44": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.52363673773162,
+          "endpoint_relative_error_median": -0.9405201067274346
+        },
+        "Dr46": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.6589784683935083,
+          "endpoint_relative_error_median": -0.9364233007499052
+        },
+        "Dr47": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0367924395595285,
+          "endpoint_relative_error_median": -0.9049459108529183
+        },
+        "Dr48": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.542292091804786,
+          "endpoint_relative_error_median": -0.9443882165622643
+        },
+        "Dr49": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.7562810706294572,
+          "endpoint_relative_error_median": -0.866383126974386
+        },
+        "Dr5": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.322942732087092,
+          "endpoint_relative_error_median": -0.9306400033587896
+        },
+        "Dr50": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.132339550516837,
+          "endpoint_relative_error_median": -0.9098896545457029
+        },
+        "Dr51": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.11172758928686,
+          "endpoint_relative_error_median": -0.9090502267190761
+        },
+        "Dr53": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.6627020876433691,
+          "endpoint_relative_error_median": -0.8531776490011164
+        },
+        "Dr54": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.092628076050701,
+          "endpoint_relative_error_median": -0.8997576633445497
+        },
+        "Dr55": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.393608487040744,
+          "endpoint_relative_error_median": -0.9365821554675804
+        },
+        "Dr56": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.6352056547875455,
+          "endpoint_relative_error_median": -0.9650795137810132
+        },
+        "Dr58": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.7836387938953298,
+          "endpoint_relative_error_median": -0.8516334129402243
+        },
+        "Dr59": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.5714394831853533,
+          "endpoint_relative_error_median": -0.9410820166177349
+        },
+        "Dr60": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.5486490709374934,
+          "endpoint_relative_error_median": -0.9404956597985008
+        },
+        "Dr61": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3089563783736824,
+          "endpoint_relative_error_median": -0.9178520668933886
+        },
+        "Dr62": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.188066568107529,
+          "endpoint_relative_error_median": -0.9291272630859038
+        },
+        "Dr63": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.4888279654739387,
+          "endpoint_relative_error_median": -0.9403836016070148
+        },
+        "Dr64": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.258507560625381,
+          "endpoint_relative_error_median": -0.9255637754649508
+        },
+        "Dr65": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9468947112474544,
+          "endpoint_relative_error_median": -0.8927530328625403
+        },
+        "Dr66": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.4964766500650466,
+          "endpoint_relative_error_median": -0.9420301191556777
+        },
+        "Dr67": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3902426345007313,
+          "endpoint_relative_error_median": -0.9319685537712794
+        },
+        "Dr68": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.7258625786168955,
+          "endpoint_relative_error_median": -0.9570332062596523
+        },
+        "Dr69": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3362740749628483,
+          "endpoint_relative_error_median": -0.9217835530469592
+        },
+        "Dr7": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.367480484963849,
+          "endpoint_relative_error_median": -0.9370935007588725
+        },
+        "Dr70": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.7293928289312355,
+          "endpoint_relative_error_median": -0.9542024070433833
+        },
+        "Dr71": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1041132103031477,
+          "endpoint_relative_error_median": -0.9080667009775476
+        },
+        "Dr72": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.921339437933427,
+          "endpoint_relative_error_median": -0.8933979759518671
+        },
+        "Dr73": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.9932888629761034,
+          "endpoint_relative_error_median": -0.8977550811307513
+        },
+        "Dr74": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8045034042973087,
+          "endpoint_relative_error_median": -0.88025840586677
+        },
+        "Dr75": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.031905808873601,
+          "endpoint_relative_error_median": -0.8968614549196501
+        },
+        "Dr76": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.898789767460203,
+          "endpoint_relative_error_median": -0.8905901380126646
+        },
+        "Dr78": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3060271729861834,
+          "endpoint_relative_error_median": -0.9236437503607602
+        },
+        "Dr79": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.4805986405034166,
+          "endpoint_relative_error_median": -0.9465199166083709
+        },
+        "Dr80": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.1189237909144425,
+          "endpoint_relative_error_median": -0.9125166410295881
+        },
+        "Dr81": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.933288167873707,
+          "endpoint_relative_error_median": -0.8832689732935399
+        },
+        "Dr82": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0383844835562654,
+          "endpoint_relative_error_median": -0.9076923193311668
+        },
+        "Dr84": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.3422062294472874,
+          "endpoint_relative_error_median": -0.9317921030372541
+        },
+        "Dr85": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.8982341170476253,
+          "endpoint_relative_error_median": -0.8772088168417875
+        },
+        "Dr87": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0821842851600287,
+          "endpoint_relative_error_median": -0.8970733426316664
+        },
+        "Dr88": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.141353973073479,
+          "endpoint_relative_error_median": -0.91236621854897
+        },
+        "Dr89": {
+          "n": 3,
+          "trajectory_rmse_log_mean": 1.883870613690019,
+          "endpoint_relative_error_median": -0.8730236891003826
+        },
+        "Dr9": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.339003821137265,
+          "endpoint_relative_error_median": -0.9187309595185629
+        },
+        "Dr90": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 1.873107373076807,
+          "endpoint_relative_error_median": -0.8839153835512921
+        },
+        "Dr92": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.407657790932124,
+          "endpoint_relative_error_median": -0.9296719597127214
+        },
+        "Dr93": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.495969733167909,
+          "endpoint_relative_error_median": -0.9344870157620389
+        },
+        "Dr94": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.322041011493136,
+          "endpoint_relative_error_median": -0.931181769320506
+        },
+        "Dr95": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.219077727960537,
+          "endpoint_relative_error_median": -0.917295089889119
+        },
+        "Dr96": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.018710298863255,
+          "endpoint_relative_error_median": -0.9016135799834826
+        },
+        "Dr97": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.2732983504515247,
+          "endpoint_relative_error_median": -0.9100431470780863
+        },
+        "Dr98": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.0561887008068274,
+          "endpoint_relative_error_median": -0.9042898117710512
+        },
+        "Dr99": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 2.294034405011617,
+          "endpoint_relative_error_median": -0.9203559611341996
+        }
+      }
+    },
+    "train_eval_unbounded": {
+      "n_plants": 958,
+      "trajectory_rmse_log_mean": 0.1765949210619212,
+      "endpoint_relative_error_median": -0.008160709690656798,
+      "endpoint_relative_error_p10": -0.2094129329812079,
+      "endpoint_relative_error_p90": 0.28516512952865825,
+      "observed_growth_factor_median": 12.69251005850197,
+      "predicted_growth_factor_median": 12.972120241469838,
+      "by_genotype": {
+        "Dp1": {
+          "n": 25,
+          "trajectory_rmse_log_mean": 0.1650393159041224,
+          "endpoint_relative_error_median": -0.06271263773694802
+        },
+        "Dp2": {
+          "n": 28,
+          "trajectory_rmse_log_mean": 0.16831222829598486,
+          "endpoint_relative_error_median": 0.006884026398832288
+        },
+        "Dr10": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.13192915049055262,
+          "endpoint_relative_error_median": -0.10043317820247832
+        },
+        "Dr103": {
+          "n": 2,
+          "trajectory_rmse_log_mean": 0.08512336697324052,
+          "endpoint_relative_error_median": -0.05243443044421919
+        },
+        "Dr104": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14043068992195387,
+          "endpoint_relative_error_median": -0.13537538460152965
+        },
+        "Dr105": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1274673936689159,
+          "endpoint_relative_error_median": -0.0633856061232334
+        },
+        "Dr106": {
+          "n": 2,
+          "trajectory_rmse_log_mean": 0.3930033657541133,
+          "endpoint_relative_error_median": -0.2796200325514327
+        },
+        "Dr109": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.15889933501708206,
+          "endpoint_relative_error_median": 0.0036661274445447534
+        },
+        "Dr11": {
+          "n": 1,
+          "trajectory_rmse_log_mean": 0.13993919953465933,
+          "endpoint_relative_error_median": -0.07640500219961599
+        },
+        "Dr110": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09457736215708389,
+          "endpoint_relative_error_median": 0.03165788446952611
+        },
+        "Dr111": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10561223954119392,
+          "endpoint_relative_error_median": 0.0659623084640436
+        },
+        "Dr112": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.18521472202832875,
+          "endpoint_relative_error_median": 0.24735475416861818
+        },
+        "Dr115": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11666855281077813,
+          "endpoint_relative_error_median": 0.09102581107233576
+        },
+        "Dr116": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11465275629701348,
+          "endpoint_relative_error_median": 0.022612965097633442
+        },
+        "Dr117": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.22604765365050508,
+          "endpoint_relative_error_median": 0.4044311230213907
+        },
+        "Dr118": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.2761972468816715,
+          "endpoint_relative_error_median": 0.3576026217244014
+        },
+        "Dr119": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10978935948568208,
+          "endpoint_relative_error_median": 0.08479043969168698
+        },
+        "Dr120": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1261728407032148,
+          "endpoint_relative_error_median": -0.03524650313386768
+        },
+        "Dr121": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.07232852700549161,
+          "endpoint_relative_error_median": -0.01626062764751185
+        },
+        "Dr122": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.2322925793900006,
+          "endpoint_relative_error_median": -0.19854497330017745
+        },
+        "Dr123": {
+          "n": 4,
+          "trajectory_rmse_log_mean": 0.14013453527591505,
+          "endpoint_relative_error_median": -0.1117600484554499
+        },
+        "Dr124": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10678966697468632,
+          "endpoint_relative_error_median": -0.020825123693665792
+        },
+        "Dr125": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.17410117375739395,
+          "endpoint_relative_error_median": -0.059633879402047674
+        },
+        "Dr126": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 0.1481196205257025,
+          "endpoint_relative_error_median": -0.1348872435932974
+        },
+        "Dr127": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14842044552770972,
+          "endpoint_relative_error_median": -0.04050042944802956
+        },
+        "Dr128": {
+          "n": 4,
+          "trajectory_rmse_log_mean": 0.16477275513578946,
+          "endpoint_relative_error_median": -0.11304848321505384
+        },
+        "Dr129": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11176096384720365,
+          "endpoint_relative_error_median": -0.06412004032021157
+        },
+        "Dr13": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16226238765085063,
+          "endpoint_relative_error_median": 0.08912524254360255
+        },
+        "Dr130": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12338174191970508,
+          "endpoint_relative_error_median": 0.07394127183828558
+        },
+        "Dr131": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.15138122769711987,
+          "endpoint_relative_error_median": -0.07699918094130948
+        },
+        "Dr133": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.3066026799314585,
+          "endpoint_relative_error_median": 0.3799413931299581
+        },
+        "Dr134": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1079064163938881,
+          "endpoint_relative_error_median": 0.02006261176260704
+        },
+        "Dr135": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.157093988155268,
+          "endpoint_relative_error_median": 0.0037288274421242162
+        },
+        "Dr136": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1229128490774921,
+          "endpoint_relative_error_median": 0.059229643845034374
+        },
+        "Dr137": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.147315707124546,
+          "endpoint_relative_error_median": 0.1802165160402942
+        },
+        "Dr138": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12172613562643836,
+          "endpoint_relative_error_median": -0.0066269940015870055
+        },
+        "Dr139": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14854102806649308,
+          "endpoint_relative_error_median": 0.05781065097464588
+        },
+        "Dr14": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.3187355809335947,
+          "endpoint_relative_error_median": -0.08294806107829816
+        },
+        "Dr140": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09938919093281257,
+          "endpoint_relative_error_median": 0.050936077897366205
+        },
+        "Dr141": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 0.2294490266198405,
+          "endpoint_relative_error_median": 0.16746250195271162
+        },
+        "Dr142": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10636094094448423,
+          "endpoint_relative_error_median": 0.0195916462480743
+        },
+        "Dr143": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12112937373725204,
+          "endpoint_relative_error_median": 0.01785388891308065
+        },
+        "Dr144": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11485720895475081,
+          "endpoint_relative_error_median": -0.07231773421435345
+        },
+        "Dr145": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14197349927940867,
+          "endpoint_relative_error_median": 0.2273629353603671
+        },
+        "Dr146": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.3519290494536009,
+          "endpoint_relative_error_median": -0.05696850634600403
+        },
+        "Dr147": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16270152577545952,
+          "endpoint_relative_error_median": -0.0942284640018689
+        },
+        "Dr148": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11145921846197056,
+          "endpoint_relative_error_median": -0.05319301379846869
+        },
+        "Dr149": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16973631161449887,
+          "endpoint_relative_error_median": -0.0909030258744718
+        },
+        "Dr15": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.19915487826920078,
+          "endpoint_relative_error_median": -0.148338888689316
+        },
+        "Dr150": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.15975410808523208,
+          "endpoint_relative_error_median": -0.15092380333400968
+        },
+        "Dr153": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16182704284522134,
+          "endpoint_relative_error_median": 0.25329399688901943
+        },
+        "Dr154": {
+          "n": 3,
+          "trajectory_rmse_log_mean": 0.13625340233263228,
+          "endpoint_relative_error_median": 0.052038540153636736
+        },
+        "Dr155": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11551107931325479,
+          "endpoint_relative_error_median": -0.07404125135360484
+        },
+        "Dr156": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.37712302880725646,
+          "endpoint_relative_error_median": 0.28569018249943534
+        },
+        "Dr157": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11405498328836773,
+          "endpoint_relative_error_median": -0.05337608068743155
+        },
+        "Dr158": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10474795353467485,
+          "endpoint_relative_error_median": -0.008030673300892965
+        },
+        "Dr159": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 0.21721049725266997,
+          "endpoint_relative_error_median": -0.12422088783511454
+        },
+        "Dr16": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.13931115311441808,
+          "endpoint_relative_error_median": -0.01814821409909323
+        },
+        "Dr160": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09151420705665758,
+          "endpoint_relative_error_median": 0.006033557278311119
+        },
+        "Dr162": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14844621095584676,
+          "endpoint_relative_error_median": 0.1862934754934239
+        },
+        "Dr163": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.3540462036278383,
+          "endpoint_relative_error_median": 0.11658733263174537
+        },
+        "Dr164": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.41685250165603716,
+          "endpoint_relative_error_median": 0.46528284131925446
+        },
+        "Dr166": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.2694776835543952,
+          "endpoint_relative_error_median": -0.15743402115484312
+        },
+        "Dr167": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16547000366730036,
+          "endpoint_relative_error_median": 0.008436098434741801
+        },
+        "Dr168": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16415040378435233,
+          "endpoint_relative_error_median": -0.09201646645253098
+        },
+        "Dr169": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.2182331234164745,
+          "endpoint_relative_error_median": -0.018450809097625975
+        },
+        "Dr17": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 0.1823274315231818,
+          "endpoint_relative_error_median": -0.16333913964487157
+        },
+        "Dr171": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.20197587539872175,
+          "endpoint_relative_error_median": 0.1548778423899293
+        },
+        "Dr172": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1149103853660463,
+          "endpoint_relative_error_median": -0.10009035701482233
+        },
+        "Dr174": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1212883031993901,
+          "endpoint_relative_error_median": -0.08721704514663464
+        },
+        "Dr175": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16894264885898713,
+          "endpoint_relative_error_median": -0.16560326532757902
+        },
+        "Dr176": {
+          "n": 4,
+          "trajectory_rmse_log_mean": 0.11842590567329786,
+          "endpoint_relative_error_median": -0.07993315591291994
+        },
+        "Dr177": {
+          "n": 5,
+          "trajectory_rmse_log_mean": 0.12236914442761108,
+          "endpoint_relative_error_median": -0.13237968493548347
+        },
+        "Dr178": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.15194849972662985,
+          "endpoint_relative_error_median": -0.11574903733483399
+        },
+        "Dr179": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1416666162067647,
+          "endpoint_relative_error_median": -0.07297225147320224
+        },
+        "Dr180": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.18160965305020838,
+          "endpoint_relative_error_median": -0.0018413651802812736
+        },
+        "Dr181": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.18006968538221654,
+          "endpoint_relative_error_median": -0.10959086320034023
+        },
+        "Dr182": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14601815869703752,
+          "endpoint_relative_error_median": 0.000762720276788309
+        },
+        "Dr184": {
+          "n": 4,
+          "trajectory_rmse_log_mean": 0.3114752223554977,
+          "endpoint_relative_error_median": 0.022460379688108434
+        },
+        "Dr185": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10755625813545705,
+          "endpoint_relative_error_median": 0.10567779837124491
+        },
+        "Dr187": {
+          "n": 3,
+          "trajectory_rmse_log_mean": 0.130351860798961,
+          "endpoint_relative_error_median": -0.02838581407624774
+        },
+        "Dr188": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14478076803755252,
+          "endpoint_relative_error_median": -0.0602458178307681
+        },
+        "Dr189": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10832766426730352,
+          "endpoint_relative_error_median": 0.024591525144150195
+        },
+        "Dr2": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1362978502438458,
+          "endpoint_relative_error_median": 0.13254506261317456
+        },
+        "Dr20": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.08514909086903938,
+          "endpoint_relative_error_median": -0.0760729514686691
+        },
+        "Dr21": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.29629562606470683,
+          "endpoint_relative_error_median": 0.05186918036538557
+        },
+        "Dr22": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09944275187265933,
+          "endpoint_relative_error_median": 0.04718705723490291
+        },
+        "Dr23": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16517211256627387,
+          "endpoint_relative_error_median": -0.10941228496956018
+        },
+        "Dr24": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16788828447398066,
+          "endpoint_relative_error_median": 0.11654969809974869
+        },
+        "Dr25": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.2506497002203638,
+          "endpoint_relative_error_median": 0.14772246651722276
+        },
+        "Dr26": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.13765101379591857,
+          "endpoint_relative_error_median": -0.029681820198101894
+        },
+        "Dr27": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.19827270632995397,
+          "endpoint_relative_error_median": 0.03887157729610996
+        },
+        "Dr28": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.18914499372480875,
+          "endpoint_relative_error_median": 0.09140048222690922
+        },
+        "Dr29": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.46422509330212147,
+          "endpoint_relative_error_median": 0.38052272686141264
+        },
+        "Dr3": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.2276581651060209,
+          "endpoint_relative_error_median": -0.1907281038889943
+        },
+        "Dr30": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.18102210860496626,
+          "endpoint_relative_error_median": -0.2131525779054183
+        },
+        "Dr31": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.23881728120289983,
+          "endpoint_relative_error_median": 0.12533068714355278
+        },
+        "Dr32": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.4731123844987178,
+          "endpoint_relative_error_median": 0.06766524809706531
+        },
+        "Dr33": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1542717737709888,
+          "endpoint_relative_error_median": -0.15678192827939136
+        },
+        "Dr34": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10480811297910099,
+          "endpoint_relative_error_median": -0.07487272006446316
+        },
+        "Dr35": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.08541939334573194,
+          "endpoint_relative_error_median": -0.005043296635760308
+        },
+        "Dr36": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.23348308266814224,
+          "endpoint_relative_error_median": 0.06223917508497223
+        },
+        "Dr37": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.2086906181206428,
+          "endpoint_relative_error_median": -0.09245507126261165
+        },
+        "Dr38": {
+          "n": 2,
+          "trajectory_rmse_log_mean": 0.5789838450789326,
+          "endpoint_relative_error_median": -0.38096707211852643
+        },
+        "Dr40": {
+          "n": 2,
+          "trajectory_rmse_log_mean": 0.11921766592354974,
+          "endpoint_relative_error_median": -0.10163204560316669
+        },
+        "Dr41": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.31729652474026265,
+          "endpoint_relative_error_median": -0.0032067408402785547
+        },
+        "Dr42": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1811340737488236,
+          "endpoint_relative_error_median": -0.02152143551789726
+        },
+        "Dr43": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1372703764842054,
+          "endpoint_relative_error_median": -0.08129653442230556
+        },
+        "Dr44": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16122333745571713,
+          "endpoint_relative_error_median": -0.016681793043280435
+        },
+        "Dr46": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.3089886331823904,
+          "endpoint_relative_error_median": -0.2049186833759561
+        },
+        "Dr47": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12986778078817887,
+          "endpoint_relative_error_median": -0.051595442025192284
+        },
+        "Dr48": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.14135564401240794,
+          "endpoint_relative_error_median": -0.09626588763852606
+        },
+        "Dr49": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09770015563718427,
+          "endpoint_relative_error_median": 0.04034784184140783
+        },
+        "Dr5": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.21915685032392648,
+          "endpoint_relative_error_median": 0.19497663344752036
+        },
+        "Dr50": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12691670488728862,
+          "endpoint_relative_error_median": -0.01098782992523728
+        },
+        "Dr51": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1308224067117328,
+          "endpoint_relative_error_median": -0.01829994086597625
+        },
+        "Dr53": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.5024001463973569,
+          "endpoint_relative_error_median": 0.3320157733431254
+        },
+        "Dr54": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1618352179094472,
+          "endpoint_relative_error_median": 0.12993424645850205
+        },
+        "Dr55": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1546028420015747,
+          "endpoint_relative_error_median": -0.007861874415010683
+        },
+        "Dr56": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.4918952353795629,
+          "endpoint_relative_error_median": -0.2206921038740276
+        },
+        "Dr58": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12280118900570941,
+          "endpoint_relative_error_median": -0.060073321755621745
+        },
+        "Dr59": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.19777967573751498,
+          "endpoint_relative_error_median": -0.07998025288642374
+        },
+        "Dr60": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.17666384134804372,
+          "endpoint_relative_error_median": 0.0745802608767584
+        },
+        "Dr61": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11448871220531015,
+          "endpoint_relative_error_median": 0.028535769311536896
+        },
+        "Dr62": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.15035803004282602,
+          "endpoint_relative_error_median": -0.09371702768425938
+        },
+        "Dr63": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12330628137024986,
+          "endpoint_relative_error_median": -0.07930041045443648
+        },
+        "Dr64": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.17500193669738295,
+          "endpoint_relative_error_median": 0.006360597682697144
+        },
+        "Dr65": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.17968132134348577,
+          "endpoint_relative_error_median": 0.07861182110064135
+        },
+        "Dr66": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.18002651204066825,
+          "endpoint_relative_error_median": -0.12931135511955016
+        },
+        "Dr67": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10400147653759989,
+          "endpoint_relative_error_median": -0.014876638538005083
+        },
+        "Dr68": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1506768011358839,
+          "endpoint_relative_error_median": -0.13656853754091425
+        },
+        "Dr69": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.16560408302643287,
+          "endpoint_relative_error_median": -0.03692009266416951
+        },
+        "Dr7": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09800519638245492,
+          "endpoint_relative_error_median": -0.017209311859200827
+        },
+        "Dr70": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.17950447353955687,
+          "endpoint_relative_error_median": -0.0544676228786099
+        },
+        "Dr71": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1254619265855825,
+          "endpoint_relative_error_median": -0.0740150985296264
+        },
+        "Dr72": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.34051114057475945,
+          "endpoint_relative_error_median": 0.06543481187954181
+        },
+        "Dr73": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.0798496141781167,
+          "endpoint_relative_error_median": 0.0008448278561450362
+        },
+        "Dr74": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.3497191638549306,
+          "endpoint_relative_error_median": 0.48337606521496723
+        },
+        "Dr75": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12024198711265043,
+          "endpoint_relative_error_median": -0.02087595142347931
+        },
+        "Dr76": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1547164374524073,
+          "endpoint_relative_error_median": 0.0712942307311466
+        },
+        "Dr78": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.17549061004168484,
+          "endpoint_relative_error_median": -0.11287503093988804
+        },
+        "Dr79": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.19640741257850883,
+          "endpoint_relative_error_median": 0.04709731354937308
+        },
+        "Dr80": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12490227253100501,
+          "endpoint_relative_error_median": -0.06805299161101991
+        },
+        "Dr81": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10987240782724378,
+          "endpoint_relative_error_median": -0.018571999198342515
+        },
+        "Dr82": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10383312266497101,
+          "endpoint_relative_error_median": -0.03657160117015512
+        },
+        "Dr84": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.11195566548469248,
+          "endpoint_relative_error_median": 0.003978696076315735
+        },
+        "Dr85": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10150993605866249,
+          "endpoint_relative_error_median": 0.06897872471089828
+        },
+        "Dr87": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.30198615582815314,
+          "endpoint_relative_error_median": 0.12333452055282446
+        },
+        "Dr88": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.12077810722259959,
+          "endpoint_relative_error_median": -0.06142680277879692
+        },
+        "Dr89": {
+          "n": 3,
+          "trajectory_rmse_log_mean": 0.4272025886150043,
+          "endpoint_relative_error_median": 0.486581419789889
+        },
+        "Dr9": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09064712651869433,
+          "endpoint_relative_error_median": -0.01748794449147878
+        },
+        "Dr90": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.17428451645081425,
+          "endpoint_relative_error_median": 0.008499268811018756
+        },
+        "Dr92": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.1779529429893634,
+          "endpoint_relative_error_median": 0.1382801236026352
+        },
+        "Dr93": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.3909292158851747,
+          "endpoint_relative_error_median": 0.014115927695221409
+        },
+        "Dr94": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.09551341577505358,
+          "endpoint_relative_error_median": -0.05243284772592338
+        },
+        "Dr95": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.21519918886189393,
+          "endpoint_relative_error_median": 0.09203044930198401
+        },
+        "Dr96": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.10278425438622435,
+          "endpoint_relative_error_median": 0.04017933006340657
+        },
+        "Dr97": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.22402726478268667,
+          "endpoint_relative_error_median": 0.04845225746897319
+        },
+        "Dr98": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.0905958282481103,
+          "endpoint_relative_error_median": -0.003758268342778315
+        },
+        "Dr99": {
+          "n": 6,
+          "trajectory_rmse_log_mean": 0.18890447502967903,
+          "endpoint_relative_error_median": -0.07576253900088359
+        }
+      }
+    },
+    "rate_cap_diagnostic": {
+      "median_train_run_days": 15,
+      "median_observed_growth_factor_train": 12.69251005850197,
+      "max_normal_growth_factor_r1": 1.0394687378469323,
+      "min_weekly_euler_rate_for_observed_factor": 116.41841044836879,
+      "bounded_fit_hits_r_upper_bound": true
+    }
+  },
+  "peterson_neofotis_2004": {
+    "source_doi": "10.1007/s00442-004-1688-y",
+    "reading_resolution": {
+      "whole_plant_rgr_per_day": 0.0005,
+      "component_rgr_per_day": 0.0005,
+      "ln_transpiration_productivity": 0.02,
+      "water_last_two_days_ml": 0.2
+    },
+    "reading_resolution_is_not_sampling_uncertainty": true,
+    "baseline_38pa": [
+      {
+        "co2_pa": 38,
+        "water_treatment": "low",
+        "whole_plant_rgr_per_day": 0.0972,
+        "root_component_rgr_per_day": 0.0322,
+        "ln_transpiration_productivity": -4.97,
+        "transpiration_productivity_g_per_g_day": 0.0069431480347461145,
+        "water_last_two_days_ml_per_reported_plant": 15.9,
+        "aggregate_water_last_two_days_ml": 31.8,
+        "aggregate_water_ml_per_day": 15.9,
+        "aggregate_water_m3_per_day": 1.59e-05,
+        "balance_support_proxy_total_mass_kg_per_m3": 0.39140583092317005,
+        "increment_allocation_nonroot_fraction": 0.668724279835391,
+        "balance_support_proxy_conditional_agb_kg_per_m3": 0.26174258240746967,
+        "observed_growth_factor_39d_whole_plant": 44.291819562029545,
+        "max_normal_growth_factor_r1_weekly_euler": 1.1058708521168104,
+        "min_weekly_euler_rate_per_year_for_factor": 52.48036753898767,
+        "assumptions": [
+          "aggregate = source per-seedling water * 2 (two seedlings per pot, one modeled unit)",
+          "daily rate = two-day aggregate / 2 days; ml water treated as g (1e-6 m3/g)",
+          "total-mass proxy = 2*1000*exp(ln_Eprod)/(365*RGR) under the paper's log-mean identities",
+          "AGB proxy multiplies by 1-root_CRGR/RGR: increment allocation under a stable-allocation approximation, NOT observed standing aboveground fraction",
+          "growth factor is whole-plant exp(RGR*39); cap comparison uses water=temperature=activity=1, B<<M"
+        ]
+      },
+      {
+        "co2_pa": 38,
+        "water_treatment": "high",
+        "whole_plant_rgr_per_day": 0.1028,
+        "root_component_rgr_per_day": 0.0288,
+        "ln_transpiration_productivity": -4.97,
+        "transpiration_productivity_g_per_g_day": 0.0069431480347461145,
+        "water_last_two_days_ml_per_reported_plant": 20.6,
+        "aggregate_water_last_two_days_ml": 41.2,
+        "aggregate_water_ml_per_day": 20.6,
+        "aggregate_water_m3_per_day": 2.06e-05,
+        "balance_support_proxy_total_mass_kg_per_m3": 0.3700841125071219,
+        "increment_allocation_nonroot_fraction": 0.7198443579766537,
+        "balance_support_proxy_conditional_agb_kg_per_m3": 0.26640296036504885,
+        "observed_growth_factor_39d_whole_plant": 55.10277070930669,
+        "max_normal_growth_factor_r1_weekly_euler": 1.1058708521168104,
+        "min_weekly_euler_rate_per_year_for_factor": 56.65417879448356,
+        "assumptions": [
+          "aggregate = source per-seedling water * 2 (two seedlings per pot, one modeled unit)",
+          "daily rate = two-day aggregate / 2 days; ml water treated as g (1e-6 m3/g)",
+          "total-mass proxy = 2*1000*exp(ln_Eprod)/(365*RGR) under the paper's log-mean identities",
+          "AGB proxy multiplies by 1-root_CRGR/RGR: increment allocation under a stable-allocation approximation, NOT observed standing aboveground fraction",
+          "growth factor is whole-plant exp(RGR*39); cap comparison uses water=temperature=activity=1, B<<M"
+        ]
+      }
+    ],
+    "co2_sensitivity_76pa": [
+      {
+        "co2_pa": 76,
+        "water_treatment": "low",
+        "whole_plant_rgr_per_day": 0.0989,
+        "root_component_rgr_per_day": 0.0328,
+        "ln_transpiration_productivity": -4.5,
+        "transpiration_productivity_g_per_g_day": 0.011108996538242306,
+        "water_last_two_days_ml_per_reported_plant": 11.0,
+        "aggregate_water_last_two_days_ml": 22.0,
+        "aggregate_water_ml_per_day": 11.0,
+        "aggregate_water_m3_per_day": 1.1e-05,
+        "balance_support_proxy_total_mass_kg_per_m3": 0.6154824459876341,
+        "increment_allocation_nonroot_fraction": 0.6683518705763397,
+        "balance_support_proxy_conditional_agb_kg_per_m3": 0.41135884408273626,
+        "observed_growth_factor_39d_whole_plant": 47.327901248887414,
+        "max_normal_growth_factor_r1_weekly_euler": 1.1058708521168104,
+        "min_weekly_euler_rate_per_year_for_factor": 53.73121342570715,
+        "assumptions": [
+          "aggregate = source per-seedling water * 2 (two seedlings per pot, one modeled unit)",
+          "daily rate = two-day aggregate / 2 days; ml water treated as g (1e-6 m3/g)",
+          "total-mass proxy = 2*1000*exp(ln_Eprod)/(365*RGR) under the paper's log-mean identities",
+          "AGB proxy multiplies by 1-root_CRGR/RGR: increment allocation under a stable-allocation approximation, NOT observed standing aboveground fraction",
+          "growth factor is whole-plant exp(RGR*39); cap comparison uses water=temperature=activity=1, B<<M"
+        ]
+      },
+      {
+        "co2_pa": 76,
+        "water_treatment": "high",
+        "whole_plant_rgr_per_day": 0.1049,
+        "root_component_rgr_per_day": 0.0301,
+        "ln_transpiration_productivity": -4.22,
+        "transpiration_productivity_g_per_g_day": 0.014698644504901784,
+        "water_last_two_days_ml_per_reported_plant": 10.5,
+        "aggregate_water_last_two_days_ml": 21.0,
+        "aggregate_water_ml_per_day": 10.5,
+        "aggregate_water_m3_per_day": 1.05e-05,
+        "balance_support_proxy_total_mass_kg_per_m3": 0.7677837734516518,
+        "increment_allocation_nonroot_fraction": 0.7130600571973308,
+        "balance_support_proxy_conditional_agb_kg_per_m3": 0.5474759414126174,
+        "observed_growth_factor_39d_whole_plant": 59.80564174091019,
+        "max_normal_growth_factor_r1_weekly_euler": 1.1058708521168104,
+        "min_weekly_euler_rate_per_year_for_factor": 58.25939284277535,
+        "assumptions": [
+          "aggregate = source per-seedling water * 2 (two seedlings per pot, one modeled unit)",
+          "daily rate = two-day aggregate / 2 days; ml water treated as g (1e-6 m3/g)",
+          "total-mass proxy = 2*1000*exp(ln_Eprod)/(365*RGR) under the paper's log-mean identities",
+          "AGB proxy multiplies by 1-root_CRGR/RGR: increment allocation under a stable-allocation approximation, NOT observed standing aboveground fraction",
+          "growth factor is whole-plant exp(RGR*39); cap comparison uses water=temperature=activity=1, B<<M"
+        ]
+      }
+    ],
+    "limitations": [
+      "Figure 5 water is the last two days, not total 39-day water use.",
+      "Figure 4C is log time-averaged transpiration productivity, not conventional cumulative biomass/water yield.",
+      "Figure 2 component rates partition whole-plant growth; component rate sums differ slightly from whole-plant values due to reading/rounding.",
+      "The original experiment measured leaf, stem and root mass, but absolute initial/final aboveground masses are not tabulated in the inspected paper.",
+      "Do not invent per-pot time histories or independent replicate uncertainty."
+    ],
+    "unidentified": [
+      "absolute mature mass",
+      "canopy density",
+      "seasonal turnover",
+      "annual phenology",
+      "rooting layers",
+      "39-day cumulative water",
+      "absolute aboveground mass"
+    ]
+  },
+  "notes": [
+    "Bounded (r_year<=1) STEP fit sits at its upper bound: the runtime rate cap cannot reproduce observed seedling growth in the window; reported, not hidden."
+  ],
+  "unidentified_or_not_claimed": [
+    "ET->T calibration (only conditional T fractions reported)",
+    "mature mass M (scenarios only)",
+    "canopy density",
+    "seasonal turnover",
+    "annual phenology",
+    "rooting layers",
+    "empty-pot identity beyond barcode-pattern failure"
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "at_utc": "2026-10-31T21:12:54.594291+00:00",
+  "repositories": {
+    "/home/okin/leaf": {
+      "head": {
+        "returncode": 128,
+        "stdout": "",
+        "stderr": "fatal: not a git repository (or any of the parent directories): .git\n"
+      },
+      "branch": {
+        "returncode": 128,
+        "stdout": "",
+        "stderr": "fatal: not a git repository (or any of the parent directories): .git\n"
+      },
+      "status": {
+        "returncode": 128,
+        "stdout": "",
+        "stderr": "fatal: not a git repository (or any of the parent directories): .git\n"
+      }
+    },
+    "/home/okin/SYRUP": {
+      "head": {
+        "returncode": 0,
+        "stdout": "deb60c29834a4aad0bf8cb4cfbb611fc28ebe090\n",
+        "stderr": ""
+      },
+      "branch": {
+        "returncode": 0,
+        "stdout": "feature/subsurface-hydrology\n",
+        "stderr": ""
+      },
+      "status": {
+        "returncode": 0,
+        "stdout": " M AGENTS.md\n M claude.md\n M pyproject.toml\n M src/maple_syrup/case_import.py\n M src/maple_syrup/legacy_case.py\n M src/maple_syrup/legacy_driver.py\n M src/maple_syrup/legacy_gpu_driver.py\n M src/maple_syrup/rfid_case.py\n M src/maple_syrup/routing.py\n M src/maple_syrup/sediment_experiment.py\n?? benchmarks/additional_cases/\n?? benchmarks/subsurface/\n?? cases/abbott_companion/\n?? cases/mahleran_inputs/\n?? cases/plot2_companion/\n?? cases/plot3_companion/\n?? cases/plot4_companion/\n?? cases/rfid_companion/\n?? cases/wise_companion/\n?? conftest.py\n?? docs/additional_mahleran_cases/\n?? docs/subsurface_hydrology/\n?? docs/testing_shared_storage_qualification.md\n?? patches/\n?? src/maple_syrup/masked_case.py\n?? src/maple_syrup/subsurface.py\n?? src/maple_syrup/subsurface_cuda.py\n?? src/maple_syrup/subsurface_numba.py\n?? src/maple_syrup/subsurface_transpiration.py\n?? tests/additional_cases/\n?? tests/additional_cases_frozen/\n?? tests/collection_compat/\n?? tests/subsurface/\n",
+        "stderr": ""
+      }
+    },
+    "/home/okin/MAHLERAN": {
+      "head": {
+        "returncode": 0,
+        "stdout": "305bd95d32123f13708be2f9a88e42ddd45d6f28\n",
+        "stderr": ""
+      },
+      "branch": {
+        "returncode": 0,
+        "stdout": "master\n",
+        "stderr": ""
+      },
+      "status": {
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9": {
+      "head": {
+        "returncode": 128,
+        "stdout": "",
+        "stderr": "fatal: not a git repository (or any of the parent directories): .git\n"
+      },
+      "branch": {
+        "returncode": 128,
+        "stdout": "",
+        "stderr": "fatal: not a git repository (or any of the parent directories): .git\n"
+      },
+      "status": {
+        "returncode": 128,
+        "stdout": "",
+        "stderr": "fatal: not a git repository (or any of the parent directories): .git\n"
+      }
+    }
+  },
+  "files": {
+    "/home/okin/leaf/AGENTS.md": {
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+      "size_bytes": 2353
+    },
+    "/home/okin/leaf/README.md": {
+      "sha256": "764df3f8a7ff0b30cb110e7d72c3b880640efa740ba798b7b3a194f75906f35a",
+      "size_bytes": 4902
+    },
+    "/home/okin/leaf/agent_handoffs/project_brief.md": {
+      "sha256": "e3be10bd9b637ce3c117b1a4068cc78b43f034cac1e46fd397375ef9a0dca3f0",
+      "size_bytes": 12466
+    },
+    "/home/okin/leaf/agent_handoffs/decisions.md": {
+      "sha256": "b1686e6ea684941264fba93a3999e6e43d0f6a9874f24a465bbffc8927c6aa56",
+      "size_bytes": 10547
+    },
+    "/home/okin/leaf/agent_handoffs/upstreams.md": {
+      "sha256": "0e29089806dd5f072c030ee0d4fd80f7dc120168005fb5bdd4e372ef272fe899",
+      "size_bytes": 5063
+    },
+    "/home/okin/leaf/agent_handoffs/orchestration_state.md": {
+      "sha256": "bf46587b0d7191b5b3cccb31e6a41cea7e07f460a79d93acc88487ffe42b6dc2",
+      "size_bytes": 1893
+    },
+    "/home/okin/leaf/agent_handoffs/current_prompt.md": {
+      "sha256": "89b17f2fda6e33a44de52a8d03671b8adfd62953e8e8b1402ea6e940a61878ca",
+      "size_bytes": 468
+    },
+    "/home/okin/leaf/agent_handoffs/codex_review.md": {
+      "sha256": "83c23d7078e1173704a9577eec24e66bcc605d7c00e47ac51417300fc5330a6f",
+      "size_bytes": 834
+    },
+    "/home/okin/leaf/agent_handoffs/verification.md": {
+      "sha256": "34b33d11b090465091b225619245d8df74abba85f0a4e861dba0d272b5bd43b4",
+      "size_bytes": 965
+    },
+    "/home/okin/leaf/benchmarks/daily_water_growth.py": {
+      "sha256": "4d40507822d20df403bf2635b86f418e6da842538e3a30d8bc8729b06d1ee7aa",
+      "size_bytes": 72851
+    },
+    "/home/okin/leaf/leaf/coupling.py": {
+      "sha256": "5b94614eae341cbccfaaa533d36efb6e5981057ddf2625156a451743afc297ea",
+      "size_bytes": 25470
+    },
+    "/home/okin/leaf/docs/individual-vegetation-feasibility.md": {
+      "sha256": "f725a104458d00bd18b765d595829d41e191611de26dd326dc83c9a2c69ede77",
+      "size_bytes": 28289
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9/AGENTS.md": {
+      "sha256": "b77691620a18b77959ca632748d65ac9cd671d3a09f76d4b3286cff897e1c751",
+      "size_bytes": 2854
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9/Src/gro_new.f": {
+      "sha256": "92ff9f3aec5b40bd58e40a20748d379f8aca6885e5e314ea587ba8d2ea4d5c6c",
+      "size_bytes": 15316
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9/Src/grow.f": {
+      "sha256": "1745dd9400cad979913814070fd0e59b05ac8f61fbf0a16a4ef8fca582466530",
+      "size_bytes": 4965
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9/Src/grow.inc": {
+      "sha256": "e06ed89534c452b3b830424c1712cebff9b8b6221dbaceaecaf3412a57b875e1",
+      "size_bytes": 6010
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9/Src/eco_varbl.inc": {
+      "sha256": "ff0223b68f34244e4938ac6122e43a711004519881d6f259c82099ae808dd700",
+      "size_bytes": 29233
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9/Src/eco_param.inc": {
+      "sha256": "dd9cf0e4b6ea53039384ceb0dea4b95a84eb8a4b0eda38b9cecd477e9cb9457a",
+      "size_bytes": 3735
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9/Src/swater.f": {
+      "sha256": "f477d7c9368e79fbf963fcfc6ce81d1374ec4d768861b35d4d3d0f94e48b03d1",
+      "size_bytes": 9480
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9/Src/soildrive.f": {
+      "sha256": "b67f02a41d75f8a7b8f7ea4290c1ca2abd179925973fa5ee2fa8acfa66726063",
+      "size_bytes": 10574
+    },
+    "/home/okin/Ecotone Wind 9/Ecotone Wind 9/Src/ecotone.f": {
+      "sha256": "12937a7e78428e2f1b2357ee3db5073cf8078c99ca4b84afc9e10a9668607ae1",
+      "size_bytes": 10563
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source_manifest.json": {
+      "sha256": "09a3168bec7ba3e1e1cfd18a5a29a306bd44c6fd68fd71c4eff7bd3e90dec027",
+      "size_bytes": 3514
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/.gitmodules": {
+      "sha256": "0efc73bab179fa923656697fbc5b25ed8198bef14887c9674c000783dc419bd8",
+      "size_bytes": 130
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/ST_grid.c": {
+      "sha256": "af4cb5302776a3eccd56694a6747c6344524c38a31e6c2b928c02c2cd0c3bc7a",
+      "size_bytes": 77496
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/sxw.c": {
+      "sha256": "9d34dac91f871b3c9a9028e94f0cf51644a7d894c0a5adc326fbf98bcf200748",
+      "size_bytes": 39348
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/sxw_vars.h": {
+      "sha256": "fc7cc957a54773502c71512026fcdc9cf07c5845230319f59cf1444bdd12bf02",
+      "size_bytes": 675
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/sxw_soilwat.c": {
+      "sha256": "215db25b5e7b3f033ba671be2a10b5d17013f8436a54b76438d8b77c3cd7db2a",
+      "size_bytes": 11084
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/ST_indivs.c": {
+      "sha256": "688f95035167f173b103346971a9163226ba83fd766e60f3e95d4b4dbe7ac7fc",
+      "size_bytes": 17821
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/makefile": {
+      "sha256": "f837e75ccba9ed568f3de7952d273b9ff2423e4a741414612e0f8a4cfc808551",
+      "size_bytes": 4174
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/ST_structs.h": {
+      "sha256": "2621a386243fef0e57d15c11e8cc11436857c0d485aae30d478cf6b722757036",
+      "size_bytes": 26321
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/README.md": {
+      "sha256": "4d5202545dc74775bdc9d8cbd85ffa2ff519ab03349af0623a17b47f5ce9e9b3",
+      "size_bytes": 5766
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/sxw.h": {
+      "sha256": "76f9f6bd4654d159fe7d5c4e15a1fc236978ba3b9314c7565c207aca68299f3d",
+      "size_bytes": 7333
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/sxw_resource.c": {
+      "sha256": "a4c92ea59cb69192548012b4789945c757495b7bf590b9958ee801672ed1a9c7",
+      "size_bytes": 16373
+    },
+    "/home/okin/SYRUP/agent_handoffs/tasks/vegetation_model_comparison_20261030/stepwat_source/ST_main.c": {
+      "sha256": "dff52ec6d286fab5b066bbc43553da57905bfb4324b7083f6d6683c1f6cc882f",
+      "size_bytes": 26700
+    },
+    "/home/okin/MAHLERAN/src/Subroutines_Vegetation/veg_dyn.f90": {
+      "sha256": "cbc29d3f4bef59c0ca74ac3012ea0ee5ee8e29ed121c035939a5efa06f3fa6a7",
+      "size_bytes": 3196
+    },
+    "/home/okin/MAHLERAN/src/Subroutines_Vegetation/mortality.f90": {
+      "sha256": "8ab24d5b6a6b50f33004f16fff46eea1ee5612561711e375f3f80482e87881af",
+      "size_bytes": 3924
+    },
+    "/home/okin/MAHLERAN/src/Subroutines_Vegetation/growth.f90": {
+      "sha256": "a2996b925525aec1b16315e3a756415994f4621901d6834c1bfd0124db1d76b0",
+      "size_bytes": 3597
+    },
+    "/home/okin/MAHLERAN/src/Subroutines_Vegetation/dispersal.f90": {
+      "sha256": "1f652bf85a72fdaac3511b9d29222c58d9c7f9c6f86f55cc672a2ce8d11f47d2",
+      "size_bytes": 4469
+    },
+    "/home/okin/MAHLERAN/src/Subroutines_Vegetation/output_vegdyn.f90": {
+      "sha256": "f8bdcb9687b2deac414e181cac430482cf4f0238e5e3abff6011afe200974228",
+      "size_bytes": 5412
+    }
+  },
+  "mahleran_root_AGENTS_exists": false,
+  "authority": "User requested model/literature survey of water-to-grass/shrub biomass approaches; no numerical changes, runs or candidate model execution."
+}

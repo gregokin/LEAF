@@ -1,0 +1,49 @@
+{"installed_origins": "pass", "origins": {"benchmarks.daily_water_growth": "/home/okin/leaf/benchmarks/daily_water_growth.py", "leaf.coupling": "/home/okin/leaf/leaf/coupling.py", "maple_syrup.subsurface": "/home/okin/SYRUP/src/maple_syrup/subsurface.py", "maple_syrup.subsurface_transpiration": "/home/okin/SYRUP/src/maple_syrup/subsurface_transpiration.py"}}
+{
+  "analytical_weeks": [
+    {
+      "backend": "cuda",
+      "area_m2": 1.0,
+      "expected_total_T_m3": 1.1780972450961726e-05,
+      "actual_T_m3": 1.17809724509612e-05,
+      "water_residual_m3": -1.734723475976807e-18,
+      "biomass_analytical": true,
+      "original_state_immutable": true,
+      "time_and_weekly_calendar": true,
+      "phase_refusal": true,
+      "strict_gather_dtype": true
+    },
+    {
+      "backend": "cuda",
+      "area_m2": 0.0625,
+      "expected_total_T_m3": 1.1780972450961726e-05,
+      "actual_T_m3": 1.1780972450961742e-05,
+      "water_residual_m3": -1.0842021724855044e-19,
+      "biomass_analytical": true,
+      "original_state_immutable": true,
+      "time_and_weekly_calendar": true,
+      "phase_refusal": true,
+      "strict_gather_dtype": true
+    }
+  ],
+  "masked": [
+    {
+      "backend": "cuda",
+      "inactive_storage_excluded": true,
+      "inactive_water_unchanged": true,
+      "unmapped_potential_explicit": true,
+      "no_renormalization": true
+    }
+  ],
+  "split_runs": [
+    {
+      "backend": "cuda",
+      "split_4_plus_5_equals_9": true
+    }
+  ],
+  "guard_regressions": {
+    "negative_reserve_rejected": true,
+    "native_zero_memory_precedes_vegetation_allocation": true
+  },
+  "status": "pass"
+}

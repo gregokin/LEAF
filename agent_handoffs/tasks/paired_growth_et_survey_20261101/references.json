@@ -1,0 +1,50 @@
+{
+  "survey_date": "2026-11-01",
+  "sources": [
+    {
+      "id": "jornada_uptake",
+      "citation": "Vito & Sala (2026), Shrub and grass soil-resource partitioning as modulated by precipitation amount and size of individual",
+      "paper": "https://doi.org/10.1002/ecy.70384",
+      "data": "https://doi.org/10.6073/pasta/4bcdaa76d6994ac6e81a9097b8a8dcab",
+      "verification": "Primary full text inspected; EML already archived in the previous survey. Numerical uptake candidates recorded inactive. No daily transpiration or growth observation is inferred from tracer uptake."
+    },
+    {
+      "id": "setaria",
+      "citation": "Feldman et al. (2018), Components of Water Use Efficiency Have Unique Genetic Signatures in the Model C4 Grass Setaria",
+      "paper": "https://doi.org/10.1104/pp.18.00146",
+      "software_snapshot": "https://doi.org/10.5281/zenodo.1340752",
+      "image_feature_analysis_data": "https://doi.org/10.5281/zenodo.1117062",
+      "repository": "https://github.com/maxjfeldman/Feldman_Ellsworth_Setaria_WUE_2017/tree/v1.0",
+      "revision_from_tag_ref": "8c88886b7f6ce3e0453eaba74ccadb0f319d3b1d",
+      "verification": "Primary methods, public metadata, selected raw CSVs and analysis scripts inspected. Exact plant-ID join audited. Images and the 216 MB analysis archive not downloaded; no R code executed.",
+      "license_note": "The image-feature/analysis-data record declares CC BY 4.0. The software snapshot metadata declares other-open; do not assume one license covers every file."
+    },
+    {
+      "id": "b2_mesquite",
+      "citation": "Peterson & Neofotis (2004), A hierarchical analysis of the interactive effects of elevated CO2 and water availability on the nitrogen and transpiration productivities of velvet mesquite seedlings",
+      "paper": "https://doi.org/10.1007/s00442-004-1688-y",
+      "author_record": "https://www.giss.nasa.gov/pubs/abs/pe02200i.html",
+      "public_pdf": "https://www.giss.nasa.gov/pubs/docs/2004/2004_Peterson_pe02200i.pdf",
+      "verification": "Public PDF retrieved and methods inspected, including evaporation controls, two-day recording, two seedlings/pot, initial removed samples and 39-day growth interval. No public raw observation archive verified."
+    },
+    {
+      "id": "b2_ravi_breshears",
+      "citation": "Ravi et al. (2022), Biological invasions and climate change amplify each other's effects on dryland degradation",
+      "paper": "https://doi.org/10.1111/gcb.15919",
+      "linked_archive": "https://figshare.com/s/7cf2cd975decff746bb3",
+      "verification": "Primary methods and data-availability statement inspected. Whole-plant integrated transpiration is not reported in the published methods. Archive link yielded empty HTTP 202; read-only public title search returned unrelated records. File contents remain unverified."
+    },
+    {
+      "id": "sunny_saplings",
+      "citation": "Sunny et al. (2024), Responses to water limitation are independent of light for saplings of a seasonally dry tropical forest",
+      "data": "https://doi.org/10.5061/dryad.qbzkh18t0",
+      "verification": "Primary Dryad landing-page README/schema inspected. Listed traits, water-uptake and README downloads returned HTTP 403. Actual rows, plant-ID joins and absolute aboveground mass not qualified."
+    },
+    {
+      "id": "milkweed",
+      "citation": "Matzner et al. (2024), Physiological and morphological growth and hydraulic measures in Asclepias syriaca and A. speciosa under drought",
+      "data": "https://doi.org/10.5061/dryad.0cfxpnwbx",
+      "verification": "Primary Dryad landing-page README/schema inspected. 2019 drought workbook download returned HTTP 403. Biomass definitions, initial mass and joins remain unqualified; separate later experiments cannot be assumed simultaneous."
+    }
+  ]
+}

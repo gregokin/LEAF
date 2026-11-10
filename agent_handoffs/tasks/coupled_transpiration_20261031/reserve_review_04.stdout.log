@@ -1,0 +1,2 @@
+CONFIRMED_RESERVE_DEFECT {'cap': 1000000, 'reported_peak': 100067680}
+CONFIRMED_AVAILABILITY_GAP {'available': 67656, 'admitted_peak': 67680, 'checked_smaller_bound': 67632}

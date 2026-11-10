@@ -1,0 +1,79 @@
+{
+  "retrieved_date": "2026-10-31",
+  "sources": [
+    {
+      "id": "tietjen2010",
+      "title": "Tietjen et al. (2010), Effects of climate change on the coupled dynamics of water and vegetation in drylands",
+      "url": "https://www.biodiversity-plants.de/downloads/Tietjen_etal_2009_Ecohydro.pdf",
+      "access": "Full author PDF via web; model description, growth and climate scenarios inspected."
+    },
+    {
+      "id": "peters2002",
+      "title": "Peters (2002), Plant species dominance at a grassland-shrubland ecotone",
+      "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=125438",
+      "doi": "10.1016/S0304-3800(01)00460-4",
+      "access": "USDA author publication summary; original Jornada PDF403. Specific active-growth findings are from the supplied local code, not attributed as exact paper reproduction."
+    },
+    {
+      "id": "stepwat2018",
+      "title": "Palmquist et al. (2018), STEPWAT2",
+      "url": "https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.2394",
+      "access": "Full publisher article: resource partitioning, annual growth and mortality. Separately inspected pinned code."
+    },
+    {
+      "id": "grassmind_manual",
+      "title": "GRASSMIND2.0 model description",
+      "url": "https://formind.org/wp-content/uploads/2020/05/Grassmind_ModelDescription.pdf",
+      "access": "Full author manual; sections2,3.7,3.8,3.10-3.14."
+    },
+    {
+      "id": "grassmind2020",
+      "title": "Taubert et al. (2020), The role of species traits for grassland productivity",
+      "url": "https://esajournals.onlinelibrary.wiley.com/doi/10.1002/ecs2.3205",
+      "access": "Primary article search-indexed methods: daily individuals without subpatch locations; Festuca parameterization. No Jornada coefficient transfer."
+    },
+    {
+      "id": "williams2005",
+      "title": "Williams and Albertson (2005), Contrasting short- and long-timescale effects of vegetation dynamics on water and carbon fluxes in water-limited ecosystems",
+      "url": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2004WR003750",
+      "access": "Full publisher text; overview, grass/wood distinctions and AppendixB carbon balances. Image equations not transcribed; proposed LEAF equations explicitly separate."
+    },
+    {
+      "id": "caylor2004_gcb",
+      "title": "Caylor et al. (2004), Relationship between small-scale structural variability and simulated vegetation productivity across a regional moisture gradient in southern Africa",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2486.2003.00704.x",
+      "access": "Publisher abstract and author lab record; detailed physiology equations not verified."
+    },
+    {
+      "id": "caylor2004_le",
+      "title": "Caylor and Shugart (2004), Simulated productivity of heterogeneous patches in Southern African savanna landscapes using a canopy productivity model",
+      "url": "https://doi.org/10.1023/B:LAND.0000030450.11302.c2",
+      "access": "Publisher abstract, author lab record and author-uploaded full-text search excerpt. Limit conclusions to daily patch productivity and canopy heterogeneity; no detailed shared-code claim."
+    },
+    {
+      "id": "caylor2005",
+      "title": "Caylor et al. (2005), Tree canopy effects on simulated water stress in southern African savannas",
+      "url": "https://link.springer.com/article/10.1007/s10021-004-0027-9",
+      "access": "Publisher abstract: daily energy/water balance, five surface components and moisture stress. Full methods subscription-only."
+    },
+    {
+      "id": "caylor2006",
+      "title": "Caylor et al. (2006), On the ecohydrology of structurally heterogeneous semiarid landscapes",
+      "url": "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2005WR004683",
+      "access": "Full publisher article; canopy/root overlap statistics and water/stress, not an individual biomass-update engine."
+    },
+    {
+      "id": "aquacrop_fao",
+      "title": "FAO AquaCrop calculation scheme",
+      "url": "https://www.fao.org/aquacrop/overview/calculation-scheme/en",
+      "access": "Full official scheme: daily canopy/transpiration/aboveground biomass; normalize water productivity for climate/CO2."
+    },
+    {
+      "id": "aquacrop_gmd",
+      "title": "de Roos et al. (2021), Performance analysis of regional AquaCrop(v6.1) biomass and surface soil moisture simulations",
+      "url": "https://gmd.copernicus.org/articles/14/7309/2021/",
+      "access": "Primary application/methods eq1 B=WP*sum(Tr/ETo). FAO full book too large for web, manual chapter3 timed out; not claimed read."
+    }
+  ],
+  "method": "Primary sources only; explicit full-text/access distinctions. Public code GET manifest in public_sources/manifest.json."
+}

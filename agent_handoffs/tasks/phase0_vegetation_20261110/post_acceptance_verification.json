@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-10",
+  "reviewer": "Codex",
+  "check": "staged_whitespace",
+  "result": "pass",
+  "scope": "All new Phase 0 implementation, examples, package metadata, guides, source lock, project and control documents; historical evidence is preserved rather than reformatted.",
+  "installed_source_lock_rechecked": true,
+  "root_AGENTS_sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+  "no_staged_candidate_raw_data_or_compiled_caches": true,
+  "verification_children_reaped": true,
+  "git_remote_names": [],
+  "push_status": "Awaiting destination URL requested asynchronously; no push attempted."
+}

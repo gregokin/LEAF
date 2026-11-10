@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/legacy_compatibility.py", line 14, in <module>
+    for name in a.live_names():np.testing.assert_array_equal(getattr(a,name),getattr(b,name),err_msg=name)
+                ^^^^^^^^^^^^
+AttributeError: 'Simulation' object has no attribute 'live_names'. Did you mean: 'live_bytes'?

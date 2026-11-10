@@ -1,0 +1,9 @@
+# Jornada capacity and geometry benchmark scope
+
+User authority: derive individual counts from Jornada literature, grass diameters0.10–0.20m and mesquite2m; use2–3soil layers; estimate memory. In parallel carry out the previously recommended bounded compiled CPU/GPU root-mapping and canopy-projection prototype.
+
+Codex owns literature, input scenarios, capacity calculations, review, benchmark execution and orchestration records. Claude owns the generic benchmark implementation through an isolated no-tools generation task; no simultaneous overlapping writer. Source scope for Claude is only the public/generic algorithm prompt, not private local context or upstream code. Codex installs returned files after validation. Preserve the rejected bootstrap payload boundary.
+
+Allowed outputs: benchmarks/spatial_mapping.py, tests/test_spatial_mapping.py, benchmarks/README.md; docs/jornada-capacity.md; README.md; current handoff aliases and this task's records; local benchmark results/caches under benchmarks/results and /tmp. Root AGENTS.md and historical evidence are preserved. No upstream writes, installs, new environment, Git actions or wind/water/ecological solver runs. Synthetic geometry/kernel benchmarks are authorized here. Use existing MAPLE environments only. GPU0 is selected by UUID after checking it is idle; no other jobs altered.
+
+Acceptance: verified primary Jornada cover values and cover-definition caveats; reproducible hectare counts and2/3-layer memory ledger; independently reviewed source; meaningful unit and CPU/GPU geometry/reduction checks; source-bound measured timings and memory definitions with bounded admission. Record unsupported GPU/runtime conditions honestly and do not invent performance. Include coarse-grid canopy sampling aliasing, finite boundaries, small-footprint root access and clumped contention. No growth/WUE/demography implementation in this task.

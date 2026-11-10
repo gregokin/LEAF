@@ -1,0 +1,146 @@
+{
+  "source": "Murano, Otani & Seike (2010), doi:10.1002/etc.288",
+  "rows": [
+    {
+      "table": 2,
+      "environment": "Covered soil pots containing 0.109 microgram dieldrin/g dry soil; greenhouse 25 plus/minus 2 C, natural light, about 14 h day length; 21 days after transplantation.",
+      "species": "Cucurbita pepo",
+      "shoot_DRY_g_per_pot": 10.6,
+      "shoot_SE_g": 0.2,
+      "T_mL_per_pot_per_day": 327,
+      "T_SE_mL_per_day": 8,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 30.849056603773587
+    },
+    {
+      "table": 2,
+      "environment": "Covered soil pots containing 0.109 microgram dieldrin/g dry soil; greenhouse 25 plus/minus 2 C, natural light, about 14 h day length; 21 days after transplantation.",
+      "species": "Cucumis sativus",
+      "shoot_DRY_g_per_pot": 6.98,
+      "shoot_SE_g": 0.27,
+      "T_mL_per_pot_per_day": 219,
+      "T_SE_mL_per_day": 23,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 31.37535816618911
+    },
+    {
+      "table": 2,
+      "environment": "Covered soil pots containing 0.109 microgram dieldrin/g dry soil; greenhouse 25 plus/minus 2 C, natural light, about 14 h day length; 21 days after transplantation.",
+      "species": "Brassica oleracea var. italica",
+      "shoot_DRY_g_per_pot": 6.98,
+      "shoot_SE_g": 0.34,
+      "T_mL_per_pot_per_day": 307,
+      "T_SE_mL_per_day": 10,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 43.98280802292263
+    },
+    {
+      "table": 2,
+      "environment": "Covered soil pots containing 0.109 microgram dieldrin/g dry soil; greenhouse 25 plus/minus 2 C, natural light, about 14 h day length; 21 days after transplantation.",
+      "species": "Solanum lycopersicum",
+      "shoot_DRY_g_per_pot": 8.35,
+      "shoot_SE_g": 0.04,
+      "T_mL_per_pot_per_day": 308,
+      "T_SE_mL_per_day": 11,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 36.886227544910184
+    },
+    {
+      "table": 2,
+      "environment": "Covered soil pots containing 0.109 microgram dieldrin/g dry soil; greenhouse 25 plus/minus 2 C, natural light, about 14 h day length; 21 days after transplantation.",
+      "species": "Glycine max",
+      "shoot_DRY_g_per_pot": 8.4,
+      "shoot_SE_g": 0.21,
+      "T_mL_per_pot_per_day": 214,
+      "T_SE_mL_per_day": 13,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 25.476190476190474
+    },
+    {
+      "table": 2,
+      "environment": "Covered soil pots containing 0.109 microgram dieldrin/g dry soil; greenhouse 25 plus/minus 2 C, natural light, about 14 h day length; 21 days after transplantation.",
+      "species": "Zea mays",
+      "shoot_DRY_g_per_pot": 10.2,
+      "shoot_SE_g": 0.6,
+      "T_mL_per_pot_per_day": 192,
+      "T_SE_mL_per_day": 14,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 18.823529411764707
+    },
+    {
+      "table": 2,
+      "environment": "Covered soil pots containing 0.109 microgram dieldrin/g dry soil; greenhouse 25 plus/minus 2 C, natural light, about 14 h day length; 21 days after transplantation.",
+      "species": "Helianthus annuus",
+      "shoot_DRY_g_per_pot": 7.31,
+      "shoot_SE_g": 0.08,
+      "T_mL_per_pot_per_day": 265,
+      "T_SE_mL_per_day": 17,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 36.25170998632011
+    },
+    {
+      "table": 4,
+      "environment": "Separate hydroponic experiment in growth chamber, 25 plus/minus 2 C, 14 h light and 10 h dark; varying species-specific growth durations and plant densities.",
+      "species": "Cucurbita pepo",
+      "shoot_DRY_g_per_pot": 38.2,
+      "shoot_SE_g": 4.9,
+      "T_mL_per_pot_per_day": 1610,
+      "T_SE_mL_per_day": 80,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 42.14659685863874
+    },
+    {
+      "table": 4,
+      "environment": "Separate hydroponic experiment in growth chamber, 25 plus/minus 2 C, 14 h light and 10 h dark; varying species-specific growth durations and plant densities.",
+      "species": "Cucumis sativus",
+      "shoot_DRY_g_per_pot": 30.3,
+      "shoot_SE_g": 0.9,
+      "T_mL_per_pot_per_day": 2010,
+      "T_SE_mL_per_day": 100,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 66.33663366336633
+    },
+    {
+      "table": 4,
+      "environment": "Separate hydroponic experiment in growth chamber, 25 plus/minus 2 C, 14 h light and 10 h dark; varying species-specific growth durations and plant densities.",
+      "species": "Brassica oleracea var. italica",
+      "shoot_DRY_g_per_pot": 24.4,
+      "shoot_SE_g": 1.3,
+      "T_mL_per_pot_per_day": 1130,
+      "T_SE_mL_per_day": 20,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 46.31147540983607
+    },
+    {
+      "table": 4,
+      "environment": "Separate hydroponic experiment in growth chamber, 25 plus/minus 2 C, 14 h light and 10 h dark; varying species-specific growth durations and plant densities.",
+      "species": "Solanum lycopersicum",
+      "shoot_DRY_g_per_pot": 30.0,
+      "shoot_SE_g": 2.1,
+      "T_mL_per_pot_per_day": 2090,
+      "T_SE_mL_per_day": 130,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 69.66666666666667
+    },
+    {
+      "table": 4,
+      "environment": "Separate hydroponic experiment in growth chamber, 25 plus/minus 2 C, 14 h light and 10 h dark; varying species-specific growth durations and plant densities.",
+      "species": "Glycine max",
+      "shoot_DRY_g_per_pot": 41.2,
+      "shoot_SE_g": 2.5,
+      "T_mL_per_pot_per_day": 1100,
+      "T_SE_mL_per_day": 100,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 26.699029126213592
+    },
+    {
+      "table": 4,
+      "environment": "Separate hydroponic experiment in growth chamber, 25 plus/minus 2 C, 14 h light and 10 h dark; varying species-specific growth durations and plant densities.",
+      "species": "Zea mays",
+      "shoot_DRY_g_per_pot": 44.0,
+      "shoot_SE_g": 2.8,
+      "T_mL_per_pot_per_day": 1180,
+      "T_SE_mL_per_day": 60,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 26.818181818181817
+    },
+    {
+      "table": 4,
+      "environment": "Separate hydroponic experiment in growth chamber, 25 plus/minus 2 C, 14 h light and 10 h dark; varying species-specific growth durations and plant densities.",
+      "species": "Helianthus annuus",
+      "shoot_DRY_g_per_pot": 28.0,
+      "shoot_SE_g": 1.5,
+      "T_mL_per_pot_per_day": 2110,
+      "T_SE_mL_per_day": 90,
+      "q_L_per_kg_aboveground_DRY_biomass_per_day": 75.35714285714286
+    }
+  ],
+  "calculation": "Ratio of treatment means; mL/g/day equals L/kg/day. No ratio confidence interval inferred from marginal SEs."
+}

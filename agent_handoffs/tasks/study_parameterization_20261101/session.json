@@ -1,0 +1,11 @@
+{
+  "session_id": "0eff6b97-852d-45dc-ad6c-24503b07a18c",
+  "timeout_seconds": 900,
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/study_parameterization_20261101/candidate",
+  "write_files": [
+    "study_parameters.py",
+    "test_study_parameters.py",
+    "README.md",
+    "report.md"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "checked_at_utc": "2026-10-31T10:45:11.318257+00:00",
+  "executable": "/home/okin/MAPLE/.venv-cupy/bin/python",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "numpy": "2.5.3",
+  "numba": "0.67.0",
+  "cupy": "14.2.0",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39"
+}

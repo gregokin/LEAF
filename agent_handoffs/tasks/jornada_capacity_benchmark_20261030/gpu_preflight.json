@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-10-30T17:57:43.850474+00:00",
+  "scope": "User-authorized synthetic benchmark preflight; one FP64 atomic operation, no model or other-job mutation.",
+  "cupy_version": "14.2.0",
+  "cuda_runtime": 12090,
+  "device_count": 1,
+  "device": {
+    "name": "NVIDIA GeForce GTX 1080 Ti",
+    "totalGlobalMem": 11811028992,
+    "major": 6,
+    "minor": 1
+  },
+  "FP64_atomic_result": 1.0,
+  "success": true,
+  "pool_reserved_bytes": 512
+}

@@ -1,0 +1,107 @@
+{
+  "recorded_utc": "2026-11-01T10:44:53.098862+00:00",
+  "revision_from_tag": {
+    "sha": "8c88886b7f6ce3e0453eaba74ccadb0f319d3b1d",
+    "type": "commit",
+    "url": "https://api.github.com/repos/maxjfeldman/Feldman_Ellsworth_Setaria_WUE_2017/git/commits/8c88886b7f6ce3e0453eaba74ccadb0f319d3b1d"
+  },
+  "weight_schema": [
+    "experiment",
+    "id",
+    "plant barcode",
+    "car tag",
+    "timestamp",
+    "weight before",
+    "weight after",
+    "water amount",
+    "completed",
+    "measurement label",
+    "tag",
+    "tiles"
+  ],
+  "harvest_schema": [
+    "plantbarcode",
+    "fresh_wt",
+    "sat_wt",
+    "dry_wt",
+    "cartag"
+  ],
+  "raw_weight_rows": 87368,
+  "raw_weight_barcodes_including_controls": 1139,
+  "weight_timestamp_start": "2014-01-20 16:22:56.756",
+  "weight_timestamp_end": "2014-02-17 14:07:48.999",
+  "weight_completed_values": {
+    "true": 87368
+  },
+  "raw_harvest_rows": 179,
+  "unique_harvest_barcodes": 179,
+  "duplicate_harvest_barcodes": {},
+  "exact_barcode_matched_harvest_rows": 176,
+  "matched_treatment_codes": {
+    "wet": 91,
+    "dry": 85
+  },
+  "unmatched_harvest_barcodes": [
+    "Dr102AA0001759",
+    "Dr6AA001532",
+    "Dr86AB001654"
+  ],
+  "nonfinite_negative_or_nonnumeric_dry_mass_barcodes": [],
+  "source_hashes": [
+    {
+      "file": "setaria_snapshots.csv",
+      "upstream_path": "data/SnapshotInfo_RIL_allday.csv",
+      "bytes": 11811823,
+      "sha256": "d756c2f621041750342675103693330d8a17bb1c91d066ca143ba0ba803c7370",
+      "git_blob_sha1": "b4c88db597a28ad8f82e7dfd0f7a69095d8cf4c1",
+      "matches_pinned_listing": true
+    },
+    {
+      "file": "setaria_harvest.csv",
+      "upstream_path": "data/measured_biomass_setaria_ril.csv",
+      "bytes": 6268,
+      "sha256": "dacc04d406fefef366917fcb9de482fdb34974a8eba13c51223d9f5623a8dd7b",
+      "git_blob_sha1": "12e2984ed1d39baeb283deef69ace4b64345a233",
+      "matches_pinned_listing": true
+    },
+    {
+      "file": "setaria_fetch_data.R",
+      "upstream_path": "script/fetch_data.R",
+      "bytes": 14256,
+      "sha256": "4fcf07602c55931ed1cb4921ce50e36d5bff3291ab1a8f819e91ca33e161b6d1",
+      "git_blob_sha1": "5306196c1dfa2f6c03bb857ed7c282a6d124c331",
+      "matches_pinned_listing": true
+    },
+    {
+      "file": "setaria_water_use.R",
+      "upstream_path": "script/ril_water_use.R",
+      "bytes": 27709,
+      "sha256": "b8fddcc9bcda3551b8a77c78133803c60f106abc55a37d92a59dd1de9f91f086",
+      "git_blob_sha1": "4e9a649553fa5c9cf4620287cba93f6939322a77",
+      "matches_pinned_listing": true
+    },
+    {
+      "file": "setaria_biomass_modeling.R",
+      "upstream_path": "script/ril_biomass_modeling.R",
+      "bytes": 21319,
+      "sha256": "bf3974a70bccabce3af379a93e9df499b26c380c5c6cbf1d3e0a0d2bb0aac98e",
+      "git_blob_sha1": "3731ade501bee5ccbe87433d1fe24c662700e437",
+      "matches_pinned_listing": true
+    },
+    {
+      "file": "setaria_documentation.docx",
+      "upstream_path": "Documentation.docx",
+      "bytes": 94973,
+      "sha256": "b2c39e388b8e170547f321f77d52f1bb5ea255af6a8f8a606a27bd5d481b8e4c",
+      "git_blob_sha1": "145349ee70ce60f2e6bdfb0dcba92e20555b090c",
+      "matches_pinned_listing": true
+    }
+  ],
+  "limits": [
+    "Raw counts precede scientific QC, date selection and evaporation corrections.",
+    "An exact barcode join is established; no daily water loss, growth series, genotype analysis or calibration was computed.",
+    "Three unmatched harvest barcodes are retained without automatic correction.",
+    "The separate 216 MB image-feature/analysis archive was identified through metadata, not downloaded.",
+    "The paper's main 17-DAP analysis window and selected script's intermediate 15-33-DAP window need explicit reconciliation before reuse."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-10-31T19:37:50.835620+00:00",
+  "mode": "native",
+  "qualified_revision": 5,
+  "files": [
+    {
+      "source": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/native/maple_syrup/subsurface_transpiration.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/subsurface_transpiration.py",
+      "size": 27929,
+      "sha256": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9"
+    },
+    {
+      "source": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/native/test_transpiration.py",
+      "target": "/home/okin/SYRUP/tests/subsurface/test_transpiration.py",
+      "size": 21442,
+      "sha256": "4227e168bd0b43995c9106bda6b508dcf5eb5085a23494bb07d41f7a88b7cb87"
+    }
+  ],
+  "existing_upstream_files_modified": false
+}

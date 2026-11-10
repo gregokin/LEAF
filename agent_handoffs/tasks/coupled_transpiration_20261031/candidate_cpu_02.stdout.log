@@ -1,0 +1,68 @@
+..F..F........s........................ss....................s.........s [ 98%]
+.                                                                        [100%]
+=================================== FAILURES ===================================
+________________ CoupledBasicsTests.test_dry_top_vs_dry_bottom _________________
+
+self = <test_coupling.CoupledBasicsTests testMethod=test_dry_top_vs_dry_bottom>
+
+    def test_dry_top_vs_dry_bottom(self):
+        frac = {'top': [0.8, 0.2], 'bottom': [0.2, 0.8]}
+        for dry, expect in ((0, (0.2, 0.8)), (1, (0.8, 0.2))):
+            case = make_case(grass_count=2, root_layer_fractions=frac)
+            water = np.full((2, 1), 0.001)  # below residual everywhere ...
+            X = 0.5 * DP1
+            water[1 - dry, 0] = RES_M + X / 100.0  # ... except X m3 in the wet layer
+            sim, _ = build(case, make_inputs([5.0, 5.0], [5.0, 5.0], [1.0, 1.0], pid=[0, 1]), water)
+            sim.step_day(*forcing(sim))
+>           np.testing.assert_allclose(host(sim.vegetation.uptake_cum), [expect[0] * X, expect[1] * X], rtol=1e-9)
+E           AssertionError: 
+E           Not equal to tolerance rtol=1e-09, atol=0
+E           
+E           Mismatched elements: 2 / 2 (100%)
+E           Mismatch at indices:
+E            [0]: 0.0009424770967339341 (ACTUAL), 0.000942477796076938 (DESIRED)
+E            [1]: 0.0037699083869357363 (ACTUAL), 0.003769911184307752 (DESIRED)
+E           Max absolute difference among violations: 2.79737202e-09
+E           Max relative difference among violations: 7.42025973e-07
+E            ACTUAL: array([0.000942, 0.00377 ])
+E            DESIRED: array([0.000942, 0.00377 ])
+
+tests/test_coupling.py:99: AssertionError
+__ CoupledBasicsTests.test_two_competing_individuals_with_different_fractions __
+
+self = <test_coupling.CoupledBasicsTests testMethod=test_two_competing_individuals_with_different_fractions>
+
+    def test_two_competing_individuals_with_different_fractions(self):
+        frac = {'top': [0.8, 0.2], 'bottom': [0.2, 0.8]}
+        case = make_case(grass_count=2, root_layer_fractions=frac)
+        X = 0.5 * DP1  # m3 available in layer 0 (< requested R0 = DP1); layer 1 plentiful (1.5 m3)
+        water = [[RES_M + X / 100.0], [WET]]
+        sim, _ = build(case, make_inputs([5.0, 5.0], [5.0, 5.0], [1.0, 1.0], pid=[0, 1]), water)
+        self.assertIsNone(sim.vegetation.W)
+        added, pet = forcing(sim)
+        res = sim.step_day(added, pet)
+        s0 = X / DP1  # layer-0 acceptance scale
+>       np.testing.assert_allclose(host(sim.vegetation.uptake_cum), [DP1 * (0.8 * s0 + 0.2), DP1 * (0.2 * s0 + 0.8)], rtol=1e-9)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-09, atol=0
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: 0.00565487711188946 (ACTUAL), 0.005654866776461628 (DESIRED)
+E        [1]: 0.0084823027485494 (ACTUAL), 0.008482300164692442 (DESIRED)
+E       Max absolute difference among violations: 1.03354278e-08
+E       Max relative difference among violations: 1.82770492e-06
+E        ACTUAL: array([0.005655, 0.008482])
+E        DESIRED: array([0.005655, 0.008482])
+
+tests/test_coupling.py:82: AssertionError
+=============================== warnings summary ===============================
+::WithdrawalTests::test_validation
+  /home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/subsurface_transpiration.py:288: RuntimeWarning: invalid value encountered in multiply
+    inactive_req = (qmax_cell * op.inactive_f).max()        # > 0 (or NaN) only if an inactive cell is requested
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../../../../../../../dev/test_coupling.py::CoupledBasicsTests::test_dry_top_vs_dry_bottom
+FAILED ../../../../../../../dev/test_coupling.py::CoupledBasicsTests::test_two_competing_individuals_with_different_fractions
+2 failed, 66 passed, 5 skipped, 1 warning in 4.96s

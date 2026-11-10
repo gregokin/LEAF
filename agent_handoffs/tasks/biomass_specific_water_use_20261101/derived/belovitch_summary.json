@@ -1,0 +1,174 @@
+{
+  "source": "Belovitch et al. 2023, doi:10.1111/nph.18909; released data v1.0.0",
+  "source_sha256": "228745e037f443ae0f2d177ddd00b4b9ddaab5124888f5d00e110464d35f7bd2",
+  "quantity": "Litres transpired per kg harvested aboveground DRY shoot biomass per 24-hour day",
+  "mass_timing": "One fixed end-of-drydown harvested shoot dry mass per plant; no daily biomass observations or assumed biomass trajectory.",
+  "conversion": "sum hourly water losses (g)/shoot dry mass (g) is numerically L/kg/day at water density approximately 1 kg/L.",
+  "aggregation": "Mean daily rate within each individual/moisture bin, then median and IQR across individuals; no mixed-model refit.",
+  "uncertainty": "Descriptive IQR, not confidence limits; includes species, plant and environment variation; no field validation.",
+  "audit": {
+    "raw_rows": 21311,
+    "raw_individual_ids": 117,
+    "raw_functional_group_species_codes": {
+      "Tree": 24,
+      "Grass": 21
+    },
+    "source_count_note": "Raw species-code counts differ from the paper's stated biological species counts; codes are not independently reidentified.",
+    "unplaced_rows": 3,
+    "duplicate_hour_excess_rows": 396,
+    "ambiguous_individual_ids": [
+      "Trigra1",
+      "Trigra2"
+    ],
+    "changing_metadata_ids": [],
+    "supplied_normalization_mismatch_rows_by_id": {
+      "Trigra2": 326
+    },
+    "excluded_individual_ids": [
+      "Trigra1",
+      "Trigra2"
+    ],
+    "negative_hourly_losses_retained": 644,
+    "plant_days_total": 1003,
+    "primary_complete_days": 759,
+    "primary_individuals": 111,
+    "excluded_days_by_reason": {
+      "not_one_record_for_each_of_24_hours": 242,
+      "missing_water_potential": 3,
+      "missing_water_loss": 1,
+      "negative_daily_net_loss": 1,
+      "ambiguous_individual_or_inconsistent_normalization": 19
+    },
+    "policy": "Exclude whole individuals with ambiguous duplicate hours or inconsistent supplied normalization; require complete unique 24-hour observations and finite water/potential; retain negative hourly increments without clipping; recompute normalization from raw water and shoot mass."
+  },
+  "summary": [
+    {
+      "functional_group": "Grass",
+      "moisture_bin": "dry_minus1.5_to_minus1_MPa",
+      "individuals": 32,
+      "complete_24h_days": 52,
+      "median_L_per_kg_AGB_DRY_per_day": 7.880446635500624,
+      "interquartile_range_L_per_kg_AGB_DRY_per_day": [
+        5.94550940804511,
+        10.4349533315789
+      ],
+      "range_L_per_kg_AGB_DRY_per_day": [
+        2.149587214365418,
+        15.707041697909595
+      ],
+      "mean_L_per_kg_AGB_DRY_per_day": 8.276813095269603
+    },
+    {
+      "functional_group": "Grass",
+      "moisture_bin": "moderate_minus1_to_minus0.5_MPa",
+      "individuals": 47,
+      "complete_24h_days": 124,
+      "median_L_per_kg_AGB_DRY_per_day": 21.74196277472081,
+      "interquartile_range_L_per_kg_AGB_DRY_per_day": [
+        14.317957007702036,
+        28.02248449583184
+      ],
+      "range_L_per_kg_AGB_DRY_per_day": [
+        6.462490835880394,
+        47.91985824396906
+      ],
+      "mean_L_per_kg_AGB_DRY_per_day": 21.935823900432812
+    },
+    {
+      "functional_group": "Grass",
+      "moisture_bin": "very_dry_le_minus1.5_MPa",
+      "individuals": 21,
+      "complete_24h_days": 45,
+      "median_L_per_kg_AGB_DRY_per_day": 2.6548534769497474,
+      "interquartile_range_L_per_kg_AGB_DRY_per_day": [
+        1.8198402137965728,
+        3.696244913602347
+      ],
+      "range_L_per_kg_AGB_DRY_per_day": [
+        1.045206432518128,
+        4.523992846143505
+      ],
+      "mean_L_per_kg_AGB_DRY_per_day": 2.7002577551020686
+    },
+    {
+      "functional_group": "Grass",
+      "moisture_bin": "wet_gt_minus0.5_MPa",
+      "individuals": 30,
+      "complete_24h_days": 67,
+      "median_L_per_kg_AGB_DRY_per_day": 23.39674060722676,
+      "interquartile_range_L_per_kg_AGB_DRY_per_day": [
+        14.850252929568995,
+        26.673631485245018
+      ],
+      "range_L_per_kg_AGB_DRY_per_day": [
+        8.066026802146,
+        34.145204151655676
+      ],
+      "mean_L_per_kg_AGB_DRY_per_day": 21.37649575737974
+    },
+    {
+      "functional_group": "Tree",
+      "moisture_bin": "dry_minus1.5_to_minus1_MPa",
+      "individuals": 29,
+      "complete_24h_days": 66,
+      "median_L_per_kg_AGB_DRY_per_day": 4.092423899291101,
+      "interquartile_range_L_per_kg_AGB_DRY_per_day": [
+        2.4429402596758796,
+        5.353567853567853
+      ],
+      "range_L_per_kg_AGB_DRY_per_day": [
+        1.0141824377331123,
+        9.02198729437165
+      ],
+      "mean_L_per_kg_AGB_DRY_per_day": 4.121169301396148
+    },
+    {
+      "functional_group": "Tree",
+      "moisture_bin": "moderate_minus1_to_minus0.5_MPa",
+      "individuals": 55,
+      "complete_24h_days": 271,
+      "median_L_per_kg_AGB_DRY_per_day": 10.089910557146064,
+      "interquartile_range_L_per_kg_AGB_DRY_per_day": [
+        7.117188568348018,
+        13.909009720128676
+      ],
+      "range_L_per_kg_AGB_DRY_per_day": [
+        2.3101418358841834,
+        30.904093309560952
+      ],
+      "mean_L_per_kg_AGB_DRY_per_day": 11.384098244918862
+    },
+    {
+      "functional_group": "Tree",
+      "moisture_bin": "very_dry_le_minus1.5_MPa",
+      "individuals": 12,
+      "complete_24h_days": 18,
+      "median_L_per_kg_AGB_DRY_per_day": 2.2191614841635623,
+      "interquartile_range_L_per_kg_AGB_DRY_per_day": [
+        1.7385845172942331,
+        2.8056699336684536
+      ],
+      "range_L_per_kg_AGB_DRY_per_day": [
+        0.5611962977448542,
+        3.752233472304943
+      ],
+      "mean_L_per_kg_AGB_DRY_per_day": 2.245266422613687
+    },
+    {
+      "functional_group": "Tree",
+      "moisture_bin": "wet_gt_minus0.5_MPa",
+      "individuals": 35,
+      "complete_24h_days": 116,
+      "median_L_per_kg_AGB_DRY_per_day": 13.817283007383361,
+      "interquartile_range_L_per_kg_AGB_DRY_per_day": [
+        9.561019566413629,
+        19.890758090265614
+      ],
+      "range_L_per_kg_AGB_DRY_per_day": [
+        3.475016642395132,
+        28.378514056475904
+      ],
+      "mean_L_per_kg_AGB_DRY_per_day": 15.00772518141684
+    }
+  ]
+}

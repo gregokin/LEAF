@@ -1,0 +1,38 @@
+{
+  "failed_handler_domain_rollback": {
+    "pass": false
+  },
+  "diagnostic_owns_input": {
+    "pass": false
+  },
+  "handler_cannot_redirect_identity": {
+    "pass": false
+  },
+  "matching_legacy_law": {
+    "pass": true
+  },
+  "refuse_lost_seasonal_input": {
+    "pass": false
+  },
+  "refuse_lost_seasonal_capture": {
+    "pass": false
+  },
+  "refuse_pointwise_only_allometry_match": {
+    "pass": false
+  },
+  "refuse_nan_tolerance": {
+    "pass": false
+  },
+  "refuse_unknown_profile": {
+    "pass": false
+  },
+  "refuse_unsigned_driver_id_overflow": {
+    "pass": false
+  },
+  "refuse_fractional_driver_profile": {
+    "pass": false
+  },
+  "catalog_order_cannot_change_species": {
+    "pass": false
+  }
+}

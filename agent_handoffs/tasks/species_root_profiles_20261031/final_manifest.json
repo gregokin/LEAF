@@ -1,0 +1,748 @@
+{
+  "created_at_utc": "2026-10-31T11:26:02.776839+00:00",
+  "git_metadata": "unavailable; baseline preserves actual rev-parse failure; no initialization performed",
+  "task": "species_root_profiles_20261031",
+  "status": "accepted",
+  "files": {
+    "AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "CLAUDE.md": {
+      "size_bytes": 374,
+      "sha256": "5ccf4233963ba0515e0872c2b441c046905e516905ce947ac1982936619e1eb4"
+    },
+    "README.md": {
+      "size_bytes": 4152,
+      "sha256": "e3b65a661cf8b643419da38ff681ffeb0b0c140f42da708816af63fb0d225c2b"
+    },
+    "agent_handoffs/AGENTS.md": {
+      "size_bytes": 8488,
+      "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f"
+    },
+    "agent_handoffs/README.md": {
+      "size_bytes": 5792,
+      "sha256": "7c7f9b9963edfd8dff238731670464214dc5166116f914b92a241bb33ec56e96"
+    },
+    "agent_handoffs/claude_report.md": {
+      "size_bytes": 1528,
+      "sha256": "b31933b964f157089006aa98bd7316c80687d17e25f8d266d6b1dd563f74afd6"
+    },
+    "agent_handoffs/codex_review.md": {
+      "size_bytes": 1886,
+      "sha256": "31fba221745d9e6657b565ba82842cbfad6798a71d99ff5f52a644cffae340db"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "size_bytes": 295,
+      "sha256": "e604f084dd07712f077476d1a5581d030df76ff229520b8ba8f218f90e49aca2"
+    },
+    "agent_handoffs/decisions.md": {
+      "size_bytes": 7935,
+      "sha256": "401a080709103116cb4494678695d2135b938eaeefcc823671064face19b1c2b"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "size_bytes": 1153,
+      "sha256": "b817466bbbc498db1870d2bdd3295cb7b4b980bf779d6196d011d0eaf38c5784"
+    },
+    "agent_handoffs/project_brief.md": {
+      "size_bytes": 10278,
+      "sha256": "378fa0e34b47caf9e5d677880ad1932025ba4949bbf65679dc0944b5a0fe4ca0"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/acceptance.json": {
+      "size_bytes": 282,
+      "sha256": "678341a94a279629bf1f326d9068c1ae26cddf4083f6c0b0937b0aa50b58584a"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/accepted_current_prompt.md": {
+      "size_bytes": 295,
+      "sha256": "e604f084dd07712f077476d1a5581d030df76ff229520b8ba8f218f90e49aca2"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/accepted_orchestration_state.md": {
+      "size_bytes": 1153,
+      "sha256": "b817466bbbc498db1870d2bdd3295cb7b4b980bf779d6196d011d0eaf38c5784"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/baseline.json": {
+      "size_bytes": 3447,
+      "sha256": "5463930de38006d048a38cabffff0f75dcebecc78af411c648112ae7e472b98d"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/baseline_sources/benchmarks/daily-water-growth.md": {
+      "size_bytes": 7162,
+      "sha256": "ac82e85916215fe52b9ba5be7eb5bdba931dd43657a53cc86d6a9cd03ac56722"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/baseline_sources/benchmarks/daily_water_growth.py": {
+      "size_bytes": 43084,
+      "sha256": "7ac39d864ec66e9e6fc7a9f3f59d7fb5afec5e032794e0e0b495b85464d8d5e5"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/baseline_sources/benchmarks/spatial_mapping.py": {
+      "size_bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/baseline_sources/docs/daily-water-30year.md": {
+      "size_bytes": 12706,
+      "sha256": "d4708e2090368322b2c02bb25ac6222bcddfc6b839016ec02c3e705d742f6a1c"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/baseline_sources/tests/test_daily_water_growth.py": {
+      "size_bytes": 13405,
+      "sha256": "602a4b547d6ea492edd5aeda844803932c7a9b7364c68116d1b9f053ee806a36"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/benchmark_cases.json": {
+      "size_bytes": 2716,
+      "sha256": "8c29861806af45774521bcb47db0c9c951d7400c4eee23c3439ed768060d195b"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/case_sets/grass_bound_hectare_3layers_roots3.json": {
+      "size_bytes": 358,
+      "sha256": "5805be78a69bfd71c7e2f6fd061aa821ba89fdad31b31ce0e558e68c65b281a2"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/case_sets/grass_bound_hectare_3layers_roots5.json": {
+      "size_bytes": 358,
+      "sha256": "563ca857df61fb8585a3c24ba819bdc04e319c7eb1dd448be37ee5b1102f856f"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/case_sets/june_512_3layers_roots5.json": {
+      "size_bytes": 348,
+      "sha256": "cc5173f1a2351b84ec415be55602c07fda0caa3a1c6f2e082c7c6d364e536b16"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/case_sets/june_hectare_2layers_roots5.json": {
+      "size_bytes": 352,
+      "sha256": "01fa4cee68d1a85d14e25be02439f899478a842c76e3977e966b557272f88d64"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/case_sets/june_hectare_3layers_roots3.json": {
+      "size_bytes": 352,
+      "sha256": "e34462906bfbc8d514b555a2aef60ed056e7cfb33f95b120b4cfa97610185d0c"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/case_sets/june_hectare_3layers_roots5.json": {
+      "size_bytes": 352,
+      "sha256": "6ced0e36302dfffe27d745180cbe6c80fcad49f1a8e76ea7e0932681a086687d"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/case_sets/uniform_control_june_hectare_roots3.json": {
+      "size_bytes": 614,
+      "sha256": "e28c8e83cc55f820cfd4e4b581518ec5a1942ae2bd83aa512e5296811ca99162"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_01.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_01.stdout.jsonl": {
+      "size_bytes": 205179,
+      "sha256": "e9db0534fb23fd69aaa86ccb204be460c03748345b42f0abd044828d61737fbf"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_02.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_02.stdout.jsonl": {
+      "size_bytes": 142651,
+      "sha256": "31b46e622866a45d14a00470524a9a55591effc7ed91b4db5063b8250bd1aff3"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_03.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_03.stdout.jsonl": {
+      "size_bytes": 26458,
+      "sha256": "acbb9bce6e72b5223e7bba62d3395bf3c60f5e12f0c1cd9878f3401cdf1500c6"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_04.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_04.stdout.jsonl": {
+      "size_bytes": 11846,
+      "sha256": "e1fdfd394650c20430b2f050ce85a35a7af1069992e591aef77f03538d8dd947"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_edits_01.json": {
+      "size_bytes": 50835,
+      "sha256": "31bd2d692c2f0149c335c9b9c15e687613dcc170f9496ea0c29517c335434535"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_edits_02.json": {
+      "size_bytes": 36536,
+      "sha256": "af3e875e15f37a0911f2b0cfdd161e9a6670f10bb288d2bcc783643842cf20ac"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_edits_03.json": {
+      "size_bytes": 10638,
+      "sha256": "f36f5bfe5de6099c5280f4c20010b1f10c036ead6928ed82a3c1daa7b9218896"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_edits_04.json": {
+      "size_bytes": 3337,
+      "sha256": "d0b87cf55ff021491ba5abfc7ccb8bf045211d1b5f8858cf9a73b8ca0fa46a46"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_help.txt": {
+      "size_bytes": 22344,
+      "sha256": "13dd71866e4b6fde1a11de6fa26bd4f5866308794307ff0fb37804c03db8e0b2"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_prompt_01.txt": {
+      "size_bytes": 72705,
+      "sha256": "9b58755137d9020c665169f60390f79859e4b13b1402749ea153a9bca220fa30"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_prompt_02.txt": {
+      "size_bytes": 4217,
+      "sha256": "3ca9d264f376e00729c2b8a99c74beaa10a61070181cb6c7682efcbdc4651be3"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_prompt_03.txt": {
+      "size_bytes": 2309,
+      "sha256": "a73d0b41322cf55c660679422f1bee88a55ec3df2a1b1a6e1832195ed0e802cd"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_prompt_04.txt": {
+      "size_bytes": 1449,
+      "sha256": "3fa6abbeecf4e4b5513ba550e72e93df5ae6a0f574306dc73af4dfee6e9872ff"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_report.md": {
+      "size_bytes": 1528,
+      "sha256": "b31933b964f157089006aa98bd7316c80687d17e25f8d266d6b1dd563f74afd6"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_reports.json": {
+      "size_bytes": 6017,
+      "sha256": "34c4d087b80f292d2c5d20e951868114eba68a7d76eb083a603d39a02fb920d5"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/claude_version.txt": {
+      "size_bytes": 22,
+      "sha256": "137c91ab68b8a7a011de6f45c0bdbb962abd1fa261daafa7f7fe4dbac82ba604"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/codex_review.md": {
+      "size_bytes": 1892,
+      "sha256": "ed09d16b6212463ca136903ce9385573706c86d3e058c276000c4ed7f2635d73"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/complete_report.py": {
+      "size_bytes": 7892,
+      "sha256": "8eda965c4a8e47c81bb7153ed6919bafea82e675fd64f330ab2779b08b479a2f"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/cpu_june_hectare_3layers_roots3_weighted.exit.json": {
+      "size_bytes": 172,
+      "sha256": "c0f8a7563e010ccf83c5dbba54fa7beb6f7de37c4267dfd2db962686521a274e"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/cpu_june_hectare_3layers_roots3_weighted.launch.json": {
+      "size_bytes": 1914,
+      "sha256": "fb0a9eaaa7576651d9ef287e4dfe64b0e98e40a766b41586378f65aa7ad17966"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/cpu_june_hectare_3layers_roots3_weighted.stderr.log": {
+      "size_bytes": 14505,
+      "sha256": "8919de508725f80e053ced729cf9fb9928889fb25ca5406b3577a1385c4b8fa9"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/cpu_june_hectare_3layers_roots3_weighted.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/exit_01.json": {
+      "size_bytes": 222,
+      "sha256": "3178289cd58f2f01d01d507dbb44b6010717edc6c1ef03936c051258f3da1a10"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/exit_02.json": {
+      "size_bytes": 221,
+      "sha256": "9effd0cb9edc8a65d0f79950978d8a31619fc090fd8ea23f30e9ed5f4cdc6875"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/exit_03.json": {
+      "size_bytes": 221,
+      "sha256": "4cfd1d1ac52f7aa9eed4c39c006cfb6e9ec2d626026758a95ba3fbe4990065ab"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/exit_04.json": {
+      "size_bytes": 222,
+      "sha256": "d37cfaa06346348bfbbbaf309e96e8fee57d782dcd76261f32f0ded092dfa8c5"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/final_integrity.py": {
+      "size_bytes": 6419,
+      "sha256": "278293c8e1bd2866e53c4a18b99d21aa8bbc493d86eedb06f00ba75444883de0"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/final_source_snapshot.json": {
+      "size_bytes": 610,
+      "sha256": "ae901bfbc558b45159bd6a0f9d236ee60fd40ec1ef01be24ead3f5e4dc34c71b"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/final_sources/benchmarks/daily-water-growth.md": {
+      "size_bytes": 12599,
+      "sha256": "18725e0b6261570de242b38dcb95675c0270beb7890942ad1edc1b7bde7d2bf1"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/final_sources/benchmarks/daily_water_growth.py": {
+      "size_bytes": 58921,
+      "sha256": "ca850088b77146af3f7c60ff7c27aa2fa7730ee89b96a7169e82f857f9aa1522"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/final_sources/benchmarks/spatial_mapping.py": {
+      "size_bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/final_sources/tests/test_daily_water_growth.py": {
+      "size_bytes": 35234,
+      "sha256": "c73ae335a1a89d965e9af8dde83bfb8e252e39393154afabc26bda5ebf39deb4"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/final_sources/tests/test_spatial_mapping.py": {
+      "size_bytes": 12394,
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots3_weighted.exit.json": {
+      "size_bytes": 171,
+      "sha256": "18c1b418f8fa8921fa1767d0d6d2fe8c8ffe9d04d9912edacafc795b1cfedb75"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots3_weighted.launch.json": {
+      "size_bytes": 2005,
+      "sha256": "189b29a641ec71eedaee7113f178431d8ca75ab5912638ab3aee3c61b425f04c"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots3_weighted.stderr.log": {
+      "size_bytes": 16577,
+      "sha256": "f79da3571874ac49cf414cbda4c26f031a84bcee415ba3560d11a3c0df234cc8"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots3_weighted.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots5_weighted.exit.json": {
+      "size_bytes": 167,
+      "sha256": "92a1cdbb78087b1e070bcbcd333a8bcf442745ec50edd7f33a2fe80e90875fdf"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots5_weighted.launch.json": {
+      "size_bytes": 2003,
+      "sha256": "1767c107af1bd97b05dd226834a061a58a3e76081dd5de3e98a1c713f71dcaa9"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots5_weighted.stderr.log": {
+      "size_bytes": 16738,
+      "sha256": "19815d994dc8ecf51f8a736457e38607fcf38bfe264761b91ef3ae134c784f42"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots5_weighted.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_512_3layers_roots5_weighted.exit.json": {
+      "size_bytes": 171,
+      "sha256": "90e844e906474758b62bcc8bbdb28782d2bad036ecb9d52b1a5296088ee3dd5b"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_512_3layers_roots5_weighted.launch.json": {
+      "size_bytes": 1973,
+      "sha256": "c6c6db822ad12a206eb161786c7e427867bc76a82bbfab1a849cec684664d058"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_512_3layers_roots5_weighted.stderr.log": {
+      "size_bytes": 16178,
+      "sha256": "0ef4ddc36ea1c0c87b5b492c5189d8cff1ac8e25672924eaa2b8ee4970cf813e"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_512_3layers_roots5_weighted.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_2layers_roots5_weighted.exit.json": {
+      "size_bytes": 171,
+      "sha256": "d353075377ba58508fbd51be05382a03f2cd30bc4bc74fec08c7943503c412f6"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_2layers_roots5_weighted.launch.json": {
+      "size_bytes": 1985,
+      "sha256": "4a5e5718c03ed78b859335f355204dbf7b0e542c25532b9f67041fdc9c6b2e44"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_2layers_roots5_weighted.stderr.log": {
+      "size_bytes": 16372,
+      "sha256": "d6007d70f05a21386de7066b9dd197f0895d1e06c1ce2bcc0ecb3bff0e371404"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_2layers_roots5_weighted.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_3layers_roots3_weighted.exit.json": {
+      "size_bytes": 171,
+      "sha256": "1e23febdfed13e8cb1a181a8eb146a3c318294d2518caa00df4dc000fad19b28"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_3layers_roots3_weighted.launch.json": {
+      "size_bytes": 1984,
+      "sha256": "c02b3691040a10b93e2955b3229272839f7ae4e874792bfa121ddb4fc2ba79d8"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_3layers_roots3_weighted.stderr.log": {
+      "size_bytes": 16262,
+      "sha256": "efdc611def48b9e43aadd2fb0d617cd25ccc07c960d34289c54105507b05d49c"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_3layers_roots3_weighted.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_3layers_roots5_weighted.exit.json": {
+      "size_bytes": 171,
+      "sha256": "79ba3e054f532a7b936fd19a596eb1bdcce4c2af7ad2930557fc12b697e1c6ac"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_3layers_roots5_weighted.launch.json": {
+      "size_bytes": 1984,
+      "sha256": "54213a6b81fdc9c8846157ca198cd8f89a587765da9ff7fec85e31336e70805a"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_3layers_roots5_weighted.stderr.log": {
+      "size_bytes": 16359,
+      "sha256": "f5e44353400ce227b02af776afed5719a16763eea2b1bc18d2fe1996c2b14382"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_june_hectare_3layers_roots5_weighted.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_uniform_control_june_hectare_roots3_weighted.exit.json": {
+      "size_bytes": 172,
+      "sha256": "916135c3459394efbb23bb2a919e46d72fcdf09c223d64d3139b3c452d0f4aed"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_uniform_control_june_hectare_roots3_weighted.launch.json": {
+      "size_bytes": 2007,
+      "sha256": "f67afee5972f1de32862cb148e3b9062fa1ef3c9d5744a17941a68d9845cc465"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_uniform_control_june_hectare_roots3_weighted.stderr.log": {
+      "size_bytes": 16569,
+      "sha256": "d763394fd65832f9d2d1dffc401c07c9c12c63fbba50ebae9c9135b6b8868b68"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/gpu_uniform_control_june_hectare_roots3_weighted.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/historical_preservation_precheck.json": {
+      "size_bytes": 186,
+      "sha256": "929d776a6d6d226dfd08016df80fe73d0c0e1487bf57b75e29acdc254c674042"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/independent_oracles.py": {
+      "size_bytes": 4124,
+      "sha256": "8f8c4a8ff4d7d0731690f8b445285c8bcb74da2b55098e644dd5681494b618a8"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/independent_review.md": {
+      "size_bytes": 1641,
+      "sha256": "cec711780d95dc6b50c3c1c404619f76b95059b1cc305252e6d031eea5a2b310"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/integrity_checks.json": {
+      "size_bytes": 2972,
+      "sha256": "0fa21393d1aefe8a16f2136e4d7da8de7cf0e5b9419a20a86b077ef039b39cd5"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/integrity_final.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/integrity_final.stdout.log": {
+      "size_bytes": 2972,
+      "sha256": "0fa21393d1aefe8a16f2136e4d7da8de7cf0e5b9419a20a86b077ef039b39cd5"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/launch_01.json": {
+      "size_bytes": 1445,
+      "sha256": "d41c06d4e7e85904e7b594e114085abb7e77de75cfda06bd0180ea47cceb6d69"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/launch_02.json": {
+      "size_bytes": 1441,
+      "sha256": "72416b213d5b64cc83a6b811ca0aca19756e29acbb5730975c7683325c11a9cc"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/launch_03.json": {
+      "size_bytes": 1441,
+      "sha256": "0c0a7786e81332605402e8a095e78ace65d1e08816d6bc0c7cb00c12d8876da5"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/launch_04.json": {
+      "size_bytes": 1441,
+      "sha256": "e20139deab7ef01c84cb83a73fe5da01df65997fa7862329605454a129b19d1f"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/launch_revision.py": {
+      "size_bytes": 3581,
+      "sha256": "c6d30ab6194292090fef0627762b02489b2e3d29bbb83887181b3997967b8565"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/measurement_source_manifest.json": {
+      "size_bytes": 875,
+      "sha256": "10333781684530e0aa0e3465e5bae2ebff8a87e64d939e037ca3d0d047a12b5b"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracle_cpu_01.exit.json": {
+      "size_bytes": 171,
+      "sha256": "320f038f2b545307e007809f7e2776951c33dba2e3e6e083aa7d3e42a0391cad"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracle_cpu_01.launch.json": {
+      "size_bytes": 1224,
+      "sha256": "cffbea6498aa826a09a2238ffa8254cc50b5c4a8be8d7e04d390d2aae206205a"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracle_cpu_01.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracle_cpu_01.stdout.log": {
+      "size_bytes": 1172,
+      "sha256": "0680cdf7d3021995def97de2331d032177bf24ff07ea6a76e8504e2da02b724b"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracle_gpu_01.exit.json": {
+      "size_bytes": 171,
+      "sha256": "02c10d21e5c2e448d871e95fbf6da84d4ca507574ebc9e101393b318229b35b5"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracle_gpu_01.launch.json": {
+      "size_bytes": 1442,
+      "sha256": "0c921d0746c84127cf61bb460efc71a9a473095a3a251a8cd47091a28b96fdd9"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracle_gpu_01.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracle_gpu_01.stdout.log": {
+      "size_bytes": 1172,
+      "sha256": "7a943028e94daa855836e1487482819ee4320b2787666e302a32963ab2c86a8a"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracles_02.exit.json": {
+      "size_bytes": 172,
+      "sha256": "ba870cc137e1524c12b98f1af275f8c7d3a4c67c5021ee41ddbe7a45e7d19f06"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracles_02.launch.json": {
+      "size_bytes": 1451,
+      "sha256": "4021aff2283fdf43f83b990bf2c0346aadfb03753cd58887fb5a935bf74fd4c2"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracles_02.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracles_02.stdout.log": {
+      "size_bytes": 2300,
+      "sha256": "0fcccfc03f384888cce709cb3e99b455ad42d3ef4b0cf3475ff80260c694fe9f"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracles_03.exit.json": {
+      "size_bytes": 172,
+      "sha256": "cdff23c827389ce9c861081966bee77283193e261779a808e5c7ba3667ff2b28"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracles_03.launch.json": {
+      "size_bytes": 1452,
+      "sha256": "5c6db67e548f2e6d5501dbf30487c013160ca6842c2075b0b9178ac2e9623645"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracles_03.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/oracles_03.stdout.log": {
+      "size_bytes": 2300,
+      "sha256": "0fcccfc03f384888cce709cb3e99b455ad42d3ef4b0cf3475ff80260c694fe9f"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/prelaunch_03_tool_error.json": {
+      "size_bytes": 427,
+      "sha256": "b1e3e08794d35a41173e24c55f15c05a271721ba1be04cf931d5357ed5a57672"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/previous_claude_report.md": {
+      "size_bytes": 1408,
+      "sha256": "78a1b4285b597ed89f5ccbe225e06aee7473e1dccc17c73b44f26d6aead61cbb"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/previous_codex_review.md": {
+      "size_bytes": 1624,
+      "sha256": "4dd22acbf9bc733e9fba57c8fb6136f5b0cff39fd6a64770ff10d8cb99370c50"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/previous_current_prompt.md": {
+      "size_bytes": 353,
+      "sha256": "cd4a937d1183c5c6341b6f92c5c8db4595959652df3e76af2f7051ff59862132"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/previous_orchestration_state.md": {
+      "size_bytes": 1113,
+      "sha256": "81a546136e6e994cbb9e64e5084ee90162e1c475c7bc1ebe0870c510ec49c15c"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/previous_verification.md": {
+      "size_bytes": 3217,
+      "sha256": "3c1ce4883c6997025d5587ecafa758960e77f6b5fd4ed6945f93a70077711e28"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/profile_daily_bounded.py": {
+      "size_bytes": 6518,
+      "sha256": "00f7d2affe1360a77fbb6109520619a4811cd5a3d3dcb1954e96e5a97316cefe"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/result_checks_final.exit.json": {
+      "size_bytes": 173,
+      "sha256": "256dd54580828d0cfb614e22243655b18b5a0eb7e24d2d723a8aefc828825ba9"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/result_checks_final.launch.json": {
+      "size_bytes": 1142,
+      "sha256": "27387d50989d201a3a0d53c04790fb49f2cf10c6ba33a19b4a9caaff1d06755a"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/result_checks_final.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/result_checks_final.stdout.log": {
+      "size_bytes": 8654,
+      "sha256": "cb617a28ad031f440661b656b9e300a7dbd11d0be85ae0eee9001285fd9485c2"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/result_verification.json": {
+      "size_bytes": 8654,
+      "sha256": "cb617a28ad031f440661b656b9e300a7dbd11d0be85ae0eee9001285fd9485c2"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/review_01.md": {
+      "size_bytes": 876,
+      "sha256": "da876e281583a05123b551e2ebf5a1a38d155b83881e50f41d50d093c4b68521"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/review_02.md": {
+      "size_bytes": 952,
+      "sha256": "6bb25c8b5bd27b96b1fba28f83d56e90bee5173d0665e848001b30626a315e7b"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/review_03.md": {
+      "size_bytes": 878,
+      "sha256": "414ec79e19073aedcfef657e751c101e67c98c064b72b8b30084b6caab3261d7"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/run_long_suite.py": {
+      "size_bytes": 1697,
+      "sha256": "d4bdd39c8bad08be36c908786758b130557f19c4f16fe78007b80e38bef2d207"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/run_process.py": {
+      "size_bytes": 3514,
+      "sha256": "7562c69f69e4674f02df998c5767a7fb9f00cb30d5d0be0751d086f900cf0214"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/runtime_identity.json": {
+      "size_bytes": 322,
+      "sha256": "e7fbb83e0a3e311f523de826dce6121c66db57180b2017e3449a7e1db4ca2713"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/scope.md": {
+      "size_bytes": 1922,
+      "sha256": "8aad54f75b80b0320a8bdc00646d6ba2d9e1db6f17c9cd65e41e19f99f362600"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/session_config.json": {
+      "size_bytes": 156,
+      "sha256": "4d90dfa31da0629bbcfcfb9a033720fdfae133bd2bd9794b78cdd01fa63a1ecd"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/source_after_01.json": {
+      "size_bytes": 321,
+      "sha256": "d57c18a33566d32ee376e0baf483db1749351d2557f3e7d50777b0c244133666"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/source_after_02.json": {
+      "size_bytes": 321,
+      "sha256": "4f0c7dc4ba443267d55d8cb6c56b6834f7d1845651325e3b74d3b21f1c155c9b"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/source_after_03.json": {
+      "size_bytes": 582,
+      "sha256": "f6685db5adcedd660c252ff5b7ee0e6ffde018d2bf346faea37b6273aec83610"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/source_after_04.json": {
+      "size_bytes": 264,
+      "sha256": "aa1d5b0a26fa220b22f1fefb3f09a327e260f3214cb14870aee380acaccaf2c2"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_01.exit.json": {
+      "size_bytes": 171,
+      "sha256": "2656094fd0cb32f0c410a165dce4046959aa5639216fc9953e550545ae40df6f"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_01.launch.json": {
+      "size_bytes": 1206,
+      "sha256": "d80e441a9ac726f4102a50745cc9b13311cb40f9d633adcc927b988b29172f92"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_01.stderr.log": {
+      "size_bytes": 7840,
+      "sha256": "812fa5869c9e428261b65c93adfe1d44d6002a0945801928b7f85a1110a35457"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_01.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_02.exit.json": {
+      "size_bytes": 171,
+      "sha256": "1f0677a2c340ee8888315d89de66fef9e45b5a1f18de9c96810ddd65b8f34667"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_02.launch.json": {
+      "size_bytes": 1205,
+      "sha256": "4b13106137672b8c7edf9217dd53e8904fe0195b468c11311efbfbe9a95f4b6e"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_02.stderr.log": {
+      "size_bytes": 7154,
+      "sha256": "7ca348a7a13ee60da1825b2473b87d098fbeb4023c2694ed3ef4560f6aa4ded8"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_02.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_03.exit.json": {
+      "size_bytes": 171,
+      "sha256": "ae0f631d42c0438fdbc98d97bd7f16528da11d5aac746113dd8ed96830d845b8"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_03.launch.json": {
+      "size_bytes": 1353,
+      "sha256": "739441b10ae2c5e7d0b4291466ede47e729233991d22d58ec2611ec6f36cd2df"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_03.stderr.log": {
+      "size_bytes": 7154,
+      "sha256": "626b149d9c15942a4c81fecb3979332b7059b76e504ad10d2601f54fa2f1c886"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_cpu_03.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_gpu_02.exit.json": {
+      "size_bytes": 172,
+      "sha256": "95773f1b5a40cd70b3bd0caf2804e48f6e40608d6865721dd65387e19781f89f"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_gpu_02.launch.json": {
+      "size_bytes": 1422,
+      "sha256": "b0692c754cb874b86b96bb791ab755bae7f0e00df580783d825bfc52ebaea14a"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_gpu_02.stderr.log": {
+      "size_bytes": 6948,
+      "sha256": "00ef4b8fb098d784a22123a6115b01de66292724d14dc700e86ab97290cc43f0"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_gpu_02.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_gpu_03.exit.json": {
+      "size_bytes": 171,
+      "sha256": "c1fb6079a0181c34b68958903b32b80159069baaa1495bf66d755c48984ecd01"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_gpu_03.launch.json": {
+      "size_bytes": 1424,
+      "sha256": "b88c5385363386e7d9d09147a16afd2c1320b2205e92f191f6013700b7580bfd"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_gpu_03.stderr.log": {
+      "size_bytes": 6948,
+      "sha256": "f73b70d2fdb4afad8a9f5834cf8374fc15c07f712d23cb655ae117656f73ee34"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/tests_gpu_03.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/verification.md": {
+      "size_bytes": 4795,
+      "sha256": "61c40a0db49c5e7bb6a1630374ed53cff1ec7136d6755b7d199c6e31d2d5ea80"
+    },
+    "agent_handoffs/tasks/species_root_profiles_20261031/verify_performance.py": {
+      "size_bytes": 6670,
+      "sha256": "dfe05041f53fe6c0446bc08e9909b9722f4552532c3d382ee06597cbaa716096"
+    },
+    "agent_handoffs/upstreams.md": {
+      "size_bytes": 4021,
+      "sha256": "73e1cb443db989263175499943f06c45636276b076e15a6bdb8bd9f147d97c47"
+    },
+    "agent_handoffs/verification.md": {
+      "size_bytes": 4795,
+      "sha256": "61c40a0db49c5e7bb6a1630374ed53cff1ec7136d6755b7d199c6e31d2d5ea80"
+    },
+    "benchmarks/daily-water-growth.md": {
+      "size_bytes": 12599,
+      "sha256": "18725e0b6261570de242b38dcb95675c0270beb7890942ad1edc1b7bde7d2bf1"
+    },
+    "benchmarks/daily_water_growth.py": {
+      "size_bytes": 58921,
+      "sha256": "ca850088b77146af3f7c60ff7c27aa2fa7730ee89b96a7169e82f857f9aa1522"
+    },
+    "benchmarks/results/species_root_profiles_20261031/cpu_june_hectare_3layers_roots3_weighted.json": {
+      "size_bytes": 36742,
+      "sha256": "057093b21ca5751796e4b0593cdda08a492442cee6387f74c9c3567e0f5bc224"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots3_weighted.json": {
+      "size_bytes": 41789,
+      "sha256": "035e2986cf45ec42b24bb82f7d942501a90e44a121b720500fc720af4a7e73b5"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots5_weighted.json": {
+      "size_bytes": 41931,
+      "sha256": "556338cae957e0044a5ee946656b6f8ee87b85f5d8a14cdbbe3a64b7eaa9c969"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_june_512_3layers_roots5_weighted.json": {
+      "size_bytes": 41338,
+      "sha256": "d69298839c77306fa57e2fa5ff78e7fd0b5a662d9150dac98136dbd93ae1d5bb"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_june_hectare_2layers_roots5_weighted.json": {
+      "size_bytes": 41412,
+      "sha256": "cd1e52ee6961003870b2999726b57549e0364a148ecfe7b00234621dc3441838"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_june_hectare_3layers_roots3_weighted.json": {
+      "size_bytes": 41381,
+      "sha256": "355e2c125e2e667d70a038ea65d6ded547b7bf47c7e4cda5ee69b7ad4d42a604"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_june_hectare_3layers_roots5_weighted.json": {
+      "size_bytes": 41494,
+      "sha256": "862ae2ff4551c4cdaf1227667af79160108562f0b6bfb99e5e64c3e275028cc4"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_uniform_control_june_hectare_roots3_weighted.json": {
+      "size_bytes": 42035,
+      "sha256": "c5fe1bb70e9fab8481aecdd4e57b27ada03b12084edb8d5b63239ccc9cf07fd5"
+    },
+    "benchmarks/spatial_mapping.py": {
+      "size_bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "claude.md": {
+      "size_bytes": 2731,
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714"
+    },
+    "docs/daily-water-30year.md": {
+      "size_bytes": 13043,
+      "sha256": "faa3cf553a38e51d97c1cf584280f58e9ec614d3c47a31107980348ce0c6ce3d"
+    },
+    "docs/species-root-profiles.md": {
+      "size_bytes": 11050,
+      "sha256": "84fbc27f1e3395821439c2c9bbf9a9e2a4129287044ea4d18ad4b007dfe360f8"
+    },
+    "tests/test_daily_water_growth.py": {
+      "size_bytes": 35234,
+      "sha256": "c73ae335a1a89d965e9af8dde83bfb8e252e39393154afabc26bda5ebf39deb4"
+    },
+    "tests/test_spatial_mapping.py": {
+      "size_bytes": 12394,
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0"
+    }
+  }
+}

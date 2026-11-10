@@ -1,0 +1,21 @@
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":190,
+    "params":{
+      "q":"title:\"Aboveground vegetation cover and biomass\" AND title:\"altered precipitation\"",
+      "fl":"id,title,beginDate,endDate,datePublished,replicaMN,size,formatId,seriesId,obsoletedBy",
+      "rows":"8",
+      "_forwardedCount":"1",
+      "wt":"json"
+    }
+  },
+  "response":{
+    "numFound":0,
+    "start":0,
+    "maxScore":0.0,
+    "numFoundExact":true,
+    "docs":[ ]
+  }
+}

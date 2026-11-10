@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-10-31T22:25:51.207806+00:00",
+  "root_agents_preserved": true,
+  "leaf_runtime_files_match_new_lock": 5,
+  "native_runtime_files_match_lock": 71,
+  "maple_current_manifest_count": 386,
+  "local_doc_links_valid": 88,
+  "heads": {
+    "SYRUP": "deb60c29834a4aad0bf8cb4cfbb611fc28ebe090",
+    "MAPLE": "963b06ad1cf0f3e2c420a7d7fb50939e3bd43b7d"
+  },
+  "root_guide_sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+}

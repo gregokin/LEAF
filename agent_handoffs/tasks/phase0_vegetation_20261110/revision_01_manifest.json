@@ -1,0 +1,86 @@
+{
+  "pyproject.toml": {
+    "sha256": "05c43d0d189e07bafa7bdc719d7661523911243d20ec876077bae460de00054b",
+    "size_bytes": 940
+  },
+  "report.md": {
+    "sha256": "cdb6c372c884fb4ff799bf5c0915b29e6703a854771029346e0c756a10055f36",
+    "size_bytes": 8997
+  },
+  "leaf/__init__.py": {
+    "sha256": "225bb8919e946e298594c0adf452ea5e7d5424d3a00c5bd0160df720c735a3d7",
+    "size_bytes": 2304
+  },
+  "leaf/runtime.py": {
+    "sha256": "557c86a89396cc6d07565aad36b99e72e176b1895d9b75d756d68c3709da3184",
+    "size_bytes": 12272
+  },
+  "leaf/coupling.py": {
+    "sha256": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+    "size_bytes": 28207
+  },
+  "leaf/initialization.py": {
+    "sha256": "6b01b6cd9f2b8eaec2ccfb3bef32b58979beac0dedcb9a6aa265575b48b5e9c0",
+    "size_bytes": 26303
+  },
+  "leaf/traits.py": {
+    "sha256": "620c79a805aa8a7d784eb0fabb16b057281e863bc05323d9a5d6cc4d10a6023a",
+    "size_bytes": 20939
+  },
+  "leaf/__main__.py": {
+    "sha256": "91e23b25077eb46ed8fb581da2b98ff7f3b5019fb55b41cf7aa0e78f836f97f9",
+    "size_bytes": 12505
+  },
+  "leaf/canopy.py": {
+    "sha256": "9b8d048a0c1dd64388be5d593b1635e1e90bae18098b88152994bb3fe8ffa08e",
+    "size_bytes": 16523
+  },
+  "leaf/recording.py": {
+    "sha256": "4896ad8d9d86b4e024f6ce86832e733702282e511075f20526a7794f879c79d0",
+    "size_bytes": 7868
+  },
+  "leaf/stepwat.py": {
+    "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+    "size_bytes": 32213
+  },
+  "leaf/state.py": {
+    "sha256": "97c98adcf66ef6a13a2ee21679d658f839c4129c0ffb6a45a2e8d8f8b9d52bc8",
+    "size_bytes": 40791
+  },
+  "leaf/events.py": {
+    "sha256": "f19d5f897dd95c2cd510133113b28190ddcd2cc0be18695c0f250dbbffedb97d",
+    "size_bytes": 13534
+  },
+  "tests/test_phase0.py": {
+    "sha256": "670f01c676f26b42d6788e9b6fde2f6011e22de7dbcb9eb7b2a5d4620fd89428",
+    "size_bytes": 60157
+  },
+  "docs/maple-leaf-integration.md": {
+    "sha256": "16d8c9d2de62b3d476c8adb4520aafcf306541af6d447a528a48760d3c211a48",
+    "size_bytes": 6940
+  },
+  "docs/phase0-vegetation.md": {
+    "sha256": "f076f623094f6efaf88d94267f94b5e8b4e141569f49b06a3cc6e4bdaba8a34d",
+    "size_bytes": 22058
+  },
+  "benchmarks/daily_water_growth.py": {
+    "sha256": "82b75464877a665b612a04c428496249a18952d128213f545b4f86e9a793ce4f",
+    "size_bytes": 79938
+  },
+  "benchmarks/spatial_mapping.py": {
+    "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "size_bytes": 47260
+  },
+  "examples/phase0/plants.csv": {
+    "sha256": "3aabc0b4b465a6a096431d670bd340394d7f47f67eaf4863a5c22d70afa05963",
+    "size_bytes": 365
+  },
+  "examples/phase0/species.json": {
+    "sha256": "c6d11e5de4038006a43ca79220e5e06858c2c40d8b2b4c50e19cce8c82e443db",
+    "size_bytes": 4371
+  },
+  "examples/phase0/generation.json": {
+    "sha256": "7c1882af8bd76d3968c9cfa7d0c889b09d46f134ad1d3ad39d1d3cd0f9e2081a",
+    "size_bytes": 878
+  }
+}

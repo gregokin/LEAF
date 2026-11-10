@@ -1,0 +1,109 @@
+....F.....F...F...ss........................ss....................s..... [ 86%]
+........ss.                                                              [100%]
+=================================== FAILURES ===================================
+___ CoupledBasicsTests.test_gather_and_commit_validate_arrays_before_launch ____
+
+self = <test_coupling.CoupledBasicsTests testMethod=test_gather_and_commit_validate_arrays_before_launch>
+
+    def test_gather_and_commit_validate_arrays_before_launch(self):
+        case = make_case(layers=1, root_layer_fractions={'grass': [1.0]})
+        sim, _ = build(case, make_inputs([5.0], [5.0], [1.0]))
+        v = sim.vegetation
+        out = np.zeros(1)
+        good = np.ones((1, 1))
+        v.gather_uptake_candidate(good, out)
+        for bad in (np.ones((1, 1), np.float32), np.ones((2, 2))[:, :1], np.ones((1, 2)), [[1.0]], np.matrix([[1.0]])):
+            with self.assertRaises((TypeError, ValueError), msg=repr(type(bad))):
+                v.gather_uptake_candidate(bad, out)
+        for bad in (np.zeros(1, np.float32), np.zeros(2), np.zeros(2)[::2], [0.0]):
+>           with self.assertRaises((TypeError, ValueError)):
+E           AssertionError: (<class 'TypeError'>, <class 'ValueError'>) not raised
+
+tests/test_coupling.py:184: AssertionError
+____ AdmissionTests.test_native_memory_checked_before_vegetation_allocation ____
+
+self = <test_coupling.AdmissionTests testMethod=test_native_memory_checked_before_vegetation_allocation>
+
+    def test_native_memory_checked_before_vegetation_allocation(self):
+        case = make_case(layers=1, root_layer_fractions={'grass': [1.0]})
+        avail = {'bytes': 0}
+>       col = make_column(case, available=avail)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_coupling.py:225: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_coupling.py:56: in make_column
+    return ss.prepare_column(layers, mask, case['dx'] ** 2, backend=backend, reserve_bytes=reserve_bytes,
+../runtime/maple_syrup/subsurface.py:699: in prepare_column
+    _admit(memory, available_bytes_fn, "column preparation")  # BEFORE any bulk copy, compilation or warm-up
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+estimate = MemoryEstimate(backend='numpy', n_layers=1, n_cells=1, input_bytes=24, column_bytes=10, layer_bytes=88, parameter_byte...remaining MAPLE/LEAF process memory. The estimate is an upper bound on what this module allocates, not a reservation.")
+available_bytes_fn = <function make_column.<locals>.<lambda> at 0x732a69d04cc0>
+what = 'column preparation', extra_bytes = 0
+
+    def _admit(estimate: MemoryEstimate, available_bytes_fn: Callable[[], int], what: str, extra_bytes: int = 0) -> int:
+        """Compare `estimate.required_bytes + extra_bytes` with the reported available bytes and raise
+        `SubsurfaceMemoryError` BEFORE anything is allocated. Returns the reading. A reading is not a reservation; the
+        budget is never raised silently."""
+        available = available_bytes_fn()
+        if isinstance(available, (bool, np.bool_)) or not isinstance(available, (int, np.integer)) or int(available) < 0:
+            raise SubsurfaceError(f"available_bytes_fn must return a non-Boolean integer >= 0, got {available!r}")
+        available = int(available)
+        need = estimate.required_bytes + int(extra_bytes)
+        if need > available:
+>           raise SubsurfaceMemoryError(
+                f"subsurface {what} on {estimate.n_layers} layers x {estimate.n_cells} cells ({estimate.backend}) needs an "
+                f"estimated {need} B on its admitted side (reserve {estimate.reserve_bytes} B included) but only "
+                f"{available} B are reported available; nothing was allocated. Scope: {MEMORY_SCOPE}")
+E           maple_syrup.subsurface.SubsurfaceMemoryError: subsurface column preparation on 1 layers x 1 cells (numpy) needs an estimated 618 B on its admitted side (reserve 0 B included) but only 0 B are reported available; nothing was allocated. Scope: arrays held for ONE step: the caller's state and forcing arrays (known inputs), the column's owned mask and thickness copies, every SoilLayers vector, the kernel-parameter copies (host for numba/cuda, device for cuda), the freshly allocated outputs, the transient reference temporaries and the packet, plus the caller's reserve; host and device bytes are listed separately and the backend's own side is the admitted requirement. NOT included: the NumPy/CuPy allocator pool and its retained blocks, the CUDA context, Numba/NVRTC JIT and compile workspaces, Python object overhead, other model state, and the remaining MAPLE/LEAF process memory. The estimate is an upper bound on what this module allocates, not a reservation.
+
+../runtime/maple_syrup/subsurface.py:544: SubsurfaceMemoryError
+_____ MaskGeometryTests.test_hydrology_budget_split_run_matches_single_run _____
+
+self = <test_coupling.MaskGeometryTests testMethod=test_hydrology_budget_split_run_matches_single_run>
+
+    def test_hydrology_budget_split_run_matches_single_run(self):
+        # nonzero diffusion, intake, evaporation and drainage: real hydrology plus coupled closure
+        case = make_case(nx=4, ny=4, dx=0.5, grass_count=2, layers=2, max_edges=10000)
+        inp = make_inputs([0.8, 1.3], [1.0, 1.1], [0.5, 0.4])
+        water = np.vstack([np.full(16, 0.024), np.full(16, RES_M + 0.0004)])  # top near field capacity
+        a, _ = build(case, inp, water, diffusivity=1e-9, active=[True] * 15 + [False])
+        b, _ = build(case, inp, water, diffusivity=1e-9, active=[True] * 15 + [False])
+        rng = np.random.default_rng(2)
+        days = []
+        for _ in range(10):
+            add = rng.uniform(0, 0.004, (2, 16)) * np.array([[1.0], [0.0]])
+            add[:, 15] = 0.0
+            pet = rng.uniform(0, 2e-8, 16)
+            pet[15] = 0.0
+            days.append((add, pet))
+        a.step_days(days)
+        b.step_days(days[:6])
+        b.step_days(days[6:])
+        np.testing.assert_allclose(host(b.state.water_m), host(a.state.water_m), rtol=1e-12)
+        for n in ('B', 'uptake_cum', 'uptake_week', 'canopy'):
+            np.testing.assert_allclose(host(getattr(b.vegetation, n)), host(getattr(a.vegetation, n)), rtol=1e-12)
+        sa = a.summary()
+        self.assertEqual(sa['calendar'], b.summary()['calendar'])
+        self.assertTrue(sa['ok'], sa['checks'])
+        w = sa['water']
+        self.assertGreater(w['added'], 0.0)
+        self.assertGreater(w['evaporation'], 0.0)
+        self.assertGreater(w['transpiration'], 0.0)
+>       self.assertGreater(w['drainage'] + w['surface_return'], 0.0)
+E       AssertionError: 0.0 not greater than 0.0
+
+tests/test_coupling.py:392: AssertionError
+=============================== warnings summary ===============================
+test_coupling.py::CoupledBasicsTests::test_gather_and_commit_validate_arrays_before_launch
+  /home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/tests/test_coupling.py:180: PendingDeprecationWarning: the matrix subclass is not the recommended way to represent matrices or deal with linear algebra (see https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html). Please adjust your code to use regular ndarray.
+    for bad in (np.ones((1, 1), np.float32), np.ones((2, 2))[:, :1], np.ones((1, 2)), [[1.0]], np.matrix([[1.0]])):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../../../../../../../dev/test_coupling.py::CoupledBasicsTests::test_gather_and_commit_validate_arrays_before_launch
+FAILED ../../../../../../../dev/test_coupling.py::AdmissionTests::test_native_memory_checked_before_vegetation_allocation
+FAILED ../../../../../../../dev/test_coupling.py::MaskGeometryTests::test_hydrology_budget_split_run_matches_single_run
+3 failed, 73 passed, 7 skipped, 1 warning in 3.31s

@@ -1,0 +1,11 @@
+Timeout (0:00:15)!
+Thread 0x0000783145288080 (most recent call first):
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/initialization.py", line 321 in add_batch
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/initialization.py", line 369 in generate_population
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/generation_oracles.py", line 42 in check_case
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/generation_oracles.py", line 80 in main
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/generation_oracles.py", line 87 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 98 in _run_module_code
+  File "<frozen runpy>", line 286 in run_path
+  File "<string>", line 1 in <module>

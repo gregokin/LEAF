@@ -1,0 +1,906 @@
+{
+  "checked_utc": "2026-11-01T17:46:48.895268+00:00",
+  "pass": true,
+  "baseline_file_count": 1623,
+  "changes": [
+    {
+      "path": "README.md",
+      "before_sha256": "c73a4d75ca6257fb7f1045fd277609f80d444b3d9a2e6192e7e39bda634e98d8",
+      "after_sha256": "b83b160989a5f33c29624ed87502cdd8492cd65a1ea39602d64a7321bec320a5"
+    },
+    {
+      "path": "agent_handoffs/claude_report.md",
+      "before_sha256": "5e07c3d1ca88c15d9e75201fd4f3f85f3d3fe19e0d42a878dd8f3013f7273257",
+      "after_sha256": "ae321793e5042a90ea97e6fb4b013dc624bf8c445200c3f3ae20c13013232fb6"
+    },
+    {
+      "path": "agent_handoffs/codex_review.md",
+      "before_sha256": "8607da3c3b7189b4de57c39e9c33c024d3ebb1419faee12a8c87ce10a29de5e7",
+      "after_sha256": "55b32d734efcc1beb9d65a9fcdae85ba3716d1403410653cdf18962a06ae451e"
+    },
+    {
+      "path": "agent_handoffs/current_prompt.md",
+      "before_sha256": "af62c9894690013e5fafc0e1f9ce11a692c5acf975ab5d75abbc67677486513b",
+      "after_sha256": "ca1262d9e7ba4a734f8a604956e6e0b8301aec321ba52235a19dcf2c5d4cc29f"
+    },
+    {
+      "path": "agent_handoffs/decisions.md",
+      "before_sha256": "24b0ea4e351c1a2d160f8ad9422878617e1d7a4423512cd0467701c090d61088",
+      "after_sha256": "58135a7e5feb9aa8e53c332daac001a7b2be77788e3f65c7b0d3648271b1a1b2"
+    },
+    {
+      "path": "agent_handoffs/orchestration_state.md",
+      "before_sha256": "827ed90306d75a7cfd4c7cdbbadc2896b480fe3b244ad993c469e37e92c9cf87",
+      "after_sha256": "4cbb0f7ab26ced5e67d504e58a2231b271aa07406e7a2ab06c64331e4bed3c9c"
+    },
+    {
+      "path": "agent_handoffs/project_brief.md",
+      "before_sha256": "21dc97ee3ce232c8ec0510077c167fe0e96e67be9779edce0deecd1b2be881ee",
+      "after_sha256": "f486ed0c5a3823cbc1efd3dc665e77954d215a5f726ecc107ff0b2141ba74768"
+    },
+    {
+      "path": "agent_handoffs/verification.md",
+      "before_sha256": "1118dd1a7c5c68d1e58388685cd173c22a728f0cbcc738f3ecdc49780a56005f",
+      "after_sha256": "e66fbfb152387d88b10a2b7228b9b2f3d3b61187d44f3a6d2b185f731391e31b"
+    },
+    {
+      "path": "docs/paired-growth-water-data.md",
+      "before_sha256": "d631e12fa32e8f042108bdf523916bd6f5a47e75531610d95dda5314ad1e92a4",
+      "after_sha256": "70f8b7693104152c46b20bc641d6578f4e2eb0dd5c5d1c2fd0a96e8a9f0da53d"
+    },
+    {
+      "path": "docs/stepwat-growth.md",
+      "before_sha256": "61e4ad5212e931def88abf6a9deb1c432fd9bb968755636ff25cded5701986d3",
+      "after_sha256": "6e4933b9e0e51fe22afde4e17996221231cb1de7d669aa168322a9c17712685b"
+    }
+  ],
+  "new_files": [
+    "agent_handoffs/tasks/study_parameterization_20261101/README.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/assemble_candidates.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/baseline.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/candidate/README.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/candidate/report.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/candidate/study_parameters.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/candidate/test_study_parameters.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/claude_01.stderr.log",
+    "agent_handoffs/tasks/study_parameterization_20261101/claude_01.stdout.jsonl",
+    "agent_handoffs/tasks/study_parameterization_20261101/claude_02.stderr.log",
+    "agent_handoffs/tasks/study_parameterization_20261101/claude_02.stdout.jsonl",
+    "agent_handoffs/tasks/study_parameterization_20261101/claude_help.stderr.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/claude_help.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/claude_version.stderr.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/claude_version.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/codex_review.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/environment.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/exit_01.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/exit_02.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/extract_public_figures.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/fetch_study_data.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/final_process_preflight.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02.exit.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02.launch.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02.stderr.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02.stdout.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/candidate_fragments.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/daily_balances.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/daily_sv_area.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/diagnostics.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/genotype_treatment_summary.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/harvest_join.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/heldout_harvest_replay_bounded.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/heldout_harvest_replay_unbounded.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/heldout_step_bounded.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/heldout_step_unbounded.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/plant_periods.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/plant_periods_sensitivity_retained_flagged.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/plant_summary.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/study_parameters.png",
+    "agent_handoffs/tasks/study_parameterization_20261101/fit_02/weighing_intervals.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/independent_comparison.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/independent_feldman/oracle.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/independent_feldman/primary_periods.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/independent_feldman_balance.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/independent_replay_check.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/independent_replay_checks.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/independent_sentinel_check.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/installation.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/installed_help.exit.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/installed_help.launch.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/installed_help.stderr.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/installed_help.stdout.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/launch_01.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/launch_02.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/launch_claude.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/mesquite_independent.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/previous_claude_report.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/previous_codex_review.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/previous_current_prompt.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/previous_orchestration_state.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/previous_verification.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/process_preflight.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/project_image_table.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/prompt_01.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/prompt_02.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_contract.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/ST_params.c",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/additional_retrievals.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/image_header_preview.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/image_projection.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/input_schemas.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_figure_readings.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_figures/figure_1_object_36.png",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_figures/figure_2_object_49.png",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_figures/figure_3_object_58.png",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_figures/figure_4_object_66.png",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_figures/figure_5_object_97.png",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_figures/manifest.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_springer.html",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_springer.text.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/phe2ril2.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/retrieval_manifest.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/setaria_archive_listing.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/setaria_image_scalars.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/step_source_retrieval.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/public_evidence/zoom_calibration_data.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/pytest_01.exit.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/pytest_01.stderr.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/pytest_01.stdout.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/readme_recovery.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/resume_claude.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/resume_preflight_02.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_initial.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_01.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_01/README.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_01/study_parameters.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_01/test_study_parameters.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_02.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_02/README.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_02/report.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_02/study_parameters.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_02/test_study_parameters.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/run_checks.py",
+    "agent_handoffs/tasks/study_parameterization_20261101/runtime_identity.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/runtime_rate_probe.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/scientific_findings.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/scope.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/sentinel_fixture.csv",
+    "agent_handoffs/tasks/study_parameterization_20261101/session.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/source_data_qc.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/structured_result_02.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/tests_01.exit.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/tests_01.stderr.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/tests_01.stdout.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/tests_02.exit.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/tests_02.launch.json",
+    "agent_handoffs/tasks/study_parameterization_20261101/tests_02.stderr.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/tests_02.stdout.txt",
+    "agent_handoffs/tasks/study_parameterization_20261101/verification.md",
+    "agent_handoffs/tasks/study_parameterization_20261101/verify_deliverables.py",
+    "analysis/study_parameterization/README.md",
+    "analysis/study_parameterization/study_parameters.py",
+    "analysis/study_parameterization/test_study_parameters.py",
+    "docs/study-stepwat-parameters.md",
+    "parameters/candidates/study-stepwat.json"
+  ],
+  "excluded_preexisting_symlinks": [
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/conservation.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/conservation.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/backend_correspondence.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/backend_correspondence.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/pond_transport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_transport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/subsurface_transpiration.py",
+      "target": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/native/maple_syrup/subsurface_transpiration.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/experimental_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/pond_network.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_network.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/infiltration.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/infiltration.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/dependency_bundle.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/dependency_bundle.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/__init__.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/__init__.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/experimental_hydrology.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_hydrology.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/pond_checkpoint.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_checkpoint.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/subsurface.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/subsurface.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/rfid_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/rfid_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_driver.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_driver.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/sediment_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_water_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_water_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/windowed_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/windowed_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/routing.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/event_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/event_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/sediment_bed.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_bed.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_native_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_native_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/complete_event.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/complete_event.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/experimental_storm.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_storm.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/characteristic_sparse.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_sparse.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/windowed_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/windowed_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/pond_bed.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_bed.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/routing_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/pond_event.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_event.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/experimental_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/rainfall.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/rainfall.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/storage_admission.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/storage_admission.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_native_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_native_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/chastre_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/chastre_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/benchmark_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/benchmark_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_native.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_native.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/sediment_event.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_event.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/initial_reimport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/initial_reimport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/subsurface_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/subsurface_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/windowed_shared_bed_device.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/windowed_shared_bed_device.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/hydrology_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/hydrology_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_gpu_driver.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_gpu_driver.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/storm.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/storm.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/column_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/column_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/dependency.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/dependency.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_transport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_transport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/storm_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/storm_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/routing_newton_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing_newton_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/characteristic_cuda_csr.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_cuda_csr.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/event_backend.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/event_backend.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/splash.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/splash.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/pond_hydraulics.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_hydraulics.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/sediment_transport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_transport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/sediment_physics.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_physics.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/routing_newton.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing_newton.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/routing_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/characteristic_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/splash_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/splash_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/checkpoint.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/checkpoint.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/windowed_shared_bed.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/windowed_shared_bed.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/legacy_physics_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_physics_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/probe.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/probe.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/characteristic_transport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_transport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/experimental_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/characteristic_numba_csr.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_numba_csr.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/hydrology_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/hydrology_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/case_import.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/case_import.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/masked_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/masked_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/subsurface_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/subsurface_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime/maple_syrup/provenance.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/provenance.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/conservation.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/conservation.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/backend_correspondence.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/backend_correspondence.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/pond_transport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_transport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/subsurface_transpiration.py",
+      "target": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/review_snapshots/revision03/native/maple_syrup/subsurface_transpiration.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/experimental_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/pond_network.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_network.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/infiltration.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/infiltration.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/dependency_bundle.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/dependency_bundle.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/__init__.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/__init__.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/experimental_hydrology.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_hydrology.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/pond_checkpoint.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_checkpoint.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/subsurface.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/subsurface.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/rfid_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/rfid_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_driver.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_driver.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/sediment_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_water_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_water_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/windowed_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/windowed_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/routing.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/event_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/event_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/sediment_bed.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_bed.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_native_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_native_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/complete_event.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/complete_event.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/experimental_storm.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_storm.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/characteristic_sparse.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_sparse.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/windowed_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/windowed_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/pond_bed.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_bed.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/routing_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/pond_event.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_event.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/experimental_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/rainfall.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/rainfall.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/storage_admission.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/storage_admission.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_native_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_native_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/chastre_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/chastre_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/benchmark_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/benchmark_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_native.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_native.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/sediment_event.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_event.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/initial_reimport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/initial_reimport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/subsurface_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/subsurface_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/windowed_shared_bed_device.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/windowed_shared_bed_device.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/hydrology_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/hydrology_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_gpu_driver.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_gpu_driver.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/storm.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/storm.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/column_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/column_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/dependency.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/dependency.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_transport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_transport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/storm_experiment.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/storm_experiment.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/routing_newton_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing_newton_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/characteristic_cuda_csr.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_cuda_csr.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/event_backend.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/event_backend.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/splash.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/splash.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/pond_hydraulics.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/pond_hydraulics.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/sediment_transport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_transport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/sediment_physics.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/sediment_physics.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/routing_newton.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing_newton.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/routing_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/routing_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/characteristic_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/splash_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/splash_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/checkpoint.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/checkpoint.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/windowed_shared_bed.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/windowed_shared_bed.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/legacy_physics_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/legacy_physics_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/probe.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/probe.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/characteristic_transport.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_transport.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/experimental_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/experimental_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/characteristic_numba_csr.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/characteristic_numba_csr.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/hydrology_cuda.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/hydrology_cuda.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/case_import.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/case_import.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/masked_case.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/masked_case.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/subsurface_numba.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/subsurface_numba.py",
+      "predates_baseline": true
+    },
+    {
+      "path": "agent_handoffs/tasks/coupled_transpiration_20261031/runtime03/maple_syrup/provenance.py",
+      "target": "/home/okin/SYRUP/src/maple_syrup/provenance.py",
+      "predates_baseline": true
+    }
+  ],
+  "root_agents_sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+  "runtime_stepwat_sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+  "json_documents_parsed": 43,
+  "public_source_hashes_checked": 10,
+  "claude_tool_calls_scope_checked": 43,
+  "independent_numerical_checks": 18,
+  "independent_endpoint_replays": 177,
+  "local_markdown_links_checked": 176,
+  "errors": []
+}

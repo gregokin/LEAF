@@ -1,0 +1,22 @@
+{
+  "at_utc": "2026-11-10T12:41:39.675156+00:00",
+  "baseline_file_count": 1796,
+  "expected_baseline_changes": [
+    "README.md",
+    "agent_handoffs/claude_report.md",
+    "agent_handoffs/codex_review.md",
+    "agent_handoffs/current_prompt.md",
+    "agent_handoffs/decisions.md",
+    "agent_handoffs/orchestration_state.md",
+    "agent_handoffs/project_brief.md",
+    "agent_handoffs/verification.md",
+    "leaf/__init__.py"
+  ],
+  "historical_locks_and_accepted_archives_preserved": true,
+  "installed_files_match_frozen_revision_03": true,
+  "legacy_numerical_sources_preserved": true,
+  "maple_interface_preserved": true,
+  "root_AGENTS_preserved": true,
+  "syrup_runtime_files_rechecked": 71,
+  "unexpected_changes": []
+}

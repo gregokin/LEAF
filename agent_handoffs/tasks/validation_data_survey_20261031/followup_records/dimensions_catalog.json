@@ -1,0 +1,28 @@
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":14,
+    "params":{
+      "q":"title:\"Seasonal non-destructive vegetation\" AND -obsoletedBy:*",
+      "fl":"id,title,beginDate,endDate,datePublished,formatId",
+      "rows":"100",
+      "_forwardedCount":"1",
+      "wt":"json"
+    }
+  },
+  "response":{
+    "numFound":1,
+    "start":0,
+    "maxScore":9.880613,
+    "numFoundExact":true,
+    "docs":[{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210011002/108",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "title":"Seasonal non-destructive vegetation measurements at 15 net primary production (NPP) study sites at Jornada Basin LTER, 1989-ongoing",
+      "beginDate":"1989-05-01T00:00:00Z",
+      "endDate":"2020-09-16T00:00:00Z",
+      "datePublished":"2022-04-09T00:00:00Z"
+    }]
+  }
+}

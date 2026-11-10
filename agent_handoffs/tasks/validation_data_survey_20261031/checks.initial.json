@@ -1,0 +1,23 @@
+{
+  "checked_utc": "2026-10-31T23:00:49.635015+00:00",
+  "baseline_files": 1530,
+  "preserved_baseline_files": 1525,
+  "changed_baseline_paths": [
+    "README.md",
+    "agent_handoffs/current_prompt.md",
+    "agent_handoffs/decisions.md",
+    "agent_handoffs/orchestration_state.md",
+    "agent_handoffs/project_brief.md"
+  ],
+  "out_of_scope_changes": [],
+  "missing_baseline_files": [],
+  "root_agents_sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+  "parsed_eml_packages": 10,
+  "archived_response_hashes_checked": 23,
+  "metadata_failures": [],
+  "local_links_checked": 57,
+  "bad_local_links": [],
+  "trailing_whitespace": [],
+  "observation_tables_retrieved": false,
+  "model_runs_or_tests_performed": false
+}

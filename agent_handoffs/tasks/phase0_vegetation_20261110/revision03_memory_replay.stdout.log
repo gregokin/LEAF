@@ -1,0 +1,17 @@
+{
+  "scratch_preflight": {
+    "pass": true
+  },
+  "working_bound": {
+    "pass": true,
+    "traced_peak_bytes": 1540909,
+    "admitted_array_bytes": 1522208,
+    "python_metadata_allowance_bytes": 65536,
+    "raster_cap": 524288,
+    "scratch_cap": 1000000,
+    "total_union_fraction": 1.0
+  },
+  "report_config_replays_exactly": {
+    "pass": true
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "at_utc": "2026-10-30T13:02:33.469668+00:00",
+  "attempts": [
+    {
+      "attempt": "01",
+      "session_id": "8214c886-dbdd-48a5-b2a5-dab2bafcf552",
+      "pid": 2009034,
+      "launch_start_identity_recorded": true,
+      "returncode": 0,
+      "child_reaped": true,
+      "timed_out": false,
+      "jsonl_records": 611,
+      "invalid_json_lines": 0,
+      "final_subtype": "success",
+      "final_is_error": false,
+      "final_session_matches": true,
+      "permission_denials": [],
+      "observed_tool_counts": {
+        "WebFetch": 100,
+        "WebSearch": 20
+      },
+      "prompt_sha256_matches": true,
+      "prompt_contains_private_home_path": false,
+      "original_pid_currently_exists": false,
+      "original_start_identity_still_matches": false,
+      "elapsed_seconds": 837.4
+    },
+    {
+      "attempt": "02",
+      "session_id": "8214c886-dbdd-48a5-b2a5-dab2bafcf552",
+      "pid": 2011288,
+      "launch_start_identity_recorded": true,
+      "returncode": 0,
+      "child_reaped": true,
+      "timed_out": false,
+      "jsonl_records": 7,
+      "invalid_json_lines": 0,
+      "final_subtype": "success",
+      "final_is_error": false,
+      "final_session_matches": true,
+      "permission_denials": [],
+      "observed_tool_counts": {},
+      "prompt_sha256_matches": true,
+      "prompt_contains_private_home_path": false,
+      "original_pid_currently_exists": false,
+      "original_start_identity_still_matches": false,
+      "elapsed_seconds": 119.223
+    }
+  ]
+}

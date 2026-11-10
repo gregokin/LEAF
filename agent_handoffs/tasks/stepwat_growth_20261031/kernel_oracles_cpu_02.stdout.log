@@ -1,0 +1,1 @@
+{"ok": true, "backend": "numba", "source": "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate/leaf/stepwat.py", "cases": ["wet", "limited", "dry", "cold", "dormant", "mature", "year_end"], "count": 7}

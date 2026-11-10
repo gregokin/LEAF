@@ -1,0 +1,28 @@
+{
+  "fp64_roundtrip": {
+    "pass": true
+  },
+  "reject_noninitial_surface": {
+    "pass": false,
+    "observed": "accepted and resolved to [55.0] at t=7.0"
+  },
+  "reject_implicit_nan_surface": {
+    "pass": false,
+    "observed": "accepted NaN as [True]"
+  },
+  "age_overflow_transaction": {
+    "pass": false,
+    "observed": {
+      "time": 1e+308,
+      "age_finite": false
+    }
+  },
+  "reject_unterminated_quote": {
+    "pass": false,
+    "observed": "accepted truncated closing quote"
+  },
+  "reject_allometry_overflow": {
+    "pass": false,
+    "observed_finite": false
+  }
+}

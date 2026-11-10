@@ -1,0 +1,49 @@
+{
+  "at_utc": "2026-10-31T19:15:41.673606+00:00",
+  "files": {
+    "native/test_transpiration.py": {
+      "size_bytes": 11756,
+      "sha256": "46dcdbfa1eece1f89628ba35aaa13bf315741ae742371b6dca1170ce317e644f"
+    },
+    "leaf/__init__.py": {
+      "size_bytes": 595,
+      "sha256": "75ff4924d1318cd25e40da04d2e66bb24400fb4881c2c49db5b5f5994db00966"
+    },
+    "leaf/coupling.py": {
+      "size_bytes": 18470,
+      "sha256": "d0efc9bcd0e880dbd153f9bbe423a54260771c9c9a2a5f49853d604034a476c3"
+    },
+    "tests/test_daily_water_growth.py": {
+      "size_bytes": 35234,
+      "sha256": "c73ae335a1a89d965e9af8dde83bfb8e252e39393154afabc26bda5ebf39deb4"
+    },
+    "tests/test_coupling.py": {
+      "size_bytes": 18191,
+      "sha256": "df168a344e1a517779bbb2b1d1e953abf9d9864489bd5376d9798ea4226da77e"
+    },
+    "tests/test_spatial_mapping.py": {
+      "size_bytes": 12394,
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0"
+    },
+    "docs/coupled-transpiration.md": {
+      "size_bytes": 8584,
+      "sha256": "1608673260193c1fb6d067f3fe5151f52c5618939db35b84f974417d995817db"
+    },
+    "benchmarks/daily-water-growth.md": {
+      "size_bytes": 12599,
+      "sha256": "18725e0b6261570de242b38dcb95675c0270beb7890942ad1edc1b7bde7d2bf1"
+    },
+    "benchmarks/daily_water_growth.py": {
+      "size_bytes": 69507,
+      "sha256": "1e493d0963858f9ba8e9d2a163e93bfc8e62d5521662997d1d11e24788339503"
+    },
+    "benchmarks/spatial_mapping.py": {
+      "size_bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "native/maple_syrup/subsurface_transpiration.py": {
+      "size_bytes": 23159,
+      "sha256": "f10c591a0d3a6ca165ce31bfd3be9f3db4b5920acbc7898c2c81cffdefbc1a7e"
+    }
+  }
+}

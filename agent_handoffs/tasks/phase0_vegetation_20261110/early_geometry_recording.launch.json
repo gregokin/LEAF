@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/review_geometry_recording_01.py"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate",
+  "pid": 8,
+  "start_ticks": "178112176",
+  "started_at_utc": "2026-11-10T11:22:10.062818+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

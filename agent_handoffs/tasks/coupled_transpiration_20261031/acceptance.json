@@ -1,0 +1,26 @@
+{
+  "status": "accepted",
+  "revision": 5,
+  "task": "coupled_transpiration_20261031",
+  "accepted_at_utc": "2026-10-31T19:44:15.307568+00:00",
+  "review": "codex_review.md",
+  "verification": "verification.md",
+  "final_audit_sha256": "f1b84b239b55f39579a4e656cbac2b0bba8aced03a0bd7a20c2df98620c47c15",
+  "source_lock_sha256": "1f2f5b466dd2cdffd7ae00ecc6dfb3f42a64b8784f95559f27821312e74b16fd",
+  "cpu": {
+    "passed": 232,
+    "skipped": 31
+  },
+  "gpu": {
+    "passed": 261,
+    "skipped": 2,
+    "skip_reason": "tests requiring GPU unavailability"
+  },
+  "all_children_reaped": true,
+  "original_upstreams_unchanged": true,
+  "commits": false,
+  "pushes": false,
+  "package_installs": false,
+  "new_environments": false,
+  "qualified_scope": "daily native subsurface/individual-plant transpiration and weekly growth; no storm/MASY/remapping/restart-serialization/calibrated-ecology claim"
+}

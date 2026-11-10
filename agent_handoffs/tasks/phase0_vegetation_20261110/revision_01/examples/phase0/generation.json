@@ -1,0 +1,19 @@
+{
+  "schema": "leaf.generation_config",
+  "schema_version": 1,
+  "notes": "FIXTURE example: two species on a 64 x 64 m domain of 1 m cells. Covers, diameters and ages are illustrative, not calibrated. Copy and edit.",
+  "domain": {"nx": 64, "ny": 64, "dx_m": 1.0},
+  "seed": 20261110,
+  "overlap": "allowed",
+  "cover_definition": "per_species_union",
+  "cover_tolerance": 0.01,
+  "cover_subsamples": 8,
+  "max_iterations": 12,
+  "limits": {"max_plants": 200000, "max_attempts": 5000000, "max_cover_cells": 4000000, "max_cover_bytes": 8000000},
+  "time_days": 0.0,
+  "species": {
+    "grass": {"target_cover": 0.20, "diameter_mean_m": 0.35, "diameter_std_m": 0.10, "initial_age_days": 730},
+    "shrub": {"target_cover": 0.10, "diameter_mean_m": 1.2, "diameter_std_m": 0.3,
+              "initial_age_days": {"distribution": "uniform", "min_days": 365, "max_days": 7300}}
+  }
+}

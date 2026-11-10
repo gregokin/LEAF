@@ -1,0 +1,40 @@
+{
+  "started_at_utc": "2026-10-30T12:27:17.686695+00:00",
+  "cwd": "/tmp/public-ecology-review-yi4eees3",
+  "argv": [
+    "claude",
+    "--safe-mode",
+    "--print",
+    "--verbose",
+    "--output-format",
+    "stream-json",
+    "--session-id",
+    "8214c886-dbdd-48a5-b2a5-dab2bafcf552",
+    "--tools",
+    "WebFetch,WebSearch",
+    "--allowedTools",
+    "WebFetch,WebSearch",
+    "--permission-mode",
+    "dontAsk",
+    "--permission-prompts",
+    "none",
+    "--strict-mcp-config",
+    "--system-prompt",
+    "Review public scientific papers, public code and official technical documentation. No private project context is provided. Only public web tools are authorized; do not access local files, credentials, private data or shell tools. Distinguish verified source facts from inference."
+  ],
+  "session_id": "8214c886-dbdd-48a5-b2a5-dab2bafcf552",
+  "pid": 2009034,
+  "proc_stat_at_launch": "2009034 (claude) R 2009017 2009034 2009034 0 -1 4194304 18 0 0 0 0 0 0 0 20 0 1 0 83462938 242036736 87 18446744073709551615 26388480 89069872 140725247348304 0 0 0 0 0 0 0 0 0 17 10 0 0 0 0 0 89073968 243716096 890642432 140725247356036 140725247356580 140725247356580 140725247360987 0\n",
+  "prompt": "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_prompt_01.txt",
+  "prompt_sha256": "c50e9beb36ac59be08a10e02deafa3162e859dabe0bf25678e8d44cb98760c66",
+  "tools": [
+    "WebFetch",
+    "WebSearch"
+  ],
+  "safe_mode": true,
+  "permission_bypass": false,
+  "submitted_content": "Public citation metadata, public code revisions and generic algorithm questions only; no private outline or local source.",
+  "stdout": "claude_public_01.stdout.jsonl",
+  "stderr": "claude_public_01.stderr.log",
+  "timeout_seconds": 900
+}

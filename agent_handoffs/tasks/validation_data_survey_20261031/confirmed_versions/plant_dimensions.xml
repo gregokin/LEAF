@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="knb-lter-jrn.210011002.108"
+  system="https://pasta.edirepository.org"
+  xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+  <access
+    authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document"
+    system="https://pasta.edirepository.org">
+    <allow>
+      <principal>uid=JRN,o=LTER,dc=ecoinformatics,dc=org</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset
+      id="d210011002">
+    <alternateIdentifier
+        system="https://doi.org">doi:10.6073/pasta/946b2fc115338ca4bfd38ffa327149ba</alternateIdentifier><title>Seasonal non-destructive vegetation measurements at 15 net primary production (NPP) study sites at Jornada Basin LTER, 1989-ongoing</title>
+    <creator>
+      <individualName>
+        <givenName>Debra C</givenName>
+        <surName>Peters</surName>
+      </individualName>
+      <organizationName>USDA-ARS Jornada Experimental Range</organizationName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>U.S.A.</country>
+      </address>
+      <userId
+        directory="ORCID">0000-0002-5842-8099</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Laura F</givenName>
+        <surName>Huenneke</surName>
+      </individualName>
+      <organizationName>New Mexico State University (Now at NAU)</organizationName>
+      <userId
+        directory="ORCID">0000-0002-2562-6822</userId>
+    </creator>
+    <metadataProvider>
+      <organizationName>Jornada Basin LTER</organizationName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>USA</country>
+      </address>
+      <onlineUrl>https://lter.jornada.nmsu.edu</onlineUrl>
+    </metadataProvider>
+    <associatedParty>
+      <individualName>
+        <givenName>John</givenName>
+        <surName>Anderson</surName>
+      </individualName>
+      <organizationName>Jornada Basin LTER/New Mexico State University</organizationName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>U.S.A.</country>
+      </address>
+      <electronicMailAddress>janderso@jornada.nmsu.edu</electronicMailAddress>
+      <userId
+        directory="ORCID">0000-0002-6417-8022</userId>
+      <role>field data collection</role>
+    </associatedParty>
+    <pubDate>2022-04-09</pubDate>
+    <language>English</language>
+    <abstract>
+      <para>
+    This data package contains non-destructive quadrat measurements
+    collected for the long-term Net Primary Production (NPP) study at
+    the Jornada Basin LTER. Data here include measurements of horizontal
+    cover and vertical height of plants observed at permanent NPP
+    quadrats at 15 study sites. Sites were selected to represent the 5
+    major ecosystem types in the Chihuahuan Desert (upland grasslands,
+    playa grasslands, mesquite-dominated shrublands,
+    creosotebush-dominated shrublands, tarbush-dominated shrublands).
+    For each ecosystem type, three sites were selected to represent the
+    range in variability in production and plant diversity; thus the
+    locations are not replicates. At each site, a 1 hectare area was
+    fenced in 1988 and a grid of 1m x 1m replicate quadrats was laid out
+    when sampling began in 1989. Grids consist of 49 quadrats arranged
+    in a square 7 x 7 pattern, with quadrats 10 m apart (P-COLL has 48
+    quadrats in a 3 x 16 pattern). Standing vegetation in quadrats is
+    sampled three times a year: in winter (February - March), before
+    shrubs begin spring growth; in spring (May), when shrubs and spring
+    annuals have reached peak biomass; in fall (late summer; October),
+    when summer annuals have reached peak biomass but before killing
+    frosts. Additional observations of plant count and phenological
+    stage are also made. This dataset is subsequently used to determine
+    quadrat biomass and net primary production. Details and linked data
+    packages are described in the methods element. This is an ongoing
+    dataset with new quadrat measurements collected in the spring, fall
+    and winter of each year.
+  </para>
+      <para>
+        <emphasis>Attention:</emphasis>
+      </para>
+      <para> 1) For most species, these data are
+    not appropriate for estimates of percentage cover because of the way
+    the data are collected. </para>
+      <para>
+        <emphasis>See Note 1 in the methods element
+    for further details.</emphasis>
+      </para>
+      <para>
+  </para>
+    </abstract>
+    <keywordSet>
+      <keyword
+        keywordType="theme">populations</keyword>
+      <keyword
+        keywordType="theme">primary production</keyword>
+      <keywordThesaurus>LTER Core Research Areas</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">aboveground production</keyword>
+      <keyword
+        keywordType="theme">deserts</keyword>
+      <keyword
+        keywordType="theme">net primary production</keyword>
+      <keyword
+        keywordType="theme">populations</keyword>
+      <keyword
+        keywordType="theme">vegetation</keyword>
+      <keywordThesaurus>LTER Controlled Vocabulary v1</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">ongoing</keyword>
+      <keywordThesaurus>none</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">ongoing</keyword>
+      <keywordThesaurus>Jornada Basin LTER dataset keywords</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">NPP study</keyword>
+      <keyword
+        keywordType="theme">study 011</keyword>
+      <keywordThesaurus>Jornada Basin project names</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="place">C-CALI</keyword>
+      <keyword
+        keywordType="place">C-GRAV</keyword>
+      <keyword
+        keywordType="place">C-SAND</keyword>
+      <keyword
+        keywordType="place">G-BASN</keyword>
+      <keyword
+        keywordType="place">G-IBPE</keyword>
+      <keyword
+        keywordType="place">G-SUMM</keyword>
+      <keyword
+        keywordType="place">M-NORT</keyword>
+      <keyword
+        keywordType="place">M-RABB</keyword>
+      <keyword
+        keywordType="place">M-WELL</keyword>
+      <keyword
+        keywordType="place">NPP locations</keyword>
+      <keyword
+        keywordType="place">P-COLL</keyword>
+      <keyword
+        keywordType="place">P-SMAL</keyword>
+      <keyword
+        keywordType="place">P-TOBO</keyword>
+      <keyword
+        keywordType="place">T-EAST</keyword>
+      <keyword
+        keywordType="place">T-TAYL</keyword>
+      <keyword
+          keywordType="place">T-WEST</keyword>
+      <keywordThesaurus>Jornada Basin place names</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>
+      <para>
+  This information is released under the Creative Commons license - Attribution - CC BY 
+  (https://creativecommons.org/licenses/by/4.0/). The consumer of these data ("Data User" 
+  herein) is required to cite it appropriately in any publication that results from its 
+  use. The Data User should realize that these data may be actively used by others for 
+  ongoing research and that coordination may be necessary to prevent duplicate 
+  publication. The Data User is urged to contact the authors of these data if any 
+  questions about methodology or results occur. Where appropriate, the Data User is 
+  encouraged to consider collaboration or co-authorship with the authors. The Data User 
+  should realize that misinterpretation of data may occur if used out of context of the 
+  original study. While substantial efforts are made to ensure the accuracy of data and 
+  associated documentation, complete accuracy of data sets cannot be guaranteed. All data 
+  are made available "as is." The Data User should be aware, however, that data are updated 
+  periodically and it is the responsibility of the Data User to check for new versions of 
+  the data. The data authors and the repository where these data were obtained shall not be 
+  liable for damages resulting from any use or misinterpretation of the data. Thank you.
+</para>
+    </intellectualRights>
+    <distribution>
+      <online>
+        <url
+      function="information">https://jrn.lternet.edu</url>
+      </online>
+    </distribution>
+    <distribution
+      id="10.6073/pasta/946b2fc115338ca4bfd38ffa327149ba" scope="system"
+          system="https://pasta.edirepository.org"><online><url
+        function="information">https://doi.org/10.6073/pasta/946b2fc115338ca4bfd38ffa327149ba</url></online></distribution><coverage>
+      <geographicCoverage>
+        <geographicDescription>NPP study locations: There are 15 sites used in the NPP study, spanning 5 vegetation community types in the Jornada Basin. This bounding box includes all 15 sites. More precise geographic coordinates for this study may be requested from the JRN LTER Data Manager (jornada.data@nmsu.edu).</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-106.865000</westBoundingCoordinate>
+          <eastBoundingCoordinate>-106.713000</eastBoundingCoordinate>
+          <northBoundingCoordinate>32.669000</northBoundingCoordinate>
+          <southBoundingCoordinate>32.488000</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>1989-05-01</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2020-09-16</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <maintenance>
+      <description>ongoing</description>
+      <maintenanceUpdateFrequency>annually</maintenanceUpdateFrequency>
+    </maintenance>
+    <contact>
+      <organizationName>Jornada Basin LTER</organizationName>
+      <positionName>Jornada Basin LTER Information Manager</positionName>
+      <address>
+        <deliveryPoint>P.O. Box 30003, MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>USA</country>
+      </address>
+      <phone>575-646-1739</phone>
+      <electronicMailAddress>jornada.data@nmsu.edu</electronicMailAddress>
+      <onlineUrl>https://lter.jornada.nmsu.edu/information-management/</onlineUrl>
+    </contact>
+    
+    <publisher><organizationName>Environmental Data Initiative</organizationName><electronicMailAddress>info@environmentaldatainitiative.org</electronicMailAddress><onlineUrl>https://environmentaldatainitiative.org</onlineUrl><userId
+          directory="https://ror.org">0330j0z60</userId></publisher><pubPlace>Environmental Data Initiative</pubPlace><methods>
+      <methodStep>
+        <description>
+          <section>
+            <title>General study design</title>
+            <para>
+      There are 15 net primary production (NPP) monitoring sites located
+      in 5 vegetation communities that represent the major vegetation
+      types of the Jornada Basin. These vegetation zones and their
+      associated NPP sites (3 per zone) are: 1) creosotebush scrub
+      (CALI, GRAV, SAND), 2) tarbush flats (EAST, TAYL, WEST), 3)
+      grassland (BASN, IBPE, SUMM), 4) mesquite dunes (NORT, RABB,
+      WELL), and 5) playa (COLL, SMAL, TOBO). Grids of permanent 1
+      square meter replicate quadrats have been established at each site
+      for long-term monitoring of net primary production. Grids consist
+      of 49 quadrats arranged in a square 7 x 7 pattern, with quadrats
+      10 m apart. (Exception: P-COLL, the College Ranch playa, has 48
+      quadrats arranged in a 3 x 16 pattern). Quadrats are permanently
+      marked with aluminum nails inserted into the soil at two diagonal
+      corners; quadrats are identified by nearby rebar stakes and tags
+      (numbered 1-49, starting at the northwest corner and wrapping back
+      and forth in a north-south direction). NPP observations, both
+      non-destructive (this package) and off-grid harvests began in
+      April 1989.
+    </para>
+            <para>
+      Site maps may be available on request from the Data Manager
+      (currently missing).
+    </para>
+          </section>
+          <section>
+            <title>Non-destructive quadrat measurement methods</title>
+            <para>
+      This data package contains the non-destructive measurements of
+      vegetation cover, height, and other attributes in permanent NPP
+      quadrats. From these dimensional measurements, volume can be
+      calculated for each species in each quadrat. These volumes can be
+      used with the allometric equations derived from a reference
+      harvest dataset (see EDI package knb-lter-jrn.210011004) to
+      estimate the biomass of permanent quadrat species on a seasonal
+      basis. These methods were first established by Huenneke et
+      al. (2001), were updated by Peters et al. (2012), and are detailed
+      in a protocol attachment (see "Additional files") and
+      outlined below.
+    </para>
+            <para>
+      Standing biomass is sampled three times a year: in winter
+      (February - March), before shrubs begin spring growth; in spring
+      (May), when shrubs and spring annuals have reached peak biomass;
+      in fall (late summer; October), when summer annuals have reached
+      peak biomass but before killing frosts. At each sample date, each
+      site is visited (order of sampling may vary, according to
+      phenological stage of sites) and the dimensions of each plant on
+      each quadrat are measured and recorded. Recorded for each
+      observation are: date, zone, plot, quadrat #, species (4 letter
+      acronym), observation # (one for each measurement of that species
+      in that quadrat), cover (percentage of quadrat covered by canopy
+      of that individual or species), height (vertical extent of that
+      individual or species), count (if multiple individuals with the
+      same dimensions are present), and phenological stage
+      (Flowering/fruiting or Vegetative). Plants rooted outside but
+      reaching into the quadrat are measured in terms of their vertical
+      and horizontal extent only in the rectangular volume above the
+      quadrat. Large plants (e.g., shrubs) are broken down into
+      individual branch systems or other sub- volumes and recorded as
+      separate observations. Cacti are measured for number of pads
+      (count), average length of pad (height), and average width of pad
+      (diameter).
+    </para>
+            <para>
+      Early sample periods included measurements of diameter, rather
+      than cover, for some species; see data files from those periods.
+    </para>
+          </section>
+          <section>
+            <title>IMPORTANT NOTES</title>
+            <para><emphasis>NOTE 1</emphasis>: These data are not appropriate for
+      estimates of percentage cover. NPP-associated percent cover
+      measurements were developed for and are used solely to provide the
+      best estimate of biomass production. Because the methodology
+      results in measurements of overlapping subcanopy systems and
+      canopies of adjacent individuals, NPP percent cover measurements
+      are not an appropriate measure of actual aerial plant cover. Doing
+      so will result in inflated numbers for the "actual"
+      vegetative cover.
+    </para>
+            <para><emphasis>NOTE 2</emphasis>: Plant species codes in the
+      "spp" column of the data file are specific to the
+      Jornada Basin LTER. However, USDA Plants Database codes
+      (plants.usda.gov) have been assigned to most of these local codes
+      in a separate column. Further details for linking the local codes
+      to currently recognized taxa may be found in the "JRN
+      Vascular Plants" EDI package (knb-lter-jrn.210520001).
+    </para>
+          </section>
+          <section>
+            <title>Additional files</title>
+            <para>
+      The field quadrat protocol included with this package
+      (nppfield_protocol_master_for-distribution.pdf) provides details
+      on field methods.
+    </para>
+          </section>
+          <section>
+            <title>Derived data packages</title>
+            <para>
+      knb-lter-jrn.210011001 - Quadrat biomass by species and season
+    </para>
+            <para>
+      knb-lter-jrn.210011003 - Annual NPP summaries by site
+    </para>
+          </section>
+          <section>
+            <title>References</title>
+            <para>
+      Huenneke, Laura F., Dennis Clason, and Esteban Muldavin.
+      "Spatial heterogeneity in Chihuahuan Desert vegetation:
+      implications for sampling methods in semi-arid ecosystems."
+      Journal of Arid Environments 47, no. 3 (2001): 257-270.
+    </para>
+            <para>
+      Peters, Debra PC, Jin Yao, Osvaldo E. Sala, and John P. Anderson.
+      "Directional climate change and potential reversal of
+      desertification in arid and semiarid ecosystems." Global
+      Change Biology 18, no. 1 (2012): 151-163.
+    </para>
+          </section>
+        </description>
+      </methodStep>
+    </methods>
+    <project>
+      <title>Jornada Basin LTER</title>
+      <personnel>
+        <individualName>
+          <salutation>Dr.</salutation>
+          <givenName>Niall</givenName>
+          <surName>Hanan</surName>
+        </individualName>
+        <address>
+          <deliveryPoint>P.O. Box 30003, MSC 3JER</deliveryPoint>
+          <deliveryPoint>New Mexico State University</deliveryPoint>
+          <city>Las Cruces</city>
+          <administrativeArea>NM</administrativeArea>
+          <postalCode>88003-8003</postalCode>
+          <country>United States</country>
+        </address>
+        <phone
+      phonetype="voice">575-646-3335</phone>
+        <electronicMailAddress>nhanan@nmsu.edu</electronicMailAddress>
+        <role>Principal Investigator</role>
+      </personnel>
+      <abstract>
+        <section>
+          <para>The Jornada Basin Long-Term Ecological Research (LTER) program is part of a 
+          national network of long-term ecological research sites funded by the US National 
+          Science Foundation (NSF). The Jornada LTER program has been continuously funded
+          since 1982 to develop general principles governing changes between grassland 
+          and shrubland ecosystems based on long-term data collected in the Chihuahuan 
+          Desert. We translate our findings to dryland ecosystems around the world, and 
+          forecast the dynamics of future ecosystem states in response to changing climate 
+          and land use.</para>
+        </section>
+      </abstract>
+      <funding>
+        <section>
+          <para>JRN LTER is funded by the National Science Foundation under award DEB 2025166.</para>
+        </section>
+      </funding>
+    </project>
+    <dataTable
+      id="263635a849995fc248a035a6e9f0c29a" scope="document"
+          system="https://pasta.edirepository.org">
+      <entityName>Quadrat plant dimension data</entityName>
+      <entityDescription>Plant dimensions (cover, height) collected by quadrat, species, site, and season</entityDescription>
+      <physical>
+        <objectName>JRN011002_npp_quadrat_meas.csv</objectName>
+        <size
+          unit="byte">123777151</size>
+        <authentication
+              method="MD5">ba5d6a5cd9af244b04e80a91c1d49832</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <numFooterLines>0</numFooterLines>
+            <recordDelimiter>\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+              <quoteCharacter>"</quoteCharacter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210011002/108/263635a849995fc248a035a6e9f0c29a</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute
+          id="d210011002-e1-att1">
+          <attributeName>fileid</attributeName>
+          <attributeLabel>File ID</attributeLabel>
+          <attributeDefinition>Harvest season id in format NPPR&lt;YY&gt;&lt;season&gt; ( where &lt;YY&gt; = 2 digit year and &lt;season&gt; = S (spring) | F (Fall) | W (Winter) )</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>any text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att2">
+          <attributeName>year</attributeName>
+          <attributeLabel>Year</attributeLabel>
+          <attributeDefinition>Collection year</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY</formatString>
+              <dateTimePrecision>1</dateTimePrecision>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att3">
+          <attributeName>season</attributeName>
+          <attributeLabel>Season</attributeLabel>
+          <attributeDefinition>Harvest season indicator</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>S</code>
+                    <definition>Spring</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>F</code>
+                    <definition>Fall</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>W</code>
+                    <definition>Winter</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att4">
+          <attributeName>date</attributeName>
+          <attributeLabel>Date</attributeLabel>
+          <attributeDefinition>Collection date</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimePrecision>1</dateTimePrecision>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att5">
+          <attributeName>zone</attributeName>
+          <attributeLabel>Vegetation zone</attributeLabel>
+          <attributeDefinition>Vegetation zone</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>M</code>
+                    <definition>Mesquite dune vegetation type</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>C</code>
+                    <definition>Creosote shrubland vegetation type</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>G</code>
+                    <definition>Grassland vegetation type</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>P</code>
+                    <definition>Playa vegetation type (grassland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>T</code>
+                    <definition>Tarbush vegetation type</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att6">
+          <attributeName>site</attributeName>
+          <attributeLabel>Site</attributeLabel>
+          <attributeDefinition>NPP site (15)</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>CALI</code>
+                    <definition>Caliche site (creosote shrubland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>GRAV</code>
+                    <definition>Gravel site (creosote shrubland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SAND</code>
+                    <definition>Sand site (creosote shrubland; formerly UPTR - upper trailer)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>BASN</code>
+                    <definition>Basin site (grassland at lower trailer)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>IBPE</code>
+                    <definition>IBP Exclosure site (grassland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SUMM</code>
+                    <definition>Mt. Summerford site (grassland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NORT</code>
+                    <definition>North natural vegetation exclosure site (mesquite)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>RABB</code>
+                    <definition>Rabbit rain gauge site (mesquite)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>WELL</code>
+                    <definition>West well site (mesquite)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>COLL</code>
+                    <definition>College Ranch site (playa)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SMAL</code>
+                    <definition>Small site (playa)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>TOBO</code>
+                    <definition>Tobosa tank site (playa)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>EAST</code>
+                    <definition>East of Jornada road tarbush site (tarbush)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>TAYL</code>
+                    <definition>Taylor well site (tarbush)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>WEST</code>
+                    <definition>West of Jornada road tarbush site (tarbush)</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att7">
+          <attributeName>quad</attributeName>
+          <attributeLabel>Quadrat</attributeLabel>
+          <attributeDefinition>Quadrat number (1-49)</attributeDefinition>
+          <storageType>integer</storageType>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att8">
+          <attributeName>spp</attributeName>
+          <attributeLabel>Species</attributeLabel>
+          <attributeDefinition>Plant species code - a JRN LTER plant code. Current, recognized taxonomic codes are in the "USDA_code" column, or refer to the JRN Vascular Plant List EDI package (knb-lter-jrn.210520001)</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>any text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Invalid/unknown code or value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att9">
+          <attributeName>obs</attributeName>
+          <attributeLabel>Observation</attributeLabel>
+          <attributeDefinition>Observation number</attributeDefinition>
+          <storageType>integer</storageType>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att10">
+          <attributeName>cover</attributeName>
+          <attributeLabel>Percent cover</attributeLabel>
+          <attributeDefinition>Percent cover</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att11">
+          <attributeName>ht</attributeName>
+          <attributeLabel>Height (cm)</attributeLabel>
+          <attributeDefinition>Height in centimeters</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>centimeter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att12">
+          <attributeName>cnt</attributeName>
+          <attributeLabel>Count</attributeLabel>
+          <attributeDefinition>Number of similar size occurrances</attributeDefinition>
+          <storageType>integer</storageType>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att13">
+          <attributeName>phen</attributeName>
+          <attributeLabel>Phenological state</attributeLabel>
+          <attributeDefinition>Phenological state</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>V</code>
+                    <definition>Vegetative</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>F</code>
+                    <definition>Flowering or reproductive state</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att14">
+          <attributeName>x</attributeName>
+          <attributeLabel>X coordinate</attributeLabel>
+          <attributeDefinition>Quadrat X coordinate</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>centimeter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att15">
+          <attributeName>y</attributeName>
+          <attributeLabel>Y coordinate</attributeLabel>
+          <attributeDefinition>Quadrat Y coordinate</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>centimeter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att16">
+          <attributeName>d</attributeName>
+          <attributeLabel>Plant diameter</attributeLabel>
+          <attributeDefinition>Plant diameter (USED only in NPPQ89S.DAT / NPPQ89F.DAT)</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>centimeter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att17">
+          <attributeName>e</attributeName>
+          <attributeLabel>Comment indicator</attributeLabel>
+          <attributeDefinition>History comment (0 = No history log entry / 1 = See history log)</attributeDefinition>
+          <storageType>boolean</storageType>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att18">
+          <attributeName>comment</attributeName>
+          <attributeLabel>Comment</attributeLabel>
+          <attributeDefinition>Record comment</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>any text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>No comment, quality flag, or additional information available</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att19">
+          <attributeName>USDA_code</attributeName>
+          <attributeLabel>USDA code</attributeLabel>
+          <attributeDefinition>Taxonomic code from USDA Plants database</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>any text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Invalid/unknown code or value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att20">
+          <attributeName>Species_binomial</attributeName>
+          <attributeLabel>Species binomial</attributeLabel>
+          <attributeDefinition>Binomial name of taxa, if known.</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>any text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Invalid/unknown code or value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att21">
+          <attributeName>habit</attributeName>
+          <attributeLabel>Habit (current)</attributeLabel>
+          <attributeDefinition>Habit</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>P</code>
+                    <definition>Perennial</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>A</code>
+                    <definition>Annual</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>B</code>
+                    <definition>Biennial</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att22">
+          <attributeName>form</attributeName>
+          <attributeLabel>Form (current)</attributeLabel>
+          <attributeDefinition>Vegetation growth form</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>ST-SU</code>
+                    <definition>Stem succulent form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>LF-SU</code>
+                    <definition>Leaf succulent form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>GRASS</code>
+                    <definition>Grass or graminoid form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>VINE</code>
+                    <definition>Vine form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>UNKN</code>
+                    <definition>Unknown form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SHRUB</code>
+                    <definition>Shrub form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>FORB</code>
+                    <definition>Forb or broad-leaved herb form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>S-SHR</code>
+                    <definition>Sub-shrub form</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011002-e1-att23">
+          <attributeName>cpath</attributeName>
+          <attributeLabel>PS pathway (current)</attributeLabel>
+          <attributeDefinition>Photosynthetic pathway</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>C3</code>
+                    <definition>C3 photosynthetic pathway</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>C4</code>
+                    <definition>C4 photosynthetic pathway</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>CM</code>
+                    <definition>CAM photosynthetic pathway - NPP coding</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+      id="d210011002-e1-att24">
+          <attributeName>usda_plants_crossref_comment</attributeName>
+          <attributeLabel>USDA Plants merge comment</attributeLabel>
+          <attributeDefinition>Comment from merge with USDA Plants cross-reference file</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>any text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>1164144</numberOfRecords>
+    </dataTable>
+    <otherEntity
+      id="abf64d3ad10e44458910d35f3c3bd182" scope="document"
+          system="https://pasta.edirepository.org">
+      <entityName>Field quadrat protocol</entityName>
+      <entityDescription>Field protocol for non-destructive quadrat measurements at NPP sites</entityDescription>
+      <physical>
+        <objectName>nppfield_protocol_master_for-distribution.pdf</objectName>
+        <size
+          unit="byte">92032</size>
+        <authentication
+              method="MD5">8d3947e36aa893519d4fd369b305b0c9</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>PDF</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210011002/108/abf64d3ad10e44458910d35f3c3bd182</url>
+          </online>
+        </distribution>
+      </physical>
+      <entityType>otherEntity</entityType>
+    </otherEntity>
+    <literatureCited>
+      <citation>
+        <bibtex>@article{2012_peters_DirectionalClimateChange,
+  title = {Directional Climate Change and Potential Reversal of Desertification in Arid and Semiarid Ecosystems},
+  author = {Peters, Debra P. C. and Yao, Jin and Sala, Osvaldo E. and Anderson, John P.},
+  year = {2012},
+  journal = {Global Change Biology},
+  volume = {18},
+  number = {1},
+  pages = {151--163},
+  doi = {10.1111/j.1365-2486.2011.02498.x},
+  lccn = {01066},
+  keywords = {article,Chihuahuan Desert,desertification,extreme events,grasslands,journal,JRN LTER funded,regime shift,shrublands,spatial context,wet-dry climatic periods}
+}</bibtex>
+      </citation>
+      <citation>
+        <bibtex>@article{2001_huenneke_SpatialHeterogeneityChihuahuan,
+  title = {Spatial Heterogeneity in {{Chihuahuan Desert}} Vegetation: Implications for Sampling Methods in Semi-Arid Ecosystems},
+  author = {Huenneke, Laura F. and Clason, Dennis and Muldavin, Esteban},
+  year = {2001},
+  journal = {Journal of Arid Environments},
+  volume = {47},
+  pages = {257--270},
+  doi = {10.1006/jare.2000.0678},
+  lccn = {00749},
+  keywords = {aboveground NPP,article,Bouteloua,Bouteloua; net primary production,ecosystem,ecosystem; plant production,journal,JRN LTER funded,Larrea,Larrea; net primary production,net primary production,plant production,plants,plants; net primary production,Prosopis,Prosopis; net primary production,report,spatial heterogeneity,technique,technique; aboveground NPP}
+}</bibtex>
+      </citation>
+    </literatureCited>
+  </dataset>
+  <additionalMetadata>
+    <metadata>
+      <unitList>
+        <unit
+          abbreviation="cm" id="centimeter" multiplierToSI="0.01"
+          name="centimeter"
+          parentSI="meter">
+          <description>.01 meters</description>
+        </unit>
+        <unit
+          id="dimensionless" name="dimensionless"
+          unitType="dimensionless">
+          <description>a designation asserting the absence of an associated unit</description>
+        </unit>
+        <unit
+          id="number" name="number" unitType="dimensionless">
+          <description>a quantity or amount</description>
+        </unit>
+      </unitList>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>

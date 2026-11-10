@@ -1,0 +1,23 @@
+{
+  "started_at_utc": "2026-10-30T19:14:57.003039+00:00",
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/jornada_capacity_benchmark_20261030/profile_geometry.py",
+    "--cases-json",
+    "/home/okin/leaf/agent_handoffs/tasks/root_radius_3_5_20261030/benchmark_cases.json",
+    "--output",
+    "/home/okin/leaf/benchmarks/results/root_radius_3_5_20261030/profiled_results.json",
+    "--backend",
+    "both",
+    "--repeats",
+    "5"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 2068740,
+  "proc_stat_at_launch": "2068740 (python) R 2068739 2068740 2068740 0 -1 4194304 17 0 0 0 0 0 0 0 20 0 1 0 85908870 8450048 86 18446744073709551615 4325376 7352253 140725834023184 0 0 0 0 0 0 0 0 0 17 16 0 0 0 0 0 10653128 12216448 496431104 140725834025876 140725834026222 140725834026222 140725834031057 0\n",
+  "source_sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+  "cases_sha256": "a8c1b58e202a3ca614902c3de59273be6ca094f6f2b7e6e7290ac05e6dec87e1",
+  "gpu_uuid": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+  "timeout_seconds": 120,
+  "selection_note": "Prior GPU0 was occupied; selected idle identical-model GPU1 without altering other jobs."
+}

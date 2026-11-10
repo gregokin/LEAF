@@ -1,0 +1,5 @@
+{
+  "bad_B_shape_before_get": true,
+  "bad_E_shape_before_get": true,
+  "valid_vectors_transfer_once": true
+}

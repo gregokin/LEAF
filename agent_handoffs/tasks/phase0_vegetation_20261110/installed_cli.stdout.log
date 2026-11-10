@@ -1,0 +1,28 @@
+{
+  "pass": true,
+  "commands": [
+    {
+      "command": "validate-species",
+      "returncode": 0
+    },
+    {
+      "command": "init",
+      "returncode": 0
+    },
+    {
+      "command": "generate",
+      "returncode": 0
+    },
+    {
+      "command": "inspect",
+      "returncode": 0
+    },
+    {
+      "command": "export-canopy",
+      "returncode": 0
+    }
+  ],
+  "listed_plants": 6,
+  "generated_plants": 3464,
+  "temporary_outputs": true
+}

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/independent_validation.py", line 48, in <module>
+    main()
+  File "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/independent_validation.py", line 26, in main
+    validate_temperature_factor(value, 2)
+  File "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/review_snapshot_02/leaf/stepwat.py", line 228, in validate_temperature_factor
+    tf = tf.get()  # small device array ([S] floats) -> host
+         ^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/independent_validation.py", line 14, in get
+    raise AssertionError('device download attempted before input rejection')
+AssertionError: device download attempted before input rejection

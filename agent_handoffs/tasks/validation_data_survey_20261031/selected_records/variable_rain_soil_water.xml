@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="knb-lter-jrn.210328003.6"
+  system="https://pasta.edirepository.org"
+  xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+  <access
+    authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document"
+    system="https://pasta.edirepository.org">
+    <allow>
+      <principal>uid=JRN,o=LTER,dc=ecoinformatics,dc=org</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset
+      id="d210328003">
+    <alternateIdentifier
+        system="https://doi.org">doi:10.6073/pasta/e4e792b081ba645e92ba40e471a90919</alternateIdentifier><shortName>gc_variability_soilmoisture</shortName>
+    <title>Soil water content measurements in plots with experimentally altered precipitation variability at the Jornada Basin LTER site, 2011-ongoing</title>
+    <creator>
+      <individualName>
+        <givenName>Laureano</givenName>
+        <surName>Gherardi</surName>
+      </individualName>
+      <organizationName>Arizona State University</organizationName>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Osvaldo E</givenName>
+        <surName>Sala</surName>
+      </individualName>
+      <organizationName>Arizona State University</organizationName>
+      <userId
+        directory="ORCID">0000-0003-0142-9450</userId>
+    </creator>
+    <metadataProvider>
+      <organizationName>Jornada Basin LTER</organizationName>
+      <positionName>Jornada Basin LTER program</positionName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>USA</country>
+      </address>
+      <electronicMailAddress>jornada.lter@nmsu.edu</electronicMailAddress>
+      <onlineUrl>https://lter.jornada.nmsu.edu</onlineUrl>
+      <userId
+        directory="ROR">05976ta47</userId>
+    </metadataProvider>
+    <associatedParty>
+      <individualName>
+        <givenName>Bryce</givenName>
+        <surName>Sutter</surName>
+      </individualName>
+      <organizationName>Arizona State University</organizationName>
+      <role>field data collection</role>
+    </associatedParty>
+    <associatedParty>
+      <individualName>
+        <givenName>Stephen</givenName>
+        <surName>Doucette-Riise</surName>
+      </individualName>
+      <organizationName>Arizona State University</organizationName>
+      <role>field data collection</role>
+    </associatedParty>
+    <associatedParty>
+      <individualName>
+        <givenName>Gregory E</givenName>
+        <surName>Maurer</surName>
+      </individualName>
+      <organizationName>Jornada Basin LTER/New Mexico State University</organizationName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>U.S.A.</country>
+      </address>
+      <electronicMailAddress>gmaurer@nmsu.edu</electronicMailAddress>
+      <userId
+        directory="ORCID">0000-0002-3007-8058</userId>
+      <role>data analyst</role>
+    </associatedParty>
+    <pubDate>2023-03-09</pubDate>
+    <language>English</language>
+    <abstract>
+      <para>
+    This dataset contains soil moisture data from a study at the Jornada
+    Experimental Range (JER) in southern New Mexico. The study was
+    designed to assess the effect of interannual variability in
+    precipitation on average aboveground net primary productivity (ANPP)
+    in Chihuahuan Desert grasslands. The study began in 2009 and has
+    five precipitation treatments (see Methods). While the study began
+    in 2009, contains 50 plots (10 per treatment) and is ongoing, these
+    data have only been collected since July 2011 in a subset of 20
+    plots (4 per treatment). This dataset is intended to provide
+    information about the amount of water in surface and deep soil
+    layers, as well as verify that experimental precipitation
+    manipulations are effective. This is an ongoing dataset that will be
+    updated yearly.
+  </para>
+    </abstract>
+    <keywordSet>
+      <keyword
+        keywordType="theme">disturbance</keyword>
+      <keywordThesaurus>LTER Core Research Areas</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">climate</keyword>
+      <keyword
+        keywordType="theme">climate change</keyword>
+      <keyword
+        keywordType="theme">deserts</keyword>
+      <keyword
+        keywordType="theme">precipitation</keyword>
+      <keyword
+        keywordType="theme">rainfall</keyword>
+      <keyword
+        keywordType="theme">soil moisture</keyword>
+      <keyword
+        keywordType="theme">soil water content</keyword>
+      <keyword
+        keywordType="theme">vegetation</keyword>
+      <keywordThesaurus>LTER Controlled Vocabulary v1</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">climate variability</keyword>
+      <keyword
+        keywordType="theme">rainfall manipulation</keyword>
+      <keywordThesaurus>none</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">LTREB global change</keyword>
+      <keyword
+        keywordType="theme">study 328</keyword>
+      <keywordThesaurus>Jornada Basin project names</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+          keywordType="place">Pasture 13</keyword>
+      <keywordThesaurus>Jornada Basin place names</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>
+      <para>
+  This information is released under the Creative Commons license - Attribution - CC BY 
+  (https://creativecommons.org/licenses/by/4.0/). The consumer of these data ("Data User" 
+  herein) is required to cite it appropriately in any publication that results from its 
+  use. The Data User should realize that these data may be actively used by others for 
+  ongoing research and that coordination may be necessary to prevent duplicate 
+  publication. The Data User is urged to contact the authors of these data if any 
+  questions about methodology or results occur. Where appropriate, the Data User is 
+  encouraged to consider collaboration or co-authorship with the authors. The Data User 
+  should realize that misinterpretation of data may occur if used out of context of the 
+  original study. While substantial efforts are made to ensure the accuracy of data and 
+  associated documentation, complete accuracy of data sets cannot be guaranteed. All data 
+  are made available "as is." The Data User should be aware, however, that data are updated 
+  periodically and it is the responsibility of the Data User to check for new versions of 
+  the data. The data authors and the repository where these data were obtained shall not be 
+  liable for damages resulting from any use or misinterpretation of the data. Thank you.
+</para>
+    </intellectualRights>
+    <distribution>
+      <online>
+        <url
+      function="information">https://jrn.lternet.edu</url>
+      </online>
+    </distribution>
+    <distribution
+      id="10.6073/pasta/e4e792b081ba645e92ba40e471a90919" scope="system"
+          system="https://pasta.edirepository.org"><online><url
+        function="information">https://doi.org/10.6073/pasta/e4e792b081ba645e92ba40e471a90919</url></online></distribution><coverage>
+      <geographicCoverage>
+        <geographicDescription>Basin Floor: Study occurred in the basin floor geomorphic zone in the Jornada Basin. More precise geographic coordinates for this study may be requested from the JRN LTER Data Manager (jornada.data@nmsu.edu).</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-106.872883</westBoundingCoordinate>
+          <eastBoundingCoordinate>-106.692716</eastBoundingCoordinate>
+          <northBoundingCoordinate>32.749487</northBoundingCoordinate>
+          <southBoundingCoordinate>32.473173</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2011-07-12</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2022-09-25</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <maintenance>
+      <description>ongoing</description>
+      <maintenanceUpdateFrequency>annually</maintenanceUpdateFrequency>
+    </maintenance>
+    <contact>
+      <organizationName>Jornada Basin LTER</organizationName>
+      <positionName>Information Manager</positionName>
+      <phone>575-322-2430</phone>
+      <electronicMailAddress>jornada.data@nmsu.edu</electronicMailAddress>
+      <onlineUrl>https://lter.jornada.nmsu.edu/information-management/</onlineUrl>
+    </contact>
+    
+    <publisher><organizationName>Environmental Data Initiative</organizationName><electronicMailAddress>info@edirepository.org</electronicMailAddress><onlineUrl>https://edirepository.org</onlineUrl><userId
+          directory="https://ror.org">0330j0z60</userId></publisher><pubPlace>Environmental Data Initiative</pubPlace><methods>
+      <methodStep>
+        <description>
+          <section>
+            <title>Experimental design</title>
+            <para>
+      These data are part of the "Ecosystem responses to changes in
+      inter-annual precipitation variability” study conducted in
+      Exclosure 4 of Pasture 13 on the Jornada Experimental Range (JER)
+      in Dona Ana County, southern New Mexico, USA. The study is
+      designed to assess the effect of interannual variability in
+      precipitation on average aboveground net primary productivity
+      (ANPP) in Chihuahuan Desert grasslands. It began in 2009 and has
+      five treatments: 1) ambient precipitation, 2) alternating +50% and
+      -50% precipitation, 3) alternating -50% and +50% precipitation, 4)
+      alternating + 80% and -80% precipitation, and 5) alternating -80%
+      and +80% precipitation. Ambient precipitation plots serve as
+      controls and have no water manipulation. Rainout shelters are used
+      to exclude 50% and 80% precipitation and an irrigation system is
+      used to add 50% and 80% of natural PPT (Gherardi and Sala 2013).
+      The +50% variability, in even years, receives one half of ambient
+      PPT by installing rainout shelters and, in odd years, receives
+      150% of ambient PPT via experimental watering. The +80%
+      variability treatment alternates years of +80% with years of -80%.
+      For the alternating treatments, annual changeover takes place
+      during the third week of May. At the end of the study period, each
+      treatment will have received the same relative amount, but one
+      treatment received a natural PPT each year while the other
+      treatments experienced sequences of dry and wet years resulting in
+      different interannual variability. We use ten replicates per
+      treatment for a total of 50 plots.
+    </para>
+          </section>
+          <section>
+            <title>Sensor descriptions and data collection</title>
+            <para>
+      Shallow probes (Campbell Scientific CS625) were programmed and
+      installed in August 2010, and began collecting data in 2011. Four
+      plots were selected from each treatment group (total of 20) for
+      soil moisture probe installation, and probes were programmed and
+      installed by Laureano Gherardi in August 2010. For these surface
+      probes, the CS625 probe was installed in a vertical configuration
+      to measure soil water content from the upper 0-30cm layer of the
+      soil profile.
+    </para>
+            <para>
+      Shallow probe data were collected in this manner through late
+      2013. Data were not collected again until mid-2016, and were then
+      collected intermittently for several years thereafter.
+    </para>
+            <para>
+      Deep soil moisture probes (Campbell Scientific CS655) were
+      installed in late 2019 and began recording in 2020. The probes
+      were installed into an excavated soil pit to monitor soil moisture
+      from 50-60cm depth. The sensors were installed at a 45 degree
+      angle. Due to the location and permeability of soil carbonate
+      layers, there is variation of up to ten centimeters in the depth
+      of the lower sensor across plots.
+    </para>
+            <para>
+      Soil volumetric water content (VWC, cubic meters H20 per cubic
+      meter soil) is measured every minute by dataloggers (Campbell
+      Scientific CR200x) and averaged into hourly values for each
+      sensor. Hourly data tables were downloaded a few times annually
+      via USB port on a field tablet computer (Lenovo S10-3t) with
+      Campbell Scientific PC200W or PC400 software. Data are missing
+      from some probes during periods of disconnect or malfunction, and
+      "NA" values used to fill accordingly. Datalogger records
+      are checked for date/time completion using R. The included data
+      table contains daily averages of soil VWC from surface and deep
+      sensors, as well as plot and treatment information.
+    </para>
+          </section>
+          <section>
+            <title>Related data and publications</title>
+            <para>
+      An earlier version of this dataset on EDI contains only 2011-2013
+      data for this experiment.
+    </para>
+            <para>
+      For further information and results see:
+    </para>
+            <para>
+      Gherardi, Laureano A., and Osvaldo E. Sala. "Enhanced
+      precipitation variability decreases grass-and increases
+      shrub-productivity." Proceedings of the National Academy of
+      Sciences 112, no. 41 (2015): 12735-12740.
+    </para>
+            <para>
+      Gherardi, Laureano A., and Osvaldo E. Sala. "Enhanced
+      interannual precipitation variability increases plant functional
+      diversity that in turn ameliorates negative impact on
+      productivity." Ecology Letters 18, no. 12 (2015): 1293-1300.
+    </para>
+            <para>
+      Gherardi, Laureano A., and Osvaldo E. Sala. "Automated
+      rainfall manipulation system: a reliable and inexpensive tool for
+      ecologists." Ecosphere 4, no. 2 (2013): 1-10.
+    </para>
+          </section>
+        </description>
+      </methodStep>
+    </methods>
+    <project>
+      <title>LTREB Global Change experiments at Jornada Basin LTER</title>
+      <personnel>
+        <individualName>
+          <salutation>Dr.</salutation>
+          <givenName>Osvaldo</givenName>
+          <surName>Sala</surName>
+        </individualName>
+        <address>
+          <deliveryPoint>School of Life Sciences and School of Sustainability</deliveryPoint>
+          <deliveryPoint>Arizona State University</deliveryPoint>
+          <city>Tempe</city>
+          <administrativeArea>AZ</administrativeArea>
+          <postalCode>85287</postalCode>
+          <country>United States</country>
+        </address>
+        <phone
+          phonetype="voice">480-965-4120</phone>
+        <electronicMailAddress>osvaldo.sala@asu.edu</electronicMailAddress>
+        <role>Principal Investigator (LTREB)</role>
+      </personnel>
+      <personnel>
+        <individualName>
+          <salutation>Dr.</salutation>
+          <givenName>Niall</givenName>
+          <surName>Hanan</surName>
+        </individualName>
+        <address>
+          <deliveryPoint>P.O. Box 30003, MSC 3JER</deliveryPoint>
+          <deliveryPoint>New Mexico State University</deliveryPoint>
+          <city>Las Cruces</city>
+          <administrativeArea>NM</administrativeArea>
+          <postalCode>88003-8003</postalCode>
+          <country>United States</country>
+        </address>
+        <phone
+      phonetype="voice">575-646-3335</phone>
+        <electronicMailAddress>nhanan@nmsu.edu</electronicMailAddress>
+        <role>Principal Investigator (LTER)</role>
+      </personnel>
+      <abstract>
+        <section>
+          <para>The Global Change experiments in the Jornada Basin consist of controlled,
+          long-term experiments designed to uncover what causes changes in grasslands with 
+          enough confidence to predict their future as they begin to experience conditions never
+          seen before. The project expands on decade-long field experiments in which rainfall
+          amount and variability were manipulated over multi-year timescales. Results from these
+          experiments will yield new understanding that will provide guidance to managers of
+          drylands in the Southwest United States, and around the world. The project is funded by
+          the US National Science Foundation (NSF) Long Term Research in Environmental Biology,
+          or LTREB, program. </para>
+        </section>
+        <section>
+          <para>The Global Change experiments occur in coordination with the Jornada Basin
+        Long-Term Ecological Research program (JRN LTER). JRN LTER  is part of a 
+        national network of long-term ecological research sites funded by the US National 
+        Science Foundation (NSF). The Jornada LTER program has been continuously funded 
+        since 1982 (Current NSF award: DEB-2025166) to develop general principles governing 
+        changes between grassland and shrubland ecosystems based on long-term data 
+        collected in the Chihuahuan Desert. We translate our findings to dryland ecosystems
+         around the world, and forecast the dynamics of future ecosystem states in response to 
+         changing climate and land use.</para>
+        </section>
+      </abstract>
+      <award>
+        <funderName>National Science Foundation</funderName>
+        <funderIdentifier>https://ror.org/05976ta47</funderIdentifier>
+        <awardNumber>1754106</awardNumber>
+        <title>LTREB: Long-term ecosystem responses to directional changes in precipitation amount and variability in an arid grassland</title>
+        <awardUrl>https://www.nsf.gov/awardsearch/showAward?AWD_ID=1754106</awardUrl>
+      </award>
+      <award>
+        <funderName>National Science Foundation</funderName>
+        <funderIdentifier>https://ror.org/05976ta47</funderIdentifier>
+        <awardNumber>2025166</awardNumber>
+        <title>LTER: Long –Term Research at the Jornada Basin (LTER VII)</title>
+        <awardUrl>https://www.nsf.gov/awardsearch/showAward?AWD_ID=2025166</awardUrl>
+      </award>
+      <award>
+        <funderName>National Science Foundation</funderName>
+        <awardNumber>DEB 1832194</awardNumber>
+        <title>Prior award: LTER: Long - Term Research at the Jornada Basin (LTER VII) </title>
+      </award>
+      <award>
+        <funderName>National Science Foundation</funderName>
+        <awardNumber>DEB 1235828</awardNumber>
+        <title>Prior award: LTER: Long-Term Research at the Jornada Basin (LTER-VI)</title>
+      </award>
+      <award>
+        <funderName>National Science Foundation</funderName>
+        <awardNumber>DEB 0618210</awardNumber>
+        <title>Prior award: Jornada Basin LTER V: Landscape Linkages in Arid and Semiarid Ecosystems</title>
+      </award>
+    </project>
+    <dataTable
+      id="c626cf91dfdba611da7fa43a68bdf07b" scope="document"
+          system="https://pasta.edirepository.org">
+      <entityName>Soil moisture observations table (VWC in percent)</entityName>
+      <entityDescription>Soil moisture observations (%) from in-situ monitoring of inter-annual precipitation variability experimental plots</entityDescription>
+      <physical>
+        <objectName>jrn328003_soil_moisture.csv</objectName>
+        <size
+          unit="byte">2971049</size>
+        <authentication
+              method="MD5">4aebbef33ee4122be9242802c4681f74</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <numFooterLines>0</numFooterLines>
+            <recordDelimiter>\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+              <quoteCharacter>"</quoteCharacter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210328003/6/c626cf91dfdba611da7fa43a68bdf07b</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute
+          id="d210328003-e1-att1">
+          <attributeName>date</attributeName>
+          <attributeLabel>Date</attributeLabel>
+          <attributeDefinition>Dat of sensor observation - daily averages</attributeDefinition>
+          <storageType>dateTime</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimePrecision>1</dateTimePrecision>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210328003-e1-att2">
+          <attributeName>plotid</attributeName>
+          <attributeLabel>Plot ID</attributeLabel>
+          <attributeDefinition>Plot ID number</attributeDefinition>
+          <storageType>integer</storageType>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210328003-e1-att3">
+          <attributeName>var_trt</attributeName>
+          <attributeLabel>Variability treatment</attributeLabel>
+          <attributeDefinition>Precipitation variability treatment applied to plot</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0.5/1.5</code>
+                    <definition>50% ambient precipitation in odd years, 150% ambient precipitation in even years (achieved with exclosures or supplemental irrigation)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1.5/0.5</code>
+                    <definition>150% ambient precipitation in odd years, 50% ambient precipitation in even years (achieved with exclosures or supplemental irrigation)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1.8/0.2</code>
+                    <definition>180% ambient precipitation in odd years, 20% ambient precipitation in even years (achieved with exclosures or supplemental irrigation)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>0.2/1.8</code>
+                    <definition>20% ambient precipitation in odd years, 180% ambient precipitation in even years (achieved with exclosures or supplemental irrigation)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1/1</code>
+                    <definition>ambient precipitation in odd and even years (control)</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210328003-e1-att4">
+          <attributeName>ppt_trt</attributeName>
+          <attributeLabel>Precipitation treatment</attributeLabel>
+          <attributeDefinition>Fraction of ambient annual precipitation applied to the plot in the current year</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>ambient precipitation (control)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1.8</code>
+                    <definition>180% ambient precipitation (achieved with supplemental irrigation)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>0.2</code>
+                    <definition>20% ambient precipitation (achieved with rainout shelter)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>0.5</code>
+                    <definition>50% ambient precipitation (achieved with rainout shelter)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1.5</code>
+                    <definition>150% ambient precipitation (achieved with supplemental irrigation)</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210328003-e1-att5">
+          <attributeName>shallow_vwc</attributeName>
+          <attributeLabel>Shallow VWC</attributeLabel>
+          <attributeDefinition>Average volumetric water content in percent from the shallow sensor</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>percent</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+      id="d210328003-e1-att6">
+          <attributeName>deep_vwc</attributeName>
+          <attributeLabel>Deep VWC</attributeLabel>
+          <attributeDefinition>Average volumetric water content in percent from the deep sensor</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>percent</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>81845</numberOfRecords>
+    </dataTable>
+    <otherEntity
+      id="9c2eef3c87e5f24bdfa884d55b65c0bd" scope="document"
+          system="https://pasta.edirepository.org">
+      <entityName>Summary figure (2011-2013)</entityName>
+      <entityDescription>A figure of soil moisture data by precipitation treatment</entityDescription>
+      <physical>
+        <objectName>soil_moisture_figure.jpg</objectName>
+        <size
+          unit="byte">1043385</size>
+        <authentication
+              method="MD5">b09290ac25ff69d0a8282c3edc585347</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>JPG</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210328003/6/9c2eef3c87e5f24bdfa884d55b65c0bd</url>
+          </online>
+        </distribution>
+      </physical>
+      <entityType>otherEntity</entityType>
+    </otherEntity>
+  </dataset>
+  <additionalMetadata>
+    <metadata>
+      <unitList>
+        <unit
+          id="number" name="number"
+          unitType="dimensionless">
+          <description>a quantity or amount</description>
+        </unit>
+        <unit
+          abbreviation="%" id="percent" multiplierToSI="1"
+          name="percent" parentSI="dimensionless" unitType="dimensionless">
+          <description>percent, one part per hundred parts. a decimal ratio multipled by 100</description>
+        </unit>
+      </unitList>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>

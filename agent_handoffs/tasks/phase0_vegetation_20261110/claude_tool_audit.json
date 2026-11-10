@@ -1,0 +1,130 @@
+[
+  {
+    "stream": "claude_01.stdout.jsonl",
+    "tools": {
+      "Read": 6,
+      "Write": 17,
+      "Edit": 14
+    },
+    "paths": {
+      "Read": [
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/benchmarks/daily_water_growth.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/benchmarks/spatial_mapping.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/__init__.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/coupling.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/stepwat.py"
+      ],
+      "Write": [
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/docs/maple-leaf-integration.md",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/docs/phase0-vegetation.md",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/examples/phase0/generation.json",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/examples/phase0/plants.csv",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/examples/phase0/species.json",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/__init__.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/__main__.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/canopy.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/events.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/initialization.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/recording.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/runtime.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/state.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/traits.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/pyproject.toml",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/report.md",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/tests/test_phase0.py"
+      ],
+      "Edit": [
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/__init__.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/initialization.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/recording.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/tests/test_phase0.py"
+      ]
+    },
+    "result": {
+      "is_error": false,
+      "subtype": "success",
+      "session_id": "4d15920a-3229-4638-af00-10ca863c8c8f"
+    }
+  },
+  {
+    "stream": "claude_02.stdout.jsonl",
+    "tools": {
+      "Read": 9,
+      "Write": 15,
+      "Edit": 6
+    },
+    "paths": {
+      "Read": [
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate_phase0_01.stderr.log",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/diagnostic_generation.stderr.log",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/early_geometry_recording.stdout.log",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/early_state_probes.stdout.log",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/generation_oracles.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/independent_reference.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/review_geometry_recording_01.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/review_initial.md",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/review_probes_01.py"
+      ],
+      "Write": [
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/docs/maple-leaf-integration.md",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/docs/phase0-vegetation.md",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/examples/phase0/generation.json",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/examples/phase0/plants.csv",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/__main__.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/canopy.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/events.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/initialization.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/recording.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/runtime.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/state.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/traits.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/pyproject.toml",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/report.md",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/tests/test_phase0.py"
+      ],
+      "Edit": [
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/initialization.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/runtime.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/tests/test_phase0.py"
+      ]
+    },
+    "result": {
+      "is_error": false,
+      "subtype": "success",
+      "session_id": "4d15920a-3229-4638-af00-10ca863c8c8f"
+    }
+  },
+  {
+    "stream": "claude_03.stdout.jsonl",
+    "tools": {
+      "Read": 6,
+      "Edit": 22,
+      "Write": 1
+    },
+    "paths": {
+      "Read": [
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate_phase0_02.stderr.log",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/checkpoint_memory_replay_02.stdout.log",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/checkpoint_state_02.stderr.log",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/cover_memory_replay_oracles.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/transfer_preflight_02.stdout.log",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/transfer_preflight_oracle.py"
+      ],
+      "Edit": [
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/docs/phase0-vegetation.md",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/initialization.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/runtime.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/leaf/state.py",
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/tests/test_phase0.py"
+      ],
+      "Write": [
+        "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/report.md"
+      ]
+    },
+    "result": {
+      "is_error": false,
+      "subtype": "success",
+      "session_id": "4d15920a-3229-4638-af00-10ca863c8c8f"
+    }
+  }
+]

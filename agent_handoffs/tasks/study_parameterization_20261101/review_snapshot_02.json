@@ -1,0 +1,22 @@
+[
+  {
+    "file": "study_parameters.py",
+    "bytes": 75560,
+    "sha256": "2314fcdfbc6893ef2770d7ff9c60c98d8aa1b8ef8943adc9256527ca046b0a85"
+  },
+  {
+    "file": "test_study_parameters.py",
+    "bytes": 29159,
+    "sha256": "af85e62aa92c62cad857b14fc4a5de7160e5567d2c2603b3857e897cdfbf50b9"
+  },
+  {
+    "file": "README.md",
+    "bytes": 6598,
+    "sha256": "eac6122d9f0653f7fe021ba9f1e876c7ebc9235a7d69ef15c79ff6678e02dbb4"
+  },
+  {
+    "file": "report.md",
+    "bytes": 7284,
+    "sha256": "578e9ea994f9a65fc92a806a4db79e535ac1a0a4db22936e14a4e23f4da94aa2"
+  }
+]

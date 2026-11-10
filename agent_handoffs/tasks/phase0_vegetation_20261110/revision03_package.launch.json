@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/check_package.py",
+    "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/revision_03"
+  ],
+  "cwd": "agent_handoffs/tasks/phase0_vegetation_20261110/revision_03",
+  "pid": 8,
+  "start_ticks": "178562571",
+  "started_at_utc": "2026-11-10T12:37:14.012227+00:00",
+  "overrides": {
+    "PYTHONPATH": "agent_handoffs/tasks/phase0_vegetation_20261110/revision_03:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-phase0-cupy",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

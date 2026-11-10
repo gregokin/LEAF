@@ -1,0 +1,7 @@
+plant_id,species,x_m,y_m,establishment_ground_m,agb_dry_kg,seasonal_agb_dry_kg,age_days,status
+1,grass,2.5,3.5,SURFACE,0.12,0.0,730,live
+2,grass,7.25,12.75,SURFACE,0.08,0.01,365,live
+3,shrub,10.0,10.0,100.25,2.5,0.0,3650,live
+4,shrub,15.5,4.5,SURFACE,1.8,0.2,1825,live
+5,grass,18.0,18.0,100.0,0.05,0.0,1095,dead_standing
+6,shrub,3.0,16.0,100.1,0.0,0.0,5475,removed

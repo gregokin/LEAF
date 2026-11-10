@@ -1,0 +1,21 @@
+{
+  "scope": "Added FP64 resident/candidate growth arrays, not full model peak or measured allocator memory",
+  "formula_compute_bytes": "8*(2*P+23*S)",
+  "formula_gpu_host_mirror_bytes": "8*19*S",
+  "examples": {
+    "59483": {
+      "P": 59483,
+      "S": 2,
+      "added_compute_bytes": 952096,
+      "added_compute_MiB": 0.907989501953125,
+      "gpu_host_trait_mirror_bytes": 304
+    },
+    "547588": {
+      "P": 547588,
+      "S": 2,
+      "added_compute_bytes": 8761776,
+      "added_compute_MiB": 8.355880737304688,
+      "gpu_host_trait_mirror_bytes": 304
+    }
+  }
+}

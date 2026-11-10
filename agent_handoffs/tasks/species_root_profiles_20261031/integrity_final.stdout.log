@@ -1,0 +1,140 @@
+{
+  "status": "pass",
+  "at_utc": "2026-10-31T11:25:18.841425+00:00",
+  "protected_files": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "agent_handoffs/AGENTS.md",
+    "claude.md",
+    "benchmarks/spatial_mapping.py",
+    "tests/test_spatial_mapping.py",
+    "agent_handoffs/upstreams.md",
+    "agent_handoffs/tasks/daily_water_30year_20261030/final_manifest.json"
+  ],
+  "historical_artifacts_preserved": 181,
+  "frozen_sources_unchanged": true,
+  "claude_revisions": [
+    {
+      "revision": 1,
+      "structured_success": true,
+      "child_reaped": true,
+      "edit_count": 32
+    },
+    {
+      "revision": 2,
+      "structured_success": true,
+      "child_reaped": true,
+      "edit_count": 26
+    },
+    {
+      "revision": 3,
+      "structured_success": true,
+      "child_reaped": true,
+      "edit_count": 8
+    },
+    {
+      "revision": 4,
+      "structured_success": true,
+      "child_reaped": true,
+      "edit_count": 4
+    }
+  ],
+  "process_receipts": [
+    {
+      "run": "oracles_03",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "oracle_gpu_01",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "gpu_june_hectare_3layers_roots3_weighted",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "cpu_june_hectare_3layers_roots3_weighted",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "tests_gpu_03",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "oracles_02",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "gpu_grass_bound_hectare_3layers_roots5_weighted",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "gpu_uniform_control_june_hectare_roots3_weighted",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "tests_cpu_03",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "gpu_june_512_3layers_roots5_weighted",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "oracle_cpu_01",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "gpu_grass_bound_hectare_3layers_roots3_weighted",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "tests_cpu_02",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "tests_cpu_01",
+      "returncode": 1,
+      "reaped": true
+    },
+    {
+      "run": "gpu_june_hectare_2layers_roots5_weighted",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "gpu_june_hectare_3layers_roots5_weighted",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "tests_gpu_02",
+      "returncode": 0,
+      "reaped": true
+    },
+    {
+      "run": "result_checks_final",
+      "returncode": 0,
+      "reaped": true
+    }
+  ],
+  "syntax_files": 10,
+  "valid_local_links": 61,
+  "tests_cpu": "47, OK (3 expected skips)",
+  "tests_gpu": "47, OK (1 expected skip)",
+  "independent_analytical_cpu_gpu": true,
+  "full_30_year_runs": 8
+}

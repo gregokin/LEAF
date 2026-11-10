@@ -1,0 +1,38 @@
+{
+  "weight_rows": 87368,
+  "image_rows": 70985,
+  "image_barcodes": 1139,
+  "interval_negative_count": 19223,
+  "interval_negative_below_minus_2g": 19180,
+  "loss_quantiles_g": [
+    -709.0,
+    -661.72,
+    19.0,
+    688.0,
+    729.0
+  ],
+  "dispenser_minus_scale_quantiles_g": [
+    -4.0,
+    -1.0,
+    0.0,
+    4.0,
+    69.0
+  ],
+  "SV_frame_counts": {
+    "180": 10308,
+    "270": 8746,
+    "0": 7853,
+    "90": 7344,
+    "90": 6879,
+    "0": 6370,
+    "270": 5449,
+    "180": 3867
+  },
+  "image_nonpositive_area": 2003,
+  "dry_mass_range_g": [
+    0.49,
+    2.77,
+    11.53
+  ],
+  "purpose": "Independent Codex raw-data sanity check; no trait fitting."
+}

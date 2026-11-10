@@ -1,0 +1,308 @@
+--- benchmarks/spatial_mapping.py
++++ benchmarks/spatial_mapping.py
+@@ -401,15 +401,25 @@
+ # --------------------------------------------------------------------------- audits / bookkeeping
+ 
+ def audit_reduction(out, counts, layers):
+-    expected = int(np.count_nonzero(counts > 0))
+-    total = float(out.sum())
+-    tol = DEMAND_TOTAL_RTOL * max(1.0, float(expected))
+-    layer_sums = out.sum(axis=1)
+-    layer_ok = bool(np.allclose(layer_sums, expected / layers, rtol=DEMAND_TOTAL_RTOL, atol=1e-12))
+-    return {'total_allocated_demand': total, 'expected_plants_with_edges': expected,
+-            'n_plants': int(counts.shape[0]), 'abs_error': abs(total - expected),
++    '''Expected demand is the FULL plant count; zero-edge plants are reported and fail the audit.'''
++    out = np.asarray(out)
++    counts = np.asarray(counts)
++    n = int(counts.shape[0])
++    zero_edge = int(np.count_nonzero(counts <= 0))
++    shape_ok = bool(out.ndim == 2 and out.shape[0] == int(layers))
++    finite = bool(np.all(np.isfinite(out)))
++    total = float(out.sum()) if finite else None
++    tol = DEMAND_TOTAL_RTOL * max(1.0, float(n))
++    layer_sums = out.sum(axis=1) if (shape_ok and finite) else np.zeros(0)
++    layer_ok = bool(shape_ok and finite and
++                    np.allclose(layer_sums, n / int(layers), rtol=DEMAND_TOTAL_RTOL, atol=1e-12))
++    total_ok = bool(finite and abs(total - n) <= tol)
++    return {'total_allocated_demand': total, 'expected_demand': n, 'n_plants': n,
++            'zero_edge_plants': zero_edge, 'all_plants_have_edges': zero_edge == 0,
++            'output_finite': finite, 'shape_consistent': shape_ok,
++            'abs_error': None if total is None else abs(total - n),
+             'tolerance_abs': tol, 'per_layer_sums': [float(v) for v in layer_sums],
+-            'passed': bool(abs(total - expected) <= tol and layer_ok),
++            'passed': bool(zero_edge == 0 and shape_ok and finite and total_ok and layer_ok),
+             'note': 'unit synthetic demand per plant; checks conservation of the scatter, not physics'}
+ 
+ 
+@@ -760,6 +770,37 @@
+     return cover
+ 
+ 
++_GPU_WARM = {'done': False, 'seconds': None}
++
++
++def warm_gpu():
++    '''Once per process: full H2D -> CSR build (incl. device scan) -> reduction -> canopy -> D2H on a
++    fixed multi-plant fixture.  Returns seconds spent (0.0 if already warm).  Not a true cold start.'''
++    if _GPU_WARM['done']:
++        return 0.0
++    t0 = time.perf_counter()
++    grid = Grid(4, 3, 1.0)
++    m = 9
++    fixture = {'x': np.linspace(0.25, 3.75, m), 'y': np.linspace(0.2, 2.8, m),
++               'canopy_radius': np.full(m, 0.6), 'root_radius': np.full(m, 0.6),
++               'ids': np.arange(m, dtype=np.int64)}
++    d, _ = to_device(fixture)
++    g = build_root_graph_gpu(d, grid, 2, 10_000, 1 << 24)
++    out = cp.empty((2, grid.ncells), cp.float64)
++    layered_reduction_gpu(g, out)
++    cover = cp.empty(grid.ncells, cp.float64)
++    hit = cp.empty(m, cp.int32)
++    canopy_cover_gpu(d, grid, cover, hit)
++    out.get()
++    cover.get()
++    hit.get()
++    cp.cuda.runtime.deviceSynchronize()
++    s = time.perf_counter() - t0
++    _GPU_WARM['done'] = True
++    _GPU_WARM['seconds'] = s
++    return s
++
++
+ def run_gpu(inputs, grid, layers, max_edges, max_bytes, repeats):
+     repeats = _check_repeats(repeats)
+     layers = _check_layers(layers)
+@@ -771,12 +812,25 @@
+         rec['reason'] = st.get('reason')
+         return rec
+     try:
++        try:  # cheap scalar guard BEFORE any device transfer, compile or warm-up
++            check_admission('pre-count', int(inputs['x'].shape[0]), grid.ncells, layers, max_edges, max_bytes)
++        except AdmissionRejected as exc:
++            rec['status'] = 'rejected'
++            rec['admission'] = exc.to_dict()
++            return rec
+         compiled_now = _GPU['module'] is None
+         _gpu_module()
++        warmed_now = not _GPU_WARM['done']
++        warm = warm_gpu()
+         rec['startup'] = {'context_init_seconds': st.get('context_init_seconds'),
+                           'kernel_compile_seconds': _GPU['compile_seconds'],
+                           'compiled_in_this_call': compiled_now,
+-                          'note': 'startup costs reported separately; excluded from timed repeats'}
++                          'gpu_warmup_seconds_this_call': warm,
++                          'gpu_warmup_seconds_first_in_process': _GPU_WARM['seconds'],
++                          'warmed_in_this_call': warmed_now,
++                          'note': 'compile (possibly served from the CuPy kernel cache) and a fixed '
++                                  'small-fixture H2D->build->reduction->canopy->D2H warm-up are reported '
++                                  'separately and excluded from timed build/repeats; not a true cold start'}
+         pool = cp.get_default_memory_pool()
+         samples = {'before_h2d': _pool_sample(pool)}
+         d, h2d = to_device(inputs)
+@@ -882,6 +936,16 @@
+     return out
+ 
+ 
++MAX_CLUSTERS = 8
++CLUMP_SIGMA_FRACTION = 0.02
++
++
++def clump_parameters(n, grid):
++    '''Deliberate synthetic contention fixture (not an ecological pattern): at most MAX_CLUSTERS
++    cluster centres and gaussian sigma = CLUMP_SIGMA_FRACTION * min(width, height).'''
++    return min(MAX_CLUSTERS, max(1, n // 64)), CLUMP_SIGMA_FRACTION * min(grid.width, grid.height)
++
++
+ def generate_inputs(case):
+     '''Deterministic seeded host input; identical arrays are used for CPU and GPU runs.'''
+     case = validate_case(case)
+@@ -893,12 +957,11 @@
+     if case['pattern'] == 'uniform':
+         x = rng.uniform(0.0, w, n)
+         y = rng.uniform(0.0, h, n)
+-    else:  # synthetic clumps: seeded gaussian clusters clipped to the domain
+-        k = max(1, n // 64)
++    else:  # synthetic contention fixture: <= 8 seeded gaussian clusters, clipped to the domain boundary
++        k, sigma = clump_parameters(n, grid)
+         cx = rng.uniform(0.0, w, k)
+         cy = rng.uniform(0.0, h, k)
+         a = rng.integers(0, k, n)
+-        sigma = 0.05 * min(w, h)
+         x = np.clip(cx[a] + rng.normal(0.0, sigma, n), 0.0, w)
+         y = np.clip(cy[a] + rng.normal(0.0, sigma, n), 0.0, h)
+     canopy = np.concatenate([np.full(g, 0.5 * case['grass_diameter']), np.full(s, 0.5 * case['shrub_diameter'])])
+@@ -910,18 +973,29 @@
+ 
+ def run_case(case, backend='cpu', repeats=3):
+     case = validate_case(case)
+-    rec = {'name': case['name'], 'case': case, 'status': 'ok'}
++    if backend not in ('cpu', 'gpu', 'both'):
++        raise ValueError('backend must be cpu, gpu or both, got %r' % (backend,))
++    repeats = _check_repeats(repeats)
++    t_case = time.perf_counter()
++    rec = {'name': case['name'], 'case': case, 'status': 'ok', 'backend': backend}
+     try:
+         grid = Grid(case['nx'], case['ny'], case['dx'])
+-        inputs = generate_inputs(case)
+-        n = int(inputs['x'].shape[0])
++        n = case['grass_count'] + case['shrub_count']
+         rec['n_plants'] = n
+         rec['ncells'] = grid.ncells
+-        rec['generation'] = {'pattern': case['pattern'], 'seed': case['seed'],
+-                             'note': 'synthetic seeded positions (clumped = gaussian clusters clipped '
+-                                     'to the domain); root_radius = canopy_radius * root_multiplier'}
+         rec['admission_limits'] = {'max_edges': case['max_edges'], 'max_bytes': case['max_bytes'],
+                                    'pre_count_estimate': estimate_bytes(n, grid.ncells, case['layers'])}
++        # cheap scalar guard BEFORE any host array generation (never truncates the population)
++        check_admission('pre-count', n, grid.ncells, case['layers'], case['max_edges'], case['max_bytes'])
++        k, sigma = clump_parameters(n, grid)
++        clumped = case['pattern'] == 'clumped'
++        rec['generation'] = {'pattern': case['pattern'], 'seed': case['seed'],
++                             'cluster_count': k if clumped else None,
++                             'cluster_sigma': sigma if clumped else None,
++                             'note': 'synthetic seeded positions; clumped is a deliberate contention '
++                                     'fixture (<= 8 gaussian clusters clipped to the domain boundary), '
++                                     'not an ecological pattern; root_radius = canopy_radius * root_multiplier'}
++        inputs = generate_inputs(case)
+         args = (inputs, grid, case['layers'], case['max_edges'], case['max_bytes'], repeats)
+         if backend in ('cpu', 'both'):
+             rec['cpu'] = run_cpu(*args)
+@@ -941,12 +1015,19 @@
+             rec['status'] = 'failed'
+         elif 'rejected' in sub:
+             rec['status'] = 'rejected'
+-        elif sub and all(s == 'unavailable' for s in sub):
+-            rec['status'] = 'unavailable'
++        elif 'unavailable' in sub:
++            rec['status'] = 'partial' if any(s == 'ok' for s in sub) else 'unavailable'
++    except AdmissionRejected as exc:
++        rec['status'] = 'rejected'
++        rec['admission'] = exc.to_dict()
+     except Exception as exc:
+         rec['status'] = 'error'
+         rec['exception'] = repr(exc)
+         rec['traceback'] = traceback.format_exc()
++    rec['case_wall_seconds'] = time.perf_counter() - t_case
++    rec['case_wall_note'] = ('host generation/validation plus every requested backend including startup '
++                             'and warm-up; distinct from kernel timings. Single-thread CPU vs GPU kernel '
++                             'medians are a kernel comparison, not a scientific speedup claim')
+     rec['ru_maxrss'] = _ru_maxrss()
+     return rec
+ 
+@@ -1009,6 +1090,8 @@
+         return 2
+     if 'error' in statuses or 'failed' in statuses:
+         return 1
++    if 'partial' in statuses or 'unavailable' in statuses:
++        return 3  # requested backend unavailable; CPU records (if any) are retained in the output
+     return 0
+ 
+ 
+--- tests/test_spatial_mapping.py
++++ tests/test_spatial_mapping.py
+@@ -2,6 +2,7 @@
+ import sys
+ import unittest
+ from pathlib import Path
++from unittest import mock
+ 
+ import numpy as np
+ 
+@@ -130,6 +131,68 @@
+             np.testing.assert_allclose(out.sum(axis=1), n / layers, rtol=1e-10)
+ 
+ 
++class AuditAndStatusRegressionTest(unittest.TestCase):
++    def _case(self, **over):
++        return dict(GenerationAndAdmissionTest.CASE, **over)
++
++    def test_audit_fails_on_zero_edge_plant(self):
++        counts = np.array([1, 0], dtype=np.int64)
++        out = np.zeros((2, 4))
++        out[:, 0] = 0.5
++        audit = sm.audit_reduction(out, counts, 2)
++        self.assertFalse(audit['passed'])
++        self.assertEqual(audit['zero_edge_plants'], 1)
++        self.assertEqual(audit['expected_demand'], 2)
++        good = sm.audit_reduction(np.array([[0.5, 0.0], [0.5, 0.0]]), np.array([1], dtype=np.int64), 2)
++        self.assertTrue(good['passed'], good)
++        bad = sm.audit_reduction(np.array([[np.nan, 0.0], [0.5, 0.0]]), np.array([1], dtype=np.int64), 2)
++        self.assertFalse(bad['passed'])
++        wrong_shape = sm.audit_reduction(np.array([[1.0, 0.0]]), np.array([1], dtype=np.int64), 2)
++        self.assertFalse(wrong_shape['passed'])
++
++    def test_rejection_happens_before_host_generation(self):
++        with mock.patch.object(sm, 'generate_inputs') as gen:
++            rec = sm.run_case(self._case(max_bytes=16), 'cpu', 1)
++        gen.assert_not_called()
++        self.assertEqual(rec['status'], 'rejected')
++        self.assertEqual(rec['n_plants'], 40)
++        self.assertFalse(rec['admission']['accepted'])
++        self.assertIn('case_wall_seconds', rec)
++
++    def test_gpu_rejection_before_transfer(self):
++        grid = sm.Grid(2, 2, 1.0)
++        inp = inputs_from([(1.0, 1.0)], 0.1)
++        with mock.patch.object(sm, 'gpu_status', return_value={'available': True}), \
++                mock.patch.object(sm, 'to_device') as h2d, \
++                mock.patch.object(sm, '_gpu_module') as mod:
++            rec = sm.run_gpu(inp, grid, 2, 10 ** 6, 16, 1)
++        h2d.assert_not_called()
++        mod.assert_not_called()
++        self.assertEqual(rec['status'], 'rejected')
++
++    def test_partial_status_when_gpu_unavailable(self):
++        fake = {'backend': 'gpu', 'status': 'unavailable', 'reason': 'mocked'}
++        with mock.patch.object(sm, 'run_gpu', side_effect=lambda *a, **k: dict(fake)):
++            both = sm.run_case(self._case(), 'both', 1)
++            only = sm.run_case(self._case(), 'gpu', 1)
++        self.assertEqual(both['status'], 'partial')
++        self.assertEqual(both['cpu']['status'], 'ok')
++        self.assertEqual(only['status'], 'unavailable')
++        self.assertNotIn('cpu', only)
++        with self.assertRaises(ValueError):
++            sm.run_case(self._case(), 'tpu', 1)
++        with self.assertRaises(ValueError):
++            sm.run_case(self._case(), 'cpu', 0)
++
++    def test_clump_parameters_bounded(self):
++        k, sigma = sm.clump_parameters(100000, sm.Grid(10, 20, 1.0))
++        self.assertEqual(k, 8)
++        self.assertAlmostEqual(sigma, 0.2)
++        self.assertEqual(sm.clump_parameters(40, sm.Grid(8, 6, 1.0))[0], 1)
++        rec = sm.run_case(self._case(), 'cpu', 1)
++        self.assertEqual(rec['generation']['cluster_count'], 1)
++
++
+ class CanopyTest(unittest.TestCase):
+     def test_small_plant_in_coarse_cell_is_reported_missed(self):
+         grid = sm.Grid(1, 1, 10.0)
+--- benchmarks/README.md
++++ benchmarks/README.md
+@@ -45,14 +45,23 @@
+   "max_edges": 50000000, "max_bytes": 2000000000}]
+ ```
+ 
+-`pattern` is `uniform` or `clumped` (seeded gaussian clusters clipped to the domain); both are
+-synthetic. Host input is generated once per case and shared by CPU and GPU. Boundary clipping is
++`pattern` is `uniform` or `clumped`. Clumped is a deliberate synthetic contention fixture: at most 8
++seeded gaussian cluster centres with sigma = 0.02 * min(width, height), clipped to the domain boundary
++(`cluster_count` and `cluster_sigma` are echoed in the result metadata). Neither pattern is an
++ecological spatial pattern. Host input is generated once per case and shared by CPU and GPU. Boundary clipping is
+ allowed; root weights renormalize over retained cells. Cases are validated upfront; invalid cases are
+ recorded with `status: invalid` (exit code 2). Audit/parity failures or exceptions give exit code 1.
++The cheap pre-count byte guard runs before any host array generation or device transfer. If a
++requested GPU is unavailable the case is `partial` (CPU record retained) or `unavailable` and the
++exit code is 3; such cases are never reported as passed.
+ 
+ ## Output
+ 
+-Per backend: startup costs (Numba warm-up, CUDA context init, kernel compile) reported separately;
++Each case records `case_wall_seconds` (host generation/validation plus all requested backends including
++startup), which is distinct from kernel timings; single-thread CPU vs GPU kernel medians are a kernel
++comparison, not a scientific speedup. Per backend: startup costs (Numba warm-up, CUDA context init,
++kernel compile possibly served from the CuPy cache, and a once-per-process fixed small-fixture
++H2D->build->reduction->canopy->D2H GPU warm-up, none of which is a true cold start) reported separately;
+ H2D and D2H transfer times; synchronized whole-build wall time; warmed repeated reduction and canopy
+ timings (raw repeats + median; CPU `perf_counter`, GPU CUDA events with synchronize); dtype/nbytes
+ ledger; `ru_maxrss` labelled as a cumulative process peak; CuPy pool used/total sampled at stage

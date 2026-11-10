@@ -1,0 +1,50 @@
+{
+  "edits": [
+    {
+      "path": "benchmarks/daily_water_growth.py",
+      "old": "    t_start = time.perf_counter()\n    case = validate_case(case)\n    days = resolve_days(days, years)\n    report_every = _as_int(report_every, 'report_every', 1)\n    if backend not in ('cpu', 'gpu'):\n        raise ValueError('backend must be cpu or gpu')\n    result = {'benchmark': 'daily_water_growth', 'version': VERSION, 'status': 'ok', 'case': case,\n",
+      "new": "    if memory_hook is not None:\n        # enter the external hook exactly once around warm-up, initialization, loop, exports and cleanup\n        with memory_hook:\n            result = run_case(case, backend, days=days, years=years, report_every=report_every,\n                              return_arrays=return_arrays, inputs=inputs, memory_hook=None, progress=progress)\n        if hasattr(memory_hook, 'report') and isinstance(result.get('memory'), dict):\n            try:\n                result['memory']['pool_hook'] = memory_hook.report()\n            except Exception as exc:\n                result['memory']['pool_hook'] = {'error': repr(exc)}\n        return result\n    t_start = time.perf_counter()\n    case = validate_case(case)\n    days = resolve_days(days, years)\n    report_every = _as_int(report_every, 'report_every', 1)\n    if backend not in ('cpu', 'gpu'):\n        raise ValueError('backend must be cpu or gpu')\n    result = {'benchmark': 'daily_water_growth', 'version': VERSION, 'status': 'ok', 'case': case,\n"
+    },
+    {
+      "path": "benchmarks/daily_water_growth.py",
+      "old": "        with (memory_hook if memory_hook is not None else _NullCtx()):\n            while sim.day < days:\n",
+      "new": "        with _NullCtx():  # external hook (if any) already entered at the top of run_case\n            while sim.day < days:\n"
+    },
+    {
+      "path": "benchmarks/daily_water_growth.py",
+      "old": "        self._weight_sums(g)\n        if (int(g['counts'].min()) <= 0 or not bool(xp.isfinite(g['weights']).all())\n                or float(xp.abs(self.wsum - 1.0).max()) > 1e-9):\n",
+      "new": "        self._weight_sums(g)  # visits every weight; nonfinite weights give nonfinite sums (no per-edge temporary)\n        if (int(g['counts'].min()) <= 0 or not bool(xp.isfinite(self.wsum).all())\n                or float(xp.abs(self.wsum - 1.0).max()) > 1e-9):\n"
+    },
+    {
+      "path": "benchmarks/daily_water_growth.py",
+      "old": "        self._commit_graph(self._build_graph(self.canopy, self.root))\n        self.rebuild_peak_bytes = self.live_bytes() + self.graph_bytes\n",
+      "new": "        self._commit_graph(self._build_graph(self.canopy, self.root))\n        self.rebuild_peak_bytes = int(self.last_ledger['total_bytes'])  # admitted init ledger estimate\n"
+    },
+    {
+      "path": "benchmarks/daily_water_growth.py",
+      "old": "           'rebuild_peak_label': 'live state + old graph + new graph at weekly rebuild',\n",
+      "new": "           'rebuild_peak_label': 'ESTIMATED admission peak: state + old graph + new graph + reserved scratch '\n                                 'allowance + host mirrors (max over init and weekly ledgers); not an observed '\n                                 'allocator peak (use an external profiler for measured live peak)',\n"
+    },
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "dtype/shape/nbytes, rebuild peak old+new graph, admission ledger, scratch allowance, host mirrors,\n",
+      "new": "dtype/shape/nbytes, estimated admission peak (state + old + new graph + scratch allowance + mirrors;\nnot an observed allocator peak), admission ledger, scratch allowance, host mirrors,\n"
+    },
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "MemoryHook (`malloc_postprocess`/`free_postprocess(**kwargs)`) passed as `memory_hook` or installed by\nthe caller around warm-up, initialization, loop and exports; no built-in hook.\n",
+      "new": "MemoryHook (`malloc_postprocess`/`free_postprocess(**kwargs)`) passed as `memory_hook`; `run_case`\nenters it exactly once around warm-up, initialization, loop, exports and cleanup (its `report()` is\nattached under `memory.pool_hook` if present); no built-in hook.\n"
+    },
+    {
+      "path": "tests/test_daily_water_growth.py",
+      "old": "    def test_invalid_scalars_rejected(self):\n",
+      "new": "    def test_memory_hook_entered_before_initialization(self):\n        events = []\n\n        class Spy:\n            active = False\n\n            def __enter__(self):\n                Spy.active = True\n                events.append('enter')\n                return self\n\n            def __exit__(self, *exc):\n                Spy.active = False\n                events.append('exit')\n                return False\n\n        real_init = dwg.Simulation.__init__\n\n        def spy_init(self, *a, **k):\n            events.append('init_active' if Spy.active else 'init_inactive')\n            real_init(self, *a, **k)\n\n        with mock.patch.object(dwg.Simulation, '__init__', spy_init):\n            res = dwg.run_case(make_case(), 'cpu', days=2, inputs=make_inputs([2.0], [2.0], [1.0]), memory_hook=Spy())\n        self.assertEqual(res['status'], 'ok', res.get('error'))\n        self.assertEqual(events, ['enter', 'init_active', 'exit'])\n\n    def test_invalid_scalars_rejected(self):\n"
+    }
+  ],
+  "report": "Three exact edits sets: run_case now enters an external memory_hook once at its top and recurses with memory_hook=None (covering warm-up, initialization, loop, exports, cleanup; optional report() attached afterward), the inner loop no longer enters the hook; weekly graph invariant uses isfinite on the P-sized weight sums (no per-edge boolean temporary) with unchanged normalization/count checks; rebuild_peak_bytes is initialized from the admitted init ledger and labelled as an estimated admission peak including scratch/mirrors, not an observed allocator peak; docs updated; spy-context test added. Not executed by the author.",
+  "known_limitations": [
+    "Edits unexecuted; exact-match application and new test unverified by the author.",
+    "The hook spy test patches Simulation.__init__ and asserts ordering only; it does not validate CuPy hook semantics.",
+    "Estimated admission peak is a ledger value, not a measured allocation peak."
+  ]
+}

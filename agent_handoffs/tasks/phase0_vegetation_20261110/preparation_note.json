@@ -1,0 +1,4 @@
+{
+  "corrected_setup_error": "The benchmarks directory is a namespace package without __init__.py; copied only its actual two Python source files. No runtime changed.",
+  "created_utc": "2026-11-10T11:01:28.007579+00:00"
+}

@@ -1,0 +1,147 @@
+{
+  "at_utc": "2026-10-30T12:55:18.757717+00:00",
+  "stepwat_commit": "003cb9b4adbf13d64a39d6d62fd95280adac27fc",
+  "stepwat_archived_files": [
+    {
+      "path": "README.md",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": ".gitmodules",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "makefile",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "ST_main.c",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "ST_grid.c",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "ST_structs.h",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "ST_indivs.c",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "sxw.c",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "sxw_soilwat.c",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "sxw_resource.c",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "sxw.h",
+      "exists": true,
+      "match": true
+    },
+    {
+      "path": "sxw_vars.h",
+      "exists": true,
+      "match": true
+    }
+  ],
+  "ecotone_selected_active_ecological_sources": [
+    {
+      "path": "Src/ecotone.f",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/soilwater.f",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/soildrive.f",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/grow.f",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/gro_new.f",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/add_abiotics.f",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/swater.f",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/calcar.f",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/snitro.f",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/eco_param.inc",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/eco_varbl.inc",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/grow.inc",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    },
+    {
+      "path": "Src/linklists.inc",
+      "exists": true,
+      "manifested": true,
+      "match": true
+    }
+  ],
+  "scope": "Hash comparison only. No compiled or simulated model; no ECOTONE wind source evaluated."
+}

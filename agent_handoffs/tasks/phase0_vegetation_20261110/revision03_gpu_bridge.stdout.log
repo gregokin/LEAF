@@ -1,0 +1,14 @@
+{
+  "pass": true,
+  "physical_gpu": 1,
+  "logical_gpu": 0,
+  "compute_capability": "61",
+  "plants": 2,
+  "accepted_zero_uptake_fixture_days": 1,
+  "fresh_restore": true,
+  "midrun_restore_refused": true,
+  "B_E_capture_by_id": true,
+  "exact_csv_replay": true,
+  "hydrology_constructed": false,
+  "calibrated_parameters": false
+}

@@ -1,0 +1,102 @@
+{
+  "method": "Independent nearest-point distance to an infinite midpoint lattice, not the production footprint scan. Uniform within-sample-lattice positions, seed20261030. Boundary clipping excluded.",
+  "scope": "Reference numerical geometry only; no ecological model",
+  "rows": [
+    {
+      "dx_m": 0.25,
+      "grass_diameter_m": 0.1,
+      "sample_spacing_m": 0.03125,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.0,
+      "analytic_miss_fraction_when_available": 0.0
+    },
+    {
+      "dx_m": 0.25,
+      "grass_diameter_m": 0.15,
+      "sample_spacing_m": 0.03125,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.0,
+      "analytic_miss_fraction_when_available": 0.0
+    },
+    {
+      "dx_m": 0.25,
+      "grass_diameter_m": 0.2,
+      "sample_spacing_m": 0.03125,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.0,
+      "analytic_miss_fraction_when_available": 0.0
+    },
+    {
+      "dx_m": 0.5,
+      "grass_diameter_m": 0.1,
+      "sample_spacing_m": 0.0625,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.0,
+      "analytic_miss_fraction_when_available": 0.0
+    },
+    {
+      "dx_m": 0.5,
+      "grass_diameter_m": 0.15,
+      "sample_spacing_m": 0.0625,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.0,
+      "analytic_miss_fraction_when_available": 0.0
+    },
+    {
+      "dx_m": 0.5,
+      "grass_diameter_m": 0.2,
+      "sample_spacing_m": 0.0625,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.0,
+      "analytic_miss_fraction_when_available": 0.0
+    },
+    {
+      "dx_m": 1.0,
+      "grass_diameter_m": 0.1,
+      "sample_spacing_m": 0.125,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.496784,
+      "analytic_miss_fraction_when_available": 0.49734517542563306
+    },
+    {
+      "dx_m": 1.0,
+      "grass_diameter_m": 0.15,
+      "sample_spacing_m": 0.125,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.049038,
+      "analytic_miss_fraction_when_available": null
+    },
+    {
+      "dx_m": 1.0,
+      "grass_diameter_m": 0.2,
+      "sample_spacing_m": 0.125,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.0,
+      "analytic_miss_fraction_when_available": 0.0
+    },
+    {
+      "dx_m": 2.0,
+      "grass_diameter_m": 0.1,
+      "sample_spacing_m": 0.25,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.875226,
+      "analytic_miss_fraction_when_available": 0.8743362938564083
+    },
+    {
+      "dx_m": 2.0,
+      "grass_diameter_m": 0.15,
+      "sample_spacing_m": 0.25,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.718512,
+      "analytic_miss_fraction_when_available": 0.7172566611769187
+    },
+    {
+      "dx_m": 2.0,
+      "grass_diameter_m": 0.2,
+      "sample_spacing_m": 0.25,
+      "random_subcell_positions": 500000,
+      "miss_fraction_reference": 0.496784,
+      "analytic_miss_fraction_when_available": 0.49734517542563306
+    }
+  ]
+}

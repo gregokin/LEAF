@@ -1,0 +1,17 @@
+{
+  "status": "complete_assessment",
+  "at_utc": "2026-10-31T21:24:42.112243+00:00",
+  "scope": "Read-only model/code/literature survey; no accepted new growth implementation or calibration.",
+  "report": "/home/okin/leaf/docs/water-to-biomass-survey.md",
+  "report_sha256": "f9d2474e3a89c775e5115ec02c6c2815d8dcc7a1a341f9f356c3edcab442a5bb",
+  "frozen_report_text": "survey_source.md.txt",
+  "source_checks": "source_and_document_checks.json",
+  "active_local_link_documents_checked": 11,
+  "broken_local_links": [],
+  "runtime_code_unchanged": true,
+  "root_AGENTS_unchanged": true,
+  "model_runs": false,
+  "model_tests": false,
+  "claude_implementation_dispatch": false,
+  "next_implementation_authorized": false
+}

@@ -1,0 +1,12 @@
+{
+  "task": "validation_data_survey_20261031",
+  "accepted_utc": "2026-10-31T23:02:34.975463+00:00",
+  "status": "accepted_research_only",
+  "deliverable": "docs/validation-data.md",
+  "deliverable_sha256": "49fc6f096e9ee69e74d850998fce1deba20d99ed0643d21407140e6ab1dd9ddd",
+  "observation_tables_ingested": false,
+  "model_validated": false,
+  "checks": "checks.json",
+  "root_agents_preserved": true,
+  "previous_runtime_and_accepted_archives_preserved": true
+}

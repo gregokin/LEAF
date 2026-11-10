@@ -1,0 +1,1 @@
+{"status": "ok", "case": "june_128_3layers_roots3", "backend": "numba", "days": 365, "loop_s": 1.404127896996215, "live_peak_bytes": null}

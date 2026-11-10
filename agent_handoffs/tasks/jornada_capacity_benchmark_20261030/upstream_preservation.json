@@ -1,0 +1,20 @@
+{
+  "MAPLE": {
+    "paths_checked": 388,
+    "changed_source_paths": [],
+    "HEAD_unchanged": true,
+    "status_unchanged": false
+  },
+  "SYRUP": {
+    "paths_checked": 70,
+    "changed_source_paths": [],
+    "HEAD_unchanged": true,
+    "status_unchanged": true
+  },
+  "MASY": {
+    "paths_checked": 55,
+    "changed_source_paths": [],
+    "HEAD_unchanged": true,
+    "status_unchanged": true
+  }
+}

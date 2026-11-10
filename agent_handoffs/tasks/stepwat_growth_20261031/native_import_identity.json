@@ -1,0 +1,19 @@
+{
+  "files": {
+    "/home/okin/SYRUP/src/maple_syrup/conservation.py": "1072cdade368a76290c8a41162dfeb7a5b60ffaf970a7ede4707635bb3cf1bb1",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface.py": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+    "/home/okin/MAPLE/src/maple/core/__init__.py": "8fbf67082d2dfa651ede095338abb9eb9b840fb8ac3c3698755de44e3acf0e88",
+    "/home/okin/MAPLE/src/maple/core/backend/namespace.py": "9420904454d5d203e2e115d7051012c01a1639c69b90402b79c490301d38c787",
+    "/home/okin/MAPLE/src/maple/core/backend/arrays.py": "475a210ced97c01ab5e7d5f661886e858f3e65f8c20d11503d7675bb1e8ca26e",
+    "/home/okin/MAPLE/src/maple/core/backend/deferred_checks.py": "6f64a03776a4856d668f72d9f94e168f62fdd18055080344099f09dcfa843c7d",
+    "/home/okin/MAPLE/src/maple/core/backend/leaves.py": "9ff0b743bcfad53daf8ab45480e43b1fd7dba14885322c093affa57dab0ff623",
+    "/home/okin/MAPLE/src/maple/core/backend/reductions.py": "16892f0c779768b4d21610fc5163132fac55c58357eeaef933bfaf961a880218",
+    "/home/okin/MAPLE/src/maple/core/backend/scatter.py": "a8590c4e4c5d6e53b168ca2ff7bb3b18c27ea94901a2adf571e16fbee7e9615a",
+    "/home/okin/MAPLE/src/maple/core/backend/selection.py": "af2e3b01ec50a1ef52f6fb1eac5043ce0b0c259c68872e0058355f407694cb98",
+    "/home/okin/MAPLE/src/maple/core/backend/transforms.py": "8ce2cf5cd61f196bc1e38de4f0dcc059075bbede626ddf51015c8321e570e76c",
+    "/home/okin/MAPLE/src/maple/core/backend/__init__.py": "541bbae44a1656a7dbc138cf72bbce229bd668cbd6afdc7972ee992be0e5ccf4",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_transpiration.py": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9"
+  },
+  "changed_windowed_module_imported": false,
+  "scope": "import-only diagnostics with explicit /tmp Numba cache; later integration tests exercise actual native calls"
+}

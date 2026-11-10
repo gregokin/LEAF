@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/generation_oracles.py"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate",
+  "pid": 8,
+  "start_ticks": "178139623",
+  "started_at_utc": "2026-11-10T11:26:44.533327+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

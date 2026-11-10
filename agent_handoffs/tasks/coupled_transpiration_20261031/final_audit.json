@@ -1,0 +1,171 @@
+{
+  "status": "pass",
+  "protected_original_files_checked": 95,
+  "claude_tool_scope": {
+    "Read": 8,
+    "Edit": 82,
+    "Write": 11
+  },
+  "all_claude_children_reaped": true,
+  "verification_children": [
+    {
+      "name": "native_review_02.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "performance_gpu_june_hectare_2layers_roots5.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "gpu_infinity_probe_03.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "performance_cpu128.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "candidate_cpu_03.launch.json",
+      "returncode": 1
+    },
+    {
+      "name": "candidate_cpu_04.launch.json",
+      "returncode": 1
+    },
+    {
+      "name": "candidate_cpu_final.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "performance_gpu_june_128_3layers_roots3.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "performance_gpu_grass_bound_hectare_3layers_roots3.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "weekly_review_03.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "candidate_gpu_final.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "gpu_compile_probe_03.launch.json",
+      "returncode": 1
+    },
+    {
+      "name": "independent_limits_final.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "coupled_review_02.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "candidate_gpu_03.launch.json",
+      "returncode": 1
+    },
+    {
+      "name": "installed_gpu_oracles.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "leaf_baseline_cpu.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "candidate_cpu_02.launch.json",
+      "returncode": 1
+    },
+    {
+      "name": "native_baseline_cpu.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "legacy_compatibility_04.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "performance_gpu_june_512_3layers_roots5.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "reserve_review_04.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "final_source_identity.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "performance_gpu_june_hectare_3layers_roots3.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "independent_cpu_final.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "legacy_compatibility_03.launch.json",
+      "returncode": 1
+    },
+    {
+      "name": "independent_cpu_03.launch.json",
+      "returncode": 0
+    },
+    {
+      "name": "usage_example.launch.json",
+      "returncode": 0
+    }
+  ],
+  "profiles": [
+    {
+      "name": "performance_cpu128.json",
+      "status": "pass",
+      "days": 365,
+      "all_checks": true,
+      "population": 3717
+    },
+    {
+      "name": "performance_gpu_june_128_3layers_roots3.json",
+      "status": "pass",
+      "days": 365,
+      "all_checks": true,
+      "population": 3717
+    },
+    {
+      "name": "performance_gpu_june_hectare_3layers_roots3.json",
+      "status": "pass",
+      "days": 365,
+      "all_checks": true,
+      "population": 36305
+    },
+    {
+      "name": "performance_gpu_june_hectare_2layers_roots5.json",
+      "status": "pass",
+      "days": 365,
+      "all_checks": true,
+      "population": 36305
+    },
+    {
+      "name": "performance_gpu_june_512_3layers_roots5.json",
+      "status": "pass",
+      "days": 365,
+      "all_checks": true,
+      "population": 59483
+    },
+    {
+      "name": "performance_gpu_grass_bound_hectare_3layers_roots3.json",
+      "status": "pass",
+      "days": 365,
+      "all_checks": true,
+      "population": 547588
+    }
+  ],
+  "code_matches_reviewed_candidate": true,
+  "original_upstreams_unchanged": true,
+  "root_AGENTS_unchanged": true
+}

@@ -1,0 +1,5 @@
+{
+  "benchmarks/daily-water-growth.md": "4ce7966460cf58267a29f2c7dd5f98ac03d44bc0160545d8cf5287270a8f45b5",
+  "benchmarks/daily_water_growth.py": "c0f013a4007bbb3d55bd00eeaffdd0d073a95ba3f0d797358b4ad2965f265f1d",
+  "tests/test_daily_water_growth.py": "e7586c3f19c55abb574617253a0ca58385147fb14977a1b6209e0dad52983d49"
+}

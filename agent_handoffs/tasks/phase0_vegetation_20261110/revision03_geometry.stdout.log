@@ -1,0 +1,26 @@
+{
+  "initial_write_failure_rollback": {
+    "pass": true,
+    "before_next_due": null,
+    "after_next_due": null
+  },
+  "buried_canopy_safe_default": {
+    "pass": true,
+    "error": "1 plant(s) cannot be represented by native MAPLE (eroded anchor with elevated canopy base: 0, fully buried: 1), e.g. ids [17]; choose unsupported_policy='exclude' or 'flag' explicitly"
+  },
+  "catalog_fingerprint_ownership": {
+    "pass": true,
+    "observed": {
+      "hash_unchanged": true,
+      "diameter_cached": 1.5,
+      "original_diameter": 1.5,
+      "document_a": 1.5
+    }
+  },
+  "cover_working_memory_scope": {
+    "declared_raster_bytes": 524288,
+    "max_cover_bytes": 524288,
+    "traced_peak_bytes": 1585736,
+    "observation": "Check admission includes the large float footprint temporary, not just boolean rasters."
+  }
+}

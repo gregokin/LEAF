@@ -1,0 +1,8 @@
+{
+  "snapshot_sha256": "9ea757c91cbc912c80f43db5e3877f12a4e26cf418bc75fa3a5d3a67eef37fae",
+  "inactive_storage_budget_mismatch": true,
+  "native_active_storage_m3": 0.02,
+  "withdrawal_reported_storage_m3": 0.05,
+  "allocation_before_memory_rejection": true,
+  "negative_reserve_bypassed_zero_available": true
+}

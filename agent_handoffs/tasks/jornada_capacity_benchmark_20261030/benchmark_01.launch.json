@@ -1,0 +1,23 @@
+{
+  "started_at_utc": "2026-10-30T18:17:40.852202+00:00",
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/jornada_capacity_benchmark_20261030/profile_geometry.py",
+    "--cases-json",
+    "/home/okin/leaf/agent_handoffs/tasks/jornada_capacity_benchmark_20261030/benchmark_cases.json",
+    "--output",
+    "/home/okin/leaf/benchmarks/results/jornada_20261030/profiled_results.json",
+    "--backend",
+    "both",
+    "--repeats",
+    "5"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 2060949,
+  "proc_stat_at_launch": "2060949 (python) R 2060948 2060949 2060949 0 -1 4194304 15 0 0 0 0 0 0 0 20 0 1 0 85565255 8450048 54 18446744073709551615 4325376 7352253 140733613148624 0 0 0 0 0 0 0 0 0 17 8 0 0 0 0 0 10653128 12216448 590868480 140733613157289 140733613157638 140733613157638 140733613162449 0\n",
+  "source_sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+  "wrapper_sha256": "6e383362317e34a2ce39aa22194e5b5ac514230441ee1fb74cbb76a69bdfe793",
+  "cases_sha256": "a269349c2660bb5f7f318b00d6cfcc6bff821ba0f85388880fb592e32ee129d5",
+  "gpu_uuid": "GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871",
+  "timeout_seconds": 300
+}

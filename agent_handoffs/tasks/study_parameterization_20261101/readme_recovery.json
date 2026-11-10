@@ -1,0 +1,6 @@
+{
+  "source": "claude_01.stdout.jsonl original successful Write payload",
+  "file": "review_snapshot_01/README.md",
+  "bytes": 7141,
+  "sha256": "f66dcf245d86a329fcb1f9fd7b278e8830a94098f80ca2212c4734fcbed9f01f"
+}

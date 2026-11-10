@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-10-31T22:19:21.391704+00:00",
+  "source": "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate",
+  "snapshot": "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/review_snapshot_03",
+  "files": {
+    "leaf/__init__.py": "0120e56d485e6540a136ab18782e927d3a2f1079240bdcbfd02e26a0d7f62983",
+    "leaf/coupling.py": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+    "leaf/stepwat.py": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+    "tests/test_daily_water_growth.py": "c73ae335a1a89d965e9af8dde83bfb8e252e39393154afabc26bda5ebf39deb4",
+    "tests/test_stepwat.py": "b9acad53b4afcd6c5b4345089e5bbe5282475f433e6ef6af9f15a8c3cd29ea00",
+    "tests/test_coupling.py": "13dcea19c2137c3dde3e813beedf5efe76e5b2c26fdac5027d4e336ece5e7efb",
+    "tests/test_spatial_mapping.py": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0",
+    "docs/stepwat-growth.md": "2b65bd3c8e5561fd47db7e9b19f996509a1ab1bdaafac9389e2fd68b0a57eea7",
+    "benchmarks/daily_water_growth.py": "82b75464877a665b612a04c428496249a18952d128213f545b4f86e9a793ce4f",
+    "benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+  }
+}

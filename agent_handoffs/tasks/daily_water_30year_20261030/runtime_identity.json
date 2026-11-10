@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-10-30T23:33:10.204198+00:00",
+  "executable": "/home/okin/MAPLE/.venv-cupy/bin/python",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "numpy": "2.5.3",
+  "numba": "0.67.0",
+  "cupy": "14.2.0",
+  "cpu_model": "Intel(R) Core(TM) i9-7900X CPU @ 3.30GHz",
+  "cpu_affinity_count": 20,
+  "selected_gpu_uuid": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+  "root_agents_sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+  "standalone": true,
+  "upstream_solvers_imported": false,
+  "package_installations": false,
+  "new_environments": false
+}

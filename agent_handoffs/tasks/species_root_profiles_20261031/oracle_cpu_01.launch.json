@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-B",
+    "agent_handoffs/tasks/species_root_profiles_20261031/independent_oracles.py",
+    "cpu"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 3,
+  "proc_stat_at_launch": "3 (python) R 2 3 3 0 -1 4194304 21 0 0 0 0 0 0 0 20 0 1 0 91559574 8458240 86 18446744073709551615 4325376 7352253 140725668090800 0 0 0 0 0 0 0 0 0 17 18 0 0 0 0 0 10653128 12216448 274448384 140725668093256 140725668093377 140725668093377 140725668098001 0\n",
+  "start_ticks": "91559574",
+  "started_at_utc": "2026-10-31T10:56:44.043724+00:00",
+  "timeout_seconds": 120.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/benchmarks/daily_water_growth.py": "c0f013a4007bbb3d55bd00eeaffdd0d073a95ba3f0d797358b4ad2965f265f1d",
+    "/home/okin/leaf/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+  },
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/numba-cache",
+    "CUPY_CACHE_DIR": null,
+    "CUDA_CACHE_PATH": null,
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  }
+}

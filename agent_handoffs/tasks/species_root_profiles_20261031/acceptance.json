@@ -1,0 +1,10 @@
+{
+  "status": "accept",
+  "at_utc": "2026-10-31T11:26:02.776839+00:00",
+  "task": "species_root_profiles_20261031",
+  "independent_result_status": "pass",
+  "integrity_status": "pass",
+  "full_30_year_runs": 8,
+  "active_assignment": null,
+  "all_recorded_processes_reaped": true
+}

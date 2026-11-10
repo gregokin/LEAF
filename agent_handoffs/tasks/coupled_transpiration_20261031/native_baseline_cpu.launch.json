@@ -1,0 +1,35 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "/home/okin/SYRUP/tests/subsurface"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 3,
+  "proc_stat_at_launch": "3 (python) R 2 3 3 0 -1 4194304 13 0 0 0 0 0 0 0 20 0 1 0 94454508 8450048 0 18446744073709551615 4325376 7352253 140721432587152 0 0 0 0 0 0 0 0 0 17 14 0 0 0 0 0 10653128 12216448 948367360 140721432591676 140721432591780 140721432591780 140721432596438 0\n",
+  "start_ticks": "94454508",
+  "started_at_utc": "2026-10-31T18:59:13.382723+00:00",
+  "timeout_seconds": 180.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/benchmarks/daily_water_growth.py": "ca850088b77146af3f7c60ff7c27aa2fa7730ee89b96a7169e82f857f9aa1522",
+    "/home/okin/leaf/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface.py": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_numba.py": "3e3e50cab32a97c2ea487c6acf404217e684be7e519d7c33b349aafc755f30f7",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_cuda.py": "7259ea96779849f4da66af66bdb313c092a39201989e08de6d39998707dd5065"
+  },
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/numba-cache",
+    "CUPY_CACHE_DIR": null,
+    "CUDA_CACHE_PATH": null,
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  }
+}

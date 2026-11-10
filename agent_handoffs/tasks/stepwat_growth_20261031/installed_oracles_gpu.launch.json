@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/final_oracles.py",
+    "--gpu"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 2114778,
+  "proc_stat_at_launch": "2114778 (python) R 2114777 2114778 2114778 0 -1 4194304 4 0 0 0 0 0 0 0 20 0 1 0 95686998 8179712 0 18446744073709551615 0 0 140725707959567 0 0 0 0 0 0 0 0 0 17 8 0 0 0 0 0 0 0 0 140725707959567 0 0 0 0\n",
+  "start_ticks": "95686998",
+  "started_at_utc": "2026-10-31T22:24:38.282044+00:00",
+  "timeout_seconds": 180.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/benchmarks/daily_water_growth.py": "82b75464877a665b612a04c428496249a18952d128213f545b4f86e9a793ce4f",
+    "/home/okin/leaf/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "/home/okin/leaf/leaf/coupling.py": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+    "/home/okin/leaf/leaf/__init__.py": "0120e56d485e6540a136ab18782e927d3a2f1079240bdcbfd02e26a0d7f62983",
+    "/home/okin/leaf/leaf/stepwat.py": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+    "/home/okin/leaf/tests/test_stepwat.py": "5b41f10aa3b5b9eda7e05adb72b1166f00c6a802c3b03827f40563c12f89d609",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface.py": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_numba.py": "3e3e50cab32a97c2ea487c6acf404217e684be7e519d7c33b349aafc755f30f7",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_cuda.py": "7259ea96779849f4da66af66bdb313c092a39201989e08de6d39998707dd5065",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_transpiration.py": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9"
+  },
+  "environment": {
+    "PYTHONPATH": "/home/okin/leaf:/home/okin/leaf/tests:/home/okin/SYRUP/src",
+    "LEAF_SOURCE_ROOT": null,
+    "CUDA_VISIBLE_DEVICES": "GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-stepwat-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-stepwat-cupy",
+    "CUDA_CACHE_PATH": "/tmp/leaf-stepwat-cuda",
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "NUMBA_NUM_THREADS": null
+  }
+}

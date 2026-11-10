@@ -1,0 +1,10 @@
+{
+  "classification": "tool_error",
+  "at_utc": "2026-10-31T11:06:40.506173+00:00",
+  "errors": [
+    "/bin/bash: line 1: python: command not found",
+    "FileNotFoundError: [Errno 2] No such file or directory: '/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/claude_prompt_03.txt'"
+  ],
+  "claude_started": false,
+  "correction": "Use python3 for local orchestration; create the prompt before dispatch."
+}

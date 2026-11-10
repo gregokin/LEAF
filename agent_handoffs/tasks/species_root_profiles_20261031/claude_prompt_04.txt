@@ -1,0 +1,7 @@
+Documentation-only correction, same generic benchmark task/session. No tools, no execution claims; return JSON with exact unique old/new edits plus report/known_limitations. Allowed edits ONLY benchmarks/daily-water-growth.md. Numerical code and tests are frozen during the orchestrator's performance runs; never edit them in this revision.
+
+1. Usage API list still names nonexistent resolve_root_profiles(case). Revision 2 split it into resolve_root_profile_names(case) and build_root_profile_table(case,names). Correct the list to actual function names.
+2. The opening status/evidence paragraph still points all independent execution claims only to the historical equal-layer report. Replace that paragraph with an accurate neutral statement linking the current species-profile follow-up at ../docs/species-root-profiles.md and the historical 0.1.0 equal-layer results at ../docs/daily-water-30year.md. State the module author has not executed it; the orchestrator records independent verification and measurements. Do not claim new measurements are complete yet or give timings.
+3. Later phrases referring pool-budget policy/results to only the old report should link the species-profile follow-up for the current version, preserving the opening historical link.
+
+Do not change rules, formulas, examples or implementation. No outside context or files. Exact current document is the one resulting from your revisions 1–3. Keep response compact.

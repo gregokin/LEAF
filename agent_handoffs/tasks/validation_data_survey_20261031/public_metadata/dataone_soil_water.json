@@ -1,0 +1,58 @@
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":106,
+    "params":{
+      "q":"title:\"Soil volumetric water content calculated from neutron\"",
+      "fl":"id,title,beginDate,endDate,datePublished,replicaMN,size,formatId,seriesId,obsoletedBy",
+      "rows":"8",
+      "_forwardedCount":"1",
+      "wt":"json"
+    }
+  },
+  "response":{
+    "numFound":4,
+    "start":0,
+    "maxScore":12.449633,
+    "numFoundExact":true,
+    "docs":[{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210013003/16",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "size":27708,
+      "obsoletedBy":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210013003/17",
+      "replicaMN":["urn:node:CN","urn:node:LTER"],
+      "title":"Soil volumetric water content calculated from neutron hydroprobe data at 15 NPP study sites at the Jornada Basin LTER, 1989-ongoing",
+      "beginDate":"1989-07-05T00:00:00Z",
+      "endDate":"2019-05-03T00:00:00Z",
+      "datePublished":"2019-10-29T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210013002/71",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "size":29897,
+      "replicaMN":["urn:node:CN","urn:node:LTER"],
+      "title":"Soil volumetric water content calculated from neutron hydroprobe data at 15 NPP study sites at the Jornada Basin LTER, 1989-2011 (Deprecated)",
+      "beginDate":"1989-07-05T00:00:00Z",
+      "endDate":"2011-07-01T00:00:00Z",
+      "datePublished":"2019-10-29T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210013003/17",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "size":39453,
+      "replicaMN":["urn:node:LTER","urn:node:CN"],
+      "title":"Soil volumetric water content calculated from neutron hydroprobe data at 15 NPP study locations at the Jornada Basin LTER site, 1989-ongoing",
+      "beginDate":"1989-07-05T00:00:00Z",
+      "endDate":"2024-02-02T00:00:00Z",
+      "datePublished":"2025-03-06T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210012002/127",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "size":25074,
+      "replicaMN":["urn:node:LTER","urn:node:CN"],
+      "title":"Soil volumetric water content calculated from neutron hydroprobe data along the LTER-I transects (control and fertilized) at the Jornada Basin LTER, 1986-ongoing",
+      "beginDate":"1982-04-30T00:00:00Z",
+      "endDate":"2019-04-30T00:00:00Z",
+      "datePublished":"2019-11-08T00:00:00Z"
+    }]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "installed_lock_sha256": "338dfd9ee8b9aa07c25e3c9c8ea0205e59c0ff3f1ff5dda64734fc4ea7247430",
+  "leaf_runtime": [
+    {
+      "path": "benchmarks/spatial_mapping.py",
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+      "matches_installed_lock": true
+    },
+    {
+      "path": "benchmarks/daily_water_growth.py",
+      "sha256": "82b75464877a665b612a04c428496249a18952d128213f545b4f86e9a793ce4f",
+      "matches_installed_lock": true
+    },
+    {
+      "path": "leaf/__init__.py",
+      "sha256": "0120e56d485e6540a136ab18782e927d3a2f1079240bdcbfd02e26a0d7f62983",
+      "matches_installed_lock": true
+    },
+    {
+      "path": "leaf/coupling.py",
+      "sha256": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+      "matches_installed_lock": true
+    },
+    {
+      "path": "leaf/stepwat.py",
+      "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+      "matches_installed_lock": true
+    }
+  ]
+}

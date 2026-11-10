@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "candidate_only",
+  "active": false,
+  "recorded_date": "2026-11-01",
+  "quantity": "relative tracer-derived soil-resource uptake; not root biomass or absolute transpiration",
+  "sources": {
+    "paper": "https://doi.org/10.1002/ecy.70384",
+    "data_package": "knb-lter-jrn.210469002.1",
+    "data_doi": "https://doi.org/10.6073/pasta/4bcdaa76d6994ac6e81a9097b8a8dcab"
+  },
+  "profile_form": {
+    "cumulative_fraction": "F(z) = 1 - beta**z",
+    "z_unit": "cm",
+    "beta_unit": "dimensionless, using numerical depth in cm",
+    "runtime_ready": false,
+    "check_before_adoption": "Confirm depth coding in archived analysis and integrate over the chosen physical layer boundaries."
+  },
+  "beta_estimates": [
+    {"species": "Bouteloua eriopoda", "years": [2018, 2019], "condition": "combined", "beta": 0.977, "reported_95_percent_ci": [0.970, 0.984]},
+    {"species": "Prosopis glandulosa", "years": [2018, 2019], "condition": "combined", "beta": 0.983, "reported_95_percent_ci": [0.980, 0.987]},
+    {"species": "Bouteloua eriopoda", "years": [2018], "condition": "drier", "beta": 0.973, "reported_95_percent_ci": [0.959, 0.986]},
+    {"species": "Bouteloua eriopoda", "years": [2019], "condition": "wetter", "beta": 0.980, "reported_95_percent_ci": [0.973, 0.986]},
+    {"species": "Prosopis glandulosa", "years": [2018], "condition": "drier", "beta": 0.984, "reported_95_percent_ci": [0.980, 0.989]},
+    {"species": "Prosopis glandulosa", "years": [2019], "condition": "wetter", "beta": 0.982, "reported_95_percent_ci": [0.976, 0.988]}
+  ],
+  "reported_binned_constraints": [
+    {"species": "Bouteloua eriopoda", "condition": "combined", "depth_bin_cm": [0, 50], "relation": ">", "relative_uptake_fraction": 0.59},
+    {"species": "Prosopis glandulosa", "condition": "combined", "depth_bin_cm": [50, 120], "relation": ">", "relative_uptake_fraction": 0.50},
+    {"species": "Bouteloua eriopoda", "year": 2018, "depth_bin_cm": [50, 120], "relation": "approximately", "relative_uptake_fraction": 0.33},
+    {"species": "Bouteloua eriopoda", "year": 2019, "depth_bin_cm": [50, 120], "relation": "approximately", "relative_uptake_fraction": 0.50}
+  ],
+  "optional_shrub_size_fit": {
+    "status": "reported_fit_for_future_evaluation_only",
+    "equation": "beta(V) = upper_limit * V / (half_saturation + V)",
+    "V": "mean aboveground canopy volume of an overlapping group, m^3; not aboveground biomass",
+    "upper_limit": 0.9869,
+    "upper_limit_reported_95_percent_ci": [0.9864, 0.9874],
+    "half_saturation_m3": 0.0016,
+    "half_saturation_reported_95_percent_ci_m3": [0.0014, 0.0019],
+    "overlapping_windows": 26,
+    "observations_per_window": 42,
+    "individual_volume_range_m3": [0.02, 13.21],
+    "limitations": "Cross-sectional grouped fit, not individual growth trajectories. Verify the source calculation and a species biomass-to-volume allometry before use."
+  },
+  "application_limits": [
+    "The 2018-2019 experiment used 64 grass-shrub pairs and injections within approximately 1.2 m; restrictive horizons could limit actual depths.",
+    "Fitted curves and reported depth-bin summaries are distinct estimates; do not force both to agree exactly.",
+    "Choose an explicit treatment for uptake below the modeled bottom; do not silently renormalize or discard it.",
+    "The profile is an uptake prior, not a measurement of volumetric root density, daily transpiration, lateral root spread or water-to-biomass efficiency.",
+    "No runtime loader, illustrative default, species trait or hydrology implementation is changed."
+  ]
+}

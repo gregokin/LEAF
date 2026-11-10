@@ -1,0 +1,438 @@
+{
+  "created_at_utc": "2026-11-10T12:41:39.668162+00:00",
+  "deferred": [
+    "calibrated species allometry and ecological traits",
+    "MAPLE adoption",
+    "recruitment and mortality laws",
+    "event injury laws",
+    "evolving soil/root/water remapping",
+    "full MASY event calendar",
+    "complete coupled restart",
+    "wheel build"
+  ],
+  "environment": {
+    "cupy-cuda12x": "14.2.0",
+    "note": "Existing environment; no installation or new environment.",
+    "numba": "0.67.0",
+    "numpy": "2.5.3",
+    "python_executable": "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "python_version": "3.12.3"
+  },
+  "historical_growth_lock": {
+    "note": "Preserved historical qualification. LEAF hashes below supersede it for the current runtime; legacy numerical files are identical. Upstream current identities are explicit.",
+    "path": "stepwat-growth.lock.json",
+    "sha256": "338dfd9ee8b9aa07c25e3c9c8ea0205e59c0ff3f1ff5dda64734fc4ea7247430",
+    "size_bytes": 15752
+  },
+  "leaf": {
+    "fixtures_and_packaging": {
+      "examples/phase0/generation.json": {
+        "sha256": "c23949480b017f901de24f497547ea2d0312858386b819c98b92af551c8662f0",
+        "size_bytes": 1025
+      },
+      "examples/phase0/plants.csv": {
+        "sha256": "096152d40e381967fe464574952a8af1f9df2fe2c041cf4dbc93557b11a10b4b",
+        "size_bytes": 362
+      },
+      "examples/phase0/species.json": {
+        "sha256": "c6d11e5de4038006a43ca79220e5e06858c2c40d8b2b4c50e19cce8c82e443db",
+        "size_bytes": 4371
+      },
+      "pyproject.toml": {
+        "sha256": "76fae76c6026ab990d979349ffbc641059622d5bc44ac20aa9911c39df6e2216",
+        "size_bytes": 956
+      }
+    },
+    "root": "/home/okin/leaf",
+    "runtime_files": {
+      "benchmarks/daily_water_growth.py": {
+        "sha256": "82b75464877a665b612a04c428496249a18952d128213f545b4f86e9a793ce4f",
+        "size_bytes": 79938
+      },
+      "benchmarks/spatial_mapping.py": {
+        "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+        "size_bytes": 47260
+      },
+      "leaf/__init__.py": {
+        "sha256": "225bb8919e946e298594c0adf452ea5e7d5424d3a00c5bd0160df720c735a3d7",
+        "size_bytes": 2304
+      },
+      "leaf/__main__.py": {
+        "sha256": "83b4589b1aeab57d43ad04c69d32b80daf6eb976004b38ae4b57410d861b8ee1",
+        "size_bytes": 15896
+      },
+      "leaf/canopy.py": {
+        "sha256": "b32f99b6b76a210add7a230e629879d0fec9eab9178a027b7dc0e43648f46b54",
+        "size_bytes": 21851
+      },
+      "leaf/coupling.py": {
+        "sha256": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+        "size_bytes": 28207
+      },
+      "leaf/events.py": {
+        "sha256": "2ec912dac4a5bb4ae1f52a64ef99e74e973d7f7dc68993f0f083fceb3cbed98e",
+        "size_bytes": 15605
+      },
+      "leaf/initialization.py": {
+        "sha256": "25e58f759761b525c2021eb18d64cd2b6bede8543b22ba983a8eb2d65967aeab",
+        "size_bytes": 32214
+      },
+      "leaf/recording.py": {
+        "sha256": "12ea3fee1dd660756b2e800adb20265f25b867a42604f456f01ea2728fa2c584",
+        "size_bytes": 8084
+      },
+      "leaf/runtime.py": {
+        "sha256": "abbea7b0f873d87139f92c9eb4a6989f657def504c2080379d728f7ceb121826",
+        "size_bytes": 22606
+      },
+      "leaf/state.py": {
+        "sha256": "187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0",
+        "size_bytes": 48690
+      },
+      "leaf/stepwat.py": {
+        "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+        "size_bytes": 32213
+      },
+      "leaf/traits.py": {
+        "sha256": "40b98b4b16a90c432c8b1a666efec45c1a0cd14d22fcdfaa99d94d665871cbb2",
+        "size_bytes": 22792
+      }
+    },
+    "tests": {
+      "tests/test_coupling.py": {
+        "sha256": "13dcea19c2137c3dde3e813beedf5efe76e5b2c26fdac5027d4e336ece5e7efb",
+        "size_bytes": 35905
+      },
+      "tests/test_daily_water_growth.py": {
+        "sha256": "c73ae335a1a89d965e9af8dde83bfb8e252e39393154afabc26bda5ebf39deb4",
+        "size_bytes": 35234
+      },
+      "tests/test_phase0.py": {
+        "sha256": "4b7389488e17cd07c5d5e829c19b9a5b868c79d8aabb08ee61996c09a8e92f18",
+        "size_bytes": 95385
+      },
+      "tests/test_spatial_mapping.py": {
+        "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0",
+        "size_bytes": 12394
+      },
+      "tests/test_stepwat.py": {
+        "sha256": "5b41f10aa3b5b9eda7e05adb72b1166f00c6a802c3b03827f40563c12f89d609",
+        "size_bytes": 45666
+      }
+    }
+  },
+  "maple": {
+    "branch": "main",
+    "file_count": 412,
+    "head": "9f466d2cfcd52991b24496cf67f4562d6268afa9",
+    "note": "Actual dirty checkout pinned; only native canopy container ABI independently exercised. Other agents may continue upstream work.",
+    "root": "/home/okin/MAPLE",
+    "runtime_manifest": "../agent_handoffs/tasks/phase0_vegetation_20261110/maple_runtime_identity_current.json",
+    "runtime_manifest_sha256": "4d06b76b46308611b6c2c81fd18b67612637c8c24b77cb2cf25a44b19adffbbe",
+    "vegetation_interface": {
+      "sha256": "b92ea5ae6890c3094686441e348ef40357c50ebcf1e5aee0f75bd86924f0943e",
+      "size_bytes": 32726
+    }
+  },
+  "revision": 3,
+  "schema": "leaf-phase0-source-lock-v1",
+  "scope": "Installed Phase 0 state/placement/geometry plus unchanged legacy numerical drivers. Fixtures are uncalibrated; no complete coupled restart or native scenario is qualified.",
+  "syrup": {
+    "branch": "feature/subsurface-hydrology",
+    "head": "c76c603dde4e8f79ec48b18d954a386580d8bc89",
+    "note": "All 71 runtime source hashes rechecked against the historical growth lock.",
+    "root": "/home/okin/SYRUP",
+    "runtime_files": {
+      "src/maple_syrup/__init__.py": {
+        "sha256": "039be50eaa7bd7e21c5cb5a88a604dc2041c9fe60f723af4b63f7dca1366adbc",
+        "size_bytes": 524
+      },
+      "src/maple_syrup/backend_correspondence.py": {
+        "sha256": "62399babb731014a512f75e9ec4fc25c3ce32724a76e5ce3f32d727c4cd764ef",
+        "size_bytes": 30397
+      },
+      "src/maple_syrup/benchmark_experiment.py": {
+        "sha256": "37c9bce3e47fe4b82b505d6c337163d466317f748c1dcf073b80024242848020",
+        "size_bytes": 62970
+      },
+      "src/maple_syrup/case_import.py": {
+        "sha256": "3d5aaff8b7d7583d6d7b9aae899a9737ec020d51abd7888dad21677a55bf755c",
+        "size_bytes": 98727
+      },
+      "src/maple_syrup/characteristic_cuda_csr.py": {
+        "sha256": "ffa1f88b0c8f6a585ef288f223f3a603a9b45b35d88d16bad9c71c0b6178f734",
+        "size_bytes": 91361
+      },
+      "src/maple_syrup/characteristic_numba.py": {
+        "sha256": "07eaac65ec4d8f01737ffcee36ef4deeaa6a064dd7f77dd7445009553ade4852",
+        "size_bytes": 9412
+      },
+      "src/maple_syrup/characteristic_numba_csr.py": {
+        "sha256": "030ae1b3d1096a16de54723c11e70d687579b26450def15488d1555c2f1069de",
+        "size_bytes": 21005
+      },
+      "src/maple_syrup/characteristic_sparse.py": {
+        "sha256": "5c331e589bfe5646deafca56847ec7e7f4748d656fce55cf22de7d3a3f0bcc17",
+        "size_bytes": 73368
+      },
+      "src/maple_syrup/characteristic_transport.py": {
+        "sha256": "9767d797c4fe792b907a66c4a17c34aae82d98f862ee2de2b7bd450bd4847416",
+        "size_bytes": 36031
+      },
+      "src/maple_syrup/chastre_case.py": {
+        "sha256": "d85af5685927e24cff6a1e55fd21568224b4340313d47f81a36af9818e23bcbd",
+        "size_bytes": 75069
+      },
+      "src/maple_syrup/checkpoint.py": {
+        "sha256": "0db811cc2d59c5719240b3f3ffecd1092f21156c581d17e48905663814fa705c",
+        "size_bytes": 116245
+      },
+      "src/maple_syrup/column_experiment.py": {
+        "sha256": "a533573442f5e8beb7451b11265e05b7823160fa3063aa670fcd9fef59e50dd9",
+        "size_bytes": 27584
+      },
+      "src/maple_syrup/complete_event.py": {
+        "sha256": "a9c8c65df031e22e175cd6a7ba501ddb96308914ee458396e3a55ca9b73aa727",
+        "size_bytes": 32106
+      },
+      "src/maple_syrup/conservation.py": {
+        "sha256": "1072cdade368a76290c8a41162dfeb7a5b60ffaf970a7ede4707635bb3cf1bb1",
+        "size_bytes": 1904
+      },
+      "src/maple_syrup/dependency.py": {
+        "sha256": "6a4ed5d5c484c135589b75cb15a3504d832d3ef788d92e21d1e0195c64e5d518",
+        "size_bytes": 14515
+      },
+      "src/maple_syrup/dependency_bundle.py": {
+        "sha256": "ae013c930697aa07251d008563d56f7795506f4b68a3b7df2ec6221d7f9f731c",
+        "size_bytes": 56158
+      },
+      "src/maple_syrup/event_backend.py": {
+        "sha256": "481bed15181c576bc958cf06a43343fa9494099b2080e6e6735b746dee291a68",
+        "size_bytes": 11784
+      },
+      "src/maple_syrup/event_experiment.py": {
+        "sha256": "eb859aa48b6cc8ddfa90f42f6d9f44c9639a282fafa136c18d8741d43e42274c",
+        "size_bytes": 43127
+      },
+      "src/maple_syrup/experimental_cuda.py": {
+        "sha256": "3ddc97d1c73f05344cccda2ad4193a2a7d6d5c25048d477b2a703c4e17415dbc",
+        "size_bytes": 53524
+      },
+      "src/maple_syrup/experimental_experiment.py": {
+        "sha256": "1bf10543fda47032e7554bea3a90c3d077027363bd17973ac19255da5b81bae4",
+        "size_bytes": 37646
+      },
+      "src/maple_syrup/experimental_hydrology.py": {
+        "sha256": "a5b209a98a247f94650538a7a966b1ddd17497fa9ff8bf14ab32344dd6b55632",
+        "size_bytes": 57626
+      },
+      "src/maple_syrup/experimental_numba.py": {
+        "sha256": "2a4767f40ba7f0a7a51d336c7e27e8dd0c81c6d423fad433fa3128bdc002afc0",
+        "size_bytes": 43833
+      },
+      "src/maple_syrup/experimental_storm.py": {
+        "sha256": "b278e83cd4264cb2b5ddd146e4c132145b3316c669568f55ec2b064ea9f87b92",
+        "size_bytes": 19277
+      },
+      "src/maple_syrup/hydrology_cuda.py": {
+        "sha256": "d91dba00b1ee8d5cbcbe789086b91ecd4ab648c1f2d8d75eedefe91cb3f7ff50",
+        "size_bytes": 76765
+      },
+      "src/maple_syrup/hydrology_numba.py": {
+        "sha256": "9a1fe59c4096942a5668aa028a9752fd2ee13dd9e04fdf896bb6c16d96e216cd",
+        "size_bytes": 51983
+      },
+      "src/maple_syrup/infiltration.py": {
+        "sha256": "c935b119e17d30cc176bcd339686b4f454ae8d742fa3946c2ae26f198efae570",
+        "size_bytes": 17662
+      },
+      "src/maple_syrup/initial_reimport.py": {
+        "sha256": "85de4302d20efaf1ead12383d615493fb898eb234358fc992185c76c8054f380",
+        "size_bytes": 32621
+      },
+      "src/maple_syrup/legacy_case.py": {
+        "sha256": "cbb25372fa41d5e9b8291ee7a1c0dd0aa29199cdecf510bd366869e3822ca8c3",
+        "size_bytes": 21518
+      },
+      "src/maple_syrup/legacy_driver.py": {
+        "sha256": "2fdc110e3b4c027a80087436f3d9a109eb6df8619292477536cf508ede4acf75",
+        "size_bytes": 45479
+      },
+      "src/maple_syrup/legacy_experiment.py": {
+        "sha256": "d914ad3f9c9c824b781e320e9c964d973286628d6b1219a2e4e999bb817babf1",
+        "size_bytes": 24585
+      },
+      "src/maple_syrup/legacy_gpu_driver.py": {
+        "sha256": "3deefed741d5361068bd78fe1652520d7fbe6ded729ee7f6343a4311bfca41fd",
+        "size_bytes": 36756
+      },
+      "src/maple_syrup/legacy_native.py": {
+        "sha256": "837a3224ffb718a16fddb6deabc19494794256a9d50187ad2839be58d5f2c1c6",
+        "size_bytes": 20097
+      },
+      "src/maple_syrup/legacy_native_cuda.py": {
+        "sha256": "584db1b7e4c8cf10b808433dc793a37dc7e3083d4e4ae06d2bc011bc7a12bbe9",
+        "size_bytes": 74615
+      },
+      "src/maple_syrup/legacy_native_numba.py": {
+        "sha256": "918dd85d14e2572c4960c97116effbe52f511f7d2000324dc2b130e753abf548",
+        "size_bytes": 18031
+      },
+      "src/maple_syrup/legacy_physics_numba.py": {
+        "sha256": "abf0c4e5044352830a8d2cbe0750afdb126abe78b849f029023a5a09149e13da",
+        "size_bytes": 36978
+      },
+      "src/maple_syrup/legacy_transport.py": {
+        "sha256": "69f2fef5ce2a6562b48edfb3f732998b390f3a942788664bbcdc3fe775db2172",
+        "size_bytes": 17475
+      },
+      "src/maple_syrup/legacy_water_cuda.py": {
+        "sha256": "a5d30c78f17ae576d1fe9ca2a2d7c2c6ae157ab1b08bac66e22876e70343126e",
+        "size_bytes": 16635
+      },
+      "src/maple_syrup/masked_case.py": {
+        "sha256": "0e868eb633bfc009285bdad19a8fb83558f8602ea21c380a1fd2b4b1839e3364",
+        "size_bytes": 23274
+      },
+      "src/maple_syrup/pond_bed.py": {
+        "sha256": "02a672a08398651175d4960f38b7d6390d4a6583946827a90dd4072569f9b4a4",
+        "size_bytes": 19651
+      },
+      "src/maple_syrup/pond_checkpoint.py": {
+        "sha256": "94cd2339566646ba44f2015dad13a67194c26a8dd3cc85b56916f62d2b4a704f",
+        "size_bytes": 117120
+      },
+      "src/maple_syrup/pond_event.py": {
+        "sha256": "67c0b68c330688ed4f2a8ecb63e0da004b33fd28267b23034036e6edcc8a7724",
+        "size_bytes": 113106
+      },
+      "src/maple_syrup/pond_hydraulics.py": {
+        "sha256": "55f34991f35b51c9be4a13e006d354dc09acf0437c27e02a3e33c1289ad07fa3",
+        "size_bytes": 31349
+      },
+      "src/maple_syrup/pond_network.py": {
+        "sha256": "b3aabb8103544271c4aa0cc0cd21408e4e6dd40bf9d7e290c7e46ecc3a599708",
+        "size_bytes": 23554
+      },
+      "src/maple_syrup/pond_transport.py": {
+        "sha256": "9da31537beb12cc8e83dc3ca707bd7c49b0f8c520511b5e5a9962afa104ce2b1",
+        "size_bytes": 43326
+      },
+      "src/maple_syrup/probe.py": {
+        "sha256": "af859fd93960d88f0ce205834b74dc906b0f5513d1a29d98c65649ee53750ef1",
+        "size_bytes": 19367
+      },
+      "src/maple_syrup/provenance.py": {
+        "sha256": "30945a037ded51402471a2f59192144b3b44f69cf7df7088472684d60bdfcaaa",
+        "size_bytes": 18091
+      },
+      "src/maple_syrup/rainfall.py": {
+        "sha256": "9680256608b2ca372bb88115ff5135f3bca6e350e7067968ebebb4f0b42c04b5",
+        "size_bytes": 19058
+      },
+      "src/maple_syrup/rfid_case.py": {
+        "sha256": "96ae6fcabab5d3760b3890453ee4f4f9a2cfd2da1bff2f57fe1ddbdd94aef0a3",
+        "size_bytes": 70557
+      },
+      "src/maple_syrup/routing.py": {
+        "sha256": "164b6264c40eb25205177eb009f7a89203f0f83d9c8d6658e1111973d3898bf0",
+        "size_bytes": 59200
+      },
+      "src/maple_syrup/routing_cuda.py": {
+        "sha256": "3dcd436abd8181482516fa6b4713d7e33fea6fbbf900216177e41d88b508350a",
+        "size_bytes": 35250
+      },
+      "src/maple_syrup/routing_newton.py": {
+        "sha256": "5b7a8dfde8ed30637de6745f704a20631a78719902e5e7de24209567c188f297",
+        "size_bytes": 15591
+      },
+      "src/maple_syrup/routing_newton_cuda.py": {
+        "sha256": "dc68f0667d8121203b05b412c0b9fa846355c944f7b0107eb4aab45c2855d29d",
+        "size_bytes": 20587
+      },
+      "src/maple_syrup/routing_numba.py": {
+        "sha256": "d48ad53c766a5363ce17ff231f0bd8a0ee29aab622b788e7c76c93a61e5a26b5",
+        "size_bytes": 9616
+      },
+      "src/maple_syrup/sediment_bed.py": {
+        "sha256": "c932fa6123b530fddc256a271bbd0d53447f1b966cec908738a6d25fa753f854",
+        "size_bytes": 53541
+      },
+      "src/maple_syrup/sediment_event.py": {
+        "sha256": "f96e195230c6db5fe6cc5150e04c7b10eae304e32b598f5aae59377b9b52ac29",
+        "size_bytes": 178527
+      },
+      "src/maple_syrup/sediment_experiment.py": {
+        "sha256": "da75d66951c9d3c4262c23e85a066205051f61816307a248ca1254cf4a51f63b",
+        "size_bytes": 87384
+      },
+      "src/maple_syrup/sediment_physics.py": {
+        "sha256": "b83ca42c0675acca72f00ad44a386ab4e8ea98f457e6a386913f667e630a85df",
+        "size_bytes": 54611
+      },
+      "src/maple_syrup/sediment_transport.py": {
+        "sha256": "c67b3875d7f66dba4725bcd072be3fd697cb0031c85887859b23cc39b0d8b1cc",
+        "size_bytes": 34013
+      },
+      "src/maple_syrup/splash.py": {
+        "sha256": "3a3b5697b7e28497c9f650f237e4bbe2e9f7d80bf3b2a5cdfe66fcb934e3ec33",
+        "size_bytes": 45611
+      },
+      "src/maple_syrup/splash_cuda.py": {
+        "sha256": "6616060a3da333c1cb87bf509716b512b4ce03b312fe61a80e8f727db9288457",
+        "size_bytes": 10152
+      },
+      "src/maple_syrup/storage_admission.py": {
+        "sha256": "c46b68645455b0f9b1dcf5ec5da577cf49a7d1b2c70c5429fd45d1d61bd1f1da",
+        "size_bytes": 17362
+      },
+      "src/maple_syrup/storm.py": {
+        "sha256": "7f0dfb03d0176e053d83c3f52a83f711c6f6729c554b45ad23ebb0e87b756d19",
+        "size_bytes": 33079
+      },
+      "src/maple_syrup/storm_experiment.py": {
+        "sha256": "c4d70d92f239abe5c262b5f9af8a5160d28479acd8805484cd291ba0a1b8f5f9",
+        "size_bytes": 34058
+      },
+      "src/maple_syrup/subsurface.py": {
+        "sha256": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+        "size_bytes": 64044
+      },
+      "src/maple_syrup/subsurface_cuda.py": {
+        "sha256": "7259ea96779849f4da66af66bdb313c092a39201989e08de6d39998707dd5065",
+        "size_bytes": 19766
+      },
+      "src/maple_syrup/subsurface_numba.py": {
+        "sha256": "3e3e50cab32a97c2ea487c6acf404217e684be7e519d7c33b349aafc755f30f7",
+        "size_bytes": 13565
+      },
+      "src/maple_syrup/subsurface_transpiration.py": {
+        "sha256": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9",
+        "size_bytes": 27929
+      },
+      "src/maple_syrup/windowed_case.py": {
+        "sha256": "389d6705276eadd150364b22c967a24110afb7765830cd63baef4cecc018c5dc",
+        "size_bytes": 28379
+      },
+      "src/maple_syrup/windowed_experiment.py": {
+        "sha256": "07bdc04faf868c7a5da403ad42f78a213b0c505ea84ebb66559972a6a52c00e6",
+        "size_bytes": 38153
+      },
+      "src/maple_syrup/windowed_shared_bed.py": {
+        "sha256": "63d64dd5c0c1cd5591a335c71b84c519a068242e93bf58303aa5c480ad3d6560",
+        "size_bytes": 114263
+      },
+      "src/maple_syrup/windowed_shared_bed_device.py": {
+        "sha256": "83833fb97e853fcdb77f29a52f0a31092ebbea19620ffde45d0f655632438c27",
+        "size_bytes": 128908
+      }
+    }
+  },
+  "task": "phase0_vegetation_20261110",
+  "upstream_git": {
+    "path": "../agent_handoffs/tasks/phase0_vegetation_20261110/final_upstream_git.json",
+    "sha256": "2cf17c7fbeb9f18cc828f1f091d30e2945eee6185c8e6455b6f28569eef23be4",
+    "size_bytes": 3658
+  }
+}

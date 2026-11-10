@@ -1,0 +1,529 @@
+{
+  "benchmark": "daily_water_growth",
+  "version": "0.1.0",
+  "status": "ok",
+  "n_results": 1,
+  "results": [
+    {
+      "benchmark": "daily_water_growth",
+      "version": "0.1.0",
+      "status": "ok",
+      "case": {
+        "name": "june_hectare_3layers_roots3",
+        "nx": 400,
+        "ny": 400,
+        "dx": 0.25,
+        "grass_count": 35764,
+        "shrub_count": 541,
+        "grass_diameter": 0.15,
+        "shrub_diameter": 2.0,
+        "root_multiplier": 3.0,
+        "pattern": "uniform",
+        "seed": 20261030,
+        "layers": 3,
+        "max_edges": 10000000,
+        "max_bytes": 1500000000
+      },
+      "backend": "gpu",
+      "days_requested": 365,
+      "report_every": 365,
+      "fixture": {
+        "label": "synthetic benchmark fixture, not calibrated ecology",
+        "storage_m": 0.15,
+        "initial_fill_fraction": 0.5,
+        "recharge_m": 0.01,
+        "recharge_period_days": 14,
+        "demand_m_per_day": 0.003,
+        "biomass_density_kg_m2": 1.0,
+        "water_density_kg_m3": 1000.0,
+        "wue_grass_kg_per_kg": 0.002,
+        "wue_shrub_kg_per_kg": 0.0015,
+        "turnover_rate_per_day": 0.003,
+        "week_days": 7,
+        "days_per_year": 365,
+        "default_years": 30
+      },
+      "environment": {
+        "python": "3.12.3",
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+        "numpy": "2.5.3",
+        "numba": "0.67.0",
+        "cupy": "14.2.0",
+        "device": {
+          "id": 0,
+          "name": "NVIDIA GeForce GTX 1080 Ti",
+          "compute_capability": "61"
+        },
+        "gpu_status": {
+          "available": true,
+          "device_name": "NVIDIA GeForce GTX 1080 Ti",
+          "compute_capability": 61,
+          "context_init_seconds": 0.156137375975959,
+          "cupy_version": "14.2.0",
+          "cuda_runtime_version": 12090
+        }
+      },
+      "source": {
+        "geometry_module": "benchmarks.spatial_mapping",
+        "geometry_file": "/home/okin/leaf/benchmarks/spatial_mapping.py",
+        "geometry_scope_limitations": [
+          "Generic synthetic benchmark; no ecological, hydrological, growth, mortality, wind or water process is modelled.",
+          "Root edge weights are UNIFORM over the cells a root circle positively overlaps (sum to 1 per plant). They are NOT area weighted and encode no scientific allocation law.",
+          "Vertical layer weights are factorized as a uniform 1/L per layer (separability assumption); no dense plant-by-layer-by-cell tensor is formed.",
+          "The layered reduction scatters a synthetic unit demand per plant; it measures graph traversal and atomic contention, not water competition.",
+          "Canopy cover is an 8x8 midpoint sample per cell capped at 1; it is coverage only, not an exact circle union and not area conserving. Small circles can be missed entirely (aliasing); missed plants are counted and reported.",
+          "Domain is finite, rectangular, non-periodic with square cells; circles are clipped at the boundary and root weights renormalize over retained cells.",
+          "Plant positions (uniform or clumped) are synthetic seeded samples, not an ecological spatial pattern.",
+          "CPU compiled loops are single-threaded; GPU atomics are order-nondeterministic, so CPU/GPU agreement is checked with tolerances, never bitwise.",
+          "ru_maxrss is a cumulative process peak; CuPy pool numbers are sampled at stage boundaries and are not a true allocation peak."
+        ]
+      },
+      "throughput": {
+        "model_days_completed": 365,
+        "model_days_per_wall_s": 578.4460414565413,
+        "model_years_per_wall_min": 95.08702051340403,
+        "simulated_seconds_per_wall_s": 49977737.98184516
+      },
+      "counters": {
+        "day": 365,
+        "weeks_done": 52,
+        "pending_days": 1,
+        "maps_built": 53,
+        "demand_map_builds": 53,
+        "recharge_events": 27,
+        "population": 36305,
+        "n_edges": 761630
+      },
+      "audit": {
+        "day": 365,
+        "ok": true,
+        "checks": {
+          "water_finite": true,
+          "water_nonnegative": true,
+          "water_le_capacity": true,
+          "biomass_finite_positive": true,
+          "population_retained": true,
+          "positive_root_counts": true,
+          "weights_normalized": true,
+          "root_canopy_ratio": true,
+          "calendar": true,
+          "water_budget": true,
+          "plant_grid_flux": true,
+          "biomass_budget": true
+        },
+        "water": {
+          "initial": 750.0,
+          "recharge_events": 27,
+          "input": 2700.0,
+          "overflow": 146.30103803515917,
+          "grid_removed": 2722.6274508774704,
+          "plant_uptake": 2722.6274508774695,
+          "pending_week_uptake": 10.754678791962824,
+          "total": 581.0715110873704,
+          "residual": 1.1368683772161603e-13,
+          "flux_residual": -9.094947017729282e-13,
+          "tolerance": 3.4500010000000002e-06,
+          "flux_tolerance": 2.7226284508774703e-06,
+          "min": 0.0001498339724074698,
+          "max": 0.0031249999999999997,
+          "capacity_per_layer_cell": 0.0031249999999999997
+        },
+        "biomass": {
+          "initial": 2331.6036736963706,
+          "growth": 4543.866988383224,
+          "turnover": 3290.5777314253196,
+          "total": 3584.892930654276,
+          "residual": 4.547473508864641e-13,
+          "tolerance": 6.875471662079596e-06,
+          "min": 0.012630653674964631
+        },
+        "graph": {
+          "n_edges": 761630,
+          "min_count": 3,
+          "max_weight_sum_deviation": 2.1538326677728037e-14,
+          "max_root_canopy_ratio_deviation": 4.440892098500626e-16
+        },
+        "calendar": {
+          "day": 365,
+          "weeks_done": 52,
+          "pending_days": 1,
+          "maps_built": 53,
+          "demand_map_builds": 53,
+          "recharge_events": 27,
+          "population": 36305,
+          "n_edges": 761630
+        }
+      },
+      "memory": {
+        "live_arrays": [
+          {
+            "name": "W",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "R",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "scale",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "removed_cum",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "overflow_cum",
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000,
+            "where": "device"
+          },
+          {
+            "name": "Rh",
+            "dtype": "float64",
+            "shape": [
+              160000
+            ],
+            "nbytes": 1280000,
+            "where": "device"
+          },
+          {
+            "name": "B",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "canopy",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "root",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "Dp",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "uptake_week",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "uptake_cum",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "gain_cum",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "loss_cum",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "wue",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "wsum",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_Bc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_cc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_rc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_Dc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_gc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "_lc",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "graph.offsets",
+            "dtype": "int64",
+            "shape": [
+              36306
+            ],
+            "nbytes": 290448,
+            "where": "device"
+          },
+          {
+            "name": "graph.counts",
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "graph.cells",
+            "dtype": "int32",
+            "shape": [
+              761630
+            ],
+            "nbytes": 3046520,
+            "where": "device"
+          },
+          {
+            "name": "graph.weights",
+            "dtype": "float64",
+            "shape": [
+              761630
+            ],
+            "nbytes": 6093040,
+            "where": "device"
+          },
+          {
+            "name": "inputs.x",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "inputs.y",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "inputs.canopy_radius",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "inputs.root_radius",
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          },
+          {
+            "name": "inputs.ids",
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440,
+            "where": "device"
+          }
+        ],
+        "live_bytes": 26579240,
+        "graph_bytes": 9720448,
+        "rebuild_peak_bytes": 46042000,
+        "rebuild_peak_label": "live state + old graph + new graph at weekly rebuild",
+        "max_bytes": 1500000000,
+        "process_peak_rss_bytes": 711827456,
+        "process_peak_rss_label": "ru_maxrss whole-process peak (not per array)",
+        "cupy_pool_used_bytes": 36308992,
+        "cupy_pool_total_bytes": 311150592,
+        "cupy_pool_label": "sampled at end of run"
+      },
+      "transfer_record": {
+        "seconds": 0.0032238750718533993,
+        "bytes": 1452200
+      },
+      "traits": {
+        "n_grass": 35764,
+        "n_shrub": 541,
+        "assignment": "nearest initial canopy diameter (ties: index < grass_count)"
+      },
+      "timing": {
+        "startup_cache_load_s": 0.3341044479748234,
+        "initialization_s": 0.09925713401753455,
+        "loop_wall_s": 4.4059614080470055,
+        "audit_report_wall_s": 3.7749604609562084,
+        "integration_wall_s": 0.6310009470907971,
+        "daily_block_wall_s": 0.4261895223753527,
+        "weekly_update_wall_s": 0.20442720921710134,
+        "end_to_end_wall_s": 4.50521854206454,
+        "note": "wall clock; GPU synchronized at weekly and report boundaries; no asynchronous dispatch times are summed",
+        "run_case_wall_s": 4.997479508048855,
+        "since_module_import_wall_s": 5.2522079040063545
+      },
+      "progress": [
+        {
+          "event": "progress",
+          "case": "june_hectare_3layers_roots3",
+          "backend": "gpu",
+          "day": 365,
+          "year": 1.0,
+          "water_total_m3": 581.0715110873704,
+          "water_residual": 1.1368683772161603e-13,
+          "flux_residual": -9.094947017729282e-13,
+          "biomass_total_kg": 3584.892930654276,
+          "biomass_residual": 4.547473508864641e-13,
+          "pending_uptake_m3": 10.754678791962824,
+          "n_edges": 761630,
+          "audit_ok": true,
+          "elapsed_s": 4.405848193098791,
+          "block_wall_s": 0.4261895223753527,
+          "weekly_wall_s": 0.20442720921710134,
+          "pool_used_bytes": 36308992,
+          "pool_total_bytes": 311150592
+        }
+      ],
+      "independent_case_wall_seconds": 4.997567742015235,
+      "allocation_profile": {
+        "cupy_live_rounded_peak_bytes": 46052352,
+        "cupy_live_rounded_at_case_start_bytes": 0,
+        "cupy_live_rounded_at_case_end_bytes": 0,
+        "unknown_free_events_cumulative": 0,
+        "scope": "CuPy pool malloc/free hooks including temporaries; excludes driver/context and other allocators"
+      }
+    }
+  ],
+  "process": {
+    "peak_rss_bytes": 711827456,
+    "label": "ru_maxrss whole process",
+    "wall_since_import_s": 5.25233683292754
+  },
+  "independent_profile": {
+    "whole_process_wall_seconds_including_imports": 5.526774171041325,
+    "cpu_affinity_count": 20,
+    "gpu_uuid_selection": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "cupy_live_rounded_peak_bytes": 46052352,
+    "cupy_live_rounded_at_end_bytes": 0,
+    "unknown_free_events": 0,
+    "allocation_events": 804,
+    "scope": "Actual rounded CuPy pool allocations only; reserved pool memory and CPU RSS reported separately.",
+    "source_sha256": {
+      "benchmarks/daily_water_growth.py": "650b197b92acbd8bc6f741f8feac9dd3a3f5dade2d9f58ceae5f10db82e81c8f",
+      "benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "wrapper_sha256": "9384eb501ff0a0949c282703a4621519dafdecb6ec4d1895f5b79b2ca34885da"
+  }
+}

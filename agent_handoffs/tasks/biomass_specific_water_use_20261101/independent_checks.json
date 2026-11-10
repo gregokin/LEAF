@@ -1,0 +1,52 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "group": "Grass",
+      "moisture": "dry_minus1.5_to_minus1_MPa",
+      "match": true
+    },
+    {
+      "group": "Grass",
+      "moisture": "moderate_minus1_to_minus0.5_MPa",
+      "match": true
+    },
+    {
+      "group": "Grass",
+      "moisture": "very_dry_le_minus1.5_MPa",
+      "match": true
+    },
+    {
+      "group": "Grass",
+      "moisture": "wet_gt_minus0.5_MPa",
+      "match": true
+    },
+    {
+      "group": "Tree",
+      "moisture": "dry_minus1.5_to_minus1_MPa",
+      "match": true
+    },
+    {
+      "group": "Tree",
+      "moisture": "moderate_minus1_to_minus0.5_MPa",
+      "match": true
+    },
+    {
+      "group": "Tree",
+      "moisture": "very_dry_le_minus1.5_MPa",
+      "match": true
+    },
+    {
+      "group": "Tree",
+      "moisture": "wet_gt_minus0.5_MPa",
+      "match": true
+    }
+  ],
+  "independent_aggregation": "pandas groupby and type-7 quantiles of the archived eligible daily table; standard-library pipeline independently builds those summaries. Raw-day eligibility and sums independently checked below.",
+  "independent_days": 759,
+  "archived_days": 759,
+  "matched_days": 759,
+  "max_daily_q_difference": 7.105427357601002e-15,
+  "murano_rows_checked": 14,
+  "murano_max_unit_conversion_difference": 1.4210854715202004e-14
+}

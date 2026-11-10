@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 8,
+  "start_ticks": "178012335",
+  "started_at_utc": "2026-11-10T11:05:31.650798+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

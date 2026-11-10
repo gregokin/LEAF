@@ -1,0 +1,50 @@
+test_generate_example_config_and_report_collision (test_phase0.TestCLIAndExamples.test_generate_example_config_and_report_collision) ... ok
+test_help_and_usage (test_phase0.TestCLIAndExamples.test_help_and_usage) ... ok
+test_import_isolation_subprocess (test_phase0.TestCLIAndExamples.test_import_isolation_subprocess) ... ok
+test_init_inspect_export_round_trip (test_phase0.TestCLIAndExamples.test_init_inspect_export_round_trip) ... ok
+test_legacy_lazy_exports_and_all_consistency (test_phase0.TestCLIAndExamples.test_legacy_lazy_exports_and_all_consistency) ... ok
+test_validate_species_example (test_phase0.TestCLIAndExamples.test_validate_species_example) ... ok
+test_cover_analytic_circles_edges_groups_and_bounds (test_phase0.TestCanopy.test_cover_analytic_circles_edges_groups_and_bounds) ... ok
+test_cover_independent_finer_resolution_agrees (test_phase0.TestCanopy.test_cover_independent_finer_resolution_agrees) ... ok
+test_cover_working_memory_is_admitted_and_scoped (test_phase0.TestCanopy.test_cover_working_memory_is_admitted_and_scoped) ... ok
+test_geometry_derived_pure_and_constant_porosity (test_phase0.TestCanopy.test_geometry_derived_pure_and_constant_porosity) ... ok
+test_maple_view_safe_default_uses_current_surface_and_anchor (test_phase0.TestCanopy.test_maple_view_safe_default_uses_current_surface_and_anchor) ... ok
+test_allometry_positive_monotone_inverse_and_output_validation (test_phase0.TestCatalog.test_allometry_positive_monotone_inverse_and_output_validation) ... ok
+test_document_is_a_defensive_copy (test_phase0.TestCatalog.test_document_is_a_defensive_copy) ... ok
+test_load_hash_stability_and_sorted_table (test_phase0.TestCatalog.test_load_hash_stability_and_sorted_table) ... ok
+test_schema_errors (test_phase0.TestCatalog.test_schema_errors) ... ok
+test_traits_sections_and_lifespan_metadata (test_phase0.TestCatalog.test_traits_sections_and_lifespan_metadata) ... ok
+test_containing_cell_subcell_edges_offset_nonsquare (test_phase0.TestDomain.test_containing_cell_subcell_edges_offset_nonsquare) ... ok
+test_validation_immutability_and_metadata_conflicts (test_phase0.TestDomain.test_validation_immutability_and_metadata_conflicts) ... ok
+test_apply_defaults_to_diagnostics_and_rolls_back_failed_handlers (test_phase0.TestEvents.test_apply_defaults_to_diagnostics_and_rolls_back_failed_handlers) ... ok
+test_construction_validation_immutability_and_dict_round_trip (test_phase0.TestEvents.test_construction_validation_immutability_and_dict_round_trip) ... ok
+test_bounded_impossible_and_degenerate_cases (test_phase0.TestGeneration.test_bounded_impossible_and_degenerate_cases) ... ok
+test_count_formulas_use_size_variance (test_phase0.TestGeneration.test_count_formulas_use_size_variance) ... ok
+test_global_nonoverlap_large_first_and_surface_resolution (test_phase0.TestGeneration.test_global_nonoverlap_large_first_and_surface_resolution) ... ok
+test_mixed_size_exclusion_regression_128_quarter_metre (test_phase0.TestGeneration.test_mixed_size_exclusion_regression_128_quarter_metre)
+Grass 6 % (0.15 m +- 0.05 m) with shrubs 5 % (2 m +- 0.3 m): random interleaving needed millions of ... ok
+test_reproducible_overlap_allowed_species_cover (test_phase0.TestGeneration.test_reproducible_overlap_allowed_species_cover) ... ok
+test_advance_time_preflights_overflow_and_commits_atomically (test_phase0.TestPlantState.test_advance_time_preflights_overflow_and_commits_atomically) ... ok
+test_age_advances_with_calendar_only_for_live_and_no_automatic_death (test_phase0.TestPlantState.test_age_advances_with_calendar_only_for_live_and_no_automatic_death) ... ok
+test_atomic_no_overwrite_never_falls_back_to_replace (test_phase0.TestPlantState.test_atomic_no_overwrite_never_falls_back_to_replace) ... ok
+test_constructor_requires_explicit_unresolved_mask_and_owns_arrays (test_phase0.TestPlantState.test_constructor_requires_explicit_unresolved_mask_and_owns_arrays) ... ok
+test_empty_population_round_trip (test_phase0.TestPlantState.test_empty_population_round_trip) ... ok
+test_exact_fp64_round_trip_and_metadata_checks (test_phase0.TestPlantState.test_exact_fp64_round_trip_and_metadata_checks) ... ok
+test_ids_resolve_regardless_of_row_order (test_phase0.TestPlantState.test_ids_resolve_regardless_of_row_order) ... ok
+test_invalid_rows_refused_without_partial_state (test_phase0.TestPlantState.test_invalid_rows_refused_without_partial_state) ... ok
+test_metadata_noninitial_surface_token_refused_before_sampling (test_phase0.TestPlantState.test_metadata_noninitial_surface_token_refused_before_sampling) ... ok
+test_surface_token_resolved_once_and_anchor_preserved (test_phase0.TestPlantState.test_surface_token_resolved_once_and_anchor_preserved) ... ok
+test_updates_are_transactional_and_by_id (test_phase0.TestPlantState.test_updates_are_transactional_and_by_id) ... ok
+test_cadence_initial_final_skip_and_errors (test_phase0.TestRecording.test_cadence_initial_final_skip_and_errors) ... ok
+test_failed_writes_leave_scheduling_untouched (test_phase0.TestRecording.test_failed_writes_leave_scheduling_untouched) ... ok
+test_capture_by_id_with_reordering_profiles_ages_and_type_checks (test_phase0.TestRuntimeBridge.test_capture_by_id_with_reordering_profiles_ages_and_type_checks) ... ok
+test_capture_from_non_step_driver_never_erases_seasonal_mass_silently (test_phase0.TestRuntimeBridge.test_capture_from_non_step_driver_never_erases_seasonal_mass_silently) ... ok
+test_capture_from_real_legacy_driver (test_phase0.TestRuntimeBridge.test_capture_from_real_legacy_driver) ... ok
+test_device_vector_metadata_is_checked_before_transfer (test_phase0.TestRuntimeBridge.test_device_vector_metadata_is_checked_before_transfer) ... ok
+test_legacy_inputs_check_the_species_law_not_one_biomass (test_phase0.TestRuntimeBridge.test_legacy_inputs_check_the_species_law_not_one_biomass) ... ok
+test_legacy_inputs_seasonal_mass_policies_and_restore (test_phase0.TestRuntimeBridge.test_legacy_inputs_seasonal_mass_policies_and_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 44 tests in 3.418s
+
+OK

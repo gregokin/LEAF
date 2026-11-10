@@ -1,0 +1,18 @@
+{
+  "verified_at_utc": "2026-10-30T10:18:22.040405+00:00",
+  "result": "pass",
+  "required_documents": 16,
+  "resolved_local_markdown_links": 48,
+  "bash_examples_syntax_checked": 1,
+  "original_AGENTS_unchanged": true,
+  "cli_options_match_saved_installed_help": true,
+  "successful_Claude_calls": [
+    3,
+    4
+  ],
+  "exact_session_resume_verified": true,
+  "successful_calls_tools_disabled": true,
+  "successful_children_exited_and_reaped": true,
+  "detailed_payload_retry_not_launched": true,
+  "scope": "Documentation, shell syntax, hashes and recorded CLI process/output evidence only; no model or scientific validation."
+}

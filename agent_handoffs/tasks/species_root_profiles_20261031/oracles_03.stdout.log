@@ -1,0 +1,106 @@
+{
+  "independent_analytical_checks": [
+    {
+      "backend": "cpu",
+      "heterogeneous_supply_cases": [
+        {
+          "initial_day1_water": [
+            0.0,
+            0.0009424777960769381
+          ],
+          "uptake_delta": [
+            1.8849555921538765e-05,
+            7.539822368615505e-05
+          ],
+          "passed": true
+        },
+        {
+          "initial_day1_water": [
+            0.0009424777960769381,
+            0.0
+          ],
+          "uptake_delta": [
+            7.539822368615505e-05,
+            1.8849555921538765e-05
+          ],
+          "passed": true
+        },
+        {
+          "initial_day1_water": [
+            0.0,
+            4.7123889803846906e-05
+          ],
+          "uptake_delta": [
+            9.424777960769383e-06,
+            3.7699111843077517e-05
+          ],
+          "passed": true
+        },
+        {
+          "initial_day1_water": [
+            0.0,
+            0.0
+          ],
+          "uptake_delta": [
+            0.0,
+            0.0
+          ],
+          "passed": true
+        }
+      ],
+      "explicit_third_profile": true,
+      "uniform_analytical_control": true
+    },
+    {
+      "backend": "gpu",
+      "heterogeneous_supply_cases": [
+        {
+          "initial_day1_water": [
+            0.0,
+            0.0009424777960769381
+          ],
+          "uptake_delta": [
+            1.8849555921538765e-05,
+            7.539822368615505e-05
+          ],
+          "passed": true
+        },
+        {
+          "initial_day1_water": [
+            0.0009424777960769381,
+            0.0
+          ],
+          "uptake_delta": [
+            7.539822368615505e-05,
+            1.8849555921538765e-05
+          ],
+          "passed": true
+        },
+        {
+          "initial_day1_water": [
+            0.0,
+            4.7123889803846906e-05
+          ],
+          "uptake_delta": [
+            9.424777960769383e-06,
+            3.7699111843077517e-05
+          ],
+          "passed": true
+        },
+        {
+          "initial_day1_water": [
+            0.0,
+            0.0
+          ],
+          "uptake_delta": [
+            0.0,
+            0.0
+          ],
+          "passed": true
+        }
+      ],
+      "explicit_third_profile": true,
+      "uniform_analytical_control": true
+    }
+  ]
+}

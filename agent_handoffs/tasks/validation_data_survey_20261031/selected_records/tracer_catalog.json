@@ -1,0 +1,27 @@
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":39,
+    "params":{
+      "q":"title:\"Shrub and grass soil-resource partitioning\"",
+      "fl":"id,title,beginDate,endDate,datePublished,formatId",
+      "rows":"25",
+      "wt":"json"
+    }
+  },
+  "response":{
+    "numFound":1,
+    "start":0,
+    "maxScore":10.716768,
+    "numFoundExact":true,
+    "docs":[{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210469002/1",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "title":"Jornada Basin LTER (2018-2019) data and code for the Ecology publication “Shrub and grass soil-resource partitioning as modulated by precipitation amount and size of individual\"",
+      "beginDate":"2018-08-01T00:00:00Z",
+      "endDate":"2019-10-12T00:00:00Z",
+      "datePublished":"2026-02-27T00:00:00Z"
+    }]
+  }
+}

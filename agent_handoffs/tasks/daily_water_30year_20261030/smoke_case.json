@@ -1,0 +1,18 @@
+[
+  {
+    "name": "smoke_32",
+    "nx": 32,
+    "ny": 32,
+    "dx": 0.25,
+    "grass_count": 120,
+    "shrub_count": 2,
+    "grass_diameter": 0.15,
+    "shrub_diameter": 2.0,
+    "root_multiplier": 3,
+    "pattern": "uniform",
+    "seed": 20261030,
+    "layers": 3,
+    "max_edges": 100000,
+    "max_bytes": 10000000
+  }
+]

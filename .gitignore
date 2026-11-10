@@ -1,0 +1,43 @@
+# Python environments, caches and build products
+__pycache__/
+*.py[cod]
+*.nbc
+*.nbi
+*.cubin
+*.ptx
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+.venv-*/
+cuda-cache/
+numba-cache/
+
+# Local secrets and editor state
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
+
+# Local downloaded research material and duplicated implementation candidates.
+# Keep source manifests, specifications, reviews and verification summaries.
+agent_handoffs/tasks/**/public_evidence/
+agent_handoffs/tasks/**/candidate/
+agent_handoffs/tasks/**/*.stdout.jsonl
+agent_handoffs/tasks/**/*.csv
+agent_handoffs/tasks/**/*.npy
+agent_handoffs/tasks/**/*.npz
+agent_handoffs/tasks/**/*.pdf
+agent_handoffs/tasks/**/*.png
+agent_handoffs/tasks/**/*.webp
+agent_handoffs/tasks/**/*.zip
+!agent_handoffs/tasks/phase0_vegetation_20261110/revision_*/examples/phase0/plants.csv
+!agent_handoffs/tasks/phase0_vegetation_20261110/checkpoint_*/examples/phase0/plants.csv
+
+# Generated user runs; examples/phase0 remains versioned.
+runs/

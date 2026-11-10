@@ -1,0 +1,8 @@
+{
+  "python_executable": "/home/okin/MAPLE/.venv-cupy/bin/python",
+  "python_version": "3.12.3",
+  "numpy": "2.5.3",
+  "numba": "0.67.0",
+  "cupy": "14.2.0",
+  "note": "Existing environment, actual versions read after final verification; no packages installed or environment created."
+}

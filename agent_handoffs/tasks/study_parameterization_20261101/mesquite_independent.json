@@ -1,0 +1,75 @@
+{
+  "calculations": "Independent Codex scalar calculations; figure-derived conditional proxies, not raw-data fitting.",
+  "rows": [
+    {
+      "co2_pa": 38,
+      "water_treatment": "low",
+      "source_whole_plant_log_rgr_per_day": 0.0972,
+      "whole_plant_interval_growth_factor": 44.291819562029545,
+      "conditional_agb_increment_share": 0.668724279835391,
+      "conditional_total_mass_support_balance_kg_per_m3": 0.39140583092317005,
+      "conditional_agb_support_balance_kg_per_m3": 0.26174258240746967,
+      "conditional_agb_normalized_water_demand_m3_per_kg_day": 0.010467253750603606,
+      "aggregate_pot_final_daily_T_m3": 1.59e-05,
+      "continuous_rate_lower_bound_per_year": 37.34526315789474,
+      "weekly_euler_rate_lower_bound_per_year": 52.48036753898896,
+      "max_normal_growth_factor_with_current_rate_cap": 1.1058708521168104,
+      "min_seasonal_fraction_if_total_growth_forced_through_rate_cap": 0.9750321647868165,
+      "minimum_agb_growth_factor_with_any_initial_agb_fraction_at_most_one": 29.950290859381898
+    },
+    {
+      "co2_pa": 38,
+      "water_treatment": "high",
+      "source_whole_plant_log_rgr_per_day": 0.1028,
+      "whole_plant_interval_growth_factor": 55.10277070930669,
+      "conditional_agb_increment_share": 0.7198443579766537,
+      "conditional_total_mass_support_balance_kg_per_m3": 0.3700841125071219,
+      "conditional_agb_support_balance_kg_per_m3": 0.26640296036504885,
+      "conditional_agb_normalized_water_demand_m3_per_kg_day": 0.01028414257725607,
+      "aggregate_pot_final_daily_T_m3": 2.06e-05,
+      "continuous_rate_lower_bound_per_year": 39.496842105263156,
+      "weekly_euler_rate_lower_bound_per_year": 56.654178794483556,
+      "max_normal_growth_factor_with_current_rate_cap": 1.1058708521168104,
+      "min_seasonal_fraction_if_total_growth_forced_through_rate_cap": 0.9799307577843807,
+      "minimum_agb_growth_factor_with_any_initial_agb_fraction_at_most_one": 39.945574245998976
+    },
+    {
+      "co2_pa": 76,
+      "water_treatment": "low",
+      "source_whole_plant_log_rgr_per_day": 0.0989,
+      "whole_plant_interval_growth_factor": 47.327901248887414,
+      "conditional_agb_increment_share": 0.6683518705763397,
+      "conditional_total_mass_support_balance_kg_per_m3": 0.6154824459876341,
+      "conditional_agb_support_balance_kg_per_m3": 0.41135884408273626,
+      "conditional_agb_normalized_water_demand_m3_per_kg_day": 0.006660185059364426,
+      "aggregate_pot_final_daily_T_m3": 1.1e-05,
+      "continuous_rate_lower_bound_per_year": 37.998421052631585,
+      "weekly_euler_rate_lower_bound_per_year": 53.73121342570721,
+      "max_normal_growth_factor_with_current_rate_cap": 1.1058708521168104,
+      "min_seasonal_fraction_if_total_growth_forced_through_rate_cap": 0.976633849739052,
+      "minimum_agb_growth_factor_with_any_initial_agb_fraction_at_most_one": 31.96333945956985
+    },
+    {
+      "co2_pa": 76,
+      "water_treatment": "high",
+      "source_whole_plant_log_rgr_per_day": 0.1049,
+      "whole_plant_interval_growth_factor": 59.80564174091019,
+      "conditional_agb_increment_share": 0.7130600571973308,
+      "conditional_total_mass_support_balance_kg_per_m3": 0.7677837734516518,
+      "conditional_agb_support_balance_kg_per_m3": 0.5474759414126174,
+      "conditional_agb_normalized_water_demand_m3_per_kg_day": 0.005004285704917223,
+      "aggregate_pot_final_daily_T_m3": 1.05e-05,
+      "continuous_rate_lower_bound_per_year": 40.30368421052631,
+      "weekly_euler_rate_lower_bound_per_year": 58.259392842755176,
+      "max_normal_growth_factor_with_current_rate_cap": 1.1058708521168104,
+      "min_seasonal_fraction_if_total_growth_forced_through_rate_cap": 0.9815089208990071,
+      "minimum_agb_growth_factor_with_any_initial_agb_fraction_at_most_one": 42.93195426329916
+    }
+  ],
+  "assumptions": [
+    "Water, activity and temperature factors = 1 for rate lower bounds; size far below mature mass.",
+    "Aboveground support proxy assumes stable standing AGB fraction equal to growth-allocation share; this is not observed standing allocation.",
+    "Eprod log means and mean RGR are different treatment-level summaries, so derived ratios are approximate.",
+    "Pair aggregation doubles extensive quantities only; source two-day water is not cumulative 39-day use."
+  ]
+}

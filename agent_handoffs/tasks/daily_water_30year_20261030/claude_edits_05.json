@@ -1,0 +1,30 @@
+{
+  "edits": [
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "Generic, synthetic workload layered on `benchmarks/spatial_mapping.py` (imported as `sm`, unmodified; its\nCPU/GPU root-graph builders, admission, transfer and warm-up are reused, not duplicated). Everything\necological below is a **benchmark fixture**, not calibrated ecology. Status: written as text only,\nnot executed by the author; see Limitations.\n\n## Fixture rules\n",
+      "new": "Generic, synthetic workload layered on `benchmarks/spatial_mapping.py` (imported as `sm`, unmodified; its\nCPU/GPU root-graph builders, admission, transfer and warm-up are reused, not duplicated). Everything\necological below is a **benchmark fixture**, not calibrated ecology.\n\nStatus: independently reviewed and executed by the project orchestrator (unit suites including the\nexecuted CPU/GPU parity check, and complete 30-year runs with conservation and calendar checks).\nEvidence, pool-budget measurement policy and measured results: `../docs/daily-water-30year.md`.\nThe author of this module did not execute it; nothing here reports timing values.\n\n## Fixture rules\n\n"
+    },
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "## Usage\n```\n",
+      "new": "## Usage\n\n```\n"
+    },
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "## Output per case\n`status`",
+      "new": "## Output per case\n\n`status`"
+    },
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "per-case RSS. No measured speedups are claimed anywhere.\n\n## Tests\n`python -m unittest tests.test_daily_water_growth`",
+      "new": "per-case RSS. No measured speedups are claimed anywhere.\n\nValidation cadence: candidate weight normalization, positive counts and finite positive radii/biomass\nare checked on every map rebuild (initial and each weekly growth) before commit; full mass-balance,\nflux-equality, calendar and root/canopy ratio reports are produced at each annual report boundary\nand at the end of the run.\n\nTiming: the `since_module_import` timer is only a proxy for whole-process wall time; the independent\nwrapper records the complete process time (and per-case RSS under `--isolate`).\n\nMemory: the default CuPy memory pool keeps cached/reserved blocks that can greatly exceed the live\narrays listed in the ledger; the sampled pool numbers are reservations, not live state. The\npool-budget measurement policy and measured results are in `../docs/daily-water-30year.md`.\n\n## Tests\n\n`python -m unittest tests.test_daily_water_growth`"
+    },
+    {
+      "path": "benchmarks/daily-water-growth.md",
+      "old": "## Limitations (untested)\nNot executed by the author. Assumes `sm` graph containers support item or attribute access with the\ndocumented dtypes, `sm.gpu_status()` exposes `available`/`availability`, `sm.AdmissionRejected`\naccepts a message, and `sm.validate_inputs` accepts caller-supplied inputs used by the tests. CPU\nkernels are serial njit (no prange). Weight-sum/ratio audits run only at report boundaries. The\n`since_module_import` timer is a proxy for whole-process wall. Growth uses NumPy/CuPy vectorised ops\n(not custom kernels); daily hot paths are njit / RawModule kernels.\n",
+      "new": "## Limitations\n\n- Synthetic ecology: storage, recharge, demand, WUE and turnover are fixtures chosen for a bounded,\n  auditable workload; results say nothing about real vegetation or soils.\n- Uniform root weights per intersected cell and uniform `1/L` layer weights; no wetter-layer\n  compensation, no evaporation, drainage, transport or storm hydrology.\n- CPU daily kernels are serial `njit` loops (no `prange`); they are a standalone reference, not a\n  tuned multicore baseline.\n- Weekly growth uses NumPy/CuPy pointwise operations on preallocated candidate arrays rather than\n  custom kernels; the daily hot paths are compiled CPU loops / RawModule GPU kernels.\n- No production restart or checkpoint framework: `Simulation.step_days` split runs are equivalent,\n  but state is not serialized.\n- Admission peaks are ledger estimates (state + old/new graph + scratch allowance + mirrors), not\n  observed allocator peaks; measured peaks come from the independent profiler in the linked report.\n"
+    }
+  ],
+  "report": "Documentation-only edits to benchmarks/daily-water-growth.md: current status now links the independent evidence report instead of stale author-untested wording (without claiming author execution or quoting timings), blank lines added after headings, validation cadence (per-rebuild candidate checks; annual plus final mass-balance/ratio reports), timer-proxy and whole-process wrapper note, CuPy pool reservation note with pointer to the measurement policy, and the Limitations section rewritten to real limitations with outdated API-assumption claims removed. No source, tests, numerics or flags changed."
+}

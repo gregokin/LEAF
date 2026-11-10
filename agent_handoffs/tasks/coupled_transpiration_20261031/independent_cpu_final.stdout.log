@@ -1,0 +1,83 @@
+{
+  "analytical_weeks": [
+    {
+      "backend": "numpy",
+      "area_m2": 1.0,
+      "expected_total_T_m3": 1.1780972450961726e-05,
+      "actual_T_m3": 1.17809724509612e-05,
+      "water_residual_m3": -1.734723475976807e-18,
+      "biomass_analytical": true,
+      "original_state_immutable": true,
+      "time_and_weekly_calendar": true,
+      "phase_refusal": true,
+      "strict_gather_dtype": true
+    },
+    {
+      "backend": "numpy",
+      "area_m2": 0.0625,
+      "expected_total_T_m3": 1.1780972450961726e-05,
+      "actual_T_m3": 1.1780972450961742e-05,
+      "water_residual_m3": -1.0842021724855044e-19,
+      "biomass_analytical": true,
+      "original_state_immutable": true,
+      "time_and_weekly_calendar": true,
+      "phase_refusal": true,
+      "strict_gather_dtype": true
+    },
+    {
+      "backend": "numba",
+      "area_m2": 1.0,
+      "expected_total_T_m3": 1.1780972450961726e-05,
+      "actual_T_m3": 1.17809724509612e-05,
+      "water_residual_m3": -1.734723475976807e-18,
+      "biomass_analytical": true,
+      "original_state_immutable": true,
+      "time_and_weekly_calendar": true,
+      "phase_refusal": true,
+      "strict_gather_dtype": true
+    },
+    {
+      "backend": "numba",
+      "area_m2": 0.0625,
+      "expected_total_T_m3": 1.1780972450961726e-05,
+      "actual_T_m3": 1.1780972450961742e-05,
+      "water_residual_m3": -1.0842021724855044e-19,
+      "biomass_analytical": true,
+      "original_state_immutable": true,
+      "time_and_weekly_calendar": true,
+      "phase_refusal": true,
+      "strict_gather_dtype": true
+    }
+  ],
+  "masked": [
+    {
+      "backend": "numpy",
+      "inactive_storage_excluded": true,
+      "inactive_water_unchanged": true,
+      "unmapped_potential_explicit": true,
+      "no_renormalization": true
+    },
+    {
+      "backend": "numba",
+      "inactive_storage_excluded": true,
+      "inactive_water_unchanged": true,
+      "unmapped_potential_explicit": true,
+      "no_renormalization": true
+    }
+  ],
+  "split_runs": [
+    {
+      "backend": "numpy",
+      "split_4_plus_5_equals_9": true
+    },
+    {
+      "backend": "numba",
+      "split_4_plus_5_equals_9": true
+    }
+  ],
+  "guard_regressions": {
+    "negative_reserve_rejected": true,
+    "native_zero_memory_precedes_vegetation_allocation": true
+  },
+  "status": "pass"
+}

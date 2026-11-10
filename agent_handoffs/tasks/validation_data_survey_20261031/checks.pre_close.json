@@ -1,0 +1,59 @@
+{
+  "checked_utc": "2026-10-31T23:02:02.133713+00:00",
+  "baseline_files": 1530,
+  "unchanged_baseline_files": 1523,
+  "changed_baseline_paths": [
+    "README.md",
+    "agent_handoffs/codex_review.md",
+    "agent_handoffs/current_prompt.md",
+    "agent_handoffs/decisions.md",
+    "agent_handoffs/orchestration_state.md",
+    "agent_handoffs/project_brief.md",
+    "agent_handoffs/verification.md"
+  ],
+  "out_of_scope_changes": [],
+  "missing_baseline_files": [],
+  "new_paths_outside_scope": [],
+  "root_agents_sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+  "root_agents_expected": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+  "parsed_eml_packages": 10,
+  "neon_products": 3,
+  "archived_response_hashes_checked": 23,
+  "metadata_errors": [],
+  "local_links_checked": 69,
+  "bad_local_links": [
+    [
+      "agent_handoffs/tasks/validation_data_survey_20261031/previous_verification.md",
+      "tasks/stepwat_growth_20261031/verification.md"
+    ],
+    [
+      "agent_handoffs/tasks/validation_data_survey_20261031/previous_verification.md",
+      "tasks/stepwat_growth_20261031/source_and_document_checks_final.json"
+    ],
+    [
+      "agent_handoffs/tasks/validation_data_survey_20261031/previous_verification.md",
+      "../dependencies/stepwat-growth.lock.json"
+    ],
+    [
+      "agent_handoffs/tasks/validation_data_survey_20261031/previous_codex_review.md",
+      "tasks/stepwat_growth_20261031/codex_review.md"
+    ],
+    [
+      "agent_handoffs/tasks/validation_data_survey_20261031/previous_codex_review.md",
+      "tasks/stepwat_growth_20261031/verification.md"
+    ],
+    [
+      "agent_handoffs/tasks/validation_data_survey_20261031/previous_current_prompt.md",
+      "tasks/stepwat_growth_20261031/README.md"
+    ],
+    [
+      "agent_handoffs/tasks/validation_data_survey_20261031/previous_orchestration_state.md",
+      "tasks/stepwat_growth_20261031/codex_review.md"
+    ]
+  ],
+  "trailing_whitespace": [],
+  "observation_rows_retrieved": false,
+  "model_tests_or_runs": false,
+  "claude_sessions": 0,
+  "passed": false
+}

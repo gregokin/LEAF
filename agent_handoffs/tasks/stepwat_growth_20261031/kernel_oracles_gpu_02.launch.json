@@ -1,0 +1,36 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/independent_kernels.py",
+    "--gpu"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate",
+  "pid": 2112743,
+  "proc_stat_at_launch": "2112743 (python) R 2112742 2112743 2112743 0 -1 4194304 12 0 0 0 0 0 0 0 20 0 1 0 95567056 8450048 0 18446744073709551615 4325376 7352253 140720811388416 0 0 0 0 0 0 0 0 0 17 18 0 0 0 0 0 10653128 12216448 826462208 140720811396240 140720811396369 140720811396369 140720811401169 0\n",
+  "start_ticks": "95567056",
+  "started_at_utc": "2026-10-31T22:04:38.863653+00:00",
+  "timeout_seconds": 120.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate/benchmarks/daily_water_growth.py": "13b278d4d111027886f1689d570cf0b0313c4acc06a635a4b9c617fee3397e41",
+    "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate/leaf/coupling.py": "5b94614eae341cbccfaaa533d36efb6e5981057ddf2625156a451743afc297ea",
+    "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate/leaf/__init__.py": "75ff4924d1318cd25e40da04d2e66bb24400fb4881c2c49db5b5f5994db00966",
+    "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate/leaf/stepwat.py": "5e6e56583585c8eacdf3af1fada47dba578c48ca96cdc5673022cf92344fcb7b",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface.py": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_numba.py": "3e3e50cab32a97c2ea487c6acf404217e684be7e519d7c33b349aafc755f30f7",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_cuda.py": "7259ea96779849f4da66af66bdb313c092a39201989e08de6d39998707dd5065",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_transpiration.py": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9"
+  },
+  "environment": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate:/home/okin/SYRUP/src",
+    "LEAF_SOURCE_ROOT": "/home/okin/leaf/agent_handoffs/tasks/stepwat_growth_20261031/candidate",
+    "CUDA_VISIBLE_DEVICES": "GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-stepwat-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-stepwat-cupy",
+    "CUDA_CACHE_PATH": "/tmp/leaf-stepwat-cuda",
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": null,
+    "NUMBA_NUM_THREADS": null
+  }
+}

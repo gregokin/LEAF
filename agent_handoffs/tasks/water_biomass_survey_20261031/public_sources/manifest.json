@@ -1,0 +1,62 @@
+[
+  {
+    "name": "ST_resgroups.c",
+    "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_resgroups.c",
+    "at_utc": "2026-10-31T21:14:19.494470+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_resgroups.c",
+    "content_type": "text/plain; charset=utf-8",
+    "bytes": 47571,
+    "sha256": "054892f036c70dadf4d6bf97c06a74d9982a3b54f05e9b12cc70de432ca0012c"
+  },
+  {
+    "name": "ST_species.c",
+    "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_species.c",
+    "at_utc": "2026-10-31T21:14:19.781271+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_species.c",
+    "content_type": "text/plain; charset=utf-8",
+    "bytes": 22366,
+    "sha256": "6915e37f8db999c9ce0228999f8b85a35acfd86f7344146bff423b07852fec8e"
+  },
+  {
+    "name": "ST_indivs.c",
+    "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_indivs.c",
+    "at_utc": "2026-10-31T21:14:19.916168+00:00",
+    "status": 200,
+    "final_url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_indivs.c",
+    "content_type": "text/plain; charset=utf-8",
+    "bytes": 17821,
+    "sha256": "688f95035167f173b103346971a9163226ba83fd766e60f3e95d4b4dbe7ac7fc"
+  },
+  {
+    "name": "kelly-caylor20041479.html",
+    "url": "https://www.waveslab.org/publications/kelly-caylor20041479",
+    "at_utc": "2026-10-31T21:14:20.068137+00:00",
+    "status": 200,
+    "final_url": "https://www.waveslab.org/publications/kelly-caylor20041479",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 55037,
+    "sha256": "5012433654c2cbf68810ea599b230ddcd178a3c64720c1e1d80656b789ffbed8"
+  },
+  {
+    "name": "kelly-caylor20051459.html",
+    "url": "https://www.waveslab.org/publications/kelly-caylor20051459",
+    "at_utc": "2026-10-31T21:14:20.322519+00:00",
+    "status": 200,
+    "final_url": "https://www.waveslab.org/publications/kelly-caylor20051459",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 55126,
+    "sha256": "0c92f45da29df652af764e7d626e741059a0feb1a969ea31e932771471130a9f"
+  },
+  {
+    "name": "kelly-caylor20041398.html",
+    "url": "https://www.waveslab.org/publications/kelly-caylor20041398",
+    "at_utc": "2026-10-31T21:14:20.522212+00:00",
+    "status": 200,
+    "final_url": "https://www.waveslab.org/publications/kelly-caylor20041398",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 56627,
+    "sha256": "8162ba495de0a3e3c86c7b52f3338e2be9c4acc8fe68d3a65dcb35b14987ff7a"
+  }
+]

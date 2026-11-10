@@ -1,0 +1,1416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="knb-lter-jrn.210469002.1" scope="system"
+  system="https://pasta.edirepository.org"
+  xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+   <access
+    authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document"
+      system="https://pasta.edirepository.org">
+      <allow>
+         <principal>uid=JRN,o=EDI,dc=edirepository,dc=org</principal>
+         <permission>all</permission>
+      </allow>
+      <allow>
+         <principal>public</principal>
+         <permission>read</permission>
+      </allow>
+   </access>
+   <dataset>
+      <alternateIdentifier
+        system="https://doi.org">doi:10.6073/pasta/4bcdaa76d6994ac6e81a9097b8a8dcab</alternateIdentifier><title>Jornada Basin LTER (2018-2019) data and code for the Ecology publication “Shrub and grass soil-resource partitioning as modulated by precipitation amount and size of individual"</title>
+      <creator>
+         <individualName>
+            <givenName>Christopher</givenName>
+            <givenName>E</givenName>
+            <surName>Vito</surName>
+         </individualName>
+         <organizationName>Arizona State University</organizationName>
+         <positionName>Ph.D. Candidate</positionName>
+         <address>
+            <deliveryPoint>427 E Tyler Mall</deliveryPoint>
+            <city>Tempe</city>
+            <administrativeArea>Arizona</administrativeArea>
+            <postalCode>85281</postalCode>
+            <country>United States</country>
+         </address>
+         <electronicMailAddress>cvito@asu.edu</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0001-0771-8029</userId>
+      </creator>
+      <creator>
+         <individualName>
+            <givenName>Osvaldo</givenName>
+            <givenName>E</givenName>
+            <surName>Sala</surName>
+         </individualName>
+         <organizationName>Arizona State University</organizationName>
+         <address>
+            <deliveryPoint>427 E Tyler Mall</deliveryPoint>
+            <city>Tempe</city>
+            <administrativeArea>Arizona</administrativeArea>
+            <postalCode>85281</postalCode>
+            <country>United States</country>
+         </address>
+         <electronicMailAddress>osvaldo.sala@asu.edu</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0003-0142-9450</userId>
+      </creator>
+      <metadataProvider>
+         <organizationName>Jornada Basin LTER</organizationName>
+         <address>
+            <deliveryPoint>New Mexico State University</deliveryPoint>
+            <deliveryPoint>P.O. Box 30003; MSC 3JER</deliveryPoint>
+            <city>Las Cruces</city>
+            <administrativeArea>NM</administrativeArea>
+            <postalCode>88003-8003</postalCode>
+            <country>U.S.A.</country>
+         </address>
+         <electronicMailAddress>jornada.data@nmsu.edu</electronicMailAddress>
+         <onlineUrl>https://lter.jornada.nmsu.edu/information-management</onlineUrl>
+         <userId
+        directory="https://ror.org/">05976ta47</userId>
+      </metadataProvider>
+      <pubDate>2026-02-27</pubDate>
+      <abstract>
+         <para>This data package contains data and code associated with a plant root tracer experiment (Study 469) conducted at the Jornada Basin LTER site in southern New Mexico, U.S.A, associated with the Ecology journal article “Shrub and grass soil-resource partitioning as modulated by precipitation amount and size of individual". The study was designed to investigate the root absorption profiles of dominant Prosopis glandulosa shrub and Bouteloua eriopoda grass. In September 2018 and September 2019, either LiCl tracer (treatment) or water (control) was injected to beneath 64 Prosopis glandulosa shrubs with co-located Bouteloua eripoda grasses. Injection depths ranged from 10 to 120 cm beneath the soil surface. Aboveground photosynthetic plant tissue was collected from target shrubs and grasses 21 days following each injection. Milled plant tissue samples were analyzed for Li content (concentration in ppm) using ICP-OES techniques in order to quantify plant root uptake activity. R scripts included in this package duplicate the data preparation and statistical analyses performed to model the soil-resource uptake of shrubs and grasses under divergent soil moisture conditions. This study and the dataset are completed.</para>
+      </abstract>
+      <keywordSet>
+         <keyword
+        keywordType="theme">JRN LTER</keyword>
+         <keyword
+        keywordType="theme">jrn 469</keyword>
+         <keyword
+        keywordType="place">Jornada Basin</keyword>
+      </keywordSet>
+      <keywordSet>
+         <keyword
+        keywordType="theme">biological processes</keyword>
+         <keyword
+        keywordType="theme">biomass</keyword>
+         <keyword
+        keywordType="theme">chloride</keyword>
+         <keyword
+        keywordType="theme">climate change</keyword>
+         <keyword
+        keywordType="theme">competition</keyword>
+         <keyword
+        keywordType="theme">depth</keyword>
+         <keyword
+        keywordType="theme">dimensions</keyword>
+         <keyword
+        keywordType="theme">ecology</keyword>
+         <keyword
+        keywordType="theme">ecosystems</keyword>
+         <keyword
+        keywordType="theme">fine roots</keyword>
+         <keyword
+        keywordType="taxonomic">grasses</keyword>
+         <keyword
+        keywordType="place">grasslands</keyword>
+         <keyword
+        keywordType="place">deserts</keyword>
+         <keyword
+        keywordType="theme">groundwater</keyword>
+         <keyword
+        keywordType="theme">growth</keyword>
+         <keyword
+        keywordType="theme">hydraulic conductance</keyword>
+         <keyword
+        keywordType="theme">hydrologic processes</keyword>
+         <keyword
+        keywordType="theme">hydrology</keyword>
+         <keyword
+        keywordType="theme">neutron probe</keyword>
+         <keyword
+        keywordType="theme">physiology</keyword>
+         <keyword
+        keywordType="theme">plant biomass</keyword>
+         <keyword
+        keywordType="theme">plant ecology</keyword>
+         <keyword
+        keywordType="theme">plant functional types</keyword>
+         <keyword
+        keywordType="theme">plant physiology</keyword>
+         <keyword
+        keywordType="theme">plants</keyword>
+         <keyword
+        keywordType="theme">processes</keyword>
+         <keyword
+        keywordType="theme">roots</keyword>
+         <keyword
+        keywordType="taxonomic">shrubs</keyword>
+         <keyword
+        keywordType="theme">size distribution</keyword>
+         <keyword
+        keywordType="theme">soil water</keyword>
+         <keyword
+        keywordType="theme">soil water content</keyword>
+         <keyword
+        keywordType="theme">terrestrial ecosystems</keyword>
+         <keyword
+        keywordType="theme">tracers</keyword>
+         <keyword
+        keywordType="theme">translocation</keyword>
+         <keyword
+        keywordType="taxonomic">vascular plants</keyword>
+         <keyword
+        keywordType="theme">vegetation dynamics</keyword>
+         <keyword
+        keywordType="theme">water</keyword>
+         <keyword
+        keywordType="theme">water content</keyword>
+         <keywordThesaurus>LTER Controlled Vocabulary</keywordThesaurus>
+      </keywordSet>
+      <keywordSet>
+         <keyword
+        keywordType="theme">ecohydrology</keyword>
+         <keyword
+      keywordType="theme">lithium</keyword>
+         <keywordThesaurus>none</keywordThesaurus>
+      </keywordSet>
+      <intellectualRights>This information is released under the Creative Commons license - Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/). The consumer of these data ("Data User" herein) is required to cite it appropriately in any publication that results from its use. The Data User should realize that these data may be actively used by others for ongoing research and that coordination may be necessary to prevent duplicate publication. The Data User is urged to contact the authors of these data if any questions about methodology or results occur. Where appropriate, the Data User is encouraged to consider collaboration or co-authorship with the authors. The Data User should realize that misinterpretation of data may occur if used out of context of the original study. While substantial efforts are made to ensure the accuracy of data and associated documentation, complete accuracy of data sets cannot be guaranteed. All data are made available "as is." The Data User should be aware, however, that data are updated periodically and it is the responsibility of the Data User to check for new versions of the data. The data authors and the repository where these data were obtained shall not be liable for damages resulting from any use or misinterpretation of the data. Thank you.</intellectualRights>
+      <distribution
+      id="10.6073/pasta/4bcdaa76d6994ac6e81a9097b8a8dcab" scope="system"
+          system="https://pasta.edirepository.org"><online><url
+            function="information">https://doi.org/10.6073/pasta/4bcdaa76d6994ac6e81a9097b8a8dcab</url></online></distribution><coverage>
+         <geographicCoverage>
+            <geographicDescription>The Jornada Experimental Range, NM, Pasture 13, Block 3 exclosure</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-106.872883</westBoundingCoordinate>
+               <eastBoundingCoordinate>-106.692716</eastBoundingCoordinate>
+               <northBoundingCoordinate>32.749487</northBoundingCoordinate>
+               <southBoundingCoordinate>32.473173</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <temporalCoverage>
+            <rangeOfDates>
+               <beginDate>
+                  <calendarDate>2018-08-01</calendarDate>
+               </beginDate>
+               <endDate>
+                  <calendarDate>2019-10-12</calendarDate>
+               </endDate>
+            </rangeOfDates>
+         </temporalCoverage>
+         <taxonomicCoverage>
+            <generalTaxonomicCoverage>All grasses were identified at least to genus. Target grass species of this study was Bouteloua eriopoda.</generalTaxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Kingdom</taxonRankName>
+               <taxonRankValue>Plantae</taxonRankValue>
+               <commonName>plants</commonName>
+               <taxonId
+              provider="https://www.itis.gov">202422</taxonId>
+               <taxonomicClassification>
+                  <taxonRankName>Subkingdom</taxonRankName>
+                  <taxonRankValue>Viridiplantae</taxonRankValue>
+                  <commonName>green plants</commonName>
+                  <taxonId
+                provider="https://www.itis.gov">954898</taxonId>
+                  <taxonomicClassification>
+                     <taxonRankName>Infrakingdom</taxonRankName>
+                     <taxonRankValue>Streptophyta</taxonRankValue>
+                     <commonName>land plants</commonName>
+                     <taxonId
+                  provider="https://www.itis.gov">846494</taxonId>
+                     <taxonomicClassification>
+                        <taxonRankName>Phylum</taxonRankName>
+                        <taxonRankValue>Tracheophyta</taxonRankValue>
+                        <commonName>tracheophytes</commonName>
+                        <commonName>vascular plants</commonName>
+                        <taxonId
+                    provider="https://www.itis.gov">846496</taxonId>
+                        <taxonomicClassification>
+                           <taxonRankName>Subphylum</taxonRankName>
+                           <taxonRankValue>Spermatophytina</taxonRankValue>
+                           <commonName>seed plants</commonName>
+                           <commonName>spermatophytes</commonName>
+                           <taxonId
+                      provider="https://www.itis.gov">846504</taxonId>
+                           <taxonomicClassification>
+                              <taxonRankName>Class</taxonRankName>
+                              <taxonRankValue>Magnoliopsida</taxonRankValue>
+                              <taxonId
+                        provider="https://www.itis.gov">18063</taxonId>
+                              <taxonomicClassification>
+                                 <taxonRankName>Superorder</taxonRankName>
+                                 <taxonRankValue>Lilianae</taxonRankValue>
+                                 <commonName>monocots</commonName>
+                                 <commonName>monocotyledons</commonName>
+                                 <taxonId
+                          provider="https://www.itis.gov">846542</taxonId>
+                                 <taxonomicClassification>
+                                    <taxonRankName>Order</taxonRankName>
+                                    <taxonRankValue>Poales</taxonRankValue>
+                                    <taxonId
+                            provider="https://www.itis.gov">846620</taxonId>
+                                    <taxonomicClassification>
+                                       <taxonRankName>Family</taxonRankName>
+                                       <taxonRankValue>Poaceae</taxonRankValue>
+                                       <taxonId
+                              provider="https://www.itis.gov">40351</taxonId>
+                                       <taxonomicClassification>
+                                          <taxonRankName>Genus</taxonRankName>
+                                          <taxonRankValue>Bouteloua</taxonRankValue>
+                                          <taxonId
+                                provider="https://www.itis.gov">41491</taxonId>
+                                          <taxonomicClassification>
+                                             <taxonRankName>Species</taxonRankName>
+                                             <taxonRankValue>Bouteloua eriopoda</taxonRankValue>
+                                             <taxonId
+            provider="https://www.itis.gov">41501</taxonId>
+                                          </taxonomicClassification>
+                                       </taxonomicClassification>
+                                    </taxonomicClassification>
+                                 </taxonomicClassification>
+                              </taxonomicClassification>
+                           </taxonomicClassification>
+                        </taxonomicClassification>
+                     </taxonomicClassification>
+                  </taxonomicClassification>
+               </taxonomicClassification>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+         <taxonomicCoverage>
+            <generalTaxonomicCoverage>Shrubs were identified to species.</generalTaxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Kingdom</taxonRankName>
+               <taxonRankValue>Plantae</taxonRankValue>
+               <commonName>plants</commonName>
+               <taxonId
+              provider="https://www.itis.gov">202422</taxonId>
+               <taxonomicClassification>
+                  <taxonRankName>Subkingdom</taxonRankName>
+                  <taxonRankValue>Viridiplantae</taxonRankValue>
+                  <commonName>green plants</commonName>
+                  <taxonId
+                provider="https://www.itis.gov">954898</taxonId>
+                  <taxonomicClassification>
+                     <taxonRankName>Infrakingdom</taxonRankName>
+                     <taxonRankValue>Streptophyta</taxonRankValue>
+                     <commonName>land plants</commonName>
+                     <taxonId
+                  provider="https://www.itis.gov">846494</taxonId>
+                     <taxonomicClassification>
+                        <taxonRankName>Phylum</taxonRankName>
+                        <taxonRankValue>Tracheophyta</taxonRankValue>
+                        <commonName>tracheophytes</commonName>
+                        <commonName>vascular plants</commonName>
+                        <taxonId
+                    provider="https://www.itis.gov">846496</taxonId>
+                        <taxonomicClassification>
+                           <taxonRankName>Subphylum</taxonRankName>
+                           <taxonRankValue>Spermatophytina</taxonRankValue>
+                           <commonName>seed plants</commonName>
+                           <commonName>spermatophytes</commonName>
+                           <taxonId
+                      provider="https://www.itis.gov">846504</taxonId>
+                           <taxonomicClassification>
+                              <taxonRankName>Class</taxonRankName>
+                              <taxonRankValue>Magnoliopsida</taxonRankValue>
+                              <taxonId
+                        provider="https://www.itis.gov">18063</taxonId>
+                              <taxonomicClassification>
+                                 <taxonRankName>Superorder</taxonRankName>
+                                 <taxonRankValue>Rosanae</taxonRankValue>
+                                 <taxonId
+                          provider="https://www.itis.gov">846548</taxonId>
+                                 <taxonomicClassification>
+                                    <taxonRankName>Order</taxonRankName>
+                                    <taxonRankValue>Fabales</taxonRankValue>
+                                    <taxonId
+                            provider="https://www.itis.gov">500022</taxonId>
+                                    <taxonomicClassification>
+                                       <taxonRankName>Family</taxonRankName>
+                                       <taxonRankValue>Fabaceae</taxonRankValue>
+                                       <commonName>legumes</commonName>
+                                       <commonName>peas</commonName>
+                                       <taxonId
+                              provider="https://www.itis.gov">500059</taxonId>
+                                       <taxonomicClassification>
+                                          <taxonRankName>Genus</taxonRankName>
+                                          <taxonRankValue>Prosopis</taxonRankValue>
+                                          <commonName>mesquite</commonName>
+                                          <taxonId
+                                provider="https://www.itis.gov">26878</taxonId>
+                                          <taxonomicClassification>
+                                             <taxonRankName>Species</taxonRankName>
+                                             <taxonRankValue>Prosopis glandulosa</taxonRankValue>
+                                             <commonName>honey mesquite</commonName>
+                                             <taxonId
+        provider="https://www.itis.gov">26879</taxonId>
+                                          </taxonomicClassification>
+                                       </taxonomicClassification>
+                                    </taxonomicClassification>
+                                 </taxonomicClassification>
+                              </taxonomicClassification>
+                           </taxonomicClassification>
+                        </taxonomicClassification>
+                     </taxonomicClassification>
+                  </taxonomicClassification>
+               </taxonomicClassification>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+      </coverage>
+      <maintenance>
+         <description>
+            <para>Study complete. The dataset will only be updated if metadata changes.</para>
+         </description>
+         <maintenanceUpdateFrequency>asNeeded</maintenanceUpdateFrequency>
+      </maintenance>
+      <contact>
+         <organizationName>Jornada Basin LTER</organizationName>
+         <positionName>Information Manager</positionName>
+         <address>
+            <deliveryPoint>New Mexico State University</deliveryPoint>
+            <deliveryPoint>P.O. Box 30003; MSC 3JER</deliveryPoint>
+            <city>Las Cruces</city>
+            <administrativeArea>NM</administrativeArea>
+            <postalCode>88003-8003</postalCode>
+            <country>USA</country>
+         </address>
+         <electronicMailAddress>jornada.data@nmsu.edu</electronicMailAddress>
+         <onlineUrl>https://lter.jornada.nmsu.edu/information-management</onlineUrl>
+         <userId
+        directory="https://ror.org/">05976ta47</userId>
+      </contact>
+      <contact>
+         <individualName>
+            <givenName>Christopher</givenName>
+            <givenName>E</givenName>
+            <surName>Vito</surName>
+         </individualName>
+         <organizationName>Arizona State University</organizationName>
+         <address>
+            <deliveryPoint>427 E Tyler Mall</deliveryPoint>
+            <city>Tempe</city>
+            <administrativeArea>Arizona</administrativeArea>
+            <postalCode>85281</postalCode>
+            <country>United States</country>
+         </address>
+         <electronicMailAddress>cvito@asu.edu</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0009-0001-0771-8029</userId>
+      </contact>
+      <contact>
+         <individualName>
+            <givenName>Osvaldo</givenName>
+            <givenName>E</givenName>
+            <surName>Sala</surName>
+         </individualName>
+         <organizationName>Arizona State University</organizationName>
+         <address>
+            <deliveryPoint>427 E Tyler Mall</deliveryPoint>
+            <city>Tempe</city>
+            <administrativeArea>Arizona</administrativeArea>
+            <postalCode>85281</postalCode>
+            <country>United States</country>
+         </address>
+         <electronicMailAddress>osvaldo.sala@asu.edu</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0003-0142-9450</userId>
+      </contact>
+      <publisher>
+         <organizationName>Environmental Data Initiative</organizationName>
+         <electronicMailAddress>info@edirepository.org</electronicMailAddress>
+         <onlineUrl>https://edirepository.org</onlineUrl>
+         <userId
+              directory="https://ror.org">0330j0z60</userId>
+      </publisher>
+      <pubPlace>Environmental Data Initiative</pubPlace>
+      <methods>
+         <methodStep>
+            <description>
+               <para>Study Site Description and Environmental Variables</para>
+               <para/>
+               <para>This study was conducted within the Jornada Basin LTER site, located north of Las Cruces, NM, USA (32.56°N, 106.78°W). The site receives a mean annual precipitation of 232 mm predominantly from summer monsoonal storms. Dominant vegetation species are Bouteloua eriopoda (black grama), a perennial C4 grass, and Prosopis glandulosa (honey mesquite), a perennial C3 shrub. Soil at the site is classified as Cacique loamy fine sand with weakly developed textural B (argillic) horizons overlaying semi-indurated to indurated caliche at ~30-60 cm in depth (Gile 1981; Monger 2006). The site has been protected from cattle grazing since 1996. Volumetric soil moisture data was collected from10 nearby neutron probes at the G-BASN NPP site located at the Jornada Basin LTER site (Virginia, Duniway, and Anderson 2025). Data was retrieved for the months of August, September, and October of 2018 and 2019 from depths of 30 cm, 60 cm, 90 cm, and 120 cm. </para>
+            </description>
+            <instrumentation>CPN Model 503DR Hydroprobe and CPN Model 503 Elite Hydroprobe</instrumentation>
+            <dataSource>
+               <title>Soil volumetric water content calculated from neutron hydroprobe data at 15 NPP study locations at the Jornada Basin LTER site, 1989-ongoing</title>
+               <creator>
+                  <individualName>
+                     <givenName>Ross</givenName>
+                     <surName>Virginia</surName>
+                  </individualName>
+                  <organizationName>Dartmouth College</organizationName>
+                  <electronicMailAddress>Ross.A.Virginia@dartmouth.edu</electronicMailAddress>
+                  <userId
+              directory="https://orcid.org">0000-0002-0890-0981</userId>
+               </creator>
+               <creator>
+                  <individualName>
+                     <givenName>Michael</givenName>
+                     <surName>Duniway</surName>
+                  </individualName>
+                  <organizationName>USGS Southwest Biological Science Center</organizationName>
+                  <electronicMailAddress>mduniway@usgs.gov</electronicMailAddress>
+                  <userId
+              directory="https://orcid.org">0000-0002-9643-2785</userId>
+               </creator>
+               <creator>
+                  <individualName>
+                     <givenName>John</givenName>
+                     <surName>Anderson</surName>
+                  </individualName>
+                  <organizationName>New Mexico State University, Jornada Basin LTER</organizationName>
+                  <positionName>Jornada Research Site Manager</positionName>
+                  <electronicMailAddress>janderso@jornada.nmsu.edu</electronicMailAddress>
+                  <userId
+          directory="https://orcid.org">0000-0002-6417-8022</userId>
+               </creator>
+               <distribution>
+                  <online>
+                     <onlineDescription>This online link references an EML document that describes data used in the creation of this derivative data package.</onlineDescription>
+                     <url>https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210013003/17</url>
+                  </online>
+               </distribution>
+               <contact>
+                  <organizationName>Jornada Basin LTER Program</organizationName>
+                  <positionName>Information Manager</positionName>
+                  <address>
+                     <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+                     <city>Las Cruces</city>
+                     <administrativeArea>NM</administrativeArea>
+                     <postalCode>88003-8003</postalCode>
+                     <country>U.S.A.</country>
+                  </address>
+                  <phone>575-322-2430</phone>
+                  <electronicMailAddress>jornada.data@nmsu.edu</electronicMailAddress>
+                  <onlineUrl>https://lter.jornada.nmsu.edu/information-management/</onlineUrl>
+               </contact>
+            </dataSource>
+         </methodStep>
+         <methodStep>
+            <description>
+               <para>Experimental Design and Tracer Methodology</para>
+               <para/>
+               <para>Experimental Design Overview:</para>
+               <para>We implemented a tracer experiment in 64 units of grass-shrub pairs, here referred to as experimental units, to address our questions regarding (i) the difference between plant species' uptake profiles, (ii) responses of uptake profiles to changes in soil moisture, and (iii) changes in shrub uptake profiles with aboveground plant growth. </para>
+               <para/>
+               <para>Tracer Methodology:</para>
+               <para>We injected a Li tracer to a range of depths beneath the canopies of P. glandulosa shrubs that were surrounded by patches of B. eriopoda grass. We injected either a solution of 10 ml of 10% Sigma Aldrich LiCl solution (treatment) or 10 ml water (control) at each of 64 experimental units using a custom-built galvanized steel pipe injector. Each experimental unit consisted of one grass-shrub pair and received one injection at a single depth. The injector was flushed with water between treatments. Designated injection depths of 10, 50, 100, and 120 cm were randomly assigned within four groups of experimental units of similar shrub size, as described in the "grass-shrub pair selection" section below. In cases where caliche layers prevented injection to the target depth,  injections were performed at the maximum achievable depth. Accordingly, samples were categorized by depths of 0-10 cm, 11-50 cm, 51-60 cm, 61-70cm, 71-80 cm, 81-100 cm. In order to assess potential differences in uptake profiles under different soil-moisture conditions, identical treatments were performed at each experimental unit in late September of 2018 and 2019. In order to address the impact of shrub size on uptake profiles, identical treatments were performed across experimental units representing shrubs of different aboveground volume (m^3; see "grass-shrub pair selection"). </para>
+               <para/>
+               <para>Grass-shrub Pair Selection:</para>
+               <para>We randomly selected experimental units (N = 64) at our study site which included a P. glandulosa shrub surrounded by B. eriopoda grass. Shrubs aboveground volume was estimated by measuring plant height and two perpendicular diameters, and ranged from 0.02 to 13.21 m^3. All grass patches were equal in size and distribution around target shrubs. We divided the 64 experimental units into four groups of 16 shrub-grass pairs according to mean shrub volume. To ensure a uniform distribution of injection depths across shrub sizes, we randomly assigned one of four injection treatment depths to every experimental unit within each size group. There were four replicate experimental units for each shrub size group and injection depth combination (for example, n = 4 "small" shrubs and their neighboring grasses received an injection at 10 cm depth). We randomly assigned one of each experimental unit per treatment depth and shrub size group to the control group (n = 16). </para>
+            </description>
+         </methodStep>
+         <methodStep>
+            <description>
+               <para>Sample Collection and Sample Analysis           </para>
+               <para/>
+               <para>Sample Collection:</para>
+               <para>21 days following injections, we harvested two grams of green leaves from P. glandulosa shrubs (n = 64) and black grama grasses (n = 64) from each experimental unit and stored samples in paper and plastic bags inside a cooler with ice. Samples were transported to Jornada Basin LTER headquarters and dried at 60⁰C for 72 hours prior to transport to Arizona State University for final preparation and analysis. </para>
+               <para/>
+               <para>Sample Analysis:</para>
+               <para>Samples were analyzed for Li concentration (ppm) using inductively coupled plasma-optical emission spectroscopy (ICP-OES). Samples were milled into a fine powder using an Across International VQ-N High Energy Ball Mill and collected in sterile scintillation vials. Milled plant tissue (0.1 g) was transferred along with five ml concentrated HNO3 into Teflon beakers which were then sealed and placed on hot plates within a fume hood for eight hours to allow acid digestion. Beakers were then vented on hot plates until “near dryness” (approximately 4 hours) and transferred via a 2% HNO3 rinse into 15 ml tubes, filled to a total volume of 10 ml. Samples were then weighed and centrifuged at 4000 RPM for five minutes using an Allegra X-14 Benchtop Centrifuge. Five mL of centrifuged sample was transferred into clean 15 mL test tubes and run on an Agilent 5900 ICP-OES to measure plant tissue Li content (ppm). </para>
+            </description>
+            <instrumentation>Across International VQ-N High Energy Ball Mill Allegra X-14 Benchtop Centrifuge Agilent 5900 ICP-OES</instrumentation>
+         </methodStep>
+         <methodStep>
+            <description>
+               <para>Statistical Analysis and R Code Workflow</para>
+               <para/>
+               <para>Primary Statistical Analysis:</para>
+               <para>To construct root absorption profiles, we calculated the cumulative fraction of total measured Li across all samples within species groups for each sampling period. Following the Jackson et al. (1996), we applied the following model (modified from Gale and Grigal (1987)):</para>
+               <para>	Y=1- β^d     (Equation 1)</para>
+               <para>where Y = cumulative Li absorption fraction, d = soil depth, and β = fitted extinction coefficient. Estimated β values reflect the proportion of uptake with depth; lower values indicate greater proportions of uptake from shallow soil and higher values indicate deeper uptake. </para>
+               <para/>
+               <para>To compare shrub and grass uptake profiles, we applied Equation 1 to data from both sampling periods to construct a single profile per species. To compare uptake profiles across soil-moisture conditions, we applied Equation 1 separately to data within each species and sampling period. Nonlinear least squares models were fit using the nls function in the stats package in R version 4.3.2 (Team 2023). 95% confidence intervals for estimates of β were calculated using the confint function in the stats package in R. We compared volumetric soil-water content between years at each depth category using a series of pairwise Wilcoxon signed-rank tests. </para>
+               <para/>
+               <para>To compare uptake profiles across mesquite shrub sizes, we used the sliding window technique with overlap (window size of n = 42) to identify 26 groups of observations ordered by aboveground shrub volume (m^3). Each group represents the full range of injection depths. We applied Equation 1 to calculate a β extinction coefficient for each shrub size group. Using the nls function in R, we fit the following Michaelis-Menten model (Ritz, Kniss, and Streibig 2015):</para>
+               <para>	Y=(dx)/(x+e)     (Equation 2)</para>
+               <para>where Y = β coefficient, d = upper limit of Y, x = mean shrub volume (m^3), and e = the value of x for which Y is halfway between zero and d. </para>
+               <para/>
+               <para>Alternative/Secondary Statistical Analysis:</para>
+               <para>For each species, we calculated proportionate uptake by dividing the Li concentration (ppm) of each sample by the sum of all concentration measurements collected within the same sampling year.</para>
+               <para> </para>
+               <para>We compared the 2-year median proportion of total Li tracer uptake of shrubs and grasses from each sample depth, by performing a series of Wilcoxon rank-sum tests using the rstatix package in R version 4.3.2. </para>
+               <para/>
+               <para>To compared Li uptake across soil moisture conditions, we calculated the median proportion of total Li uptake observed during dry (2018) and wet (2019) years at each sample depth. We performed a series of Wilcoxon rank-sum tests using the rstatix package in R version 4.3.2. </para>
+               <para/>
+               <para>R Code Workflow:</para>
+               <para>All scripts are written such that their associated working directory is a folder containing 3 subfolders with the names "Data," "Scripts," and "Figures." The workflow is separated into numbered scripts which prepare the raw data for analysis, perform statistical analysis, and produce corresponding figures. Scripts numbering (in filenames) reflects the order of operations performed in our analyses. </para>
+            </description>
+         </methodStep>
+      </methods>
+      <project>
+         <title>Jornada Basin LTER</title>
+         <personnel>
+            <individualName>
+               <givenName>Osvaldo</givenName>
+               <givenName>E.</givenName>
+               <surName>Sala</surName>
+            </individualName>
+            <organizationName>Arizona State University</organizationName>
+            <electronicMailAddress>osvaldo.sala@asu.edu</electronicMailAddress>
+            <userId
+          directory="https://orcid.org">0000-0003-0142-9450</userId>
+            <userId
+          directory="https://ror.org/">https://ror.org/03efmqc40</userId>
+            <role>Principal Investigator</role>
+         </personnel>
+         <personnel>
+            <individualName>
+               <givenName>Niall</givenName>
+               <surName>Hanan</surName>
+            </individualName>
+            <organizationName>New Mexico State University</organizationName>
+            <positionName>Professor</positionName>
+            <electronicMailAddress>nhanan@nmsu.edu</electronicMailAddress>
+            <userId
+      directory="https://orcid.org">0000-0002-9130-5306</userId>
+            <role>Principal Investigator</role>
+         </personnel>
+         <abstract>
+            <para>The Jornada Basin Long-Term Ecological Research (LTER) program is part of a national network of long-term ecological research sites funded by the US National Science Foundation (NSF). The Jornada LTER program has been continuously funded since 1982 to develop general principles governing changes between grassland and shrubland ecosystems based on long-term data collected in the Chihuahuan Desert. We translate our findings to dryland ecosystems around the world, and forecast the dynamics of future ecosystem states in response to changing climate and land use.</para>
+         </abstract>
+         <award>
+            <funderName>USDA National Institute of Food and Agriculture</funderName>
+            <funderIdentifier>https://ror.org/05qx3fv49</funderIdentifier>
+            <awardNumber>AWD 00037225</awardNumber>
+            <title>Agriculture and Food Research Initiative</title>
+         </award>
+         <award>
+            <funderName>National Science Foundation</funderName>
+            <funderIdentifier>https://ror.org/021nxhr62</funderIdentifier>
+            <awardNumber>2425143</awardNumber>
+            <title>LTER: Advancing ecological understanding of drylands through integrated research at the Jornada Basin (JRN-8)</title>
+         </award>
+         <award>
+            <funderName>National Science Foundation</funderName>
+            <funderIdentifier>https://ror.org/021nxhr62</funderIdentifier>
+            <awardNumber>DEB 2326482</awardNumber>
+            <title>LTREB: Long-term ecosystem responses to directional changes in precipitation amount and variability in an arid grassland</title>
+         </award>
+         <award>
+            <funderName>National Science Foundation</funderName>
+            <funderIdentifier>https://ror.org/05976ta47</funderIdentifier>
+            <awardNumber>2025166</awardNumber>
+            <title>LTER: Long –Term Research at the Jornada Basin (LTER VII)</title>
+            <awardUrl>https://www.nsf.gov/awardsearch/showAward?AWD_ID=2025166</awardUrl>
+         </award>
+         <award>
+            <funderName>National Science Foundation</funderName>
+            <awardNumber>DEB 1832194</awardNumber>
+            <title>Prior award: LTER: Long - Term Research at the Jornada Basin (LTER VII)</title>
+         </award>
+         <award>
+            <funderName>National Science Foundation</funderName>
+            <awardNumber>DEB 1235828</awardNumber>
+            <title>Prior award: LTER: Long-Term Research at the Jornada Basin (LTER-VI)</title>
+         </award>
+      </project>
+      <dataTable
+      id="0d3fb3ae038cc6738a56b6aa16ef97bc" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>li_ppm_raw</entityName>
+         <entityDescription>Instrument data from ICP-OES analysis of B. eriopoda and P. glandulosa leaf Li content (ppm)</entityDescription>
+         <physical>
+            <objectName>li_ppm_raw.csv</objectName>
+            <size
+          unit="byte">16507</size>
+            <authentication
+              method="MD5">c2fa05ca997fa6f47ba72d1fce46056e</authentication>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210469002/1/0d3fb3ae038cc6738a56b6aa16ef97bc</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="e051c335-7e1e-4f04-aa4d-277f49f59f2c">
+               <attributeName>species.1</attributeName>
+               <attributeLabel>species.1</attributeLabel>
+               <attributeDefinition>Target plant species collected</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>BOER</code>
+                              <definition>Bouteloua eriopoda (grass)</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>PRGL</code>
+                              <definition>Prosopis glandulosa (shrub)</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="c52c8cfb-a047-48d3-b395-74f85d612071">
+               <attributeName>species.2</attributeName>
+               <attributeLabel>species.2</attributeLabel>
+               <attributeDefinition>Second grass species which may have been incidentally collected alongside Bouteloua eriopoda</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>ARISTIDA</code>
+                              <definition>Aristida p. (grass)</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>ARPU</code>
+                              <definition>Aristida purpurea (grass)</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>MUPO</code>
+                              <definition>Muhlenbergia porteri (grass)</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>SELE</code>
+                              <definition>Setaria leucopila (grass)</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="5d543715-3108-453c-ae07-31b3c791575a">
+               <attributeName>sample.no</attributeName>
+               <attributeLabel>sample.no</attributeLabel>
+               <attributeDefinition>Sample number. Each shrub-grass pair is assigned a unique sample ID</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>number</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Number">http://qudt.org/vocab/unit/NUM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="8a619a12-75e9-4eb2-86c3-12cfac748fe4">
+               <attributeName>sample.id</attributeName>
+               <attributeLabel>sample.id</attributeLabel>
+               <attributeDefinition>ID number assigned to each shrub-grass pair followed by first letter of species code (B - BOER, P - PRGL)</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="77e5af79-472b-468d-af43-385af2293219">
+               <attributeName>sample.id.year</attributeName>
+               <attributeLabel>sample.id.year</attributeLabel>
+               <attributeDefinition>Unique identifier for each sample including sample ID number followed by year</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="6f56321f-6bb8-408c-b902-05cb65290a3c">
+               <attributeName>year</attributeName>
+               <attributeLabel>year</attributeLabel>
+               <attributeDefinition>Year in which injection and sampling occurred</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>YYYY</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="a0abf05c-f2d9-40eb-b00e-f77e1f02b546">
+               <attributeName>li.treatment</attributeName>
+               <attributeLabel>li.treatment</attributeLabel>
+               <attributeDefinition>Code specifying whether LiCl (treatment) or water (control) was injected into soil beneath plant</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>0</code>
+                              <definition>Water injection (control)</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>1</code>
+                              <definition>LiCl injection (treatment)</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="bcd8369d-8847-4156-a88c-c5c406be6c1b">
+               <attributeName>injection.depth.cm</attributeName>
+               <attributeLabel>inj.depth.cm</attributeLabel>
+               <attributeDefinition>Actual soil depth of injection</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Centimetre">http://qudt.org/vocab/unit/CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="0451c6f5-d75d-4f0e-a18f-bceda6ef9b98">
+               <attributeName>size</attributeName>
+               <attributeLabel>size</attributeLabel>
+               <attributeDefinition>Shrub size grouping, split evenly across four categories determined by aboveground volume (measured in cubic meters)</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>l</code>
+                              <definition>Large</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>s</code>
+                              <definition>Small</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>vl</code>
+                              <definition>Very large</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>vs</code>
+                              <definition>Very small</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="48ed02be-7f27-464d-a1e5-8f0fb9d8ac66">
+               <attributeName>raw.sample.wt.g</attributeName>
+               <attributeLabel>raw.sample.wt.g</attributeLabel>
+               <attributeDefinition>Weight (g) of ground plant material prior to acid digestion</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>gram</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>missing sample</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Gram">http://qudt.org/vocab/unit/GM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="0e1b687a-6e43-47ae-a0c7-85708282b452">
+               <attributeName>empty.tube.wt.g</attributeName>
+               <attributeLabel>empty.tube.wt.g</attributeLabel>
+               <attributeDefinition>Weight (g) of falcon tube used in sample processing</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>gram</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Gram">http://qudt.org/vocab/unit/GM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="33594b81-b053-4a14-910a-d61334ed26d3">
+               <attributeName>full.tube.wt.g</attributeName>
+               <attributeLabel>full.tube.wt.g</attributeLabel>
+               <attributeDefinition>Combined weight (g) of sample, 2% nitric acid, and falcon tube</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>gram</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>missing sample</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Gram">http://qudt.org/vocab/unit/GM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="64f1c3ce-a2cd-4bdc-9502-4b1a985a67a2">
+               <attributeName>icp.li.ppm</attributeName>
+               <attributeLabel>icp.li.ppm</attributeLabel>
+               <attributeDefinition>Lithium concentration (ppm) measured by ICP-OES, not corrected for sample weight</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>milligramPerLiter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>missing sample</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Milligram per Litre">http://qudt.org/vocab/unit/MilliGM-PER-L</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="6f207981-5d4a-49d4-9d29-ae1a4fd7fa36">
+               <attributeName>notes</attributeName>
+               <attributeLabel>notes</attributeLabel>
+               <attributeDefinition>Notes relevant to sample</attributeDefinition>
+               <storageType
+      typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+         </attributeList>
+         <caseSensitive>yes</caseSensitive>
+         <numberOfRecords>247</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="b1e1c2546f52eb86fc076920bcfa9742" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>prgl_volumes_raw</entityName>
+         <entityDescription>Field measurements of Prosopis glandulosa dimensions used to calculate shrub volume</entityDescription>
+         <physical>
+            <objectName>prgl_volumes_raw.csv</objectName>
+            <size
+          unit="byte">3975</size>
+            <authentication
+              method="MD5">7938b4783c87a06ee7fd68b43aa0aa4c</authentication>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210469002/1/b1e1c2546f52eb86fc076920bcfa9742</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+            id="f8b998e7-81f8-4511-8527-3fe8d5b386f9">
+               <attributeName>sample.no</attributeName>
+               <attributeLabel>sample.no</attributeLabel>
+               <attributeDefinition>Sample number. Each shrub-grass pair is assigned a unique sample number</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>unitless - identification purposes</customUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="319155e9-4178-4913-a6f4-53b470156676">
+               <attributeName>length.cm</attributeName>
+               <attributeLabel>length.cm</attributeLabel>
+               <attributeDefinition>Field measurement of shrub at widest point in cm, measured parallel to ground</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Centimetre">http://qudt.org/vocab/unit/CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="ea37ffe3-b6d2-412e-babf-7b3fcc019436">
+               <attributeName>width.cm</attributeName>
+               <attributeLabel>width.cm</attributeLabel>
+               <attributeDefinition>Field measurement of shrub perpendicular to length measurement, measured parallel to ground</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Centimetre">http://qudt.org/vocab/unit/CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="6d51576d-23af-4d22-be49-fcf01ea3a481">
+               <attributeName>height.cm</attributeName>
+               <attributeLabel>height.cm</attributeLabel>
+               <attributeDefinition>Field measurement of shrub height (cm) at tallest point</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Centimetre">http://qudt.org/vocab/unit/CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="8da47d32-148a-433a-bc2f-8b67e31e3cc7">
+               <attributeName>volume.cm3</attributeName>
+               <attributeLabel>volume.cm3</attributeLabel>
+               <attributeDefinition>Shrub volume calculated from length, width, and height measurements (centimeters)</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeterCubed</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Cubic Centimetre">http://qudt.org/vocab/unit/CentiM3</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="40da6b80-bfc6-4b3c-996f-d5bc6fab66e8">
+               <attributeName>volume.m3</attributeName>
+               <attributeLabel>volume.m3</attributeLabel>
+               <attributeDefinition>Shrub volume calculated from length, width, and height measurements (meters)</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>meterCubed</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Cubic Metre">http://qudt.org/vocab/unit/M3</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="dea24eff-1ac0-43c1-a308-56349f7aecc0">
+               <attributeName>li.treatment</attributeName>
+               <attributeLabel>li.treatment</attributeLabel>
+               <attributeDefinition>Code specifying whether LiCl (treatment) or water (control) was injected into soil beneath plant</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>0</code>
+                              <definition>Water injection (control)</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>1</code>
+                              <definition>LiCl injection (treatment)</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="d37a3eca-e3b9-4552-b3b1-8acf2a58b9c5">
+               <attributeName>size</attributeName>
+               <attributeLabel>size</attributeLabel>
+               <attributeDefinition>Shrub size grouping, split evenly across four categories determined by aboveground volume (measured in cubic meters)</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+          enforced="yes">
+                           <codeDefinition>
+                              <code>l</code>
+                              <definition>Large</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>s</code>
+                              <definition>Small</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>vl</code>
+                              <definition>Very large</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>vs</code>
+                              <definition>Very small</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="31f0f1c6-3927-4526-ba16-32ba50234bae">
+               <attributeName>inj.depth.cm</attributeName>
+               <attributeLabel>inj.depth.cm</attributeLabel>
+               <attributeDefinition>Actual soil depth of injection</attributeDefinition>
+               <storageType
+              typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="Centimetre">http://qudt.org/vocab/unit/CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+            id="a7823b0a-308b-4c2d-be5a-d32f2c4e1835">
+               <attributeName>inj.date.2018</attributeName>
+               <attributeLabel>inj.date.2018</attributeLabel>
+               <attributeDefinition>Date of injection in 2018 sampling year</attributeDefinition>
+               <storageType
+          typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>YYYY-MM-DD</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute
+            id="43106df5-62f8-444a-9bed-35afef0feae8">
+               <attributeName>inj.date.2019</attributeName>
+               <attributeLabel>inj.date.2019</attributeLabel>
+               <attributeDefinition>Date of injection in 2019 sampling year</attributeDefinition>
+               <storageType
+      typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>YYYY-MM-DD</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>64</numberOfRecords>
+      </dataTable>
+      <otherEntity
+      id="f01daf688674229db302720caf6fd937" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>1_Data_Cleaning_and_Aggregating</entityName>
+         <entityDescription>R script which file produces cleaned and aggregated dataframes from LiCL injection study</entityDescription>
+         <physical>
+            <objectName>1_Data_Cleaning_and_Aggregating.R</objectName>
+            <size
+          unit="byte">2442</size>
+            <authentication
+              method="MD5">df4d6ba55b225413129f7aa801b4044c</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>.R</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210469002/1/f01daf688674229db302720caf6fd937</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>.R</entityType>
+      </otherEntity>
+      <otherEntity
+      id="be3b77939ea8b006cfe7643c263e6fb3" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>2_Li_Cumfrac_Beta_Calculation_and_Plotting</entityName>
+         <entityDescription>R script which produces the models and figures (Figures 1 and 2) in the main text of the manuscript</entityDescription>
+         <physical>
+            <objectName>2_Li_Cumfrac_Beta_Calculation_and_Plotting.R</objectName>
+            <size
+          unit="byte">9832</size>
+            <authentication
+              method="MD5">7a5ff6ddaa03001ce9daafb8f5e117d7</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>.R</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210469002/1/be3b77939ea8b006cfe7643c263e6fb3</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>.R</entityType>
+      </otherEntity>
+      <otherEntity
+      id="6d1bf23ae2d6e87f9396fcb361800527" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>3_Soil_VWC_Hypothesis_Testing_and_Plotting</entityName>
+         <entityDescription>R script which tests for significant differences in soil VWC between years at depths relevant to study period and produces corresponding plot</entityDescription>
+         <physical>
+            <objectName>3_Soil_VWC_Hypothesis_Testing_and_Plotting.R</objectName>
+            <size
+          unit="byte">2378</size>
+            <authentication
+              method="MD5">c5d6d7697764dac2b07c925239070096</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>.R</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210469002/1/6d1bf23ae2d6e87f9396fcb361800527</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>.R</entityType>
+      </otherEntity>
+      <otherEntity
+      id="e6da93696c352b8d7300fe50c47da2cf" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>4-Shrub_Volume_Beta_Calculation_and_Plotting</entityName>
+         <entityDescription>R script which: 1. creates 26 groups of shrubs based on a moving window of shrub volume 2. calculates a Beta coefficient for each group's root uptake profile 3. produces a model relating Beta coefficient to the mean volume of each shrub group 4. produces a plot displaying the data (main manuscript Figure 3)</entityDescription>
+         <physical>
+            <objectName>4-Shrub_Volume_Beta_Calculation_and_Plotting.R</objectName>
+            <size
+          unit="byte">7999</size>
+            <authentication
+              method="MD5">7ccef2c1d1443caf0c1161b05e85b144</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>.R</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210469002/1/e6da93696c352b8d7300fe50c47da2cf</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>.R</entityType>
+      </otherEntity>
+      <otherEntity
+      id="40d7c5f111a84a37ed82748a8dc39d59" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>5_Proportionate_Li_Uptake_Hypothesis_Testing_and_Plotting</entityName>
+         <entityDescription>R script which file tests for significant differences in Li uptake across depths, between species, and between years and produces corresponding plots (Appendix S2 Figures 1 and 2)</entityDescription>
+         <physical>
+            <objectName>5_Proportionate_Li_Uptake_Hypothesis_Testing_and_Plotting.R</objectName>
+            <size
+          unit="byte">6061</size>
+            <authentication
+              method="MD5">d9339271b809664c88eef165a9b69352</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>.R</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+        function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210469002/1/40d7c5f111a84a37ed82748a8dc39d59</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>.R</entityType>
+      </otherEntity>
+   </dataset>
+   <additionalMetadata>
+      <metadata>
+         <fetchedFromEDI
+        dateFetched="2023-01-30"
+        packageID="JRN_template_general"/>
+      </metadata>
+   </additionalMetadata>
+   <additionalMetadata>
+      <metadata>
+         <importedFromXML
+        dateImported="2023-01-30" filename="JRN_template_general.xml"
+          taxonomicCoverageExempt="True"/>
+      </metadata>
+   </additionalMetadata>
+   <additionalMetadata>
+      <metadata>
+         <stmml:unitList>
+            <stmml:unit
+          id="unitless - identification purposes"
+        name="unitless - identification purposes">
+               <stmml:description/>
+            </stmml:unit>
+         </stmml:unitList>
+      </metadata>
+   </additionalMetadata>
+   <additionalMetadata>
+      <metadata>
+         <emlEditor
+        app="ezEML" release="2025.09.10"/>
+      </metadata>
+   </additionalMetadata>
+</eml:eml>

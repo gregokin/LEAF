@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/profile_daily_bounded.py",
+    "--cases-json",
+    "/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/case_sets/june_hectare_3layers_roots5.json",
+    "--output",
+    "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/gpu_june_hectare_3layers_roots5_weighted.json",
+    "--backend",
+    "gpu",
+    "--years",
+    "30",
+    "--report-every",
+    "365"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 2085788,
+  "proc_stat_at_launch": "2085788 (python) R 2085787 2085788 2085788 0 -1 4194304 14 0 0 0 0 0 0 0 20 0 1 0 91636907 8450048 43 18446744073709551615 4325376 7352253 140731080486768 0 0 0 0 0 0 0 0 0 17 4 0 0 0 0 0 10653128 12216448 543076352 140731080493883 140731080494304 140731080494304 140731080499153 0\n",
+  "start_ticks": "91636907",
+  "started_at_utc": "2026-10-31T11:09:37.374135+00:00",
+  "timeout_seconds": 1800.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/benchmarks/daily_water_growth.py": "ca850088b77146af3f7c60ff7c27aa2fa7730ee89b96a7169e82f857f9aa1522",
+    "/home/okin/leaf/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/case_sets/june_hectare_3layers_roots5.json": "6ced0e36302dfffe27d745180cbe6c80fcad49f1a8e76ea7e0932681a086687d"
+  },
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/numba-cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/cupy-cache",
+    "CUDA_CACHE_PATH": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/cuda-cache",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  }
+}

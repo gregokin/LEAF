@@ -1,0 +1,13 @@
+{
+  "recorded_utc": "2026-11-01T19:17:30.404508+00:00",
+  "task": "biomass_specific_water_use_20261101",
+  "verdict": "accept",
+  "reviewer": "Codex",
+  "scope": "Literature research and descriptive arithmetic per aboveground DRY biomass; no model calibration, trait activation or runtime edit.",
+  "checked_complete_days": 759,
+  "checked_group_moisture_summaries": 8,
+  "checked_published_table_ratios": 14,
+  "claude_launched": false,
+  "automatic_collaboration_remains_enabled": true,
+  "active_writer": null
+}

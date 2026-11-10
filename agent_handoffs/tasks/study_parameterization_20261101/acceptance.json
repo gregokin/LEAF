@@ -1,0 +1,16 @@
+{
+  "recorded_utc": "2026-11-01T17:47:27.853377+00:00",
+  "verdict": "accept",
+  "reviewer": "Codex",
+  "task": "study_parameterization_20261101",
+  "scope": "Reproducible study analysis and inactive parameter candidates only; not a runtime activation, complete trait identification or field validation.",
+  "tests_passed": 29,
+  "independent_numerical_checks": 18,
+  "independent_endpoint_replays": 177,
+  "withheld_raw_harvest_checks": 34,
+  "automatic_collaboration_remains_enabled": true,
+  "active_writer": null,
+  "checks": "checks.json",
+  "review": "codex_review.md",
+  "delivered_parameter_snapshot": "delivered_parameters.json"
+}

@@ -1,0 +1,21 @@
+# Orchestration State
+
+- Workspace: `/home/okin/leaf`.
+- Mode: **automatic**; preference scope: `until_changed`, within bounded user-requested LEAF tasks.
+- Authority: user requested Claude coding with Codex review, supplied a project outline, then explicitly resumed handoff setup on 2026-10-30.
+- Status: **idle — bootstrap accepted**. No current implementation or assessment assignment.
+- Last task: `bootstrap_20261030`; archive: `tasks/bootstrap_20261030/`.
+- Roles: Codex scopes, dispatches, independently reviews/verifies and accepts; Claude implements/corrects and leaves changes uncommitted.
+- Write holder: none. No managed Claude process remains; all launched children exited and were reaped.
+- Permission policy: ordinary, explicit task tools/directories/source scope; no permission bypass. Respect actual execution approval decisions.
+- Git: no usable local metadata; no repository initialized, commit or push performed.
+- Baseline: `tasks/bootstrap_20261030/baseline.json`; root `AGENTS.md` preserved byte-for-byte. Final document identities: `tasks/bootstrap_20261030/final_manifest.json`.
+- Last exact Claude session: `b5e030ee-8335-477f-9b26-05d5acb5ffa9`, historical only. Successful generic calls 03 and 04, with exact-session correction/resume; see their launch/exit JSON records.
+- Prior outcomes: attempt 01 DNS failure; attempt 02 rejected before launch for detailed-outline egress. Generic templates provided a successful safer path. No usage limit or reset is pending.
+- Submitted context: generic workflow templates/corrections only. The scientific outline and project brief remain local; do not retransmit the rejected payload without resolving authorization.
+- Project context: `project_brief.md`, `upstreams.md`, `decisions.md`, and the recorded user outline under the bootstrap archive.
+- Acceptance/evidence: `codex_review.md`, `verification.md`, and `tasks/bootstrap_20261030/validation_results.json`.
+- Background scheduler/service: none; no unattended resumption is promised.
+- Scientific status: no selected vegetation model or implementation architecture; no scientific code, model runs, package installs, new environments, or upstream edits.
+- Next action: await a bounded assessment assignment to verify Tietjen, STEPWAT2 and supplied ECOTONE ecology and present architecture/phases. Do not infer an assignment from this future-work note.
+- Updated at UTC: `2026-10-30T10:20:01.825511+00:00`.

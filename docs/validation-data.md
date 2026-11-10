@@ -1,0 +1,137 @@
+# Data for validating LEAF vegetation and water use
+
+Scope update, 2026-11-01: for the user's specific question about **individual
+growth paired with simultaneous water use**, start with the
+[paired-observation survey](paired-growth-water-data.md). It includes verified
+Setaria plant-ID joins and Biosphere 2 grass/mesquite experiments. The Jornada
+inventory below (surveyed 2026-10-31) supplies seasonal biomass, reference
+harvests and depth-resolved water for complementary field checks.
+The [uptake candidates](candidate-uptake-parameters.md) are recorded separately.
+These surveys identify observations; no calibration or model validation was run.
+
+## Priority observations
+
+Versions below identify metadata actually retrieved, rather than assuming that
+an “ongoing” dataset contains observations through the present. EDI identifiers
+use the scope `knb-lter-jrn`. Small metadata records were archived; observation
+tables have **not** been downloaded or quality-controlled.
+
+| Priority / source | Coverage and measurements | Use and important limit |
+| --- | --- | --- |
+| **1. Seasonal biomass**, [`210011001.2`](https://doi.org/10.6073/pasta/26ca2b57d068e8f866aeedfa581a6e6b) | May 1989–October 2020 in this retrieved version; species × quadrat × season biomass in grams, three campaigns per year. | Main seasonal growth target. Biomass is estimated using harvest-derived allometry. This version marks values since **2012** provisional. A [USDA catalog record](https://catalog.data.gov/dataset/seasonal-aboveground-plant-biomass-estimates-at-15-net-primary-production-npp-study-sites-) describes a later record through 2022 and flags 2013 onward; reconcile versions before use. |
+| **2. Reference harvests**, [`210011004.85`](https://doi.org/10.6073/pasta/f80e80f3501d000bf81c426362cb5021) | April 1989–May 2023; 18,113 records across species. Size, sample count, total live dry mass, and shrub leaf/stem/reproductive mass fields. | Fit species/PFT biomass–geometry relationships and reserve independent harvests for testing. Harvests are selected samples of plants or volumes, not a random census; neither every record nor `totwt` necessarily represents one whole shrub. |
+| **3. Monthly profile water**, [`210013003.17`](https://doi.org/10.6073/pasta/2d52ed4bed2d333e11c5ad1c50fda108) | July 1989–February 2024; calibrated volumetric water content, nominally 30-cm depth increments to 3 m, ten tubes/site. | Test persistent storage and shallow/deep depletion. Tubes were paired under vegetation and in interspaces; vegetation around them can change. Restrictive horizons limit depth and the deepest tube reading is excluded from calculated VWC. Monthly sampling cannot resolve daily uptake. |
+| **4. Automated shallow water**: [M-RABB](https://catalog.data.gov/dataset/jornada-basin-lter-wireless-meteorological-station-at-npp-m-rabb-site-30-minute-soil-volum), [M-NORT](https://catalog.data.gov/dataset/jornada-basin-lter-wireless-meteorological-station-at-npp-m-nort-site-daily-average-soil-v) | Station-specific records from the 2010s; 10, 20 and 30 cm, at 30-minute resolution or daily averages. EDI packages `210437083` and `210437097`. | Test post-rain drying and daily/weekly dynamics. These three sensor depths do not measure the full rooting profile. Exact station coverage and downloadable file versions remain to be checked. |
+| **5. Species uptake-depth experiment**, [`210469002.1`](https://doi.org/10.6073/pasta/4bcdaa76d6994ac6e81a9097b8a8dcab) | 2018–2019; 64 mesquite–black grama pairs, actual tracer injection depths and tissue Li concentrations, plus shrub dimensions. | Particularly useful for grass/shrub uptake profiles and shrub-size effects. Lithium is an uptake tracer, not an observed daily water flux or root biomass fraction. See [Vito & Sala (2026)](https://doi.org/10.1002/ecy.70384). |
+| **6. Independent herbaceous harvests**, [NEON JORN `DP1.10023.001`](https://data.neonscience.org/data-products/DP1.10023.001) | RELEASE-2026 lists JORN sampling months in 2015–2024; dry clip-harvest mass by functional group. Later observations are provisional. | An independent source of grass/herbaceous standing mass. Use harvested area and live/dead sorting definitions; this is not species-level mass per grass individual. |
+| **7. Mapped plant structure**, [NEON JORN `DP1.10098.001`](https://data.neonscience.org/data-products/DP1.10098.001) | RELEASE-2026 lists intermittent JORN census months in 2015–2023; individual structure and mapped positions for qualifying plants. | Test size distributions, canopy allometry and spatial initialization. Confirm taxon coverage, mapping eligibility, repeated IDs and census intervals. A size measurement is not an independent biomass harvest. |
+
+The NPP network includes grassland sites **G-BASN, G-IBPE, G-SUMM** and mesquite
+sites **M-NORT, M-RABB, M-WELL**. These offer a practical first comparison.
+Each samples a grid of approximately 49 permanent 1-m² quadrats, spaced 10 m
+apart, rather than a complete hectare census. Sites were chosen to span ecosystem
+variation and should not be treated as interchangeable experimental replicates.
+[Reference-harvest metadata](https://doi.org/10.6073/pasta/f80e80f3501d000bf81c426362cb5021)
+
+## Weather and complementary water-flux data
+
+Use [site-specific gap-filled daily precipitation `210425001.76`](https://doi.org/10.6073/pasta/7f458fb6fd3280f8a75c9e0ad221a037)
+(1980–June 2020 in the retrieved version) with its observed/gap-filled flags and
+source-gauge distances. [Daily climate `210126001.128`](https://doi.org/10.6073/pasta/780cf5fd4306e3d12d13cf06a9f482b7)
+covers March 1983–October 2023 and includes temperature, radiation, humidity and
+wind. Its times use Mountain Standard Time. Climate is forcing, not independent
+validation. Do not double-count station rainfall and gap-filled rainfall.
+
+The [AmeriFlux inventory](https://ameriflux.lbl.gov/sites/site-search/) lists
+**US-Jo1 Bajada: 2010–2022** and **US-Jo2 Mixed Shrubland: 2010–2020** BASE data,
+under CC BY 4.0. Latent heat can constrain total ET after quality and energy-balance
+checks. Compare to **soil evaporation plus transpiration**, weighted over the
+tower footprint. Neither total ET nor flux-derived GPP directly measures
+individual transpiration or aboveground biomass production.
+
+[Howlider et al. (2025), a preprint](https://arxiv.org/abs/2507.14829), describes
+mesquite and creosote sap-flow measurements at US-Jo1 during June–October 2022.
+This is a promising direct-transpiration lead, but this search did not verify a
+public raw sap-flow archive; published aggregate rates are not a daily validation
+dataset. Grass transpiration remains a particular gap.
+
+At JORN, [NEON soil water `DP1.00094.001`](https://data.neonscience.org/data-products/DP1.00094.001)
+has released months from July 2017–June 2025. Its API explicitly warns that
+sensor-position depths are currently incorrect: use the supplied
+`swc_depthsV3.csv` and `readme_swc_depths.txt`. JORN also lists eddy covariance
+`DP4.00200.001` and periodic root biomass `DP1.10067.001`. These are complementary
+measurements, with distinct sampling footprints and potentially different dates.
+[Archived API source](https://data.neonscience.org/api/v0/sites/JORN)
+
+## Experiments and spatial checks
+
+- **Rainfall variability:** `210328001` contains vegetation observations and
+  [`210328003.6`](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-jrn&identifier=210328003&revision=6)
+  contains daily shallow/deep moisture in manipulated plots. The retrieved water
+  metadata describes alternating wet/dry treatments, shallow 0–30 cm sensors,
+  and deeper sensors installed in 2019 at approximately 50–60 cm. Records contain
+  substantial gaps. Test untreated-nutrient conditions first and reproduce actual
+  treatment timing. Biomass metadata/file access remains incomplete; this is a
+  second-stage candidate. [Experimental precedent](https://doi.org/10.1073/pnas.1506433112)
+- **Permanent quadrats:** [`210351001.49`](https://doi.org/10.6073/pasta/63bfa45df4858db674bf37b52ee5ff44)
+  spans 1915–2016, with long gaps and later sampling every 5–6 years. It provides
+  grass basal area and shrub canopy area. Its table lacks persistent plant IDs
+  and individual X/Y; original chart/GIS material would be needed for individual
+  tracking. These measurements can support later recruitment/mortality work.
+- **Shrub maps:** [Ji & Hanan's raster archive](https://doi.org/10.6073/pasta/313fec8669bc7b4d8debf7393dd26c1f)
+  and [Wojcikiewicz et al. (2024)](https://doi.org/10.1111/nph.19505) provide
+  landscape-scale geometry/competition checks. Confirm imagery dates and patch
+  segmentation: one image patch need not be one biological individual. Modeled
+  root-overlap indices are not independent observations of roots or uptake.
+
+## Match observations to the implemented state
+
+1. **Standing mass and production differ.** The
+   [annual NPP package `210011003.106`](https://doi.org/10.6073/pasta/70d2a2b922bd629b72cf7271bb7704b1)
+   sums positive seasonal biomass increments by species/quadrat before averaging.
+   Apply that same observation calculation to model snapshots; neither final
+   standing mass nor the sum of weekly modeled gains is automatically comparable.
+   Annual NPP and seasonal biomass are derived from the same observations, so
+   they are not independent validation datasets.
+2. **Whole-shrub mass needs confirmation.** The
+   [dimension metadata `210011002.108`](https://doi.org/10.6073/pasta/946b2fc115338ca4bfd38ffa327149ba)
+   explicitly splits large shrubs into branch systems/subvolumes and clips their
+   measurement to the space above each quadrat. Its observation numbers are not
+   stable whole-plant IDs; X/Y describe quadrat coordinates. Determine the sampled
+   woody-tissue convention before comparing with LEAF's total aboveground mass.
+   This search has not qualified a repeated whole-mesquite woody-mass dataset.
+3. **Compare the same spatial and vertical support.** Convert grams to kilograms
+   and plot totals to g/m² using the sampled area. Retain basal versus canopy
+   cover distinctions; NPP cumulative cover includes overlaps and is unsuitable
+   for initializing true union cover or inferring plant counts. Map sensor support
+   to the proposed 2–3 layers; do not equate point VWC with whole-layer storage.
+4. **Keep calibration independent.** Fit allometry on selected reference harvests;
+   withhold harvests/sites/years before fitting growth traits. Allometry-derived
+   biomass cannot independently validate that same fitted allometry. Check water
+   storage and ET before adjusting growth parameters. Uptake data can test the
+   fixed-profile approximation; [the tracer study](https://doi.org/10.1002/ecy.70384)
+   finds changes with grass water conditions and shrub size.
+
+## Proposed first validation exercise
+
+Start with the six grass/mesquite NPP sites and an audited overlap of rainfall,
+temperature, seasonal biomass and profile water. An initial window ending in
+**2011** avoids both retrieved provisional-biomass cutoffs; extend later only
+after resolving the version/allometry review. Preselect contiguous withheld
+years and whole withheld sites, including dry and wet conditions after checking
+the observations. Treat later provisional years as a separate sensitivity test.
+
+Evaluate seasonal species/PFT mass bias and error; shallow/deep VWC bias and
+dry-down timing; and daily/seasonal total ET where footprints match. Carry
+observation/allometry uncertainty into comparisons. Do not fit initial soil
+water independently every year. Specify leap-day/date handling before using the
+current 365-day host calendar. Recruitment, mortality and event injury remain
+unimplemented and require their own later tests.
+
+**Readiness:** enough identified observations for a staged validation, but no
+matched weekly individual-biomass/daily-transpiration series was established.
+EDI portal/API requests returned HTTP 403 here; DataONE supplied selected EML
+metadata. NEON product/site metadata were retrieved, but per-month download
+listings returned HTTP 403. Published file schemas and record counts are verified
+where archived; individual data rows, missing values and usable site/year joins
+are not. See the [catalog and retrieval evidence](../agent_handoffs/tasks/validation_data_survey_20261031/README.md).

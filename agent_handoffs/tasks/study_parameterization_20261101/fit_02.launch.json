@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_02/study_parameters.py",
+    "--images",
+    "/home/okin/leaf/agent_handoffs/tasks/study_parameterization_20261101/public_evidence/setaria_image_scalars.csv",
+    "--weights",
+    "/home/okin/leaf/agent_handoffs/tasks/paired_growth_et_survey_20261101/public_evidence/selected/setaria_snapshots.csv",
+    "--harvest",
+    "/home/okin/leaf/agent_handoffs/tasks/paired_growth_et_survey_20261101/public_evidence/selected/setaria_harvest.csv",
+    "--zoom",
+    "/home/okin/leaf/agent_handoffs/tasks/study_parameterization_20261101/public_evidence/zoom_calibration_data.txt",
+    "--peterson",
+    "/home/okin/leaf/agent_handoffs/tasks/study_parameterization_20261101/public_evidence/peterson_figure_readings.json",
+    "--out",
+    "/home/okin/leaf/agent_handoffs/tasks/study_parameterization_20261101/fit_02",
+    "--n-boot",
+    "100",
+    "--qc-day-label",
+    "end"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 3,
+  "start_ticks": "102544480",
+  "started_utc": "2026-11-01T17:27:33.101503+00:00",
+  "scope": "Synthetic analysis tests or 17-33 DAP public-data parameter fit; no native hydrology/transport scenario."
+}

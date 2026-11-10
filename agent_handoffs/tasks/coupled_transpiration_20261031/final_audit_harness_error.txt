@@ -1,0 +1,1 @@
+final_audit.py first attempt failed in the audit parser, before producing a verdict: AttributeError: 'str' object has no attribute 'get' (some Claude system events use string messages). Classified tool_error (verification harness only); final_audit_v2.py handles both structured/string events without weakening checks.

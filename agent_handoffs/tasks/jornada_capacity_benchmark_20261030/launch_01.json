@@ -1,0 +1,33 @@
+{
+  "started_at_utc": "2026-10-30T17:55:34.067671+00:00",
+  "cwd": "/tmp/generic-geometry-code-xka0htjd",
+  "argv": [
+    "claude",
+    "--safe-mode",
+    "--print",
+    "--verbose",
+    "--output-format",
+    "stream-json",
+    "--session-id",
+    "0392cea4-0e9d-4207-b956-136121e862b7",
+    "--tools",
+    "",
+    "--permission-mode",
+    "dontAsk",
+    "--permission-prompts",
+    "none",
+    "--strict-mcp-config",
+    "--system-prompt",
+    "Generate only original generic numerical benchmark code from the supplied specification. No local files, private context, tools, commands, installations or execution. Return the requested JSON and label untested limitations."
+  ],
+  "session_id": "0392cea4-0e9d-4207-b956-136121e862b7",
+  "pid": 2058307,
+  "proc_stat_at_launch": "2058307 (claude) R 2058306 2058307 2058307 0 -1 4194304 12 0 0 0 0 0 0 0 20 0 1 0 85432576 242028544 0 18446744073709551615 26388480 89069872 140731818166672 0 0 0 0 0 0 0 0 0 17 14 0 0 0 0 0 89073968 243716096 393347072 140731818175727 140731818176164 140731818176164 140731818180571 0\n",
+  "prompt": "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_prompt_01.txt",
+  "prompt_sha256": "bd56b9c91d57605287387595d504e5bb62a4976d37339e18c81c0baf7a0950c9",
+  "tools": [],
+  "safe_mode": true,
+  "permission_bypass": false,
+  "submitted_content": "Generic synthetic geometry/reduction benchmark only. No local files or private outline.",
+  "timeout_seconds": 900
+}

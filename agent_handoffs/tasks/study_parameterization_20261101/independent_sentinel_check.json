@@ -1,0 +1,32 @@
+{
+  "expected_real_weighings": 2,
+  "observed_successful": 3,
+  "expected_water_loss_g": 5,
+  "observed_daily_balances": [
+    {
+      "barcode": "Dr1AA0001",
+      "dap_start": 17,
+      "dap_end": 18,
+      "period_days": 1,
+      "duration_days": 0.8333333333333334,
+      "ts_start": "2014-01-30T12:00:00",
+      "ts_end": "2014-01-31T08:00:00",
+      "weight_after_start_g": -1.0,
+      "weight_after_end_g": 115.0,
+      "storage_change_g": 116.0,
+      "irrigation_sum_g": 10.0,
+      "dispenser_sum_g": 10.0,
+      "balance_loss_g": -106.0,
+      "interval_loss_sum_g": -106.0,
+      "closure_residual_g": 0.0,
+      "n_records": 1,
+      "n_unsuccessful_records": 0,
+      "n_intervals": 1,
+      "n_negative_intervals": 1,
+      "chain_complete": true,
+      "complete_daily": false,
+      "reasons": "negative_daily_loss;contains_negative_interval"
+    }
+  ],
+  "failure": "Image metadata placeholder (-1 weights) is accepted as a real boundary. Correct physical chain is 110g -> 105g, plus 10g irrigation to end at 115g: water loss 5g."
+}

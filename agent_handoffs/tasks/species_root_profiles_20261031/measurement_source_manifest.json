@@ -1,0 +1,11 @@
+{
+  "frozen_at_utc": "2026-10-31T11:08:27.616121+00:00",
+  "files": {
+    "benchmarks/daily_water_growth.py": "ca850088b77146af3f7c60ff7c27aa2fa7730ee89b96a7169e82f857f9aa1522",
+    "benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "agent_handoffs/tasks/species_root_profiles_20261031/profile_daily_bounded.py": "00f7d2affe1360a77fbb6109520619a4811cd5a3d3dcb1954e96e5a97316cefe",
+    "agent_handoffs/tasks/species_root_profiles_20261031/run_long_suite.py": "d4bdd39c8bad08be36c908786758b130557f19c4f16fe78007b80e38bef2d207",
+    "agent_handoffs/tasks/species_root_profiles_20261031/run_process.py": "7562c69f69e4674f02df998c5767a7fb9f00cb30d5d0be0751d086f900cf0214",
+    "agent_handoffs/tasks/species_root_profiles_20261031/benchmark_cases.json": "8c29861806af45774521bcb47db0c9c951d7400c4eee23c3439ed768060d195b"
+  }
+}

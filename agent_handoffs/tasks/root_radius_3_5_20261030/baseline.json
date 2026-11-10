@@ -1,0 +1,58 @@
+{
+  "at_utc": "2026-10-30T19:14:28.813781+00:00",
+  "git": "No usable LEAF Git metadata; no Git operations",
+  "files": {
+    "AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "README.md": {
+      "size_bytes": 2940,
+      "sha256": "f2953cc9b9aa574b7042833201704740d72cfc9e438d9042a82a6aadfdb5fa66"
+    },
+    "docs/jornada-capacity.md": {
+      "size_bytes": 12673,
+      "sha256": "448390e40ec4fe05d276c1831e72e8b6e2293fb384efe25f2ba956a403c6b0fc"
+    },
+    "benchmarks/spatial_mapping.py": {
+      "size_bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "benchmarks/README.md": {
+      "size_bytes": 5595,
+      "sha256": "f66f20a4d400c94776c269b0e5b0efbe5fe607157768525cdaaf468da01b912d"
+    },
+    "tests/test_spatial_mapping.py": {
+      "size_bytes": 12394,
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0"
+    },
+    "agent_handoffs/project_brief.md": {
+      "size_bytes": 8164,
+      "sha256": "bf3a1ee6d5cc41fe048237ac0d3c3279377188a7e5774e0bd0a1b767595a59c2"
+    },
+    "agent_handoffs/decisions.md": {
+      "size_bytes": 5311,
+      "sha256": "063448cc11c758242d6bc03883d6d96c6889ae62d00e2fb34c86867f6b4fd40c"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "size_bytes": 1265,
+      "sha256": "1bf7b297056535fdfc42311f1d786b5f3275616e358b23e9c4285cd4ab4724b0"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "size_bytes": 651,
+      "sha256": "115608149dcce07b0cc373a03a25368e1ccbf8bc9ca9a0914d6e50a71341920c"
+    },
+    "agent_handoffs/claude_report.md": {
+      "size_bytes": 1216,
+      "sha256": "24ec44eec624fe0b035afb4f69b4a71daa81982923d5253b7e0e38d23274d9e6"
+    },
+    "agent_handoffs/codex_review.md": {
+      "size_bytes": 1360,
+      "sha256": "e3887d928ca3718b440f77fab4bf912c816483f4425ba6a495162caea731e92d"
+    },
+    "agent_handoffs/verification.md": {
+      "size_bytes": 2615,
+      "sha256": "f0a6f2d287edb75f880c3633aabf22d2d8500167b89d6b42434bd0abc51b6fa0"
+    }
+  }
+}

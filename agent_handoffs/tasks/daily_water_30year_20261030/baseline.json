@@ -1,0 +1,74 @@
+{
+  "at_utc": "2026-10-30T23:27:26.318858+00:00",
+  "git": "No usable metadata; no Git initialization",
+  "files": {
+    "CLAUDE.md": {
+      "size_bytes": 374,
+      "sha256": "5ccf4233963ba0515e0872c2b441c046905e516905ce947ac1982936619e1eb4"
+    },
+    "claude.md": {
+      "size_bytes": 2731,
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714"
+    },
+    "README.md": {
+      "size_bytes": 2940,
+      "sha256": "f2953cc9b9aa574b7042833201704740d72cfc9e438d9042a82a6aadfdb5fa66"
+    },
+    "AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "benchmarks/spatial_mapping.py": {
+      "size_bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "benchmarks/README.md": {
+      "size_bytes": 5595,
+      "sha256": "f66f20a4d400c94776c269b0e5b0efbe5fe607157768525cdaaf468da01b912d"
+    },
+    "tests/test_spatial_mapping.py": {
+      "size_bytes": 12394,
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0"
+    },
+    "agent_handoffs/verification.md": {
+      "size_bytes": 1220,
+      "sha256": "436d8cbaebe46c63d636b7ae1f2f0ec39bad05fdb6a74a9cb89d695e68a02f9f"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "size_bytes": 617,
+      "sha256": "27c33c3c7d480bd00f76d95e03d6f7fdc3685e2dcee653746ccedc744942e444"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "size_bytes": 341,
+      "sha256": "5aa2354426997d79f2455742eb9a9bd20cb62e64846301a98839e21cdf2586cb"
+    },
+    "agent_handoffs/project_brief.md": {
+      "size_bytes": 8688,
+      "sha256": "92a706c3b8e0d3da5c6c8fcd1d3f247a4be35b43fbaa0d2258f6283ec9bde4da"
+    },
+    "agent_handoffs/decisions.md": {
+      "size_bytes": 5832,
+      "sha256": "3e26cdca7dab871f28011445a9a20d9d77c5b172bdf27f1e9da0d71b538c481f"
+    },
+    "agent_handoffs/codex_review.md": {
+      "size_bytes": 684,
+      "sha256": "2c86ae5fabe40a5afc47d7ddb581117e3e8b45dbff08e2069f3824f2321cf5f6"
+    },
+    "agent_handoffs/claude_report.md": {
+      "size_bytes": 458,
+      "sha256": "79ec6eeb5a96c9f9067c439c97f253636aea2ea527544b4567f2ceca6e28869a"
+    },
+    "agent_handoffs/README.md": {
+      "size_bytes": 4939,
+      "sha256": "85652450d51fa02f1705e2aa060e23678d891f92a902aeeb4cd8f7f447783dd1"
+    },
+    "agent_handoffs/upstreams.md": {
+      "size_bytes": 4021,
+      "sha256": "73e1cb443db989263175499943f06c45636276b076e15a6bdb8bd9f147d97c47"
+    },
+    "agent_handoffs/AGENTS.md": {
+      "size_bytes": 8488,
+      "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-10T11:43:24.123101+00:00",
+  "baseline_differences": [
+    "agent_handoffs/orchestration_state.md",
+    "agent_handoffs/current_prompt.md"
+  ],
+  "expected_control_changes": [
+    "agent_handoffs/current_prompt.md",
+    "agent_handoffs/orchestration_state.md"
+  ],
+  "root_sources_and_previous_archives_preserved": true,
+  "candidate_snapshot_files": 21
+}

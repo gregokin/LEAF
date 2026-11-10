@@ -1,0 +1,196 @@
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":32,
+    "params":{
+      "q":"title:precipitation AND title:Jornada AND -obsoletedBy:*",
+      "fl":"id,title,beginDate,endDate,datePublished,formatId",
+      "rows":"25",
+      "_forwardedCount":"1",
+      "wt":"json"
+    }
+  },
+  "response":{
+    "numFound":55,
+    "start":0,
+    "maxScore":4.7348866,
+    "numFoundExact":true,
+    "docs":[{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210407001/5",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.1",
+      "title":"Daily precipitation from a network of weighing rain gauges on the Jornada Experimental Range (Jornada Basin LTER), 1976-2011.",
+      "beginDate":"1976-01-02T00:00:00Z",
+      "endDate":"2011-12-31T00:00:00Z",
+      "datePublished":"2019-10-05T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9013/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station Jornada Experimental Range Headquarters Weather Station, study of precipitation in units of centimeter on a yearly timescale",
+      "beginDate":"1914-01-01T00:00:00Z",
+      "endDate":"2006-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9012/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station Jornada Experimental Range Headquarters Weather Station, study of precipitation in units of centimeter on a monthly timescale",
+      "beginDate":"1914-06-01T00:00:00Z",
+      "endDate":"2006-12-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9124/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station NWS COOP #294426, Jornada Experimental Range, NM, study of precipitation in units of centimeter on a monthly timescale",
+      "beginDate":"1914-06-01T00:00:00Z",
+      "endDate":"2009-10-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9125/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station NWS COOP #294426, Jornada Experimental Range, NM, study of precipitation in units of centimeter on a yearly timescale",
+      "beginDate":"1914-01-01T00:00:00Z",
+      "endDate":"2009-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210380001/750",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "title":"Monthly precipitation data from a network of standard gauges at the Jornada Experimental Range (Jornada Basin LTER) in southern New Mexico, January 1916 - ongoing",
+      "beginDate":"1915-01-01T00:00:00Z",
+      "endDate":"2026-07-31T00:00:00Z",
+      "datePublished":"2026-08-19T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210380001/740",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "title":"Monthly precipitation data from a network of standard gauges at the Jornada Experimental Range (Jornada Basin LTER) in southern New Mexico, January 1916 - ongoing",
+      "beginDate":"1915-01-01T00:00:00Z",
+      "endDate":"2021-10-01T00:00:00Z",
+      "datePublished":"2022-04-04T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210380001/749",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "title":"Monthly precipitation data from a network of standard gauges at the Jornada Experimental Range (Jornada Basin LTER) in southern New Mexico, January 1916 - ongoing",
+      "beginDate":"1915-01-01T00:00:00Z",
+      "endDate":"2026-01-02T00:00:00Z",
+      "datePublished":"2026-01-12T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210278002/91",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "title":"Plant cover under precipitation and nitrogen manipulation treatments at the Jornada Basin LTER site, 2006-2008",
+      "beginDate":"2006-10-01T00:00:00Z",
+      "endDate":"2008-09-30T00:00:00Z",
+      "datePublished":"2020-02-07T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9071/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of calcium in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a yearly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9088/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of sulfate in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a monthly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-12-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9072/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of chloride in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a monthly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-12-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9070/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of calcium in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a monthly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-12-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9089/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of sulfate in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a yearly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9080/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of nitrate in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a monthly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-12-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9076/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of ammonium in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a monthly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-12-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9081/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of nitrate in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a yearly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9077/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of ammonium in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a yearly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9085/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of phosphate in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a yearly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9084/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of phosphate in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a monthly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-12-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9073/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of chloride in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a yearly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9093/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of total phosphorus in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a yearly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9092/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of total phosphorus in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a monthly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-12-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9090/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of total nitrogen in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a monthly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-12-31T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/ecotrends/9091/2",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.0",
+      "title":"Jornada Basin LTER/Jornada Experimental Range site, station LTER Weather Station at Jornada Basin LTER, study of total nitrogen in precipitation (volume-weighted concentration) in units of milligramsPerLiter on a yearly timescale",
+      "beginDate":"1984-01-01T00:00:00Z",
+      "endDate":"2008-01-01T00:00:00Z",
+      "datePublished":"2013-01-01T00:00:00Z"
+    }]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "purpose": "Actual installed trait-validator probe; all other positive traits are schema-only probe values, not recommended parameters.",
+  "source_sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+  "rate_1_accepted": true,
+  "study_rate_rejected": true,
+  "literal_error": "stepwat_traits['shrub']['intrinsic_rate_per_year'] must lie in [0, 1], got 52.48036753898896",
+  "study_rate_probe_per_year": 52.48036753898896
+}

@@ -1,0 +1,38 @@
+{
+  "MAPLE": {
+    "branch": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "main\n"
+    },
+    "head": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "9f466d2cfcd52991b24496cf67f4562d6268afa9\n"
+    },
+    "root": "/home/okin/MAPLE",
+    "status": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": " M src/maple/surface/topographic_commit/closed_windowed_commit.py\n?? CLAUDE_pre-compaction080926.md\n?? MAPLE_cases_1-4_20260928.zip\n?? MAPLE_cases_1-4_20260928.zip.sha256\n?? MAPLE_cases_6-8_10_20260928.zip\n?? MAPLE_cases_6-8_10_20260928.zip.sha256\n?? MAPLE_documentation_20260928.zip\n?? MAPLE_documentation_20260928.zip.sha256\n?? cases/01/\n?? cases/03/\n?? cases/barchan_800x100/README.md\n?? cases/barchan_800x100/initial_elevation.png\n?? cases/barchan_800x100/inspect_initial.py\n?? cases/barchan_800x100_immobile_base/README.md\n?? cases/barchan_direction_12h_local_shear/\n?? cases/barchan_direction_12h_regional/\n?? cases/barchan_rounded_h2_geometry_first_next12h/\n?? cases/barchan_rounded_h2_local_12h/\n?? cases/barchan_rounded_h2_local_pilot/\n?? cases/case10_first_contact_20261015/\n?? cases/case10_sand_v6_failure.zip\n?? cases/case10_sand_v6_failure.zip:Zone.Identifier\n?? cases/case10_sand_v6_failure/\n?? cases/case10_separation_evidence/\n?? cases/climbing_dune_north_24h_u08_10min_gpu/\n?? cases/climbing_gaussian_north_144h_u08_10min_gpu/\n?? cases/climbing_gaussian_north_24h_u08_10min_gpu/\n?? cases/climbing_gaussian_north_72h_u08_10min_gpu/\n?? cases/new_physics_24h_20261012/\n?? cases/portable_20260928/\n?? cases/random_superrepose_256_1h/\n?? cases/transverse_dunes_east_24h/\n?? cases/vegetation_first_contact_20261013/\n?? cases/vegetation_random_crest_v4_20261016/\n?? cases/vegetation_squares_2h/\n?? tests/unit/test_closed_windowed_import.py\n"
+    }
+  },
+  "SYRUP": {
+    "branch": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "feature/subsurface-hydrology\n"
+    },
+    "head": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "c76c603dde4e8f79ec48b18d954a386580d8bc89\n"
+    },
+    "root": "/home/okin/SYRUP",
+    "status": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": " M .gitignore\n M AGENTS.md\n M claude.md\n M pyproject.toml\n M src/maple_syrup/case_import.py\n M src/maple_syrup/legacy_case.py\n M src/maple_syrup/legacy_driver.py\n M src/maple_syrup/legacy_gpu_driver.py\n M src/maple_syrup/rfid_case.py\n M src/maple_syrup/routing.py\n M src/maple_syrup/sediment_experiment.py\n?? benchmarks/additional_cases/\n?? benchmarks/subsurface/\n?? cases/abbott_companion/\n?? cases/mahleran_inputs/\n?? cases/plot2_companion/\n?? cases/plot3_companion/\n?? cases/plot4_companion/\n?? cases/remo_companion/\n?? cases/rfid_companion/\n?? cases/shrubland_companion/\n?? cases/subsurface/\n?? cases/wise_companion/\n?? conftest.py\n?? docs/additional_mahleran_cases/\n?? docs/subsurface_hydrology/diffusivity_literature_and_fit.md\n?? docs/subsurface_hydrology/ecohyd_reference_sources.md\n?? docs/subsurface_hydrology/neon_jorn_validation.md\n?? docs/subsurface_hydrology/neon_shallow_data_screen.md\n?? docs/subsurface_hydrology/nevada_validation_preparation.md\n?? docs/subsurface_hydrology/nevada_zero_flux_comparison.md\n?? docs/subsurface_hydrology/plot1_experiment.md\n?? docs/subsurface_hydrology/validation_data_candidates.md\n?? docs/testing_shared_storage_qualification.md\n?? patches/\n?? src/maple_syrup/masked_case.py\n?? tests/additional_cases/\n?? tests/additional_cases_frozen/\n?? tests/collection_compat/\n?? tests/subsurface/test_nevada_observations.py\n?? tests/subsurface/test_plot1_handoff.py\n"
+    }
+  }
+}

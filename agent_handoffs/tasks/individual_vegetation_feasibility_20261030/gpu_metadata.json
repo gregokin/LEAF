@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-10-30T13:01:58.883070+00:00",
+  "argv": [
+    "nvidia-smi",
+    "--query-gpu=name,uuid,memory.total,memory.used",
+    "--format=csv,noheader"
+  ],
+  "returncode": 0,
+  "stdout": "NVIDIA GeForce GTX 1080 Ti, GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871, 11264 MiB, 0 MiB\nNVIDIA GeForce GTX 1080 Ti, GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75, 11264 MiB, 0 MiB\nNVIDIA GeForce GTX 1080 Ti, GPU-54e3597a-fed4-c1b9-473b-0b14af100a37, 11264 MiB, 902 MiB\nNVIDIA GeForce GTX 1080 Ti, GPU-fcbcc375-a471-a9c3-ab1c-eed25d898ef0, 11264 MiB, 19 MiB\n",
+  "stderr": "",
+  "scope": "Read-only GPU model/VRAM metadata. No GPU context, model, benchmark or other-job mutation."
+}

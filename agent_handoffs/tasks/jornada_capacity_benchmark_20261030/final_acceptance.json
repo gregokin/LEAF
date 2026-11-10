@@ -1,0 +1,43 @@
+{
+  "at_utc": "2026-10-30T18:27:01.453837+00:00",
+  "all_pass": true,
+  "checks": {
+    "root_AGENTS_unchanged": true,
+    "baseline_changes_within_scope": true,
+    "closed_task_files_preserved": true,
+    "Python_AST_valid": true,
+    "all_216_capacity_rows_recomputed": true,
+    "20_tests_passed_with_GPU_no_skips": true,
+    "tests_and_benchmark_source_hash_match": true,
+    "benchmark_exit_zero_reaped_no_timeout": true,
+    "all_11_cases_audit_parity_population_ledger_pass": true,
+    "allocator_hooks_balanced": true,
+    "upstream_source_hashes_and_HEADs_preserved": true,
+    "Claude_success_scope_and_reaping": true,
+    "local_links_exist": true,
+    "LF_final_newline_no_trailing_whitespace": true
+  },
+  "source_sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+  "changed_existing_paths": [
+    "README.md",
+    "agent_handoffs/verification.md",
+    "agent_handoffs/orchestration_state.md",
+    "agent_handoffs/current_prompt.md",
+    "agent_handoffs/project_brief.md",
+    "agent_handoffs/decisions.md",
+    "agent_handoffs/codex_review.md",
+    "agent_handoffs/claude_report.md"
+  ],
+  "links_checked": 66,
+  "broken_links": [],
+  "text_issues": [],
+  "source_paths_checked": 513,
+  "MAPLE_status_qualification": "One concurrent untracked case image appeared; source and HEAD unchanged, preserved without opening or editing.",
+  "limits": [
+    "Synthetic geometry and unit-demand traversal only",
+    "No physical water/growth/demography/native full export",
+    "Pool allocation peak excludes CUDA context/other allocators",
+    "Single-thread CPU, five kernel repeats, one mapping build per case",
+    "Cover-derived counts and root extent are qualified assumptions"
+  ]
+}

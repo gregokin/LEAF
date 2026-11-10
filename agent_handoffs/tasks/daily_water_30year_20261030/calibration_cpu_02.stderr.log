@@ -1,0 +1,2 @@
+{"event": "progress", "case": "june_hectare_3layers_roots3", "backend": "cpu", "day": 365, "year": 1.0, "water_total_m3": 581.0715110873704, "water_residual": 5.684341886080801e-13, "flux_residual": -1.3642420526593924e-12, "biomass_total_kg": 3584.892930654276, "biomass_residual": 0.0, "pending_uptake_m3": 10.754678791962824, "n_edges": 761630, "audit_ok": true, "elapsed_s": 3.231374493916519, "block_wall_s": 2.429113272228278, "weekly_wall_s": 0.7985884889494628}
+{"event": "case_done", "case": "june_hectare_3layers_roots3", "backend": "cpu", "status": "ok", "error": null}

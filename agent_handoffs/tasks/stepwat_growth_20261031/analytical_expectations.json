@@ -1,0 +1,194 @@
+{
+  "scope": "Independent scalar oracles for the specified weekly adaptation; fixture parameters, no field calibration or model run.",
+  "cases": [
+    {
+      "name": "wet",
+      "input": {
+        "B_kg": 2.0,
+        "seasonal_kg": 0.3,
+        "mature_kg": 10.0,
+        "rate_per_year": 0.5,
+        "support_kg_per_m3": 1.0,
+        "live_fraction": 0.5,
+        "extra_fraction": 0.4,
+        "uptake_m3": 0.025,
+        "temperature_factor": 1.0,
+        "activity": 1.0,
+        "period_days": 7,
+        "year_end": false
+      },
+      "expected": {
+        "required_support_kg": 0.019178082191780823,
+        "available_support_kg": 0.025,
+        "water_factor": 1.0,
+        "normal_gain_kg": 0.012853630136986302,
+        "extra_gain_kg": 0.0023287671232876716,
+        "loss_kg": 0.0,
+        "total_aboveground_kg": 2.0151823972602743,
+        "seasonal_kg": 0.30232876712328766
+      }
+    },
+    {
+      "name": "limited",
+      "input": {
+        "B_kg": 2.0,
+        "seasonal_kg": 0.3,
+        "mature_kg": 10.0,
+        "rate_per_year": 0.5,
+        "support_kg_per_m3": 1.0,
+        "live_fraction": 0.5,
+        "extra_fraction": 0.4,
+        "uptake_m3": 0.001,
+        "temperature_factor": 1.0,
+        "activity": 1.0,
+        "period_days": 7,
+        "year_end": false
+      },
+      "expected": {
+        "required_support_kg": 0.019178082191780823,
+        "available_support_kg": 0.001,
+        "water_factor": 0.052142857142857144,
+        "normal_gain_kg": 0.000670225,
+        "extra_gain_kg": 0.0,
+        "loss_kg": 0.0,
+        "total_aboveground_kg": 2.000670225,
+        "seasonal_kg": 0.3
+      }
+    },
+    {
+      "name": "dry",
+      "input": {
+        "B_kg": 2.0,
+        "seasonal_kg": 0.3,
+        "mature_kg": 10.0,
+        "rate_per_year": 0.5,
+        "support_kg_per_m3": 1.0,
+        "live_fraction": 0.5,
+        "extra_fraction": 0.4,
+        "uptake_m3": 0.0,
+        "temperature_factor": 1.0,
+        "activity": 1.0,
+        "period_days": 7,
+        "year_end": false
+      },
+      "expected": {
+        "required_support_kg": 0.019178082191780823,
+        "available_support_kg": 0.0,
+        "water_factor": 0.0,
+        "normal_gain_kg": 0.0,
+        "extra_gain_kg": 0.0,
+        "loss_kg": 0.0,
+        "total_aboveground_kg": 2.0,
+        "seasonal_kg": 0.3
+      }
+    },
+    {
+      "name": "cold",
+      "input": {
+        "B_kg": 2.0,
+        "seasonal_kg": 0.3,
+        "mature_kg": 10.0,
+        "rate_per_year": 0.5,
+        "support_kg_per_m3": 1.0,
+        "live_fraction": 0.5,
+        "extra_fraction": 0.4,
+        "uptake_m3": 0.025,
+        "temperature_factor": 0.0,
+        "activity": 1.0,
+        "period_days": 7,
+        "year_end": false
+      },
+      "expected": {
+        "required_support_kg": 0.019178082191780823,
+        "available_support_kg": 0.025,
+        "water_factor": 1.0,
+        "normal_gain_kg": 0.0,
+        "extra_gain_kg": 0.0,
+        "loss_kg": 0.0,
+        "total_aboveground_kg": 2.0,
+        "seasonal_kg": 0.3
+      }
+    },
+    {
+      "name": "dormant",
+      "input": {
+        "B_kg": 2.0,
+        "seasonal_kg": 0.3,
+        "mature_kg": 10.0,
+        "rate_per_year": 0.5,
+        "support_kg_per_m3": 1.0,
+        "live_fraction": 0.5,
+        "extra_fraction": 0.4,
+        "uptake_m3": 0.0,
+        "temperature_factor": 1.0,
+        "activity": 0.0,
+        "period_days": 7,
+        "year_end": false
+      },
+      "expected": {
+        "required_support_kg": 0.0,
+        "available_support_kg": 0.0,
+        "water_factor": 0.0,
+        "normal_gain_kg": 0.0,
+        "extra_gain_kg": 0.0,
+        "loss_kg": 0.0,
+        "total_aboveground_kg": 2.0,
+        "seasonal_kg": 0.3
+      }
+    },
+    {
+      "name": "year_end",
+      "input": {
+        "B_kg": 2.0,
+        "seasonal_kg": 0.3,
+        "mature_kg": 10.0,
+        "rate_per_year": 0.5,
+        "support_kg_per_m3": 1.0,
+        "live_fraction": 0.5,
+        "extra_fraction": 0.4,
+        "uptake_m3": 0.025,
+        "temperature_factor": 1.0,
+        "activity": 1.0,
+        "period_days": 7,
+        "year_end": true
+      },
+      "expected": {
+        "required_support_kg": 0.019178082191780823,
+        "available_support_kg": 0.025,
+        "water_factor": 1.0,
+        "normal_gain_kg": 0.012853630136986302,
+        "extra_gain_kg": 0.0023287671232876716,
+        "loss_kg": 0.30232876712328766,
+        "total_aboveground_kg": 1.7128536301369865,
+        "seasonal_kg": 0.0
+      }
+    },
+    {
+      "name": "mature",
+      "input": {
+        "B_kg": 2.0,
+        "seasonal_kg": 0.3,
+        "mature_kg": 2.0,
+        "rate_per_year": 0.5,
+        "support_kg_per_m3": 1.0,
+        "live_fraction": 0.5,
+        "extra_fraction": 0.4,
+        "uptake_m3": 0.025,
+        "temperature_factor": 1.0,
+        "activity": 1.0,
+        "period_days": 7,
+        "year_end": false
+      },
+      "expected": {
+        "required_support_kg": 0.019178082191780823,
+        "available_support_kg": 0.025,
+        "water_factor": 1.0,
+        "normal_gain_kg": 0.0,
+        "extra_gain_kg": 0.0,
+        "loss_kg": 0.0,
+        "total_aboveground_kg": 2.0,
+        "seasonal_kg": 0.3
+      }
+    }
+  ]
+}

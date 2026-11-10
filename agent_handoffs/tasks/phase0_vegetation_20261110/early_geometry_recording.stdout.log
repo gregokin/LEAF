@@ -1,0 +1,31 @@
+{
+  "initial_write_failure_rollback": {
+    "pass": false,
+    "before_next_due": null,
+    "after_next_due": 7.0
+  },
+  "buried_canopy_safe_default": {
+    "pass": false,
+    "observed": {
+      "exported_heights": [
+        0.2
+      ],
+      "n_unsupported": 0
+    }
+  },
+  "catalog_fingerprint_ownership": {
+    "pass": false,
+    "observed": {
+      "hash_unchanged": true,
+      "diameter_cached": 1.5,
+      "original_diameter": 1.5,
+      "document_a": 100.0
+    }
+  },
+  "cover_working_memory_scope": {
+    "declared_raster_bytes": 524288,
+    "max_cover_bytes": 524288,
+    "traced_peak_bytes": 2894552,
+    "observation": "Check admission includes the large float footprint temporary, not just boolean rasters."
+  }
+}

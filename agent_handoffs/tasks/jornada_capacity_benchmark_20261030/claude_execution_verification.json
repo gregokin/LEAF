@@ -1,0 +1,30 @@
+[
+  {
+    "attempt": "01",
+    "session_id": "0392cea4-0e9d-4207-b956-136121e862b7",
+    "exit_zero": true,
+    "success": true,
+    "no_denials": true,
+    "no_tools": true,
+    "prompt_hash_match": true,
+    "no_private_home_path": true,
+    "start_identity_recorded": true,
+    "child_reaped": true,
+    "original_pid_absent": true,
+    "no_timeout": true
+  },
+  {
+    "attempt": "02",
+    "session_id": "0392cea4-0e9d-4207-b956-136121e862b7",
+    "exit_zero": true,
+    "success": true,
+    "no_denials": true,
+    "no_tools": true,
+    "prompt_hash_match": true,
+    "no_private_home_path": true,
+    "start_identity_recorded": true,
+    "child_reaped": true,
+    "original_pid_absent": true,
+    "no_timeout": true
+  }
+]

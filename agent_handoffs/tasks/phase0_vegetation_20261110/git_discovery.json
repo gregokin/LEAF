@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-10T11:06:39.118331+00:00",
+  "local_git": {
+    "usable": false,
+    "entries": [],
+    "remote": null
+  },
+  "existing_model_origin_owner": "gregokin",
+  "github_probe": {
+    "command": "gh repo view gregokin/LEAF --json nameWithOwner,url,isPrivate,defaultBranchRef",
+    "returncode": 1,
+    "stderr": "GraphQL: Could not resolve to a Repository with the name 'gregokin/LEAF'. (repository)"
+  },
+  "pending": "User asked asynchronously for push destination; no external repository created."
+}

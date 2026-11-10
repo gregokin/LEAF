@@ -1,0 +1,1294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="knb-lter-jrn.210126001.128"
+  system="https://pasta.edirepository.org"
+  xmlns:ds="eml://ecoinformatics.org/dataset-2.1.0"
+  xmlns:eml="eml://ecoinformatics.org/eml-2.1.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 http://gce-lter.marsci.uga.edu/public/files/schemas/eml-210/eml.xsd">
+   <access
+    authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document"
+      system="https://pasta.edirepository.org">
+      <allow>
+         <principal>public</principal>
+         <permission>read</permission>
+      </allow>
+   </access>
+   <dataset>
+      <alternateIdentifier
+      system="https://doi.org">doi:10.6073/pasta/780cf5fd4306e3d12d13cf06a9f482b7</alternateIdentifier><title>Jornada Basin LTER Weather Station Daily summary climate data</title>
+      <creator>
+         <individualName>
+            <givenName>John</givenName>
+            <surName>Anderson</surName>
+         </individualName>
+         <organizationName>JRN LTER</organizationName>
+         <positionName>Research Site Manager</positionName>
+         <address>
+            <deliveryPoint>Jornada Experimental Range, P.O. Box 30003, MSC 3JER, NMSU</deliveryPoint>
+            <city>Las Cruces</city>
+            <administrativeArea>NM</administrativeArea>
+            <postalCode>88003-8003</postalCode>
+         </address>
+         <electronicMailAddress>janderso@jornada-vmail.nmsu.edu</electronicMailAddress>
+      </creator>
+      <pubDate>2023-10-11</pubDate>
+      <abstract>
+         <para>Daily summary values of averages of readings of the following parameters are made which are based on data recorded on a Campbell CR10, CR10X, then CR1000 data logger: maximum, minimum, and average air temperature; maximum and minimum relative humidity; total precipitation; average wind speed; maximum wind speed; average wind direction; total incoming solar radiation; average soil temperature at 5cm and 20cm; mean dew temperature. From 1983 - 5 June 1991, readings on which daily averages are based were made at 12 second intervals. From 6 June 1991 to present, readings on which daily averages are based are made at 10 second intervals.</para>
+      </abstract>
+      <keywordSet>
+         <keyword>air temperature</keyword>
+         <keyword>meteorology</keyword>
+         <keyword>wind direction</keyword>
+         <keyword>wind speed</keyword>
+         <keyword>precipitation</keyword>
+         <keyword>relative humidity</keyword>
+         <keyword>solar radiation</keyword>
+         <keyword>soil temperature</keyword>
+         <keywordThesaurus>LTER Controlled Vocabulary</keywordThesaurus>
+      </keywordSet>
+      <keywordSet>
+         <keyword>Climate</keyword>
+         <keyword>Soils</keyword>
+         <keyword>and Atmosphere</keyword>
+         <keyword>core</keyword>
+         <keyword>long-term</keyword>
+         <keywordThesaurus>JRN Dataset Keywords</keywordThesaurus>
+      </keywordSet>
+      <keywordSet>
+         <keyword>study 126</keyword>
+         <keywordThesaurus>Jornada Project Names</keywordThesaurus>
+      </keywordSet>
+      <keywordSet>
+         <keyword>LTER Weather Station</keyword>
+         <keywordThesaurus>Jornada Place Names</keywordThesaurus>
+      </keywordSet>
+      <keywordSet>
+         <keyword>Disturbance</keyword>
+         <keywordThesaurus>LTER Core Area</keywordThesaurus>
+      </keywordSet>
+      <intellectualRights>
+         <para>This information is released under the Creative Commons license - Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/). The consumer of these data ("Data User" herein) is required to cite it appropriately in any publication that results from its use. The Data User should realize that these data may be actively used by others for ongoing research and that coordination may be necessary to prevent duplicate publication. The Data User is urged to contact the authors of these data if any questions about methodology or results occur. Where appropriate, the Data User is encouraged to consider collaboration or co-authorship with the authors. The Data User should realize that misinterpretation of data may occur if used out of context of the original study. While substantial efforts are made to ensure the accuracy of data and associated documentation, complete accuracy of data sets cannot be guaranteed. All data are made available "as is." The Data User should be aware, however, that data are updated periodically and it is the responsibility of the Data User to check for new versions of the data. The data authors and the repository where these data were obtained shall not be liable for damages resulting from any use or misinterpretation of the data. Thank you.</para>
+      </intellectualRights>
+      <distribution
+      id="10.6073/pasta/780cf5fd4306e3d12d13cf06a9f482b7" scope="system"
+          system="https://pasta.edirepository.org"><online><url
+        function="information">https://doi.org/10.6073/pasta/780cf5fd4306e3d12d13cf06a9f482b7</url></online></distribution><coverage>
+         <geographicCoverage>
+            <geographicDescription>Jornada Basin LTER Weather Station.  Precise geographic coordinates of the meteorological station are available upon request; please contact the Data Manager.</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-106.804103</westBoundingCoordinate>
+               <eastBoundingCoordinate>-106.804103</eastBoundingCoordinate>
+               <northBoundingCoordinate>32.530429</northBoundingCoordinate>
+               <southBoundingCoordinate>32.530429</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <temporalCoverage>
+            <rangeOfDates>
+               <beginDate>
+                  <calendarDate>1983-03-01</calendarDate>
+               </beginDate>
+               <endDate>
+                  <calendarDate>2023-10-10</calendarDate>
+               </endDate>
+            </rangeOfDates>
+         </temporalCoverage>
+      </coverage>
+      <maintenance>
+         <description>ongoing</description>
+      </maintenance>
+      <contact>
+         <individualName>
+            <surName>Data Manager</surName>
+         </individualName>
+         <positionName>JRN-LTER Information Manager</positionName>
+         <address>
+            <deliveryPoint>Jornada Experimental Range, P.O. Box 30003, MSC 3JER, New Mexico State University, Las Cruces, NM</deliveryPoint>
+            <postalCode>88003-8003</postalCode>
+         </address>
+         <electronicMailAddress>datamanager.jrn.lter@gmail.com</electronicMailAddress>
+      </contact>
+      
+      <publisher><organizationName>Environmental Data Initiative</organizationName><electronicMailAddress>info@edirepository.org</electronicMailAddress><onlineUrl>https://edirepository.org</onlineUrl><userId
+      directory="https://ror.org">0330j0z60</userId></publisher><pubPlace>Environmental Data Initiative</pubPlace><methods>
+         <methodStep>
+            <description>
+               <section>
+                  <para>Summary: The met station is mounted on a 3-meter mast. Two rain gauges are 3 m from mast and approximaely 2 m from each other. Air temperature, relative humidity, wind direction and wind speed, and solar sensors are mounted on the mast. The anemometer and wind vane are installed at 3m height.</para>
+               </section>
+            </description>
+            <instrumentation>Temperature Probe; Manufacturer: Campbell Scientific Instruments, Model: CS215; Parameter: Air Temperature Accuracy: +/-0.3ÃÂ°C at 25ÃÂ°C, +/-0.4ÃÂ° (5ÃÂ°C to 40ÃÂ°C), +/-0.9ÃÂ°C (-40ÃÂ°C to 70ÃÂ°C), Range: -40ÃÂ°C to 70ÃÂ°C); Anemometer; Manufacturer: NRG, Inc (Model: 40C); Parameter: Wind Speed (Range: 0.5 to 50 m/s); Wind Vane; Manufacturer: NRG, Inc (Model: 200P); Parameter: Wind Direction (Range: 360 degrees (1 m/s threshold), Dead band: 8ÃÂ° max, 4ÃÂ° typical);</instrumentation>
+         </methodStep>
+         <methodStep>
+            <description>
+               <section>
+                  <para>Method - Sensor readings are taken at 10 second intervals by a Campbell Scientific Instruments (CSI) CR1000 data logger and converted from analog voltage to calibrated digital data, if necessary, by the CR1000 data logger program. Average air temperature, wind speed and wind direction, and standard deviation of wind direction are calculated by the CR1000 datalogger program and stored in tables in the datalogger storage module. Data are downloaded hourly from each remote site via a 900 MHz spread spectrum wireless radio network using CSI LoggerNet software. The data are parsed, quality-checked, documented and archived in the JRN-LTER Information Management office using data retrieval and parsing functions in the GCE Data Toolbox for MATLAB (https://gce-lter.marsci.uga.edu/lter/research/tools/data_toolbox.htm).</para>
+               </section>
+            </description>
+         </methodStep>
+         <sampling>
+            <studyExtent>
+               <coverage>
+                  <temporalCoverage>
+                     <rangeOfDates>
+                        <beginDate>
+                           <calendarDate>1983-03-01</calendarDate>
+                        </beginDate>
+                        <endDate>
+                           <calendarDate>2023-10-10</calendarDate>
+                        </endDate>
+                     </rangeOfDates>
+                  </temporalCoverage>
+               </coverage>
+               <coverage>
+                  <geographicCoverage>
+                     <geographicDescription>Jornada Basin LTER Weather Station.  Precise geographic coordinates of the meteorological station are available upon request; please contact the Data Manager.</geographicDescription>
+                     <boundingCoordinates>
+                        <westBoundingCoordinate>-106.804103</westBoundingCoordinate>
+                        <eastBoundingCoordinate>-106.804103</eastBoundingCoordinate>
+                        <northBoundingCoordinate>32.530429</northBoundingCoordinate>
+                        <southBoundingCoordinate>32.530429</southBoundingCoordinate>
+                     </boundingCoordinates>
+                  </geographicCoverage>
+               </coverage>
+            </studyExtent>
+            <samplingDescription>
+               <section>
+                  <para>Sensor readings are taken at 10 second intervals and aggregated into hourly and daily data tables.</para>
+               </section>
+            </samplingDescription>
+         </sampling>
+      </methods>
+      <project>
+         <title>Jornada Basin LTER Weather Station daily summary climate data</title>
+         <personnel>
+            <individualName>
+               <givenName>John</givenName>
+               <surName>Anderson</surName>
+            </individualName>
+            <organizationName>JRN LTER</organizationName>
+            <positionName>Research Site Manager</positionName>
+            <address>
+               <deliveryPoint>Jornada Experimental Range, P.O. Box 30003, MSC 3JER, NMSU</deliveryPoint>
+               <city>Las Cruces</city>
+               <administrativeArea>NM</administrativeArea>
+               <postalCode>88003-8003</postalCode>
+            </address>
+            <electronicMailAddress>janderso@jornada-vmail.nmsu.edu</electronicMailAddress>
+            <role>project leader</role>
+         </personnel>
+         <abstract>
+            <para>Collection of long-term baseline climate data at Jornada LTER NPP sites, New Mexico, supports the environmental monitoring objectives of the Jornada LTER monitoring program. Measurements are aggregated at intervals of hourly and daily with precipitation additionally with 10-second aggregation during precipitation events. Data are downloaded hourly via a 900 MHz spread spectrum wireless radio network. The met station variables measured include air temperature, precipitation, relative humidity, wind direction, wind speed, solar, and soil temperature....These data will be subject to revision in the future and are provided on a provisional basis. Use with caution.</para>
+         </abstract>
+         <funding>
+            <para>Funded by Jornada LTER program under NSF grant DEB-1832194</para>
+         </funding>
+      </project>
+      <dataTable
+      id="479ba1cceb985871e5ec49ca3839a986" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>lterws_daily_L2_rev_128.csv</entityName>
+         <entityDescription>Main data table from Jornada Basin LTER Weather Station Daily summary climate data</entityDescription>
+         <physical>
+            <objectName>lterws_daily_L2_rev_128.csv</objectName>
+            <size
+          unit="byte">2490469</size>
+            <authentication
+              method="MD5">f219a185dfa193fb8cbe9c7d8c044bc9</authentication>
+            <characterEncoding>ASCII</characterEncoding>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>4</numHeaderLines>
+                  <numFooterLines>0</numFooterLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <numPhysicalLinesPerRecord>1</numPhysicalLinesPerRecord>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+                    function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210126001/128/479ba1cceb985871e5ec49ca3839a986</url>
+               </online>
+            </distribution>
+         </physical>
+         <methods>
+            <methodStep>
+               <description>
+                  <para>Data processing using the GCE Data Toolbox for MATLAB</para>
+               </description>
+               <software>
+                  <title>GCE Data Toolbox for MATLAB</title>
+                  <creator>
+                     <organizationName>Georgia Coastal Ecosystems LTER</organizationName>
+                     <electronicMailAddress>gcelter@uga.edu</electronicMailAddress>
+                  </creator>
+                  <abstract>
+                     <para>The GCE Data Toolbox is a comprehensive library of functions for metadata-based analysis quality control, transformation and management of ecological data sets. The toolbox is based on the GCE Data Structure, a MATLAB specification for storing tabular data along with all information required to interpret the data and generate formatted metadata (documentation). Metadata fields in the structure are queried by toolbox functions for all operations, allowing functions to process and format values appropriately based on the type of information they represent. This semantic processing approach supports highly automated and intelligent data analysis and ensures data set validity throughout all processing steps.</para>
+                  </abstract>
+                  <implementation>
+                     <distribution>
+                        <online>
+                           <url
+                    function="information">https://gce-svn.marsci.uga.edu/trac/GCE_Toolbox</url>
+                        </online>
+                     </distribution>
+                  </implementation>
+                  <version>Toolbox Version 3.9.9b (06-Mar-2019)</version>
+               </software>
+            </methodStep>
+            <qualityControl>
+               <description>
+                  <para>Quality control analysis was performed using the GCE Data Toolbox for MATLAB software. Column data types are validated upon importing the table into MATLAB, and qualifier flags are automatically generated for data values based on QA/QC criteria for each data column pre-defined in metadata templates (e.g. value range checks, sanity checks, pattern checks). Automatically-assigned qualifier flags are reviewed graphically and revised or augmented as deemed appropriate by JRN information management staff, based on metadata information from the contributor, values of other measured variables, or statistical tests. Qualifier flags are also assigned to values that are imputed or derived, revised, or otherwise differ from values in the original data submission. A column of coded qualifier flags is generated and included in the data table if flags are assigned to any value in a data column.</para>
+               </description>
+            </qualityControl>
+         </methods>
+         <attributeList>
+            <attribute>
+               <attributeName>Date</attributeName>
+               <attributeDefinition>Date and time of observation. Time is in Mountain Standard Time (MST) or UTC/GMT -7</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>yyyy-MM-dd</formatString>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Year</attributeName>
+               <attributeDefinition>Calendar year</attributeDefinition>
+               <storageType>integer</storageType>
+               <measurementScale>
+                  <interval>
+                     <unit>
+                        <standardUnit>nominalYear</standardUnit>
+                     </unit>
+                     <precision>1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </interval>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>YearDay</attributeName>
+               <attributeDefinition>Numerical year day (day number within the current year)</attributeDefinition>
+               <storageType>integer</storageType>
+               <measurementScale>
+                  <interval>
+                     <unit>
+                        <standardUnit>nominalYear</standardUnit>
+                     </unit>
+                     <precision>1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">1</minimum>
+                           <maximum
+                    exclusive="true">366</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </interval>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Hours</attributeName>
+               <attributeDefinition>Time of day in fractional hours</attributeDefinition>
+               <storageType>float</storageType>
+               <measurementScale>
+                  <interval>
+                     <unit>
+                        <standardUnit>hour</standardUnit>
+                     </unit>
+                     <precision>0.0001</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">0</minimum>
+                           <maximum
+                    exclusive="true">24</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </interval>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>RECORD</attributeName>
+               <attributeDefinition>Record number generated by datalogger program</attributeDefinition>
+               <storageType>integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>none</customUnit>
+                     </unit>
+                     <precision>1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">0</minimum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_RECORD</attributeName>
+               <attributeDefinition>QA/QC flags for Record number generated by datalogger program (flagging criteria, where "x" is RECORD: x&lt;0="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Air_TempC_Max</attributeName>
+               <attributeDefinition>Air Temperature: Daily Maximum</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                           <maximum
+                    exclusive="true">50</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_Air_TempC_Max</attributeName>
+               <attributeDefinition>QA/QC flags for Air Temperature: Daily Maximum (flagging criteria, where "x" is Air_TempC_Max: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;45 &amp; x&lt;=50)="Q", x&gt;50="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Air_TempC_Min</attributeName>
+               <attributeDefinition>Air Temperature: Daily Minimum</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                           <maximum
+                    exclusive="true">50</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_Air_TempC_Min</attributeName>
+               <attributeDefinition>QA/QC flags for Air Temperature: Daily Minimum (flagging criteria, where "x" is Air_TempC_Min: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;45 &amp; x&lt;=50)="Q", x&gt;50="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Air_TempC_Avg</attributeName>
+               <attributeDefinition>Air Temperature: Daily Average</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                           <maximum
+                    exclusive="true">50</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_Air_TempC_Avg</attributeName>
+               <attributeDefinition>QA/QC flags for Air Temperature: Daily Average (flagging criteria, where "x" is Air_TempC_Avg: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;45 &amp; x&lt;=50)="Q", x&gt;50="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Solar_Incoming_Total</attributeName>
+               <attributeDefinition>Total incoming solar</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>megajoulesPerSquareMeter</customUnit>
+                     </unit>
+                     <precision>0.00001</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">0</minimum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_Solar_Incoming_Total</attributeName>
+               <attributeDefinition>QA/QC flags for Total incoming solar (flagging criteria, where "x" is Solar_Incoming_Total: x&lt;0="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Ppt_mm_Tot</attributeName>
+               <attributeDefinition>Precipitation: Daily Total</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>millimeter</standardUnit>
+                     </unit>
+                     <precision>0.001</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">0</minimum>
+                           <maximum
+                    exclusive="true">177.8</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_Ppt_mm_Tot</attributeName>
+               <attributeDefinition>QA/QC flags for Precipitation: Daily Total (flagging criteria, where "x" is Ppt_mm_Tot: x&lt;0="I", (x&gt;101.6 &amp; x&lt;=177.8)="Q", x&gt;177.8="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Relative_Humidity_Max</attributeName>
+               <attributeDefinition>Relative_Humidity_Max</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>percent</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="false">0</minimum>
+                           <maximum
+                    exclusive="true">105</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_Relative_Humidity_Max</attributeName>
+               <attributeDefinition>QA/QC flags for Relative_Humidity_Max (flagging criteria, where "x" is Relative_Humidity_Max: x&lt;=0="I", (x&gt;100 &amp; x&lt;=105)="Q", x&gt;105="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>I</code>
+                              <definition>Invalid value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>Q</code>
+                              <definition>Questionable value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Relative_Humidity_Min</attributeName>
+               <attributeDefinition>Relative_Humidity_Min</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>percent</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">0</minimum>
+                           <maximum
+                    exclusive="true">105</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_Relative_Humidity_Min</attributeName>
+               <attributeDefinition>QA/QC flags for Relative_Humidity_Min (flagging criteria, where "x" is Relative_Humidity_Min: x&lt;0="I", (x&gt;100 &amp; x&lt;=105)="Q", x&gt;105="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Windspeed_Max</attributeName>
+               <attributeDefinition>Wind Speed: Daily Maximum at 300 cm height</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>metersPerSecond</standardUnit>
+                     </unit>
+                     <precision>0.001</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">0</minimum>
+                           <maximum
+                    exclusive="true">55</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_Windspeed_Max</attributeName>
+               <attributeDefinition>QA/QC flags for Wind Speed: Daily Maximum at 300 cm height (flagging criteria, where "x" is Windspeed_Max: x&lt;0="I", (x&gt;32 &amp; x&lt;=55)="Q", x&gt;55="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>I</code>
+                              <definition>Invalid value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>WndSpeed_Avg</attributeName>
+               <attributeDefinition>Wind Speed: Daily Average at 300 cm height</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>metersPerSecond</standardUnit>
+                     </unit>
+                     <precision>0.001</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">0</minimum>
+                           <maximum
+                    exclusive="true">55</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_WndSpeed_Avg</attributeName>
+               <attributeDefinition>QA/QC flags for Wind Speed: Daily Average at 300 cm height (flagging criteria, where "x" is WndSpeed_Avg: x&lt;0="I", (x&gt;32 &amp; x&lt;=55)="Q", x&gt;55="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>I</code>
+                              <definition>Invalid value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>WinDir_Avg</attributeName>
+               <attributeDefinition>Wind Direction: Daily Resultant Vector Average at 300 cm height</attributeDefinition>
+               <storageType>integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degrees</customUnit>
+                     </unit>
+                     <precision>1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">0</minimum>
+                           <maximum
+                    exclusive="true">360</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_WinDir_Avg</attributeName>
+               <attributeDefinition>QA/QC flags for Wind Direction: Daily Resultant Vector Average at 300 cm height (flagging criteria, where "x" is WinDir_Avg: x&lt;0="I", x&gt;360="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>I</code>
+                              <definition>Invalid value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>WinDir_StdDev</attributeName>
+               <attributeDefinition>Wind Direction: Daily Standard Deviation</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degrees</customUnit>
+                     </unit>
+                     <precision>0.001</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">0</minimum>
+                           <maximum
+                    exclusive="true">360</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_WinDir_StdDev</attributeName>
+               <attributeDefinition>QA/QC flags for Wind Direction: Daily Standard Deviation (flagging criteria, where "x" is WinDir_StdDev: x&lt;0="I", x&gt;360="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>I</code>
+                              <definition>Invalid value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>SoilTemp_5cm_Avg</attributeName>
+               <attributeDefinition>Soil Temperature: 5 cm Daily Average</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_SoilTemp_5cm_Avg</attributeName>
+               <attributeDefinition>QA/QC flags for Soil Temperature: 5 cm Daily Average (flagging criteria, where "x" is SoilTemp_5cm_Avg: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;60)="Q")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>SoilTemp_20cm_Avg</attributeName>
+               <attributeDefinition>Soil Temperature: 20 cm Daily Average</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                           <maximum
+                    exclusive="true">50</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_SoilTemp_20cm_Avg</attributeName>
+               <attributeDefinition>QA/QC flags for Soil Temperature: 20 cm Daily Average (flagging criteria, where "x" is SoilTemp_20cm_Avg: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;45 &amp; x&lt;=50)="Q", x&gt;50="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>I</code>
+                              <definition>Invalid value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>Dewpoint_Avg</attributeName>
+               <attributeDefinition>Air Temperature: Daily Minimum</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                           <maximum
+                    exclusive="true">50</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_Dewpoint_Avg</attributeName>
+               <attributeDefinition>QA/QC flags for Air Temperature: Daily Minimum (flagging criteria, where "x" is Dewpoint_Avg: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;45 &amp; x&lt;=50)="Q", x&gt;50="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>Q</code>
+                              <definition>Questionable value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>SoilTemp_5cm_Max</attributeName>
+               <attributeDefinition>Soil Temperature: 5 cm Daily Maximum</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_SoilTemp_5cm_Max</attributeName>
+               <attributeDefinition>QA/QC flags for Soil Temperature: 5 cm Daily Maximum (flagging criteria, where "x" is SoilTemp_5cm_Max: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;60)="Q")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>SoilTemp_5cm_Min</attributeName>
+               <attributeDefinition>Soil Temperature: 5 cm Daily Minimum</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_SoilTemp_5cm_Min</attributeName>
+               <attributeDefinition>QA/QC flags for Soil Temperature: 5 cm Daily Minimum (flagging criteria, where "x" is SoilTemp_5cm_Min: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;60)="Q")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>SoilTemp_20cm_Max</attributeName>
+               <attributeDefinition>Soil Temperature: 20 cm Daily Maximum</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                           <maximum
+                    exclusive="true">50</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_SoilTemp_20cm_Max</attributeName>
+               <attributeDefinition>QA/QC flags for Soil Temperature: 20 cm Daily Maximum (flagging criteria, where "x" is SoilTemp_20cm_Max: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;45 &amp; x&lt;=50)="Q", x&gt;50="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>I</code>
+                              <definition>Invalid value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>SoilTemp_20cm_Min</attributeName>
+               <attributeDefinition>Soil Temperature: 20 cm Daily Minimum</attributeDefinition>
+               <storageType>floating-point</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <customUnit>degreeCelcius</customUnit>
+                     </unit>
+                     <precision>0.01</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                        <bounds>
+                           <minimum
+                    exclusive="true">-35</minimum>
+                           <maximum
+        exclusive="true">50</maximum>
+                        </bounds>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>value not recorded or censored based on quality control analysis (see methods)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>Flag_SoilTemp_20cm_Min</attributeName>
+               <attributeDefinition>QA/QC flags for Soil Temperature: 20 cm Daily Minimum (flagging criteria, where "x" is SoilTemp_20cm_Min: x&lt;-35="I", (x&gt;=-35 &amp; x&lt;-30 | x&gt;45 &amp; x&lt;=50)="Q", x&gt;50="I")</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>A</code>
+                              <definition>Accepted value</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>M</code>
+                              <definition>Missing value</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+         </attributeList>
+         <numberOfRecords>14834</numberOfRecords>
+      </dataTable>
+   </dataset>
+   <additionalMetadata>
+      <metadata>
+         <stmml:unitList
+          xsi:schemaLocation="http://www.xml-cml.org/schema/stmml-1.1 http://gce-lter.marsci.uga.edu/public/files/schemas/eml-210/stmml.xsd">
+            <stmml:unit
+          id="degreeCelcius"
+          name="degreeCelcius">
+               <stmml:description>user defined unit
+                  degreeCelcius</stmml:description>
+            </stmml:unit>
+            <stmml:unit
+          abbreviation="Ã¯Â¿Â½" id="degrees"
+          multiplierToSI="0.0174532924" name="degrees" parentSI="radian"
+          unitType="angle">
+               <stmml:description>360 degrees comprise a unit
+                  circle.</stmml:description>
+            </stmml:unit>
+            <stmml:unit
+          id="megajoulesPerSquareMeter"
+          name="megajoulesPerSquareMeter">
+               <stmml:description>user defined unit
+                  megajoulesPerSquareMeter</stmml:description>
+            </stmml:unit>
+            <stmml:unit
+          id="none"
+          name="none">
+               <stmml:description>user defined unit none</stmml:description>
+            </stmml:unit>
+            <stmml:unit
+          abbreviation="%" id="percent" multiplierToSI="1"
+          name="percent" unitType="dimensionless">
+               <stmml:description>ratio of two quantities as
+                  percent composition (1:100)</stmml:description>
+            </stmml:unit>
+         </stmml:unitList>
+      </metadata>
+   </additionalMetadata>
+</eml:eml>

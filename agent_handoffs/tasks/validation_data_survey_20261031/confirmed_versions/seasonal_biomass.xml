@@ -1,0 +1,1073 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="knb-lter-jrn.210011001.2"
+  system="https://pasta.edirepository.org"
+  xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+  <access
+    authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document"
+    system="https://pasta.edirepository.org">
+    <allow>
+      <principal>uid=JRN,o=LTER,dc=ecoinformatics,dc=org</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset
+      id="d210011001">
+    <alternateIdentifier
+        system="https://doi.org">doi:10.6073/pasta/26ca2b57d068e8f866aeedfa581a6e6b</alternateIdentifier><title>Seasonal aboveground plant biomass estimates at 15 net primary production (NPP) study sites at Jornada Basin LTER from 1989-ongoing</title>
+    <creator>
+      <individualName>
+        <givenName>Debra C</givenName>
+        <surName>Peters</surName>
+      </individualName>
+      <organizationName>USDA-ARS Jornada Experimental Range</organizationName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>U.S.A.</country>
+      </address>
+      <userId
+        directory="ORCID">0000-0002-5842-8099</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Laura F</givenName>
+        <surName>Huenneke</surName>
+      </individualName>
+      <organizationName>New Mexico State University (Now at NAU)</organizationName>
+      <userId
+        directory="ORCID">0000-0002-2562-6822</userId>
+    </creator>
+    <metadataProvider>
+      <organizationName>Jornada Basin LTER/New Mexico State University</organizationName>
+      <positionName>Jornada Basin LTER program</positionName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>USA</country>
+      </address>
+      <electronicMailAddress>jornada.lter@nmsu.edu</electronicMailAddress>
+      <onlineUrl>https://lter.jornada.nmsu.edu</onlineUrl>
+    </metadataProvider>
+    <associatedParty>
+      <individualName>
+        <givenName>Jin</givenName>
+        <surName>Yao</surName>
+      </individualName>
+      <organizationName>USDA-ARS Jornada Experimental Range</organizationName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>U.S.A.</country>
+      </address>
+      <role>data analyst</role>
+    </associatedParty>
+    <associatedParty>
+      <individualName>
+        <givenName>Heather</givenName>
+        <surName>Savoy</surName>
+      </individualName>
+      <organizationName>USDA-ARS Jornada Experimental Range</organizationName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>U.S.A.</country>
+      </address>
+      <userId
+        directory="ORCID">0000-0002-2032-4868</userId>
+      <role>data analyst</role>
+    </associatedParty>
+    <associatedParty>
+      <individualName>
+        <givenName>Gregory E</givenName>
+        <surName>Maurer</surName>
+      </individualName>
+      <organizationName>Jornada Basin LTER/New Mexico State University</organizationName>
+      <address>
+        <deliveryPoint>P.O. Box 30003; MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>U.S.A.</country>
+      </address>
+      <electronicMailAddress>gmaurer@nmsu.edu</electronicMailAddress>
+      <userId
+        directory="ORCID">0000-0002-3007-8058</userId>
+      <role>data analyst</role>
+    </associatedParty>
+    <pubDate>2022-04-12</pubDate>
+    <language>English</language>
+    <abstract>
+      <para>
+    This data package contains aboveground vegetation cover, volume, and
+    calculated biomass values at the 15 Net Primary Production (NPP)
+    study sites on Jornada Experimental Range (JER) and Chihuahuan
+    Desert Rangeland Research Center (CDRRC) lands. Sites were selected
+    to represent the 5 major ecosystem types in the Chihuahuan Desert
+    (upland grasslands, playa grasslands, mesquite-dominated shrublands,
+    creosotebush-dominated shrublands, tarbush-dominated shrublands).
+    For each ecosystem type, three sites were selected to represent the
+    range in variability in production and plant diversity; thus the
+    locations are not replicates. At each site, a 1 hectare area was
+    fenced in 1988 and a grid of 49 (48 at one playa location) 1m x 1m
+    replicate quadrats was laid out when sampling began in 1989. For
+    each quadrat, aboveground biomass has been calculated from two data
+    sources: 1) non-destructive horizontal cover and vertical height
+    measurements of individual plants, or plant parts, within each
+    quadrat, and 2) linear regression coefficients for each plant
+    species derived from off-quadrat cover, height, and harvested
+    biomass measurements. Non-destructive measurements (1) are taken
+    during winter, spring, and fall measurement campaigns, then
+    aggregated by species for each quadrat, and resulting dimensions are
+    used to calculate species biomass (grams) by quadrat and season
+    using using the species-specific regression coefficients derived
+    from dataset 2. This is the most detailed biomass dataset available
+    and can be used to derive values of net primary production between
+    seasons or annually. Each dataset record contains calculated biomass
+    (and related variables) by species, quadrat, season, and site. Data
+    collection is ongoing with new observations in spring, fall, and
+    winter of each year, but this data package may be updated less
+    frequently.
+  </para>
+      <para>
+        <emphasis>Attention:</emphasis>
+      </para>
+      <para> 1) For most species, these data are
+    not appropriate for estimates of percentage cover because of the way
+    the data are collected. 2) Calculated values in this data package
+    have changed over time as the methodology for estimating biomass has
+    changed. 3) Relating long-term NPP derived from this package with
+    long-term precipitation is problematic given the importance of wet
+    and dry periods and their effect on production in these ecosystems.
+    4) Data from 2013 and later are currently in provisional status and
+    subject to change as we review the allometric equations used for
+    estimating biomass. </para>
+      <para>
+        <emphasis>See Notes in the methods element for
+    further details.</emphasis>
+      </para>
+      <para>
+  </para>
+    </abstract>
+    <keywordSet>
+      <keyword
+        keywordType="theme">populations</keyword>
+      <keyword
+        keywordType="theme">primary production</keyword>
+      <keywordThesaurus>LTER Core Research Areas</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">aboveground production</keyword>
+      <keyword
+        keywordType="theme">deserts</keyword>
+      <keyword
+        keywordType="theme">net primary production</keyword>
+      <keyword
+        keywordType="theme">populations</keyword>
+      <keyword
+        keywordType="theme">vegetation</keyword>
+      <keywordThesaurus>LTER Controlled Vocabulary v1</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">ongoing</keyword>
+      <keywordThesaurus>none</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">ongoing</keyword>
+      <keywordThesaurus>Jornada Basin LTER dataset keywords</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="theme">NPP study</keyword>
+      <keyword
+        keywordType="theme">study 011</keyword>
+      <keywordThesaurus>Jornada Basin project names</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword
+        keywordType="place">C-CALI</keyword>
+      <keyword
+        keywordType="place">C-GRAV</keyword>
+      <keyword
+        keywordType="place">C-SAND</keyword>
+      <keyword
+        keywordType="place">G-BASN</keyword>
+      <keyword
+        keywordType="place">G-IBPE</keyword>
+      <keyword
+        keywordType="place">G-SUMM</keyword>
+      <keyword
+        keywordType="place">M-NORT</keyword>
+      <keyword
+        keywordType="place">M-RABB</keyword>
+      <keyword
+        keywordType="place">M-WELL</keyword>
+      <keyword
+        keywordType="place">NPP locations</keyword>
+      <keyword
+        keywordType="place">P-COLL</keyword>
+      <keyword
+        keywordType="place">P-SMAL</keyword>
+      <keyword
+        keywordType="place">P-TOBO</keyword>
+      <keyword
+        keywordType="place">T-EAST</keyword>
+      <keyword
+        keywordType="place">T-TAYL</keyword>
+      <keyword
+          keywordType="place">T-WEST</keyword>
+      <keywordThesaurus>Jornada Basin place names</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>
+      <para>
+  This information is released under the Creative Commons license - Attribution - CC BY 
+  (https://creativecommons.org/licenses/by/4.0/). The consumer of these data ("Data User" 
+  herein) is required to cite it appropriately in any publication that results from its 
+  use. The Data User should realize that these data may be actively used by others for 
+  ongoing research and that coordination may be necessary to prevent duplicate 
+  publication. The Data User is urged to contact the authors of these data if any 
+  questions about methodology or results occur. Where appropriate, the Data User is 
+  encouraged to consider collaboration or co-authorship with the authors. The Data User 
+  should realize that misinterpretation of data may occur if used out of context of the 
+  original study. While substantial efforts are made to ensure the accuracy of data and 
+  associated documentation, complete accuracy of data sets cannot be guaranteed. All data 
+  are made available "as is." The Data User should be aware, however, that data are updated 
+  periodically and it is the responsibility of the Data User to check for new versions of 
+  the data. The data authors and the repository where these data were obtained shall not be 
+  liable for damages resulting from any use or misinterpretation of the data. Thank you.
+</para>
+    </intellectualRights>
+    <distribution>
+      <online>
+        <url
+      function="information">https://jrn.lternet.edu</url>
+      </online>
+    </distribution>
+    <distribution
+      id="10.6073/pasta/26ca2b57d068e8f866aeedfa581a6e6b" scope="system"
+          system="https://pasta.edirepository.org"><online><url
+        function="information">https://doi.org/10.6073/pasta/26ca2b57d068e8f866aeedfa581a6e6b</url></online></distribution><coverage>
+      <geographicCoverage>
+        <geographicDescription>NPP study locations: There are 15 sites used in the NPP study, spanning 5 vegetation community types in the Jornada Basin. This bounding box includes all 15 sites. More precise geographic coordinates for this study may be requested from the JRN LTER Data Manager (jornada.data@nmsu.edu).</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-106.865000</westBoundingCoordinate>
+          <eastBoundingCoordinate>-106.713000</eastBoundingCoordinate>
+          <northBoundingCoordinate>32.669000</northBoundingCoordinate>
+          <southBoundingCoordinate>32.488000</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>1989-05-01</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2020-10-31</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <maintenance>
+      <description>ongoing</description>
+      <maintenanceUpdateFrequency>annually</maintenanceUpdateFrequency>
+      <changeHistory>
+        <changeScope>Metadata</changeScope>
+        <oldValue>No previous revision</oldValue>
+        <changeDate>2021-03-03</changeDate>
+        <comment>Gregory Maurer : Revising first version with methods steps and protocols</comment>
+      </changeHistory>
+    </maintenance>
+    <contact>
+      <organizationName>Jornada Basin LTER/New Mexico State University</organizationName>
+      <positionName>Jornada Basin LTER Information Manager</positionName>
+      <address>
+        <deliveryPoint>P.O. Box 30003, MSC 3JER New Mexico State University</deliveryPoint>
+        <city>Las Cruces</city>
+        <administrativeArea>NM</administrativeArea>
+        <postalCode>88003-8003</postalCode>
+        <country>USA</country>
+      </address>
+      <phone>575-646-1739</phone>
+      <electronicMailAddress>jornada.data@nmsu.edu</electronicMailAddress>
+      <onlineUrl>https://lter.jornada.nmsu.edu/information-management/</onlineUrl>
+    </contact>
+    
+    <publisher><organizationName>Environmental Data Initiative</organizationName><electronicMailAddress>info@environmentaldatainitiative.org</electronicMailAddress><onlineUrl>https://environmentaldatainitiative.org</onlineUrl><userId
+          directory="https://ror.org">0330j0z60</userId></publisher><pubPlace>Environmental Data Initiative</pubPlace><methods>
+      <methodStep>
+        <description>
+          <section>
+            <title>General study design</title>
+            <para>
+      There are 15 net primary production (NPP) monitoring sites located
+      in 5 vegetation communities that represent the major vegetation
+      types of the Jornada Basin. These vegetation zones and their
+      associated NPP sites (3 per zone) are: 1) creosotebush scrub
+      (CALI, GRAV, SAND), 2) tarbush flats (EAST, TAYL, WEST), 3)
+      grassland (BASN, IBPE, SUMM), 4) mesquite dunes (NORT, RABB,
+      WELL), and 5) playa (COLL, SMAL, TOBO). Grids of permanent 1
+      square meter replicate quadrats have been established at each site
+      for long-term monitoring of net primary production. Grids consist
+      of 49 quadrats arranged in a square 7 x 7 pattern, with quadrats
+      10 m apart. (Exception: P-COLL, the College Ranch playa, has 48
+      quadrats arranged in a 3 x 16 pattern). NPP observations at the
+      quadrats, including the non-destructive and off-grid harvests
+      described below, began in April 1989.
+    </para>
+          </section>
+          <section>
+            <title>Biomass estimation methods</title>
+            <para>
+      The objectives of the NPP study are to monitor spatial and
+      temporal patterns of aboveground biomass across a range of
+      ecosystem types; to allow the estimation of net primary production
+      and its variability in those ecosystems; and to provide a
+      quantitative description of plant community structure over time in
+      those ecosystems. This data package contains calculated plant
+      volume and aboveground biomass values for each species and quadrat
+      at all NPP sites during fall, winter, and spring sampling periods.
+      It is the most detailed biomass dataset available and it can be
+      (and has been) used to derive seasonal or annual values of NPP.
+      Biomass estimation methods, and changes to those methods and the
+      data, are described below.
+    </para>
+            <para>
+      Data used to calculate species volume and biomass at the NPP
+      quadrats come from two source datasets: 1) off-grid reference
+      measurements of aboveground plant volume (derived from cover and
+      height) and harvested aboveground plant biomass, and 2)
+      non-destructive plant volume measurements (again, from cover and
+      height) at permanent NPP quadrats (see "Source data
+      packages" for further details). The reference harvest dataset
+      is used to build linear regression models of plant biomass as a
+      function of plant volume. Depending on the outcome of a model
+      selection process involving F-testing of models with and without
+      interaction terms, these models may be specific to species, groups
+      of similar species, site, season, or some combination of these
+      factors. The non-destructive measurements of plant cover and
+      height are used to calculate species volume at each permanent
+      quadrat. For each of these species volumes, the selected
+      biomass-volume linear models are then used to estimate aboveground
+      biomass at the permanent quadrat.
+    </para>
+            <para>
+      Huenneke et al. (2001) describes both the non-destructive and
+      reference harvest sampling methods and the subsequent biomass
+      regression model selection. Descriptions of the NPP sites,
+      sampling design, and results from the first ~10 years of data
+      collection were initially laid out by Huenneke et al. (2002). Both
+      the data and the methods used in the study have evolved since, and
+      there are two additional publications that describe those changes.
+      In around 2008 it was determined that forcing the y-intercept of
+      the biomass-volume linear models through zero gave more sensible
+      estimates of quadrat biomass. This change is described by Muldavin
+      et al. (2008) and the regression models and resulting biomass
+      datasets were changed to be consistent with this study. Later,
+      Peters et al. (2012) described additional updates to the
+      biomass-volume regression coefficients that resulted from
+      additional harvests of selected Chihuahuan desert species. The
+      protocol for that publication also removed problematic species
+      (<emphasis>Yucca elata</emphasis>) from subsequent NPP
+      calculations, which affects NPP datasets derived from this one
+      (see "Derived data packages").
+    </para>
+          </section>
+          <section>
+            <title>IMPORTANT NOTES</title>
+            <para><emphasis>NOTE 1</emphasis>: These data are not appropriate for
+      estimates of percentage cover. NPP-associated percent cover
+      measurements were developed for and are used solely to provide the
+      best estimate of biomass production. Because the methodology
+      results in measurements of overlapping subcanopy systems and
+      canopies of adjacent individuals, NPP percent cover measurements
+      are not an appropriate measure of actual aerial plant cover. Doing
+      so will result in inflated numbers for the "actual"
+      vegetative cover.
+    </para>
+            <para><emphasis>NOTE 2</emphasis>: Calculated values in this data
+      package have changed over time as the methodology for deriving
+      biomass has changed. Data through 2003 was replaced online per
+      below on 9/22/2011. Analyses and results for ANPP differ from
+      previous uses of the data from 1989-1998 (Huenneke et al., 2002)
+      in three ways: (1) Yucca elata was removed prior to analysis
+      because its growth form results in large errors in biomass
+      estimates from year-to-year, (2) regressions between biomass and
+      plant volume used an intercept equal to 0 to be consistent with a
+      recent study in a similar system (Muldavin et al., 2008), and (3)
+      reference harvests obtained in extreme years resulted in adjusted
+      regression coefficients through time that reflect year-to-year
+      variation in ANPP. These changes result in ANPP values that are
+      smaller compared (Peters et al. 2012) with previous studies
+      (Huenneke et al., 2002).
+    </para>
+            <para><emphasis>NOTE 3</emphasis>: See Peters et al. GCB 2012 for the
+      relationships between ANPP and PPT in wet periods, and the
+      inappropriate use of long-term ANPP vs long-term PPT.
+    </para>
+            <para><emphasis>NOTE 4</emphasis>: Plant species codes in the
+      "spp" column of the data file are specific to the
+      Jornada Basin LTER. However, USDA Plants Database codes
+      (plants.usda.gov) have been assigned to most of these local codes
+      in a separate column. Further details for linking the local codes
+      to currently recognized taxa may be found in the "JRN
+      Vascular Plants" EDI package (knb-lter-jrn.210520001).
+    </para>
+            <para><emphasis>NOTE 5</emphasis>: In 2022 we initiated a new effort to
+      evaluate the allometric equations used to estimate biomass from
+      field volumetric measurements, which will potentially affect data
+      in this dataset and other ANPP datasets (such as
+      knb-lter-jrn.210011003). Therefore, values since 2012 are
+      provisional and subject to some change as this evaluation
+      proceeds. Please contact the JRN Information manager for further
+      information.
+    </para>
+          </section>
+          <section>
+            <title>Source data packages</title>
+            <para>
+      Biomass values in this dataset are calculated using two other data
+      sources, each assigned to their own JRN package IDs and regularly
+      maintained on EDI.
+    </para>
+            <para><emphasis>1.</emphasis> Non-destructive quadrat measurements of
+      plant cover and height collected in the field at NPP sites (EDI
+      package knb-lter-jrn.210011002).
+    </para>
+            <para><emphasis>2.</emphasis> Reference harvest measurements consisting
+      of plant cover, height, and harvested biomass taken outside the
+      NPP plots and used to generate regression models of biomass as a
+      function of volume (EDI package knb-lter-jrn.210011004).
+    </para>
+          </section>
+          <section>
+            <title>Derived data packages</title>
+            <para>
+      knb-lter-jrn.210011003 - Annual NPP summaries by site
+    </para>
+          </section>
+          <section>
+            <title>References</title>
+            <para>
+      Huenneke, Laura F., Dennis Clason, and Esteban Muldavin.
+      "Spatial heterogeneity in Chihuahuan Desert vegetation:
+      implications for sampling methods in semi-arid ecosystems."
+      Journal of Arid Environments 47, no. 3 (2001): 257-270.
+    </para>
+            <para>
+      Huenneke, Laura F., John P. Anderson, Marta Remmenga, and William
+      H. Schlesinger. "Desertification alters patterns of
+      aboveground net primary production in Chihuahuan ecosystems."
+      Global Change Biology 8, no. 3 (2002): 247-264.
+    </para>
+            <para>
+      Muldavin, Esteban H., Douglas I. Moore, Scott L. Collins, Karen R.
+      Wetherill, and David C. Lightfoot. "Aboveground net primary
+      production dynamics in a northern Chihuahuan Desert
+      ecosystem." Oecologia 155, no. 1 (2008): 123-132.
+    </para>
+            <para>
+      Peters, Debra PC, Jin Yao, Osvaldo E. Sala, and John P. Anderson.
+      "Directional climate change and potential reversal of
+      desertification in arid and semiarid ecosystems." Global
+      Change Biology 18, no. 1 (2012): 151-163.
+    </para>
+          </section>
+        </description>
+      </methodStep>
+    </methods>
+    <project>
+      <title>Jornada Basin LTER</title>
+      <personnel>
+        <individualName>
+          <salutation>Dr.</salutation>
+          <givenName>Niall</givenName>
+          <surName>Hanan</surName>
+        </individualName>
+        <address>
+          <deliveryPoint>P.O. Box 30003, MSC 3JER</deliveryPoint>
+          <deliveryPoint>New Mexico State University</deliveryPoint>
+          <city>Las Cruces</city>
+          <administrativeArea>NM</administrativeArea>
+          <postalCode>88003-8003</postalCode>
+          <country>United States</country>
+        </address>
+        <phone
+      phonetype="voice">575-646-3335</phone>
+        <electronicMailAddress>nhanan@nmsu.edu</electronicMailAddress>
+        <role>Principal Investigator</role>
+      </personnel>
+      <abstract>
+        <section>
+          <para>The Jornada Basin Long-Term Ecological Research (LTER) program is part of a 
+          national network of long-term ecological research sites funded by the US National 
+          Science Foundation (NSF). The Jornada LTER program has been continuously funded
+          since 1982 to develop general principles governing changes between grassland 
+          and shrubland ecosystems based on long-term data collected in the Chihuahuan 
+          Desert. We translate our findings to dryland ecosystems around the world, and 
+          forecast the dynamics of future ecosystem states in response to changing climate 
+          and land use.</para>
+        </section>
+      </abstract>
+      <funding>
+        <section>
+          <para>JRN LTER is funded by the National Science Foundation under award DEB 2025166.</para>
+        </section>
+      </funding>
+    </project>
+    <dataTable
+      id="387af8a5032b3a69b9e9ff660b70dcb3" scope="document"
+          system="https://pasta.edirepository.org">
+      <entityName>Quadrat plant volume and biomass data</entityName>
+      <entityDescription>Plant volume (cubic cm) and estimated biomass (g) by species, quadrat, site, and season</entityDescription>
+      <physical>
+        <objectName>JRN011001_NPP_quadrat_estimates_SppSiteSeas.csv</objectName>
+        <size
+          unit="byte">17008068</size>
+        <authentication
+              method="MD5">47244800b3f07723c1418c2b251040c9</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <numFooterLines>0</numFooterLines>
+            <recordDelimiter>\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+              <quoteCharacter>"</quoteCharacter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210011001/2/387af8a5032b3a69b9e9ff660b70dcb3</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute
+          id="d210011001-e1-att1">
+          <attributeName>file_id</attributeName>
+          <attributeLabel>File ID</attributeLabel>
+          <attributeDefinition>File identifier with pattern NQBIOyyyys [where NQBIO=NPP Quad Biomass; yyyy=YEAR; s=Season (S=Summer, W=Winter, F=Fall)]</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>any text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att2">
+          <attributeName>year</attributeName>
+          <attributeLabel>Year</attributeLabel>
+          <attributeDefinition>Year of field quadrat measurement</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY</formatString>
+              <dateTimePrecision>1</dateTimePrecision>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att3">
+          <attributeName>season</attributeName>
+          <attributeLabel>Season</attributeLabel>
+          <attributeDefinition>Season of field quadrat measurement</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>F</code>
+                    <definition>Fall</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>S</code>
+                    <definition>Spring</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>W</code>
+                    <definition>Winter</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att4">
+          <attributeName>date</attributeName>
+          <attributeLabel>Date</attributeLabel>
+          <attributeDefinition>Date of quadrat field measurement</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimePrecision>1</dateTimePrecision>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att5">
+          <attributeName>zone</attributeName>
+          <attributeLabel>Vegetation zone</attributeLabel>
+          <attributeDefinition>Jornada Basin vegetation zone</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>G</code>
+                    <definition>Grassland vegetation type</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>P</code>
+                    <definition>Playa vegetation type (grassland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>T</code>
+                    <definition>Tarbush vegetation type</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>M</code>
+                    <definition>Mesquite dune vegetation type</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>C</code>
+                    <definition>Creosote shrubland vegetation type</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att6">
+          <attributeName>site</attributeName>
+          <attributeLabel>NPP Site</attributeLabel>
+          <attributeDefinition>Name of Jornada NPP project site (one of 15)</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>IBPE</code>
+                    <definition>IBP Exclosure site (grassland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>BASN</code>
+                    <definition>Basin site (grassland at lower trailer)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>RABB</code>
+                    <definition>Rabbit rain gauge site (mesquite)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>WELL</code>
+                    <definition>West well site (mesquite)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>CALI</code>
+                    <definition>Caliche site (creosote shrubland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>GRAV</code>
+                    <definition>Gravel site (creosote shrubland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SAND</code>
+                    <definition>Sand site (creosote shrubland; formerly UPTR - upper trailer)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>EAST</code>
+                    <definition>East of Jornada road tarbush site (tarbush)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SUMM</code>
+                    <definition>Mt. Summerford site (grassland)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NORT</code>
+                    <definition>North natural vegetation exclosure site (mesquite)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>COLL</code>
+                    <definition>College Ranch site (playa)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SMAL</code>
+                    <definition>Small site (playa)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>TOBO</code>
+                    <definition>Tobosa tank site (playa)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>TAYL</code>
+                    <definition>Taylor well site (tarbush)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>WEST</code>
+                    <definition>West of Jornada road tarbush site (tarbush)</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att7">
+          <attributeName>quad</attributeName>
+          <attributeLabel>Quadrat</attributeLabel>
+          <attributeDefinition>Quadrat number</attributeDefinition>
+          <storageType>integer</storageType>
+          <measurementScale>
+            <interval>
+              <unit>
+                <standardUnit>number</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </interval>
+          </measurementScale>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att8">
+          <attributeName>spp</attributeName>
+          <attributeLabel>Species code</attributeLabel>
+          <attributeDefinition>Plant species code - a JRN LTER plant code. Current, recognized taxonomic codes are in the "USDA_code" column, or refer to the JRN Vascular Plant List EDI package (knb-lter-jrn.210520001)</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>any text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att9">
+          <attributeName>volume</attributeName>
+          <attributeLabel>Volume</attributeLabel>
+          <attributeDefinition>Species volume in cubic centimeters</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>millimeter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att10">
+          <attributeName>cum_cover</attributeName>
+          <attributeLabel>Cumulative cover</attributeLabel>
+          <attributeDefinition>Cumulative cover percentage for the species</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att11">
+          <attributeName>biomass</attributeName>
+          <attributeLabel>Biomass</attributeLabel>
+          <attributeDefinition>Biomass in grams</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>gram</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att12">
+          <attributeName>USDA_code</attributeName>
+          <attributeLabel>USDA Plants code</attributeLabel>
+          <attributeDefinition>Taxonomic code from USDA Plants database (https://plants.usda.gov)</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>any text</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Invalid/unknown code or value</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att13">
+          <attributeName>habit</attributeName>
+          <attributeLabel>Habit</attributeLabel>
+          <attributeDefinition>Life history habit (annual, perennial, etc)</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>P</code>
+                    <definition>Perennial</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>A</code>
+                    <definition>Annual</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>B</code>
+                    <definition>Biennial</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att14">
+          <attributeName>form</attributeName>
+          <attributeLabel>Form</attributeLabel>
+          <attributeDefinition>Vegetation growth form</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>ST-SU</code>
+                    <definition>Stem succulent form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SHRUB</code>
+                    <definition>Shrub form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>GRASS</code>
+                    <definition>Grass or graminoid form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>FORB</code>
+                    <definition>Forb or broad-leaved herb form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>S-SHR</code>
+                    <definition>Sub-shrub form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>LF-SU</code>
+                    <definition>Leaf succulent form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>UNKN</code>
+                    <definition>Unknown form</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>VINE</code>
+                    <definition>Vine form</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute
+          id="d210011001-e1-att15">
+          <attributeName>cpath</attributeName>
+          <attributeLabel>PS pathway</attributeLabel>
+          <attributeDefinition>Photosynthetic pathway</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>C3</code>
+                    <definition>C3 photosynthetic pathway</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>C4</code>
+                    <definition>C4 photosynthetic pathway</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>CM</code>
+                    <definition>CAM photosynthetic pathway - NPP coding</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Missing value - data not collected or otherwise unavailable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>224923</numberOfRecords>
+    </dataTable>
+    <usageCitation>
+      <bibtex>@article{huenneke_desertification_2002,
+	title = {Desertification alters patterns of aboveground net primary production in {Chihuahuan} ecosystems},
+	volume = {8},
+	issn = {1365-2486},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1046/j.1365-2486.2002.00473.x},
+	doi = {10.1046/j.1365-2486.2002.00473.x},
+	language = {en},
+	number = {3},
+	urldate = {2019-08-23},
+	journal = {Global Change Biology},
+	author = {Huenneke, Laura F. and Anderson, John P. and Remmenga, Marta and Schlesinger, William H.},
+	year = {2002},
+	pages = {247--264},
+}</bibtex>
+    </usageCitation>
+    <literatureCited>
+      <citation>
+        <bibtex>@article{2012_peters_DirectionalClimateChange,
+  title = {Directional Climate Change and Potential Reversal of Desertification in Arid and Semiarid Ecosystems},
+  author = {Peters, Debra P. C. and Yao, Jin and Sala, Osvaldo E. and Anderson, John P.},
+  year = {2012},
+  journal = {Global Change Biology},
+  volume = {18},
+  number = {1},
+  pages = {151--163},
+  doi = {10.1111/j.1365-2486.2011.02498.x},
+  lccn = {01066},
+  keywords = {article,Chihuahuan Desert,desertification,extreme events,grasslands,journal,JRN LTER funded,regime shift,shrublands,spatial context,wet-dry climatic periods}
+}</bibtex>
+      </citation>
+      <citation>
+        <bibtex>@article{2001_huenneke_SpatialHeterogeneityChihuahuan,
+  title = {Spatial Heterogeneity in {{Chihuahuan Desert}} Vegetation: Implications for Sampling Methods in Semi-Arid Ecosystems},
+  author = {Huenneke, Laura F. and Clason, Dennis and Muldavin, Esteban},
+  year = {2001},
+  journal = {Journal of Arid Environments},
+  volume = {47},
+  pages = {257--270},
+  doi = {10.1006/jare.2000.0678},
+  lccn = {00749},
+  keywords = {aboveground NPP,article,Bouteloua,Bouteloua; net primary production,ecosystem,ecosystem; plant production,journal,JRN LTER funded,Larrea,Larrea; net primary production,net primary production,plant production,plants,plants; net primary production,Prosopis,Prosopis; net primary production,report,spatial heterogeneity,technique,technique; aboveground NPP}
+}</bibtex>
+      </citation>
+      <citation>
+        <bibtex>@article{muldavin_aboveground_2008,
+	title = {Aboveground net primary production dynamics in a northern {Chihuahuan} {Desert} ecosystem},
+	volume = {155},
+	issn = {0029-8549, 1432-1939},
+	url = {https://link.springer.com/article/10.1007/s00442-007-0880-2},
+	doi = {10.1007/s00442-007-0880-2},
+	language = {en},
+	number = {1},
+	urldate = {2017-03-20},
+	journal = {Oecologia},
+	author = {Muldavin, Esteban H. and Moore, Douglas I. and Collins, Scott L. and Wetherill, Karen R. and Lightfoot, David C.},
+	month = feb,
+	year = {2008},
+	pages = {123--132},
+}</bibtex>
+      </citation>
+    </literatureCited>
+  </dataset>
+  <additionalMetadata>
+    <metadata>
+      <unitList>
+        <unit
+          id="dimensionless" name="dimensionless"
+          unitType="dimensionless">
+          <description>a designation asserting the absence of an associated unit</description>
+        </unit>
+        <unit
+          abbreviation="g" id="gram" multiplierToSI="0.001" name="gram"
+          parentSI="kilogram"
+          unitType="mass">
+          <description>0.001 kg</description>
+        </unit>
+        <unit
+          abbreviation="mm" id="millimeter" multiplierToSI="0.001"
+          name="millimeter"
+          parentSI="meter">
+          <description>.001 meters</description>
+        </unit>
+        <unit
+          id="number" name="number" unitType="dimensionless">
+          <description>a quantity or amount</description>
+        </unit>
+      </unitList>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>

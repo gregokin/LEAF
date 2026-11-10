@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/transfer_preflight_oracle.py", line 5, in <module>
+    from leaf.runtime import read_driver_arrays
+ModuleNotFoundError: No module named 'leaf'

@@ -1,0 +1,33 @@
+{
+  "started_at_utc": "2026-10-30T18:11:17.604229+00:00",
+  "cwd": "/tmp/generic-geometry-code-xka0htjd",
+  "argv": [
+    "claude",
+    "--safe-mode",
+    "--print",
+    "--verbose",
+    "--output-format",
+    "stream-json",
+    "--resume",
+    "0392cea4-0e9d-4207-b956-136121e862b7",
+    "--effort",
+    "medium",
+    "--tools",
+    "",
+    "--permission-mode",
+    "dontAsk",
+    "--permission-prompts",
+    "none",
+    "--strict-mcp-config"
+  ],
+  "session_id": "0392cea4-0e9d-4207-b956-136121e862b7",
+  "pid": 2060271,
+  "proc_stat_at_launch": "2060271 (claude) R 2060270 2060271 2060271 0 -1 4194304 14 0 0 0 0 0 0 0 20 0 1 0 85526930 242028544 41 18446744073709551615 26388480 89069872 140722847716048 0 0 0 0 0 0 0 0 0 17 6 0 0 0 0 0 89073968 243716096 1118298112 140722847722964 140722847723172 140722847723172 140722847727579 0\n",
+  "prompt": "agent_handoffs/tasks/jornada_capacity_benchmark_20261030/claude_prompt_02.txt",
+  "prompt_sha256": "98389fd92cfdaab0972866da14187ab53a154bab6a11164df134f42efe0c16b3",
+  "tools": [],
+  "safe_mode": true,
+  "permission_bypass": false,
+  "submitted_content": "Corrections to the same generic synthetic benchmark code only; no private local context.",
+  "timeout_seconds": 480
+}

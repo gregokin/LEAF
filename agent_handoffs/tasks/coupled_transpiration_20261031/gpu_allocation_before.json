@@ -1,0 +1,6 @@
+{
+  "returncode": 0,
+  "stdout": "0, GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871, 603 MiB, 22 %\n1, GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75, 0 MiB, 0 %\n2, GPU-54e3597a-fed4-c1b9-473b-0b14af100a37, 827 MiB, 8 %\n3, GPU-fcbcc375-a471-a9c3-ab1c-eed25d898ef0, 78 MiB, 0 %\n",
+  "stderr": "",
+  "selection": "allocated physical GPU0 only; GPU1 not used"
+}

@@ -1,0 +1,57 @@
+{
+  "grid": [
+    128,
+    128
+  ],
+  "dx_m": 0.25,
+  "overlap": "allowed",
+  "plants": 3243,
+  "generation_wall_seconds": 0.10790329286828637,
+  "plant_array_bytes": 201066,
+  "cover_measurement": {
+    "method": "midpoint_raster_union",
+    "subsamples": 4,
+    "raster_shape": [
+      512,
+      512
+    ],
+    "resolution_m": [
+      0.0625,
+      0.0625
+    ],
+    "raster_cells": 262144,
+    "raster_bytes": 524288,
+    "error_basis": "midpoint sampling at resolution dx/s: each circle boundary is resolved to about one raster cell, relative error per circle ~ resolution / radius; sampled, not analytic",
+    "definition": "per-group projected union ground cover clipped to the finite domain (same-group overlap counted once; cross-group overlap counted in each group); nominal = sum of unclipped crown areas / domain area"
+  },
+  "species": [
+    {
+      "species": "BOER",
+      "count": 3227,
+      "target": 0.06,
+      "reported_union": 0.058441162109375,
+      "independent_union": {
+        "fraction": 0.059272,
+        "standard_error": 0.00047226615384124237,
+        "samples": 250000,
+        "seed": 9123,
+        "method": "independent uniform probes and SciPy cKDTree"
+      }
+    },
+    {
+      "species": "PROS",
+      "count": 16,
+      "target": 0.05,
+      "reported_union": 0.054141998291015625,
+      "independent_union": {
+        "fraction": 0.054288,
+        "standard_error": 0.0004531702243351829,
+        "samples": 250000,
+        "seed": 9124,
+        "method": "independent uniform probes and SciPy cKDTree"
+      }
+    }
+  ],
+  "minimum_nonoverlap_clearance_m": null,
+  "peak_process_rss_kib": 79400
+}

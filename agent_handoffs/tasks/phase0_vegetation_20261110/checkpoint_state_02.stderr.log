@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/review_probes_01.py", line 96, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/review_probes_01.py", line 36, in main
+    restored = parse_plant_csv(plant_csv_text(s), c)
+                               ^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/checkpoint_02/leaf/state.py", line 817, in plant_csv_text
+    raise StateError('internal error: a quoted field was produced')
+leaf.state.StateError: internal error: a quoted field was produced

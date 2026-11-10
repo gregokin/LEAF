@@ -1,0 +1,21 @@
+{
+  "initial_checks": [
+    {
+      "endpoint": "https://pasta.lternet.edu/package/eml/knb-lter-jrn/210011001",
+      "result": "Sandbox DNS failure; escalated public GET returned HTTP403."
+    },
+    {
+      "endpoint": "https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210011001/newest",
+      "result": "HTTP403 from public GET."
+    },
+    {
+      "endpoint": "https://pasta.edirepository.org/package/metadata/eml/knb-lter-jrn/210011001/newest",
+      "result": "Name or service not known."
+    }
+  ],
+  "manifest_interpretation": "Request status and byte length alone do not establish usable content. selected_records/seasonal_biomass.json is an empty HTTP200 body, excluded from parsed metadata catalog. Data observation retrievals failed, and no data rows are claimed.",
+  "public_get_only": true,
+  "local_sources_uploaded": false,
+  "model_runs": 0,
+  "claude_sessions": 0
+}

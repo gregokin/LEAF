@@ -1,0 +1,207 @@
+{
+  "raw_weight_rows": 87368,
+  "actual_weighing_rows": 67479,
+  "nonmeasurement_placeholders": 19889,
+  "max_abs_primary_closure_g": 0.0,
+  "published_QC_removed_periods": 3,
+  "dry_mass_calibration": {
+    "coefficient_k_g_per_normalized_px": 1.8052281906197532e-05,
+    "coefficient_k_kg_per_normalized_px": 1.8052281906197532e-08,
+    "fit": "zero-intercept least squares on TRAIN genotypes only",
+    "n_harvest_rows": 179,
+    "n_joined_with_final_area": 176,
+    "n_fitable": 176,
+    "n_train": 141,
+    "n_heldout": 35,
+    "train_metrics_g": {
+      "n": 141,
+      "rmse": 1.2133772286344222,
+      "mae": 0.9086804946179103,
+      "bias": 0.1739702521520848,
+      "r2_about_mean": 0.7050104770564243,
+      "median_abs_relative_error": 0.24903150175042507
+    },
+    "heldout_metrics_g": {
+      "n": 35,
+      "rmse": 1.609469892681347,
+      "mae": 1.0353307439827624,
+      "bias": -0.16303014536954208,
+      "r2_about_mean": 0.6724001939476862,
+      "median_abs_relative_error": 0.250348768916423
+    },
+    "heldout_by_genotype_g": {
+      "Dr102": {
+        "n": 3,
+        "rmse": 0.5755546132769668,
+        "mae": 0.5532037173236737,
+        "bias": 0.3307725577842399,
+        "r2_about_mean": 0.8489360443569762,
+        "median_abs_relative_error": 0.2763921995193975
+      },
+      "Dr113": {
+        "n": 5,
+        "rmse": 0.9557625056456219,
+        "mae": 0.8970970574054125,
+        "bias": 0.23312969486295537,
+        "r2_about_mean": 0.8084712184955672,
+        "median_abs_relative_error": 0.18993843127376275
+      },
+      "Dr170": {
+        "n": 2,
+        "rmse": 3.2480846182219345,
+        "mae": 2.537331166410061,
+        "bias": -2.537331166410061,
+        "r2_about_mean": 0.3406216445543794,
+        "median_abs_relative_error": 0.28128328172039474
+      },
+      "Dr173": {
+        "n": 4,
+        "rmse": 0.4367377129943244,
+        "mae": 0.37648188159362816,
+        "bias": 0.37648188159362816,
+        "r2_about_mean": -0.016093650482505772,
+        "median_abs_relative_error": 0.3066592184566904
+      },
+      "Dr183": {
+        "n": 6,
+        "rmse": 0.6404435853304971,
+        "mae": 0.5933248982104332,
+        "bias": 0.5933248982104332,
+        "r2_about_mean": 0.7551662232003491,
+        "median_abs_relative_error": 0.34492336038184285
+      },
+      "Dr186": {
+        "n": 3,
+        "rmse": 0.8585565556260366,
+        "mae": 0.7387674021854093,
+        "bias": 0.6213050380793995,
+        "r2_about_mean": 0.795253469514404,
+        "median_abs_relative_error": 0.1462826125925989
+      },
+      "Dr45": {
+        "n": 2,
+        "rmse": 0.7422219437657044,
+        "mae": 0.7422198527220569,
+        "bias": 0.7422198527220569,
+        "r2_about_mean": 0.5232939631737454,
+        "median_abs_relative_error": 0.4737427513823965
+      },
+      "Dr6": {
+        "n": 2,
+        "rmse": 0.46848520257438914,
+        "mae": 0.33456885513760826,
+        "bias": 0.32793607029888694,
+        "r2_about_mean": 0.8500933098619177,
+        "median_abs_relative_error": 0.24625187429294237
+      },
+      "Dr86": {
+        "n": 4,
+        "rmse": 2.803094989602058,
+        "mae": 2.2045625910704283,
+        "bias": -2.2045625910704283,
+        "r2_about_mean": -0.0414316605231666,
+        "median_abs_relative_error": 0.22858131674937623
+      },
+      "Dr91": {
+        "n": 4,
+        "rmse": 2.5296751371393404,
+        "mae": 1.6907025913460256,
+        "bias": -0.7603031036042085,
+        "r2_about_mean": 0.25243206277252117,
+        "median_abs_relative_error": 0.23367077904771072
+      }
+    },
+    "final_image_dap_distribution": {
+      "30": 64,
+      "31": 60,
+      "32": 52
+    },
+    "harvest_ids_without_image_join": [
+      "Dr102AA0001759",
+      "Dr6AA001532",
+      "Dr86AB001654"
+    ],
+    "harvest_ids_unparsed_barcode": [],
+    "note": "Harvest dry mass is an independent destructive measurement; all trajectory masses are image-derived (k * zoom-normalised SV area) with this single calibration. Trajectories are not anchored to their own harvest."
+  },
+  "primary_all": {
+    "periods": 16523,
+    "plants": 1137,
+    "genotypes": 191,
+    "water_m3": 1.03817,
+    "B_integral_nominal_kg_day": 31.74070003941956,
+    "B_integral_actual_kg_day": 32.34270165434355,
+    "q_nominal_m3_kg_day": 0.03270784824249846,
+    "C_balance_nominal_kg_m3": 0.08376356668542437,
+    "q_actual_m3_kg_day": 0.03209905007612672,
+    "C_balance_actual_kg_m3": 0.0853522462783065
+  },
+  "primary_train": {
+    "periods": 13970,
+    "plants": 959,
+    "genotypes": 160,
+    "water_m3": 0.873344,
+    "B_integral_nominal_kg_day": 26.569173882931295,
+    "B_integral_actual_kg_day": 27.091398730867322,
+    "q_nominal_m3_kg_day": 0.032870574141601674,
+    "C_balance_nominal_kg_m3": 0.08334889483812839,
+    "q_actual_m3_kg_day": 0.03223694755210006,
+    "C_balance_actual_kg_m3": 0.08498714163211095
+  },
+  "primary_heldout": {
+    "periods": 2553,
+    "plants": 178,
+    "genotypes": 31,
+    "water_m3": 0.164826,
+    "B_integral_nominal_kg_day": 5.171526156488269,
+    "B_integral_actual_kg_day": 5.251302923476228,
+    "q_nominal_m3_kg_day": 0.031871829516555185,
+    "C_balance_nominal_kg_m3": 0.08596073927837007,
+    "q_actual_m3_kg_day": 0.031387638915884405,
+    "C_balance_actual_kg_m3": 0.08728678301478617
+  },
+  "primary_train_wet": {
+    "periods": 6983,
+    "plants": 478,
+    "genotypes": 157,
+    "water_m3": 0.608024,
+    "B_integral_nominal_kg_day": 18.144173164835443,
+    "B_integral_actual_kg_day": 18.51310875059186,
+    "q_nominal_m3_kg_day": 0.03351070310431059,
+    "C_balance_nominal_kg_m3": 0.08175674556481748,
+    "q_actual_m3_kg_day": 0.03284289031038947,
+    "C_balance_actual_kg_m3": 0.08341915104014397
+  },
+  "primary_train_dry": {
+    "periods": 6987,
+    "plants": 481,
+    "genotypes": 158,
+    "water_m3": 0.26532,
+    "B_integral_nominal_kg_day": 8.425000718095854,
+    "B_integral_actual_kg_day": 8.578289980275462,
+    "q_nominal_m3_kg_day": 0.03149198544637814,
+    "C_balance_nominal_kg_m3": 0.08699756425526842,
+    "q_actual_m3_kg_day": 0.030929241213582776,
+    "C_balance_actual_kg_m3": 0.08858044749555938
+  },
+  "loose_all_sensitivity": {
+    "periods": 16524,
+    "plants": 1137,
+    "genotypes": 191,
+    "water_m3": 1.038526,
+    "B_integral_nominal_kg_day": 31.74610076370511,
+    "B_integral_actual_kg_day": 32.34775620232875,
+    "q_nominal_m3_kg_day": 0.0327134978790004,
+    "C_balance_nominal_kg_m3": 0.0837491006779791,
+    "q_actual_m3_kg_day": 0.0321050397902169,
+    "C_balance_actual_kg_m3": 0.08533632243720546
+  },
+  "actual_duration_quantiles_days": [
+    0.35144333333333333,
+    0.8112813726851852,
+    1.0001097800925927,
+    1.348940814351852,
+    1.4790639467592592
+  ],
+  "scope": "Independent water reconstruction and summaries; image-calibration functions reused from frozen reviewed snapshot. No STEP parameter fit."
+}

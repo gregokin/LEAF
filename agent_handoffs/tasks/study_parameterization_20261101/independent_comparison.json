@@ -1,0 +1,24 @@
+{
+  "pass": true,
+  "checks": {
+    "n_periods": true,
+    "n_plants": true,
+    "sum_U_m3": true,
+    "integral_B_kg_days": true,
+    "q_m3_per_kg_day": true,
+    "C_balance_kg_per_m3": true,
+    "mesquite_0_aggregate_water_m3_per_day": true,
+    "mesquite_0_balance_support_proxy_conditional_agb_kg_per_m3": true,
+    "mesquite_0_min_weekly_euler_rate_per_year_for_factor": true,
+    "mesquite_1_aggregate_water_m3_per_day": true,
+    "mesquite_1_balance_support_proxy_conditional_agb_kg_per_m3": true,
+    "mesquite_1_min_weekly_euler_rate_per_year_for_factor": true,
+    "mesquite_2_aggregate_water_m3_per_day": true,
+    "mesquite_2_balance_support_proxy_conditional_agb_kg_per_m3": true,
+    "mesquite_2_min_weekly_euler_rate_per_year_for_factor": true,
+    "mesquite_3_aggregate_water_m3_per_day": true,
+    "mesquite_3_balance_support_proxy_conditional_agb_kg_per_m3": true,
+    "mesquite_3_min_weekly_euler_rate_per_year_for_factor": true
+  },
+  "source": "Independent vectorized physical water reconstruction and separate scalar mesquite calculations; shared reviewed image-calibration functions only."
+}

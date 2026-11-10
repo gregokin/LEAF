@@ -1,0 +1,187 @@
+{
+  "primary_sources": [
+    {
+      "url": "https://api.crossref.org/works/10.1029/2007WR006589",
+      "claim": "Tietjen, Zehe & Jeltsch 2009 abstract: generic, process-based, spatially explicit soil moisture model of two soil layers; Israeli sites; intra-annual variability matters."
+    },
+    {
+      "url": "https://api.openalex.org/works/doi:10.1002/eco.70?select=title,publication_year,abstract_inverted_index",
+      "claim": "Tietjen et al. 2010 abstract: daily two-layer soil moisture; shrubs and grasses as two functional types; Namibian savanna; CO2 effect on water-use efficiency."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8931791",
+      "claim": "EcoHyD (Irob et al. 2022): 30\u00d730 cells of 5\u00d75 m, two soil layers, annual grasses upper layer only, cover per cell, biweekly vegetation in wet season, daily water, dispersal rules, R scripts on figshare."
+    },
+    {
+      "url": "https://ideas.repec.org/a/eee/ecomod/v326y2016icp13-22.html",
+      "claim": "Tietjen 2016 abstract: EcoHyD is process-based and spatially explicit; calls for adding demographic processes."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_structs.h",
+      "claim": "indiv_st fields (id, age, relsize, res_required, res_avail, pr, Next/Prev); no x/y or canopy fields."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_indivs.c",
+      "claim": "Individuals are a doubly-linked list per species allocated with Mem_Calloc; no positions."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/sxw_resource.c",
+      "claim": "Resource allocation use_by_group[g] += _roots_active_rel[g,l,p]*transp[l,p]; rootsXphen; annual rescaling of relative roots by biomass."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/sxw.c",
+      "claim": "SXW_Run_SOILWAT runs a full daily year; transpiration window averaging; soil water persists between years in non-gridded mode."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_grid.c",
+      "claim": "Per-cell CellType with swapped globals; load_cell re-initialises SOILWAT2 state each year with WARNING/FIXME about re-entrancy; per-cell soils."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_seedDispersal.c",
+      "claim": "Seed dispersal loops over all cell pairs (O(N^2)) with exponential distance kernel and uniform random draws."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_main.c",
+      "claim": "Iterations \u00d7 years loop; order establish \u2192 env \u2192 partition (SOILWAT) \u2192 grow \u2192 mortality; seven RNGs unique per iteration/year/cell."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_resgroups.c",
+      "claim": "Group/individual resource partition proportional to biomass; pr reduces growth modifier; logistic growth; extra growth removed; annual seedbank and perennial establishment; clonal regrowth."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/testing.sagebrush.master/Stepwat_Inputs/Input/plot.in",
+      "claim": "plotsize = 1.0 m\u00b2; \u2018Everything revolves around the plotsize\u2019."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_params.c",
+      "claim": "Density and seed inputs in #/m\u00b2 converted to #/plot; species mature_biomass, max_age, clonal max_vegunits, dispersal parameters read from inputs."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_defines.h",
+      "claim": "MAX_CELLS 10000; MAX_SPECIES dynamic."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/SOILWAT2/b05f410a9e96a5f26857bd37247fe7152e9861d8/include/SW_Defines.h",
+      "claim": "MAX_LAYERS 25, MAX_TRANSP_REGIONS 4, MAX_MONTHS 12, MAX_DAYS 366 (NVEGTYPES reported as 6 by fetch\u2014uncertain)."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/SOILWAT2/b05f410a9e96a5f26857bd37247fe7152e9861d8/include/generic.h",
+      "claim": "RealF=float, RealD=double; tolerance macros EQ/GT/LT."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/DrylandEcology/SOILWAT2/b05f410a9e96a5f26857bd37247fe7152e9861d8/src/SW_Flow.c",
+      "claim": "Per-vegetation-type potential transpiration then remove_from_soil per type; transpiration[k][i] per type and layer (order dependence is my inference)."
+    },
+    {
+      "url": "https://github.com/DrylandEcology/SOILWAT2/tree/b05f410a9e96a5f26857bd37247fe7152e9861d8",
+      "claim": "SOILWAT2 README: \u2018an ecosystem water balance simulation model\u2019; core of rSOILWAT2 and STEPWAT2; daily."
+    },
+    {
+      "url": "https://github.com/DrylandEcology/STEPWAT2",
+      "claim": "Repository overview: C sources ST_*.c, sxw*.c, SOILWAT2 submodule sw_src, gridded and non-gridded modes, GPL."
+    },
+    {
+      "url": "https://pubs.usgs.gov/publication/70198963",
+      "claim": "Palmquist et al. 2018 abstract: individuals compete for multilayer soil water via temporal matching of water and active root distributions with depth."
+    },
+    {
+      "url": "https://catalog.comses.net/publications/289762",
+      "claim": "CoMSES record for STEPWAT2 with Zenodo code link (record 1306924)."
+    },
+    {
+      "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=125438",
+      "claim": "Peters 2002 ECOTONE abstract: individual-plant-based model of recruitment, growth, mortality; coexistence driven by temporal/spatial soil water partitioning."
+    },
+    {
+      "url": "https://jornada.nmsu.edu/files/bibliography/JRN00362.pdf",
+      "claim": "Public PDF of Peters 2002 (text extraction only partially succeeded; details flagged uncertain)."
+    },
+    {
+      "url": "https://api.openalex.org/works/doi:10.1111/j.1365-2486.2003.00704.x?select=title,publication_year,abstract_inverted_index",
+      "claim": "Caylor et al. 2004 GCB abstract: PCA of field patch structure parameterizes an ecophysiology productivity model across four sites."
+    },
+    {
+      "url": "https://api.crossref.org/works/10.1029/2005WR004683",
+      "claim": "Caylor et al. 2006 WRR abstract: Poisson distribution of individual tree canopies; optimization of uptake vs stress; shallower roots with more rain."
+    },
+    {
+      "url": "https://the-eis.com/elibrary/search/16150",
+      "claim": "Caylor et al. 2005 Ecosystems finding on tree canopies reducing under-canopy soil moisture stress mid-gradient."
+    },
+    {
+      "url": "https://api.openalex.org/works/doi:10.1023/B:LAND.0000030450.11302.c2?select=title,publication_year,abstract_inverted_index",
+      "claim": "Caylor & Shugart 2004 Landscape Ecology bibliographic record (abstract not available via API; daily productivity model details from search summary)."
+    },
+    {
+      "url": "https://libraetd.lib.virginia.edu/public_view/zg64tm15k",
+      "claim": "Caylor 2003 dissertation record: energy/water balance and productivity simulations; access restricted."
+    },
+    {
+      "url": "https://gmd.copernicus.org/articles/18/5143/2025/",
+      "claim": "TROLL 4.0 description: belowground voxels e.g. 25 m \u00d7 25 m; roots do not spread horizontally; RD = 0.35 dbh^0.54; conductance-weighted uptake; daily water balance; recruitment, mortality; C++ with rcontroll."
+    },
+    {
+      "url": "https://gmd.copernicus.org/articles/18/5205/2025/",
+      "claim": "TROLL 4.0 evaluation: five soil layers used; bucket model; recruits only in empty cells with favourable light and water."
+    },
+    {
+      "url": "https://github.com/sylvainschmitt/rcontroll",
+      "claim": "rcontroll README: wraps TROLL (3.1.7 stated), C++ core, GPL-3."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3741314/",
+      "claim": "Holdo 2013: eight layers to 70 cm, Beta rooting profiles, Michaelis\u2013Menten uptake by layer moisture and root mass, daily, code in Source S1."
+    },
+    {
+      "url": "https://eprints.lib.hokudai.ac.jp/dspace/handle/2115/18649",
+      "claim": "SEIB-DGVM 2007: spatially explicit individual-based DGVM; growth, competition, decay of each tree in a plot."
+    },
+    {
+      "url": "https://agris.fao.org/search/fr/records/65de7af2b766d82b18fda1bf",
+      "claim": "TreeGrass (Simioni et al. 2003) is spatially explicit and mechanistic for radiation, NPP and water in West African savannas."
+    },
+    {
+      "url": "https://docs.nvidia.com/cuda/archive/12.2.0/cuda-c-programming-guide/index.html#atomic-functions",
+      "claim": "Atomic function defined as read-modify-write on a word in global or shared memory without interference from other threads."
+    },
+    {
+      "url": "https://docs.nvidia.com/cuda/archive/12.4.0/cuda-c-programming-guide/index.html#atomic-functions",
+      "claim": "atomicAdd supports float, double and __half types."
+    },
+    {
+      "url": "https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#coalesced-access-to-global-memory",
+      "claim": "High-priority guidance to coalesce global memory accesses; strided/misaligned access penalties."
+    },
+    {
+      "url": "https://www.thesalmons.org/john/random123/releases/1.00/docs/index.html",
+      "claim": "Counter-based RNGs are stateless functions of (counter, key), easy to parallelize with minimal state."
+    },
+    {
+      "url": "https://www.bu.edu/pasi/files/2011/01/NathanBell2-11-1130.pdf",
+      "claim": "Bell & Garland sparse formats (COO, CSR, ELL, HYB) and GPU rationale (slides; PDF not text-extracted, used as pointer)."
+    }
+  ],
+  "unverified_or_uncertain": [
+    "Tietjen 2009/2010 full texts were not accessible; grid cell size (5 m), biweekly vegetation step and three meta-PFTs are verified only for the 2022 EcoHyD version (Irob et al.).",
+    "Peters 2002 ECOTONE: plot size (one automated pass reported 11 m \u00d7 11 m; a handbook snippet says 1\u201310 m\u00b2), number of soil layers, the exact per-layer water allocation rule among individuals, and absence of x,y positions are not verified from readable text.",
+    "Palmquist et al. 2018 full text (Ecosphere, CC BY) returned 403; model details rely on code at the pinned revision and the abstract.",
+    "SOILWAT2 NVEGTYPES reported as 6 at b05f410 by the fetch summary; expected 4 functional types plus possibly bare ground/other\u2014check SW_Defines.h directly.",
+    "Claim that SOILWAT2 transpiration removal is order-dependent across vegetation types is an inference from a summarized reading of SW_Flow.c, not a line-by-line verification.",
+    "Caylor & Shugart 2004 (Landscape Ecology) and Caylor et al. 2005 (Ecosystems) methods come from search-result summaries and a one-sentence EIS abstract, not from the full text; whether the four Caylor papers share one code base is not publicly documented.",
+    "SEIB-DGVM soil discretization (20 \u00d7 0.1 m layers) and plot size (30 \u00d7 30 m) come from search summaries of the model description document, which could not be opened.",
+    "TreeGrass root/soil discretization and demography were not verified; it is listed only as a lead.",
+    "TROLL 4.0 simultaneous vs sequential soil-water update among trees sharing a column was not stated in the text I could read; rcontroll README version (3.1.7) differs from the paper (4.0).",
+    "Current STEPWAT2/SOILWAT2 master branches were not compared with the pinned revisions; statements apply to 003cb9b4 / b05f410 only.",
+    "Terrain burial/erosion: not found in any inspected source; absence is reported as \u2018not found\u2019, not as proof of absence in full texts."
+  ],
+  "questions_for_independent_review": [
+    "In SOILWAT2 b05f410 SW_Flow.c, is per-type transpiration removed sequentially from the same swcBulk array such that vegetation-type order changes the result, and does STEPWAT2 compensate via the transpiration window?",
+    "Has the gridded-mode soil-water reset (ST_grid.c WARNING/FIXME) been removed in later STEPWAT2 revisions once SOILWAT2 became re-entrant (SoilWatRun struct), and does per-cell soil water now persist across years?",
+    "What is the exact ECOTONE (Peters 2002) rule for dividing plant-available water in each soil layer among individuals (root-biomass proportional, size order, or demand/supply), and what plot size and layer count were used?",
+    "For TROLL 4.0, when several trees occupy one belowground column, is soil water updated once after all trees\u2019 uptake (simultaneous) or after each tree (sequential), and is uptake capped by layer supply?",
+    "For the Tietjen 2009 two-layer model, what are the original grid cell size, layer depths and inter-cell surface/subsurface flow terms, and did the 2010 vegetation step operate biweekly or annually?",
+    "Do Caylor et al. 2004\u20132006 share a single daily bucket/productivity code, and did any of them include stochastic recruitment or mortality of trees?",
+    "For a sparse plant\u2013(cell,layer) incidence with E entries, does a two-view CSR with segmented reductions reproduce bitwise the conservative uptake of a sequential CPU loop, and what E/P ratio is implied by realistic root radii versus cell size?",
+    "Should water-use efficiency (carbon per transpired water) replace STEPWAT2-style biomass-ratio limitation when individuals have explicit footprints, and how would that change recruitment and mortality thresholds?"
+  ]
+}

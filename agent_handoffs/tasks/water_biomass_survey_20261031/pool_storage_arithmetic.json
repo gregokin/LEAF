@@ -1,0 +1,15 @@
+{
+  "scope": "Hypothetical pool arrays only, no allocator/model measurement; existing reference population counts.",
+  "cases": [
+    {
+      "plants": 59483,
+      "five_FP64_pools_MiB": 2.2690963745117188,
+      "two_FP64_accumulators_MiB": 0.9076385498046875
+    },
+    {
+      "plants": 547588,
+      "five_FP64_pools_MiB": 20.888824462890625,
+      "two_FP64_accumulators_MiB": 8.35552978515625
+    }
+  ]
+}

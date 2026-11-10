@@ -1,0 +1,308 @@
+{
+  "image_area_audit": {
+    "sv_images_total": 56816,
+    "sv_images_missing_timestamp": 0,
+    "sv_images_unparsed_zoom": 0,
+    "sv_images_nonpositive_or_missing_area": 1751,
+    "sv_images_valid_positive": 55065,
+    "sv_images_out_of_bounds": 5432,
+    "sv_images_valid_and_out_of_bounds": 3681,
+    "zoom_levels": {
+      "z1": 16408,
+      "z1000": 15944,
+      "z2500": 15468,
+      "z500": 8996
+    },
+    "plant_days": 13829,
+    "plant_days_with_any_out_of_bounds": 1276,
+    "plant_days_all_out_of_bounds": 655,
+    "in_bounds_only_relative_difference": {
+      "median": 0.0,
+      "p05": 0.0,
+      "p95": 0.0
+    }
+  },
+  "water_accounting_audit": {
+    "records_total": 87368,
+    "records_image_placeholders_excluded_from_chains": 19889,
+    "records_partial_sentinel_treated_incomplete": 0,
+    "records_physical": 67479,
+    "records_without_timestamp": 0,
+    "records_successful": 67479,
+    "records_unsuccessful": 0,
+    "barcodes": 1139,
+    "study_qc_policy": {
+      "exclude_nonpositive_daily_loss": true,
+      "large_loss_days_g": {
+        "17": 200.0,
+        "32": 200.0,
+        "33": 200.0
+      },
+      "dry_treatment_days_g": {
+        "32": 145.0
+      }
+    },
+    "study_qc_flag_counts_one_day_complete_chains": {
+      "qc_nonpositive_daily_loss": 8,
+      "qc_dap17_loss_gt_200g": 2,
+      "qc_dry_dap32_loss_gt_145g": 2,
+      "qc_dap32_loss_gt_200g": 1,
+      "qc_dap33_loss_gt_200g": 1
+    },
+    "daily_balances_one_day_complete_chain": 29412,
+    "daily_balances_primary_study_qc": 29398,
+    "daily_balances_sensitivity_retained_flagged": 29404,
+    "study_qc_excluded_loss_sum_g": 950.0,
+    "intervals_total": 66340,
+    "intervals_usable": 66340,
+    "interval_flag_counts": {
+      "negative_loss": 342,
+      "dispenser_mismatch": 406,
+      "negative_irrigation": 220
+    },
+    "interval_loss_sum_usable_g": 1548579.0,
+    "interval_negative_loss_sum_g": -3769.0,
+    "irrigation_mass_sum_usable_g": 1507179.0,
+    "dispenser_sum_usable_g": 1523432.0,
+    "daily_balances_total": 29435,
+    "daily_balances_chain_complete": 29435,
+    "daily_balances_complete_daily": 29398,
+    "daily_balance_flag_counts": {
+      "contains_negative_interval": 339,
+      "negative_daily_loss": 8,
+      "multi_day_period": 23
+    },
+    "closure_max_abs_residual_g": 0.0,
+    "closure_residuals_above_1e-6_g": 0,
+    "balance_loss_sum_complete_chain_g": 1548579.0,
+    "interval_loss_sum_complete_chain_g": 1548579.0,
+    "g_water_to_m3": 1e-06,
+    "unparsed_barcodes_possible_empty_pots": {
+      "barcodes": [
+        "0370"
+      ],
+      "n": 1,
+      "mean_complete_daily_loss_g": 37.5,
+      "n_complete_daily": 2,
+      "note": "identified only by barcode pattern failure; treated as evaporation reference, never plants; not subtracted from plant losses (paper warns of overcorrection)"
+    }
+  },
+  "step_profiles": {
+    "r_fixed": [
+      {
+        "r_year": 0.1,
+        "C_best": 8.795771266960854,
+        "sse": 13296.622999456067
+      },
+      {
+        "r_year": 0.15848931924611134,
+        "C_best": 8.795771266960854,
+        "sse": 13276.202681226494
+      },
+      {
+        "r_year": 0.251188643150958,
+        "C_best": 8.795771266960854,
+        "sse": 13243.914644720071
+      },
+      {
+        "r_year": 0.3981071705534973,
+        "C_best": 8.795771266960854,
+        "sse": 13192.931618716713
+      },
+      {
+        "r_year": 0.6309573444801932,
+        "C_best": 8.795771266960854,
+        "sse": 13112.603197302367
+      },
+      {
+        "r_year": 1.0,
+        "C_best": 8.795771266960854,
+        "sse": 12986.469904646854
+      },
+      {
+        "r_year": 1.584893192461114,
+        "C_best": 8.795771266960854,
+        "sse": 12789.473869975744
+      },
+      {
+        "r_year": 2.511886431509581,
+        "C_best": 8.795771266960854,
+        "sse": 12484.381275746966
+      },
+      {
+        "r_year": 3.981071705534973,
+        "C_best": 8.795771266960854,
+        "sse": 12018.022539930807
+      },
+      {
+        "r_year": 6.309573444801933,
+        "C_best": 8.795771266960854,
+        "sse": 11319.399416699587
+      },
+      {
+        "r_year": 10.0,
+        "C_best": 8.795771266960854,
+        "sse": 10304.490672452357
+      },
+      {
+        "r_year": 15.848931924611142,
+        "C_best": 8.795771266960854,
+        "sse": 8896.35761036446
+      },
+      {
+        "r_year": 25.11886431509582,
+        "C_best": 8.795771266960854,
+        "sse": 7070.531004404998
+      },
+      {
+        "r_year": 39.810717055349734,
+        "C_best": 8.795771266960854,
+        "sse": 4926.564883157548
+      },
+      {
+        "r_year": 63.095734448019364,
+        "C_best": 8.795771266960854,
+        "sse": 2760.6841984614675
+      },
+      {
+        "r_year": 100.0,
+        "C_best": 8.795771266960854,
+        "sse": 1084.704820075062
+      },
+      {
+        "r_year": 158.48931924611142,
+        "C_best": 0.0331189107907701,
+        "sse": 333.70341631065054
+      },
+      {
+        "r_year": 251.18864315095823,
+        "C_best": 0.018120899160293132,
+        "sse": 147.64293992009397
+      },
+      {
+        "r_year": 398.1071705534973,
+        "C_best": 0.0105872224910079,
+        "sse": 152.52095197791732
+      },
+      {
+        "r_year": 630.9573444801937,
+        "C_best": 0.006527375811370064,
+        "sse": 192.65308384608298
+      },
+      {
+        "r_year": 1000.0,
+        "C_best": 0.004069882466347173,
+        "sse": 228.33893001164478
+      }
+    ],
+    "C_fixed": [
+      {
+        "C_kg_per_m3": 0.001,
+        "r_best": 3924.2121726706064,
+        "sse": 342.22369702284095
+      },
+      {
+        "C_kg_per_m3": 0.0021544346900318843,
+        "r_best": 1839.2482880084513,
+        "sse": 272.39077214795793
+      },
+      {
+        "C_kg_per_m3": 0.004641588833612777,
+        "r_best": 860.3433816857437,
+        "sse": 218.7914951647365
+      },
+      {
+        "C_kg_per_m3": 0.01,
+        "r_best": 410.7244782402255,
+        "sse": 155.6545503464887
+      },
+      {
+        "C_kg_per_m3": 0.021544346900318832,
+        "r_best": 234.42612549403316,
+        "sse": 163.26276163728343
+      },
+      {
+        "C_kg_per_m3": 0.046415888336127774,
+        "r_best": 171.33202472277978,
+        "sse": 353.84477209167505
+      },
+      {
+        "C_kg_per_m3": 0.1,
+        "r_best": 156.40301293385565,
+        "sse": 459.7346876533321
+      },
+      {
+        "C_kg_per_m3": 0.21544346900318823,
+        "r_best": 151.00122028263917,
+        "sse": 511.18866922384586
+      },
+      {
+        "C_kg_per_m3": 0.46415888336127775,
+        "r_best": 149.8837161216796,
+        "sse": 517.0058753801567
+      },
+      {
+        "C_kg_per_m3": 1.0,
+        "r_best": 149.68503667347562,
+        "sse": 518.7475645714052
+      },
+      {
+        "C_kg_per_m3": 2.154434690031882,
+        "r_best": 149.58614335427262,
+        "sse": 519.4951595224842
+      },
+      {
+        "C_kg_per_m3": 4.6415888336127775,
+        "r_best": 149.58614343762463,
+        "sse": 519.4951595224841
+      },
+      {
+        "C_kg_per_m3": 10.0,
+        "r_best": 149.58614343546247,
+        "sse": 519.4951595224841
+      },
+      {
+        "C_kg_per_m3": 21.54434690031882,
+        "r_best": 149.58614343546247,
+        "sse": 519.4951595224841
+      },
+      {
+        "C_kg_per_m3": 46.41588833612773,
+        "r_best": 149.58614343546247,
+        "sse": 519.4951595224841
+      },
+      {
+        "C_kg_per_m3": 100.0,
+        "r_best": 149.58614343546247,
+        "sse": 519.4951595224841
+      },
+      {
+        "C_kg_per_m3": 215.44346900318823,
+        "r_best": 149.58614343546247,
+        "sse": 519.4951595224841
+      },
+      {
+        "C_kg_per_m3": 464.1588833612773,
+        "r_best": 149.58614343546247,
+        "sse": 519.4951595224841
+      },
+      {
+        "C_kg_per_m3": 1000.0,
+        "r_best": 149.58614343546247,
+        "sse": 519.4951595224841
+      }
+    ]
+  },
+  "window_period_exclusions": {
+    "not_complete_daily": 8,
+    "outside_window": 11405,
+    "no_mass_series": 0,
+    "mass_missing_at_period_end": 1499
+  },
+  "trajectory_exclusions": {
+    "no_mass": 0,
+    "no_water": 0,
+    "run_shorter_than_block": 3,
+    "unparsed_barcode": 1
+  }
+}

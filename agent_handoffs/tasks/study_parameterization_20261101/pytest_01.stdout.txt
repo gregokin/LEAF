@@ -1,0 +1,23 @@
+.........F.............                                                  [100%]
+=================================== FAILURES ===================================
+________ test_irrigation_storage_closure_uses_actual_mass_not_dispenser ________
+
+    def test_irrigation_storage_closure_uses_actual_mass_not_dispenser():
+        bc = "Dr1AA000001"
+        w = _weights([
+            (bc, "2014-02-02 10:00:00.000", 500.0, 600.0, 100.0, True),
+            (bc, "2014-02-02 16:00:00.000", 580.0, 640.0, 60.0, True),
+            (bc, "2014-02-03 10:00:00.000", 520.0, 620.0, 95.0, True),   # dispenser says 95, scale says 100
+        ])
+        iv = sp.reconstruct_weighing_intervals(w)
+        assert len(iv) == 2
+        assert iv["loss_g"].tolist() == pytest.approx([20.0, 120.0])
+        assert iv["irrigation_g"].tolist() == pytest.approx([60.0, 100.0])
+        assert iv["dt_days"].iloc[0] == pytest.approx(0.25)
+>       assert "dispenser_mismatch" in iv["reasons"].iloc[1]
+E       AssertionError: assert 'dispenser_mismatch' in ''
+
+agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_01/test_study_parameters.py:160: AssertionError
+=========================== short test summary info ============================
+FAILED agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_01/test_study_parameters.py::test_irrigation_storage_closure_uses_actual_mass_not_dispenser
+1 failed, 22 passed in 1.04s

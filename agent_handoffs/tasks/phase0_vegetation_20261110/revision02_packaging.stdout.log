@@ -1,0 +1,19 @@
+{
+  "pass": true,
+  "source": "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/revision_02",
+  "builder": "/usr/bin/python3",
+  "build_kind": "sdist",
+  "artifact": "leaf-0.1.0.tar.gz",
+  "artifact_bytes": 131027,
+  "sha256": "97a317e20df9ab65ff52004b43c2ff51a46f0097a064178e6f333fef85273d80",
+  "core": {
+    "package": "/tmp/leaf-phase0-package-3_mm2lzq/extracted/leaf-0.1.0/leaf/__init__.py",
+    "core_imports": true,
+    "cli_parser": true
+  },
+  "legacy": "legacy imports passed",
+  "installed_packages": false,
+  "fetched_dependencies": false,
+  "wheel_built": false,
+  "wheel_unverified_reason": "Both model environments lack setuptools/wheel; existing system setuptools can build sdists but wheel is not installed."
+}

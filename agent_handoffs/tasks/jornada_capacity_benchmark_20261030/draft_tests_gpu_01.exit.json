@@ -1,0 +1,19 @@
+{
+  "started_at_utc": "2026-10-30T18:08:54.562026+00:00",
+  "finished_at_utc": "2026-10-30T18:08:56.935609+00:00",
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "cwd": "/home/okin/leaf",
+  "returncode": 0,
+  "elapsed_seconds": 2.3736008489504457,
+  "source_sha256": "19beafae881a9b3fe1236ada197dab56df58bcbb18d030a0905b939c2c5668cc",
+  "gpu_uuid": "GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871",
+  "scope": "Small synthetic unit tests including optional FP64 GPU parity; no scientific model."
+}

@@ -1,0 +1,1 @@
+{"status": "ok", "case": "june_512_3layers_roots5", "backend": "cuda", "days": 365, "loop_s": 4.206640093005262, "live_peak_bytes": 141959168}

@@ -1,0 +1,8 @@
+{
+  "returncode": 143,
+  "timed_out": true,
+  "child_reaped": true,
+  "ended_at_utc": "2026-11-01T17:16:48.245879+00:00",
+  "elapsed_seconds": 900.3666484139394,
+  "session_id": "0eff6b97-852d-45dc-ad6c-24503b07a18c"
+}

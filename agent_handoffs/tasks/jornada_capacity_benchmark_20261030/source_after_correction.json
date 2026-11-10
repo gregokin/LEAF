@@ -1,0 +1,8 @@
+{
+  "at_utc": "2026-10-30T18:15:59.420255+00:00",
+  "files": {
+    "benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "tests/test_spatial_mapping.py": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0",
+    "benchmarks/README.md": "f66f20a4d400c94776c269b0e5b0efbe5fe607157768525cdaaf468da01b912d"
+  }
+}

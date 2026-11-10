@@ -1,0 +1,28 @@
+{
+  "at_utc": "2026-10-31T21:24:42.112243+00:00",
+  "files": {
+    "README.md": "8a9cadcb82008a022e73ceb01f0c46380021d407e399bb7964c23175bdf9ae96",
+    "acceptance.json": "ba59b30a65bb40d51b18db1aeb0bbb79ab6d9e3c9e660af0cddb83c0718c220b",
+    "additional_local_sources.json": "388593fbdaae96dd39d9e53fae8d4b82e308501b0fed552e8408105192929103",
+    "baseline.json": "1239e0497fa0f9c294078a4bfbed20fb0d296731be17dbe5c55bb36aa38c8123",
+    "codex_review.md": "b595e706a418f2bded4688b55e1c49804fbf3736e0706810cdada993f6ad44d9",
+    "fetch_public_sources.py": "25f46fa46669b5246ab7e8a16ff7292e3a3200cb902aa072ce846e1d5bdafd54",
+    "pool_storage_arithmetic.json": "b5e827c818468372c5421ecad4ef193ab3b816d0464f4695234d0851f29653e6",
+    "previous_codex_review.md": "83c23d7078e1173704a9577eec24e66bcc605d7c00e47ac51417300fc5330a6f",
+    "previous_current_prompt.md": "89b17f2fda6e33a44de52a8d03671b8adfd62953e8e8b1402ea6e940a61878ca",
+    "previous_orchestration_state.md": "bf46587b0d7191b5b3cccb31e6a41cea7e07f460a79d93acc88487ffe42b6dc2",
+    "previous_verification.md": "34b33d11b090465091b225619245d8df74abba85f0a4e861dba0d272b5bd43b4",
+    "public_sources/ST_indivs.c": "688f95035167f173b103346971a9163226ba83fd766e60f3e95d4b4dbe7ac7fc",
+    "public_sources/ST_resgroups.c": "054892f036c70dadf4d6bf97c06a74d9982a3b54f05e9b12cc70de432ca0012c",
+    "public_sources/ST_species.c": "6915e37f8db999c9ce0228999f8b85a35acfd86f7344146bff423b07852fec8e",
+    "public_sources/kelly-caylor20041398.html": "8162ba495de0a3e3c86c7b52f3338e2be9c4acc8fe68d3a65dcb35b14987ff7a",
+    "public_sources/kelly-caylor20041479.html": "5012433654c2cbf68810ea599b230ddcd178a3c64720c1e1d80656b789ffbed8",
+    "public_sources/kelly-caylor20051459.html": "0c92f45da29df652af764e7d626e741059a0feb1a969ea31e932771471130a9f",
+    "public_sources/manifest.json": "96cf58928aa56ee93f22f7cf736f424d0168dd6d2e10785da57822a469b57fc2",
+    "references.json": "b198ab729834c765d1a0101fa13f0035352f591ccc73ceb44e0e164e6539f1d7",
+    "scope.md": "28de41da20eb87b14c944e5647055faca8c286d1546480aa57230566e7645775",
+    "source_and_document_checks.json": "2491344ee6055280b4bff2c00dbe3168e43fe6f8c3fc30e9ae8e3d9b0403e164",
+    "survey_source.md.txt": "f9d2474e3a89c775e5115ec02c6c2815d8dcc7a1a341f9f356c3edcab442a5bb",
+    "verification.md": "f8a8ee5911e97257b6ea7d92382ed57216e3972cabf96219768aa14cf8dfb910"
+  }
+}

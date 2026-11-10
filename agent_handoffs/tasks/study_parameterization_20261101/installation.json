@@ -1,0 +1,16 @@
+[
+  {
+    "file": "analysis/study_parameterization/study_parameters.py",
+    "bytes": 75560,
+    "sha256": "2314fcdfbc6893ef2770d7ff9c60c98d8aa1b8ef8943adc9256527ca046b0a85",
+    "source": "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_02/study_parameters.py",
+    "source_identical": true
+  },
+  {
+    "file": "analysis/study_parameterization/test_study_parameters.py",
+    "bytes": 29159,
+    "sha256": "af85e62aa92c62cad857b14fc4a5de7160e5567d2c2603b3857e897cdfbf50b9",
+    "source": "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_02/test_study_parameters.py",
+    "source_identical": true
+  }
+]

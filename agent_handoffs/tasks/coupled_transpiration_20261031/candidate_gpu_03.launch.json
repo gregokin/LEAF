@@ -1,0 +1,45 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "-c",
+    "/dev/null",
+    "tests",
+    "native/test_transpiration.py",
+    "-k",
+    "gpu or cuda"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/review_snapshots/revision03",
+  "pid": 2099172,
+  "proc_stat_at_launch": "2099172 (python) R 2099171 2099172 2099172 0 -1 4194304 14 0 0 0 0 0 0 0 20 0 1 0 94631539 8450048 43 18446744073709551615 4325376 7352253 140729001718208 0 0 0 0 0 0 0 0 0 17 13 0 0 0 0 0 10653128 12216448 406966272 140729001724689 140729001724827 140729001724827 140729001730001 0\n",
+  "start_ticks": "94631539",
+  "started_at_utc": "2026-10-31T19:28:43.694525+00:00",
+  "timeout_seconds": 180.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/review_snapshots/revision03/benchmarks/daily_water_growth.py": "a57dded5e8dbaaa07e6af30c192922f895f4b7c715f560870a1f2c6b9b9b627b",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/review_snapshots/revision03/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/review_snapshots/revision03/leaf/coupling.py": "a7c5a25c6955cc35806ac5186006af2e05f26319c0da34c6d65ebc5b6d2b3204",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/review_snapshots/revision03/leaf/__init__.py": "75ff4924d1318cd25e40da04d2e66bb24400fb4881c2c49db5b5f5994db00966",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/review_snapshots/revision03/native/maple_syrup/subsurface_transpiration.py": "20910ca6eb17cd9ba10562f5f64a7e0b8f7a2722df774cd315edd9b7433f130b",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface.py": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_numba.py": "3e3e50cab32a97c2ea487c6acf404217e684be7e519d7c33b349aafc755f30f7",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_cuda.py": "7259ea96779849f4da66af66bdb313c092a39201989e08de6d39998707dd5065"
+  },
+  "environment": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/runtime03:/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/review_snapshots/revision03:/home/okin/SYRUP/src",
+    "LEAF_SOURCE_ROOT": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/review_snapshots/revision03",
+    "CUDA_VISIBLE_DEVICES": "GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/numba-cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/cupy-cache",
+    "CUDA_CACHE_PATH": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/cuda-cache",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "at_utc": "2026-10-31T19:38:04.576638+00:00",
+  "mode": "leaf",
+  "qualified_revision": 5,
+  "files": [
+    {
+      "source": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/benchmarks/daily_water_growth.py",
+      "target": "/home/okin/leaf/benchmarks/daily_water_growth.py",
+      "size": 72851,
+      "sha256": "4d40507822d20df403bf2635b86f418e6da842538e3a30d8bc8729b06d1ee7aa"
+    },
+    {
+      "source": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/leaf/__init__.py",
+      "target": "/home/okin/leaf/leaf/__init__.py",
+      "size": 595,
+      "sha256": "75ff4924d1318cd25e40da04d2e66bb24400fb4881c2c49db5b5f5994db00966"
+    },
+    {
+      "source": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/leaf/coupling.py",
+      "target": "/home/okin/leaf/leaf/coupling.py",
+      "size": 25470,
+      "sha256": "5b94614eae341cbccfaaa533d36efb6e5981057ddf2625156a451743afc297ea"
+    },
+    {
+      "source": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/tests/test_coupling.py",
+      "target": "/home/okin/leaf/tests/test_coupling.py",
+      "size": 35905,
+      "sha256": "13dcea19c2137c3dde3e813beedf5efe76e5b2c26fdac5027d4e336ece5e7efb"
+    },
+    {
+      "source": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/docs/coupled-transpiration.md",
+      "target": "/home/okin/leaf/docs/coupled-transpiration.md",
+      "size": 13900,
+      "sha256": "1f01da94b3703f3f59f00988e2d54e6c23b01d62da084e7370380ac9fd5f31af"
+    }
+  ],
+  "existing_upstream_files_modified": false
+}

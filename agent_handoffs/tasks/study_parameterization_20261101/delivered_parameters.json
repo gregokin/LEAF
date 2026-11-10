@@ -1,0 +1,556 @@
+{
+  "schema": "leaf-study-stepwat-candidates-v1",
+  "created_utc": "2026-11-01T17:39:40.258603+00:00",
+  "active": false,
+  "runtime_ready": false,
+  "purpose": "Initial controlled-environment seedling candidates and constraints; not complete field trait vectors.",
+  "runtime_model": "stepwat_weekly_aboveground_v0.1",
+  "runtime_source_sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+  "evidence_task": "agent_handoffs/tasks/study_parameterization_20261101",
+  "mass_convention": "kg total dry aboveground mass per modeled plant unit",
+  "water_convention": "m3 actual plant transpiration; Feldman pot loss is measured ET and requires an explicit T/ET assumption",
+  "normal_rule": "required=B*dt_days/365; available=C*U; wf=min(1,available/required); gain=.95*r*(dt_days/365)*wf*B*(1-B/M), capped at M-B",
+  "study_assumptions": {
+    "live_fraction": 1.0,
+    "temperature_factor": 1.0,
+    "activity_during_observed_period": 1.0,
+    "extra_growth_fraction": 0.0,
+    "status": "Fixed diagnostic assumptions, not estimated annual traits or an identified seasonal/persistent split.",
+    "update_clock": "Seven-day blocks relative to each valid experimental segment, plus a final partial observation interval; not a full native calendar replay."
+  },
+  "grass_setaria_c4_seedling": {
+    "source_paper": "https://doi.org/10.1104/pp.18.00146",
+    "data_archive": "https://doi.org/10.5281/zenodo.1117062",
+    "source_revision": "8c88886b7f6ce3e0453eaba74ccadb0f319d3b1d",
+    "biological_plants_per_model_unit": 1,
+    "window_dap": [
+      17,
+      33
+    ],
+    "temperature_day_night_C": [
+      31,
+      21
+    ],
+    "normal_only_joint_fit": {
+      "status": "Conditional experimental fit; use this C and r as a pair, not with the separate balance prior.",
+      "biomass_support_kg_per_m3": 0.014881503308953067,
+      "intrinsic_rate_per_year": 295.08115633577165,
+      "capacity_scenario_kg": 0.017591824605898237,
+      "capacity_status": "2x largest TRAIN image-derived update-boundary mass; not measured mature biomass.",
+      "assumed_T_fraction_of_ET": 1.0,
+      "resource_limited_coefficient_0_95_r_C": 4.171688644199459,
+      "coefficient_interpretation": "Controls gain per water in the resource-limited branch with unit live/activity/temperature factors; not an independently fitted constant-WUE law.",
+      "n_train_trajectories": 958,
+      "n_heldout_trajectories": 177,
+      "not_runtime_compatible_reason": "Installed validator caps intrinsic_rate_per_year at 1; this diagnostic fit requires a larger value."
+    },
+    "empirical_balance_prior": {
+      "n_periods": 13970,
+      "n_plants": 959,
+      "sum_U_m3": 0.873344,
+      "integral_B_kg_days": 26.569173882931295,
+      "delta_B_kg": 3.201528662752753,
+      "q_m3_per_kg_day": 0.032870574141601674,
+      "C_balance_kg_per_m3": 0.08334889483812839,
+      "production_ratio_kg_per_m3": 3.6658277411337945,
+      "status": "TRAIN-only PR=1 burden/water prior under unit live/activity; not the joint-fit C and not a production yield.",
+      "q_liters_per_kg_day": 32.87057414160167,
+      "definition": "C_balance=integral(B dt)/(365*sum(U)); q=sum(U)/integral(B dt)",
+      "nominal_calendar_days": true,
+      "actual_weighing_duration_sensitivity": {
+        "periods": 13970,
+        "plants": 959,
+        "genotypes": 160,
+        "water_m3": 0.873344,
+        "B_integral_nominal_kg_day": 26.569173882931295,
+        "B_integral_actual_kg_day": 27.091398730867322,
+        "q_nominal_m3_kg_day": 0.032870574141601674,
+        "C_balance_nominal_kg_m3": 0.08334889483812839,
+        "q_actual_m3_kg_day": 0.03223694755210006,
+        "C_balance_actual_kg_m3": 0.08498714163211095
+      },
+      "by_treatment": {
+        "wet": {
+          "n_periods": 6983,
+          "n_plants": 478,
+          "sum_U_m3": 0.608024,
+          "integral_B_kg_days": 18.144173164835443,
+          "delta_B_kg": 2.1483479331637176,
+          "q_m3_per_kg_day": 0.03351070310431059,
+          "C_balance_kg_per_m3": 0.08175674556481748,
+          "production_ratio_kg_per_m3": 3.533327521880251
+        },
+        "dry": {
+          "n_periods": 6987,
+          "n_plants": 481,
+          "sum_U_m3": 0.26531999999999994,
+          "integral_B_kg_days": 8.425000718095854,
+          "delta_B_kg": 1.0531807295890352,
+          "q_m3_per_kg_day": 0.031491985446378136,
+          "C_balance_kg_per_m3": 0.08699756425526844,
+          "production_ratio_kg_per_m3": 3.969473577525386
+        }
+      },
+      "bootstrap_95_percentiles_fixed_allometry": {
+        "n_genotypes": 160,
+        "n_boot": 100,
+        "seed": 20261101,
+        "unit": "genotype",
+        "q_m3_per_kg_day": {
+          "p2.5": 0.03227894799954076,
+          "p50": 0.03281375282853011,
+          "p97.5": 0.03350471149806292,
+          "n_finite": 100
+        },
+        "C_balance_kg_per_m3": {
+          "p2.5": 0.08177136704734767,
+          "p50": 0.08349322582120434,
+          "p97.5": 0.08487655932151239,
+          "n_finite": 100
+        },
+        "production_ratio_kg_per_m3": {
+          "p2.5": 3.607083652310252,
+          "p50": 3.6685664108578617,
+          "p97.5": 3.7296875231715405,
+          "n_finite": 100
+        }
+      },
+      "uncertainty_note": "Bootstrap resamples genotypes of the water/area periods only and conditions on the single fitted image calibration k (not refitted per resample); intervals are therefore not complete uncertainty (allometry fixed)."
+    },
+    "T_ET_sensitivity": [
+      {
+        "assumed_T_fraction_of_ET": 1.0,
+        "joint_fit_C_kg_per_m3": 0.014881503308953067,
+        "joint_fit_r_per_year": 295.08115633577165,
+        "q_T_m3_per_kg_day": 0.032870574141601674,
+        "balance_prior_C_kg_per_m3": 0.08334889483812839,
+        "status": "Illustrative uniform partition; not an observed evaporation fraction or uncertainty bound. C*U remains unchanged."
+      },
+      {
+        "assumed_T_fraction_of_ET": 0.9,
+        "joint_fit_C_kg_per_m3": 0.016535003676614517,
+        "joint_fit_r_per_year": 295.08115633577165,
+        "q_T_m3_per_kg_day": 0.029583516727441507,
+        "balance_prior_C_kg_per_m3": 0.09260988315347599,
+        "status": "Illustrative uniform partition; not an observed evaporation fraction or uncertainty bound. C*U remains unchanged."
+      },
+      {
+        "assumed_T_fraction_of_ET": 0.8,
+        "joint_fit_C_kg_per_m3": 0.018601879136191334,
+        "joint_fit_r_per_year": 295.08115633577165,
+        "q_T_m3_per_kg_day": 0.02629645931328134,
+        "balance_prior_C_kg_per_m3": 0.10418611854766048,
+        "status": "Illustrative uniform partition; not an observed evaporation fraction or uncertainty bound. C*U remains unchanged."
+      }
+    ],
+    "similar_fit_profile_pairs": [
+      {
+        "r_year": 251.18864315095823,
+        "C_best": 0.018120899160293132,
+        "sse": 147.64293992009397,
+        "excess_train_sse_fraction": 0.05013905571157529
+      },
+      {
+        "r_year": 398.1071705534973,
+        "C_best": 0.0105872224910079,
+        "sse": 152.52095197791732,
+        "excess_train_sse_fraction": 0.08483486289967845
+      }
+    ],
+    "profile_status": "Alternatives within 10% of minimum TRAIN SSE on the coarse rate profile, not confidence limits.",
+    "capacity_sensitivity": {
+      "M_2x": {
+        "M_kg": 0.017591824605898237,
+        "bounded_r_le_1": {
+          "C": 1.0000000011978276,
+          "r_year": 0.9999999999999999,
+          "sse": 12986.469904646854,
+          "n_residuals": 2482,
+          "rmse_log": 2.2874134378277,
+          "r_max_bound": 1.0,
+          "r_at_upper_bound": true,
+          "C_at_bound": false
+        },
+        "unbounded_positive": {
+          "C": 0.014881503308953067,
+          "r_year": 295.08115633577165,
+          "sse": 140.59370434523166,
+          "n_residuals": 2482,
+          "rmse_log": 0.2380027901105692,
+          "r_max_bound": 10000.0,
+          "r_at_upper_bound": false,
+          "C_at_bound": false
+        }
+      },
+      "M_4x": {
+        "M_kg": 0.035183649211796474,
+        "bounded_r_le_1": {
+          "C": 1.0000000011983223,
+          "r_year": 0.9999999999999999,
+          "sse": 12983.718746149354,
+          "n_residuals": 2482,
+          "rmse_log": 2.287171132940759,
+          "r_max_bound": 1.0,
+          "r_at_upper_bound": true,
+          "C_at_bound": false
+        },
+        "unbounded_positive": {
+          "C": 0.014377050497657317,
+          "r_year": 294.9472458427895,
+          "sse": 141.83503977463062,
+          "n_residuals": 2482,
+          "rmse_log": 0.23905117285890445,
+          "r_max_bound": 10000.0,
+          "r_at_upper_bound": false,
+          "C_at_bound": false
+        }
+      },
+      "M_10x": {
+        "M_kg": 0.08795912302949119,
+        "bounded_r_le_1": {
+          "C": 1.00000000119858,
+          "r_year": 0.9999999999999999,
+          "sse": 12982.068276904818,
+          "n_residuals": 2482,
+          "rmse_log": 2.287025757580344,
+          "r_max_bound": 1.0,
+          "r_at_upper_bound": true,
+          "C_at_bound": false
+        },
+        "unbounded_positive": {
+          "C": 0.014049922149043373,
+          "r_year": 295.60475825328336,
+          "sse": 143.12391747533252,
+          "n_residuals": 2482,
+          "rmse_log": 0.24013486463499745,
+          "r_max_bound": 10000.0,
+          "r_at_upper_bound": false,
+          "C_at_bound": false
+        }
+      }
+    },
+    "heldout_actual_harvest_evaluation": {
+      "eligibility": {
+        "n_trajectories": 177,
+        "n_without_harvest_row": 142,
+        "n_harvest_dry_wt_missing": 0,
+        "n_final_image_dap_missing": 0,
+        "n_endpoint_dap_mismatch": 1,
+        "n_eligible": 34
+      },
+      "note": "endpoint compared to withheld destructive dry mass only when end DAP == last-image DAP; last image is the source's sampling proxy for harvest date, not a verified exact date",
+      "metrics_kg": {
+        "n": 34,
+        "rmse": 0.0015246986892417371,
+        "mae": 0.0009288315002774035,
+        "bias": -0.00021368166623336187,
+        "r2_about_mean": 0.7029698455133366,
+        "median_abs_relative_error": 0.2568630086275895
+      },
+      "relative_error_median": 0.05571023054573032,
+      "by_genotype": {
+        "Dr102": {
+          "n": 3,
+          "relative_error_median": 0.23339185241714433
+        },
+        "Dr113": {
+          "n": 5,
+          "relative_error_median": -0.0066618774399423986
+        },
+        "Dr170": {
+          "n": 2,
+          "relative_error_median": -0.1759387786347778
+        },
+        "Dr173": {
+          "n": 4,
+          "relative_error_median": 0.7852707144767281
+        },
+        "Dr183": {
+          "n": 6,
+          "relative_error_median": 0.24750441126439615
+        },
+        "Dr186": {
+          "n": 3,
+          "relative_error_median": -0.05267783528101211
+        },
+        "Dr45": {
+          "n": 2,
+          "relative_error_median": 0.5736061488029657
+        },
+        "Dr6": {
+          "n": 2,
+          "relative_error_median": 0.21731161841186553
+        },
+        "Dr86": {
+          "n": 3,
+          "relative_error_median": -0.30946421456615103
+        },
+        "Dr91": {
+          "n": 4,
+          "relative_error_median": -0.16202716663914224
+        }
+      }
+    },
+    "heldout_actual_harvest_evaluation_with_current_rate_cap": {
+      "eligibility": {
+        "n_trajectories": 177,
+        "n_without_harvest_row": 142,
+        "n_harvest_dry_wt_missing": 0,
+        "n_final_image_dap_missing": 0,
+        "n_endpoint_dap_mismatch": 1,
+        "n_eligible": 34
+      },
+      "note": "endpoint compared to withheld destructive dry mass only when end DAP == last-image DAP; last image is the source's sampling proxy for harvest date, not a verified exact date",
+      "metrics_kg": {
+        "n": 34,
+        "rmse": 0.004332098686035762,
+        "mae": 0.0034630710384932544,
+        "bias": -0.0034630710384932544,
+        "r2_about_mean": -1.3978895220636298,
+        "median_abs_relative_error": 0.9000070230748234
+      },
+      "relative_error_median": -0.9000070230748234,
+      "by_genotype": {
+        "Dr102": {
+          "n": 3,
+          "relative_error_median": -0.8395627661828848
+        },
+        "Dr113": {
+          "n": 5,
+          "relative_error_median": -0.8459344835906415
+        },
+        "Dr170": {
+          "n": 2,
+          "relative_error_median": -0.9020698356728463
+        },
+        "Dr173": {
+          "n": 4,
+          "relative_error_median": -0.8794770162727148
+        },
+        "Dr183": {
+          "n": 6,
+          "relative_error_median": -0.909441277096888
+        },
+        "Dr186": {
+          "n": 3,
+          "relative_error_median": -0.9021515776751485
+        },
+        "Dr45": {
+          "n": 2,
+          "relative_error_median": -0.835660587468896
+        },
+        "Dr6": {
+          "n": 2,
+          "relative_error_median": -0.9135962376432403
+        },
+        "Dr86": {
+          "n": 3,
+          "relative_error_median": -0.9359675303378339
+        },
+        "Dr91": {
+          "n": 4,
+          "relative_error_median": -0.9313338024574807
+        }
+      }
+    },
+    "allometry_holdout": {
+      "n": 35,
+      "rmse": 1.609469892681347,
+      "mae": 1.0353307439827624,
+      "bias": -0.16303014536954208,
+      "r2_about_mean": 0.6724001939476862,
+      "median_abs_relative_error": 0.250348768916423
+    },
+    "limitations": [
+      "Seedlings of Setaria recombinant inbred lines and parents are not field black grama or a calibrated perennial-grass PFT.",
+      "Pot loss is ET; no independent whole-plant transpiration partition was established.",
+      "Image-derived trajectories use one training-only dry-mass calibration; they are not repeated destructive dry harvests.",
+      "Last-image day is the source sampling proxy for harvest date, not independently confirmed destructive timing.",
+      "Numerical rates depend on the explicit seven-day diagnostic and final-partial observation convention.",
+      "The normal-only fit does not identify persistent versus seasonal biomass."
+    ]
+  },
+  "shrub_mesquite_two_seedlings_per_model_unit": {
+    "source_paper": "https://doi.org/10.1007/s00442-004-1688-y",
+    "species": "Prosopis velutina",
+    "biological_plants_per_model_unit": 2,
+    "model_units_per_source_pot": 1,
+    "extensive_scale_from_reported_per_seedling": 2.0,
+    "intensive_scale": 1.0,
+    "temperature_day_night_C": [
+      36,
+      22
+    ],
+    "status": "Conditional figure-derived priors, not a jointly fitted shrub trait vector.",
+    "ambient_38Pa_prior": {
+      "C_balance_conditional_agb_kg_per_m3": 0.2640727713862593,
+      "C_balance_conditional_agb_low_high_water_range": [
+        0.26174258240746967,
+        0.26640296036504885
+      ],
+      "q_conditional_m3_per_kg_day_range": [
+        0.01028414257725607,
+        0.010467253750603606
+      ],
+      "aggregate_endpoint_T_m3_per_day_range": [
+        1.59e-05,
+        2.06e-05
+      ],
+      "observed_whole_plant_log_RGR_per_day_range": [
+        0.0972,
+        0.1028
+      ],
+      "weekly_Euler_rate_lower_bound_whole_plant_per_year_range": [
+        52.48036753898767,
+        56.65417879448356
+      ]
+    },
+    "ambient_rows": [
+      {
+        "co2_pa": 38,
+        "water_treatment": "low",
+        "whole_plant_rgr_per_day": 0.0972,
+        "root_component_rgr_per_day": 0.0322,
+        "ln_transpiration_productivity": -4.97,
+        "transpiration_productivity_g_per_g_day": 0.0069431480347461145,
+        "water_last_two_days_ml_per_reported_plant": 15.9,
+        "aggregate_water_last_two_days_ml": 31.8,
+        "aggregate_water_ml_per_day": 15.9,
+        "aggregate_water_m3_per_day": 1.59e-05,
+        "balance_support_proxy_total_mass_kg_per_m3": 0.39140583092317005,
+        "increment_allocation_nonroot_fraction": 0.668724279835391,
+        "balance_support_proxy_conditional_agb_kg_per_m3": 0.26174258240746967,
+        "observed_growth_factor_39d_whole_plant": 44.291819562029545,
+        "max_normal_growth_factor_r1_weekly_euler": 1.1058708521168104,
+        "min_weekly_euler_rate_per_year_for_factor": 52.48036753898767,
+        "assumptions": [
+          "aggregate = source per-seedling water * 2 (two seedlings per pot, one modeled unit)",
+          "daily rate = two-day aggregate / 2 days; ml water treated as g (1e-6 m3/g)",
+          "total-mass proxy = 2*1000*exp(ln_Eprod)/(365*RGR) under the paper's log-mean identities",
+          "AGB proxy multiplies by 1-root_CRGR/RGR: increment allocation under a stable-allocation approximation, NOT observed standing aboveground fraction",
+          "growth factor is whole-plant exp(RGR*39); cap comparison uses water=temperature=activity=1, B<<M"
+        ]
+      },
+      {
+        "co2_pa": 38,
+        "water_treatment": "high",
+        "whole_plant_rgr_per_day": 0.1028,
+        "root_component_rgr_per_day": 0.0288,
+        "ln_transpiration_productivity": -4.97,
+        "transpiration_productivity_g_per_g_day": 0.0069431480347461145,
+        "water_last_two_days_ml_per_reported_plant": 20.6,
+        "aggregate_water_last_two_days_ml": 41.2,
+        "aggregate_water_ml_per_day": 20.6,
+        "aggregate_water_m3_per_day": 2.06e-05,
+        "balance_support_proxy_total_mass_kg_per_m3": 0.3700841125071219,
+        "increment_allocation_nonroot_fraction": 0.7198443579766537,
+        "balance_support_proxy_conditional_agb_kg_per_m3": 0.26640296036504885,
+        "observed_growth_factor_39d_whole_plant": 55.10277070930669,
+        "max_normal_growth_factor_r1_weekly_euler": 1.1058708521168104,
+        "min_weekly_euler_rate_per_year_for_factor": 56.65417879448356,
+        "assumptions": [
+          "aggregate = source per-seedling water * 2 (two seedlings per pot, one modeled unit)",
+          "daily rate = two-day aggregate / 2 days; ml water treated as g (1e-6 m3/g)",
+          "total-mass proxy = 2*1000*exp(ln_Eprod)/(365*RGR) under the paper's log-mean identities",
+          "AGB proxy multiplies by 1-root_CRGR/RGR: increment allocation under a stable-allocation approximation, NOT observed standing aboveground fraction",
+          "growth factor is whole-plant exp(RGR*39); cap comparison uses water=temperature=activity=1, B<<M"
+        ]
+      }
+    ],
+    "elevated_76Pa_sensitivity_rows": [
+      {
+        "co2_pa": 76,
+        "water_treatment": "low",
+        "whole_plant_rgr_per_day": 0.0989,
+        "root_component_rgr_per_day": 0.0328,
+        "ln_transpiration_productivity": -4.5,
+        "transpiration_productivity_g_per_g_day": 0.011108996538242306,
+        "water_last_two_days_ml_per_reported_plant": 11.0,
+        "aggregate_water_last_two_days_ml": 22.0,
+        "aggregate_water_ml_per_day": 11.0,
+        "aggregate_water_m3_per_day": 1.1e-05,
+        "balance_support_proxy_total_mass_kg_per_m3": 0.6154824459876341,
+        "increment_allocation_nonroot_fraction": 0.6683518705763397,
+        "balance_support_proxy_conditional_agb_kg_per_m3": 0.41135884408273626,
+        "observed_growth_factor_39d_whole_plant": 47.327901248887414,
+        "max_normal_growth_factor_r1_weekly_euler": 1.1058708521168104,
+        "min_weekly_euler_rate_per_year_for_factor": 53.73121342570715,
+        "assumptions": [
+          "aggregate = source per-seedling water * 2 (two seedlings per pot, one modeled unit)",
+          "daily rate = two-day aggregate / 2 days; ml water treated as g (1e-6 m3/g)",
+          "total-mass proxy = 2*1000*exp(ln_Eprod)/(365*RGR) under the paper's log-mean identities",
+          "AGB proxy multiplies by 1-root_CRGR/RGR: increment allocation under a stable-allocation approximation, NOT observed standing aboveground fraction",
+          "growth factor is whole-plant exp(RGR*39); cap comparison uses water=temperature=activity=1, B<<M"
+        ]
+      },
+      {
+        "co2_pa": 76,
+        "water_treatment": "high",
+        "whole_plant_rgr_per_day": 0.1049,
+        "root_component_rgr_per_day": 0.0301,
+        "ln_transpiration_productivity": -4.22,
+        "transpiration_productivity_g_per_g_day": 0.014698644504901784,
+        "water_last_two_days_ml_per_reported_plant": 10.5,
+        "aggregate_water_last_two_days_ml": 21.0,
+        "aggregate_water_ml_per_day": 10.5,
+        "aggregate_water_m3_per_day": 1.05e-05,
+        "balance_support_proxy_total_mass_kg_per_m3": 0.7677837734516518,
+        "increment_allocation_nonroot_fraction": 0.7130600571973308,
+        "balance_support_proxy_conditional_agb_kg_per_m3": 0.5474759414126174,
+        "observed_growth_factor_39d_whole_plant": 59.80564174091019,
+        "max_normal_growth_factor_r1_weekly_euler": 1.1058708521168104,
+        "min_weekly_euler_rate_per_year_for_factor": 58.25939284277535,
+        "assumptions": [
+          "aggregate = source per-seedling water * 2 (two seedlings per pot, one modeled unit)",
+          "daily rate = two-day aggregate / 2 days; ml water treated as g (1e-6 m3/g)",
+          "total-mass proxy = 2*1000*exp(ln_Eprod)/(365*RGR) under the paper's log-mean identities",
+          "AGB proxy multiplies by 1-root_CRGR/RGR: increment allocation under a stable-allocation approximation, NOT observed standing aboveground fraction",
+          "growth factor is whole-plant exp(RGR*39); cap comparison uses water=temperature=activity=1, B<<M"
+        ]
+      }
+    ],
+    "unmeasured_initial_and_adult_agb_kg": null,
+    "minimum_AGB_growth_factor_without_stable_allocation_assumption": [
+      {
+        "co2_pa": 38,
+        "water_treatment": "low",
+        "minimum_factor": 29.950290859381898
+      },
+      {
+        "co2_pa": 38,
+        "water_treatment": "high",
+        "minimum_factor": 39.945574245998976
+      },
+      {
+        "co2_pa": 76,
+        "water_treatment": "low",
+        "minimum_factor": 31.96333945956985
+      },
+      {
+        "co2_pa": 76,
+        "water_treatment": "high",
+        "minimum_factor": 42.93195426329916
+      }
+    ],
+    "limitations": [
+      "Water values are the final two days, not cumulative 39-day transpiration.",
+      "Published figure means are approximate readings; reading resolution is not sampling uncertainty.",
+      "The total-mass support proxy uses the paper's log-mean identity; its AGB proxy assumes increment allocation approximates standing AGB allocation.",
+      "The source lacks a retrieved raw water series and tabulated absolute starting/final AGB; no fictitious time series or full shrub calibration is supplied.",
+      "Pair aggregation leaves relative growth and mass/water coefficients unchanged.",
+      "Velvet mesquite seedlings are not mature Jornada honey mesquite."
+    ]
+  },
+  "traits_not_identified_by_these_experiments": [
+    "adult mature aboveground biomass",
+    "canopy biomass density and biomass-to-geometry allometry",
+    "independent potential-transpiration depth",
+    "field live/leaf fraction and its size dependence",
+    "annual monthly activity and temperature-response curve",
+    "seasonal extra-growth fraction and turnover",
+    "root depth/layer fractions and lateral extent",
+    "demography, seed recruitment or event injury"
+  ],
+  "demand_mapping": "For adequate water and known canopy density rho, q_T=(potential_transpiration_depth/rho)*live_fraction*activity. Observed q alone does not identify both depth and rho.",
+  "runtime_changes": "none; no loader/default/rate bound/equation or upstream source changed"
+}

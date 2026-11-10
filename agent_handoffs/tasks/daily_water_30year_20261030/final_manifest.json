@@ -1,0 +1,810 @@
+{
+  "created_at_utc": "2026-10-31T00:13:54.100368+00:00",
+  "git_metadata": "unavailable; no initialization performed",
+  "files": {
+    "AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "CLAUDE.md": {
+      "size_bytes": 374,
+      "sha256": "5ccf4233963ba0515e0872c2b441c046905e516905ce947ac1982936619e1eb4"
+    },
+    "README.md": {
+      "size_bytes": 3802,
+      "sha256": "7522b53d184b562c1084cf41fa6170c83afe0fa30eec751c98313d0b32bb52c4"
+    },
+    "agent_handoffs/AGENTS.md": {
+      "size_bytes": 8488,
+      "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f"
+    },
+    "agent_handoffs/README.md": {
+      "size_bytes": 5296,
+      "sha256": "058324083543d4d4b8dac63d9ab26e4c776e0d727a8e762cdc83249fed2dc222"
+    },
+    "agent_handoffs/claude_report.md": {
+      "size_bytes": 1408,
+      "sha256": "78a1b4285b597ed89f5ccbe225e06aee7473e1dccc17c73b44f26d6aead61cbb"
+    },
+    "agent_handoffs/codex_review.md": {
+      "size_bytes": 1624,
+      "sha256": "4dd22acbf9bc733e9fba57c8fb6136f5b0cff39fd6a64770ff10d8cb99370c50"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "size_bytes": 353,
+      "sha256": "cd4a937d1183c5c6341b6f92c5c8db4595959652df3e76af2f7051ff59862132"
+    },
+    "agent_handoffs/decisions.md": {
+      "size_bytes": 6659,
+      "sha256": "9cb72d7ad35abd72f32fb6c5c1b4337fce68bdc4042519d29c85eb0db5f710c1"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "size_bytes": 1113,
+      "sha256": "81a546136e6e994cbb9e64e5084ee90162e1c475c7bc1ebe0870c510ec49c15c"
+    },
+    "agent_handoffs/project_brief.md": {
+      "size_bytes": 9190,
+      "sha256": "3c3534a9f772dcfd1341717aa1a70580d0a2c20a096c2ab5c92aec3e821ae548"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/allocator_followup.md": {
+      "size_bytes": 1031,
+      "sha256": "b3ef41a09b30020e78d6fad336c6402206e624f3b603c89cb5f3a01bfa6cfc06"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/baseline.json": {
+      "size_bytes": 2668,
+      "sha256": "32db4c28ba90294408cfe9b71c765bd6ef82b8eba12606039d037aec00e4f723"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/benchmark_cases.json": {
+      "size_bytes": 2105,
+      "sha256": "d7048fe66582b103c67f9a22d22d41aaf1c8f90b119c3613a5921e39be7407a1"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/calibration_cpu_02.exit.json": {
+      "size_bytes": 171,
+      "sha256": "d55d590d3781dffc2ac243ba500ed738885c5f00daa73d565dac75bf0cdb0620"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/calibration_cpu_02.launch.json": {
+      "size_bytes": 1638,
+      "sha256": "b15f41ad698565d779d550ff6036e666dade022ce78c5c76524e7f9a8d1b42d8"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/calibration_cpu_02.stderr.log": {
+      "size_bytes": 581,
+      "sha256": "91676daa80f0b44a4313fe1c456ea083341dd6e8566b2150912d5f1c54ae02a4"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/calibration_cpu_02.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/calibration_gpu_02.exit.json": {
+      "size_bytes": 171,
+      "sha256": "46c14bb049b66fdea1f19d374b238ade3b68dd6f5e97777e16195493cbcf4e60"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/calibration_gpu_02.launch.json": {
+      "size_bytes": 1850,
+      "sha256": "c54c773c9e084742c1df0b045a1f7a3433081adcf724bf63e0b500b83b528a75"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/calibration_gpu_02.stderr.log": {
+      "size_bytes": 661,
+      "sha256": "0d6ca17148642bca3dcaa41a560715fce9a37807f7f90462a2f3d9c7b29371e6"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/calibration_gpu_02.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/case_sets/grass_bound_hectare_3layers_roots3.json": {
+      "size_bytes": 358,
+      "sha256": "5805be78a69bfd71c7e2f6fd061aa821ba89fdad31b31ce0e558e68c65b281a2"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/case_sets/grass_bound_hectare_3layers_roots5.json": {
+      "size_bytes": 358,
+      "sha256": "563ca857df61fb8585a3c24ba819bdc04e319c7eb1dd448be37ee5b1102f856f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/case_sets/june_512_3layers_roots5.json": {
+      "size_bytes": 348,
+      "sha256": "cc5173f1a2351b84ec415be55602c07fda0caa3a1c6f2e082c7c6d364e536b16"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/case_sets/june_hectare_2layers_roots5.json": {
+      "size_bytes": 352,
+      "sha256": "01fa4cee68d1a85d14e25be02439f899478a842c76e3977e966b557272f88d64"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/case_sets/june_hectare_3layers_roots3.json": {
+      "size_bytes": 352,
+      "sha256": "e34462906bfbc8d514b555a2aef60ed056e7cfb33f95b120b4cfa97610185d0c"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/case_sets/june_hectare_3layers_roots5.json": {
+      "size_bytes": 352,
+      "sha256": "6ced0e36302dfffe27d745180cbe6c80fcad49f1a8e76ea7e0932681a086687d"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_01.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_01.stdout.jsonl": {
+      "size_bytes": 304573,
+      "sha256": "996840134fcfba4e3e4cda693aa0ea6bb44266c765ca392c541f06f51132c0c2"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_02.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_02.stdout.jsonl": {
+      "size_bytes": 120199,
+      "sha256": "9eff8ec60427aa1301a46b67009b3067b7eaf6fa590482c2ff065a46ca4ce734"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_03.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_03.stdout.jsonl": {
+      "size_bytes": 89149,
+      "sha256": "f9b3ace50e6ad0a9a36d32b99812cb83a80461c165545eef1b225ed52127dcb0"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_04.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_04.stdout.jsonl": {
+      "size_bytes": 17875,
+      "sha256": "76d40c4f9fdaa1806d07b5e74c5bd3d01c84d959b12d9713f5868b7dbb7945f5"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_05.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_05.stdout.jsonl": {
+      "size_bytes": 15075,
+      "sha256": "106e638f1a9bb3f6ff4efc111dff241ad6db469f34e97949a1e7d0e010ea4ba3"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_edits_03.json": {
+      "size_bytes": 24043,
+      "sha256": "ad832bee3c8bd51ea645f7f23046b05b48f5856bdb932ecacf43615c8c559945"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_edits_04.json": {
+      "size_bytes": 6356,
+      "sha256": "0b96c873c55538de4814235865675f2052a692490ddf493f18a74f62ee44d69c"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_edits_05.json": {
+      "size_bytes": 4914,
+      "sha256": "380270bd5d51da82a1d3072305dbe0b9b8fef35c7a26a94c8d703608a1e8942f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_generated_02.json": {
+      "size_bytes": 56415,
+      "sha256": "723db919c555333c935a100c4761a587d3fcb29b63827d0c6570938e431625c8"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_help.txt": {
+      "size_bytes": 22344,
+      "sha256": "13dd71866e4b6fde1a11de6fa26bd4f5866308794307ff0fb37804c03db8e0b2"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_prompt_01.txt": {
+      "size_bytes": 8511,
+      "sha256": "89e7b8a9940b2978b9342964bbe5261304bd921e42c5a167d2158d8e3cd11572"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_prompt_02.txt": {
+      "size_bytes": 1017,
+      "sha256": "946b182809207e0ae98123a3e41bc954353b219bf459241287088da614e9de69"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_prompt_03.txt": {
+      "size_bytes": 4935,
+      "sha256": "5fb559046c7c74bf991f1369f8733ca46e68438724c96e29a5b60812efaa60a4"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_prompt_04.txt": {
+      "size_bytes": 2124,
+      "sha256": "499a5f88a210d952c26d8fbda1302c5bccd010aa847c58b9b8dbc96ab0f16d03"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_prompt_05.txt": {
+      "size_bytes": 1476,
+      "sha256": "ef8a769b68a2b61624009f6ba863acb68cb72d25dccf7369db70f5ced166937d"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_report.md": {
+      "size_bytes": 1408,
+      "sha256": "78a1b4285b597ed89f5ccbe225e06aee7473e1dccc17c73b44f26d6aead61cbb"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/claude_version.txt": {
+      "size_bytes": 22,
+      "sha256": "137c91ab68b8a7a011de6f45c0bdbb962abd1fa261daafa7f7fe4dbac82ba604"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/codex_review.md": {
+      "size_bytes": 1624,
+      "sha256": "4dd22acbf9bc733e9fba57c8fb6136f5b0cff39fd6a64770ff10d8cb99370c50"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/cpu_june_hectare_3layers_roots3_final.exit.json": {
+      "size_bytes": 171,
+      "sha256": "74a2a64e0df2f3041320022b082ba47e883b4635bf77b9699c4394cf4ce69330"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/cpu_june_hectare_3layers_roots3_final.launch.json": {
+      "size_bytes": 1740,
+      "sha256": "942609b7e4fea257324dc9d56aabe6e9d185ac0edb2901d8e93a4f0991023cda"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/cpu_june_hectare_3layers_roots3_final.stderr.log": {
+      "size_bytes": 14427,
+      "sha256": "3a02ccdec9219c3f7d465ce3139f735c85eb1eabd4c93b4dd9df26381486a226"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/cpu_june_hectare_3layers_roots3_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/cpu_june_hectare_3layers_roots5_final.exit.json": {
+      "size_bytes": 171,
+      "sha256": "f0053450c89bd9ad7c3e555b19a29825c587e351a8e32d5e34f87f8e09e16c28"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/cpu_june_hectare_3layers_roots5_final.launch.json": {
+      "size_bytes": 1741,
+      "sha256": "c4d06c3effac9947e3bddcda448c5c8c3a43a4e369a5de939e1234c7dbc81696"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/cpu_june_hectare_3layers_roots5_final.stderr.log": {
+      "size_bytes": 14579,
+      "sha256": "cb2442b2d31374ccc8cf8c1b16510b50e54afd7ba803a349ef9e991f65289967"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/cpu_june_hectare_3layers_roots5_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/default_result_verification.json": {
+      "size_bytes": 7991,
+      "sha256": "95cbfff640259575abb29c82c5fdef49b7252fade4e33d4c199626c6fff753e5"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/exit_01.json": {
+      "size_bytes": 220,
+      "sha256": "bd7d5103a78c9f217d6912124c5d183b4118fc97fb351f216bd6021b3f09d75b"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/exit_02.json": {
+      "size_bytes": 222,
+      "sha256": "69d2290163405ed2e890784627dd173a0f4c352fd63e7f07a87b959474fda12f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/exit_03.json": {
+      "size_bytes": 221,
+      "sha256": "6a16e6562be881dae91b40b8f0f844a9ead0d72b7a22b1edcf7e2c35ad0784bf"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/exit_04.json": {
+      "size_bytes": 221,
+      "sha256": "c8cc7d1cfb8085d43c1b4d1e8f63c1b32f15b89386be724dbc48edc69b5043d6"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/exit_05.json": {
+      "size_bytes": 221,
+      "sha256": "29c7839d94a506384a589a20ec5c5e43b88480d9593583b167a7b7c1ceb1f954"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/final_acceptance.json": {
+      "size_bytes": 1171,
+      "sha256": "8e31ba641ec2ba9c0bd1b162b9df19b2d08904bb4ddb2979534a0aecdb65b57a"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_bounded.exit.json": {
+      "size_bytes": 172,
+      "sha256": "7a80a4b11af7c80b396b6cd8af83edd46ab6bc4d05ff57c824538e79f3202e3b"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_bounded.launch.json": {
+      "size_bytes": 1983,
+      "sha256": "6aba51520753f34e73e607af68ce40f8839adfdcf9ee330f7da509bccc235f0a"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_bounded.stderr.log": {
+      "size_bytes": 16691,
+      "sha256": "a467f77e82e066f168dfdd791306b7cb3c18a4ef53b9b733eaf034b84734749f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_bounded.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_final.exit.json": {
+      "size_bytes": 172,
+      "sha256": "1e14caeb4077143626b6fd2aab0eb8cd3774e782d2de6dcb94238eb85c151bba"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_final.launch.json": {
+      "size_bytes": 1974,
+      "sha256": "51dbc111470f26b61306c0f2d73a921e2a5b883ff7d19a133aed9b7b8b1fb8ca"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_final.stderr.log": {
+      "size_bytes": 16709,
+      "sha256": "dbe5226d58fb673c02067a643a66600ce623216faef813ec2205abb36df120a9"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_bounded.exit.json": {
+      "size_bytes": 171,
+      "sha256": "bb2359ea230fc988c75f00e74b2acfaeeeaf2d7d05eb5f53144ac736891d6061"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_bounded.launch.json": {
+      "size_bytes": 1983,
+      "sha256": "8738a2b9f7305fa66a02bd081289a91a0ab9ee993758d0ffe6cdae6a2f38c789"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_bounded.stderr.log": {
+      "size_bytes": 16393,
+      "sha256": "f48c6a203f5a86b5163598c642f4b96e354c83c2547d226c2d0067911bb7f008"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_bounded.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_final.exit.json": {
+      "size_bytes": 171,
+      "sha256": "93ea35dff4a7256c542e18cc06d1821e543e626999e4457cd6a283b1e4cc490c"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_final.launch.json": {
+      "size_bytes": 1973,
+      "sha256": "29d967bb2e89f59238c8c6ee1f029eedfc1df4c4d4afe627b29ace2935e1cbd5"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_final.stderr.log": {
+      "size_bytes": 16529,
+      "sha256": "1468d32154be3e4e8217ab6a9f104224f5724e9d68e4a4f7f05a861f41c206f6"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_512_3layers_roots5_bounded.exit.json": {
+      "size_bytes": 171,
+      "sha256": "ae8946996962b8c84f39efc3dd9841542d66d4895ef3e08e835991bb5c478b94"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_512_3layers_roots5_bounded.launch.json": {
+      "size_bytes": 1948,
+      "sha256": "f9515479a21ea41634b5a38c3cd915c5722792044c440554fba57f9b94a3adb9"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_512_3layers_roots5_bounded.stderr.log": {
+      "size_bytes": 16337,
+      "sha256": "86e6c1fe3f174660ac01d6f9540ae6a96bd7a0135006f35a3825419dfb415f70"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_512_3layers_roots5_bounded.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_512_3layers_roots5_final.exit.json": {
+      "size_bytes": 172,
+      "sha256": "ee84b19b9a1aabe8d372469f20fa2f0c7ee7d4d8c38989b859bce0317669cfd6"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_512_3layers_roots5_final.launch.json": {
+      "size_bytes": 1941,
+      "sha256": "2aa4b809022d24c5be101ae681fecb02305033fb1e8cb7cb02d7a743d6aeb427"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_512_3layers_roots5_final.stderr.log": {
+      "size_bytes": 16220,
+      "sha256": "ab0bb10bb48d353be19f0434d5b665ccd5c7e1114546450a67553d213ec12da8"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_512_3layers_roots5_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_bounded.exit.json": {
+      "size_bytes": 171,
+      "sha256": "42de2d7a7ba866a7b55c909ef90cc11ad45b87135233736b269b3bcd1d3a4275"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_bounded.launch.json": {
+      "size_bytes": 1962,
+      "sha256": "14ead9f62fb721f330715ef5eeb6576439d4b607a987a0ac40f465fb8570e75f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_bounded.stderr.log": {
+      "size_bytes": 16328,
+      "sha256": "af35b897928b139cb154e1c988e590fb2c370365b1a061b2500a943ed6c6311c"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_bounded.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_final.exit.json": {
+      "size_bytes": 171,
+      "sha256": "c36fb9c36034a743bd09773f8c9c10fcaf60664cd2bfcac1a7cb4afd4a8b2925"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_final.launch.json": {
+      "size_bytes": 1953,
+      "sha256": "42eb29654430d93a289a36303416a8deb2b343de4063fcf3aebe516aa93384ce"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_final.stderr.log": {
+      "size_bytes": 16314,
+      "sha256": "d0c28ee085941e640cf36c5eff4d7b4a21c273c8861a9c7395c157685def9481"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_bounded.exit.json": {
+      "size_bytes": 172,
+      "sha256": "0c8001c8d649a98b6d1d281990ba704050a7ea934c563b3bab94ee7d6e9d9768"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_bounded.launch.json": {
+      "size_bytes": 1962,
+      "sha256": "3f93596b2279b979c0378cce047acc67575b5efd6eaae19f7332ce911ee0de8e"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_bounded.stderr.log": {
+      "size_bytes": 16363,
+      "sha256": "65e7000a29c5f94f62a9797152e595bdb4e0f1a9fb400f55c27aa7c7d5783655"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_bounded.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_final.exit.json": {
+      "size_bytes": 172,
+      "sha256": "e2180c91a43244c285e223d489d0dc2239a05cf074cb6d15fced3c0be76e7c9f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_final.launch.json": {
+      "size_bytes": 1875,
+      "sha256": "b79de3e156e486b138621a3ebe6373259f8508c667e9521b13a961b48c21d87e"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_final.stderr.log": {
+      "size_bytes": 16353,
+      "sha256": "57e2c761d74bcc0ce1055d03a0ab098dfd76416c842fe2b3437ef82cbe30669a"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_bounded.exit.json": {
+      "size_bytes": 171,
+      "sha256": "92b61df25e79aa2057b22e396ca6a124acc1b7645a8afc68293c03861541c445"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_bounded.launch.json": {
+      "size_bytes": 1961,
+      "sha256": "c32bc395486e25ec7c7cd0d884463196e5efdcfabdc8cb93b630c77741ebfda4"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_bounded.stderr.log": {
+      "size_bytes": 16427,
+      "sha256": "0e530b1dff8d7c3a41a49713a8a51302753475b966d73a93f13b535c6125a610"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_bounded.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_final.exit.json": {
+      "size_bytes": 171,
+      "sha256": "90e15c3d1ea1216b070e143f778e82eb9369b2217aa219c8b9fda538e108817f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_final.launch.json": {
+      "size_bytes": 1952,
+      "sha256": "b4c4227d241c84bb14d1d89f76570c7c4ae1f8e1df7a63af9419d3c4797a166c"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_final.stderr.log": {
+      "size_bytes": 16448,
+      "sha256": "12142b7499e5244b241f366fb1a428f07e473992671be93b873d1ae2fa54df7c"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/independent_expectations.json": {
+      "size_bytes": 1968,
+      "sha256": "a538ed3df46bcbe858be6ea7b2df6d6ba569f3ed78d352a9da72e5f3ba1ab20c"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/independent_review_final.md": {
+      "size_bytes": 465,
+      "sha256": "5bdc205b55153a5fde4ec28d8ea58f3954058cbd1789d85680d363db8246a306"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/launch_01.json": {
+      "size_bytes": 1506,
+      "sha256": "fb04f6b5880876d906708d34bf980bb577dd3ccb96359ec8d68b1e9e5208385c"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/launch_02.json": {
+      "size_bytes": 1443,
+      "sha256": "17da27a3b647d78a4546533e0f90834321230c7a501b8bb5d3c59f511a220076"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/launch_03.json": {
+      "size_bytes": 1468,
+      "sha256": "07cb3d128bb197373daaf48992831c9e571d99c099d851844ee3b512e18ec2b5"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/launch_04.json": {
+      "size_bytes": 1450,
+      "sha256": "18edf708a00fb94cfde608a26907d8711f8d8f8ed3d159eae7fdd9df156ab7db"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/launch_05.json": {
+      "size_bytes": 1451,
+      "sha256": "0516ef9f6b3ac226ed616d43427c3e84823fbe6ef25a2118fd11ff453555ee0a"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/launch_revision.py": {
+      "size_bytes": 2966,
+      "sha256": "72a397a7a14c686414a76d3acfb8d3f427a52e62a34c038f0543adb24d4f2676"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/partial_text_01.txt": {
+      "size_bytes": 17470,
+      "sha256": "d492b623a0f91b1ff753f596c8be340e648625120008b756282ea68c4bdd4aa3"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/preservation_and_process_checks.json": {
+      "size_bytes": 4661,
+      "sha256": "9e6eb125e65c703f498b6f74378542bd7f226e028fec7c11257c5fec2ae06012"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/previous_claude_report.md": {
+      "size_bytes": 458,
+      "sha256": "79ec6eeb5a96c9f9067c439c97f253636aea2ea527544b4567f2ceca6e28869a"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/previous_codex_review.md": {
+      "size_bytes": 684,
+      "sha256": "2c86ae5fabe40a5afc47d7ddb581117e3e8b45dbff08e2069f3824f2321cf5f6"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/previous_current_prompt.md": {
+      "size_bytes": 341,
+      "sha256": "5aa2354426997d79f2455742eb9a9bd20cb62e64846301a98839e21cdf2586cb"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/previous_orchestration_state.md": {
+      "size_bytes": 617,
+      "sha256": "27c33c3c7d480bd00f76d95e03d6f7fdc3685e2dcee653746ccedc744942e444"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/previous_verification.md": {
+      "size_bytes": 1220,
+      "sha256": "436d8cbaebe46c63d636b7ae1f2f0ec39bad05fdb6a74a9cb89d695e68a02f9f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/profile_daily.py": {
+      "size_bytes": 5143,
+      "sha256": "e7f2837a77c4b573acb1511c5ca24e8d63a4486a4b18074c39e70a322e8321ae"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/profile_daily_bounded.py": {
+      "size_bytes": 6518,
+      "sha256": "00f7d2affe1360a77fbb6109520619a4811cd5a3d3dcb1954e96e5a97316cefe"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/profile_daily_calibration_snapshot.py": {
+      "size_bytes": 4155,
+      "sha256": "9384eb501ff0a0949c282703a4621519dafdecb6ec4d1895f5b79b2ca34885da"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/result_checks_final.exit.json": {
+      "size_bytes": 173,
+      "sha256": "5762180dc7ef98d0a6d902ee01e460fba917a89167e038f488d3a8796186d86d"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/result_checks_final.launch.json": {
+      "size_bytes": 1136,
+      "sha256": "5a28e62622c879182bf01c646abd1abd40b39db9160c8e32f7a47b164794443c"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/result_checks_final.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/result_checks_final.stdout.log": {
+      "size_bytes": 17972,
+      "sha256": "8020e697742ea9855875afe6fbaa43020381baf0d27a930349fcf40b1aeb0155"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/result_verification.json": {
+      "size_bytes": 17972,
+      "sha256": "8020e697742ea9855875afe6fbaa43020381baf0d27a930349fcf40b1aeb0155"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/review_01.md": {
+      "size_bytes": 836,
+      "sha256": "5d596d7a51747f18cd31f0fa103506aaf88b2b262f40a08f51b9ee06b7d567c1"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/review_02.json": {
+      "size_bytes": 532,
+      "sha256": "3686edc02fa00f87a4b4e927a905fabfe63d860f05e1a6bb6e1a72198864bc1e"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/review_03.md": {
+      "size_bytes": 597,
+      "sha256": "248f5a57a4e57405d33952a2a7552f13a9feeea162522826e4462db380d8c154"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/review_04.md": {
+      "size_bytes": 675,
+      "sha256": "dff9bd07e6bcd664e268895dbce12b1937a8137d84407f2e212637c63f71833a"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/run_bounded_suite.py": {
+      "size_bytes": 1706,
+      "sha256": "6354d47c1ae5621ac9ec04cf51fa8f77f9aabe999da0b4de15ac5933a1252695"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/run_long_suite.py": {
+      "size_bytes": 1686,
+      "sha256": "f700fa48980adc691d9dc70845ac956e26c8d1183d59b83362becfe7f0e90bf6"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/run_process.py": {
+      "size_bytes": 3514,
+      "sha256": "7562c69f69e4674f02df998c5767a7fb9f00cb30d5d0be0751d086f900cf0214"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/runtime_identity.json": {
+      "size_bytes": 692,
+      "sha256": "3697fc22e78f200bd2a2464e1ec95f0e7f0200d4a72871638dcad33132f76d7d"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/scope.md": {
+      "size_bytes": 1854,
+      "sha256": "85f4ff32fc5fcbe1faeb580a9184c60a95299b13cb0e2636fe7a298f0ea59186"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/smoke_case.json": {
+      "size_bytes": 323,
+      "sha256": "c4968671b552c13e0a1fa629f935526b08151eaa013cf5fb2ede689ddd573291"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/source_after_correction_03.json": {
+      "size_bytes": 321,
+      "sha256": "e0e416e6bd6c474bc0ebf1e458ae66741ef133df13d3c3b186b12286d40b273e"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/source_after_correction_04.json": {
+      "size_bytes": 321,
+      "sha256": "316961e20a1d934f68a6f7a522f49a252714f6d1ec3d4c23d61d2ac9de2df76b"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_02.exit.json": {
+      "size_bytes": 171,
+      "sha256": "53c0f0ac19bb739fa7b2400a2ba31541c7712c30798123afcbdaab8e5289773a"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_02.launch.json": {
+      "size_bytes": 1192,
+      "sha256": "8256182ff182b1ae5b13789838b24c04c3e7f154423da0598d402f0e6fbbe9b6"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_02.stderr.log": {
+      "size_bytes": 5613,
+      "sha256": "0f8cd3083292ed8261ad5f34c4c6025c65594bf5f905b4617ecd0a4624880e31"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_02.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_03.exit.json": {
+      "size_bytes": 171,
+      "sha256": "e57705fc7da53528a3bce919edf598b15695301424bdfb1e985be9510f1eb95f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_03.launch.json": {
+      "size_bytes": 1191,
+      "sha256": "97903473f69d4a090d3d1ef2de2cf6c7fe7d7d94fc244b26a5a214e3bf7400a2"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_03.stderr.log": {
+      "size_bytes": 4746,
+      "sha256": "94acb15263a64c08cd3476464c0bf8898ed0825d74d2d5f39a7158a992e6ae29"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_03.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_final.exit.json": {
+      "size_bytes": 172,
+      "sha256": "a98f4d3a1a149d828e416f2c108d9c357776f3fa23c84d2182452952fcb1a9f2"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_final.launch.json": {
+      "size_bytes": 1193,
+      "sha256": "b47ae653430310e3ca93af0a4442784feddce36b76fc6e314afe75f890c19dfa"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_final.stderr.log": {
+      "size_bytes": 4888,
+      "sha256": "22aab07fea6623b20ac4a3daccc71984f17b3117bca11e643392bd075b25e4fb"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_cpu_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_02.exit.json": {
+      "size_bytes": 171,
+      "sha256": "c790b5431391c7cb5d0d1bc4fab3d20939053c99e86b7b8a016e3d9dbb0f62c0"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_02.launch.json": {
+      "size_bytes": 1403,
+      "sha256": "711ef4a7c997aa668fd508f543d30cb88e4111596394c812fe9a28a3afb50473"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_02.stderr.log": {
+      "size_bytes": 5471,
+      "sha256": "adcac7b4baa9fe09088bff26cf81b2410f3435438ded9fb088e9812b6d25a86f"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_02.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_03.exit.json": {
+      "size_bytes": 172,
+      "sha256": "38d0289104511ad1fe96d264b36c2d7ea3e332f5ba6055b4b072983ecbf180d8"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_03.launch.json": {
+      "size_bytes": 1404,
+      "sha256": "8b008b45ccca9e3f53598d2efbd085b1675fddb9d59d995f2afe6b440412a348"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_03.stderr.log": {
+      "size_bytes": 4604,
+      "sha256": "e0bf4f27aa90a05673f58d69907b211e9ac5401566be77fcd0c54cdc62c8d77b"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_03.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_final.exit.json": {
+      "size_bytes": 172,
+      "sha256": "df7831303ad25895139e47bd88d89bc26e8e26fd7408a80b3d9dc766a9f72127"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_final.launch.json": {
+      "size_bytes": 1402,
+      "sha256": "c21c54a779d0fd41229955b2db05896fb6531a161df872a0c388b050eec0e289"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_final.stderr.log": {
+      "size_bytes": 4746,
+      "sha256": "2c778124ebccdd98e6f6ef11f4c94bcb4dcd822e61eb37858f3c634fc4021e22"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/tests_gpu_final.stdout.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/verification.md": {
+      "size_bytes": 3217,
+      "sha256": "3c1ce4883c6997025d5587ecafa758960e77f6b5fd4ed6945f93a70077711e28"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/verify_results.py": {
+      "size_bytes": 6669,
+      "sha256": "8fa1b28c8b066767860cfd8f1a07b1f3873497b5c7585a25a915e251ac210e0b"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/write_report.py": {
+      "size_bytes": 10915,
+      "sha256": "06503a35ef30b5d4e475026cc0f8611d768de3ef4f98e7dfd586b4b6e2c6532f"
+    },
+    "agent_handoffs/upstreams.md": {
+      "size_bytes": 4021,
+      "sha256": "73e1cb443db989263175499943f06c45636276b076e15a6bdb8bd9f147d97c47"
+    },
+    "agent_handoffs/verification.md": {
+      "size_bytes": 3217,
+      "sha256": "3c1ce4883c6997025d5587ecafa758960e77f6b5fd4ed6945f93a70077711e28"
+    },
+    "benchmarks/daily-water-growth.md": {
+      "size_bytes": 7162,
+      "sha256": "ac82e85916215fe52b9ba5be7eb5bdba931dd43657a53cc86d6a9cd03ac56722"
+    },
+    "benchmarks/daily_water_growth.py": {
+      "size_bytes": 43084,
+      "sha256": "7ac39d864ec66e9e6fc7a9f3f59d7fb5afec5e032794e0e0b495b85464d8d5e5"
+    },
+    "benchmarks/results/daily_water_30year_20261030/calibration_cpu_02.json": {
+      "size_bytes": 15115,
+      "sha256": "16fd3c0b8fae9106f399fb77a4f9ca730b63191ec97ffb9396a58a7863dfd128"
+    },
+    "benchmarks/results/daily_water_30year_20261030/calibration_gpu_02.json": {
+      "size_bytes": 16084,
+      "sha256": "c4a6f170aa1297460d1ef5b7f2d2fbfec6233cc11ad12e24240e07e84b618857"
+    },
+    "benchmarks/results/daily_water_30year_20261030/cpu_june_hectare_3layers_roots3_final.json": {
+      "size_bytes": 34949,
+      "sha256": "03687f0c3f6b8f121b3c355e4ea481db267c970c2b98e8df486df0a5327aee5c"
+    },
+    "benchmarks/results/daily_water_30year_20261030/cpu_june_hectare_3layers_roots5_final.json": {
+      "size_bytes": 35126,
+      "sha256": "62c9bf1a1403fc022add893fb237858bd1decc122bc54b785b7c5199e290ab2f"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_bounded.json": {
+      "size_bytes": 39438,
+      "sha256": "438f54aee889e903fefda7e33a19702cfe4713595ee4dc19173de2b352afab09"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_final.json": {
+      "size_bytes": 39106,
+      "sha256": "e5e04f65b582defe4818d907b8a84d997c693da6bba3da7536471c41b41d5667"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_bounded.json": {
+      "size_bytes": 39124,
+      "sha256": "e0d424df27c00c532a60e63d5313451eb6249148a13852d0309a26835b16b8f7"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_final.json": {
+      "size_bytes": 38903,
+      "sha256": "803057344b5e6642616dbfb6b589b69552a7d6054a72cf712f9eaed224018973"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_512_3layers_roots5_bounded.json": {
+      "size_bytes": 39030,
+      "sha256": "d7a473a35a6d3a21a2835017b028fc5c69d11c006062ee7e0e6ae9662f3d7d1e"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_512_3layers_roots5_final.json": {
+      "size_bytes": 38567,
+      "sha256": "6f4733aeefabdb02a1efc3d234b5b93f40c2a508094793b8cd07c637d9639cc0"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_bounded.json": {
+      "size_bytes": 38958,
+      "sha256": "db369a0d7746f2c07977138cf96b37d2a4000062248bcd9de213a46315155aec"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_final.json": {
+      "size_bytes": 38594,
+      "sha256": "3eff0cc736ecb06d7fbb429d92915182014a8ea1fd6b3c2bdbe7b4d63345d771"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_bounded.json": {
+      "size_bytes": 39045,
+      "sha256": "5b9d4fbfd28d0d64cfcaeec5c2b786a00a215cfd4f155fbac5261220aa107186"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_final.json": {
+      "size_bytes": 38662,
+      "sha256": "d643de962c4dc060434fd9dd0666504efca6b125691393028601fe9ef9f81892"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_bounded.json": {
+      "size_bytes": 39088,
+      "sha256": "83b750e8b89bb51c19f77dbd8a9a7cbab8698dac4988221a276710711bc28857"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_final.json": {
+      "size_bytes": 38756,
+      "sha256": "73b6a049abfaed43c5c8e7f7346588af830e4c7a261f367e129908ec487810be"
+    },
+    "benchmarks/spatial_mapping.py": {
+      "size_bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "claude.md": {
+      "size_bytes": 2731,
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714"
+    },
+    "docs/daily-water-30year.md": {
+      "size_bytes": 12706,
+      "sha256": "d4708e2090368322b2c02bb25ac6222bcddfc6b839016ec02c3e705d742f6a1c"
+    },
+    "tests/test_daily_water_growth.py": {
+      "size_bytes": 13405,
+      "sha256": "602a4b547d6ea492edd5aeda844803932c7a9b7364c68116d1b9f053ee806a36"
+    },
+    "tests/test_spatial_mapping.py": {
+      "size_bytes": 12394,
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+test_sampled_cover_is_approximate_and_capped (test_spatial_mapping.CanopyTest.test_sampled_cover_is_approximate_and_capped) ... ok
+test_small_plant_in_coarse_cell_is_reported_missed (test_spatial_mapping.CanopyTest.test_small_plant_in_coarse_cell_is_reported_missed) ... ok
+test_capacity_refusal_before_allocation (test_spatial_mapping.GenerationAndAdmissionTest.test_capacity_refusal_before_allocation) ... ok
+test_deterministic_generation (test_spatial_mapping.GenerationAndAdmissionTest.test_deterministic_generation) ... ok
+test_invalid_inputs_rejected (test_spatial_mapping.GenerationAndAdmissionTest.test_invalid_inputs_rejected) ... ok
+test_run_case_cpu_small (test_spatial_mapping.GenerationAndAdmissionTest.test_run_case_cpu_small) ... ok
+test_cpu_gpu_parity_within_tolerance (test_spatial_mapping.GpuParityTest.test_cpu_gpu_parity_within_tolerance) ... ok
+test_layered_sum_equals_plant_count (test_spatial_mapping.ReductionTest.test_layered_sum_equals_plant_count) ... ok
+test_plants_sharing_one_cell (test_spatial_mapping.ReductionTest.test_plants_sharing_one_cell) ... ok
+test_boundary_clipping_renormalizes (test_spatial_mapping.RootPredicateTest.test_boundary_clipping_renormalizes) ... ok
+test_csr_matches_oracle_and_is_normalized (test_spatial_mapping.RootPredicateTest.test_csr_matches_oracle_and_is_normalized) ... ok
+test_root_predicate_independent_of_canopy_radius (test_spatial_mapping.RootPredicateTest.test_root_predicate_independent_of_canopy_radius) ... ok
+test_subcell_root_at_cell_centre_maps_one_cell (test_spatial_mapping.RootPredicateTest.test_subcell_root_at_cell_centre_maps_one_cell) ... ok
+test_subcell_root_at_cell_corner_maps_four_cells (test_spatial_mapping.RootPredicateTest.test_subcell_root_at_cell_corner_maps_four_cells) ... ok
+test_tangent_contact_is_not_an_edge (test_spatial_mapping.RootPredicateTest.test_tangent_contact_is_not_an_edge) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.298s
+
+OK

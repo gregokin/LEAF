@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="knb-lter-jrn.210351001.49"
+  system="https://pasta.edirepository.org"
+  xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1  http://nis.lternet.edu/schemas/EML/eml-2.1.1/eml.xsd">
+  <access authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document" system="https://pasta.edirepository.org">
+    <allow>
+      <principal>uid=JRN,o=LTER,dc=ecoinformatics,dc=org</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset>
+    <alternateIdentifier system="https://doi.org">doi:10.6073/pasta/63bfa45df4858db674bf37b52ee5ff44</alternateIdentifier>
+    <title>Plant Cover at Permanent Quad Locations on the Jornada Experimental Range, 1915-ongoing</title>
+    <creator>
+      <individualName>
+        <givenName>William</givenName>
+        <surName>Chapline</surName>
+      </individualName>
+      <organizationName>U.S. Forest Service</organizationName>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Kris</givenName>
+        <surName>Havstad</surName>
+      </individualName>
+      <organizationName>USDA-ARS Jornada Experimental Range</organizationName>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0002-0133-8519</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Brandon</givenName>
+        <surName>Bestelmeyer</surName>
+      </individualName>
+      <organizationName>USDA-ARS Jornada Experimental Range</organizationName>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-5060-9955</userId>
+    </creator>
+    <associatedParty>
+      <individualName>
+        <givenName>Brandon</givenName>
+        <surName>Bestelmeyer</surName>
+      </individualName>
+      <organizationName>USDA-ARS Jornada Experimental Range</organizationName>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0001-5060-9955</userId>
+      <role>Current Principal Investigator</role>
+    </associatedParty>
+    <pubDate>2020-02-09</pubDate>
+    <abstract>
+      <para>
+  This ongoing data set contains basal cover of perennial grasses and
+  canopy cover of shrubs in 122 1m x 1m quadrats on the Jornada
+  Experimental Range in the northern extent of the Chihuahuan Desert of
+  New Mexico, USA. These quadrats were established to investigate
+  livestock grazing effects on plant community dynamics as well as
+  responses to variable climatic conditions over time. Vegetation
+  monitoring is carried out by charting the basal areas of perennial
+  grasses and canopy areas of shrubs within each quadrat. Quadrats were
+  established at different times, with start dates from 1915 to 1932.
+  Specific quadrat locations were selected for a variety of reasons, but
+  the overall intent was to represent varying plant community conditions
+  across the Jornada Experimental Range. From 1915 to 1924 charting was
+  done by dividing the quadrat frame into a decimeter grid using straps
+  and reproducing locations of plants on grid paper. From 1925 to 2016
+  charting was done using a pantograph. With few exceptions, quadrats
+  were charted until 1947, and a portion of the quadrats were charted
+  intermittently between 1947 and 1979. Sampling resumed again in 1995
+  and continues every 5-6 years. Charts are digitally scanned,
+  georeferenced, and chart features are digitally reproduced by hand.
+  This data set is not yet complete; charts are actively being processed
+  by Jornada Experimental Range staff and will be updated to this data
+  package as they become available. A companion data package of counts
+  of perennial forbs and subshrubs for each quadrat is also available
+  for this project (data package knb-lter-jrn.210351002).
+</para>
+    </abstract>
+    <keywordSet>
+      <keyword>Populations</keyword>
+      <keyword>Primary Production</keyword>
+      <keyword>Land Use and Land Cover Change</keyword>
+      <keywordThesaurus>LTER Core Area</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Vegetation Dynamics</keyword>
+      <keyword>core</keyword>
+      <keywordThesaurus>JRN Dataset Keywords</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>Permanent Quadrats</keyword>
+      <keyword>Study 351</keyword>
+      <keywordThesaurus>Jornada Project Names</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>JER</keyword>
+      <keywordThesaurus>Jornada Place Names</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>plant communities</keyword>
+      <keyword>plant species</keyword>
+      <keyword>plant growth</keyword>
+      <keyword>plant functional types</keyword>
+      <keyword>plants</keyword>
+      <keyword>vascular plants</keyword>
+      <keyword>plant species composition</keyword>
+      <keyword>grazing</keyword>
+      <keyword>desertification</keyword>
+      <keyword>plant cover</keyword>
+      <keyword>basal area</keyword>
+      <keywordThesaurus>LTER Controlled Vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>arid grasslands</keyword>
+      <keyword>perennial grasses</keyword>
+    </keywordSet>
+    <intellectualRights>
+      <para>
+  This information is released under the Creative Commons license -
+  Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/).
+  The consumer of these data ("Data User" herein) is required
+  to cite it appropriately in any publication that results from its use.
+  The Data User should realize that these data may be actively used by
+  others for ongoing research and that coordination may be necessary to
+  prevent duplicate publication. The Data User is urged to contact the
+  authors of these data if any questions about methodology or results
+  occur. Where appropriate, the Data User is encouraged to consider
+  collaboration or co-authorship with the authors. The Data User should
+  realize that misinterpretation of data may occur if used out of
+  context of the original study. While substantial efforts are made to
+  ensure the accuracy of data and associated documentation, complete
+  accuracy of data sets cannot be guaranteed. All data are made
+  available "as is." The Data User should be aware, however,
+  that data are updated periodically and it is the responsibility of the
+  Data User to check for new versions of the data. The data authors and
+  the repository where these data were obtained shall not be liable for
+  damages resulting from any use or misinterpretation of the data. Thank
+  you.
+</para>
+    </intellectualRights>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>Jornada Experimental Range, Dona Any County, New Mexico, USA.  More detailed geographic information can be requested from the Data Manager.</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-106.926435</westBoundingCoordinate>
+          <eastBoundingCoordinate>-106.528942</eastBoundingCoordinate>
+          <northBoundingCoordinate>32.737108</northBoundingCoordinate>
+          <southBoundingCoordinate>32.466879</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>1915-06-04</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2016-12-15</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <maintenance>
+      <description>ongoing</description>
+    </maintenance>
+    <contact>
+      <individualName>
+        <givenName>Data</givenName>
+        <surName>Manager</surName>
+      </individualName>
+      <organizationName>Jornada Basin LTER</organizationName>
+      <electronicMailAddress>datamanager.jrn.lter@gmail.com</electronicMailAddress>
+    </contact>
+    <methods>
+      <methodStep>
+        <description>
+          <para>
+  Between 1915 and 1932, more than 100 1m x 1m quadrats were established
+  across the Jornada Experimental Range to document vegetation dynamics
+  in dominant grass species over time. Initially the research goal of
+  the project was to investigate livestock grazing effects on plant
+  community dynamics. The original sets of quadrats were selected to
+  represent the major grassland types in the area. Most were placed at
+  0.8 km intervals along transects radiating from permanent watering
+  points for livestock. Grassland types represented were (primary
+  dominants) black grama, tobosa, burrograss, three-awn, blue grama, and
+  a mixed grass type. The corners of each quadrat are permanently marked
+  on the ground with angle iron stakes or nails.
+</para>
+          <para>
+  Vegetation in the quadrats is monitored by charting. A decimeter grid
+  was used for charting until 1925, and a pantograph has been used
+  thereafter. Charting involves 1) drawing the scaled-down locations of
+  the four corners of the 1m x 1m quadrat on a sheet of paper, 2)
+  drawing the relative locations of the center of live perennial forbs
+  and live subshrubs contained in the quadrat, 3) drawing the basal
+  areas of live perennial grasses contained in the quadrat relative to
+  the four corners, 4) drawing the canopy areas of live shrubs contained
+  in or overhanging the quadrat relative to the four corners, and 5)
+  labeling each item to species, genus, or functional group, whichever
+  can be most fully resolved. In this way, each chart serves as a map of
+  each quadrat that can be georeferenced and spatially projected. In
+  several cases grasses were also measured as a point, particularly if
+  they could not be identified to species, and are not included in this
+  data set.
+</para>
+          <para>
+  With few exceptions, all 122 quadrats were charted until 1947, and a
+  portion of the quadrats were charted intermittently between 1947 and
+  1979. Interest in the project was reinvigorated in 1995, during which
+  time 112 quadrats were relocated, charted, and documented with GPS
+  coordinates. An additional 10 quadrats have been located subsequently.
+  Since 1995 sampling has occurred every 5-6 years.
+</para>
+          <para>
+  Maintaining a definitive record of quadrat sampling and charts has
+  been challenging due to the long-term nature of the project including
+  changeover of management personnel, periodic abandonment and renewed
+  interest, plot corners being buried or locations being lost, charts
+  having gone missing or taken by researchers, changes in taxonomic
+  classifications, protocols and technology, and incomplete efforts to
+  compile the data set. At the start of the project, directions for
+  locating each quadrat were based on features in the landscape that
+  sometimes did not persist. GPS documentation began in 1995.
+  Unfortunately, the locations of some quadrats have been lost; however,
+  this data package contains only quadrats whose locations are currently
+  known.
+</para>
+          <para>
+  Field charts are digitally scanned into high resolution TIFF files.
+  Scans are then digitized in ArGIS software. Perennial forb and
+  subshrub location features are recorded in a point shapefile, while
+  perennial grass basal cover features and shrub canopy cover features
+  are recorded in a polygon shapefile. Perennial grass stolon features,
+  if they exist, are recorded in a line shapefile. Known locations of
+  plot corners are used to spatially project each shapefile, and the
+  shapefiles are stored in a geodatabase. Attribute tables for each
+  geodatabase layer are extracted, compiled, and error-checked to
+  produce the final data tables. This data set is not yet complete;
+  charts are actively being processed by Jornada Experimental Range
+  staff and will be updated to this data package as they become
+  available. See data package knb-lter-jrn.210351002 for perennial forb
+  and subshrub count data.
+</para>
+        </description>
+      </methodStep>
+    </methods>
+    <dataTable>
+      <entityName>Basal Cover of Perennial Grasses and Canopy Cover of Shrubs at Permanent Quadrat Locations on the Jornada Experimental Range (Jornada Basin LTER), 1915-ongoing</entityName>
+      <entityDescription>Basal Cover of Perennial Grasses and Canopy Cover of Shrubs at Permanent Quadrat Locations on the Jornada Experimental Range (Jornada Basin LTER), 1915-ongoing</entityDescription>
+      <physical>
+        <objectName>Jornada_permanent_quads_cover.csv</objectName>
+        <size unit="bytes">14600416</size>
+        <authentication method="MD5">57822019ae4490145f6fcb4ef365858f</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <recordDelimiter>\r\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210351001/49/c93e2a3a593d660fba6e4d7295544638</url>
+          </online>
+        </distribution>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>quadrat</attributeName>
+          <attributeDefinition>name of quadrat</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>name of quadrat</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>year</attributeName>
+          <attributeDefinition>year quadrat was charted</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>month</attributeName>
+          <attributeDefinition>month quadrat was charted</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>MM</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+          <missingValueCode>
+            <code>.</code>
+            <codeExplanation>month not recorded</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>day</attributeName>
+          <attributeDefinition>day quadrat was charted</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>DD</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+          <missingValueCode>
+            <code>.</code>
+            <codeExplanation>year not recorded</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>project_year</attributeName>
+          <attributeDefinition>year at beginning of project year (May to April)</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>USDA_code</attributeName>
+          <attributeDefinition>USDA plant code (http://plants.usda.gov)</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>USDA plant code (http://plants.usda.gov)</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>.</code>
+            <codeExplanation>no cover present OR chart has not been processed</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>scientific_name</attributeName>
+          <attributeDefinition>species binomial</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition>species binomial</definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>.</code>
+            <codeExplanation>species binomial is not known or not applicable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>duration</attributeName>
+          <attributeDefinition>growth habit</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>P</code>
+                    <definition>perennial</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AP</code>
+                    <definition>annual or perennial</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>.</code>
+            <codeExplanation>duration is not known or not applicable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>form</attributeName>
+          <attributeDefinition>growth form</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>grass</code>
+                    <definition>grass</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>shrub</code>
+                    <definition>shrub</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>.</code>
+            <codeExplanation>form is not known or not applicable</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>area</attributeName>
+          <attributeDefinition>basal area for grasses, and canopy area for shrubs</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>squareMeter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0</minimum>
+                  <maximum exclusive="false">1.01</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>.</code>
+            <codeExplanation>no cover present OR chart has not been processed</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>perimeter</attributeName>
+          <attributeDefinition>perimeter of basal area of grasses, and canopy perimeter of shrubs</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>meter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.01</minimum>
+                  <maximum exclusive="false">7.49</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>.</code>
+            <codeExplanation>no cover present OR chart has not been processed</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>cover_status</attributeName>
+          <attributeDefinition>indicates whether perennial forbs/subshrubs are present, not present, or chart has yet to be processed</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>PG/Shr present</code>
+                    <definition>basal cover of perennial grasses and/or canopy cover of shrubs is/are present in quadrat</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>unknown</code>
+                    <definition>chart has not been processed yet</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>no PG/Shr present</code>
+                    <definition>no basal cover of perennial grasses nor canopy cover of shrubs occurs in quadrat</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>chart_status</attributeName>
+          <attributeDefinition>indicated whether chart has been processed or not</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>processed</code>
+                    <definition>chart has been processed</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>unprocessed</code>
+                    <definition>chart has not been processed</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>148637</numberOfRecords>
+    </dataTable>
+    <otherEntity>
+      <entityName>A map of the Permanent Quadrats locations on the Jornada Experimental Range</entityName>
+      <entityDescription>A map of the Permanent Quadrats locations on the Jornada Experimental Range</entityDescription>
+      <physical>
+        <objectName>JER_Quadrats_map.jpg</objectName>
+        <size unit="bytes">4890640</size>
+        <authentication method="MD5">99566debbbcb4cbaa3c217b2733ebbbd</authentication>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName>unknown</formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url>https://pasta.lternet.edu/package/data/eml/knb-lter-jrn/210351001/49/6bd6f2b6dc4b4016adc4b226f6504c8c</url>
+          </online>
+        </distribution>
+      </physical>
+      <entityType>unknown</entityType>
+    </otherEntity>
+  </dataset>
+</eml:eml>

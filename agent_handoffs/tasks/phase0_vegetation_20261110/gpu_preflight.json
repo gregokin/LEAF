@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-10T12:14:57.051258+00:00",
+  "selection": "physical GPU 1, mapped to logical 0 with CUDA_VISIBLE_DEVICES=1",
+  "name": "NVIDIA GeForce GTX 1080 Ti",
+  "free_mib": 11107,
+  "used_mib": 0,
+  "utilization_percent": 0,
+  "scope": "bounded existing regression suite only; no model scenario or changes to other jobs",
+  "resource_allocation_tool_available": false
+}

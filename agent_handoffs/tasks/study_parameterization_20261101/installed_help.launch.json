@@ -1,0 +1,11 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/analysis/study_parameterization/study_parameters.py",
+    "--help"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 4,
+  "start_ticks": "102659253",
+  "started_utc": "2026-11-01T17:46:40.833452+00:00"
+}

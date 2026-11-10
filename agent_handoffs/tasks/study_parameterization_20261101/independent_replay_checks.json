@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "heldout_replays_checked": 177,
+  "harvests_checked_against_original_raw_table": 34,
+  "maximum_endpoint_difference_kg": 1.734723475976807e-18,
+  "independent_harvest_rmse_g": 1.5246986892417376,
+  "independent_harvest_r2": 0.7029698455133364,
+  "candidate_functions_imported": false,
+  "scope": "Analytical STEP-style short-window diagnostic only; native hydrology/GPU/runtime source unchanged."
+}

@@ -1,0 +1,205 @@
+{
+  "accepted_utc": "2026-11-01T10:49:50.924442+00:00",
+  "scope": "research/documentation only; no model qualification",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2113,
+      "sha256": "5bee22fdc4206ff71656c87275eda46b65b5acf22f0100dc821503892c2bf5ba"
+    },
+    {
+      "path": "audit_public_tables.py",
+      "bytes": 4253,
+      "sha256": "fba8dd3a96b8b8575ec29f108d927393e3ca150fa37700e4421abe2ced7caf6d"
+    },
+    {
+      "path": "baseline.json",
+      "bytes": 353685,
+      "sha256": "8a85c15a1391998cf191e45f1890490f1e38f294e1def648fd6c5720b7bf5db4"
+    },
+    {
+      "path": "checks.initial.json",
+      "bytes": 38806,
+      "sha256": "bf07689951c838ea0cea48170ccc53ab5aac774958523c56cf066954a75918e8"
+    },
+    {
+      "path": "checks.json",
+      "bytes": 40121,
+      "sha256": "999943e3e4c74e06d9f7e364ff25c751b1772eb22996cec66db4c4cfefd1944a"
+    },
+    {
+      "path": "codex_review.md",
+      "bytes": 1306,
+      "sha256": "0bcf842d42c7e09d3557785df95e8f0acd7de17bf60e2e6c877ecda72042bb4e"
+    },
+    {
+      "path": "extract_selected_evidence.py",
+      "bytes": 1588,
+      "sha256": "38e5152b88119dcb49a161a16603edcafbb7ff4450ac99da61f790af4fc83446"
+    },
+    {
+      "path": "fetch_final_metadata.py",
+      "bytes": 2530,
+      "sha256": "96260ddcff9abb2b8c61bcf38cd017a6e443056ae589aad9148b69a7cc9f06b5"
+    },
+    {
+      "path": "fetch_followup.py",
+      "bytes": 2214,
+      "sha256": "d9b58eac913c539db0a2211b2619bcad2fa161e5de9a8e87c9ba372d2974f6d8"
+    },
+    {
+      "path": "fetch_public_evidence.py",
+      "bytes": 2604,
+      "sha256": "4a03aca8a46ac3449c76490b367ec70f581995e7a3d7621dd92c6ec373c807c1"
+    },
+    {
+      "path": "fetch_selected.py",
+      "bytes": 1583,
+      "sha256": "14641a3f3b74f8b6627afa54f855e5cad3d870d05592ec7a59ea6c135f8ba144"
+    },
+    {
+      "path": "previous_codex_review.md",
+      "bytes": 1458,
+      "sha256": "9f663cbf32df0b0d9b259dcf81642742b388145575bb07b22281b28bf6f39e24"
+    },
+    {
+      "path": "previous_current_prompt.md",
+      "bytes": 384,
+      "sha256": "56ed4088ac7bd8965bbd3de9fb8cf7e9fdcbbc41636a425f9fbda1b19362464f"
+    },
+    {
+      "path": "previous_orchestration_state.md",
+      "bytes": 2625,
+      "sha256": "ab647f781c15fb41d5188354b7afb491a5302222c8f0f2af2690fa94b7628dda"
+    },
+    {
+      "path": "previous_verification.md",
+      "bytes": 2917,
+      "sha256": "44c3cfb3bdf3a7bb1c70248da88d6fe12f4c3b86d6511cfa89cb7ab02f812697"
+    },
+    {
+      "path": "public_evidence/final_metadata/manifest.json",
+      "bytes": 1280,
+      "sha256": "3a4a88d998462f1294e9f79f2f082c35bd3d826ff865d1538cd3aba98e8bbf28"
+    },
+    {
+      "path": "public_evidence/final_metadata/ravi_figshare_search.json",
+      "bytes": 3221,
+      "sha256": "688c21e0b0af6502d8fe1ef20f40770d9177a6a0cffa3c80fd85f1152f8d255b"
+    },
+    {
+      "path": "public_evidence/final_metadata/setaria_data_zenodo.json",
+      "bytes": 3564,
+      "sha256": "0e55a15c750b12b729e0e8fbb722144f0b76c1452f9e2c5e8a3cf3cc7a1903b0"
+    },
+    {
+      "path": "public_evidence/followup/manifest.json",
+      "bytes": 1106,
+      "sha256": "86383dc44636bd84abd6a04425987457bf73fb1a08e6ec8b6ce82ba3d73ff18c"
+    },
+    {
+      "path": "public_evidence/followup/mesquite_peterson_2004.literal-text.txt",
+      "bytes": 38754,
+      "sha256": "6d29014658c300e7901658d299ef16db60fec95093f26fa7203ae147daa3b151"
+    },
+    {
+      "path": "public_evidence/followup/mesquite_peterson_2004.pdf",
+      "bytes": 224064,
+      "sha256": "de69ca47953e3cf6e7267d62dad235af15572f3aaaafd59f6bba3648da18a7d5"
+    },
+    {
+      "path": "public_evidence/followup/setaria_tag_tree.json",
+      "bytes": 149462,
+      "sha256": "9abfb3530129ac66a5f599d1bc31160eb2772c06ead9a24beb581d7cfef53c58"
+    },
+    {
+      "path": "public_evidence/manifest.json",
+      "bytes": 1930,
+      "sha256": "3add21054a722efb25be8f73702dcc3099801dad68b8c99683fa5e36e2c18c88"
+    },
+    {
+      "path": "public_evidence/mesquite_nasa.html",
+      "bytes": 12614,
+      "sha256": "e0cdc31966fcc4ec3785729ac1bf4b633ced07da8bb1e6d94cb34b1b36948bf5"
+    },
+    {
+      "path": "public_evidence/selected/manifest.json",
+      "bytes": 3588,
+      "sha256": "844288290f704a210090561825956bab3aa9246fc792594639cb1264cfc8fc6d"
+    },
+    {
+      "path": "public_evidence/selected/setaria_biomass_modeling.R",
+      "bytes": 21319,
+      "sha256": "bf3974a70bccabce3af379a93e9df499b26c380c5c6cbf1d3e0a0d2bb0aac98e"
+    },
+    {
+      "path": "public_evidence/selected/setaria_documentation.docx",
+      "bytes": 94973,
+      "sha256": "b2c39e388b8e170547f321f77d52f1bb5ea255af6a8f8a606a27bd5d481b8e4c"
+    },
+    {
+      "path": "public_evidence/selected/setaria_documentation.txt",
+      "bytes": 1570,
+      "sha256": "b4dec7a1d7bdc81b466a214a2890dec8aae58575c2ec0f3735c6b8d4bd40971e"
+    },
+    {
+      "path": "public_evidence/selected/setaria_fetch_data.R",
+      "bytes": 14256,
+      "sha256": "4fcf07602c55931ed1cb4921ce50e36d5bff3291ab1a8f819e91ca33e161b6d1"
+    },
+    {
+      "path": "public_evidence/selected/setaria_harvest.csv",
+      "bytes": 6268,
+      "sha256": "dacc04d406fefef366917fcb9de482fdb34974a8eba13c51223d9f5623a8dd7b"
+    },
+    {
+      "path": "public_evidence/selected/setaria_snapshots.csv",
+      "bytes": 11811823,
+      "sha256": "d756c2f621041750342675103693330d8a17bb1c91d066ca143ba0ba803c7370"
+    },
+    {
+      "path": "public_evidence/selected/setaria_tag.json",
+      "bytes": 393,
+      "sha256": "ab408cde4fe3d6bc9f90045286cadcb296c23806fb561cfdb1dd731eeda3cb34"
+    },
+    {
+      "path": "public_evidence/selected/setaria_water_use.R",
+      "bytes": 27709,
+      "sha256": "b8fddcc9bcda3551b8a77c78133803c60f106abc55a37d92a59dd1de9f91f086"
+    },
+    {
+      "path": "public_evidence/setaria_zenodo.json",
+      "bytes": 3783,
+      "sha256": "dfcf0365ee4d42cd43267747fc4665458c570c0524dcddc4d2948199a456f6f5"
+    },
+    {
+      "path": "references.json",
+      "bytes": 3811,
+      "sha256": "db18b68f5a0d8787a3ee32073fd08133353b611fa1a66da2ba31575613171604"
+    },
+    {
+      "path": "scope.md",
+      "bytes": 1731,
+      "sha256": "54d6e104c70473b2475ca2e3d578f83ef5b74b995009f326100164a766daaf88"
+    },
+    {
+      "path": "setaria_audit.json",
+      "bytes": 3735,
+      "sha256": "2193da8d7348fa24196b8ebf64d90ce7be33af6de859871bc9d04598e668e420"
+    },
+    {
+      "path": "verification.md",
+      "bytes": 4229,
+      "sha256": "b9b14652ccb9ad68fc33b5510e2eb66d69d1c64da5c3768aec2427ddb9ff6e96"
+    },
+    {
+      "path": "verify_deliverables.py",
+      "bytes": 7224,
+      "sha256": "4cc094527079e3e624a1f16259a975119508a1088998d4a2090d5d14349ad300"
+    }
+  ],
+  "exclusions": [
+    "accepted_artifacts.json (self)",
+    "__pycache__"
+  ]
+}

@@ -1,0 +1,4 @@
+{"ok": true, "backend": "numba", "source": "/home/okin/leaf/leaf/stepwat.py", "cases": ["wet", "limited", "dry", "cold", "dormant", "mature", "year_end"], "count": 7}
+{"ok": true, "backend": "numpy", "oracles": ["native two-area E/T accounting", "actual uptake to analytical biomass", "365-day partial period", "year-end refusal and single retry", "following partial week", "invalid forcing before water mutation"]}
+{"ok": true, "oracles": ["host-only temperature input", "no device get on bad or matching shape", "nested forcing refused before array conversion", "valid scalar/vector inputs preserved"]}
+{"ok": true, "installed_source": "/home/okin/leaf/leaf/stepwat.py", "backend": "cpu", "independent_suites": ["independent_kernels", "independent_coupling", "independent_validation"]}

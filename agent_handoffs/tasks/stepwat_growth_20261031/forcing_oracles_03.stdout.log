@@ -1,0 +1,1 @@
+{"ok": true, "oracles": ["host-only temperature input", "no device get on bad or matching shape", "nested forcing refused before array conversion", "valid scalar/vector inputs preserved"]}

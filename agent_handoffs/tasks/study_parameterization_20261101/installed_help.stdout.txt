@@ -1,0 +1,48 @@
+usage: study_parameters.py [-h] --images IMAGES --weights WEIGHTS --harvest
+                           HARVEST --zoom ZOOM --peterson PETERSON --out OUT
+                           [--seed SEED] [--n-boot N_BOOT]
+                           [--holdout-modulus HOLDOUT_MODULUS]
+                           [--holdout-remainder HOLDOUT_REMAINDER]
+                           [--window-start WINDOW_START]
+                           [--window-end WINDOW_END]
+                           [--max-image-gap MAX_IMAGE_GAP]
+                           [--large-daily-loss-g LARGE_DAILY_LOSS_G]
+                           [--dispenser-tol-g DISPENSER_TOL_G]
+                           [--qc-day-label {end,start}]
+
+Bounded public-study candidate parameter analysis (study_parameterization_20261101, rev 1).
+
+Inputs are supplied only through CLI arguments (no public-data defaults):
+  --images    projected scalar image table (Feldman et al. 2018, vis_setaria_ril.csv projection)
+  --weights   original weighing/watering snapshot table (setaria_snapshots.csv columns)
+  --harvest   harvest table (plantbarcode, fresh_wt, sat_wt, dry_wt, cartag)
+  --zoom      tab-separated zoom calibration table (zoom, camera, rel_area, ...)
+  --peterson  JSON of approximate Peterson & Neofotis 2004 figure readings
+  --out       NEW output directory (existing directories are refused, never overwritten)
+
+The module is organised as small testable functions.  Nothing here changes any
+simulator or field defaults; every number emitted is a *candidate fragment* with
+explicit assumptions and audit totals.  Implementer note: this code was written
+without executing it (no shell was available); see report.md.
+
+options:
+  -h, --help            show this help message and exit
+  --images IMAGES
+  --weights WEIGHTS
+  --harvest HARVEST
+  --zoom ZOOM
+  --peterson PETERSON
+  --out OUT             new output directory (existing directories are
+                        refused)
+  --seed SEED
+  --n-boot N_BOOT
+  --holdout-modulus HOLDOUT_MODULUS
+  --holdout-remainder HOLDOUT_REMAINDER
+  --window-start WINDOW_START
+  --window-end WINDOW_END
+  --max-image-gap MAX_IMAGE_GAP
+  --large-daily-loss-g LARGE_DAILY_LOSS_G
+  --dispenser-tol-g DISPENSER_TOL_G
+  --qc-day-label {end,start}
+                        DAP label of a daily loss for the study QC policy:
+                        weighing day ('end') or previous day

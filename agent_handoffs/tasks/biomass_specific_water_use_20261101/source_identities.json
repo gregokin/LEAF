@@ -1,0 +1,68 @@
+{
+  "recorded_utc": "2026-11-01T19:16:43.942470+00:00",
+  "tag": "v1.0.0",
+  "commit_sha": "862abe68c7a9f1eb6397c36516bca35c9d445298",
+  "commit_tree_sha": "c7718644d97352a7765c33c5db2c7703b6d4edab",
+  "tree_endpoint_reported_sha": "862abe68c7a9f1eb6397c36516bca35c9d445298",
+  "source_repository": "https://github.com/mbelovitch/NPH-MS-2023-42507",
+  "selected_git_files": [
+    {
+      "file": "belovitch_Final_dataset_analysis_WPC.R",
+      "git_path": "Data/Final_dataset_analysis_WPC.R",
+      "git_blob_sha": "353ddea4b62ef893857d5e03b7e6564b866ffd2e",
+      "sha256": "51042331e938fb81400739447c0e4e4b8ad3dda69aeb2a4b866a5cdc8e52e314",
+      "bytes": 27836,
+      "matches_pinned_tree": true
+    },
+    {
+      "file": "belovitch_Compiled_hourly_transpiration_WP_weather_data.csv",
+      "git_path": "Data/Transpiration Data/Compiled_hourly_transpiration_WP_weather_data.csv",
+      "git_blob_sha": "048ed04eaf6d156a8a2a05afc2158a07de61db7e",
+      "sha256": "228745e037f443ae0f2d177ddd00b4b9ddaab5124888f5d00e110464d35f7bd2",
+      "bytes": 3373530,
+      "matches_pinned_tree": true
+    },
+    {
+      "file": "belovitch_Plant_mass_data.csv",
+      "git_path": "Data/Water Use Efficiency/Plant_mass_data.csv",
+      "git_blob_sha": "f0c3f0aa063476a26a2816ccb03a9efe555827ff",
+      "sha256": "debadd4fb8a24bdfe62313fb75eb3c2f5f948e2a82587eafa439291318dfb550",
+      "bytes": 2903,
+      "matches_pinned_tree": true
+    },
+    {
+      "file": "belovitch_Water_addition.csv",
+      "git_path": "Data/Water Use Efficiency/Water_addition.csv",
+      "git_blob_sha": "abf372d026df485baf11f951acbf44bbcbd300c0",
+      "sha256": "c3126b16715b07eba7759b1ddc09626db9330c16a98f0bc9c34cf25165f2c349",
+      "bytes": 2114,
+      "matches_pinned_tree": true
+    },
+    {
+      "file": "belovitch_RMR.csv",
+      "git_path": "Data/Water Use Efficiency/RMR.csv",
+      "git_blob_sha": "d09ff1c84e0c79ad7378bb9f5d8fd5b83582d674",
+      "sha256": "12254f89566314df18b929e160217f593ccdff0b26542ce0949bda6385a8358f",
+      "bytes": 1099,
+      "matches_pinned_tree": true
+    },
+    {
+      "file": "belovitch_WUE_analysis.R",
+      "git_path": "Data/WUE_analysis.R",
+      "git_blob_sha": "77cd8587080cb97ada00ed70a418ecaed0ff6c6c",
+      "sha256": "17efb0b467c234f272bb5860a6c2bef0014c9833e8f49e2bd2f0f55d958cc8b4",
+      "bytes": 3984,
+      "matches_pinned_tree": true
+    },
+    {
+      "file": "belovitch_Supporting Information.pdf",
+      "git_path": "Supporting Information.pdf",
+      "git_blob_sha": "38b76c25c52d0e9adde96467c3016a4bc5781432",
+      "sha256": "9e88e993ff5b268979d758c35332ea45b231842ca69c5c6386fef764667ec79e",
+      "bytes": 482894,
+      "matches_pinned_tree": true
+    }
+  ],
+  "observational_mass_basis": "Harvested aboveground DRY shoot mass; roots excluded.",
+  "interpretation": "The literal tree-endpoint sha is recorded separately from the actual tree identity in the commit metadata; all seven selected file Git blob hashes match the retrieved source listing."
+}

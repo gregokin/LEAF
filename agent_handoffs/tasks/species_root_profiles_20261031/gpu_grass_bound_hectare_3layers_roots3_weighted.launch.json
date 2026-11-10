@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/profile_daily_bounded.py",
+    "--cases-json",
+    "/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/case_sets/grass_bound_hectare_3layers_roots3.json",
+    "--output",
+    "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots3_weighted.json",
+    "--backend",
+    "gpu",
+    "--years",
+    "30",
+    "--report-every",
+    "365"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 2086393,
+  "proc_stat_at_launch": "2086393 (python) R 2086392 2086393 2086393 0 -1 4194304 14 0 0 0 0 0 0 0 20 0 1 0 91675066 8450048 41 18446744073709551615 4325376 7352253 140734037731664 0 0 0 0 0 0 0 0 0 17 18 0 0 0 0 0 10653128 12216448 80551936 140734037736237 140734037736672 140734037736672 140734037741521 0\n",
+  "start_ticks": "91675066",
+  "started_at_utc": "2026-10-31T11:15:58.966721+00:00",
+  "timeout_seconds": 1800.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/benchmarks/daily_water_growth.py": "ca850088b77146af3f7c60ff7c27aa2fa7730ee89b96a7169e82f857f9aa1522",
+    "/home/okin/leaf/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "/home/okin/leaf/agent_handoffs/tasks/species_root_profiles_20261031/case_sets/grass_bound_hectare_3layers_roots3.json": "5805be78a69bfd71c7e2f6fd061aa821ba89fdad31b31ce0e558e68c65b281a2"
+  },
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/numba-cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/cupy-cache",
+    "CUDA_CACHE_PATH": "/home/okin/leaf/benchmarks/results/species_root_profiles_20261031/cuda-cache",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMBA_NUM_THREADS": "1"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-B",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/coupled_review_02.py"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate",
+  "pid": 4,
+  "proc_stat_at_launch": "4 (python) R 2 4 4 0 -1 4194304 13 0 0 0 0 0 0 0 20 0 1 0 94560419 8450048 43 18446744073709551615 4325376 7352253 140728926101456 0 0 0 0 0 0 0 0 0 17 12 0 0 0 0 0 10653128 12216448 482086912 140728926104690 140728926104821 140728926104821 140728926109649 0\n",
+  "start_ticks": "94560419",
+  "started_at_utc": "2026-10-31T19:16:52.496666+00:00",
+  "timeout_seconds": 60.0,
+  "source_and_case_sha256": {
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/benchmarks/daily_water_growth.py": "1e493d0963858f9ba8e9d2a163e93bfc8e62d5521662997d1d11e24788339503",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/benchmarks/spatial_mapping.py": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/leaf/coupling.py": "d0efc9bcd0e880dbd153f9bbe423a54260771c9c9a2a5f49853d604034a476c3",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/leaf/__init__.py": "75ff4924d1318cd25e40da04d2e66bb24400fb4881c2c49db5b5f5994db00966",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/native/maple_syrup/subsurface_transpiration.py": "f10c591a0d3a6ca165ce31bfd3be9f3db4b5920acbc7898c2c81cffdefbc1a7e",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface.py": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_numba.py": "3e3e50cab32a97c2ea487c6acf404217e684be7e519d7c33b349aafc755f30f7",
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_cuda.py": "7259ea96779849f4da66af66bdb313c092a39201989e08de6d39998707dd5065"
+  },
+  "environment": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/runtime:/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate:/home/okin/SYRUP/src",
+    "LEAF_SOURCE_ROOT": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate",
+    "CUDA_VISIBLE_DEVICES": "",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/numba-cache",
+    "CUPY_CACHE_DIR": null,
+    "CUDA_CACHE_PATH": null,
+    "OMP_NUM_THREADS": null,
+    "OPENBLAS_NUM_THREADS": null,
+    "MKL_NUM_THREADS": null,
+    "NUMBA_NUM_THREADS": null
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "returncode": 1,
+  "timed_out": false,
+  "child_reaped": true,
+  "ended_at_utc": "2026-10-31T19:27:31.316573+00:00",
+  "whole_child_wall_seconds": 4.728737359982915
+}

@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-10T11:29:57.729382+00:00",
+  "reason": "Unexpected >150 CPU seconds on a bounded ~3000-plant check; terminate exact check child and rerun with diagnostic stack timeout. Claude writer unaffected.",
+  "matched_and_signalled": [
+    {
+      "host_pid": 2479595,
+      "start_ticks": "178139623"
+    }
+  ]
+}

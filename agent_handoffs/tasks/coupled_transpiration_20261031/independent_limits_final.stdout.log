@@ -1,0 +1,1 @@
+{"status": "pass", "native_reserve_before_vegetation_allocation": true, "full_ledger_availability_enforced": true, "weekly_zero_availability_before_graph_allocation": true, "retry_no_duplicate_day_or_uptake": true, "overall_peak_includes_weekly_rebuild": true}

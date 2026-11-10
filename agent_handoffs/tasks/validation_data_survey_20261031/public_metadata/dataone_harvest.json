@@ -1,0 +1,60 @@
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":156,
+    "params":{
+      "q":"title:\"Seasonal reference harvest measurements\"",
+      "fl":"id,title,beginDate,endDate,datePublished,replicaMN,size,formatId,seriesId,obsoletedBy",
+      "rows":"8",
+      "_forwardedCount":"1",
+      "wt":"json"
+    }
+  },
+  "response":{
+    "numFound":4,
+    "start":0,
+    "maxScore":8.641474,
+    "numFoundExact":true,
+    "docs":[{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210011004/82",
+      "formatId":"eml://ecoinformatics.org/eml-2.1.1",
+      "size":38278,
+      "obsoletedBy":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210011004/83",
+      "replicaMN":["urn:node:CN","urn:node:LTER"],
+      "title":"Seasonal reference harvest measurements of vegetation at 15 net primary production (NPP) study sites at Jornada Basin LTER, 1989-ongoing",
+      "beginDate":"1989-04-25T00:00:00Z",
+      "endDate":"2018-09-10T00:00:00Z",
+      "datePublished":"2019-10-16T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210011004/84",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "size":48697,
+      "obsoletedBy":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210011004/85",
+      "replicaMN":["urn:node:LTER","urn:node:CN"],
+      "title":"Seasonal reference harvest measurements of vegetation at 15 net primary production (NPP) study sites at Jornada Basin LTER, 1989-ongoing",
+      "beginDate":"1989-04-25T00:00:00Z",
+      "endDate":"2023-05-15T00:00:00Z",
+      "datePublished":"2023-08-01T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210011004/83",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "size":46448,
+      "obsoletedBy":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210011004/84",
+      "replicaMN":["urn:node:CN","urn:node:LTER"],
+      "title":"Seasonal reference harvest measurements of vegetation at 15 net primary production (NPP) study sites at Jornada Basin LTER, 1989-ongoing",
+      "beginDate":"1989-04-25T00:00:00Z",
+      "endDate":"2021-09-16T00:00:00Z",
+      "datePublished":"2022-02-24T00:00:00Z"
+    },{
+      "id":"https://pasta.lternet.edu/package/metadata/eml/knb-lter-jrn/210011004/85",
+      "formatId":"https://eml.ecoinformatics.org/eml-2.2.0",
+      "size":48871,
+      "replicaMN":["urn:node:LTER","urn:node:CN"],
+      "title":"Seasonal reference harvest measurements of vegetation at 15 net primary production (NPP) study sites at Jornada Basin LTER, 1989-ongoing",
+      "beginDate":"1989-04-25T00:00:00Z",
+      "endDate":"2023-05-15T00:00:00Z",
+      "datePublished":"2023-08-23T00:00:00Z"
+    }]
+  }
+}

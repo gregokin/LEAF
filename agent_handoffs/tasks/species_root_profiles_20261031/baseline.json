@@ -1,0 +1,94 @@
+{
+  "created_at_utc": "2026-10-31T10:42:58.613872+00:00",
+  "git": {
+    "returncode": 128,
+    "stdout": "",
+    "stderr": "fatal: not a git repository (or any of the parent directories): .git\n"
+  },
+  "files": {
+    "AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "CLAUDE.md": {
+      "size_bytes": 374,
+      "sha256": "5ccf4233963ba0515e0872c2b441c046905e516905ce947ac1982936619e1eb4"
+    },
+    "README.md": {
+      "size_bytes": 3802,
+      "sha256": "7522b53d184b562c1084cf41fa6170c83afe0fa30eec751c98313d0b32bb52c4"
+    },
+    "agent_handoffs/AGENTS.md": {
+      "size_bytes": 8488,
+      "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f"
+    },
+    "agent_handoffs/README.md": {
+      "size_bytes": 5296,
+      "sha256": "058324083543d4d4b8dac63d9ab26e4c776e0d727a8e762cdc83249fed2dc222"
+    },
+    "agent_handoffs/claude_report.md": {
+      "size_bytes": 1408,
+      "sha256": "78a1b4285b597ed89f5ccbe225e06aee7473e1dccc17c73b44f26d6aead61cbb"
+    },
+    "agent_handoffs/codex_review.md": {
+      "size_bytes": 1624,
+      "sha256": "4dd22acbf9bc733e9fba57c8fb6136f5b0cff39fd6a64770ff10d8cb99370c50"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "size_bytes": 353,
+      "sha256": "cd4a937d1183c5c6341b6f92c5c8db4595959652df3e76af2f7051ff59862132"
+    },
+    "agent_handoffs/decisions.md": {
+      "size_bytes": 6659,
+      "sha256": "9cb72d7ad35abd72f32fb6c5c1b4337fce68bdc4042519d29c85eb0db5f710c1"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "size_bytes": 1113,
+      "sha256": "81a546136e6e994cbb9e64e5084ee90162e1c475c7bc1ebe0870c510ec49c15c"
+    },
+    "agent_handoffs/project_brief.md": {
+      "size_bytes": 9190,
+      "sha256": "3c3534a9f772dcfd1341717aa1a70580d0a2c20a096c2ab5c92aec3e821ae548"
+    },
+    "agent_handoffs/tasks/daily_water_30year_20261030/final_manifest.json": {
+      "size_bytes": 40703,
+      "sha256": "20a43b23e26e35d7761bf63d5546b580ea7a5644352e5995d4edf23b25bb13c2"
+    },
+    "agent_handoffs/upstreams.md": {
+      "size_bytes": 4021,
+      "sha256": "73e1cb443db989263175499943f06c45636276b076e15a6bdb8bd9f147d97c47"
+    },
+    "agent_handoffs/verification.md": {
+      "size_bytes": 3217,
+      "sha256": "3c1ce4883c6997025d5587ecafa758960e77f6b5fd4ed6945f93a70077711e28"
+    },
+    "benchmarks/daily-water-growth.md": {
+      "size_bytes": 7162,
+      "sha256": "ac82e85916215fe52b9ba5be7eb5bdba931dd43657a53cc86d6a9cd03ac56722"
+    },
+    "benchmarks/daily_water_growth.py": {
+      "size_bytes": 43084,
+      "sha256": "7ac39d864ec66e9e6fc7a9f3f59d7fb5afec5e032794e0e0b495b85464d8d5e5"
+    },
+    "benchmarks/spatial_mapping.py": {
+      "size_bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "claude.md": {
+      "size_bytes": 2731,
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714"
+    },
+    "docs/daily-water-30year.md": {
+      "size_bytes": 12706,
+      "sha256": "d4708e2090368322b2c02bb25ac6222bcddfc6b839016ec02c3e705d742f6a1c"
+    },
+    "tests/test_daily_water_growth.py": {
+      "size_bytes": 13405,
+      "sha256": "602a4b547d6ea492edd5aeda844803932c7a9b7364c68116d1b9f053ee806a36"
+    },
+    "tests/test_spatial_mapping.py": {
+      "size_bytes": 12394,
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0"
+    }
+  }
+}

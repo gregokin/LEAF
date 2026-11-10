@@ -1,0 +1,25 @@
+{
+  "fp64_roundtrip": {
+    "pass": true
+  },
+  "reject_noninitial_surface": {
+    "pass": true,
+    "error": "csv: 1 SURFACE anchor(s) in a metadata-bearing file that is not declared \"initial\": true (saved snapshots must carry concrete establishment elevations); refused before any surface is sampled"
+  },
+  "reject_implicit_nan_surface": {
+    "pass": true,
+    "error": "establishment_ground_m must be finite; unresolved SURFACE anchors require the explicit establishment_unresolved mask (or the SURFACE token in an initial CSV); a bare NaN/inf anchor is not a surface request"
+  },
+  "age_overflow_transaction": {
+    "pass": true,
+    "error": "age overflow: overflow encountered in add"
+  },
+  "reject_unterminated_quote": {
+    "pass": true,
+    "error": "csv: malformed CSV: unexpected end of data"
+  },
+  "reject_allometry_overflow": {
+    "pass": true,
+    "error": "diameter_from_biomass: non-finite allometric output (overflow for the given input and exponent)"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "started_at_utc": "2026-10-30T12:46:35.788650+00:00",
+  "cwd": "/tmp/public-ecology-review-yi4eees3",
+  "argv": [
+    "claude",
+    "--safe-mode",
+    "--print",
+    "--verbose",
+    "--output-format",
+    "stream-json",
+    "--resume",
+    "8214c886-dbdd-48a5-b2a5-dab2bafcf552",
+    "--tools",
+    "",
+    "--permission-mode",
+    "dontAsk",
+    "--permission-prompts",
+    "none",
+    "--strict-mcp-config",
+    "--system-prompt",
+    "Review public scientific papers, public code and official technical documentation. No private project context is provided. Do not access local files, credentials, private data or shell tools. Distinguish verified source facts from inference."
+  ],
+  "session_id": "8214c886-dbdd-48a5-b2a5-dab2bafcf552",
+  "pid": 2011288,
+  "proc_stat_at_launch": "2011288 (claude) R 2011287 2011288 2011288 0 -1 4456448 15 0 0 0 0 0 0 0 20 0 1 0 83578748 242028544 52 18446744073709551615 26388480 89069872 140736174890688 0 0 0 0 0 0 0 0 0 17 11 0 0 0 0 0 89073968 243716096 791851008 140736174898402 140736174898852 140736174898852 140736174903259 0\n",
+  "prompt": "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_prompt_02_correction.txt",
+  "prompt_sha256": "d434c93f371556413edf313485cf9e3640cdd4681b1f6ba05433343f6eb8d2f5",
+  "tools": [],
+  "safe_mode": true,
+  "permission_bypass": false,
+  "submitted_content": "Public-source and generic algorithm corrections only; no private source or project outline.",
+  "timeout_seconds": 360
+}

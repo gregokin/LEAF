@@ -1,0 +1,36 @@
+{
+  "at_utc": "2026-11-10T11:09:58.167877+00:00",
+  "inspected_read_only": {
+    "/home/okin/MAPLE/AGENTS.md": {
+      "size_bytes": 25696,
+      "sha256": "4ca9f2c83ef3bf9bb9d73fdeb924db1e4b27cd18cf29fc60de41ba6708dd7dfb"
+    },
+    "/home/okin/SYRUP/AGENTS.md": {
+      "size_bytes": 30168,
+      "sha256": "474faaed8e43885a627a15638b3ae95f55ded7acd9bb4fb0064c96ef05f986ec"
+    },
+    "/home/okin/MAPLE/src/maple/core/types/vegetation.py": {
+      "size_bytes": 32726,
+      "sha256": "b92ea5ae6890c3094686441e348ef40357c50ebcf1e5aee0f75bd86924f0943e"
+    }
+  },
+  "native_vegetation_interface": {
+    "owner": "MAPLE",
+    "object_fields": [
+      "center_x_m",
+      "center_y_m",
+      "semi_major_m",
+      "semi_minor_m",
+      "orientation_deg",
+      "height_m",
+      "porosity",
+      "drag_coefficient"
+    ],
+    "coordinate_convention": "domain-local metres, x east, y north, (row,col) center=((col+.5)*dx,(row+.5)*dy)",
+    "porosity": {
+      "default": 0.2,
+      "used_by_maple_wind": true,
+      "leaf_ecology_use": "none in Phase 0"
+    }
+  }
+}

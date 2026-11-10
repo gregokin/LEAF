@@ -1,0 +1,12 @@
+[
+  {
+    "file": "study_parameters.py",
+    "sha256": "3d20814046f40bb8d7fc2d576c207950dac0b1825fce9aeafaf5b082147aebd2",
+    "bytes": 64153
+  },
+  {
+    "file": "test_study_parameters.py",
+    "sha256": "81c2e233d2b7f5021f658e08eebadf173b74210431e21e010e8ff38b394627f9",
+    "bytes": 20833
+  }
+]

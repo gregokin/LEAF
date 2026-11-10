@@ -1,0 +1,370 @@
+{
+  "at_utc": "2026-10-30T17:55:09.198087+00:00",
+  "git": "No usable LEAF Git metadata; no initialization",
+  "files": {
+    "CLAUDE.md": {
+      "size_bytes": 374,
+      "sha256": "5ccf4233963ba0515e0872c2b441c046905e516905ce947ac1982936619e1eb4"
+    },
+    "claude.md": {
+      "size_bytes": 2731,
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714"
+    },
+    "README.md": {
+      "size_bytes": 1771,
+      "sha256": "b24b13a148ef73f442aecfb927ec12f1d1eb428b85007042eef2b894ec0071db"
+    },
+    "AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "agent_handoffs/verification.md": {
+      "size_bytes": 3463,
+      "sha256": "ea362e458eb5ecac13fb0346a157a2ca2c93b58db02081603e54d35e8d9de4e0"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "size_bytes": 1427,
+      "sha256": "9e03ad3afd9f6078d20d00faa66c91bc6c184f21d97310ebde2d234da0b6934c"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "size_bytes": 681,
+      "sha256": "9cefe33859939da0418774ef8485a1844bb1db2a077baebb4e15eb7ab487a576"
+    },
+    "agent_handoffs/project_brief.md": {
+      "size_bytes": 7652,
+      "sha256": "fb85a7510c8f74145d33fef0cae5ec04e1fccb71819c36a6c9c80128d9c25720"
+    },
+    "agent_handoffs/decisions.md": {
+      "size_bytes": 4305,
+      "sha256": "8b4d77febac68efcf49af737e6039e526f78c7d793e7538f81333f785be08108"
+    },
+    "agent_handoffs/codex_review.md": {
+      "size_bytes": 1538,
+      "sha256": "faa1ad6308dea8930384e5244585d43e5c5b43f4b39615021a9acdeb5aafbe7a"
+    },
+    "agent_handoffs/claude_report.md": {
+      "size_bytes": 1455,
+      "sha256": "eaa46165c4813911e41edcb925f661327d36ee86bc113672bc70ee42794de7f0"
+    },
+    "agent_handoffs/README.md": {
+      "size_bytes": 4939,
+      "sha256": "85652450d51fa02f1705e2aa060e23678d891f92a902aeeb4cd8f7f447783dd1"
+    },
+    "agent_handoffs/upstreams.md": {
+      "size_bytes": 4021,
+      "sha256": "73e1cb443db989263175499943f06c45636276b076e15a6bdb8bd9f147d97c47"
+    },
+    "agent_handoffs/AGENTS.md": {
+      "size_bytes": 8488,
+      "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f"
+    },
+    "docs/individual-vegetation-feasibility.md": {
+      "size_bytes": 28289,
+      "sha256": "f725a104458d00bd18b765d595829d41e191611de26dd326dc83c9a2c69ede77"
+    },
+    "agent_handoffs/templates/task_report.md": {
+      "size_bytes": 2426,
+      "sha256": "315f228f2c5b3eef89c2b7543aa402265d49e2ce23cdad02840568a8c020e724"
+    },
+    "agent_handoffs/templates/task_prompt.md": {
+      "size_bytes": 2860,
+      "sha256": "55843305e8477b24d6387f7dc4843ae3d6babc3dbeaf3810b86f23b17997ca48"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/source_provenance_before.json": {
+      "size_bytes": 1567735,
+      "sha256": "2f0dc3613ecff5d2ab158b4c2b95ffb62bd33cd86e7fa9badaef27bf5ea944eb"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_execution_verification.json": {
+      "size_bytes": 1499,
+      "sha256": "8b46d9842a24ed1197ca626bc6f34a39f235bcf866426e8a97616f25747a540f"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/exit_public_02.json": {
+      "size_bytes": 211,
+      "sha256": "11438f4d32c487db3b989e1b59a905c18360bbd149bdce3b732d0edb9c43b00d"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/gpu_metadata.json": {
+      "size_bytes": 688,
+      "sha256": "9108dce407ada7ed062b9c8d632991866eede20f0a0a9755c2becdefead6bc1b"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/previous_verification.md": {
+      "size_bytes": 2153,
+      "sha256": "c206ae07680faa64bf58f427160eb115487fc138af01e8b5c6946804c1a6a786"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/baseline.json": {
+      "size_bytes": 2554,
+      "sha256": "a510309f71b0be008e00370dbca34c0b82cbe6cd4c05cef2903c75d607b4a7a7"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_corrected.json": {
+      "size_bytes": 25932,
+      "sha256": "3ba1f6e1833c7ba7f03d4d65aef5f683a06f9dbe228b7e96707dc47eb1307108"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/launch_public_01.json": {
+      "size_bytes": 1749,
+      "sha256": "996bc75eec09d37ae3c51726187139ffc3e04fba06a7fee88e78b1cd927fa10b"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/launch_public_02.json": {
+      "size_bytes": 1499,
+      "sha256": "2a07026065589069e969b030ebb6e190f3688616f1c68f68c6be16707d305af5"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_help.txt": {
+      "size_bytes": 22344,
+      "sha256": "13dd71866e4b6fde1a11de6fa26bd4f5866308794307ff0fb37804c03db8e0b2"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/codex_review_public_01.md": {
+      "size_bytes": 1123,
+      "sha256": "08e244aa0fc78a06f44e45d2f4cbe657aa64f6ad998d5b0f29a5e9904f96c138"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/final_acceptance.json": {
+      "size_bytes": 2649,
+      "sha256": "d5a8fef57d2eb934a9f37e28758cd6cca3dd0953e6f7385279afce93c97166b0"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/exit_public_01.json": {
+      "size_bytes": 209,
+      "sha256": "91d961b85d3a4c7a4126976d5f621090bdb07210c7e9c1e85d10e6c32c0792d8"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/codex_scope.md": {
+      "size_bytes": 4104,
+      "sha256": "942266c020b8c5f5fccfdf61f50f03657ca1df7a723a126ab1765f00ad3e8795"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_01.stdout.jsonl": {
+      "size_bytes": 786643,
+      "sha256": "3ea4db6cdbe6340c567e97f0137e05ab8e2613e18bbbbed5b3dd94b5404a24d2"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_prompt_02_correction.txt": {
+      "size_bytes": 4687,
+      "sha256": "d434c93f371556413edf313485cf9e3640cdd4681b1f6ba05433343f6eb8d2f5"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/closeout.md": {
+      "size_bytes": 2954,
+      "sha256": "47b26549b555e28fa78aca91e7c34d7f360dbb29c0ad204139819a33ffc97b63"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_02.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_report_02.md": {
+      "size_bytes": 13602,
+      "sha256": "c2baaae180da3ee0174a062aad7e6e52eea6775993275aa8cf0ca2fd3f9ce74b"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/previous_codex_review.md": {
+      "size_bytes": 1788,
+      "sha256": "6154aae60ef129ca22444ef735449367b831b3cb00360ae078b37560c9d984cb"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/archived_source_verification.json": {
+      "size_bytes": 2767,
+      "sha256": "5072f47603e4ed477ad8d50e660d37a76ac135dbd96ee602247f6e09fc80e1ea"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_result.json": {
+      "size_bytes": 31244,
+      "sha256": "2c7bc6554c38ac4ca9a3550a94336f44feffa0d00959984edec8826eea4d05e9"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/dependency_environment_metadata.json": {
+      "size_bytes": 49964,
+      "sha256": "edf7c3ef42814d3dbb8b1babea1c9f5d85edd9d0cd8b1e0cce7e61ebe44f8cf1"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_01.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/target_scale.md": {
+      "size_bytes": 573,
+      "sha256": "2a9c89b216696ea0e8a1cd699d989abefe739413749d4c7604025205e1d6372f"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_version.txt": {
+      "size_bytes": 22,
+      "sha256": "137c91ab68b8a7a011de6f45c0bdbb962abd1fa261daafa7f7fe4dbac82ba604"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_02.stdout.jsonl": {
+      "size_bytes": 62828,
+      "sha256": "16b75d11317f0a94fd9b2786f077e4be77b6763dcbfcbd9c1a3e3f6366f42c86"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/memory_estimates.json": {
+      "size_bytes": 5467,
+      "sha256": "a00eed9367f389341ee6ce7040ad2599078d04708a1f840947b5631d0876694d"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_report.md": {
+      "size_bytes": 16900,
+      "sha256": "90fab2c4cf715bd44a905e8e19e1045e9e364d5ebe38e98208ffb2cd29790143"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/previous_claude_report.md": {
+      "size_bytes": 1339,
+      "sha256": "91d9e1692d8dbbf76126d2f3f64d48e0dd585289f1eba35b5175a84e7f30bcd8"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/source_provenance_after.json": {
+      "size_bytes": 1567451,
+      "sha256": "11b7bad64471faa0fe51f5851b60d415cf6e4cf3ff591b72ced6a4664a80347f"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/codex_review_public_02.md": {
+      "size_bytes": 2510,
+      "sha256": "e59c197be0e46b11ea6581a11091012f764e0851c1aae4a5227d05bb143d49ea"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_sources.json": {
+      "size_bytes": 13950,
+      "sha256": "7627aab51f42fdb216d2c2c8a3dff513c88f61f934f203a5d0892a11f607aae1"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/upstream_preservation.json": {
+      "size_bytes": 745,
+      "sha256": "e1db4bb7ebd5cf7caee467f6536a7ccc6d22ad07fe14339c3c40cdb5cb787f61"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/claude_public_prompt_01.txt": {
+      "size_bytes": 4171,
+      "sha256": "c50e9beb36ac59be08a10e02deafa3162e859dabe0bf25678e8d44cb98760c66"
+    },
+    "agent_handoffs/tasks/individual_vegetation_feasibility_20261030/final_manifest.json": {
+      "size_bytes": 9680,
+      "sha256": "29c270e31a441f889586e0f5baa17593c9cb9f1f4b7d87f33c5f0da36f49d1d6"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/attempt_02_disposition.md": {
+      "size_bytes": 713,
+      "sha256": "8ec47a32505bd25c5fe6a82ef2026cfb5493220d143721e4ec78faced2d9ca75"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/review_03.md": {
+      "size_bytes": 678,
+      "sha256": "3dc9da7319967b269ff6e048ee7966580791d028e53b387de485510b308135a4"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/prompt_03_generic.txt": {
+      "size_bytes": 3347,
+      "sha256": "bfb704fe6c8575e7a4c5b14c27460e61c5dad277a73c4949967a347b758268be"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/baseline.json": {
+      "size_bytes": 456,
+      "sha256": "279afc2e1bf342953dbb1f0ae3e7d0e7f70258725e95f7d18364762dd2483211"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_04.stdout.json": {
+      "size_bytes": 24010,
+      "sha256": "826abdd018b954e939acc4146c352db980e873503f43cbcda757062a8aa1a64f"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_01.stdout.json": {
+      "size_bytes": 1246,
+      "sha256": "78dd85b939084b8493ca727e0aab9648431a4f95d531ca1d1ebe08e0e0afe773"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/verification.md": {
+      "size_bytes": 2153,
+      "sha256": "c206ae07680faa64bf58f427160eb115487fc138af01e8b5c6946804c1a6a786"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_03.stdout.json": {
+      "size_bytes": 19072,
+      "sha256": "bb47be721191a438fcda212ac0c4ffd62c1d12718613016699fddf5005e80b0f"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/orchestration_state.md": {
+      "size_bytes": 2433,
+      "sha256": "a3a1bacd8ed16ddef18b128e44dbf6cf87e9a5dbb11059c686e6e8a470d4c545"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_help.txt": {
+      "size_bytes": 22344,
+      "sha256": "13dd71866e4b6fde1a11de6fa26bd4f5866308794307ff0fb37804c03db8e0b2"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/prompt_02.md": {
+      "size_bytes": 8180,
+      "sha256": "6b9bb48abb23f4b868b20ae40d004c8bb3e4186601eea0b5e495748fc23e62d1"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/prompt_04_generic_correction.txt": {
+      "size_bytes": 4251,
+      "sha256": "d9ab8d718ae970d44b2fa9449d51defb4d6b0050957b1178a797091da55aec6a"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/project_outline.md": {
+      "size_bytes": 10256,
+      "sha256": "375bb7e4bb649b956ed8dcc9c09452ab231f1496504af243546100d935d5975e"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/current_prompt.md": {
+      "size_bytes": 661,
+      "sha256": "728f154b1e40e40d52bd23d71497409e1e87dbe69e0e33a7137eeab900d764fc"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/launch_04.json": {
+      "size_bytes": 1489,
+      "sha256": "1ea4464d1693f332faa11a26fb0f8fd4b84f589c660a1ef18ae24d4671dfacf4"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/codex_editorial_adjustments.md": {
+      "size_bytes": 521,
+      "sha256": "7d981543129ee7861a490fb5d0ca678a9c3ed1a27bf6b0ccbfbb6700c83415d4"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/protected_files_02.json": {
+      "size_bytes": 400,
+      "sha256": "b6a0ecabfe0dd95e27b7e86e00fb30f90fc788d4142b16cd1401ff18b1825ef3"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_04.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/exit_01.json": {
+      "size_bytes": 211,
+      "sha256": "da43afd9a4e18582484b1f09074e712ce535367e52faf563f73d3705c514907d"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/launch_03.json": {
+      "size_bytes": 1514,
+      "sha256": "c1c16ddbea7a5570aa26a312bcad3221bd5be2a0ba223f44b577e0232bbc1234"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_version.txt": {
+      "size_bytes": 22,
+      "sha256": "137c91ab68b8a7a011de6f45c0bdbb962abd1fa261daafa7f7fe4dbac82ba604"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/validation_results.json": {
+      "size_bytes": 632,
+      "sha256": "3841f447ebf1f3319133ec76f76e2c91230f6c9840848394571a5a6b2c9b58ee"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_generated_files.json": {
+      "size_bytes": 16965,
+      "sha256": "bd8c97d455816f8f6250b9750f3dfc30c5ee4065040693bf2311be7112b2e0ff"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/codex_review.md": {
+      "size_bytes": 1788,
+      "sha256": "6154aae60ef129ca22444ef735449367b831b3cb00360ae078b37560c9d984cb"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/orchestration_state_before_close.md": {
+      "size_bytes": 2295,
+      "sha256": "7efc13a37da526e0236a7b7c664b2564fcf27ba2a674fbafa2558e397784adde"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/attempt_01_disposition.md": {
+      "size_bytes": 698,
+      "sha256": "e41ddf798b8a16ab48d6095c0729fac07c5ef877b963025cd9dfa9707e8449ca"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_report.md": {
+      "size_bytes": 1339,
+      "sha256": "91d9e1692d8dbbf76126d2f3f64d48e0dd585289f1eba35b5175a84e7f30bcd8"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/current_prompt_before_idle.md": {
+      "size_bytes": 724,
+      "sha256": "5a22ca6fe3135fbaa94857b01539db96ae3e939a6bfa9ea15d60b3a4db9bc735"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_corrected_files.json": {
+      "size_bytes": 21801,
+      "sha256": "58ae6b65ea3303b5c6ee707aa1c6061f1b1c7efd8b0d8a0fd2c4fe58f6f1c645"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/launch_01.json": {
+      "size_bytes": 1280,
+      "sha256": "59f656f152beddad86d73be5c15cff2188ff9f00efa88e445738ffb958822fcf"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/exit_04.json": {
+      "size_bytes": 211,
+      "sha256": "02a596504fe9f15bcd027e6b738b39347c5047571155edba845baab50220861d"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_01.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/exit_03.json": {
+      "size_bytes": 211,
+      "sha256": "eb5a731694bf0a2f14a30b228a956eb1d6838fdef63632a575c87cd1f381bc02"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/baseline_AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/claude_03.stderr.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/prompt_01.md": {
+      "size_bytes": 6061,
+      "sha256": "cdaaaff888f299872ae9b21731b2b7f0a069c2b33594c96aa0e7ceef8085d088"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/acceptance.json": {
+      "size_bytes": 267,
+      "sha256": "0bb24bc7e311b5bf58364ce117a0eb70f6fd2e88b2dd325a1c43e4800d9d6eb3"
+    },
+    "agent_handoffs/tasks/bootstrap_20261030/final_manifest.json": {
+      "size_bytes": 2594,
+      "sha256": "38e41016c23d3dc7f6cba50dedb52abc8d7346aaa805696152f18a384b767973"
+    }
+  }
+}

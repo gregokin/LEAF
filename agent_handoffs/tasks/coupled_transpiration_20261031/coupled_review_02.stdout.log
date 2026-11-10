@@ -1,0 +1,8 @@
+{
+  "vegetation_allocates_before_native_zero_memory_guard": true,
+  "gather_accepts_float32_scale": true,
+  "source_sha256": {
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/benchmarks/daily_water_growth.py": "1e493d0963858f9ba8e9d2a163e93bfc8e62d5521662997d1d11e24788339503",
+    "/home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/leaf/coupling.py": "d0efc9bcd0e880dbd153f9bbe423a54260771c9c9a2a5f49853d604034a476c3"
+  }
+}

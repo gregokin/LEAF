@@ -1,0 +1,1876 @@
+{
+  "metadata": {
+    "timestamp_utc": "2026-10-30T19:15:06.185538+00:00",
+    "python": "3.12.3",
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "cupy": "14.2.0",
+    "cupy_import_error": null,
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 20,
+    "gpu": {
+      "available": true,
+      "device_name": "NVIDIA GeForce GTX 1080 Ti",
+      "compute_capability": 61,
+      "context_init_seconds": 0.16160662495531142,
+      "cupy_version": "14.2.0",
+      "cuda_runtime_version": 12090
+    }
+  },
+  "backend": "both",
+  "repeats": 5,
+  "scope_limitations": [
+    "Generic synthetic benchmark; no ecological, hydrological, growth, mortality, wind or water process is modelled.",
+    "Root edge weights are UNIFORM over the cells a root circle positively overlaps (sum to 1 per plant). They are NOT area weighted and encode no scientific allocation law.",
+    "Vertical layer weights are factorized as a uniform 1/L per layer (separability assumption); no dense plant-by-layer-by-cell tensor is formed.",
+    "The layered reduction scatters a synthetic unit demand per plant; it measures graph traversal and atomic contention, not water competition.",
+    "Canopy cover is an 8x8 midpoint sample per cell capped at 1; it is coverage only, not an exact circle union and not area conserving. Small circles can be missed entirely (aliasing); missed plants are counted and reported.",
+    "Domain is finite, rectangular, non-periodic with square cells; circles are clipped at the boundary and root weights renormalize over retained cells.",
+    "Plant positions (uniform or clumped) are synthetic seeded samples, not an ecological spatial pattern.",
+    "CPU compiled loops are single-threaded; GPU atomics are order-nondeterministic, so CPU/GPU agreement is checked with tolerances, never bitwise.",
+    "ru_maxrss is a cumulative process peak; CuPy pool numbers are sampled at stage boundaries and are not a true allocation peak."
+  ],
+  "tolerances": {
+    "demand_total_rtol": 1e-09,
+    "parity_rtol": 1e-09,
+    "parity_atol": 1e-12,
+    "weight_rtol": 1e-12
+  },
+  "summary": {
+    "ok": 4
+  },
+  "results": [
+    {
+      "name": "june_100m_400_roots3",
+      "case": {
+        "name": "june_100m_400_roots3",
+        "nx": 400,
+        "ny": 400,
+        "dx": 0.25,
+        "grass_count": 35764,
+        "shrub_count": 541,
+        "grass_diameter": 0.15,
+        "shrub_diameter": 2.0,
+        "root_multiplier": 3.0,
+        "pattern": "uniform",
+        "seed": 20261030,
+        "layers": 3,
+        "max_edges": 10000000,
+        "max_bytes": 1500000000
+      },
+      "status": "ok",
+      "backend": "both",
+      "n_plants": 36305,
+      "ncells": 160000,
+      "admission_limits": {
+        "max_edges": 10000000,
+        "max_bytes": 1500000000,
+        "pre_count_estimate": {
+          "inputs": 1452200,
+          "graph": 580888,
+          "grid": 5265220,
+          "n_edges": null,
+          "total": 7298308
+        }
+      },
+      "generation": {
+        "pattern": "uniform",
+        "seed": 20261030,
+        "cluster_count": null,
+        "cluster_sigma": null,
+        "note": "synthetic seeded positions; clumped is a deliberate contention fixture (<= 8 gaussian clusters clipped to the domain boundary), not an ecological pattern; root_radius = canopy_radius * root_multiplier"
+      },
+      "cpu": {
+        "backend": "cpu",
+        "status": "ok",
+        "note": "single-threaded Numba njit(cache=True) loops timed with perf_counter",
+        "startup": {
+          "njit_warm_seconds_this_call": 1.5824341150000691,
+          "njit_warm_seconds_first_in_process": 1.5824341150000691,
+          "note": "tiny-problem warm-up including compile or cache load; excluded from repeats"
+        },
+        "admission": {
+          "accepted": true,
+          "estimate": {
+            "inputs": 1452200,
+            "graph": 6817972,
+            "grid": 5265220,
+            "n_edges": 519757,
+            "total": 13535392
+          }
+        },
+        "build": {
+          "count_seconds": 0.0016349349170923233,
+          "scan_seconds": 0.00016887800302356482,
+          "fill_seconds": 0.007733377045951784,
+          "total_seconds": 0.009537189966067672,
+          "n_edges": 519757,
+          "synchronized_wall": true
+        },
+        "reduction": {
+          "repeats_seconds": [
+            0.003592289984226227,
+            0.0035376690793782473,
+            0.0034700060496106744,
+            0.0034925880609080195,
+            0.003508611931465566
+          ],
+          "median_seconds": 0.003508611931465566,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "includes explicit zero-init of the [L,ncells] output"
+        },
+        "canopy": {
+          "repeats_seconds": [
+            0.006641993997618556,
+            0.006566194002516568,
+            0.006586783099919558,
+            0.0067622949136421084,
+            0.006712366943247616
+          ],
+          "median_seconds": 0.006641993997618556,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "coverage only; 8x8 midpoint sampling is not area conserving and misses small circles in coarse cells (aliasing); missed plants are reported, not discarded",
+          "missed_plants": 0,
+          "n_plants": 36305,
+          "cells_capped_at_one": 9779,
+          "uncapped_sampled_cover_sum": 37088.703125,
+          "capped_cover_sum": 33750.109375,
+          "sampled_area_uncapped": 2318.0439453125,
+          "analytic_unclipped_disc_area_sum": 2331.6036736963706,
+          "subsamples_per_axis": 8
+        },
+        "audit": {
+          "total_allocated_demand": 36305.0,
+          "expected_demand": 36305,
+          "n_plants": 36305,
+          "zero_edge_plants": 0,
+          "all_plants_have_edges": true,
+          "output_finite": true,
+          "shape_consistent": true,
+          "abs_error": 0.0,
+          "tolerance_abs": 3.6305000000000006e-05,
+          "per_layer_sums": [
+            12101.666666666664,
+            12101.666666666664,
+            12101.666666666664
+          ],
+          "passed": true,
+          "note": "unit synthetic demand per plant; checks conservation of the scatter, not physics"
+        },
+        "ledger": {
+          "x": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "y": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "canopy_radius": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "root_radius": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "ids": {
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "offsets": {
+            "dtype": "int64",
+            "shape": [
+              36306
+            ],
+            "nbytes": 290448
+          },
+          "counts": {
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "cells": {
+            "dtype": "int32",
+            "shape": [
+              519757
+            ],
+            "nbytes": 2079028
+          },
+          "weights": {
+            "dtype": "float64",
+            "shape": [
+              519757
+            ],
+            "nbytes": 4158056
+          },
+          "reduction": {
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000
+          },
+          "cover": {
+            "dtype": "float64",
+            "shape": [
+              160000
+            ],
+            "nbytes": 1280000
+          },
+          "hit": {
+            "dtype": "int32",
+            "shape": [
+              36305
+            ],
+            "nbytes": 145220
+          }
+        },
+        "ru_maxrss": {
+          "ru_maxrss": 370824,
+          "unit": "KiB on Linux (bytes on macOS)",
+          "label": "cumulative process peak RSS, not stage specific"
+        }
+      },
+      "gpu": {
+        "backend": "gpu",
+        "device": {
+          "available": true,
+          "device_name": "NVIDIA GeForce GTX 1080 Ti",
+          "compute_capability": 61,
+          "context_init_seconds": 0.16160662495531142,
+          "cupy_version": "14.2.0",
+          "cuda_runtime_version": 12090
+        },
+        "startup": {
+          "context_init_seconds": 0.16160662495531142,
+          "kernel_compile_seconds": 0.21554142609238625,
+          "compiled_in_this_call": true,
+          "gpu_warmup_seconds_this_call": 0.1354519680608064,
+          "gpu_warmup_seconds_first_in_process": 0.1354519680608064,
+          "warmed_in_this_call": true,
+          "note": "compile (possibly served from the CuPy kernel cache) and a fixed small-fixture H2D->build->reduction->canopy->D2H warm-up are reported separately and excluded from timed build/repeats; not a true cold start"
+        },
+        "h2d": {
+          "seconds": 0.0007050350541248918,
+          "bytes": 1452200
+        },
+        "admission": {
+          "accepted": true,
+          "estimate": {
+            "inputs": 1452200,
+            "graph": 6817972,
+            "grid": 5265220,
+            "n_edges": 519757,
+            "total": 13535392
+          }
+        },
+        "build": {
+          "total_seconds": 0.003434709971770644,
+          "note": "count + device scan + guard scalar D2H + fill, synchronized",
+          "n_edges": 519757,
+          "synchronized_wall": true
+        },
+        "reduction": {
+          "repeats_seconds": [
+            0.0009603199958801269,
+            0.0009359359741210937,
+            0.0009357439875602722,
+            0.0009359359741210937,
+            0.0009265919923782349
+          ],
+          "median_seconds": 0.0009359359741210937,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "CUDA events; includes explicit device zero-init; graph resident on device"
+        },
+        "d2h": {
+          "seconds": 0.002805858035571873,
+          "bytes": 12083192,
+          "note": "validation copies outside kernel timing"
+        },
+        "canopy": {
+          "repeats_seconds": [
+            0.0017315839529037475,
+            0.0017510720491409303,
+            0.0013824000358581543,
+            0.0013987840414047242,
+            0.0014131200313568116
+          ],
+          "median_seconds": 0.0014131200313568116,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "coverage only; 8x8 midpoint sampling is not area conserving and misses small circles in coarse cells (aliasing); missed plants are reported, not discarded",
+          "missed_plants": 0,
+          "n_plants": 36305,
+          "cells_capped_at_one": 9779,
+          "uncapped_sampled_cover_sum": 37088.703125,
+          "capped_cover_sum": 33750.109375,
+          "sampled_area_uncapped": 2318.0439453125,
+          "analytic_unclipped_disc_area_sum": 2331.6036736963706,
+          "subsamples_per_axis": 8
+        },
+        "audit": {
+          "total_allocated_demand": 36305.0,
+          "expected_demand": 36305,
+          "n_plants": 36305,
+          "zero_edge_plants": 0,
+          "all_plants_have_edges": true,
+          "output_finite": true,
+          "shape_consistent": true,
+          "abs_error": 0.0,
+          "tolerance_abs": 3.6305000000000006e-05,
+          "per_layer_sums": [
+            12101.666666666664,
+            12101.666666666664,
+            12101.666666666664
+          ],
+          "passed": true,
+          "note": "unit synthetic demand per plant; checks conservation of the scatter, not physics"
+        },
+        "ledger": {
+          "x": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "y": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "canopy_radius": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "root_radius": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "ids": {
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "offsets": {
+            "dtype": "int64",
+            "shape": [
+              36306
+            ],
+            "nbytes": 290448
+          },
+          "counts": {
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "cells": {
+            "dtype": "int32",
+            "shape": [
+              519757
+            ],
+            "nbytes": 2079028
+          },
+          "weights": {
+            "dtype": "float64",
+            "shape": [
+              519757
+            ],
+            "nbytes": 4158056
+          },
+          "reduction": {
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000
+          },
+          "cover": {
+            "dtype": "float64",
+            "shape": [
+              160000
+            ],
+            "nbytes": 1280000
+          },
+          "hit": {
+            "dtype": "int32",
+            "shape": [
+              36305
+            ],
+            "nbytes": 145220
+          }
+        },
+        "pool_samples": {
+          "before_h2d": {
+            "used_bytes": 0,
+            "total_bytes": 116224,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          },
+          "after_build": {
+            "used_bytes": 8273408,
+            "total_bytes": 8680448,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          },
+          "after_kernels": {
+            "used_bytes": 13538816,
+            "total_bytes": 13960704,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          }
+        },
+        "ru_maxrss": {
+          "ru_maxrss": 728672,
+          "unit": "KiB on Linux (bytes on macOS)",
+          "label": "cumulative process peak RSS, not stage specific"
+        },
+        "status": "ok"
+      },
+      "parity": {
+        "passed": true,
+        "checks": {
+          "offsets_exact": true,
+          "cells_exact": true,
+          "weights": true,
+          "reduction": true,
+          "cover": true,
+          "hit_exact": true
+        },
+        "max_abs_diff": {
+          "reduction": 1.1102230246251565e-16,
+          "cover": 0.0
+        },
+        "tolerances": {
+          "weights_rtol": 1e-12,
+          "rtol": 1e-09,
+          "atol": 1e-12
+        },
+        "note": "GPU atomics are order nondeterministic; bitwise equality is not expected"
+      },
+      "case_wall_seconds": 6.294455903000198,
+      "case_wall_note": "host generation/validation plus every requested backend including startup and warm-up; distinct from kernel timings. Single-thread CPU vs GPU kernel medians are a kernel comparison, not a scientific speedup claim",
+      "ru_maxrss": {
+        "ru_maxrss": 728864,
+        "unit": "KiB on Linux (bytes on macOS)",
+        "label": "cumulative process peak RSS, not stage specific"
+      },
+      "allocation_profile": {
+        "cupy_live_rounded_peak_bytes": 13702144,
+        "cupy_live_rounded_at_case_start_bytes": 0,
+        "cupy_live_rounded_at_case_end_bytes": 0,
+        "unknown_free_events_cumulative": 0,
+        "scope": "CuPy pool malloc/free hooks, including transient arrays; excludes CUDA context and other allocators"
+      }
+    },
+    {
+      "name": "june_100m_400_2layers_roots3",
+      "case": {
+        "name": "june_100m_400_2layers_roots3",
+        "nx": 400,
+        "ny": 400,
+        "dx": 0.25,
+        "grass_count": 35764,
+        "shrub_count": 541,
+        "grass_diameter": 0.15,
+        "shrub_diameter": 2.0,
+        "root_multiplier": 3.0,
+        "pattern": "uniform",
+        "seed": 20261030,
+        "layers": 2,
+        "max_edges": 10000000,
+        "max_bytes": 1500000000
+      },
+      "status": "ok",
+      "backend": "both",
+      "n_plants": 36305,
+      "ncells": 160000,
+      "admission_limits": {
+        "max_edges": 10000000,
+        "max_bytes": 1500000000,
+        "pre_count_estimate": {
+          "inputs": 1452200,
+          "graph": 580888,
+          "grid": 3985220,
+          "n_edges": null,
+          "total": 6018308
+        }
+      },
+      "generation": {
+        "pattern": "uniform",
+        "seed": 20261030,
+        "cluster_count": null,
+        "cluster_sigma": null,
+        "note": "synthetic seeded positions; clumped is a deliberate contention fixture (<= 8 gaussian clusters clipped to the domain boundary), not an ecological pattern; root_radius = canopy_radius * root_multiplier"
+      },
+      "cpu": {
+        "backend": "cpu",
+        "status": "ok",
+        "note": "single-threaded Numba njit(cache=True) loops timed with perf_counter",
+        "startup": {
+          "njit_warm_seconds_this_call": 0.0,
+          "njit_warm_seconds_first_in_process": 1.5824341150000691,
+          "note": "tiny-problem warm-up including compile or cache load; excluded from repeats"
+        },
+        "admission": {
+          "accepted": true,
+          "estimate": {
+            "inputs": 1452200,
+            "graph": 6817972,
+            "grid": 3985220,
+            "n_edges": 519757,
+            "total": 12255392
+          }
+        },
+        "build": {
+          "count_seconds": 0.0016678100218996406,
+          "scan_seconds": 0.00012696394696831703,
+          "fill_seconds": 0.0029700769810006022,
+          "total_seconds": 0.00476485094986856,
+          "n_edges": 519757,
+          "synchronized_wall": true
+        },
+        "reduction": {
+          "repeats_seconds": [
+            0.003054230008274317,
+            0.004710264969617128,
+            0.005756717058829963,
+            0.005099933012388647,
+            0.013260983978398144
+          ],
+          "median_seconds": 0.005099933012388647,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "includes explicit zero-init of the [L,ncells] output"
+        },
+        "canopy": {
+          "repeats_seconds": [
+            0.006741506978869438,
+            0.006571865058504045,
+            0.006672165938653052,
+            0.014286729041486979,
+            0.021256926003843546
+          ],
+          "median_seconds": 0.006741506978869438,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "coverage only; 8x8 midpoint sampling is not area conserving and misses small circles in coarse cells (aliasing); missed plants are reported, not discarded",
+          "missed_plants": 0,
+          "n_plants": 36305,
+          "cells_capped_at_one": 9779,
+          "uncapped_sampled_cover_sum": 37088.703125,
+          "capped_cover_sum": 33750.109375,
+          "sampled_area_uncapped": 2318.0439453125,
+          "analytic_unclipped_disc_area_sum": 2331.6036736963706,
+          "subsamples_per_axis": 8
+        },
+        "audit": {
+          "total_allocated_demand": 36305.0,
+          "expected_demand": 36305,
+          "n_plants": 36305,
+          "zero_edge_plants": 0,
+          "all_plants_have_edges": true,
+          "output_finite": true,
+          "shape_consistent": true,
+          "abs_error": 0.0,
+          "tolerance_abs": 3.6305000000000006e-05,
+          "per_layer_sums": [
+            18152.5,
+            18152.5
+          ],
+          "passed": true,
+          "note": "unit synthetic demand per plant; checks conservation of the scatter, not physics"
+        },
+        "ledger": {
+          "x": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "y": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "canopy_radius": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "root_radius": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "ids": {
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "offsets": {
+            "dtype": "int64",
+            "shape": [
+              36306
+            ],
+            "nbytes": 290448
+          },
+          "counts": {
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "cells": {
+            "dtype": "int32",
+            "shape": [
+              519757
+            ],
+            "nbytes": 2079028
+          },
+          "weights": {
+            "dtype": "float64",
+            "shape": [
+              519757
+            ],
+            "nbytes": 4158056
+          },
+          "reduction": {
+            "dtype": "float64",
+            "shape": [
+              2,
+              160000
+            ],
+            "nbytes": 2560000
+          },
+          "cover": {
+            "dtype": "float64",
+            "shape": [
+              160000
+            ],
+            "nbytes": 1280000
+          },
+          "hit": {
+            "dtype": "int32",
+            "shape": [
+              36305
+            ],
+            "nbytes": 145220
+          }
+        },
+        "ru_maxrss": {
+          "ru_maxrss": 728864,
+          "unit": "KiB on Linux (bytes on macOS)",
+          "label": "cumulative process peak RSS, not stage specific"
+        }
+      },
+      "gpu": {
+        "backend": "gpu",
+        "device": {
+          "available": true,
+          "device_name": "NVIDIA GeForce GTX 1080 Ti",
+          "compute_capability": 61,
+          "context_init_seconds": 0.16160662495531142,
+          "cupy_version": "14.2.0",
+          "cuda_runtime_version": 12090
+        },
+        "startup": {
+          "context_init_seconds": 0.16160662495531142,
+          "kernel_compile_seconds": 0.21554142609238625,
+          "compiled_in_this_call": false,
+          "gpu_warmup_seconds_this_call": 0.0,
+          "gpu_warmup_seconds_first_in_process": 0.1354519680608064,
+          "warmed_in_this_call": false,
+          "note": "compile (possibly served from the CuPy kernel cache) and a fixed small-fixture H2D->build->reduction->canopy->D2H warm-up are reported separately and excluded from timed build/repeats; not a true cold start"
+        },
+        "h2d": {
+          "seconds": 0.0032140989787876606,
+          "bytes": 1452200
+        },
+        "admission": {
+          "accepted": true,
+          "estimate": {
+            "inputs": 1452200,
+            "graph": 6817972,
+            "grid": 3985220,
+            "n_edges": 519757,
+            "total": 12255392
+          }
+        },
+        "build": {
+          "total_seconds": 0.0026880830992013216,
+          "note": "count + device scan + guard scalar D2H + fill, synchronized",
+          "n_edges": 519757,
+          "synchronized_wall": true
+        },
+        "reduction": {
+          "repeats_seconds": [
+            0.0008796160221099853,
+            0.0008529919981956482,
+            0.0008435840010643005,
+            0.0008171520233154297,
+            0.0009287359714508056
+          ],
+          "median_seconds": 0.0008529919981956482,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "CUDA events; includes explicit device zero-init; graph resident on device"
+        },
+        "d2h": {
+          "seconds": 0.005369027028791606,
+          "bytes": 10803192,
+          "note": "validation copies outside kernel timing"
+        },
+        "canopy": {
+          "repeats_seconds": [
+            0.0022968320846557615,
+            0.002081792116165161,
+            0.0016895040273666381,
+            0.0014315520524978637,
+            0.001972223997116089
+          ],
+          "median_seconds": 0.001972223997116089,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "coverage only; 8x8 midpoint sampling is not area conserving and misses small circles in coarse cells (aliasing); missed plants are reported, not discarded",
+          "missed_plants": 0,
+          "n_plants": 36305,
+          "cells_capped_at_one": 9779,
+          "uncapped_sampled_cover_sum": 37088.703125,
+          "capped_cover_sum": 33750.109375,
+          "sampled_area_uncapped": 2318.0439453125,
+          "analytic_unclipped_disc_area_sum": 2331.6036736963706,
+          "subsamples_per_axis": 8
+        },
+        "audit": {
+          "total_allocated_demand": 36305.0,
+          "expected_demand": 36305,
+          "n_plants": 36305,
+          "zero_edge_plants": 0,
+          "all_plants_have_edges": true,
+          "output_finite": true,
+          "shape_consistent": true,
+          "abs_error": 0.0,
+          "tolerance_abs": 3.6305000000000006e-05,
+          "per_layer_sums": [
+            18152.5,
+            18152.5
+          ],
+          "passed": true,
+          "note": "unit synthetic demand per plant; checks conservation of the scatter, not physics"
+        },
+        "ledger": {
+          "x": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "y": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "canopy_radius": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "root_radius": {
+            "dtype": "float64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "ids": {
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "offsets": {
+            "dtype": "int64",
+            "shape": [
+              36306
+            ],
+            "nbytes": 290448
+          },
+          "counts": {
+            "dtype": "int64",
+            "shape": [
+              36305
+            ],
+            "nbytes": 290440
+          },
+          "cells": {
+            "dtype": "int32",
+            "shape": [
+              519757
+            ],
+            "nbytes": 2079028
+          },
+          "weights": {
+            "dtype": "float64",
+            "shape": [
+              519757
+            ],
+            "nbytes": 4158056
+          },
+          "reduction": {
+            "dtype": "float64",
+            "shape": [
+              2,
+              160000
+            ],
+            "nbytes": 2560000
+          },
+          "cover": {
+            "dtype": "float64",
+            "shape": [
+              160000
+            ],
+            "nbytes": 1280000
+          },
+          "hit": {
+            "dtype": "int32",
+            "shape": [
+              36305
+            ],
+            "nbytes": 145220
+          }
+        },
+        "pool_samples": {
+          "before_h2d": {
+            "used_bytes": 0,
+            "total_bytes": 13960704,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          },
+          "after_build": {
+            "used_bytes": 8273408,
+            "total_bytes": 13960704,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          },
+          "after_kernels": {
+            "used_bytes": 12258816,
+            "total_bytes": 13960704,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          }
+        },
+        "ru_maxrss": {
+          "ru_maxrss": 728864,
+          "unit": "KiB on Linux (bytes on macOS)",
+          "label": "cumulative process peak RSS, not stage specific"
+        },
+        "status": "ok"
+      },
+      "parity": {
+        "passed": true,
+        "checks": {
+          "offsets_exact": true,
+          "cells_exact": true,
+          "weights": true,
+          "reduction": true,
+          "cover": true,
+          "hit_exact": true
+        },
+        "max_abs_diff": {
+          "reduction": 1.1102230246251565e-16,
+          "cover": 0.0
+        },
+        "tolerances": {
+          "weights_rtol": 1e-12,
+          "rtol": 1e-09,
+          "atol": 1e-12
+        },
+        "note": "GPU atomics are order nondeterministic; bitwise equality is not expected"
+      },
+      "case_wall_seconds": 0.19203187501989305,
+      "case_wall_note": "host generation/validation plus every requested backend including startup and warm-up; distinct from kernel timings. Single-thread CPU vs GPU kernel medians are a kernel comparison, not a scientific speedup claim",
+      "ru_maxrss": {
+        "ru_maxrss": 728864,
+        "unit": "KiB on Linux (bytes on macOS)",
+        "label": "cumulative process peak RSS, not stage specific"
+      },
+      "allocation_profile": {
+        "cupy_live_rounded_peak_bytes": 12422144,
+        "cupy_live_rounded_at_case_start_bytes": 0,
+        "cupy_live_rounded_at_case_end_bytes": 0,
+        "unknown_free_events_cumulative": 0,
+        "scope": "CuPy pool malloc/free hooks, including transient arrays; excludes CUDA context and other allocators"
+      }
+    },
+    {
+      "name": "june_128m_512_roots3",
+      "case": {
+        "name": "june_128m_512_roots3",
+        "nx": 512,
+        "ny": 512,
+        "dx": 0.25,
+        "grass_count": 58596,
+        "shrub_count": 887,
+        "grass_diameter": 0.15,
+        "shrub_diameter": 2.0,
+        "root_multiplier": 3.0,
+        "pattern": "uniform",
+        "seed": 20261030,
+        "layers": 3,
+        "max_edges": 10000000,
+        "max_bytes": 1500000000
+      },
+      "status": "ok",
+      "backend": "both",
+      "n_plants": 59483,
+      "ncells": 262144,
+      "admission_limits": {
+        "max_edges": 10000000,
+        "max_bytes": 1500000000,
+        "pre_count_estimate": {
+          "inputs": 2379320,
+          "graph": 951736,
+          "grid": 8626540,
+          "n_edges": null,
+          "total": 11957596
+        }
+      },
+      "generation": {
+        "pattern": "uniform",
+        "seed": 20261030,
+        "cluster_count": null,
+        "cluster_sigma": null,
+        "note": "synthetic seeded positions; clumped is a deliberate contention fixture (<= 8 gaussian clusters clipped to the domain boundary), not an ecological pattern; root_radius = canopy_radius * root_multiplier"
+      },
+      "cpu": {
+        "backend": "cpu",
+        "status": "ok",
+        "note": "single-threaded Numba njit(cache=True) loops timed with perf_counter",
+        "startup": {
+          "njit_warm_seconds_this_call": 0.0,
+          "njit_warm_seconds_first_in_process": 1.5824341150000691,
+          "note": "tiny-problem warm-up including compile or cache load; excluded from repeats"
+        },
+        "admission": {
+          "accepted": true,
+          "estimate": {
+            "inputs": 2379320,
+            "graph": 11197924,
+            "grid": 8626540,
+            "n_edges": 853849,
+            "total": 22203784
+          }
+        },
+        "build": {
+          "count_seconds": 0.002576136030256748,
+          "scan_seconds": 0.00016982899978756905,
+          "fill_seconds": 0.0047832190757617354,
+          "total_seconds": 0.007529184105806053,
+          "n_edges": 853849,
+          "synchronized_wall": true
+        },
+        "reduction": {
+          "repeats_seconds": [
+            0.015954549075104296,
+            0.013686439022421837,
+            0.008111455012112856,
+            0.0096927669364959,
+            0.011314315954223275
+          ],
+          "median_seconds": 0.011314315954223275,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "includes explicit zero-init of the [L,ncells] output"
+        },
+        "canopy": {
+          "repeats_seconds": [
+            0.017056197044439614,
+            0.01613748399540782,
+            0.021419862983748317,
+            0.03564509307034314,
+            0.014665829949080944
+          ],
+          "median_seconds": 0.017056197044439614,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "coverage only; 8x8 midpoint sampling is not area conserving and misses small circles in coarse cells (aliasing); missed plants are reported, not discarded",
+          "missed_plants": 0,
+          "n_plants": 59483,
+          "cells_capped_at_one": 16259,
+          "uncapped_sampled_cover_sum": 60961.0625,
+          "capped_cover_sum": 55053.875,
+          "sampled_area_uncapped": 3810.06640625,
+          "analytic_unclipped_disc_area_sum": 3822.0694763389765,
+          "subsamples_per_axis": 8
+        },
+        "audit": {
+          "total_allocated_demand": 59483.0,
+          "expected_demand": 59483,
+          "n_plants": 59483,
+          "zero_edge_plants": 0,
+          "all_plants_have_edges": true,
+          "output_finite": true,
+          "shape_consistent": true,
+          "abs_error": 0.0,
+          "tolerance_abs": 5.9483000000000006e-05,
+          "per_layer_sums": [
+            19827.666666666664,
+            19827.666666666664,
+            19827.666666666664
+          ],
+          "passed": true,
+          "note": "unit synthetic demand per plant; checks conservation of the scatter, not physics"
+        },
+        "ledger": {
+          "x": {
+            "dtype": "float64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "y": {
+            "dtype": "float64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "canopy_radius": {
+            "dtype": "float64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "root_radius": {
+            "dtype": "float64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "ids": {
+            "dtype": "int64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "offsets": {
+            "dtype": "int64",
+            "shape": [
+              59484
+            ],
+            "nbytes": 475872
+          },
+          "counts": {
+            "dtype": "int64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "cells": {
+            "dtype": "int32",
+            "shape": [
+              853849
+            ],
+            "nbytes": 3415396
+          },
+          "weights": {
+            "dtype": "float64",
+            "shape": [
+              853849
+            ],
+            "nbytes": 6830792
+          },
+          "reduction": {
+            "dtype": "float64",
+            "shape": [
+              3,
+              262144
+            ],
+            "nbytes": 6291456
+          },
+          "cover": {
+            "dtype": "float64",
+            "shape": [
+              262144
+            ],
+            "nbytes": 2097152
+          },
+          "hit": {
+            "dtype": "int32",
+            "shape": [
+              59483
+            ],
+            "nbytes": 237932
+          }
+        },
+        "ru_maxrss": {
+          "ru_maxrss": 728864,
+          "unit": "KiB on Linux (bytes on macOS)",
+          "label": "cumulative process peak RSS, not stage specific"
+        }
+      },
+      "gpu": {
+        "backend": "gpu",
+        "device": {
+          "available": true,
+          "device_name": "NVIDIA GeForce GTX 1080 Ti",
+          "compute_capability": 61,
+          "context_init_seconds": 0.16160662495531142,
+          "cupy_version": "14.2.0",
+          "cuda_runtime_version": 12090
+        },
+        "startup": {
+          "context_init_seconds": 0.16160662495531142,
+          "kernel_compile_seconds": 0.21554142609238625,
+          "compiled_in_this_call": false,
+          "gpu_warmup_seconds_this_call": 0.0,
+          "gpu_warmup_seconds_first_in_process": 0.1354519680608064,
+          "warmed_in_this_call": false,
+          "note": "compile (possibly served from the CuPy kernel cache) and a fixed small-fixture H2D->build->reduction->canopy->D2H warm-up are reported separately and excluded from timed build/repeats; not a true cold start"
+        },
+        "h2d": {
+          "seconds": 0.0010003549978137016,
+          "bytes": 2379320
+        },
+        "admission": {
+          "accepted": true,
+          "estimate": {
+            "inputs": 2379320,
+            "graph": 11197924,
+            "grid": 8626540,
+            "n_edges": 853849,
+            "total": 22203784
+          }
+        },
+        "build": {
+          "total_seconds": 0.0025030079996213317,
+          "note": "count + device scan + guard scalar D2H + fill, synchronized",
+          "n_edges": 853849,
+          "synchronized_wall": true
+        },
+        "reduction": {
+          "repeats_seconds": [
+            0.0023695359230041504,
+            0.001968127965927124,
+            0.0019456000328063965,
+            0.0019425280094146728,
+            0.0019445760250091553
+          ],
+          "median_seconds": 0.0019456000328063965,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "CUDA events; includes explicit device zero-init; graph resident on device"
+        },
+        "d2h": {
+          "seconds": 0.004040788975544274,
+          "bytes": 19824464,
+          "note": "validation copies outside kernel timing"
+        },
+        "canopy": {
+          "repeats_seconds": [
+            0.0011263999938964844,
+            0.0011694079637527466,
+            0.0011202559471130372,
+            0.001117184042930603,
+            0.001139680027961731
+          ],
+          "median_seconds": 0.0011263999938964844,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "coverage only; 8x8 midpoint sampling is not area conserving and misses small circles in coarse cells (aliasing); missed plants are reported, not discarded",
+          "missed_plants": 0,
+          "n_plants": 59483,
+          "cells_capped_at_one": 16259,
+          "uncapped_sampled_cover_sum": 60961.0625,
+          "capped_cover_sum": 55053.875,
+          "sampled_area_uncapped": 3810.06640625,
+          "analytic_unclipped_disc_area_sum": 3822.0694763389765,
+          "subsamples_per_axis": 8
+        },
+        "audit": {
+          "total_allocated_demand": 59482.99999999999,
+          "expected_demand": 59483,
+          "n_plants": 59483,
+          "zero_edge_plants": 0,
+          "all_plants_have_edges": true,
+          "output_finite": true,
+          "shape_consistent": true,
+          "abs_error": 7.275957614183426e-12,
+          "tolerance_abs": 5.9483000000000006e-05,
+          "per_layer_sums": [
+            19827.666666666664,
+            19827.666666666664,
+            19827.666666666664
+          ],
+          "passed": true,
+          "note": "unit synthetic demand per plant; checks conservation of the scatter, not physics"
+        },
+        "ledger": {
+          "x": {
+            "dtype": "float64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "y": {
+            "dtype": "float64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "canopy_radius": {
+            "dtype": "float64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "root_radius": {
+            "dtype": "float64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "ids": {
+            "dtype": "int64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "offsets": {
+            "dtype": "int64",
+            "shape": [
+              59484
+            ],
+            "nbytes": 475872
+          },
+          "counts": {
+            "dtype": "int64",
+            "shape": [
+              59483
+            ],
+            "nbytes": 475864
+          },
+          "cells": {
+            "dtype": "int32",
+            "shape": [
+              853849
+            ],
+            "nbytes": 3415396
+          },
+          "weights": {
+            "dtype": "float64",
+            "shape": [
+              853849
+            ],
+            "nbytes": 6830792
+          },
+          "reduction": {
+            "dtype": "float64",
+            "shape": [
+              3,
+              262144
+            ],
+            "nbytes": 6291456
+          },
+          "cover": {
+            "dtype": "float64",
+            "shape": [
+              262144
+            ],
+            "nbytes": 2097152
+          },
+          "hit": {
+            "dtype": "int32",
+            "shape": [
+              59483
+            ],
+            "nbytes": 237932
+          }
+        },
+        "pool_samples": {
+          "before_h2d": {
+            "used_bytes": 0,
+            "total_bytes": 13960704,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          },
+          "after_build": {
+            "used_bytes": 13579776,
+            "total_bytes": 20791808,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          },
+          "after_kernels": {
+            "used_bytes": 22206464,
+            "total_bytes": 27083264,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          }
+        },
+        "ru_maxrss": {
+          "ru_maxrss": 728864,
+          "unit": "KiB on Linux (bytes on macOS)",
+          "label": "cumulative process peak RSS, not stage specific"
+        },
+        "status": "ok"
+      },
+      "parity": {
+        "passed": true,
+        "checks": {
+          "offsets_exact": true,
+          "cells_exact": true,
+          "weights": true,
+          "reduction": true,
+          "cover": true,
+          "hit_exact": true
+        },
+        "max_abs_diff": {
+          "reduction": 1.6653345369377348e-16,
+          "cover": 0.0
+        },
+        "tolerances": {
+          "weights_rtol": 1e-12,
+          "rtol": 1e-09,
+          "atol": 1e-12
+        },
+        "note": "GPU atomics are order nondeterministic; bitwise equality is not expected"
+      },
+      "case_wall_seconds": 0.28361365105956793,
+      "case_wall_note": "host generation/validation plus every requested backend including startup and warm-up; distinct from kernel timings. Single-thread CPU vs GPU kernel medians are a kernel comparison, not a scientific speedup claim",
+      "ru_maxrss": {
+        "ru_maxrss": 728864,
+        "unit": "KiB on Linux (bytes on macOS)",
+        "label": "cumulative process peak RSS, not stage specific"
+      },
+      "allocation_profile": {
+        "cupy_live_rounded_peak_bytes": 22473216,
+        "cupy_live_rounded_at_case_start_bytes": 0,
+        "cupy_live_rounded_at_case_end_bytes": 0,
+        "unknown_free_events_cumulative": 0,
+        "scope": "CuPy pool malloc/free hooks, including transient arrays; excludes CUDA context and other allocators"
+      }
+    },
+    {
+      "name": "grass_bound_400_roots3",
+      "case": {
+        "name": "grass_bound_400_roots3",
+        "nx": 400,
+        "ny": 400,
+        "dx": 0.25,
+        "grass_count": 547493,
+        "shrub_count": 95,
+        "grass_diameter": 0.1,
+        "shrub_diameter": 2.0,
+        "root_multiplier": 3.0,
+        "pattern": "uniform",
+        "seed": 20261030,
+        "layers": 3,
+        "max_edges": 10000000,
+        "max_bytes": 1500000000
+      },
+      "status": "ok",
+      "backend": "both",
+      "n_plants": 547588,
+      "ncells": 160000,
+      "admission_limits": {
+        "max_edges": 10000000,
+        "max_bytes": 1500000000,
+        "pre_count_estimate": {
+          "inputs": 21903520,
+          "graph": 8761416,
+          "grid": 7310352,
+          "n_edges": null,
+          "total": 37975288
+        }
+      },
+      "generation": {
+        "pattern": "uniform",
+        "seed": 20261030,
+        "cluster_count": null,
+        "cluster_sigma": null,
+        "note": "synthetic seeded positions; clumped is a deliberate contention fixture (<= 8 gaussian clusters clipped to the domain boundary), not an ecological pattern; root_radius = canopy_radius * root_multiplier"
+      },
+      "cpu": {
+        "backend": "cpu",
+        "status": "ok",
+        "note": "single-threaded Numba njit(cache=True) loops timed with perf_counter",
+        "startup": {
+          "njit_warm_seconds_this_call": 0.0,
+          "njit_warm_seconds_first_in_process": 1.5824341150000691,
+          "note": "tiny-problem warm-up including compile or cache load; excluded from repeats"
+        },
+        "admission": {
+          "accepted": true,
+          "estimate": {
+            "inputs": 21903520,
+            "graph": 39009096,
+            "grid": 7310352,
+            "n_edges": 2520640,
+            "total": 68222968
+          }
+        },
+        "build": {
+          "count_seconds": 0.020657576038502157,
+          "scan_seconds": 0.001593183958902955,
+          "fill_seconds": 0.024082303047180176,
+          "total_seconds": 0.04633306304458529,
+          "n_edges": 2520640,
+          "synchronized_wall": true
+        },
+        "reduction": {
+          "repeats_seconds": [
+            0.02178489393554628,
+            0.021712566958740354,
+            0.022244367050006986,
+            0.03179529600311071,
+            0.02654594194609672
+          ],
+          "median_seconds": 0.022244367050006986,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "includes explicit zero-init of the [L,ncells] output"
+        },
+        "canopy": {
+          "repeats_seconds": [
+            0.06173411605414003,
+            0.06099037011153996,
+            0.05911914294119924,
+            0.059541948954574764,
+            0.05972534406464547
+          ],
+          "median_seconds": 0.05972534406464547,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "coverage only; 8x8 midpoint sampling is not area conserving and misses small circles in coarse cells (aliasing); missed plants are reported, not discarded",
+          "missed_plants": 0,
+          "n_plants": 547588,
+          "cells_capped_at_one": 5781,
+          "uncapped_sampled_cover_sum": 73518.90625,
+          "capped_cover_sum": 71513.4375,
+          "sampled_area_uncapped": 4594.931640625,
+          "analytic_unclipped_disc_area_sum": 4598.451268820621,
+          "subsamples_per_axis": 8
+        },
+        "audit": {
+          "total_allocated_demand": 547587.9999999999,
+          "expected_demand": 547588,
+          "n_plants": 547588,
+          "zero_edge_plants": 0,
+          "all_plants_have_edges": true,
+          "output_finite": true,
+          "shape_consistent": true,
+          "abs_error": 1.1641532182693481e-10,
+          "tolerance_abs": 0.000547588,
+          "per_layer_sums": [
+            182529.3333333333,
+            182529.3333333333,
+            182529.3333333333
+          ],
+          "passed": true,
+          "note": "unit synthetic demand per plant; checks conservation of the scatter, not physics"
+        },
+        "ledger": {
+          "x": {
+            "dtype": "float64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "y": {
+            "dtype": "float64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "canopy_radius": {
+            "dtype": "float64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "root_radius": {
+            "dtype": "float64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "ids": {
+            "dtype": "int64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "offsets": {
+            "dtype": "int64",
+            "shape": [
+              547589
+            ],
+            "nbytes": 4380712
+          },
+          "counts": {
+            "dtype": "int64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "cells": {
+            "dtype": "int32",
+            "shape": [
+              2520640
+            ],
+            "nbytes": 10082560
+          },
+          "weights": {
+            "dtype": "float64",
+            "shape": [
+              2520640
+            ],
+            "nbytes": 20165120
+          },
+          "reduction": {
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000
+          },
+          "cover": {
+            "dtype": "float64",
+            "shape": [
+              160000
+            ],
+            "nbytes": 1280000
+          },
+          "hit": {
+            "dtype": "int32",
+            "shape": [
+              547588
+            ],
+            "nbytes": 2190352
+          }
+        },
+        "ru_maxrss": {
+          "ru_maxrss": 728864,
+          "unit": "KiB on Linux (bytes on macOS)",
+          "label": "cumulative process peak RSS, not stage specific"
+        }
+      },
+      "gpu": {
+        "backend": "gpu",
+        "device": {
+          "available": true,
+          "device_name": "NVIDIA GeForce GTX 1080 Ti",
+          "compute_capability": 61,
+          "context_init_seconds": 0.16160662495531142,
+          "cupy_version": "14.2.0",
+          "cuda_runtime_version": 12090
+        },
+        "startup": {
+          "context_init_seconds": 0.16160662495531142,
+          "kernel_compile_seconds": 0.21554142609238625,
+          "compiled_in_this_call": false,
+          "gpu_warmup_seconds_this_call": 0.0,
+          "gpu_warmup_seconds_first_in_process": 0.1354519680608064,
+          "warmed_in_this_call": false,
+          "note": "compile (possibly served from the CuPy kernel cache) and a fixed small-fixture H2D->build->reduction->canopy->D2H warm-up are reported separately and excluded from timed build/repeats; not a true cold start"
+        },
+        "h2d": {
+          "seconds": 0.016193427029065788,
+          "bytes": 21903520
+        },
+        "admission": {
+          "accepted": true,
+          "estimate": {
+            "inputs": 21903520,
+            "graph": 39009096,
+            "grid": 7310352,
+            "n_edges": 2520640,
+            "total": 68222968
+          }
+        },
+        "build": {
+          "total_seconds": 0.005206026951782405,
+          "note": "count + device scan + guard scalar D2H + fill, synchronized",
+          "n_edges": 2520640,
+          "synchronized_wall": true
+        },
+        "reduction": {
+          "repeats_seconds": [
+            0.0048220157623291016,
+            0.004622335910797119,
+            0.004798367977142334,
+            0.004903935909271241,
+            0.0045792641639709475
+          ],
+          "median_seconds": 0.004798367977142334,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "CUDA events; includes explicit device zero-init; graph resident on device"
+        },
+        "d2h": {
+          "seconds": 0.00838945689611137,
+          "bytes": 46319448,
+          "note": "validation copies outside kernel timing"
+        },
+        "canopy": {
+          "repeats_seconds": [
+            0.0036321280002593994,
+            0.0034447360038757325,
+            0.0035133440494537352,
+            0.003424031972885132,
+            0.003471359968185425
+          ],
+          "median_seconds": 0.003471359968185425,
+          "n_repeats": 5,
+          "warmup_excluded": true,
+          "note": "coverage only; 8x8 midpoint sampling is not area conserving and misses small circles in coarse cells (aliasing); missed plants are reported, not discarded",
+          "missed_plants": 0,
+          "n_plants": 547588,
+          "cells_capped_at_one": 5781,
+          "uncapped_sampled_cover_sum": 73518.90625,
+          "capped_cover_sum": 71513.4375,
+          "sampled_area_uncapped": 4594.931640625,
+          "analytic_unclipped_disc_area_sum": 4598.451268820621,
+          "subsamples_per_axis": 8
+        },
+        "audit": {
+          "total_allocated_demand": 547587.9999999999,
+          "expected_demand": 547588,
+          "n_plants": 547588,
+          "zero_edge_plants": 0,
+          "all_plants_have_edges": true,
+          "output_finite": true,
+          "shape_consistent": true,
+          "abs_error": 1.1641532182693481e-10,
+          "tolerance_abs": 0.000547588,
+          "per_layer_sums": [
+            182529.3333333333,
+            182529.3333333333,
+            182529.3333333333
+          ],
+          "passed": true,
+          "note": "unit synthetic demand per plant; checks conservation of the scatter, not physics"
+        },
+        "ledger": {
+          "x": {
+            "dtype": "float64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "y": {
+            "dtype": "float64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "canopy_radius": {
+            "dtype": "float64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "root_radius": {
+            "dtype": "float64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "ids": {
+            "dtype": "int64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "offsets": {
+            "dtype": "int64",
+            "shape": [
+              547589
+            ],
+            "nbytes": 4380712
+          },
+          "counts": {
+            "dtype": "int64",
+            "shape": [
+              547588
+            ],
+            "nbytes": 4380704
+          },
+          "cells": {
+            "dtype": "int32",
+            "shape": [
+              2520640
+            ],
+            "nbytes": 10082560
+          },
+          "weights": {
+            "dtype": "float64",
+            "shape": [
+              2520640
+            ],
+            "nbytes": 20165120
+          },
+          "reduction": {
+            "dtype": "float64",
+            "shape": [
+              3,
+              160000
+            ],
+            "nbytes": 3840000
+          },
+          "cover": {
+            "dtype": "float64",
+            "shape": [
+              160000
+            ],
+            "nbytes": 1280000
+          },
+          "hit": {
+            "dtype": "int32",
+            "shape": [
+              547588
+            ],
+            "nbytes": 2190352
+          }
+        },
+        "pool_samples": {
+          "before_h2d": {
+            "used_bytes": 0,
+            "total_bytes": 27083264,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          },
+          "after_build": {
+            "used_bytes": 60916224,
+            "total_bytes": 83618304,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          },
+          "after_kernels": {
+            "used_bytes": 68227072,
+            "total_bytes": 83618304,
+            "label": "sampled at stage boundary; not a true allocation peak"
+          }
+        },
+        "ru_maxrss": {
+          "ru_maxrss": 734296,
+          "unit": "KiB on Linux (bytes on macOS)",
+          "label": "cumulative process peak RSS, not stage specific"
+        },
+        "status": "ok"
+      },
+      "parity": {
+        "passed": true,
+        "checks": {
+          "offsets_exact": true,
+          "cells_exact": true,
+          "weights": true,
+          "reduction": true,
+          "cover": true,
+          "hit_exact": true
+        },
+        "max_abs_diff": {
+          "reduction": 8.881784197001252e-16,
+          "cover": 0.0
+        },
+        "tolerances": {
+          "weights_rtol": 1e-12,
+          "rtol": 1e-09,
+          "atol": 1e-12
+        },
+        "note": "GPU atomics are order nondeterministic; bitwise equality is not expected"
+      },
+      "case_wall_seconds": 1.4364745770581067,
+      "case_wall_note": "host generation/validation plus every requested backend including startup and warm-up; distinct from kernel timings. Single-thread CPU vs GPU kernel medians are a kernel comparison, not a scientific speedup claim",
+      "ru_maxrss": {
+        "ru_maxrss": 734296,
+        "unit": "KiB on Linux (bytes on macOS)",
+        "label": "cumulative process peak RSS, not stage specific"
+      },
+      "allocation_profile": {
+        "cupy_live_rounded_peak_bytes": 68390400,
+        "cupy_live_rounded_at_case_start_bytes": 0,
+        "cupy_live_rounded_at_case_end_bytes": 0,
+        "unknown_free_events_cumulative": 0,
+        "scope": "CuPy pool malloc/free hooks, including transient arrays; excludes CUDA context and other allocators"
+      }
+    }
+  ],
+  "independent_profile": {
+    "whole_process_wall_seconds_including_imports": 9.211319155991077,
+    "cpu_model": "Intel(R) Core(TM) i9-7900X CPU @ 3.30GHz",
+    "cpu_affinity_count": 20,
+    "gpu_uuid_selection": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "cupy_live_rounded_peak_bytes": 68390400,
+    "cupy_live_rounded_at_end_bytes": 0,
+    "unknown_free_events": 0,
+    "allocation_events": 90,
+    "scope": "Allocation-hook peak is exact for observed rounded pool allocations; excludes CUDA context and other allocators. Stage pool reservation is recorded separately.",
+    "source_sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "wrapper_sha256": "6e383362317e34a2ce39aa22194e5b5ac514230441ee1fb74cbb76a69bdfe793"
+  }
+}

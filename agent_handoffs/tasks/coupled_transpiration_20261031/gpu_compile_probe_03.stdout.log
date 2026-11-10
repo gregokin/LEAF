@@ -1,0 +1,442 @@
+DIAGNOSTIC: CUDA source prefixed in memory with math.h; files remain unchanged
+FF..s...FF                                                               [100%]
+=================================== FAILURES ===================================
+_________________________ GpuTests.test_cpu_gpu_parity _________________________
+
+self = <cupy.cuda.compiler._NVRTCProgram object at 0x7c54eb797ec0>
+options = ('-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/_core/include/cupy/_cccl/cub', '-I/home/okin/MAPLE/....ges/cupy/_core/include', '-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/nvidia/cuda_runtime/include', ...)
+log_stream = None
+
+    def compile(self, options=(), log_stream=None):
+        try:
+            if self.name_expressions:
+                for ker in self.name_expressions:
+                    nvrtc.addNameExpression(self.ptr, ker)
+>           nvrtc.compileProgram(self.ptr, options)
+
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:860: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cupy_backends/cuda/libs/nvrtc.pyx:125: in cupy_backends.cuda.libs.nvrtc.compileProgram
+    ???
+cupy_backends/cuda/libs/nvrtc.pyx:138: in cupy_backends.cuda.libs.nvrtc.compileProgram
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cupy_backends.cuda.libs.nvrtc.NVRTCError: NVRTC_ERROR_COMPILATION (6)
+
+cupy_backends/cuda/libs/nvrtc.pyx:53: NVRTCError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_coupling.GpuTests testMethod=test_cpu_gpu_parity>
+
+    def test_cpu_gpu_parity(self):
+        case = make_case(nx=6, ny=6, dx=0.5, grass_count=3, shrub_count=2, grass_diameter=0.6, shrub_diameter=1.2,
+                         root_multiplier=2.0, layers=3, max_edges=100000)
+        rng = np.random.default_rng(7)
+        inp = make_inputs(rng.uniform(0.5, 2.5, 5), rng.uniform(0.5, 2.5, 5), [0.3, 0.3, 0.3, 0.6, 0.6], mult=2.0)
+        water = rng.uniform(RES_M, 0.03, (3, 36))
+        active = [True] * 34 + [False, True]
+        days = []
+        for _ in range(9):
+            add = rng.uniform(0, 0.002, (3, 36)) * np.array([[1.0], [0.0], [0.0]])
+            add[:, 34] = 0.0
+            pet = rng.uniform(0, 2e-8, 36)
+            pet[34] = 0.0
+            days.append((add, pet))
+>       g, _ = build(case, inp, water, backend='cuda', active=active, diffusivity=1e-9)  # errors fail, never skip
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_coupling.py:438: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_coupling.py:66: in build
+    sim = CoupledSimulation(case, col, state, inputs=inputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+leaf/coupling.py:129: in __init__
+    self.operator = st.prepare_transpiration(column, extra_reserve_bytes=veg_bytes + extra)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../runtime03/maple_syrup/subsurface_transpiration.py:333: in prepare_transpiration
+    kernel.compile()
+cupy/_core/raw.pyx:303: in cupy._core.raw.RawKernel.compile
+    ???
+cupy/_core/raw.pyx:125: in cupy._core.raw.RawKernel._kernel
+    ???
+cupy/_util.pyx:67: in cupy._util.memoize.decorator.ret
+    ???
+cupy/_core/raw.pyx:549: in cupy._core.raw._get_raw_module
+    ???
+cupy/_core/core.pyx:2621: in cupy._core.core.compile_with_cache
+    ???
+cupy/_core/core.pyx:2639: in cupy._core.core.compile_with_cache
+    ???
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:649: in _compile_module_with_cache
+    return _compile_with_cache_cuda(
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:748: in _compile_with_cache_cuda
+    ptx, mapping = _compile_using_nvrtc_no_warning(
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:402: in _compile_using_nvrtc_no_warning
+    return _compile(source, options, cu_path, name_expressions,
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:384: in _compile
+    compiled_obj, mapping = prog.compile(options, log_stream)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <cupy.cuda.compiler._NVRTCProgram object at 0x7c54eb797ec0>
+options = ('-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/_core/include/cupy/_cccl/cub', '-I/home/okin/MAPLE/....ges/cupy/_core/include', '-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/nvidia/cuda_runtime/include', ...)
+log_stream = None
+
+    def compile(self, options=(), log_stream=None):
+        try:
+            if self.name_expressions:
+                for ker in self.name_expressions:
+                    nvrtc.addNameExpression(self.ptr, ker)
+            nvrtc.compileProgram(self.ptr, options)
+            mapping = None
+            if self.name_expressions:
+                mapping = {}
+                for ker in self.name_expressions:
+                    mapping[ker] = nvrtc.getLoweredName(self.ptr, ker)
+            if log_stream is not None:
+                log_stream.write(nvrtc.getProgramLog(self.ptr))
+            # This is to ensure backwards compatibility with nvrtc
+            if self.method == 'cubin':
+                return nvrtc.getCUBIN(self.ptr), mapping
+            elif self.method == 'ptx':
+                return nvrtc.getPTX(self.ptr), mapping
+            elif self.method == 'lto':
+                return nvrtc.getLTOIR(self.ptr), mapping
+            else:
+                raise RuntimeError('Unknown NVRTC compile method')
+        except nvrtc.NVRTCError:
+            log = nvrtc.getProgramLog(self.ptr)
+>           raise CompileException(log, self.src, self.name, options,
+                                   'nvrtc' if not runtime.is_hip else 'hiprtc')
+E           cupy.cuda.compiler.CompileException: nvrtc: warning: Architectures prior to '<compute/sm>_75' are deprecated and may be removed in a future release
+E           /tmp/tmpbtmwtabm/5c06047375008d36e7e0d4017cb24d07cbec2129.cubin.cu(1): catastrophic error: cannot open source file "math.h"
+E             #include <math.h>
+E                              ^
+E           
+E           1 catastrophic error detected in the compilation of "/tmp/tmpbtmwtabm/5c06047375008d36e7e0d4017cb24d07cbec2129.cubin.cu".
+E           Compilation terminated.
+
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:879: CompileException
+________________ GpuTests.test_gpu_gather_rejects_before_launch ________________
+
+self = <cupy.cuda.compiler._NVRTCProgram object at 0x7c54ea7f8830>
+options = ('-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/_core/include/cupy/_cccl/cub', '-I/home/okin/MAPLE/....ges/cupy/_core/include', '-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/nvidia/cuda_runtime/include', ...)
+log_stream = None
+
+    def compile(self, options=(), log_stream=None):
+        try:
+            if self.name_expressions:
+                for ker in self.name_expressions:
+                    nvrtc.addNameExpression(self.ptr, ker)
+>           nvrtc.compileProgram(self.ptr, options)
+
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:860: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cupy_backends/cuda/libs/nvrtc.pyx:125: in cupy_backends.cuda.libs.nvrtc.compileProgram
+    ???
+cupy_backends/cuda/libs/nvrtc.pyx:138: in cupy_backends.cuda.libs.nvrtc.compileProgram
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cupy_backends.cuda.libs.nvrtc.NVRTCError: NVRTC_ERROR_COMPILATION (6)
+
+cupy_backends/cuda/libs/nvrtc.pyx:53: NVRTCError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_coupling.GpuTests testMethod=test_gpu_gather_rejects_before_launch>
+
+    def test_gpu_gather_rejects_before_launch(self):
+        case = make_case(layers=1, root_layer_fractions={'grass': [1.0]})
+>       sim, _ = build(case, make_inputs([5.0], [5.0], [1.0]), backend='cuda')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_coupling.py:454: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_coupling.py:66: in build
+    sim = CoupledSimulation(case, col, state, inputs=inputs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+leaf/coupling.py:129: in __init__
+    self.operator = st.prepare_transpiration(column, extra_reserve_bytes=veg_bytes + extra)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../runtime03/maple_syrup/subsurface_transpiration.py:333: in prepare_transpiration
+    kernel.compile()
+cupy/_core/raw.pyx:303: in cupy._core.raw.RawKernel.compile
+    ???
+cupy/_core/raw.pyx:125: in cupy._core.raw.RawKernel._kernel
+    ???
+cupy/_util.pyx:67: in cupy._util.memoize.decorator.ret
+    ???
+cupy/_core/raw.pyx:549: in cupy._core.raw._get_raw_module
+    ???
+cupy/_core/core.pyx:2621: in cupy._core.core.compile_with_cache
+    ???
+cupy/_core/core.pyx:2639: in cupy._core.core.compile_with_cache
+    ???
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:649: in _compile_module_with_cache
+    return _compile_with_cache_cuda(
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:748: in _compile_with_cache_cuda
+    ptx, mapping = _compile_using_nvrtc_no_warning(
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:402: in _compile_using_nvrtc_no_warning
+    return _compile(source, options, cu_path, name_expressions,
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:384: in _compile
+    compiled_obj, mapping = prog.compile(options, log_stream)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <cupy.cuda.compiler._NVRTCProgram object at 0x7c54ea7f8830>
+options = ('-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/_core/include/cupy/_cccl/cub', '-I/home/okin/MAPLE/....ges/cupy/_core/include', '-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/nvidia/cuda_runtime/include', ...)
+log_stream = None
+
+    def compile(self, options=(), log_stream=None):
+        try:
+            if self.name_expressions:
+                for ker in self.name_expressions:
+                    nvrtc.addNameExpression(self.ptr, ker)
+            nvrtc.compileProgram(self.ptr, options)
+            mapping = None
+            if self.name_expressions:
+                mapping = {}
+                for ker in self.name_expressions:
+                    mapping[ker] = nvrtc.getLoweredName(self.ptr, ker)
+            if log_stream is not None:
+                log_stream.write(nvrtc.getProgramLog(self.ptr))
+            # This is to ensure backwards compatibility with nvrtc
+            if self.method == 'cubin':
+                return nvrtc.getCUBIN(self.ptr), mapping
+            elif self.method == 'ptx':
+                return nvrtc.getPTX(self.ptr), mapping
+            elif self.method == 'lto':
+                return nvrtc.getLTOIR(self.ptr), mapping
+            else:
+                raise RuntimeError('Unknown NVRTC compile method')
+        except nvrtc.NVRTCError:
+            log = nvrtc.getProgramLog(self.ptr)
+>           raise CompileException(log, self.src, self.name, options,
+                                   'nvrtc' if not runtime.is_hip else 'hiprtc')
+E           cupy.cuda.compiler.CompileException: nvrtc: warning: Architectures prior to '<compute/sm>_75' are deprecated and may be removed in a future release
+E           /tmp/tmpz3zgxhle/5c06047375008d36e7e0d4017cb24d07cbec2129.cubin.cu(1): catastrophic error: cannot open source file "math.h"
+E             #include <math.h>
+E                              ^
+E           
+E           1 catastrophic error detected in the compilation of "/tmp/tmpz3zgxhle/5c06047375008d36e7e0d4017cb24d07cbec2129.cubin.cu".
+E           Compilation terminated.
+
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:879: CompileException
+______________ BackendAgreementTests.test_cuda_agrees_with_numpy _______________
+
+self = <cupy.cuda.compiler._NVRTCProgram object at 0x7c54e1155a00>
+options = ('-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/_core/include/cupy/_cccl/cub', '-I/home/okin/MAPLE/....ges/cupy/_core/include', '-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/nvidia/cuda_runtime/include', ...)
+log_stream = None
+
+    def compile(self, options=(), log_stream=None):
+        try:
+            if self.name_expressions:
+                for ker in self.name_expressions:
+                    nvrtc.addNameExpression(self.ptr, ker)
+>           nvrtc.compileProgram(self.ptr, options)
+
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:860: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cupy_backends/cuda/libs/nvrtc.pyx:125: in cupy_backends.cuda.libs.nvrtc.compileProgram
+    ???
+cupy_backends/cuda/libs/nvrtc.pyx:138: in cupy_backends.cuda.libs.nvrtc.compileProgram
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cupy_backends.cuda.libs.nvrtc.NVRTCError: NVRTC_ERROR_COMPILATION (6)
+
+cupy_backends/cuda/libs/nvrtc.pyx:53: NVRTCError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_transpiration.BackendAgreementTests testMethod=test_cuda_agrees_with_numpy>
+
+    @unittest.skipUnless(cuda_hardware(), 'no CUDA device visible to CuPy')
+    def test_cuda_agrees_with_numpy(self):
+>       a, c = self._run('numpy'), self._run('cuda')  # construction/implementation errors fail, never skip
+                                   ^^^^^^^^^^^^^^^^^
+
+native/test_transpiration.py:330: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+native/test_transpiration.py:307: in _run
+    op = st.prepare_transpiration(col)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../runtime03/maple_syrup/subsurface_transpiration.py:333: in prepare_transpiration
+    kernel.compile()
+cupy/_core/raw.pyx:303: in cupy._core.raw.RawKernel.compile
+    ???
+cupy/_core/raw.pyx:125: in cupy._core.raw.RawKernel._kernel
+    ???
+cupy/_util.pyx:67: in cupy._util.memoize.decorator.ret
+    ???
+cupy/_core/raw.pyx:549: in cupy._core.raw._get_raw_module
+    ???
+cupy/_core/core.pyx:2621: in cupy._core.core.compile_with_cache
+    ???
+cupy/_core/core.pyx:2639: in cupy._core.core.compile_with_cache
+    ???
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:649: in _compile_module_with_cache
+    return _compile_with_cache_cuda(
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:748: in _compile_with_cache_cuda
+    ptx, mapping = _compile_using_nvrtc_no_warning(
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:402: in _compile_using_nvrtc_no_warning
+    return _compile(source, options, cu_path, name_expressions,
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:384: in _compile
+    compiled_obj, mapping = prog.compile(options, log_stream)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <cupy.cuda.compiler._NVRTCProgram object at 0x7c54e1155a00>
+options = ('-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/_core/include/cupy/_cccl/cub', '-I/home/okin/MAPLE/....ges/cupy/_core/include', '-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/nvidia/cuda_runtime/include', ...)
+log_stream = None
+
+    def compile(self, options=(), log_stream=None):
+        try:
+            if self.name_expressions:
+                for ker in self.name_expressions:
+                    nvrtc.addNameExpression(self.ptr, ker)
+            nvrtc.compileProgram(self.ptr, options)
+            mapping = None
+            if self.name_expressions:
+                mapping = {}
+                for ker in self.name_expressions:
+                    mapping[ker] = nvrtc.getLoweredName(self.ptr, ker)
+            if log_stream is not None:
+                log_stream.write(nvrtc.getProgramLog(self.ptr))
+            # This is to ensure backwards compatibility with nvrtc
+            if self.method == 'cubin':
+                return nvrtc.getCUBIN(self.ptr), mapping
+            elif self.method == 'ptx':
+                return nvrtc.getPTX(self.ptr), mapping
+            elif self.method == 'lto':
+                return nvrtc.getLTOIR(self.ptr), mapping
+            else:
+                raise RuntimeError('Unknown NVRTC compile method')
+        except nvrtc.NVRTCError:
+            log = nvrtc.getProgramLog(self.ptr)
+>           raise CompileException(log, self.src, self.name, options,
+                                   'nvrtc' if not runtime.is_hip else 'hiprtc')
+E           cupy.cuda.compiler.CompileException: nvrtc: warning: Architectures prior to '<compute/sm>_75' are deprecated and may be removed in a future release
+E           /tmp/tmpz1esv6sh/5c06047375008d36e7e0d4017cb24d07cbec2129.cubin.cu(1): catastrophic error: cannot open source file "math.h"
+E             #include <math.h>
+E                              ^
+E           
+E           1 catastrophic error detected in the compilation of "/tmp/tmpz1esv6sh/5c06047375008d36e7e0d4017cb24d07cbec2129.cubin.cu".
+E           Compilation terminated.
+
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:879: CompileException
+______ BackendAgreementTests.test_cuda_combined_single_packet_and_budget _______
+
+self = <cupy.cuda.compiler._NVRTCProgram object at 0x7c54e1176ed0>
+options = ('-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/_core/include/cupy/_cccl/cub', '-I/home/okin/MAPLE/....ges/cupy/_core/include', '-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/nvidia/cuda_runtime/include', ...)
+log_stream = None
+
+    def compile(self, options=(), log_stream=None):
+        try:
+            if self.name_expressions:
+                for ker in self.name_expressions:
+                    nvrtc.addNameExpression(self.ptr, ker)
+>           nvrtc.compileProgram(self.ptr, options)
+
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:860: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cupy_backends/cuda/libs/nvrtc.pyx:125: in cupy_backends.cuda.libs.nvrtc.compileProgram
+    ???
+cupy_backends/cuda/libs/nvrtc.pyx:138: in cupy_backends.cuda.libs.nvrtc.compileProgram
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cupy_backends.cuda.libs.nvrtc.NVRTCError: NVRTC_ERROR_COMPILATION (6)
+
+cupy_backends/cuda/libs/nvrtc.pyx:53: NVRTCError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_transpiration.BackendAgreementTests testMethod=test_cuda_combined_single_packet_and_budget>
+
+    @unittest.skipUnless(cuda_hardware(), 'no CUDA device visible to CuPy')
+    def test_cuda_combined_single_packet_and_budget(self):
+        import cupy as cp
+        col = make_column(L=2, N=3, backend='cuda', active=[True, False, True], diffusivity=1e-9)
+>       op = st.prepare_transpiration(col)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+native/test_transpiration.py:340: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../runtime03/maple_syrup/subsurface_transpiration.py:333: in prepare_transpiration
+    kernel.compile()
+cupy/_core/raw.pyx:303: in cupy._core.raw.RawKernel.compile
+    ???
+cupy/_core/raw.pyx:125: in cupy._core.raw.RawKernel._kernel
+    ???
+cupy/_util.pyx:67: in cupy._util.memoize.decorator.ret
+    ???
+cupy/_core/raw.pyx:549: in cupy._core.raw._get_raw_module
+    ???
+cupy/_core/core.pyx:2621: in cupy._core.core.compile_with_cache
+    ???
+cupy/_core/core.pyx:2639: in cupy._core.core.compile_with_cache
+    ???
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:649: in _compile_module_with_cache
+    return _compile_with_cache_cuda(
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:748: in _compile_with_cache_cuda
+    ptx, mapping = _compile_using_nvrtc_no_warning(
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:402: in _compile_using_nvrtc_no_warning
+    return _compile(source, options, cu_path, name_expressions,
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:384: in _compile
+    compiled_obj, mapping = prog.compile(options, log_stream)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <cupy.cuda.compiler._NVRTCProgram object at 0x7c54e1176ed0>
+options = ('-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/_core/include/cupy/_cccl/cub', '-I/home/okin/MAPLE/....ges/cupy/_core/include', '-I/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/nvidia/cuda_runtime/include', ...)
+log_stream = None
+
+    def compile(self, options=(), log_stream=None):
+        try:
+            if self.name_expressions:
+                for ker in self.name_expressions:
+                    nvrtc.addNameExpression(self.ptr, ker)
+            nvrtc.compileProgram(self.ptr, options)
+            mapping = None
+            if self.name_expressions:
+                mapping = {}
+                for ker in self.name_expressions:
+                    mapping[ker] = nvrtc.getLoweredName(self.ptr, ker)
+            if log_stream is not None:
+                log_stream.write(nvrtc.getProgramLog(self.ptr))
+            # This is to ensure backwards compatibility with nvrtc
+            if self.method == 'cubin':
+                return nvrtc.getCUBIN(self.ptr), mapping
+            elif self.method == 'ptx':
+                return nvrtc.getPTX(self.ptr), mapping
+            elif self.method == 'lto':
+                return nvrtc.getLTOIR(self.ptr), mapping
+            else:
+                raise RuntimeError('Unknown NVRTC compile method')
+        except nvrtc.NVRTCError:
+            log = nvrtc.getProgramLog(self.ptr)
+>           raise CompileException(log, self.src, self.name, options,
+                                   'nvrtc' if not runtime.is_hip else 'hiprtc')
+E           cupy.cuda.compiler.CompileException: nvrtc: warning: Architectures prior to '<compute/sm>_75' are deprecated and may be removed in a future release
+E           /tmp/tmpbizkowx7/5c06047375008d36e7e0d4017cb24d07cbec2129.cubin.cu(1): catastrophic error: cannot open source file "math.h"
+E             #include <math.h>
+E                              ^
+E           
+E           1 catastrophic error detected in the compilation of "/tmp/tmpbizkowx7/5c06047375008d36e7e0d4017cb24d07cbec2129.cubin.cu".
+E           Compilation terminated.
+
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/cupy/cuda/compiler.py:879: CompileException
+=========================== short test summary info ============================
+FAILED ../../../../../../../../dev/test_coupling.py::GpuTests::test_cpu_gpu_parity
+FAILED ../../../../../../../../dev/test_coupling.py::GpuTests::test_gpu_gather_rejects_before_launch
+FAILED ../../../../../../../../dev::BackendAgreementTests::test_cuda_agrees_with_numpy
+FAILED ../../../../../../../../dev::BackendAgreementTests::test_cuda_combined_single_packet_and_budget
+4 failed, 5 passed, 1 skipped, 73 deselected in 1.39s

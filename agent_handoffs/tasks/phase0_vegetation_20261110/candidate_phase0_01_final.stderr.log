@@ -1,0 +1,60 @@
+test_generate_example_config (test_phase0.TestCLIAndExamples.test_generate_example_config) ... ok
+test_help_and_usage (test_phase0.TestCLIAndExamples.test_help_and_usage) ... ok
+test_import_isolation_subprocess (test_phase0.TestCLIAndExamples.test_import_isolation_subprocess) ... ok
+test_init_inspect_export_round_trip (test_phase0.TestCLIAndExamples.test_init_inspect_export_round_trip) ... ok
+test_legacy_lazy_exports (test_phase0.TestCLIAndExamples.test_legacy_lazy_exports) ... ok
+test_validate_species_example (test_phase0.TestCLIAndExamples.test_validate_species_example) ... ok
+test_cover_analytic_circles_edges_groups_and_bounds (test_phase0.TestCanopy.test_cover_analytic_circles_edges_groups_and_bounds) ... ok
+test_cover_independent_finer_resolution_agrees (test_phase0.TestCanopy.test_cover_independent_finer_resolution_agrees) ... ok
+test_geometry_derived_pure_and_constant_porosity (test_phase0.TestCanopy.test_geometry_derived_pure_and_constant_porosity) ... ok
+test_maple_view_fields_ids_coordinates_and_unsupported_cases (test_phase0.TestCanopy.test_maple_view_fields_ids_coordinates_and_unsupported_cases) ... ok
+test_allometry_positive_monotone_and_exact_inverse (test_phase0.TestCatalog.test_allometry_positive_monotone_and_exact_inverse) ... ok
+test_load_and_hash_stability (test_phase0.TestCatalog.test_load_and_hash_stability) ... ok
+test_schema_errors (test_phase0.TestCatalog.test_schema_errors) ... ok
+test_traits_sections_and_lifespan_metadata (test_phase0.TestCatalog.test_traits_sections_and_lifespan_metadata) ... ok
+test_containing_cell_subcell_edges_offset_nonsquare (test_phase0.TestDomain.test_containing_cell_subcell_edges_offset_nonsquare) ... ok
+test_validation (test_phase0.TestDomain.test_validation) ... ok
+test_apply_defaults_to_diagnostics_and_rolls_back_failed_handlers (test_phase0.TestEvents.test_apply_defaults_to_diagnostics_and_rolls_back_failed_handlers) ... ok
+test_construction_validation_and_dict_round_trip (test_phase0.TestEvents.test_construction_validation_and_dict_round_trip) ... ok
+test_bounded_impossible_and_degenerate_cases (test_phase0.TestGeneration.test_bounded_impossible_and_degenerate_cases) ... ok
+test_count_formulas_use_size_variance (test_phase0.TestGeneration.test_count_formulas_use_size_variance) ... ok
+test_global_nonoverlap_and_surface_resolution (test_phase0.TestGeneration.test_global_nonoverlap_and_surface_resolution) ... ok
+test_reproducible_overlap_allowed_species_cover (test_phase0.TestGeneration.test_reproducible_overlap_allowed_species_cover) ... ok
+test_age_advances_with_calendar_only_for_live_and_no_automatic_death (test_phase0.TestPlantState.test_age_advances_with_calendar_only_for_live_and_no_automatic_death) ... ok
+test_empty_population_round_trip (test_phase0.TestPlantState.test_empty_population_round_trip) ... ok
+test_exact_fp64_round_trip_and_metadata_checks (test_phase0.TestPlantState.test_exact_fp64_round_trip_and_metadata_checks) ... ok
+test_ids_resolve_regardless_of_row_order (test_phase0.TestPlantState.test_ids_resolve_regardless_of_row_order) ... ok
+test_invalid_rows_refused_without_partial_state (test_phase0.TestPlantState.test_invalid_rows_refused_without_partial_state) ... ok
+test_surface_token_resolved_once_and_anchor_preserved (test_phase0.TestPlantState.test_surface_token_resolved_once_and_anchor_preserved) ... ok
+test_updates_are_transactional_and_by_id (test_phase0.TestPlantState.test_updates_are_transactional_and_by_id) ... FAIL
+test_cadence_initial_final_skip_overwrite_and_errors (test_phase0.TestRecording.test_cadence_initial_final_skip_overwrite_and_errors) ... FAIL
+test_capture_by_id_with_reordering_profiles_and_ages (test_phase0.TestRuntimeBridge.test_capture_by_id_with_reordering_profiles_and_ages) ... ok
+test_capture_from_real_legacy_driver (test_phase0.TestRuntimeBridge.test_capture_from_real_legacy_driver) ... ok
+test_legacy_inputs_refuse_silent_allometry_mismatch (test_phase0.TestRuntimeBridge.test_legacy_inputs_refuse_silent_allometry_mismatch) ... ok
+
+======================================================================
+FAIL: test_updates_are_transactional_and_by_id (test_phase0.TestPlantState.test_updates_are_transactional_and_by_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/tests/test_phase0.py", line 360, in test_updates_are_transactional_and_by_id
+    self.assertEqual(s.counts(), {'live': 2, 'dead_standing': 1, 'removed': 2})
+AssertionError: {'live': 3, 'dead_standing': 1, 'removed': 2} != {'live': 2, 'dead_standing': 1, 'removed': 2}
+- {'dead_standing': 1, 'live': 3, 'removed': 2}
+?                              ^
+
++ {'dead_standing': 1, 'live': 2, 'removed': 2}
+?                              ^
+
+
+======================================================================
+FAIL: test_cadence_initial_final_skip_overwrite_and_errors (test_phase0.TestRecording.test_cadence_initial_final_skip_overwrite_and_errors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/phase0_vegetation_20261110/candidate/tests/test_phase0.py", line 661, in test_cadence_initial_final_skip_overwrite_and_errors
+    with self.assertRaises(FileExistsError):
+AssertionError: FileExistsError not raised
+
+----------------------------------------------------------------------
+Ran 33 tests in 2.114s
+
+FAILED (failures=2)

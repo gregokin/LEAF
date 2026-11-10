@@ -1,0 +1,54 @@
+test_initial_bound_counts_each_trait_separately (test_daily_water_growth.AdmissionTests.test_initial_bound_counts_each_trait_separately) ... ok
+test_invalid_scalars_rejected (test_daily_water_growth.AdmissionTests.test_invalid_scalars_rejected) ... ok
+test_memory_hook_entered_before_initialization (test_daily_water_growth.AdmissionTests.test_memory_hook_entered_before_initialization) ... ok
+test_memory_refusal_before_generation (test_daily_water_growth.AdmissionTests.test_memory_refusal_before_generation) ... ok
+test_refusal_does_not_generate_or_transfer (test_daily_water_growth.AdmissionTests.test_refusal_does_not_generate_or_transfer) ... ok
+test_rejected_weekly_update_preserves_state_and_latches (test_daily_water_growth.AdmissionTests.test_rejected_weekly_update_preserves_state_and_latches) ... ok
+test_cpu_gpu_parity_profiles_heterogeneous_water (test_daily_water_growth.GpuTests.test_cpu_gpu_parity_profiles_heterogeneous_water) ... skipped 'CuPy device with compute capability >= 6.0 not available'
+test_cpu_gpu_parity_short (test_daily_water_growth.GpuTests.test_cpu_gpu_parity_short) ... skipped 'CuPy device with compute capability >= 6.0 not available'
+test_gpu_unavailable_is_explicit (test_daily_water_growth.GpuTests.test_gpu_unavailable_is_explicit) ... ok
+test_counters_and_pending_uptake (test_daily_water_growth.GrowthAndCalendarTests.test_counters_and_pending_uptake) ... ok
+test_demand_map_cached_within_week (test_daily_water_growth.GrowthAndCalendarTests.test_demand_map_cached_within_week) ... ok
+test_split_run_matches_single_run (test_daily_water_growth.GrowthAndCalendarTests.test_split_run_matches_single_run) ... ok
+test_weekly_growth_derives_radii_and_budgets (test_daily_water_growth.GrowthAndCalendarTests.test_weekly_growth_derives_radii_and_budgets) ... ok
+test_admission_preflight_precedes_profile_materialization (test_daily_water_growth.RootProfileTests.test_admission_preflight_precedes_profile_materialization) ... ok
+test_all_dry_finite_supply_growth_and_fixed_third_profile (test_daily_water_growth.RootProfileTests.test_all_dry_finite_supply_growth_and_fixed_third_profile) ... ok
+test_cli_json_case_with_profiles (test_daily_water_growth.RootProfileTests.test_cli_json_case_with_profiles) ... {"event": "progress", "case": "test", "backend": "cpu", "day": 8, "year": 0.021917808219178082, "water_total_m3": 3.01921259349417, "water_residual": -4.440892098500626e-16, "flux_residual": 1.3877787807814457e-17, "biomass_total_kg": 1.720581938040345, "biomass_residual": 0.0, "pending_uptake_m3": 0.005161745814121034, "n_edges": 39, "audit_ok": true, "elapsed_s": 0.00022499600891023874, "block_wall_s": 1.1892057955265045e-05, "weekly_wall_s": 0.0001571750035509467}
+{"event": "case_done", "case": "test", "backend": "cpu", "status": "ok", "error": null}
+ok
+test_default_class_rows_required_only_when_used (test_daily_water_growth.RootProfileTests.test_default_class_rows_required_only_when_used) ... ok
+test_default_profiles_scatter_per_layer_demand (test_daily_water_growth.RootProfileTests.test_default_profiles_scatter_per_layer_demand) ... ok
+test_explicit_uniform_profile_matches_equal_layer_reference (test_daily_water_growth.RootProfileTests.test_explicit_uniform_profile_matches_equal_layer_reference) ... ok
+test_generated_population_runs_with_configured_profiles (test_daily_water_growth.RootProfileTests.test_generated_population_runs_with_configured_profiles) ... ok
+test_invalid_profiles_and_ids_refuse_before_generation (test_daily_water_growth.RootProfileTests.test_invalid_profiles_and_ids_refuse_before_generation) ... ok
+test_memory_formula_matches_live_ledger (test_daily_water_growth.RootProfileTests.test_memory_formula_matches_live_ledger) ... ok
+test_opposite_profiles_dry_layer_disadvantage (test_daily_water_growth.RootProfileTests.test_opposite_profiles_dry_layer_disadvantage) ... ok
+test_dry_cells_give_no_phantom_uptake (test_daily_water_growth.SoilWaterTests.test_dry_cells_give_no_phantom_uptake) ... ok
+test_recharge_overflow_budget (test_daily_water_growth.SoilWaterTests.test_recharge_overflow_budget) ... ok
+test_single_plant_depletes_without_overdraw (test_daily_water_growth.SoilWaterTests.test_single_plant_depletes_without_overdraw) ... ok
+test_two_plants_share_finite_store (test_daily_water_growth.SoilWaterTests.test_two_plants_share_finite_store) ... ok
+test_audit_fails_on_zero_edge_plant (test_spatial_mapping.AuditAndStatusRegressionTest.test_audit_fails_on_zero_edge_plant) ... ok
+test_clump_parameters_bounded (test_spatial_mapping.AuditAndStatusRegressionTest.test_clump_parameters_bounded) ... ok
+test_gpu_rejection_before_transfer (test_spatial_mapping.AuditAndStatusRegressionTest.test_gpu_rejection_before_transfer) ... ok
+test_partial_status_when_gpu_unavailable (test_spatial_mapping.AuditAndStatusRegressionTest.test_partial_status_when_gpu_unavailable) ... ok
+test_rejection_happens_before_host_generation (test_spatial_mapping.AuditAndStatusRegressionTest.test_rejection_happens_before_host_generation) ... ok
+test_sampled_cover_is_approximate_and_capped (test_spatial_mapping.CanopyTest.test_sampled_cover_is_approximate_and_capped) ... ok
+test_small_plant_in_coarse_cell_is_reported_missed (test_spatial_mapping.CanopyTest.test_small_plant_in_coarse_cell_is_reported_missed) ... ok
+test_capacity_refusal_before_allocation (test_spatial_mapping.GenerationAndAdmissionTest.test_capacity_refusal_before_allocation) ... ok
+test_deterministic_generation (test_spatial_mapping.GenerationAndAdmissionTest.test_deterministic_generation) ... ok
+test_invalid_inputs_rejected (test_spatial_mapping.GenerationAndAdmissionTest.test_invalid_inputs_rejected) ... ok
+test_run_case_cpu_small (test_spatial_mapping.GenerationAndAdmissionTest.test_run_case_cpu_small) ... ok
+test_cpu_gpu_parity_within_tolerance (test_spatial_mapping.GpuParityTest.test_cpu_gpu_parity_within_tolerance) ... skipped "GPU unavailable: CUDARuntimeError('cudaErrorInsufficientDriver: CUDA driver version is insufficient for CUDA runtime version')"
+test_layered_sum_equals_plant_count (test_spatial_mapping.ReductionTest.test_layered_sum_equals_plant_count) ... ok
+test_plants_sharing_one_cell (test_spatial_mapping.ReductionTest.test_plants_sharing_one_cell) ... ok
+test_boundary_clipping_renormalizes (test_spatial_mapping.RootPredicateTest.test_boundary_clipping_renormalizes) ... ok
+test_csr_matches_oracle_and_is_normalized (test_spatial_mapping.RootPredicateTest.test_csr_matches_oracle_and_is_normalized) ... ok
+test_root_predicate_independent_of_canopy_radius (test_spatial_mapping.RootPredicateTest.test_root_predicate_independent_of_canopy_radius) ... ok
+test_subcell_root_at_cell_centre_maps_one_cell (test_spatial_mapping.RootPredicateTest.test_subcell_root_at_cell_centre_maps_one_cell) ... ok
+test_subcell_root_at_cell_corner_maps_four_cells (test_spatial_mapping.RootPredicateTest.test_subcell_root_at_cell_corner_maps_four_cells) ... ok
+test_tangent_contact_is_not_an_edge (test_spatial_mapping.RootPredicateTest.test_tangent_contact_is_not_an_edge) ... ok
+
+----------------------------------------------------------------------
+Ran 47 tests in 2.150s
+
+OK (skipped=3)

@@ -1,0 +1,8 @@
+{
+  "at_utc": "2026-10-31T21:42:09.577992+00:00",
+  "classification": "interrupted",
+  "observation": "Repeated structured api_retry entries with error unknown; interrupted managed execution via Ctrl-C (tool exit 130). A cross-execution /proc identity mismatch prevented direct signalling, as required.",
+  "managed_session_id": 65942,
+  "tool_exit_code": 130,
+  "child_reaped": "unconfirmed; network-enabled retry must check exact recorded Claude session UUID and start identity before dispatch"
+}

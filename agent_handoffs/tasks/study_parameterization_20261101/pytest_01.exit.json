@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-m",
+    "pytest",
+    "agent_handoffs/tasks/study_parameterization_20261101/review_snapshot_01/test_study_parameters.py",
+    "-q",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "started_utc": "2026-11-01T17:16:03.595211+00:00",
+  "ended_utc": "2026-11-01T17:16:04.973940+00:00",
+  "returncode": 1,
+  "elapsed_seconds": 1.3787250199820846,
+  "child_reaped": true
+}

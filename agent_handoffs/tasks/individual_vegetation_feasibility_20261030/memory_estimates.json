@@ -1,0 +1,197 @@
+{
+  "created_at_utc": "2026-10-30T12:41:03.400835+00:00",
+  "method": "Arithmetic-only capacity scenarios, not a model execution or measured allocation.",
+  "formula_bytes": "64*N*L + 128*P + 40*N + 28*E + 4*(N*L+P+2), E=P*k*L",
+  "assumptions": {
+    "soil": "eight FP64 per-layer fields including selected state/parameters/work; layer count illustrative",
+    "population": "128 bytes per live individual, traits looked up by species; optional state is extra",
+    "root_edge": "two int32 indices plus float64 weight (16B), one int32 reverse permutation (4B), one FP64 edge-flux buffer (8B)",
+    "indices": "int32/uint32 within guarded capacities; larger capacities require wider indices",
+    "exclusions": [
+      "MAPLE/SYRUP bed/transport persistent state",
+      "native copies and candidate staging",
+      "sort/scan temporary workspace",
+      "CUDA context and library memory pools",
+      "RNG/seedbank/damage fields beyond assumed plant record",
+      "optional per-plant per-layer biomass/history",
+      "checkpoint/host mirrors and geometric graph rebuild peak"
+    ]
+  },
+  "scenarios": [
+    {
+      "side": 128,
+      "cells": 16384,
+      "layers": 4,
+      "plants": 10000,
+      "mean_horizontal_root_cells": 4,
+      "expanded_edges": 160000,
+      "parts_bytes": {
+        "soil_eight_fp64_arrays": 4194304,
+        "compact_population": 1280000,
+        "five_native_rasters": 655360,
+        "root_edge_records": 2560000,
+        "reverse_permutation": 640000,
+        "daily_edge_flux": 1280000,
+        "CSR_offsets": 302152
+      },
+      "total_bytes": 10911816,
+      "total_MiB": 10.406318664550781,
+      "total_GiB": 0.010162420570850372
+    },
+    {
+      "side": 256,
+      "cells": 65536,
+      "layers": 4,
+      "plants": 50000,
+      "mean_horizontal_root_cells": 12,
+      "expanded_edges": 2400000,
+      "parts_bytes": {
+        "soil_eight_fp64_arrays": 16777216,
+        "compact_population": 6400000,
+        "five_native_rasters": 2621440,
+        "root_edge_records": 38400000,
+        "reverse_permutation": 9600000,
+        "daily_edge_flux": 19200000,
+        "CSR_offsets": 1248584
+      },
+      "total_bytes": 94247240,
+      "total_MiB": 89.88117218017578,
+      "total_GiB": 0.08777458220720291
+    },
+    {
+      "side": 512,
+      "cells": 262144,
+      "layers": 4,
+      "plants": 100000,
+      "mean_horizontal_root_cells": 12,
+      "expanded_edges": 4800000,
+      "parts_bytes": {
+        "soil_eight_fp64_arrays": 67108864,
+        "compact_population": 12800000,
+        "five_native_rasters": 10485760,
+        "root_edge_records": 76800000,
+        "reverse_permutation": 19200000,
+        "daily_edge_flux": 38400000,
+        "CSR_offsets": 4594312
+      },
+      "total_bytes": 229388936,
+      "total_MiB": 218.76233673095703,
+      "total_GiB": 0.21363509446382523
+    },
+    {
+      "side": 512,
+      "cells": 262144,
+      "layers": 8,
+      "plants": 100000,
+      "mean_horizontal_root_cells": 50,
+      "expanded_edges": 40000000,
+      "parts_bytes": {
+        "soil_eight_fp64_arrays": 134217728,
+        "compact_population": 12800000,
+        "five_native_rasters": 10485760,
+        "root_edge_records": 640000000,
+        "reverse_permutation": 160000000,
+        "daily_edge_flux": 320000000,
+        "CSR_offsets": 8788616
+      },
+      "total_bytes": 1286292104,
+      "total_MiB": 1226.703742980957,
+      "total_GiB": 1.1979528740048409
+    },
+    {
+      "side": 512,
+      "cells": 262144,
+      "layers": 8,
+      "plants": 1000000,
+      "mean_horizontal_root_cells": 50,
+      "expanded_edges": 400000000,
+      "parts_bytes": {
+        "soil_eight_fp64_arrays": 134217728,
+        "compact_population": 128000000,
+        "five_native_rasters": 10485760,
+        "root_edge_records": 6400000000,
+        "reverse_permutation": 1600000000,
+        "daily_edge_flux": 3200000000,
+        "CSR_offsets": 12388616
+      },
+      "total_bytes": 11485092104,
+      "total_MiB": 10953.03736114502,
+      "total_GiB": 10.696325547993183
+    }
+  ],
+  "geometry": [
+    {
+      "side": 128,
+      "dx_m": 0.25,
+      "cells": 16384,
+      "width_m": 32.0,
+      "area_m2": 1024.0,
+      "area_ha": 0.1024
+    },
+    {
+      "side": 128,
+      "dx_m": 1.0,
+      "cells": 16384,
+      "width_m": 128.0,
+      "area_m2": 16384.0,
+      "area_ha": 1.6384
+    },
+    {
+      "side": 128,
+      "dx_m": 2.0,
+      "cells": 16384,
+      "width_m": 256.0,
+      "area_m2": 65536.0,
+      "area_ha": 6.5536
+    },
+    {
+      "side": 256,
+      "dx_m": 0.25,
+      "cells": 65536,
+      "width_m": 64.0,
+      "area_m2": 4096.0,
+      "area_ha": 0.4096
+    },
+    {
+      "side": 256,
+      "dx_m": 1.0,
+      "cells": 65536,
+      "width_m": 256.0,
+      "area_m2": 65536.0,
+      "area_ha": 6.5536
+    },
+    {
+      "side": 256,
+      "dx_m": 2.0,
+      "cells": 65536,
+      "width_m": 512.0,
+      "area_m2": 262144.0,
+      "area_ha": 26.2144
+    },
+    {
+      "side": 512,
+      "dx_m": 0.25,
+      "cells": 262144,
+      "width_m": 128.0,
+      "area_m2": 16384.0,
+      "area_ha": 1.6384
+    },
+    {
+      "side": 512,
+      "dx_m": 1.0,
+      "cells": 262144,
+      "width_m": 512.0,
+      "area_m2": 262144.0,
+      "area_ha": 26.2144
+    },
+    {
+      "side": 512,
+      "dx_m": 2.0,
+      "cells": 262144,
+      "width_m": 1024.0,
+      "area_m2": 1048576.0,
+      "area_ha": 104.8576
+    }
+  ],
+  "dense_tensor_100k_plants_512grid_8layers_float64_bytes": 1677721600000
+}

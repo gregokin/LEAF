@@ -1,0 +1,65 @@
+{
+  "paper": {
+    "citation": "Ziegler et al.2023, Agricultural and Forest Meteorology330:109295, Table1",
+    "url": "https://doi.org/10.1016/j.agrformet.2022.109295",
+    "publisher_url": "https://www.sciencedirect.com/science/article/pii/S0168192322004816",
+    "site_area_m2": 10000,
+    "methods": "three100m transects; line-point intercept; species at0.25m spacing",
+    "survey_rows": [
+      {
+        "date": "2019-12-13",
+        "total_shrub_cover_percent": 8.1,
+        "grass_cover_percent": 8.44
+      },
+      {
+        "date": "2020-03-24",
+        "total_shrub_cover_percent": 7.51,
+        "grass_cover_percent": 6.92
+      },
+      {
+        "date": "2020-06-08",
+        "total_shrub_cover_percent": 17.0,
+        "grass_cover_percent": 6.32
+      },
+      {
+        "date": "2020-09-15",
+        "total_shrub_cover_percent": 17.0,
+        "grass_cover_percent": 5.82
+      },
+      {
+        "date": "2020-12-14",
+        "total_shrub_cover_percent": 9.36,
+        "grass_cover_percent": 5.23
+      }
+    ],
+    "qualification": "Table total shrubs represented as mesquite-equivalents, not exact species census. Seasonal foliar changes do not imply changes in plant count. Independently checked publisher indexed full text."
+  },
+  "field_report": {
+    "citation": "Reichenborn2021, Jornada Basin LTER, pre-treatment2020 field report",
+    "url": "https://lter.jornada.nmsu.edu/plant-community-recovery-following-chemical-control-of-mesquite/",
+    "plots": "20pairs of5ha plots",
+    "shrub_cover_range_percent": [
+      3,
+      28
+    ],
+    "grass_cover_range_percent": [
+      2,
+      43
+    ],
+    "qualification": "Shrubs largely mesquite; cover definition not fully specified in report; separate marginal ranges, not a measured high-high pair."
+  },
+  "user_sizes_m": {
+    "grass_diameters": [
+      0.1,
+      0.15,
+      0.2
+    ],
+    "mesquite_diameter": 2.0
+  },
+  "root_radius_multipliers": [
+    1,
+    2,
+    5
+  ],
+  "root_qualification": "Unmeasured sensitivity assumptions relative to canopy radius, not Jornada root data."
+}

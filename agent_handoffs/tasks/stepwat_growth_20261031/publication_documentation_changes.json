@@ -1,0 +1,11 @@
+{
+  "at_utc": "2026-10-31T22:24:39.511108+00:00",
+  "writer": "Codex after Claude reaped; publication documentation ownership",
+  "changes": {
+    "docs/stepwat-growth.md": {
+      "candidate_sha256": "2b65bd3c8e5561fd47db7e9b19f996509a1ab1bdaafac9389e2fd68b0a57eea7",
+      "installed_sha256": "61e4ad5212e931def88abf6a9deb1c432fd9bb968755636ff25cded5701986d3"
+    }
+  },
+  "reason": "Replace candidate-only/generic-python test commands with actual repository, existing interpreter and explicit caches; link current lock and evidence. Numerical sources/tests unchanged from completed Claude candidate."
+}

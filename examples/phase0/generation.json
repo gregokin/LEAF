@@ -1,0 +1,19 @@
+{
+  "schema": "leaf.generation_config",
+  "schema_version": 1,
+  "notes": "FIXTURE example at the intended initial scale: 128 x 128 cells of 0.25 m (32 m x 32 m). Covers, diameters and ages are illustrative fixtures, not calibrations. Copy and edit. Switch overlap to \"disallowed\" for large-canopy-first global canopy exclusion.",
+  "domain": {"nx": 128, "ny": 128, "dx_m": 0.25},
+  "seed": 20261110,
+  "overlap": "allowed",
+  "cover_definition": "per_species_union",
+  "cover_tolerance": 0.005,
+  "cover_subsamples": 4,
+  "max_iterations": 12,
+  "limits": {"max_plants": 200000, "max_attempts": 50000, "max_cover_cells": 4000000, "max_cover_bytes": 8000000, "max_working_bytes": 1048576},
+  "time_days": 0.0,
+  "species": {
+    "grass": {"target_cover": 0.06, "diameter_mean_m": 0.15, "diameter_std_m": 0.03, "initial_age_days": 730},
+    "shrub": {"target_cover": 0.05, "diameter_mean_m": 2.0, "diameter_std_m": 0.3,
+              "initial_age_days": {"distribution": "uniform", "min_days": 365, "max_days": 7300}}
+  }
+}

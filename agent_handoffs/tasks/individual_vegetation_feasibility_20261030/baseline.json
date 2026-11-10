@@ -1,0 +1,70 @@
+{
+  "recorded_at_utc": "2026-10-30T12:26:32.785345+00:00",
+  "git": "No usable LEAF metadata; no initialization.",
+  "files": {
+    "CLAUDE.md": {
+      "size_bytes": 374,
+      "sha256": "5ccf4233963ba0515e0872c2b441c046905e516905ce947ac1982936619e1eb4"
+    },
+    "claude.md": {
+      "size_bytes": 2731,
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714"
+    },
+    "README.md": {
+      "size_bytes": 1580,
+      "sha256": "7f311db9b45ac270c487f695b7c688d2e8c8f60924a4060d7db134e73dbb940a"
+    },
+    "AGENTS.md": {
+      "size_bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "agent_handoffs/verification.md": {
+      "size_bytes": 2153,
+      "sha256": "c206ae07680faa64bf58f427160eb115487fc138af01e8b5c6946804c1a6a786"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "size_bytes": 2433,
+      "sha256": "a3a1bacd8ed16ddef18b128e44dbf6cf87e9a5dbb11059c686e6e8a470d4c545"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "size_bytes": 661,
+      "sha256": "728f154b1e40e40d52bd23d71497409e1e87dbe69e0e33a7137eeab900d764fc"
+    },
+    "agent_handoffs/project_brief.md": {
+      "size_bytes": 5521,
+      "sha256": "789885ba8235e9e5c5a937c959617f518044fd76b59efe8c3b6043dcf6bf7a9b"
+    },
+    "agent_handoffs/decisions.md": {
+      "size_bytes": 2498,
+      "sha256": "9415f5b1a7a0361398cb4bb719be4bf068b23765cbc49b531c34c9cd8e288cb5"
+    },
+    "agent_handoffs/codex_review.md": {
+      "size_bytes": 1788,
+      "sha256": "6154aae60ef129ca22444ef735449367b831b3cb00360ae078b37560c9d984cb"
+    },
+    "agent_handoffs/claude_report.md": {
+      "size_bytes": 1339,
+      "sha256": "91d9e1692d8dbbf76126d2f3f64d48e0dd585289f1eba35b5175a84e7f30bcd8"
+    },
+    "agent_handoffs/README.md": {
+      "size_bytes": 4939,
+      "sha256": "85652450d51fa02f1705e2aa060e23678d891f92a902aeeb4cd8f7f447783dd1"
+    },
+    "agent_handoffs/upstreams.md": {
+      "size_bytes": 2682,
+      "sha256": "d9c54d142694bf57dc6fbc3e793e136bba98b05cffb565e786f894f2ccda42d5"
+    },
+    "agent_handoffs/AGENTS.md": {
+      "size_bytes": 8488,
+      "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f"
+    },
+    "agent_handoffs/templates/task_report.md": {
+      "size_bytes": 2426,
+      "sha256": "315f228f2c5b3eef89c2b7543aa402265d49e2ce23cdad02840568a8c020e724"
+    },
+    "agent_handoffs/templates/task_prompt.md": {
+      "size_bytes": 2860,
+      "sha256": "55843305e8477b24d6387f7dc4843ae3d6babc3dbeaf3810b86f23b17997ca48"
+    }
+  }
+}

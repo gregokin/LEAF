@@ -1,0 +1,34 @@
+{
+  "status": "complete_bounded_implementation",
+  "verdict": "accept",
+  "at_utc": "2026-10-31T22:28:58.169627+00:00",
+  "task": "stepwat_growth_20261031",
+  "revision": 3,
+  "model": "stepwat_weekly_aboveground_v0.1",
+  "cpu": {
+    "run": 90,
+    "passed": 83,
+    "skipped": 7
+  },
+  "cuda": {
+    "run": 90,
+    "passed": 89,
+    "skipped": 1,
+    "gpu_uuid": "GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871"
+  },
+  "independent_oracles": [
+    "scalar kernels",
+    "native E/T and area accounting",
+    "year-end partial period",
+    "failed rebuild and exact single retry",
+    "following partial week",
+    "bounded host-only forcing validation"
+  ],
+  "source_lock": "../../../dependencies/stepwat-growth.lock.json",
+  "source_lock_sha256": "338dfd9ee8b9aa07c25e3c9c8ea0205e59c0ff3f1ff5dda64734fc4ea7247430",
+  "installed_python_matches_completed_candidate": true,
+  "scientific_scope": "Documented weekly STEP-style adaptation, explicit uncalibrated traits; no full ecosystem/trajectory reproduction claim.",
+  "upstream_writes": [],
+  "commits_or_pushes": false,
+  "full_scenario_runs": false
+}

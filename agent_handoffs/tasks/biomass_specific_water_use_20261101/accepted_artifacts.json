@@ -1,0 +1,223 @@
+{
+  "recorded_utc": "2026-11-01T19:17:30.432815+00:00",
+  "task": "biomass_specific_water_use_20261101",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3586,
+      "sha256": "8a7be9b01b96f53b44315c3a826b1f8f8c7e11c409193d3252eeb2bca539aee8"
+    },
+    {
+      "path": "acceptance.json",
+      "bytes": 515,
+      "sha256": "c8e9a80d30764c5b922954a02ac310530cbbe18a11019a0435eb166b518576e4"
+    },
+    {
+      "path": "baseline.json",
+      "bytes": 390704,
+      "sha256": "dfe31bf93e2ef701a379a7f11f56467e6f15a52210f24494e55c8bc9773160f3"
+    },
+    {
+      "path": "checks.json",
+      "bytes": 20168,
+      "sha256": "397b87b090d04a84f9ea185605c14d1999da52236d3b412e97f2784080fc9a50"
+    },
+    {
+      "path": "codex_review.md",
+      "bytes": 1315,
+      "sha256": "a432d1b15e4b42b62031d7987fbc23b400fa4d9965d8dc7aa58f70d509426e0d"
+    },
+    {
+      "path": "derive_daily_rates.py",
+      "bytes": 9264,
+      "sha256": "28f0ceacd71cae58a83bf3c0e03b74af82fa38e897b7c8d84436b9df3085c771"
+    },
+    {
+      "path": "derived/belovitch_all_daily_qc.csv",
+      "bytes": 129648,
+      "sha256": "a708b9f028826c843c6a83cf413ee701af6aa9ce458fcfa33c46b5645591a80c"
+    },
+    {
+      "path": "derived/belovitch_plant_bin_means.csv",
+      "bytes": 16226,
+      "sha256": "204df6b5c8f3a925c2dcf0bbaa4271256e1834ffc600c94cdddf0aadbf18d3af"
+    },
+    {
+      "path": "derived/belovitch_summary.json",
+      "bytes": 6118,
+      "sha256": "62394c1b2e6fcbe8e741ca5af95382d27c58e6255370ba2f15edccc42f36bb88"
+    },
+    {
+      "path": "derived/murano_rates.json",
+      "bytes": 6503,
+      "sha256": "8c0de4453e95d50ea2008bfd9122064317fb57e1798b9a39b600ec139966cec7"
+    },
+    {
+      "path": "fetch_public_sources.py",
+      "bytes": 2393,
+      "sha256": "6a01f56bf8267532f0af315a117d035a6f51b515bdd647c88e0b4981cbe8f1d2"
+    },
+    {
+      "path": "independent_checks.json",
+      "bytes": 1314,
+      "sha256": "b517b8661465e93ae2448409c82ec38506e6a7a96504deb30b0799e0f8d32a32"
+    },
+    {
+      "path": "previous_codex_review.md",
+      "bytes": 1020,
+      "sha256": "55b32d734efcc1beb9d65a9fcdae85ba3716d1403410653cdf18962a06ae451e"
+    },
+    {
+      "path": "previous_current_prompt.md",
+      "bytes": 478,
+      "sha256": "ca1262d9e7ba4a734f8a604956e6e0b8301aec321ba52235a19dcf2c5d4cc29f"
+    },
+    {
+      "path": "previous_orchestration_state.md",
+      "bytes": 4722,
+      "sha256": "4cbb0f7ab26ced5e67d504e58a2231b271aa07406e7a2ab06c64331e4bed3c9c"
+    },
+    {
+      "path": "previous_verification.md",
+      "bytes": 1142,
+      "sha256": "e66fbfb152387d88b10a2b7228b9b2f3d3b61187d44f3a6d2b185f731391e31b"
+    },
+    {
+      "path": "public_evidence/belovitch.pdf",
+      "bytes": 905797,
+      "sha256": "9c4e8ad6d7c95cf1877e3afd80d7487473e8efe380cb5fae689057fc96a7e50e"
+    },
+    {
+      "path": "public_evidence/belovitch_Compiled_hourly_transpiration_WP_weather_data.csv",
+      "bytes": 3373530,
+      "sha256": "228745e037f443ae0f2d177ddd00b4b9ddaab5124888f5d00e110464d35f7bd2"
+    },
+    {
+      "path": "public_evidence/belovitch_Final_dataset_analysis_WPC.R",
+      "bytes": 27836,
+      "sha256": "51042331e938fb81400739447c0e4e4b8ad3dda69aeb2a4b866a5cdc8e52e314"
+    },
+    {
+      "path": "public_evidence/belovitch_Plant_mass_data.csv",
+      "bytes": 2903,
+      "sha256": "debadd4fb8a24bdfe62313fb75eb3c2f5f948e2a82587eafa439291318dfb550"
+    },
+    {
+      "path": "public_evidence/belovitch_RMR.csv",
+      "bytes": 1099,
+      "sha256": "12254f89566314df18b929e160217f593ccdff0b26542ce0949bda6385a8358f"
+    },
+    {
+      "path": "public_evidence/belovitch_Supporting Information.pdf",
+      "bytes": 482894,
+      "sha256": "9e88e993ff5b268979d758c35332ea45b231842ca69c5c6386fef764667ec79e"
+    },
+    {
+      "path": "public_evidence/belovitch_WUE_analysis.R",
+      "bytes": 3984,
+      "sha256": "17efb0b467c234f272bb5860a6c2bef0014c9833e8f49e2bd2f0f55d958cc8b4"
+    },
+    {
+      "path": "public_evidence/belovitch_Water_addition.csv",
+      "bytes": 2114,
+      "sha256": "c3126b16715b07eba7759b1ddc09626db9330c16a98f0bc9c34cf25165f2c349"
+    },
+    {
+      "path": "public_evidence/belovitch_github_tree.json",
+      "bytes": 5705,
+      "sha256": "59f8e1eb45c73af8e9228a417dade115eb575899def7d42883e65e47e3f884b7"
+    },
+    {
+      "path": "public_evidence/belovitch_tag_commit.json",
+      "bytes": 4717,
+      "sha256": "269b1acc508316c5e0bbb71f32b05a8db7a4d81218bff97cfe4d97ee2cb833bd"
+    },
+    {
+      "path": "public_evidence/el_habti.html",
+      "bytes": 921721,
+      "sha256": "8f74e92ad89e2c10e8e575b32305c0279696f0b38e09a7a09b93c0497320c1ef"
+    },
+    {
+      "path": "public_evidence/el_habti.html.txt",
+      "bytes": 69958,
+      "sha256": "6d3c7434f29597db17b0852baedce8d2e3a8b59beddcaf7b065b3c6fca53fa2a"
+    },
+    {
+      "path": "public_evidence/el_habti_fig3.webp",
+      "bytes": 335226,
+      "sha256": "2495a9bf77ea3ddb53a346cbcd74c990779df669e7b6db94b72577660510fa00"
+    },
+    {
+      "path": "public_evidence/el_habti_fig5.webp",
+      "bytes": 1718056,
+      "sha256": "113e775ae2c3b14ab3376785d21fa34d926d2408e3b20b669e42833b5ac06c0e"
+    },
+    {
+      "path": "public_evidence/he_bunchgrasses.pdf",
+      "bytes": 430908,
+      "sha256": "a7d96b1dad2fc69ff4e8ab33fd8816fa0cce5eeef76d8a7ea71b58bafe846392"
+    },
+    {
+      "path": "public_evidence/murano_table_readings.json",
+      "bytes": 3340,
+      "sha256": "c6bf41dce54d1bc37a17de03bc5e94252bd9ffc63382e81f8906657c914400f4"
+    },
+    {
+      "path": "public_evidence/renninger_poplar.html",
+      "bytes": 1266667,
+      "sha256": "a485c59fd2a74bf72e76cf3b5588ac2970be99b21e971559b88660faa3ddac5f"
+    },
+    {
+      "path": "public_evidence/renninger_poplar.html.txt",
+      "bytes": 98712,
+      "sha256": "ce9b15d7e2424ea754bb8762ff875b019f4b98e43a4e197d669dde1121312ecd"
+    },
+    {
+      "path": "public_evidence/retrievals_01.json",
+      "bytes": 2422,
+      "sha256": "ba8f2f68677834eb0abbd6ecd6ad3ab1026b9cce73fdff10f9119665293d65c9"
+    },
+    {
+      "path": "public_evidence/retrievals_02.json",
+      "bytes": 3664,
+      "sha256": "fbf5c503e9296fa5e3e838671dc3d055c46f412fbd9fc7022aeb380ad862e92a"
+    },
+    {
+      "path": "public_evidence/retrievals_03.json",
+      "bytes": 6036,
+      "sha256": "f47a9d4f72a3e43cf342eea0f96dca1406db64e614dbd6e41f04a1b4f1d9dd3d"
+    },
+    {
+      "path": "scope.md",
+      "bytes": 1353,
+      "sha256": "6f18af9ba2411c84328743205dd90006c26ddc0110298e679d1f43c4384168fb"
+    },
+    {
+      "path": "source_identities.json",
+      "bytes": 2990,
+      "sha256": "d103d258dc63fe173c1da714b7febbb15f6e62505687fe64f50b68006bcb4d7c"
+    },
+    {
+      "path": "verification.md",
+      "bytes": 4349,
+      "sha256": "18b098e3c267e5937eb353ae20f32019c4ae11d3ce34cfcfe1ce77ef818e99bc"
+    },
+    {
+      "path": "verify_deliverables.py",
+      "bytes": 6648,
+      "sha256": "540c9a0ff4ea8acb3416b7321aad40292e09d7a87245093eef3f5d850ce1d0ba"
+    }
+  ],
+  "root_deliverables_at_acceptance": [
+    {
+      "path": "docs/biomass-specific-water-use.md",
+      "bytes": 7243,
+      "sha256": "9508d50882788467cbbdab99d81657b206392c9350d527c06d2db5b878f05dda"
+    }
+  ],
+  "exclusions": [
+    "accepted_artifacts.json",
+    "__pycache__",
+    ".pytest_cache"
+  ]
+}

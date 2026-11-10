@@ -1,0 +1,11 @@
+.....................sss........................ss....................s. [ 27%]
+............ss.sssssssssssssssssssssss.................................. [ 54%]
+........................................................................ [ 82%]
+...............................................                          [100%]
+=============================== warnings summary ===============================
+test_coupling.py::CoupledBasicsTests::test_gather_and_commit_validate_arrays_before_launch
+  /home/okin/leaf/agent_handoffs/tasks/coupled_transpiration_20261031/candidate/tests/test_coupling.py:183: PendingDeprecationWarning: the matrix subclass is not the recommended way to represent matrices or deal with linear algebra (see https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html). Please adjust your code to use regular ndarray.
+    [[1.0, 1.0]], np.matrix([[1.0, 1.0]])):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+232 passed, 31 skipped, 1 warning in 5.87s
