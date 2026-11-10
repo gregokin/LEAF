@@ -19,9 +19,12 @@ runtime; previous locks and accepted archives are historical and unchanged.
 
 Git was initialized only after the original 1,796-file hash baseline, for the
 user-authorized commit, not to establish the baseline. Git history records the
-authorized local commit. There is no configured remote. The destination was requested
-asynchronously; push remains pending that URL. Do not create a repository or
-choose a guessed URL. Once supplied, inspect its history before pushing.
+authorized local commit. The user supplied `https://github.com/gregokin/LEAF`;
+the remote advertised no refs before publication. Origin is configured to that
+repository and `main` tracks `origin/main`. Phase 0 commit
+`250c0efe2f35c36052b6ad08bab2fb87f0ea0618` was pushed without force and independently
+verified against the remote branch. See the
+[publication record](tasks/phase0_vegetation_20261110/publication_20261110.json).
 
 Delivered: independent NumPy-only plant state, species JSON, list/generated
 initialization, age/output cadence, allometric MAPLE view, diagnostic/response

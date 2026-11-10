@@ -13,4 +13,6 @@ Root AGENTS.md, legacy numerical sources, historical locks/accepted archives and
 upstream sources are preserved. Scientific calibration, injury/recruitment laws,
 MAPLE adoption and complete coupled restart remain future scope.
 
-Commit/push are authorized. Push awaits the remote URL; no destination is guessed.
+Phase 0 commit `250c0ef` is published to the user-supplied remote
+`https://github.com/gregokin/LEAF`, branch `main`. The remote was empty before
+publication, and its branch hash was independently verified after the push.

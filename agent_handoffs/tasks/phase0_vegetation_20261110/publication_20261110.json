@@ -1,0 +1,30 @@
+{
+  "recorded_at_utc": "2026-11-10T13:18:54.750815+00:00",
+  "user_supplied_remote": "https://github.com/gregokin/LEAF",
+  "origin_url": "https://github.com/gregokin/LEAF.git",
+  "branch": "main",
+  "tracking_branch": "origin/main",
+  "accepted_commit": "250c0efe2f35c36052b6ad08bab2fb87f0ea0618",
+  "preflight": {
+    "command": "git ls-remote --symref https://github.com/gregokin/LEAF.git",
+    "returncode": 0,
+    "stdout": "",
+    "empty_advertised_refs": true
+  },
+  "push": {
+    "command": "git push -u origin main",
+    "returncode": 0,
+    "new_branch": true,
+    "force": false
+  },
+  "remote_verification": {
+    "command": "git ls-remote --heads origin main",
+    "returncode": 0,
+    "stdout": "250c0efe2f35c36052b6ad08bab2fb87f0ea0618\trefs/heads/main\n",
+    "matches_accepted_commit": true
+  },
+  "worktree_after_code_push": "clean",
+  "runtime_changes": false,
+  "tests_repeated": false,
+  "note": "Publication-only continuation. Existing tests remain applicable; this record closes the pending URL step. A separate documentation commit records publication."
+}
