@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-11T20:14:19.510178+00:00",
+  "status": "complete",
+  "phase_source_commits": [
+    "f0d0b56854a576b35ee38bce4a8eab6dd623baf6",
+    "5e887e66415f0522771ea789654b8345226d2496",
+    "044dacfac11872a20824af29d46c36ab928648cb"
+  ],
+  "all_source_phases_pushed": true,
+  "active_writer": null,
+  "active_check": null,
+  "next_scope": "await user; no additional implementation inferred"
+}
