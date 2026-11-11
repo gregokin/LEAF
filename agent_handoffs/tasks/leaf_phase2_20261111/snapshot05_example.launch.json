@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "examples/phase2/run_disturbance.py",
+    "--backend",
+    "numba",
+    "--max-bytes",
+    "268435456",
+    "--max-edges",
+    "1000000",
+    "--builder",
+    "compiled",
+    "--nx",
+    "16",
+    "--out-dir",
+    "/tmp/leaf-phase2-example05"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/snapshot_05",
+  "pid": 8,
+  "start_ticks": "189669914",
+  "started_at_utc": "2026-11-11T19:28:27.446616+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/snapshot_05:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-phase0-cupy",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

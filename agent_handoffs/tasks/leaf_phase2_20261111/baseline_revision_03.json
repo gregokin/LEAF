@@ -1,0 +1,238 @@
+{
+  "at_utc": "2026-11-11T19:13:57.694740+00:00",
+  "context_refresh": "Codex signed-ID regression source; original baselines unchanged",
+  "candidate_initial": {
+    "SOURCE_INDEX.txt": {
+      "sha256": "4a5c73b8f5bbd5fea314a24d80ae2f3607db7009a860b99166b77ab4c7a3290f",
+      "size_bytes": 1379
+    },
+    "report.md": {
+      "sha256": "b7190c71d602e89c54d359d03483e52efd1cb15e3fcf6a611bc2655146ced9a1",
+      "size_bytes": 12162
+    },
+    "README.md": {
+      "sha256": "57ef366656608de306c4f8b6f12c4fe659c1f810a697444abc2a43f845f1e639",
+      "size_bytes": 14721
+    },
+    "leaf/__init__.py": {
+      "sha256": "d9082d6aa827f6b34fe182281916325ee7f166d225bf5388d1e8af062124b5d9",
+      "size_bytes": 2872
+    },
+    "leaf/syrup_water.py": {
+      "sha256": "baefec2a100b751cc35bda8739ea5d04339681f0d3f9d6b900972986161db215",
+      "size_bytes": 65854
+    },
+    "leaf/runtime.py": {
+      "sha256": "abbea7b0f873d87139f92c9eb4a6989f657def504c2080379d728f7ceb121826",
+      "size_bytes": 22606
+    },
+    "leaf/coupling.py": {
+      "sha256": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+      "size_bytes": 28207
+    },
+    "leaf/initialization.py": {
+      "sha256": "25e58f759761b525c2021eb18d64cd2b6bede8543b22ba983a8eb2d65967aeab",
+      "size_bytes": 32214
+    },
+    "leaf/uptake.py": {
+      "sha256": "675e4bf4b9a9c202ae166f50444032c105d4d691f366f94479034814952bfe2d",
+      "size_bytes": 67742
+    },
+    "leaf/traits.py": {
+      "sha256": "4aecd751ae6a46fb996dfa295129d3f5c01e57abf98943d150103782f9ce8527",
+      "size_bytes": 27583
+    },
+    "leaf/__main__.py": {
+      "sha256": "83b4589b1aeab57d43ad04c69d32b80daf6eb976004b38ae4b57410d861b8ee1",
+      "size_bytes": 15896
+    },
+    "leaf/growth.py": {
+      "sha256": "ce984de33fc8ec1154449706d8c59c8e31166b732ebedb6648bc47f68513998a",
+      "size_bytes": 70330
+    },
+    "leaf/disturbance.py": {
+      "sha256": "38a9dfa4521cdcb2512b904a83d5f2af4fbad97fa1a0c972bb70b0cb6906f9c0",
+      "size_bytes": 45703
+    },
+    "leaf/canopy.py": {
+      "sha256": "6f16b97e7fbd248685495959b4e0322f44ef9b2ba950bb35ded0d70826adde0e",
+      "size_bytes": 33687
+    },
+    "leaf/interevent.py": {
+      "sha256": "62f58447eee6dd52fb6225f606f831c543dc07b2ff47c9d79a80c051c0772fb9",
+      "size_bytes": 112014
+    },
+    "leaf/recording.py": {
+      "sha256": "12ea3fee1dd660756b2e800adb20265f25b867a42604f456f01ea2728fa2c584",
+      "size_bytes": 8084
+    },
+    "leaf/stepwat.py": {
+      "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+      "size_bytes": 32213
+    },
+    "leaf/state.py": {
+      "sha256": "187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0",
+      "size_bytes": 48690
+    },
+    "leaf/demography.py": {
+      "sha256": "07ada5e7b760aa5c57195e34c1559306f921bbf3a965c6f27ec4bc6c20f719fd",
+      "size_bytes": 34648
+    },
+    "leaf/forcing.py": {
+      "sha256": "fa79d12f2c96a15aac8012d713976ece8b4c055ca567968251225635fa9d7474",
+      "size_bytes": 19206
+    },
+    "leaf/roots.py": {
+      "sha256": "6cf7ab0fd2ee5c508d48ef6d8071022dd58faa67fcbc8de9974ad9d752601b50",
+      "size_bytes": 31951
+    },
+    "leaf/checkpoint.py": {
+      "sha256": "92734046076e1f10718a585e4d73560c4c33895a919a4af2f85f90250609e97a",
+      "size_bytes": 37037
+    },
+    "leaf/events.py": {
+      "sha256": "2ec912dac4a5bb4ae1f52a64ef99e74e973d7f7dc68993f0f083fceb3cbed98e",
+      "size_bytes": 15605
+    },
+    "tests/test_roots.py": {
+      "sha256": "128b124e0c61a9bbd75be6bfc32e40a1f32dd8b31ee7a7807629155a68b6bd4f",
+      "size_bytes": 28575
+    },
+    "tests/test_forcing.py": {
+      "sha256": "98fdc620aebc72ba5ffbc7cf7802bce329b2c4a68e634ba96c52a4604d2772e5",
+      "size_bytes": 13771
+    },
+    "tests/test_daily_water_growth.py": {
+      "sha256": "c73ae335a1a89d965e9af8dde83bfb8e252e39393154afabc26bda5ebf39deb4",
+      "size_bytes": 35234
+    },
+    "tests/test_uptake.py": {
+      "sha256": "0fd6838f77e3da147e34c76542f28399a8c99325a279914a7f25a614e179621d",
+      "size_bytes": 39824
+    },
+    "tests/test_phase0.py": {
+      "sha256": "a22c5a34652ffcdf0d3d4fa10ebc4701326a4eef67135dc685b7c77cfd3a0472",
+      "size_bytes": 109479
+    },
+    "tests/test_demography.py": {
+      "sha256": "2e302ac54b4b7ac0e8da96fe86dfdb646a9489f1c51bb87efed2ccb70ed779bb",
+      "size_bytes": 26886
+    },
+    "tests/test_growth.py": {
+      "sha256": "7a849b2a5c995e3a83115438ec032f6b9f958b650683d08220d2c862baca5f08",
+      "size_bytes": 51898
+    },
+    "tests/test_syrup_water.py": {
+      "sha256": "c48cefcc2e10a674c5d833290f6a7af846854b15db16d66ced1352e9bf91febd",
+      "size_bytes": 67280
+    },
+    "tests/test_stepwat.py": {
+      "sha256": "5b41f10aa3b5b9eda7e05adb72b1166f00c6a802c3b03827f40563c12f89d609",
+      "size_bytes": 45666
+    },
+    "tests/test_coupling.py": {
+      "sha256": "13dcea19c2137c3dde3e813beedf5efe76e5b2c26fdac5027d4e336ece5e7efb",
+      "size_bytes": 35905
+    },
+    "tests/test_interevent.py": {
+      "sha256": "fa1e2035939be275c8f2edc71eae1bd71f17a9aa5015f880f2d54c22b54d948e",
+      "size_bytes": 108829
+    },
+    "tests/test_spatial_mapping.py": {
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0",
+      "size_bytes": 12394
+    },
+    "tests/test_disturbance.py": {
+      "sha256": "e20487b13a9010881b3d8b3ac2b525d840b583dade7abcaa5de7825c4e997db5",
+      "size_bytes": 25597
+    },
+    "docs/phase1-growth.md": {
+      "sha256": "81fb72ea3203e98210de60ee0821f16901a7b13c2f638b59ee8a3c45200beaf3",
+      "size_bytes": 15500
+    },
+    "docs/phase1-interevent.md": {
+      "sha256": "1055030d9a9d117fa35bbdfbb2be69b2f11872c3a075cfd46c6524d2ba809d04",
+      "size_bytes": 15395
+    },
+    "docs/shared-canopy.md": {
+      "sha256": "394c282e5541977b3a7747c5f8e11c1df0427e6ede1b932fe468b15997ec206d",
+      "size_bytes": 10738
+    },
+    "docs/phase1-water-contract.md": {
+      "sha256": "f78816f0b056a671f0d88a5ab85a299bb8865dffc6988a7da77573f4526cdc1f",
+      "size_bytes": 17373
+    },
+    "docs/maple-leaf-integration.md": {
+      "sha256": "291fbf86d41d89cd48bec6363565bc0e63f7df60d28ad911359f83648cc14ad2",
+      "size_bytes": 9875
+    },
+    "docs/phase2-disturbance.md": {
+      "sha256": "5cbbd001b15b02d05b7fc900cc7aebceadbce9f625ad148faf9147d84046ea3c",
+      "size_bytes": 19972
+    },
+    "docs/phase1-native-water.md": {
+      "sha256": "f6c9c0c4c6cdaf16417ee2a3cdc886ccfbd06d88f5e8d69cb8c1e5d677abe03f",
+      "size_bytes": 13681
+    },
+    "docs/phase0-vegetation.md": {
+      "sha256": "137b560ede6677cdddb7f5381e71939a84170ab92d35e46355ee27aca73f4158",
+      "size_bytes": 26026
+    },
+    "reference/method_notes.md": {
+      "sha256": "f3906491dea2dad6c045c49141ab883f2b2cb871133d7de2f53a4c6e6a496d59",
+      "size_bytes": 5099
+    },
+    "review_reference/verify_signed_ids_01.py": {
+      "sha256": "d8e4b131aecb06803df93b23ca3e49d16c1a2edcf3407d80eef134be297ed731",
+      "size_bytes": 2358
+    },
+    "review_reference/probe_entrypoints_02.py": {
+      "sha256": "b2f289cc5034d985c9c9759a8522d0a1201e0904a145720e0e46a259c98f7a2d",
+      "size_bytes": 3804
+    },
+    "review_reference/profile_after_damage_02.py": {
+      "sha256": "08fab765694c0cb9e8a3c60b63b89750488f6864eaae9a84a623aaf15cb243f8",
+      "size_bytes": 5534
+    },
+    "review_reference/verify_native_biology_02.py": {
+      "sha256": "e0829631c8b43a70521d582bfe36ff425364a426a2ac500b22b4a56cdc49b4a7",
+      "size_bytes": 6437
+    },
+    "benchmarks/daily_water_growth.py": {
+      "sha256": "82b75464877a665b612a04c428496249a18952d128213f545b4f86e9a793ce4f",
+      "size_bytes": 79938
+    },
+    "benchmarks/spatial_mapping.py": {
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+      "size_bytes": 47260
+    },
+    "examples/phase0/plants.csv": {
+      "sha256": "096152d40e381967fe464574952a8af1f9df2fe2c041cf4dbc93557b11a10b4b",
+      "size_bytes": 362
+    },
+    "examples/phase0/species.json": {
+      "sha256": "c6d11e5de4038006a43ca79220e5e06858c2c40d8b2b4c50e19cce8c82e443db",
+      "size_bytes": 4371
+    },
+    "examples/phase0/generation.json": {
+      "sha256": "c23949480b017f901de24f497547ea2d0312858386b819c98b92af551c8662f0",
+      "size_bytes": 1025
+    },
+    "examples/phase1/species.json": {
+      "sha256": "f8bf58cdc385566ad111574e3c5c3a45f5fcd11630079f384827b401e6ab72b0",
+      "size_bytes": 6889
+    },
+    "examples/phase1/run_interevent.py": {
+      "sha256": "4f4185811723222acec067444e067fd12be71a4d227920ef77fbcf4995747a92",
+      "size_bytes": 7913
+    },
+    "examples/phase2/species.json": {
+      "sha256": "5003f248452ca1f97408b0ec40d997d074f3428c47444e49c9ffce8f38ab71fb",
+      "size_bytes": 8974
+    },
+    "examples/phase2/run_disturbance.py": {
+      "sha256": "5d5117f48c90554962527fdb1945491ad4fe2d1e02f2686d0bc525d8ec08ccf1",
+      "size_bytes": 10106
+    }
+  }
+}

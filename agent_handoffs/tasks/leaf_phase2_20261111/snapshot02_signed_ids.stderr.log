@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/verify_signed_ids_01.py", line 48, in <module>
+    main()
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/verify_signed_ids_01.py", line 29, in main
+    result = demography.decide(table, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/snapshot_02/leaf/demography.py", line 613, in decide
+    _validate_content(np, table, s, ids, stress, required_support, actual_support, planned_growth, actual_growth)
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/snapshot_02/leaf/demography.py", line 541, in _validate_content
+    raise DemographyError('plant_ids must be unique and positive')
+leaf.demography.DemographyError: plant_ids must be unique and positive

@@ -1,0 +1,30 @@
+{
+  "revision": 4,
+  "at_utc": "2026-11-11T19:18:38.651618+00:00",
+  "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+  "changed_files": [
+    "docs/phase2-disturbance.md",
+    "leaf/checkpoint.py",
+    "report.md",
+    "tests/test_interevent.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T19:17:19.507130+00:00",
+    "elapsed_seconds": 32.69726094882935
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "The restart format is now explicit version 2, and the loader refuses anything else before it decodes arrays or allocates a population. Nothing was run, so the new test and the change are NOT RUN.\n\n- **Version 2:** `SCHEMA_VERSION` is 2 in `leaf/checkpoint.py`. The plant CSV stays version 1.\n- **Strict check:** the loader requires a real integer equal to 2. It refuses 1, 3, 2.0, `true`, `\"2\"` and null.\n- **Error message:** a mismatch reports the actual schema and version and says it expects exactly 2. It also says old version-1 checkpoints are not migrated or defaulted, and that `allow_source_change` does not authorize a format conversion.\n- **No migration:** nothing is inferred for old saved state.\n- **New test:** `test_checkpoint_format_version_two_is_explicit_and_strict` is in `tests/test_interevent.py`.\n  - It saves a checkpoint and confirms the manifest is integer 2 and the CSV is version 1.\n  - It confirms the round trip loads.\n  - It rewrites the manifest with each bad version and a re-computed content hash. It checks that the loader refuses each one without calling `np.load` or `parse_plant_csv`, and that the message mentions the version and 2.\n  - It then restores the original manifest and loads again.\n- **Docs and report:** the docs now describe the version-2 format and the migration limit: the CSV alone is not a complete restart, and old runs should use their pinned Phase 1 runtime. `report.md` has a Revision 4 section and marks the earlier \"schema stays 1\" wording as historical.\n\nOnly `leaf/checkpoint.py`, `tests/test_interevent.py`, `docs/phase2-disturbance.md` and `report.md` were edited.",
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

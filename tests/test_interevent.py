@@ -1298,5 +1298,706 @@ class CudaParity(unittest.TestCase):
             make_session(cpu_env, cat, backend='cuda')
 
 
+# ================================================================== PHASE 2 (disturbance, biomass loss, mortality state)
+# Written WITHOUT the ability to execute them (file tools only): NOT RUN by the author. All numbers are UNCALIBRATED
+# fixtures (examples/phase2/species.json); the native water authority is the real SYRUP API exactly as above.
+from leaf import demography as _demography      # noqa: E402
+from leaf import disturbance as _disturbance    # noqa: E402
+from leaf import events as _events              # noqa: E402
+
+P2_PATH = ROOT / 'examples' / 'phase2' / 'species.json'
+DEC29 = dt.datetime(2026, 12, 29, tzinfo=UTC)
+
+
+def load_p2(modify=None):
+    with open(P2_PATH, 'r', encoding='utf-8') as fh:
+        doc = json.load(fh)
+    if modify is not None:
+        modify(doc)
+    return traits.SpeciesCatalog(doc)
+
+
+def p2_mortality(grass_bg=0.0, shrub_bg=0.0, weibull=False, stress=None):
+    '''Catalog modifier: explicit background hazards, no Weibull unless asked; `stress` = {species: dict(updates)} or None.'''
+    def mod(doc):
+        for sid, rec in doc['species'].items():
+            tr = rec['mortality']['traits']
+            if not weibull:
+                tr['age_hazard'] = None
+            tr['background_hazard_per_year'] = grass_bg if sid == 'grass' else shrub_bg
+            if stress is None or sid not in stress:
+                tr['stress'] = None
+            else:
+                tr['stress'].update(stress[sid])
+    return mod
+
+
+def step_days(s, env, n, *, temperature=22.0, pet=5.0):
+    a, e = env.forcing(0.0)
+    out = []
+    for _ in range(n):
+        rec = forcing.TimestepRecord(s.cursor, s.cursor + DAY, temperature, pet)
+        out.append(s.step_interevent(rec, added_water_m=a, potential_evaporation_m_s=e))
+    return out
+
+
+def wind(s, days=1, kind='wind', native_state=None):
+    if s.has_pending_growth:
+        s.flush_growth()
+    start = s.cursor
+    return s.advance_transport(kind, start, start + days * DAY, native_state=native_state)
+
+
+def event_now(s, ids, source='maple_wind', nodose=False, **kw):
+    '''A nominal wind event under an applicable abrasion law supplies an explicit ZERO dose in the declared unit when only
+    burial / erosion is tested; `nodose=True` builds it without any dose (dedicated missing-dose / flux tests).'''
+    tp = s.transport_pending
+    if source == 'maple_wind' and not nodose and 'abrasion_dose' not in kw:
+        kw['abrasion_dose'] = np.zeros(len(ids))
+        kw['abrasion_unit'] = 'kg m-1'
+    return _events.SurfaceEventDiagnostics(ids, tp['start_days'], tp['end_days'], source, **kw)
+
+
+def surf_with(deltas):
+    '''(NY, NX) surface at the establishment elevation 100 with {(row, col): delta_m} edits.'''
+    s = np.full((NY, NX), 100.0)
+    for (r, c), d in deltas.items():
+        s[r, c] = 100.0 + d
+    return s
+
+
+# cells (row, col) of make_plants: 1 (0,0) grass, 2 (1,2) grass, 3 (3,3) grass, 4 (2,1) shrub, 5 (0,3) shrub,
+# 6 (2,2) dead shrub, 7 (3,0) removed grass
+CELL = {1: (0, 0), 2: (1, 2), 3: (3, 3), 4: (2, 1), 5: (0, 3), 6: (2, 2), 7: (3, 0)}
+
+
+def fp2(s):
+    '''fp() plus the Phase 2 accepted state.'''
+    out = fp(s)
+    b = s._b
+    out.update({'p2_seed': s.rng_seed, 'p2_n_annual': s.n_annual_decisions, 'p2_n_dist': s.n_disturbance_events,
+                'p2_due': s.annual_due_year, 'p2_tp': s.transport_pending, 'p2_last': s.last_decision,
+                'p2_cursor0': s.annual_period_start, 'p2_stress': s.stress_counters(),
+                'p2_live_ids': s.live_ids, 'p2_status': s.snapshot().status.copy()})
+    acc = s.annual_accumulators()
+    if acc is not None:
+        for k, v in acc.items():
+            out['p2_' + k] = v
+    return out
+
+
+def make_grasses(catalog, n, *, ages=400.0, reverse=False):
+    '''n live grasses (B 0.3) on a lattice of the 4 x 4 m domain; ids 1..n; optionally in reversed row order.'''
+    rec = []
+    side = int(math.ceil(math.sqrt(n)))
+    for i in range(n):
+        rec.append(dict(plant_id=i + 1, species='grass', x_m=0.1 + 3.8 * (i % side) / side,
+                        y_m=0.1 + 3.8 * (i // side) / side, establishment_ground_m=100.0, agb_dry_kg=0.3,
+                        seasonal_agb_dry_kg=0.0, age_days=ages, status='live'))
+    if reverse:
+        rec = rec[::-1]
+    return state.PlantState.from_records(catalog, state.Domain(NX, NY, 1.0), rec)
+
+
+@needs_native
+class Phase2Disturbance(unittest.TestCase):
+    backend = 'numpy'
+
+    def setUp(self):
+        self.env = Env(self.backend)
+        self.cat = load_p2(p2_mortality())          # active disturbance; mortality laws active but hazards are zero
+        self.seed = 17
+
+    def session(self, **kw):
+        kw.setdefault('rng_seed', self.seed)
+        return make_session(self.env, self.cat, **kw)
+
+    def ready(self, **kw):
+        '''A session right after a wind transport interval (1 day of interevent, flushed, then 1 day of wind).'''
+        s = self.session(**kw)
+        step_days(s, self.env, 1)
+        wind(s)
+        return s
+
+    # ---- binding, replay, staleness
+    def test_binding_replay_and_refusals_leave_the_boundary_untouched(self):
+        s = self.session()
+        early = _events.SurfaceEventDiagnostics([1], 0.0, 1.0, 'maple_wind', deposition_depth_m=[0.0625])
+        with self.assertRaises(IntereventStateError):                 # no transport interval has been accepted
+            s.apply_surface_event(early, surf_with({}))
+        step_days(s, self.env, 1)
+        wind(s)
+        tp = s.transport_pending
+        self.assertEqual((tp['kind'], tp['source']), ('wind', 'maple_wind'))
+        before = fp2(s)
+        ev = lambda **k: _events.SurfaceEventDiagnostics(**k)    # noqa: E731
+        t0, t1 = tp['start_days'], tp['end_days']
+        bad = [
+            (IntereventError, lambda: s.apply_surface_event(event_now(s, [1], source='syrup_water'), surf_with({}))),
+            (IntereventStateError, lambda: s.apply_surface_event(
+                _events.SurfaceEventDiagnostics([1], t0 - 1, t1 - 1, 'maple_wind'), surf_with({}))),            # stale
+            (IntereventStateError, lambda: s.apply_surface_event(
+                _events.SurfaceEventDiagnostics([1], t0, t1 + 1, 'maple_wind'), surf_with({}))),                # future
+            (IntereventStateError, lambda: s.apply_surface_event(
+                _events.SurfaceEventDiagnostics([1], t0 + 0.25, t1, 'maple_wind'), surf_with({}))),           # wrong start
+            (IntereventError, lambda: s.apply_surface_event(event_now(s, [99]), surf_with({}))),                # unknown ID
+            (IntereventError, lambda: s.apply_surface_event(
+                event_now(s, [1], abrasion_dose=[1.0], abrasion_unit='g m-1'), surf_with({}))),                 # wrong unit
+            (IntereventError, lambda: s.apply_surface_event(
+                event_now(s, [1], nodose=True, transport_flux=[1.0], flux_unit='kg m-1 s-1'), surf_with({}))),  # flux != dose
+            (IntereventError, lambda: s.apply_surface_event(event_now(s, [1], nodose=True), surf_with({}))),   # no dose
+            (IntereventError, lambda: s.apply_surface_event(event_now(s, [1]), np.zeros((NY + 1, NX)))),        # bad surface
+            (IntereventError, lambda: s.apply_surface_event('not an event', surf_with({}))),
+        ]
+        for exc, call in bad:
+            with self.assertRaises(exc):
+                call()
+        assert_same(self, before, fp2(s))
+        rec = s.apply_surface_event(event_now(s, [1], deposition_depth_m=[0.0625]), surf_with({CELL[1]: 0.0625}))
+        self.assertEqual(rec['kind'], 'disturbance')
+        self.assertEqual(s.sequence, before['seq'] + 1)
+        self.assertIsNone(s.transport_pending)
+        self.assertEqual(s.n_disturbance_events, 1)
+        after = fp2(s)
+        with self.assertRaises(IntereventStateError):                  # replay of the same event
+            s.apply_surface_event(_events.SurfaceEventDiagnostics([1], t0, t1, 'maple_wind', deposition_depth_m=[0.0625]),
+                                  surf_with({CELL[1]: 0.0625}))
+        with self.assertRaises(IntereventStateError):                  # a different event for the same interval
+            s.apply_surface_event(_events.SurfaceEventDiagnostics([4], t0, t1, 'maple_wind', event_id='other'),
+                                  surf_with({}))
+        assert_same(self, after, fp2(s))
+        step_days(s, self.env, 1)                                       # moving on invalidates any older binding
+        wind(s)
+        self.assertIsNotNone(s.transport_pending)
+
+    # ---- species contrast, dead standing, water untouched, ages
+    def test_species_contrast_dead_standing_water_and_ages(self):
+        s = self.ready(plants=make_plants(self.cat, shrub_e=0.2))
+        w0, t0 = host(s.native_state.water_m).copy(), s.native_state.t_s
+        snap0 = s.snapshot()
+        surf = surf_with({CELL[1]: 0.5, CELL[4]: 0.5})
+        rec = s.apply_surface_event(event_now(s, [1, 4], deposition_depth_m=[0.5, 0.5]), surf)
+        snap1 = s.snapshot()
+        self.assertEqual(snap1.status_names()[0], 'dead_standing')            # grass: post-event burial / height >= 0.9
+        self.assertEqual(float(snap1.agb_dry_kg[0]), float(snap0.agb_dry_kg[0]))
+        self.assertEqual(snap1.status_names()[3], 'live')                     # shrub: tolerant, partial injury
+        f = 0.3 * ((0.5 - 0.1) / (0.8 - 0.1))
+        self.assertAlmostEqual(float(snap1.agb_dry_kg[3]), float(snap0.agb_dry_kg[3]) * (1.0 - f), places=12)
+        self.assertAlmostEqual(float(snap1.seasonal_agb_dry_kg[3]), float(snap0.seasonal_agb_dry_kg[3]) * (1.0 - f),
+                               places=12)                                           # E scales with the same retained fraction
+        self.assertLessEqual(float(snap1.seasonal_agb_dry_kg[3]), float(snap1.agb_dry_kg[3]))
+        np.testing.assert_array_equal(host(s.native_state.water_m), w0)       # native water is never touched
+        self.assertEqual(s.native_state.t_s, t0)
+        np.testing.assert_array_equal(snap1.x_m, snap0.x_m)
+        np.testing.assert_array_equal(snap1.establishment_ground_m, snap0.establishment_ground_m)
+        np.testing.assert_array_equal(snap1.ids, snap0.ids)
+        self.assertEqual((rec['rebind']['n_live_before'], rec['rebind']['n_live_after']), (5, 4))
+        self.assertEqual(s.n_live, 4)
+        np.testing.assert_array_equal(s.live_ids, [2, 3, 4, 5])
+        led = rec['disturbance']['ledger']
+        self.assertLessEqual(abs(led['residual_kg']), led['bound_kg'])
+        self.assertAlmostEqual(float(snap0.agb_dry_kg.sum() - snap1.agb_dry_kg.sum()), led['removed_dry_agb_kg'], places=12)
+        self.assertTrue(rec['native_water_unchanged'])
+        self.assertFalse(rec['rng_consumed'])
+        # ages: the dead plant is frozen, live plants continue (no double aging, no reset)
+        step_days(s, self.env, 1)
+        snap2 = s.snapshot()
+        live = snap2.status == state.LIVE
+        np.testing.assert_array_equal(snap2.age_days[~live], snap1.age_days[~live])
+        np.testing.assert_allclose(snap2.age_days[live], snap1.age_days[live] + 1.0, rtol=0, atol=1e-9)
+        self.assertAlmostEqual(snap2.time_days, snap1.time_days + 1.0, places=9)
+
+    def test_dead_plants_request_no_water_and_roots_follow_the_survivors(self):
+        s = self.ready()
+        s.apply_surface_event(event_now(s, [1], deposition_depth_m=[0.5]), surf_with({CELL[1]: 0.5}))
+        store = []
+        with mock.patch.object(growth, 'demand', spy(growth.demand, store)):
+            step_days(s, self.env, 1)
+        self.assertEqual(store[0]['kwargs']['B_kg'].shape, (4,))                 # only live plants request water
+        self.assertEqual(store[0]['result']['requested_m3'].shape, (4,))
+        np.testing.assert_array_equal(host(s.root_map.ids), [2, 3, 4, 5])
+        self.assertEqual(s.root_map.n_plants, 4)
+
+    def test_dislodgement_exports_biomass_and_the_shared_canopy_reflects_it(self):
+        s = self.ready(plants=make_plants(self.cat, shrub_e=0.2))
+        snap0 = s.snapshot()
+        surf = surf_with({CELL[2]: -0.3125})
+        rec = s.apply_surface_event(event_now(s, [2], erosion_depth_m=[0.3125]), surf)
+        snap1 = s.snapshot()
+        self.assertEqual(snap1.status_names()[1], 'removed')
+        self.assertEqual((float(snap1.agb_dry_kg[1]), float(snap1.seasonal_agb_dry_kg[1])), (0.0, 0.0))
+        self.assertEqual(rec['disturbance']['ledger']['removed_by_cause_kg']['dislodgement'], float(snap0.agb_dry_kg[1]))
+        self.assertEqual(float(snap1.age_days[1]), float(snap0.age_days[1]))        # age frozen, record kept
+        view = s.export_canopy_view(surf_with({}))
+        ids = set(view['sidecar']['plant_id'].tolist())
+        self.assertNotIn(2, ids)                                                      # removed: no canopy
+        self.assertNotIn(7, ids)
+        self.assertIn(6, ids)                                                         # dead standing: still a canopy
+        self.assertIn(1, ids)
+        self.assertEqual(snap1.n, snap0.n)                                            # identities never compacted
+
+    def test_zero_injury_event_is_a_recorded_decision_without_rebind(self):
+        s = self.ready()
+        rec = s.apply_surface_event(event_now(s, [1, 4]), surf_with({}))
+        self.assertFalse(rec['rebind']['performed'])
+        self.assertEqual(s.n_live, 5)
+        self.assertEqual(s.n_disturbance_events, 1)
+        with self.assertRaises(IntereventStateError):
+            s.apply_surface_event(event_now(s, [1, 4]) if s.transport_pending else
+                                  _events.SurfaceEventDiagnostics([1, 4], 0.0, 0.0, 'maple_wind'), surf_with({}))
+
+    def test_inactive_catalog_applies_no_response_but_binds_the_decision(self):
+        cat1 = load_catalog()
+        s = make_session(self.env, cat1)                             # Phase 1 catalog: no seed needed, laws inactive
+        self.assertFalse(s.disturbance_active)
+        self.assertFalse(s.demography_active)
+        self.assertEqual(s._persistent(s._b)['phase2_tables'], 0)
+        self.assertEqual(s._persistent(s._b)['phase2_state'], 0)
+        step_days(s, self.env, 1)
+        wind(s)
+        rec = s.apply_surface_event(event_now(s, [1]), surf_with({CELL[1]: 0.9}))
+        self.assertEqual(rec['disturbance']['n_injured'], 0)
+        self.assertFalse(rec['rebind']['performed'])
+        self.assertEqual(s.n_live, 5)
+        with self.assertRaises(IntereventError):
+            s.apply_annual_decision(2026)
+        with self.assertRaises(IntereventError):                     # an ACTIVE mortality law needs an explicit seed
+            make_session(self.env, self.cat, rng_seed=None)
+        with self.assertRaises(IntereventError):
+            make_session(self.env, self.cat, rng_seed=True)
+
+    def test_id_lookup_is_admitted_first_and_never_caches_on_the_accepted_base(self):
+        s = self.ready()
+        self.assertIsNone(s._base._order)
+        self.assertIsNone(s._base._sorted_ids)
+        for ev_kw, surf in (({}, surf_with({})), ({'deposition_depth_m': [0.5]}, surf_with({CELL[1]: 0.5}))):
+            with mock.patch.object(state.PlantState, 'indices_of', side_effect=AssertionError('cached lookup used')):
+                s_ = self.ready()
+                s_.apply_surface_event(event_now(s_, [1], **ev_kw), surf)
+                self.assertIsNone(s_._base._order)                   # neither a zero-injury nor a rebinding event
+                self.assertIsNone(s_._base._sorted_ids)
+        # unknown / duplicate IDs still refuse; a one-byte-short cap refuses BEFORE surface validation / lookup scratch
+        s = self.ready()
+        before = fp2(s)
+        with mock.patch.object(state.Domain, 'check_field', side_effect=AssertionError('validated before admission')):
+            s.max_bytes = sum(s._persistent(s._b).values())
+            with self.assertRaises(IntereventAdmissionError) as cm:
+                s.apply_surface_event(event_now(s, [1]), surf_with({}))
+            self.assertEqual(cm.exception.stage, 'event_lookup')
+            s.max_bytes = BIG
+        assert_same(self, before, fp2(s))
+        self.assertIsNone(s._base._order)
+        with self.assertRaises(IntereventError):
+            s.apply_surface_event(event_now(s, [99]), surf_with({}))
+        assert_same(self, before, fp2(s))
+
+    # ---- transactional rebind
+    def test_rebuild_failure_and_budget_refusal_keep_the_whole_state(self):
+        s = self.ready()
+        surf = surf_with({CELL[1]: 0.5})
+        before = fp2(s)
+        wrapper, box = fail_once(roots.build_root_map, roots.RootsError('injected'))
+        with mock.patch.object(roots, 'build_root_map', wrapper):
+            with self.assertRaises(roots.RootsError):
+                s.apply_surface_event(event_now(s, [1], deposition_depth_m=[0.5]), surf)
+            assert_same(self, before, fp2(s))
+            self.assertEqual(s.n_live, 5)
+            np.testing.assert_array_equal(s.live_ids, [1, 2, 3, 4, 5])
+            rec = s.apply_surface_event(event_now(s, [1], deposition_depth_m=[0.5]), surf)      # the retry accounts ONCE
+        self.assertEqual(box['n'], 1)
+        self.assertEqual(s.n_disturbance_events, 1)
+        self.assertEqual(s.sequence, before['seq'] + 1)
+        self.assertEqual(s.n_live, 4)
+        # a global cap one byte below the rebind preflight refuses before ANY geometry / builder work
+        s2 = self.ready()
+        limit = rec['memory']['stage_totals']['disturbance_rebind_preflight'] - 1
+        before2 = fp2(s2)
+        s2.max_bytes = limit
+        with mock.patch.object(roots, 'build_root_map', side_effect=AssertionError('builder must not run')), \
+                mock.patch.object(state.PlantState, 'update_plants', side_effect=AssertionError('no state edit')):
+            with self.assertRaises(IntereventAdmissionError):
+                s2.apply_surface_event(event_now(s2, [1], deposition_depth_m=[0.5]), surf)
+        s2.max_bytes = BIG
+        assert_same(self, before2, fp2(s2))
+        s2.apply_surface_event(event_now(s2, [1], deposition_depth_m=[0.5]), surf)
+        self.assertEqual(s2.n_live, 4)
+        s3 = self.ready()
+        s3.max_bytes = 100
+        with self.assertRaises(IntereventAdmissionError):
+            s3.apply_surface_event(event_now(s3, [1], deposition_depth_m=[0.5]), surf)
+
+    def test_rebind_preserves_grid_deferred_season_and_pending_state(self):
+        start = dt.datetime(2026, 12, 30, tzinfo=UTC)
+        s = self.session(plants=make_plants(self.cat, shrub_e=0.2), start=start)
+        step_days(s, self.env, 1)
+        wind(s, days=4)                                               # 31 Dec .. 4 Jan: a year end INSIDE transport
+        self.assertTrue(s.season_due)
+        self.assertEqual(s.annual_due_year, 2026)
+        grid, season, cursor, t_native = s.boundaries()['next_growth_boundary'], s.season_due, s.cursor, s.native_state.t_s
+        w0 = host(s.native_state.water_m).copy()
+        rec = s.apply_surface_event(event_now(s, [1], deposition_depth_m=[0.5]), surf_with({CELL[1]: 0.5}))
+        self.assertEqual(rec['rebind']['n_live_after'], 4)
+        self.assertEqual((s.boundaries()['next_growth_boundary'], s.season_due, s.cursor, s.native_state.t_s),
+                         (grid, season, cursor, t_native))
+        np.testing.assert_array_equal(host(s.native_state.water_m), w0)
+        self.assertEqual(s.pending_days, 0)
+        self.assertEqual(s.annual_due_year, 2026)                       # a disturbance never consumes the annual decision
+        a, e = self.env.forcing(0.0)
+        rec_open = forcing.TimestepRecord(s.cursor, s.cursor + DAY, 5.0, 5.0)
+        with self.assertRaises(IntereventStateError):                  # the completed year's decision is due first
+            s.step_interevent(rec_open, added_water_m=a, potential_evaporation_m_s=e)
+        s.apply_annual_decision(2026)
+        r = s.step_interevent(rec_open, added_water_m=a, potential_evaporation_m_s=e)
+        self.assertTrue(r['deferred_season_applied'])                   # the turnover is applied at the next open interval
+        self.assertEqual(s.pending_days, 1)                             # only the open day accrued (no catch-up)
+
+    # ---- checkpoint of the Phase 2 accepted state
+    def _load(self, path, catalog=None, **kw):
+        args = dict(operator=self.env.operator, backend=self.backend, max_edges=10_000_000, max_bytes=BIG,
+                    verify_native_sources=VERIFY_NATIVE)
+        args.update(kw)
+        return IntereventSession.load(path, catalog or self.cat, **args)
+
+    def test_checkpoint_restores_decision_state_and_continues_identically(self):
+        with tempfile.TemporaryDirectory() as td:
+            s = self.ready(plants=make_plants(self.cat, shrub_e=0.2))
+            pending_path = s.save(os.path.join(td, 'pending'))               # transport decision still outstanding
+            surf = surf_with({CELL[1]: 0.5, CELL[4]: 0.25})
+            ev = event_now(s, [1, 4], deposition_depth_m=[0.5, 0.25])
+            loaded = self._load(pending_path)
+            self.assertEqual(loaded.transport_pending, s.transport_pending)
+            self.assertEqual(loaded.rng_seed, self.seed)
+            s.apply_surface_event(ev, surf)
+            loaded.apply_surface_event(ev, surf)
+            a, b = fp2(s), fp2(loaded)
+            for k in ('B', 'E', 'p2_status', 'p2_live_ids', 'p2_n_dist', 'p2_seed', 'water', 't'):
+                np.testing.assert_array_equal(a[k], b[k], err_msg=k)
+            np.testing.assert_allclose(a['age'], b['age'], rtol=1e-13)
+            done_path = s.save(os.path.join(td, 'done'))
+            again = self._load(done_path)
+            self.assertEqual(again.n_disturbance_events, 1)
+            self.assertIsNone(again.transport_pending)
+            self.assertEqual(again.last_decision, s.last_decision)
+            np.testing.assert_array_equal(again.live_ids, s.live_ids)
+            with self.assertRaises(IntereventStateError):                      # the replay guard survived the restart
+                again.apply_surface_event(ev, surf)
+            with self.assertRaises(checkpoint.CheckpointError):                # the seed is accepted state
+                self._load(done_path, rng_seed=self.seed + 1)
+
+    def test_checkpoint_phase2_corruption_is_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            s = self.ready()
+            path = pathlib.Path(s.save(os.path.join(td, 'cp')))
+
+            def rehash(doc):
+                body = {k: v for k, v in doc.items() if k != 'content_hash'}
+                doc['content_hash'] = checkpoint._sha(checkpoint._canonical(body))
+                (path / 'restart.json').write_text(json.dumps(doc))
+            doc = json.loads((path / 'restart.json').read_text())
+            doc['phase2']['transport_pending']['kind'] = 'rain'            # source / kind inconsistency
+            rehash(doc)
+            with self.assertRaises(checkpoint.CheckpointError):
+                self._load(path)
+            doc = json.loads((path / 'restart.json').read_text())
+            doc['phase2']['transport_pending']['kind'] = 'wind'
+            del doc['phase2']['rng_seed']
+            rehash(doc)
+            with self.assertRaises(checkpoint.CheckpointError):
+                self._load(path)
+
+    def test_checkpoint_format_version_two_is_explicit_and_strict(self):
+        self.assertEqual(checkpoint.SCHEMA_VERSION, 2)
+        with tempfile.TemporaryDirectory() as td:
+            s = self.ready()
+            path = pathlib.Path(s.save(os.path.join(td, 'cp')))
+            doc0 = json.loads((path / 'restart.json').read_text())
+            self.assertIs(type(doc0['schema_version']), int)
+            self.assertEqual(doc0['schema_version'], 2)
+            self.assertEqual(self._load(path).sequence, s.sequence)                  # round trip
+            with open(path / 'plants.csv', 'r', encoding='utf-8') as fh:
+                self.assertEqual(json.loads(fh.readline()[2:])['schema_version'], 1)  # canonical CSV stays version 1
+            # internally hashed manifests with another version are refused BEFORE arrays are decoded / state allocated
+            for bad in (1, 3, 2.0, True, '2', None):
+                doc = json.loads((path / 'restart.json').read_text())
+                doc['schema_version'] = bad
+                body = {k: v for k, v in doc.items() if k != 'content_hash'}
+                doc['content_hash'] = checkpoint._sha(checkpoint._canonical(body))
+                (path / 'restart.json').write_text(json.dumps(doc))
+                with mock.patch.object(np, 'load', side_effect=AssertionError('arrays decoded before version check')), \
+                        mock.patch.object(state, 'parse_plant_csv', side_effect=AssertionError('population parsed')):
+                    with self.assertRaises(checkpoint.CheckpointError) as cm:
+                        self._load(path)
+                self.assertIn('version', str(cm.exception))
+                self.assertIn('2', str(cm.exception))
+            (path / 'restart.json').write_text(json.dumps(doc0))
+            self._load(path)                                                         # original restored: loads again
+
+    def test_describe_and_memory_are_json_safe_and_linear(self):
+        cat = load_p2(p2_mortality(stress={'grass': {}, 'shrub': {}}))     # stress laws ACTIVE: live-sized state exists
+        s = make_session(self.env, cat, rng_seed=self.seed)
+        step_days(s, self.env, 1)
+        wind(s)
+        json.dumps(s.describe(), allow_nan=False)
+        p = s._persistent(s._b)
+        self.assertEqual(p['phase2_state'], _demography.PERSISTENT_BYTES_PER_LIVE * s._Pl)     # stress laws active
+        self.assertEqual(p['phase2_tables'], s._p2_table_bytes)
+        for name in ('_history', 'history', 'event_ids', 'decisions'):
+            self.assertFalse(hasattr(s, name))                           # no whole-history / event-ID list
+
+
+@needs_native
+class Phase2Annual(unittest.TestCase):
+    backend = 'numpy'
+
+    def setUp(self):
+        self.env = Env(self.backend)
+
+    def year_end_session(self, cat, plants=None, seed=5):
+        s = make_session(self.env, cat, plants=plants, start=DEC29, rng_seed=seed)
+        step_days(s, self.env, 3)                      # 29, 30, 31 December: the year-end growth update fires at 1 Jan
+        return s
+
+    def test_due_flag_ordering_replay_and_wrong_year_refusals(self):
+        cat = load_p2(p2_mortality())
+        s = make_session(self.env, cat, start=DEC29, rng_seed=5)
+        self.assertIsNone(s.annual_due_year)
+        step_days(s, self.env, 2)
+        self.assertIsNone(s.annual_due_year)
+        r = step_days(s, self.env, 1)[0]
+        self.assertTrue(r['growth']['year_end'])
+        self.assertEqual(s.annual_due_year, 2026)
+        self.assertEqual(r['annual_decision_due_year'], 2026)
+        before = fp2(s)
+        a, e = self.env.forcing(0.0)
+        with self.assertRaises(IntereventStateError):
+            s.step_interevent(forcing.TimestepRecord(s.cursor, s.cursor + DAY, 5.0, 5.0), added_water_m=a,
+                              potential_evaporation_m_s=e)
+        for bad in (2025, 2027, True, 2026.0, '2026'):
+            with self.assertRaises(IntereventError):
+                s.apply_annual_decision(bad)
+        assert_same(self, before, fp2(s))
+        self.assertEqual(s.n_annual_decisions, 0)
+        rec = s.apply_annual_decision(2026)
+        self.assertEqual((rec['decision_counter'], rec['decision_counter_after']), (0, 1))
+        self.assertEqual(s.n_annual_decisions, 1)
+        self.assertIsNone(s.annual_due_year)
+        self.assertEqual(s.annual_period_start, s.cursor)
+        with self.assertRaises(IntereventStateError):                      # replay
+            s.apply_annual_decision(2026)
+        step_days(s, self.env, 1)                                           # open intervals resume
+        w = fp2(s)
+        self.assertIsNone(w['p2_due'])
+
+    def test_outstanding_decision_is_never_overwritten_by_transport_and_multi_year_events_are_refused(self):
+        cat = load_p2(p2_mortality())
+        s = self.year_end_session(cat)                       # 1 Jan 2027, the decision for 2026 is outstanding
+        self.assertEqual(s.annual_due_year, 2026)
+        before = fp2(s)
+        for kind, days in (('wind', 1), ('wind', 400)):
+            with self.assertRaises(IntereventStateError):
+                s.advance_transport(kind, s.cursor, s.cursor + days * DAY)
+        with self.assertRaises(IntereventStateError):          # a closed-gate pause is a calendar advance as well
+            s.step_interevent(forcing.TimestepRecord(s.cursor, s.cursor + DAY, 0.0, None, 'interevent', 'closed'))
+        assert_same(self, before, fp2(s))                      # the original year and observation period are preserved
+        self.assertEqual(s.annual_due_year, 2026)
+        # exact restart keeps the outstanding decision and the same refusals
+        with tempfile.TemporaryDirectory() as td:
+            path = s.save(os.path.join(td, 'cp'))
+            loaded = IntereventSession.load(path, cat, operator=self.env.operator, backend=self.backend,
+                                            max_edges=10_000_000, max_bytes=BIG, verify_native_sources=VERIFY_NATIVE)
+            self.assertEqual(loaded.annual_due_year, 2026)
+            self.assertEqual(loaded.annual_period_start, s.annual_period_start)
+            with self.assertRaises(IntereventStateError):
+                loaded.advance_transport('wind', loaded.cursor, loaded.cursor + DAY)
+        # valid order: decision first, then a transport crossing exactly ONE new year; two years are refused unchanged
+        s.apply_annual_decision(2026)
+        one_year = dt.datetime(2028, 1, 2, tzinfo=UTC) - s.cursor
+        two_years = dt.datetime(2029, 1, 2, tzinfo=UTC) - s.cursor
+        before = fp2(s)
+        with self.assertRaises(IntereventStateError):
+            s.advance_transport('wind', s.cursor, s.cursor + two_years)
+        assert_same(self, before, fp2(s))
+        s.advance_transport('wind', s.cursor, s.cursor + one_year)
+        self.assertEqual(s.annual_due_year, 2027)            # exactly the one completed year, no relabelling
+        self.assertEqual(s.annual_period_start, dt.datetime(2027, 1, 1, tzinfo=UTC))
+        s.apply_annual_decision(2027)
+        self.assertIsNone(s.annual_due_year)
+
+    def test_pending_growth_must_be_flushed_before_the_decision(self):
+        cat = load_p2(p2_mortality())
+        s = make_session(self.env, cat, start=DEC29, rng_seed=5)
+        step_days(s, self.env, 3)
+        self.assertFalse(s.has_pending_growth)                  # the year-end growth already flushed the period
+        b = s._b.clone()
+        b.pending_days = Fraction1()                             # simulate pending growth: must be refused
+        real = s._b
+        s._b = b
+        try:
+            with self.assertRaises(IntereventStateError):
+                s.apply_annual_decision(2026)
+        finally:
+            s._b = real
+        s.apply_annual_decision(2026)
+
+    def test_probability_one_kills_grass_keeps_B_E_and_shrubs_survive(self):
+        cat = load_p2(p2_mortality(grass_bg=1e9))
+        plants = make_plants(cat, shrub_e=0.2)
+        s = self.year_end_session(cat, plants)
+        snap0, w0, t0 = s.snapshot(), host(s.native_state.water_m).copy(), s.native_state.t_s
+        rec = s.apply_annual_decision(2026)
+        snap1 = s.snapshot()
+        self.assertEqual(snap1.status_names().tolist(),
+                         ['dead_standing'] * 3 + ['live', 'live', 'dead_standing', 'removed'])
+        np.testing.assert_array_equal(snap1.agb_dry_kg, snap0.agb_dry_kg)       # dead plants keep their B / E
+        np.testing.assert_array_equal(snap1.seasonal_agb_dry_kg, snap0.seasonal_agb_dry_kg)
+        self.assertEqual(rec['n_died_age_background'], 3)
+        np.testing.assert_array_equal(s.live_ids, [4, 5])
+        np.testing.assert_array_equal(host(s.native_state.water_m), w0)
+        self.assertEqual(s.native_state.t_s, t0)
+        np.testing.assert_array_equal(snap1.age_days[:3], snap0.age_days[:3])        # ages freeze at death
+        store = []
+        with mock.patch.object(growth, 'demand', spy(growth.demand, store)):
+            step_days(s, self.env, 1)
+        self.assertEqual(store[0]['kwargs']['B_kg'].shape, (2,))                      # dead grasses request nothing
+        self.assertEqual(s.root_map.n_plants, 2)
+        view = s.export_canopy_view(surf_with({}))
+        self.assertTrue({1, 2, 3}.issubset(set(view['sidecar']['plant_id'].tolist())))   # standing dead stay in the view
+
+    def test_probability_zero_kills_nobody_and_mean_life_is_not_a_cutoff(self):
+        cat = load_p2(p2_mortality(grass_bg=0.0, weibull=False))
+        rec_plants = [dict(plant_id=1, species='grass', x_m=0.8, y_m=0.8, establishment_ground_m=100.0, agb_dry_kg=0.3,
+                           seasonal_agb_dry_kg=0.0, age_days=40 * 365.0, status='live')]      # 5 x the mean life expectancy
+        plants = state.PlantState.from_records(cat, state.Domain(NX, NY, 1.0), rec_plants)
+        s = self.year_end_session(cat, plants)
+        rec = s.apply_annual_decision(2026)
+        self.assertEqual(s.n_live, 1)
+        self.assertEqual(rec['n_died_age_background'] + rec['n_died_stress'], 0)
+        self.assertFalse(rec['rebind']['performed'])
+
+    def test_keyed_decisions_are_row_order_independent_and_split_run_equivalent(self):
+        bg = math.log(2.0) * 365.0 / 3.0            # 3-day decision period: p = 1/2 for every grass
+        cat = load_p2(p2_mortality(grass_bg=bg))
+        n = 40
+        a = self.year_end_session(cat, make_grasses(cat, n))
+        b = self.year_end_session(cat, make_grasses(cat, n, reverse=True))
+        a.apply_annual_decision(2026)
+        b.apply_annual_decision(2026)
+        sa, sb = a.snapshot(), b.snapshot()
+        dead_a = set(sa.ids[sa.status == state.DEAD_STANDING].tolist())
+        dead_b = set(sb.ids[sb.status == state.DEAD_STANDING].tolist())
+        self.assertEqual(dead_a, dead_b)                    # same keyed draws whatever the row order
+        self.assertTrue(0 < len(dead_a) < n)
+        # split run: save with the decision outstanding, restore, decide there: identical deaths and counters
+        with tempfile.TemporaryDirectory() as td:
+            c = self.year_end_session(cat, make_grasses(cat, n))
+            path = c.save(os.path.join(td, 'cp'))
+            loaded = IntereventSession.load(path, cat, operator=self.env.operator, backend=self.backend,
+                                            max_edges=10_000_000, max_bytes=BIG, verify_native_sources=VERIFY_NATIVE)
+            self.assertEqual(loaded.annual_due_year, 2026)
+            c.apply_annual_decision(2026)
+            loaded.apply_annual_decision(2026)
+            np.testing.assert_array_equal(c.snapshot().status, loaded.snapshot().status)
+            self.assertEqual((c.n_annual_decisions, loaded.n_annual_decisions), (1, 1))
+            np.testing.assert_array_equal(c.snapshot().status, sa.status)
+        # a different seed is a different (but equally reproducible) draw
+        d = self.year_end_session(cat, make_grasses(cat, n), seed=6)
+        d.apply_annual_decision(2026)
+        self.assertNotEqual(set(d.snapshot().ids[d.snapshot().status == state.DEAD_STANDING].tolist()), dead_a)
+
+    def test_stress_accumulators_use_actual_growth_outputs_once_and_follow_the_documented_rule(self):
+        stress = {'grass': dict(exempt_until_age_days=0.0, limit_years=1, counter_cap_years=3, mortality_probability=0.0,
+                                biomass_loss_fraction=0.0, low_threshold=0.5, metric='support_ratio'),
+                  'shrub': dict(exempt_until_age_days=0.0, limit_years=1, counter_cap_years=3, mortality_probability=0.0,
+                                biomass_loss_fraction=0.0, low_threshold=0.4, metric='growth_ratio')}
+        cat = load_p2(p2_mortality(stress=stress))
+        env = Env(self.backend, theta=(0.0502, 0.0502))                        # dry soil: actual support << requested
+        s = make_session(env, cat, start=dt.datetime(2026, 12, 18, tzinfo=UTC), rng_seed=3)
+        store = []
+        with mock.patch.object(growth, 'grow', spy(growth.grow, store)):
+            step_days(s, env, 14)                                               # two weekly updates, the last at year end
+        self.assertEqual(len(store), 2)
+        acc = s.annual_accumulators()
+        exp = {'required_support_kg_year': sum(r['result']['required_support_kg_year'] for r in store),
+               'actual_support_kg_year': sum(r['result']['actual_support_kg_year'] for r in store),
+               'planned_growth_kg': sum(r['result']['normal_plan_kg'] + r['result']['extra_plan_kg'] for r in store),
+               'actual_growth_kg': sum(r['result']['normal_gain_kg'] + r['result']['extra_gain_kg'] for r in store)}
+        for k, v in exp.items():
+            np.testing.assert_allclose(acc[k], v, rtol=1e-12, atol=0.0, err_msg=k)         # accumulated exactly once
+        self.assertEqual(s.annual_due_year, 2026)
+        snap = s.snapshot()
+        live = snap.status == state.LIVE
+        age, sp = snap.age_days[live], snap.species_index[live]
+        grass = sp == cat.index('grass')
+        req, act, plan, gain = (acc['required_support_kg_year'], acc['actual_support_kg_year'],
+                                acc['planned_growth_kg'], acc['actual_growth_kg'])
+        n0 = np.zeros(s.n_live, dtype=np.int64)
+        den = np.where(grass, req, plan)
+        num = np.where(grass, act, gain)
+        thr = np.where(grass, 0.5, 0.4)
+        evaluated = (age > 0.0) & (den > 0.0)
+        low = evaluated & (num / np.where(den > 0.0, den, 1.0) < thr)
+        expected = np.where(low, np.minimum(n0 + 1, 3), np.where(evaluated, np.maximum(n0 - 1, 0), n0))
+        rec = s.apply_annual_decision(2026)
+        np.testing.assert_array_equal(s.stress_counters(), expected)
+        for name in ('required_support_kg_year', 'actual_support_kg_year', 'planned_growth_kg', 'actual_growth_kg'):
+            self.assertTrue(np.all(s.annual_accumulators()[name] == 0.0))               # reset after the decision
+        # December is dormant for the grass (activity 0): required support is zero, so it is NOT counted as stress
+        self.assertEqual(rec['per_species']['grass']['n_not_evaluated'], 3)
+        self.assertTrue(np.all(s.stress_counters()[grass] == 0))
+
+
+# ---- other backends for the Phase 2 session tests (skip when unavailable)
+@unittest.skipUnless(NATIVE and NUMBA, 'numba backend unavailable')
+class Phase2DisturbanceNumba(Phase2Disturbance):
+    backend = 'numba'
+
+
+@unittest.skipUnless(NATIVE and NUMBA, 'numba backend unavailable')
+class Phase2AnnualNumba(Phase2Annual):
+    backend = 'numba'
+
+
+@unittest.skipUnless(NATIVE and CUDA, 'CUDA backend unavailable')
+class Phase2CudaParity(unittest.TestCase):
+    def test_cpu_cuda_phase2_parity_and_device_residency(self):
+        import cupy as cp
+        cat = load_p2(p2_mortality(grass_bg=math.log(2.0) * 365.0 / 3.0))
+        cpu_env, gpu_env = Env('numpy'), Env('cuda')
+        out = {}
+        for name, env in (('cpu', cpu_env), ('gpu', gpu_env)):
+            s = make_session(env, cat, plants=make_grasses(cat, 24), start=DEC29, rng_seed=9)
+            step_days(s, env, 3)
+            s.apply_annual_decision(2026)
+            out[name] = s
+        np.testing.assert_array_equal(out['cpu'].snapshot().status, out['gpu'].snapshot().status)
+        gpu = out['gpu']
+        self.assertIsNone(gpu._b.stress)                  # no stress law: the counter is correctly NOT allocated
+        self.assertIsNone(gpu.stress_counters())
+        self.assertEqual(int(gpu._b.B.device.id), int(cp.cuda.Device().id))
+
+    def test_active_stress_law_is_device_resident_through_decision_and_restart(self):
+        import cupy as cp
+        dev = int(cp.cuda.Device().id)
+        cat = load_p2(p2_mortality(grass_bg=math.log(2.0) * 365.0 / 3.0, stress={'grass': {}, 'shrub': {}}))
+        env = Env('cuda')
+        s = make_session(env, cat, plants=make_grasses(cat, 24), start=DEC29, rng_seed=9)
+        step_days(s, env, 3)
+        for arr in (s._b.stress, s._b.ann_req, s._b.ann_act, s._b.ann_plan, s._b.ann_gain):
+            self.assertEqual(int(arr.device.id), dev)
+        s.apply_annual_decision(2026)
+        for arr in (s._b.stress, s._b.ann_req, s._b.ann_act, s._b.ann_plan, s._b.ann_gain):
+            self.assertEqual(int(arr.device.id), dev)
+            self.assertEqual(arr.shape, (s.n_live,))
+        with tempfile.TemporaryDirectory() as td:
+            path = s.save(os.path.join(td, 'cp'))
+            loaded = IntereventSession.load(path, cat, operator=env.operator, backend='cuda', max_edges=10 ** 7,
+                                            max_bytes=BIG, verify_native_sources=VERIFY_NATIVE)
+            for arr in (loaded._b.stress, loaded._b.ann_req, loaded._b.ann_gain):
+                self.assertEqual(int(arr.device.id), dev)
+            np.testing.assert_array_equal(loaded.stress_counters(), s.stress_counters())
+            np.testing.assert_array_equal(loaded.snapshot().status, s.snapshot().status)
+            self.assertEqual(loaded.n_annual_decisions, 1)
+
+
 if __name__ == '__main__':
     unittest.main()

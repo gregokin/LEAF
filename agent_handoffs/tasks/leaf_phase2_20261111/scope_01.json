@@ -1,0 +1,38 @@
+{
+  "revision": 1,
+  "at_utc": "2026-11-11T19:02:23.412612+00:00",
+  "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+  "changed_files": [
+    "README.md",
+    "docs/phase2-disturbance.md",
+    "examples/phase2/run_disturbance.py",
+    "examples/phase2/species.json",
+    "leaf/checkpoint.py",
+    "leaf/demography.py",
+    "leaf/disturbance.py",
+    "leaf/interevent.py",
+    "report.md",
+    "tests/test_demography.py",
+    "tests/test_disturbance.py",
+    "tests/test_interevent.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T19:00:35.766079+00:00",
+    "elapsed_seconds": 1830.9402837050147
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "Phase 2 is written but nothing has been run: no test, import, syntax check, Numba JIT or CUDA path, and no example. Every behaviour below comes from desk review, and the new tests' expected values were worked out by hand from the documented formulas. The work is left uncommitted.\n\n## What changed\n\n- **`leaf/disturbance.py` (new):**\n  - Parses the species `disturbance` section (law `mechanical_response_v1`).\n  - Evaluates burial, exposure (with dislodgement) and abrasion for live plants.\n  - Burial and exposure injury respond to this event's increment; absolute post-event depth or dose can cross lethal or dislodgement thresholds.\n  - Abrasion needs an exact dose-unit match and the right source; flux is never read.\n  - Simultaneous responses combine multiplicatively, so loss never exceeds existing dry AGB, and E scales with the same factor.\n  - The dry-AGB ledger is checked per plant and per population.\n  - Pure `respond_state` is included.\n- **`leaf/demography.py` (new):**\n  - Weibull age hazard plus background hazard, with death decided by a keyed draw.\n  - A persistent per-plant stress counter driven by support or growth ratio. First-year plants and plants with a zero denominator (dormant, mature) are never counted as stress.\n  - Randomness is a stateless integer hash of seed, decision counter, stream and plant ID. It is independent of row and species order and uses no global RNG.\n- **`leaf/interevent.py`:**\n  - New `apply_surface_event(event, current_surface)`, bound to the last transport interval; time, source and IDs are checked, and replay or stale events are refused.\n  - New `apply_annual_decision(year)`.\n  - A transactional rebind builds the new live rows, geometry and roots before publishing. The base is re-anchored at the cursor, and the growth grid, deferred season and native water are untouched.\n  - Per-plant annual accumulators are filled from the existing `growth.grow` outputs with no new readback.\n- **`leaf/checkpoint.py`:** saves and restores the stress counter, the four annual accumulators, the RNG seed, decision counters, the year-due flag and the pending-transport and replay guards. `plants.csv` stays the only plant-record format.\n- **Fixtures, example and docs:**\n  - `examples/phase2/species.json` holds uncalibrated per-species fixtures.\n  - `examples/phase2/run_disturbance.py` is the bounded example.\n  - `docs/phase2-disturbance.md`, `README.md` and `report.md` are updated or new.\n- **Tests:**\n  - `tests/test_disturbance.py` and `tests/test_demography.py` are new. They are pure (no SYRUP), and their Numba and CUDA cases skip when the backend is absent.\n  - Phase 2 session classes were appended to `tests/test_interevent.py`; the existing tests are untouched.\n\nNew API on `IntereventSession`: `rng_seed=` (required only when an active mortality law is present), `time_days_at`, the two methods above, and read-only accessors including `annual_due_year` and `transport_pending`. `checkpoint.load_session` gained `rng_seed=` as a consistency check.\n\n## Deviations and decisions you should review\n\n1. When a mortality law is active, `step_interevent` refuses after a new year is crossed until `apply_annual_decision(year)` is called. I added this so a new year's growth cannot mix into the completed year's accumulators. Closed-gate pauses and transports are still allowed.\n2. Burial and exposure increments are derived from the current surface and the event's signed net change, because the session keeps no earlier surface. This assumes the event diagnostics and the surface agree.\n3. The CUDA path is vectorised CuPy on one explicit device, not hand-written RawKernels. The hash is exact integer arithmetic, but `pow` and `expm1` probabilities may differ in the last bit between backends.\n4. Checkpoints written before Phase 2 are refused; there is no migration. The auxiliary arrays carry no plant IDs and follow the CSV live-row mapping.\n5. After a rebind, `session._anchor` is no longer the original start. The existing test helper `session_start` is only valid without a rebind, so the Phase 2 tests step from `session.cursor`.\n6. Only live plants respond to events. A standing dead plant is never removed by a later event.\n7. Memory-ledger constants for the new stages (`80 * P_live`, `320 * n` event arrays, `60 * P_live` decision arrays) are conservative estimates, not measurements.\n\n## Checks for your independent run\n\n- Numba typing of the `uint64` hash and of the boolean short-circuits in both kernels.\n- CuPy behaviour of `bincount(weights=)` and boolean-mask indexing in the CUDA path.\n- The shallow `copy.copy(session)` candidate in `_rebind`: it must override every attribute the geometry and snapshot helpers read. I overrode the ones I found, but a missed one would silently use the old population.\n- Whether any existing Phase 1 test pins the full key set of `describe()`, `restart.json` or the npz array set (now 18 arrays).\n\nThe full list is in `report.md`.",
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

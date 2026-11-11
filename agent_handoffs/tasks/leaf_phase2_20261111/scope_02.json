@@ -1,0 +1,34 @@
+{
+  "revision": 2,
+  "at_utc": "2026-11-11T19:10:34.728802+00:00",
+  "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+  "changed_files": [
+    "docs/phase2-disturbance.md",
+    "leaf/demography.py",
+    "leaf/disturbance.py",
+    "leaf/interevent.py",
+    "report.md",
+    "tests/test_demography.py",
+    "tests/test_disturbance.py",
+    "tests/test_interevent.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T19:09:32.339145+00:00",
+    "elapsed_seconds": 196.5195089080371
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "All six corrections are made, but nothing was run. Every check, new or old, remains NOT RUN.\n\n1. **Dose fixtures.** The nominal wind events in `test_disturbance.py` and `test_interevent.py` now supply an explicit zero dose in `kg m-1`. A `nodose=True` option keeps the dedicated missing-dose and flux-is-not-dose cases. I added a no-dose refusal case to each file and did not touch the production dose and unit guards.\n\n2. **Content validation.** `demography.decide` now checks the following before any kernel or gather. It uses backend scalar reductions, so there is no P readback and no Python loop over plants. Nothing is clamped or repaired, and numpy, numba and CUDA refuse the same way.\n   - Species indices lie in `[0, S)`.\n   - Plant IDs are unique and positive.\n   - Ages and the four annual metrics are finite and non-negative.\n   - Stress counters are non-negative and within their species cap (0 for species without a stress law).\n   - Actual growth does not exceed planned growth by more than a relative 1e-9.\n   - Actual support may exceed required support.\n\n   One side effect: the annual decision will refuse a session whose live plant IDs include zero or a negative number.\n\n3. **ID lookup and persistent cache.**\n   - `apply_surface_event` now admits a new `event_lookup` stage before surface validation and before any ID resolution.\n   - It resolves IDs with a local lookup, so the accepted base never gets the 16-bytes-per-plant cache.\n   - The new `stress_counters()` and `annual_accumulators()` readbacks are admitted too.\n   - I left the Phase 1 `live_rows` and `live_ids` copies as caller-bound, and documented that.\n\n4. **Pure entry points and table compilation.**\n   - `respond_state(..., extra_reserve_bytes=0)` admits the following before resolving IDs, compiling or copying: original plus candidate population, copy and update scratch, the ID index, the event arrays and, if no table is supplied, the table. That is 206 bytes per plant plus the event arrays.\n   - Both modules' `compile_species(catalog, backend, *, device=None, max_bytes=None, extra_reserve_bytes=0)` admit their S-sized host and device cost before allocating or uploading.\n   - The session passes its running ledger to both compilers (stage `initialization_phase2_tables`).\n\n5. **Full dieback.** I could not reproduce the problem from the source. The first draft already refused `biomass_loss_fraction >= 1` and `max_injury_fraction >= 1` at parse time, so `apply_annual_decision` never sees a zero-biomass live plant. I added endpoint tests (1.0 refused, 0.9999999999999999 accepted) and documented that complete death goes through `mortality_probability`. If your probe saw it accepted, please send the path it took.\n\n6. **Outstanding annual decision.** While a decision is outstanding and live plants exist under an active mortality law, `_pause` refuses further transports and closed-gate pauses. A single transport or pause may also cross at most one new year. The original year and observation period are preserved, and I added regressions covering exact restart and the valid order.\n\nNew tests cover validation rejections, the no-cache lookup, pure-entry admission with no table compile or copy, compile budgets, the full-dieback endpoints, and the outstanding-decision policy. I also fixed two parity tests of mine that generated actual growth above planned growth and would now be refused.\n\nDocs and `report.md` are updated, and the final signatures are listed in `report.md`.",
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

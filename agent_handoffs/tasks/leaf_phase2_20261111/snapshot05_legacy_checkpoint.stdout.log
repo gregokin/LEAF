@@ -1,0 +1,15 @@
+{
+  "actual_phase1_checkpoint_untouched": true,
+  "checks": [
+    {
+      "allow_source_change": false,
+      "old_version_refused": true,
+      "message": "unsupported restart format: schema 'leaf.interevent_restart' version 1 (int); this loader reads exactly schema 'leaf.interevent_restart' integer version 2. Older (version 1) checkpoints lack the Phase 2 arrays and manifest block and are NOT migrated or defaulted (allow_source_change does not authorize a format conversion; use the pinned Phase 1 runtime that wrote them)"
+    },
+    {
+      "allow_source_change": true,
+      "old_version_refused": true,
+      "message": "unsupported restart format: schema 'leaf.interevent_restart' version 1 (int); this loader reads exactly schema 'leaf.interevent_restart' integer version 2. Older (version 1) checkpoints lack the Phase 2 arrays and manifest block and are NOT migrated or defaulted (allow_source_change does not authorize a format conversion; use the pinned Phase 1 runtime that wrote them)"
+    }
+  ]
+}

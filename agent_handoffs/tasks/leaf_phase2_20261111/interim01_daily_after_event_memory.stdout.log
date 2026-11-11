@@ -1,0 +1,22 @@
+{
+  "scope": "actual native day AFTER a zero-injury event, including persisted ID lookup arrays; synthetic hot resource",
+  "plants": 100000,
+  "cells": 4096,
+  "layers": 2,
+  "host_resident_array_lower_bound_bytes": 9400904,
+  "persistent_ID_cache_bytes": 1600000,
+  "device_live_at_start_bytes": 13872784,
+  "device_live_requested_peak_bytes": 21224752,
+  "global_array_peak_lower_bound_bytes": 30625656,
+  "declared_global_peak_bytes": 30887416,
+  "underestimate_confirmed": false,
+  "stage_estimates": {
+    "native_step": 22165760,
+    "demand": 22568472,
+    "bridge": 26887352,
+    "accumulate": 30887416
+  },
+  "note": "Host lower bound omits native host parameters and temporary host packets; raw device bytes include every hooked array and exclude pool rounding/context.",
+  "unknown_free_events": 0,
+  "requested_live_at_end_bytes": 0
+}

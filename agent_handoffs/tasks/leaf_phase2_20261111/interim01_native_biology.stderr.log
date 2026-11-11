@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/verify_native_biology_01.py", line 108, in <module>
+    main()
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/verify_native_biology_01.py", line 95, in main
+    run.apply_annual_decision(2024)
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/interim_review_01/leaf/interevent.py", line 1518, in apply_annual_decision
+    raise IntereventStateError('no annual decision is due: either it was already accepted (replay refused) or no '
+leaf.interevent.IntereventStateError: no annual decision is due: either it was already accepted (replay refused) or no new year was crossed since the last decision

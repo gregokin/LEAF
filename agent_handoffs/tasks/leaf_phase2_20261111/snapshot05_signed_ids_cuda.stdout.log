@@ -1,0 +1,1 @@
+{"backend": "cuda", "signed_int64_extremes_and_zero": "pass", "canonical_state_compatibility": "pass", "keyed_rng_and_row_permutation": "pass"}

@@ -368,3 +368,7 @@ be selected. Runtime/locks and earlier accepted archives are preserved.
 ## Phase1 mechanics accepted —2026-11-11
 
 See [final independent review](tasks/leaf_phase1_interevent_20261111/final_review.md). STEP-style requested-support planning plus actual/requested water once; species traits co-located, authoritative real SYRUP withdrawals, dated interevent session, weekly shared geometry and complete LEAF-native checkpoint. Fixtures are uncalibrated. Full transport/E-partition/rational-calendar adapters and evolving-surface remapping remain deferred. User authorizes publication and automatic progression to Phase2/3.
+
+## Phase2 mechanics and Phase3 ramet choice —2026-11-11
+
+Accept opt-in species-specific mechanical injury, age/background/stress mortality and complete version2 restart; [independent review](tasks/leaf_phase2_20261111/final_review.md). Fixtures are uncalibrated, standing-dead removal remains deferred, and native water is untouched by instantaneous biology. The user explicitly selected vegetative reproduction as nearby daughter plants with their own IDs and ages. Phase3 will implement that choice alongside simple seed establishment; publish Phase2 first.

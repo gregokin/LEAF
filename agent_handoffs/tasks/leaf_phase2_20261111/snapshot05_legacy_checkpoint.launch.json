@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/verify_legacy_checkpoint_02.py"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/snapshot_05",
+  "pid": 8,
+  "start_ticks": "189660791",
+  "started_at_utc": "2026-11-11T19:26:56.209150+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/snapshot_05:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-phase0-cupy",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

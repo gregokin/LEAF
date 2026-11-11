@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/probe_entrypoints_01.py", line 72, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/probe_entrypoints_01.py", line 44, in main
+    demography.decide(table, **kw)
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/draft_kernels_01/leaf/demography.py", line 580, in decide
+    summ = _summaries(np, table, s, out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/draft_kernels_01/leaf/demography.py", line 506, in _summaries
+    flags = xp.bincount(k * 8 + out['flag'].astype(xp.int64), minlength=S * 8).reshape(S, 8)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: 'list' argument must have no negative elements

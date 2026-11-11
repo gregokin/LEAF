@@ -11,7 +11,8 @@ is initially constant, unused by LEAF ecology but used by native MAPLE wind. The
 [canopy coupling requirement](agent_handoffs/project_brief.md#canopy-allometry-and-maple-coupling--2026-11-08)
 also defines feedback for vegetation damage and burial. Native SYRUP moisture
 coupling is implemented. LEAF now publishes MAPLE-compatible canopy objects and
-accepts event diagnostics; MAPLE adoption and ecological injury laws remain future work.
+accepts event diagnostics; MAPLE / SYRUP adoption and calibrated ecological laws remain future work (uncalibrated
+species injury and mortality responses are available from Phase 2 below).
 
 ## Phase 0: initialize and exchange vegetation
 
@@ -158,6 +159,27 @@ hashes, atomic publication). A global byte ledger is admitted before every alloc
 `examples/phase1/run_interevent.py` needs an explicit backend and budget and is UNCALIBRATED; no field calibration,
 storm / wind physics or full MASY coupling is claimed, and the tests in `tests/test_interevent.py` still need an
 independent run.
+
+## Phase 2: disturbance, biomass loss and persistent mortality state
+
+The [Phase 2 guide](docs/phase2-disturbance.md) documents two explicit biological boundary APIs of the same session.
+`apply_surface_event(event, current_surface)` runs only AFTER an accepted wind / rain / recession transport interval and
+turns one stable-ID `SurfaceEventDiagnostics` plus the ACTUAL current surface into species-specific injury, standing death
+or dislodgement of live plants (`leaf.disturbance`; burial, root exposure and abrasion; signed NET change distinguished
+from gross erosion / deposition; abrasion DOSE in its exactly declared unit, never converted from flux; the establishment
+ground is the fixed reference; increments injure, absolute depths cross lethal / dislodgement thresholds; a bounded
+multiplicative composition and a dry-AGB ledger per cause). `apply_annual_decision(year)` is the explicit new-year
+scheduler call for the opt-in age / background hazard and the persistent low-growth counter (`leaf.demography`; keyed,
+row-order independent randomness from an explicit seed; actual vs required support kept distinct from production yield;
+dormancy or maturity alone is never stress; no life-expectancy cutoff). Death and removal are published by a transactional
+population rebind (new live rows, geometry and roots before publication; growth grid, deferred season, ages, native water
+and RNG state preserved on any failure), and the accepted Phase 2 state (stress counters, annual accumulators, seed,
+counters, replay guards) is part of the complete checkpoint. Every species coefficient lives in the species' catalog record
+(`mortality`, `disturbance`); `examples/phase2/species.json` holds UNCALIBRATED fixtures, and
+`examples/phase2/run_disturbance.py` is a bounded synthetic example. This is an explicit aboveground-only LEAF adaptation,
+not an ECOTONE / STEPWAT2 reproduction; there is no wind or water physics, surface remapping, fire or calibration, and the
+new tests (`tests/test_disturbance.py`, `tests/test_demography.py`, the Phase 2 classes of `tests/test_interevent.py`)
+still need an independent run.
 
 ## Benchmark commands
 

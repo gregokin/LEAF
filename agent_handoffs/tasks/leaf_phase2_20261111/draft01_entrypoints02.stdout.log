@@ -1,0 +1,74 @@
+{
+  "probes": [
+    {
+      "name": "negative_species_index",
+      "backend": "numpy",
+      "refused": false,
+      "error": "ValueError: 'list' argument must have no negative elements (secondary failure, not pre-kernel validation)"
+    },
+    {
+      "name": "nan_required_support",
+      "backend": "numpy",
+      "refused": false,
+      "error": null
+    },
+    {
+      "name": "negative_actual_support",
+      "backend": "numpy",
+      "refused": false,
+      "error": null
+    },
+    {
+      "name": "negative_stress_counter",
+      "backend": "numpy",
+      "refused": false,
+      "error": null
+    },
+    {
+      "name": "actual_growth_exceeds_planned",
+      "backend": "numpy",
+      "refused": false,
+      "error": null
+    },
+    {
+      "name": "negative_species_index",
+      "backend": "numba",
+      "refused": false,
+      "error": "ValueError: 'list' argument must have no negative elements (secondary failure, not pre-kernel validation)"
+    },
+    {
+      "name": "nan_required_support",
+      "backend": "numba",
+      "refused": false,
+      "error": null
+    },
+    {
+      "name": "negative_actual_support",
+      "backend": "numba",
+      "refused": false,
+      "error": null
+    },
+    {
+      "name": "negative_stress_counter",
+      "backend": "numba",
+      "refused": false,
+      "error": null
+    },
+    {
+      "name": "actual_growth_exceeds_planned",
+      "backend": "numba",
+      "refused": false,
+      "error": null
+    },
+    {
+      "name": "state_response_global_admission",
+      "backend": "numpy",
+      "refused": false,
+      "population_copies": [
+        2
+      ],
+      "error": null
+    }
+  ],
+  "all_refused": false
+}

@@ -1,0 +1,90 @@
+{
+  "at_utc": "2026-11-11T18:44:39.906862+00:00",
+  "scope": "stable source copies of draft numerical modules plus accepted Phase1 dependencies; independent early probes only, not whole Phase2 acceptance",
+  "files": {
+    "leaf/__init__.py": {
+      "sha256": "d9082d6aa827f6b34fe182281916325ee7f166d225bf5388d1e8af062124b5d9",
+      "size_bytes": 2872
+    },
+    "leaf/syrup_water.py": {
+      "sha256": "baefec2a100b751cc35bda8739ea5d04339681f0d3f9d6b900972986161db215",
+      "size_bytes": 65854
+    },
+    "leaf/runtime.py": {
+      "sha256": "abbea7b0f873d87139f92c9eb4a6989f657def504c2080379d728f7ceb121826",
+      "size_bytes": 22606
+    },
+    "leaf/coupling.py": {
+      "sha256": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+      "size_bytes": 28207
+    },
+    "leaf/initialization.py": {
+      "sha256": "25e58f759761b525c2021eb18d64cd2b6bede8543b22ba983a8eb2d65967aeab",
+      "size_bytes": 32214
+    },
+    "leaf/uptake.py": {
+      "sha256": "675e4bf4b9a9c202ae166f50444032c105d4d691f366f94479034814952bfe2d",
+      "size_bytes": 67742
+    },
+    "leaf/traits.py": {
+      "sha256": "4aecd751ae6a46fb996dfa295129d3f5c01e57abf98943d150103782f9ce8527",
+      "size_bytes": 27583
+    },
+    "leaf/__main__.py": {
+      "sha256": "83b4589b1aeab57d43ad04c69d32b80daf6eb976004b38ae4b57410d861b8ee1",
+      "size_bytes": 15896
+    },
+    "leaf/growth.py": {
+      "sha256": "ce984de33fc8ec1154449706d8c59c8e31166b732ebedb6648bc47f68513998a",
+      "size_bytes": 70330
+    },
+    "leaf/disturbance.py": {
+      "sha256": "4337fd48f1247e0f9f3edfd4fe22bfb1d29ed1827b7740da9d89f65f1017b665",
+      "size_bytes": 42659
+    },
+    "leaf/canopy.py": {
+      "sha256": "6f16b97e7fbd248685495959b4e0322f44ef9b2ba950bb35ded0d70826adde0e",
+      "size_bytes": 33687
+    },
+    "leaf/interevent.py": {
+      "sha256": "5645b37dcee89009ac9c2d87cfc5c56329e61d980054909cc7791a6158a13d0e",
+      "size_bytes": 70589
+    },
+    "leaf/recording.py": {
+      "sha256": "12ea3fee1dd660756b2e800adb20265f25b867a42604f456f01ea2728fa2c584",
+      "size_bytes": 8084
+    },
+    "leaf/stepwat.py": {
+      "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+      "size_bytes": 32213
+    },
+    "leaf/state.py": {
+      "sha256": "187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0",
+      "size_bytes": 48690
+    },
+    "leaf/demography.py": {
+      "sha256": "8c074f98a66a7583a7eab6ef8507e3a6836fd4b410c1eba899a0c73f801840ef",
+      "size_bytes": 31653
+    },
+    "leaf/forcing.py": {
+      "sha256": "fa79d12f2c96a15aac8012d713976ece8b4c055ca567968251225635fa9d7474",
+      "size_bytes": 19206
+    },
+    "leaf/roots.py": {
+      "sha256": "6cf7ab0fd2ee5c508d48ef6d8071022dd58faa67fcbc8de9974ad9d752601b50",
+      "size_bytes": 31951
+    },
+    "leaf/checkpoint.py": {
+      "sha256": "8337b5b739d47d8a3eeff0fe2da0b1b0226955fdeb4246789275dbaece41da9f",
+      "size_bytes": 27801
+    },
+    "leaf/events.py": {
+      "sha256": "2ec912dac4a5bb4ae1f52a64ef99e74e973d7f7dc68993f0f083fceb3cbed98e",
+      "size_bytes": 15605
+    },
+    "examples/phase1/species.json": {
+      "sha256": "f8bf58cdc385566ad111574e3c5c3a45f5fcd11630079f384827b401e6ab72b0",
+      "size_bytes": 6889
+    }
+  }
+}

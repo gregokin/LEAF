@@ -25,6 +25,18 @@ The session is re-anchored at the saved cursor (anchor ages / time = the CSV val
 save / load split run agree to FP64 rounding of the age sum. Budgets (`max_edges`, `max_bytes`, `reserve_bytes`) are
 supplied again by the caller and admitted globally (file sizes, hashing buffers, serialization buffers, host copies
 of device arrays, the root map and the verification rebuild).
+
+PHASE 2 state (accepted ecological state; same atomic / verified directory). `restart_arrays.npz` additionally holds
+the live-sized per-plant stress counter (int32) and the four annual accumulators (float64: required support, actual
+support, planned growth, actual growth); they are zero-length unless a stress law is active. `restart.json` gains a
+`phase2` block: the RNG seed (decimal text), the annual decision counter, the disturbance counter, the year-due flag,
+the start of the current decision period, the pending transport binding and the last decision record. The canonical
+`plants.csv` remains the SINGLE plant-record format; the auxiliary arrays carry no plant identity of their own and follow
+its live-row mapping (explicit limitation: they cannot be read without the CSV, and pending / annual decision state is
+not representable in the CSV). A checkpoint written before Phase 2 (no `phase2` block / arrays) is refused: there is no
+silent migration. Restoring verifies seed binding, counters, counter caps, finiteness, decision-period / binding
+consistency and the active-law flags before a session object exists; a restored session continues with the same keyed
+random draws as an uninterrupted run (only (seed, counter) are random state).
 '''
 from __future__ import annotations
 
@@ -40,6 +52,7 @@ from fractions import Fraction
 
 import numpy as np
 
+from leaf import demography as _demo
 from leaf import forcing as _forcing
 from leaf import interevent as _ie
 from leaf import state as _state
@@ -48,16 +61,27 @@ from leaf import traits as _traits
 from leaf import uptake as _uptake
 
 SCHEMA = 'leaf.interevent_restart'
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2       # v2 = Phase 2 layout (five required arrays + `phase2` block); the plant CSV format stays version 1
 CSV_NAME, NPZ_NAME, MANIFEST_NAME = 'plants.csv', 'restart_arrays.npz', 'restart.json'
 SOURCE_MODULES = ('interevent', 'checkpoint', 'growth', 'roots', 'uptake', 'syrup_water', 'forcing', 'canopy',
-                  'state', 'traits')
+                  'state', 'traits', 'demography', 'disturbance', 'events')
 ARRAY_SPECS = {   # name -> (dtype, ndim)
     'native_water_m': (np.float64, 2), 'pending_requested_m3': (np.float64, 1), 'pending_delivered_m3': (np.float64, 1),
     'pending_activity_integral': (np.float64, 1), 'pending_temperature_integral': (np.float64, 1),
     'canopy_area_m2': (np.float64, 1), 'live_rows': (np.int64, 1), 'root_ids': (np.int64, 1),
     'root_offsets': (np.int64, 1), 'root_resources': (np.int64, 1), 'root_weights': (np.float64, 1),
-    'override_ids': (np.int64, 1), 'override_rows': (np.float64, 2)}
+    'override_ids': (np.int64, 1), 'override_rows': (np.float64, 2),
+    # Phase 2 (zero-length unless a stress law is active): per-live-plant counter + annual accumulators
+    'stress_counter': (np.int32, 1), 'annual_required_support_kg_year': (np.float64, 1),
+    'annual_actual_support_kg_year': (np.float64, 1), 'annual_planned_growth_kg': (np.float64, 1),
+    'annual_actual_growth_kg': (np.float64, 1)}
+PHASE2_ARRAYS = ('stress_counter', 'annual_required_support_kg_year', 'annual_actual_support_kg_year',
+                 'annual_planned_growth_kg', 'annual_actual_growth_kg')
+PHASE2_SCHEMA = 'leaf.phase2_state'
+PHASE2_KEYS = ('schema', 'demography_active', 'stress_active', 'disturbance_active', 'rng_seed', 'n_annual',
+               'n_disturbance', 'n_population_rebinds', 'annual_due', 'annual_cursor', 'transport_pending',
+               'last_decision')
+TRANSPORT_PENDING_KEYS = ('sequence', 'kind', 'source', 'start', 'end', 'start_days', 'end_days', 'interval_id')
 SERIALIZATION_NOTE = ('save: snapshot PlantState + CSV text (+ its UTF-8 bytes) + npz bytes + host copies of device '
                       'arrays are counted in the global ledger')
 
@@ -120,7 +144,7 @@ def estimate_save_bytes(session):
     L, N, Pl, Pa, S = session._L, session._N, session._Pl, session._Pa, session._S
     rm = session._b.root_map
     E = 0 if rm is None else int(rm.n_edges)
-    arrays = 8 * L * N + 8 * Pl * 4 + 16 * S + 8 * Pl + 8 * (Pl + 1) + 16 * E + 8 * (Pl + 1)
+    arrays = 8 * L * N + 8 * Pl * 4 + 16 * S + 8 * Pl + 8 * (Pl + 1) + 16 * E + 8 * (Pl + 1) + 36 * Pl
     snap = session._materialize_peak()            # structural materialisation peak incl. CUDA host B / E copies
     return {'snapshot_population': snap, 'csv_text_and_bytes': 3 * 180 * Pa,
             'host_array_copies': arrays, 'npz_buffer': arrays + 4096, 'manifest': 65536,
@@ -168,6 +192,24 @@ def save_session(session, path, *, overwrite=False):
     ov = session._overrides or {}
     arrays['override_ids'] = np.array(sorted(ov), dtype=np.int64)
     arrays['override_rows'] = np.array([ov[k] for k in sorted(ov)], dtype=np.float64).reshape(len(ov), session._L)
+    if session._stress_on and b.stress is not None:          # Phase 2 accepted per-plant state (explicit host copies)
+        arrays['stress_counter'] = np.ascontiguousarray(_ie._hostarr(b.stress), dtype=np.int32)
+        arrays['annual_required_support_kg_year'] = np.ascontiguousarray(_ie._hostarr(b.ann_req), dtype=np.float64)
+        arrays['annual_actual_support_kg_year'] = np.ascontiguousarray(_ie._hostarr(b.ann_act), dtype=np.float64)
+        arrays['annual_planned_growth_kg'] = np.ascontiguousarray(_ie._hostarr(b.ann_plan), dtype=np.float64)
+        arrays['annual_actual_growth_kg'] = np.ascontiguousarray(_ie._hostarr(b.ann_gain), dtype=np.float64)
+    else:
+        arrays['stress_counter'] = np.zeros(0, dtype=np.int32)
+        for k in PHASE2_ARRAYS[1:]:
+            arrays[k] = np.zeros(0, dtype=np.float64)
+    phase2 = {'schema': PHASE2_SCHEMA, 'demography_active': bool(session._demo_on),
+              'stress_active': bool(session._stress_on), 'disturbance_active': bool(session._dist.any_active),
+              'rng_seed': None if session._rng_seed is None else str(int(session._rng_seed)),
+              'n_annual': int(b.n_annual or 0), 'n_disturbance': int(b.n_disturbance or 0),
+              'n_population_rebinds': int(b.n_population_rebinds or 0), 'annual_due': b.annual_due,
+              'annual_cursor': b.annual_cursor.isoformat(),
+              'transport_pending': None if b.transport_pending is None else dict(b.transport_pending),
+              'last_decision': None if b.last_decision is None else dict(b.last_decision)}
     buf = io.BytesIO()
     np.savez(buf, **arrays)
     npz_bytes = buf.getvalue()
@@ -191,7 +233,7 @@ def save_session(session, path, *, overwrite=False):
                   'native_elapsed_offset_s': float(b.native_state.t_s) - float(session._native_anchor_t),
                   'time_days': snap.time_days, 'n_growth': int(b.n_growth), 'n_rebuilds': int(b.n_rebuilds),
                   'original_anchor': session._anchor.isoformat(), 'original_time_days': session._time0},
-        'last_receipt': b.last_receipt, 'last_growth': b.last_growth,
+        'last_receipt': b.last_receipt, 'last_growth': b.last_growth, 'phase2': phase2,
         'sources': {'modules': module_hashes(), 'native_pin': _ie._clean(session._provenance.get('pin')),
                     'native_files_sha256': _ie._clean(session._provenance.get('sha256'))},
         'files': {CSV_NAME: _sha(csv_bytes), NPZ_NAME: _sha(npz_bytes)},
@@ -245,8 +287,10 @@ def _need(d, key, where):
 
 
 def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, reserve_bytes=0, root_builder=None,
-                 verify_roots=True, allow_source_change=False, verify_native_sources=True):
-    '''Restore a complete accepted boundary (module docstring). Nothing is adopted unless every check passes.'''
+                 verify_roots=True, allow_source_change=False, verify_native_sources=True, rng_seed=None):
+    '''Restore a complete accepted boundary (module docstring). Nothing is adopted unless every check passes. The RNG
+    seed is part of the accepted state and is read from the checkpoint; a caller-supplied `rng_seed` is only a
+    consistency check (a different seed refuses).'''
     # scalar budget arguments first: strict non-boolean integers, no float truncation, no negative reserve
     max_edges = _ie._real_pos_int(max_edges, 'max_edges', 0)
     max_bytes = _ie._real_pos_int(max_bytes, 'max_bytes', 1)
@@ -267,8 +311,15 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
         man = _traits.parse_strict_json(mbytes, what='restart manifest')
     except _traits.CatalogError as exc:
         raise CheckpointError(str(exc)) from exc
-    if not isinstance(man, dict) or man.get('schema') != SCHEMA or man.get('schema_version') != SCHEMA_VERSION:
-        raise CheckpointError(f'unsupported restart schema {man.get("schema") if isinstance(man, dict) else man!r}')
+    if not isinstance(man, dict):
+        raise CheckpointError(f'restart manifest must be a JSON object, got {type(man).__name__}')
+    ver = man.get('schema_version')
+    if man.get('schema') != SCHEMA or type(ver) is not int or ver != SCHEMA_VERSION:   # a real int: not 2.0, not bool
+        raise CheckpointError(
+            f'unsupported restart format: schema {man.get("schema")!r} version {ver!r} ({type(ver).__name__}); this loader '
+            f'reads exactly schema {SCHEMA!r} integer version {SCHEMA_VERSION}. Older (version 1) checkpoints lack the '
+            'Phase 2 arrays and manifest block and are NOT migrated or defaulted (allow_source_change does not authorize '
+            'a format conversion; use the pinned Phase 1 runtime that wrote them)')
     body = {k: v for k, v in man.items() if k != 'content_hash'}
     if man.get('content_hash') != _sha(_canonical(body)):
         raise CheckpointError('manifest content hash mismatch (corrupt or edited manifest)')
@@ -376,6 +427,56 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
     if pending == 0 and (bool(np.any(A != 0.0)) or bool(np.any(T != 0.0)) or (Pl and (bool(np.any(D != 0.0))
                                                                                     or bool(np.any(U != 0.0))))):
         raise CheckpointError('pending accumulators are non-zero although no growth is pending')
+    # ---- Phase 2 accepted ecological state: strict parse BEFORE any session object exists
+    p2 = _need(man, 'phase2', 'manifest')
+    if not isinstance(p2, dict) or set(p2) != set(PHASE2_KEYS) or p2.get('schema') != PHASE2_SCHEMA:
+        raise CheckpointError('manifest phase2 block is missing or malformed (checkpoints written before Phase 2 are '
+                              'refused: no silent migration)')
+    for k in ('demography_active', 'stress_active', 'disturbance_active'):
+        if not isinstance(p2[k], bool):
+            raise CheckpointError(f'phase2.{k} must be a boolean')
+    seed_txt = p2['rng_seed']
+    if seed_txt is None:
+        seed = None
+    elif isinstance(seed_txt, str) and seed_txt.isdigit() and int(seed_txt) < (1 << 64):
+        seed = int(seed_txt)
+    else:
+        raise CheckpointError('phase2.rng_seed must be null or a decimal integer text below 2**64')
+    if rng_seed is not None:
+        try:
+            given = _demo.check_seed(rng_seed)
+        except _demo.DemographyError as exc:
+            raise CheckpointError(str(exc)) from exc
+        if seed is None or given != seed:
+            raise CheckpointError('the supplied rng_seed differs from the checkpoint seed (the seed is accepted state)')
+    for k in ('n_annual', 'n_disturbance', 'n_population_rebinds'):
+        if isinstance(p2[k], bool) or not isinstance(p2[k], int) or p2[k] < 0:
+            raise CheckpointError(f'phase2.{k} must be a non-negative integer')
+    if p2['annual_due'] is not None and (isinstance(p2['annual_due'], bool) or not isinstance(p2['annual_due'], int)):
+        raise CheckpointError('phase2.annual_due must be null or an integer year')
+    try:
+        annual_cursor = _dt.datetime.fromisoformat(p2['annual_cursor'])
+    except (TypeError, ValueError) as exc:
+        raise CheckpointError(f'phase2.annual_cursor invalid: {exc}') from exc
+    _forcing.check_fixed_offset_datetime(annual_cursor, 'annual_cursor')
+    if annual_cursor.utcoffset() != cursor.utcoffset() or annual_cursor > cursor:
+        raise CheckpointError('phase2.annual_cursor must share the cursor offset and not lie after the cursor')
+    tp = p2['transport_pending']
+    if tp is not None:
+        if not isinstance(tp, dict) or set(tp) != set(TRANSPORT_PENDING_KEYS) or tp['kind'] not in _ie.TRANSPORT_KINDS \
+                or tp['source'] != _ie.TRANSPORT_SOURCE.get(tp['kind']) or tp['end'] != cursor.isoformat() \
+                or not isinstance(tp['sequence'], int) or isinstance(tp['sequence'], bool) \
+                or any(isinstance(tp[k], bool) or not isinstance(tp[k], (int, float)) for k in ('start_days', 'end_days')) \
+                or not (tp['start_days'] < tp['end_days']) or not isinstance(tp['interval_id'], str) \
+                or not isinstance(tp['start'], str):
+            raise CheckpointError('phase2.transport_pending is malformed or does not end at the cursor')
+        if pending != 0:
+            raise CheckpointError('a pending transport binding cannot coexist with pending growth')
+    ld = p2['last_decision']
+    if ld is not None and (not isinstance(ld, dict) or ld.get('kind') not in ('disturbance', 'annual_decision')):
+        raise CheckpointError('phase2.last_decision is malformed')
+    if p2['annual_due'] is not None and pending != 0:
+        raise CheckpointError('an outstanding annual decision cannot coexist with pending growth')
     # ---- the session object (nothing is returned unless everything passes)
     sess = _ie.IntereventSession.__new__(_ie.IntereventSession)
     # decoded arrays (and the parsed plants, counted by _setup as the persistent population) stay alive during the
@@ -385,8 +486,25 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
     anchor_t = float(st['native_t_s'])
     sess._setup(base=plants, catalog=catalog, operator=operator, backend=backend, cadence=cadence, max_edges=max_edges,
                 max_bytes=max_bytes, reserve_bytes=reserve_bytes, root_builder=builder, overrides=overrides,
-                anchor=cursor, native_anchor_t=anchor_t, verify_native=verify_native_sources, native_state=None)
+                anchor=cursor, native_anchor_t=anchor_t, verify_native=verify_native_sources, native_state=None,
+                rng_seed=seed)
     sess._original_anchor = anchor0
+    if (p2['demography_active'], p2['stress_active'], p2['disturbance_active']) != (
+            bool(sess._demo_on), bool(sess._stress_on), bool(sess._dist.any_active)):
+        raise CheckpointError('the active Phase 2 laws of the catalog differ from the checkpoint flags')
+    if p2['annual_due'] is not None and not sess._demo_on:
+        raise CheckpointError('an annual decision is recorded as due but no mortality law is active')
+    p2_arrays = [arrays[k] for k in PHASE2_ARRAYS]
+    if sess._stress_on:
+        if any(a.shape != (Pl,) for a in p2_arrays):
+            raise CheckpointError('stress counter / annual accumulator shapes do not match the live population')
+        if Pl:
+            cap = sess._demo.counter_cap()[plants.species_index[live_rows].astype(np.int64)]
+            if int(p2_arrays[0].min()) < 0 or bool(np.any(p2_arrays[0] > cap)) \
+                    or any(float(a.min()) < 0.0 for a in p2_arrays[1:]):
+                raise CheckpointError('stress counters exceed their species cap or an annual accumulator is negative')
+    elif any(a.shape != (0,) for a in p2_arrays):
+        raise CheckpointError('stress / annual arrays must be empty when no stress law is active')
     ss, _ = _sw._native()
     hw = xp.asarray(water) if backend == 'cuda' else np.array(water, copy=True)
     P0 = sess._persistent(None)
@@ -402,6 +520,15 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
     b.season_due, b.sequence = bool(st['season_due']), int(seq)
     b.last_receipt, b.last_growth = man.get('last_receipt'), man.get('last_growth')
     b.n_growth, b.n_rebuilds = int(st.get('n_growth', 0)), int(st.get('n_rebuilds', 0))
+    b.n_annual, b.n_disturbance, b.n_population_rebinds = p2['n_annual'], p2['n_disturbance'], p2['n_population_rebinds']
+    b.annual_due, b.annual_cursor = p2['annual_due'], annual_cursor
+    b.transport_pending = None if tp is None else dict(tp)
+    b.last_decision = None if ld is None else dict(ld)
+    if sess._stress_on:
+        if Pl:
+            (b.stress, b.ann_req, b.ann_act, b.ann_plan, b.ann_gain) = (sess._to_backend(a) for a in p2_arrays)
+        else:
+            b.stress, b.ann_req, b.ann_act, b.ann_plan, b.ann_gain = sess._zero_accumulators(0)
     xpl = sess._xp
     if Pl:
         Bh = np.ascontiguousarray(plants.agb_dry_kg[live_rows])
@@ -453,7 +580,7 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
         b.root_map, b.area = None, None
     # the decoded arrays are no longer needed: release them and the transient reserve; the caller's reserve_bytes and
     # max_bytes stay exactly as supplied (no hidden limit change)
-    del arrays, water, D, U, A, T, ar
+    del arrays, water, D, U, A, T, ar, p2_arrays
     sess._transient_reserve = 0
     sess._b = b
     return sess

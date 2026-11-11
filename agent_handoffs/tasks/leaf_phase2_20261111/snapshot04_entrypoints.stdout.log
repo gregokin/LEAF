@@ -1,0 +1,72 @@
+{
+  "probes": [
+    {
+      "name": "negative_species_index",
+      "backend": "numpy",
+      "refused": true,
+      "error": "species_index must lie in [0, 2)"
+    },
+    {
+      "name": "nan_required_support",
+      "backend": "numpy",
+      "refused": true,
+      "error": "required_support must be finite and >= 0 for every plant"
+    },
+    {
+      "name": "negative_actual_support",
+      "backend": "numpy",
+      "refused": true,
+      "error": "actual_support must be finite and >= 0 for every plant"
+    },
+    {
+      "name": "negative_stress_counter",
+      "backend": "numpy",
+      "refused": true,
+      "error": "stress counters must be >= 0"
+    },
+    {
+      "name": "actual_growth_exceeds_planned",
+      "backend": "numpy",
+      "refused": true,
+      "error": "actual_growth exceeds planned_growth beyond the FP64 relation tolerance"
+    },
+    {
+      "name": "negative_species_index",
+      "backend": "numba",
+      "refused": true,
+      "error": "species_index must lie in [0, 2)"
+    },
+    {
+      "name": "nan_required_support",
+      "backend": "numba",
+      "refused": true,
+      "error": "required_support must be finite and >= 0 for every plant"
+    },
+    {
+      "name": "negative_actual_support",
+      "backend": "numba",
+      "refused": true,
+      "error": "actual_support must be finite and >= 0 for every plant"
+    },
+    {
+      "name": "negative_stress_counter",
+      "backend": "numba",
+      "refused": true,
+      "error": "stress counters must be >= 0"
+    },
+    {
+      "name": "actual_growth_exceeds_planned",
+      "backend": "numba",
+      "refused": true,
+      "error": "actual_growth exceeds planned_growth beyond the FP64 relation tolerance"
+    },
+    {
+      "name": "state_response_global_admission",
+      "backend": "numpy",
+      "refused": true,
+      "population_copies": [],
+      "error": "respond_state needs ~732 bytes (population 2, event 0) > max_bytes=1; refused before any work"
+    }
+  ],
+  "all_refused": true
+}

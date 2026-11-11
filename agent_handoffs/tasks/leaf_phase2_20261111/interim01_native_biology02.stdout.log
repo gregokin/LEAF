@@ -1,0 +1,19 @@
+{
+  "backend": "numba",
+  "cases": [
+    {
+      "all_live_plants_removed": false,
+      "restart_exact": true,
+      "dead_roots_no_uptake": true,
+      "dead_ages_frozen": true,
+      "biological_operations_preserve_native_water": true
+    },
+    {
+      "all_live_plants_removed": true,
+      "restart_exact": true,
+      "dead_roots_no_uptake": true,
+      "dead_ages_frozen": true,
+      "biological_operations_preserve_native_water": true
+    }
+  ]
+}

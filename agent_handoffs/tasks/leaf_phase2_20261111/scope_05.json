@@ -1,0 +1,29 @@
+{
+  "revision": 5,
+  "at_utc": "2026-11-11T19:26:56.032943+00:00",
+  "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+  "changed_files": [
+    "leaf/demography.py",
+    "report.md",
+    "tests/test_interevent.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T19:25:54.806681+00:00",
+    "elapsed_seconds": 18.924366615945473
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "Both CUDA failures are fixed, but nothing was run, so the fixes and the new test are NOT RUN.\n\n1. **CUDA input guard (`leaf/demography.py`).** `decide` now checks that each array is an actual CuPy `ndarray` before it reads `.device.id`. NumPy 2.x arrays also expose `.device`, which is why the old check let one through and crashed. NumPy or foreign data passed to a CUDA table now raises `DemographyError`. Nothing is coerced or uploaded, and the dtype, shape and device checks are otherwise unchanged. This should clear the `tests/test_demography.py` case that expected `DemographyError`.\n\n2. **`Phase2CudaParity` fixture (`tests/test_interevent.py`).**\n   - The no-stress fixture now asserts that `stress` is `None` and that `stress_counters()` returns `None`. It still checks that B is on the device. No unused stress arrays are allocated.\n   - A new test, `test_active_stress_law_is_device_resident_through_decision_and_restart`, uses a catalog with an active stress law. It checks that the counter and the four annual accumulators are device-resident, runs an annual decision and rechecks residency and shape, then saves and reloads on CUDA. The reload must keep the arrays on the device and reproduce the stress counters, statuses and decision count.\n\n`report.md` has a short Revision 5 section describing both changes.",
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

@@ -59,10 +59,47 @@ gets `max_bytes - (everything else live, old map included)`; the refused rebuild
 counted: interpreter, JIT caches, CUDA context, allocator pools, caller-held arrays outside `reserve_bytes`. The
 weekly geometry path (host allometry + compiled / NumPy root builder) is HOST based: on CUDA it transfers B and E to
 the host and the new CSR back (explicit and counted); it is not GPU resident.
+
+PHASE 2 (disturbance, biomass loss, persistent mortality state; UNQUALIFIED, UNCALIBRATED). Two explicit BIOLOGICAL
+BOUNDARY APIs extend the session; with no active Phase 2 law every Phase 1 path, receipt and byte count is unchanged.
+
+  apply_surface_event(event, current_surface)   runs ONLY right after an accepted wind / rain / recession transport
+        interval (`advance_transport`), never during growth / transpiration. The immutable
+        `leaf.events.SurfaceEventDiagnostics` is bound to the LAST transport interval (source: wind -> maple_wind,
+        rain / recession -> syrup_water; start and end time in model days), at most ONE decision per interval; a replay,
+        a stale / future / wrong-interval event, a wrong source, unknown or duplicate IDs, pending growth, a missing or
+        wrong-unit abrasion dose are refused with the accepted state untouched. The species law of `leaf.disturbance`
+        (catalog `disturbance` section) yields injury / dead_standing / removal; the actual current surface is sampled
+        against the FIXED establishment ground.
+  apply_annual_decision(year)                   the explicit scheduler call at the local new-year boundary. After the
+        calendar crosses a new year (an open interval ending at 1 January, or a transport spanning one) and a mortality
+        law is active, `step_interevent` REFUSES until the decision for the completed year is taken. It applies the
+        keyed age / background hazard and the persistent low-growth counter of `leaf.demography`, then resets the annual
+        accumulators. Ordering inside a year: growth updates (incl. the year-end growth) -> annual decision -> the
+        deferred seasonal turnover of the NEXT open interval. A year end inside transport accrues no growth: the annual
+        accumulators keep the real pending year until its decision.
+
+Both build the new population (status / B / E) as a TRANSACTIONAL REBIND: a shallow candidate session is built (new
+canonical base state at the cursor, live-row map, species index, common geometry through the shared allometry, roots
+through the shared builder, new working arrays) and is published, together with the new boundary, by ONE replacement
+(`_publish(static=...)`). Any failure or budget refusal leaves the old state, native water / time, clock, growth grid,
+deferred season, pending diagnostics, RNG counter and decision guards intact. The rebind preserves the grid, the
+deferred season and the accumulated calendar age (the base is re-anchored at the cursor exactly like a checkpoint
+restore, with ages frozen for plants that stop being live); water is never touched and no catch-up exists. Dead_standing
+plants keep their B / E and the shared canopy view; removed plants export their remaining B / E (zeroed); the roots of
+non-live plants no longer exist, so they request no water on the next native day.
+
+Accepted ecological state (live-sized, in the boundary and in complete checkpoints): per-plant stress counter (int32),
+four annual accumulators (required support, actual support, planned growth, actual growth; float64), the RNG seed (in
+the session / manifest), the decision counter, the year-due flag, the start of the current decision period, the pending
+transport binding and the last decision record. Auxiliary pending / annual arrays live in `restart_arrays.npz` next to
+the canonical `plants.csv`, which remains the single plant-record format (the arrays carry no plant identity of their
+own: they follow the live-row mapping of the CSV). No whole-history or event-ID list exists.
 '''
 from __future__ import annotations
 
 import calendar
+import copy
 import dataclasses
 import datetime as _dt
 import math
@@ -71,6 +108,9 @@ from fractions import Fraction
 import numpy as np
 
 from leaf import canopy as _canopy
+from leaf import demography as _demo
+from leaf import disturbance as _dist
+from leaf import events as _events
 from leaf import forcing as _forcing
 from leaf import growth as _growth
 from leaf import roots as _roots
@@ -79,9 +119,14 @@ from leaf import syrup_water as _sw
 from leaf import traits as _traits
 from leaf import uptake as _uptake
 
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 BACKENDS = ('numpy', 'numba', 'cuda')
 TRANSPORT_KINDS = ('wind', 'rain', 'recession')
+TRANSPORT_SOURCE = {'wind': 'maple_wind', 'rain': 'syrup_water', 'recession': 'syrup_water'}
+EVENT_TIME_TOL_DAYS = 1e-9        # event / transport binding tolerance (days); never below 64 eps of the clock value
+REBIND_ARRAY_BYTES_PER_LIVE = 17  # host B, E (float64) + new status code (int8) handed to a rebind
+PHASE2_SCOPE = ('UNQUALIFIED / UNCALIBRATED Phase 2: species mechanical response after transport, keyed age / '
+                'background hazard and persistent low-growth stress; aboveground dry biomass only')
 EXTERNAL_WATER_KINDS = ('rain', 'recession')
 MAX_CADENCE = _dt.timedelta(days=7)
 ROW_BYTES_PER_PLANT = 62          # host base population: ids 8, species 4, x 8, y 8, est 8, unresolved 1, B 8, E 8, age 8, status 1
@@ -196,7 +241,15 @@ class _Boundary:
     to fresh arrays and the session publishes by replacing its single reference.'''
 
     __slots__ = ('native_state', 'B', 'E', 'D', 'U', 'A', 'T', 'pending_days', 'root_map', 'area', 'cursor',
-                 'next_boundary', 'season_due', 'sequence', 'last_receipt', 'last_growth', 'n_growth', 'n_rebuilds')
+                 'next_boundary', 'season_due', 'sequence', 'last_receipt', 'last_growth', 'n_growth', 'n_rebuilds',
+                 # Phase 2 accepted ecological state (None / 0 when inactive): per-live stress counter and annual
+                 # accumulators (backend arrays), decision counters / guards, decision-period start, transport binding
+                 'stress', 'ann_req', 'ann_act', 'ann_plan', 'ann_gain', 'n_annual', 'n_disturbance', 'annual_due',
+                 'annual_cursor', 'transport_pending', 'last_decision', 'n_population_rebinds')
+
+    def __init__(self):
+        for k in self.__slots__:
+            setattr(self, k, None)
 
     def clone(self):
         new = _Boundary()
@@ -214,7 +267,7 @@ class IntereventSession:
     # ------------------------------------------------------------------ construction
     def __init__(self, plants, catalog, *, operator, native_state, start, backend, growth_cadence, max_edges,
                  max_bytes, reserve_bytes=0, root_builder='compiled', layer_fraction_overrides=None, root_map=None,
-                 verify_native_sources=True):
+                 verify_native_sources=True, rng_seed=None):
         if root_map is not None:
             raise IntereventError('an external root map is refused: the session always builds species-separable roots '
                                   'with the shared builder (custom non-separable maps need an explicit compatible '
@@ -243,12 +296,12 @@ class IntereventSession:
         self._setup(base=base, catalog=catalog, operator=operator, backend=backend, cadence=growth_cadence,
                     max_edges=max_edges, max_bytes=max_bytes, reserve_bytes=reserve_bytes, root_builder=root_builder,
                     overrides=layer_fraction_overrides, anchor=start, native_anchor_t=None,
-                    verify_native=verify_native_sources, native_state=native_state)
+                    verify_native=verify_native_sources, native_state=native_state, rng_seed=rng_seed)
         self._init_boundary(native_state)
 
     # ---- static configuration (shared with checkpoint restore)
     def _setup(self, *, base, catalog, operator, backend, cadence, max_edges, max_bytes, reserve_bytes, root_builder,
-               overrides, anchor, native_anchor_t, verify_native, native_state):
+               overrides, anchor, native_anchor_t, verify_native, native_state, rng_seed=None):
         if not isinstance(catalog, _traits.SpeciesCatalog):
             raise IntereventError('catalog must be a leaf.traits.SpeciesCatalog')
         if base.catalog_hash != catalog.hash:
@@ -318,6 +371,33 @@ class IntereventSession:
         self._table = _growth.compile_species(catalog, backend, self.max_bytes, device=self._device if side_dev else None,
                                               extra_reserve_bytes=max(initial - self._table_bytes, 0))
         _growth.check_catalog(self._table, catalog)
+        # ---- Phase 2 laws: parsed after the Phase 1 admission (S-sized tables only; inactive catalogs hold NO array and
+        # add 0 bytes). Unknown / malformed ACTIVE laws refuse here, `unimplemented` / null is explicitly inactive.
+        dev = self._device if backend == 'cuda' else None
+        try:
+            # S-sized host / device table costs are admitted BEFORE each compile allocates or uploads (the global ledger
+            # `initial` + the tables already built; the caller's reserve is inside `initial`)
+            self._dist = _dist.compile_species(catalog, backend, device=dev, max_bytes=self.max_bytes,
+                                               extra_reserve_bytes=initial)
+            self._demo = _demo.compile_species(catalog, backend, device=dev, max_bytes=self.max_bytes,
+                                               extra_reserve_bytes=initial + self._dist.resident_bytes())
+        except (_dist.DisturbanceBudgetError, _demo.DemographyBudgetError) as exc:
+            raise IntereventAdmissionError('initialization_phase2_tables', initial, self.max_bytes) from exc
+        except (_dist.DisturbanceError, _demo.DemographyError) as exc:
+            raise IntereventError(f'species catalog Phase 2 laws refused: {exc}') from exc
+        self._demo_on = bool(self._demo.any_active)
+        self._stress_on = bool(self._demo.any_stress)
+        if self._demo_on and rng_seed is None:
+            raise IntereventError('the catalog has an active mortality law: an explicit integer rng_seed is REQUIRED '
+                                  '(keyed counter-based randomness; there is no default seed and no global RNG)')
+        try:
+            self._rng_seed = None if rng_seed is None else _demo.check_seed(rng_seed)
+        except _demo.DemographyError as exc:
+            raise IntereventError(str(exc)) from exc
+        self._p2_table_bytes = int(self._dist.resident_bytes() + self._demo.resident_bytes())
+        if self._p2_table_bytes or self._stress_on:
+            self._check_stage('initialization_phase2', initial + self._p2_table_bytes
+                              + (_demo.PERSISTENT_BYTES_PER_LIVE * Pl if self._stress_on else 0), {})
         self._sidx = None
         self._live = None
         if self._has_plants:
@@ -365,6 +445,14 @@ class IntereventSession:
         b.n_growth = b.n_rebuilds = 0
         b.root_map = None
         b.area = None
+        b.n_annual = b.n_disturbance = b.n_population_rebinds = 0
+        b.annual_due = None
+        b.annual_cursor = self._anchor
+        b.transport_pending = None
+        b.last_decision = None
+        b.stress = b.ann_req = b.ann_act = b.ann_plan = b.ann_gain = None
+        if self._stress_on:
+            b.stress, b.ann_req, b.ann_act, b.ann_plan, b.ann_gain = self._zero_accumulators(Pl)
         if self._has_plants:
             Bh = np.ascontiguousarray(self._base.agb_dry_kg[self._live_rows], dtype=np.float64)
             Eh = np.ascontiguousarray(self._base.seasonal_agb_dry_kg[self._live_rows], dtype=np.float64)
@@ -381,6 +469,19 @@ class IntereventSession:
 
     def _to_backend(self, host_arr):
         return self._xp.asarray(host_arr) if self.backend == 'cuda' else np.array(host_arr, copy=True)
+
+    def _zero_accumulators(self, n):
+        '''Fresh per-live stress counter (int32) and the four annual accumulators (float64), zeros, on the backend.'''
+        xp = self._xp
+        return (xp.zeros(n, dtype=np.int32), xp.zeros(n, dtype=np.float64), xp.zeros(n, dtype=np.float64),
+                xp.zeros(n, dtype=np.float64), xp.zeros(n, dtype=np.float64))
+
+    def time_days_at(self, instant):
+        '''Model-calendar days (float) of a fixed-offset instant of THIS session (time0 + exact elapsed days).'''
+        _forcing.check_fixed_offset_datetime(instant, 'instant')
+        if instant.utcoffset() != self._offset:
+            raise IntereventError(f'offset must equal the session offset {self._offset}')
+        return self._time0 + float(self.elapsed_days(instant))
 
     # ------------------------------------------------------------------ properties
     @property
@@ -433,6 +534,79 @@ class IntereventSession:
     def sequence(self):
         return int(self._b.sequence)
 
+    # ---- Phase 2 accessors (read only)
+    @property
+    def rng_seed(self):
+        return self._rng_seed
+
+    @property
+    def demography_active(self):
+        return bool(self._demo_on)
+
+    @property
+    def disturbance_active(self):
+        return bool(self._dist.any_active)
+
+    @property
+    def n_annual_decisions(self):
+        return int(self._b.n_annual or 0)
+
+    @property
+    def n_disturbance_events(self):
+        return int(self._b.n_disturbance or 0)
+
+    @property
+    def annual_due_year(self):
+        '''Completed year whose annual decision is outstanding (None when nothing is due).'''
+        return self._b.annual_due
+
+    @property
+    def annual_period_start(self):
+        '''Start (datetime) of the current annual decision period.'''
+        return self._b.annual_cursor
+
+    @property
+    def transport_pending(self):
+        '''Copy of the last accepted transport interval that has not received a disturbance decision (or None).'''
+        tp = self._b.transport_pending
+        return None if tp is None else dict(tp)
+
+    @property
+    def last_decision(self):
+        d = self._b.last_decision
+        return None if d is None else dict(d)
+
+    def stress_counters(self):
+        '''Host copy of the per-live-plant stress counters (working-row order), or None when no stress law is active.'''
+        if self._b.stress is None:
+            return None
+        # admitted against the global ledger BEFORE the copy (cuda: device->host transfer + owned copy)
+        self._check_stage('stress_counters_readback', _sum_items(self._persistent(self._b)) + 8 * self._Pl, {})
+        return np.array(_hostarr(self._b.stress), copy=True)
+
+    def annual_accumulators(self):
+        '''Host copies {required_support_kg_year, actual_support_kg_year, planned_growth_kg, actual_growth_kg}
+        (admitted against the global ledger first: 64 bytes per live plant incl. the host transfer).'''
+        b = self._b
+        if b.ann_req is None:
+            return None
+        self._check_stage('annual_accumulators_readback', _sum_items(self._persistent(b)) + 64 * self._Pl, {})
+        return {'required_support_kg_year': np.array(_hostarr(b.ann_req), copy=True),
+                'actual_support_kg_year': np.array(_hostarr(b.ann_act), copy=True),
+                'planned_growth_kg': np.array(_hostarr(b.ann_plan), copy=True),
+                'actual_growth_kg': np.array(_hostarr(b.ann_gain), copy=True)}
+
+    def phase2_state(self):
+        b = self._b
+        return {'scope': PHASE2_SCOPE, 'demography_active': bool(self._demo_on), 'stress_active': bool(self._stress_on),
+                'disturbance_active': bool(self._dist.any_active), 'rng_seed_set': self._rng_seed is not None,
+                'n_annual_decisions': int(b.n_annual or 0), 'n_disturbance_events': int(b.n_disturbance or 0),
+                'n_population_rebinds': int(b.n_population_rebinds or 0), 'annual_due_year': b.annual_due,
+                'annual_period_start': None if b.annual_cursor is None else b.annual_cursor.isoformat(),
+                'transport_pending': None if b.transport_pending is None else dict(b.transport_pending),
+                'last_decision': None if b.last_decision is None else dict(b.last_decision),
+                'disturbance_table': self._dist.describe(), 'demography_table': self._demo.describe()}
+
     def boundaries(self):
         '''Boundaries the caller must split records at, from the current cursor.'''
         b = self._b
@@ -474,7 +648,7 @@ class IntereventSession:
                 'n_root_edges': None if b.root_map is None else int(b.root_map.n_edges),
                 'n_growth_updates': int(b.n_growth), 'n_rebuilds': int(b.n_rebuilds),
                 'row_mapping': 'working row i is plant ids[live_rows[i]]; live plants only; state row order',
-                'memory_scope': MEMORY_SCOPE}
+                'memory_scope': MEMORY_SCOPE, 'phase2': self.phase2_state()}
 
     # ------------------------------------------------------------------ memory ledger
     def _persistent(self, cur):
@@ -487,7 +661,11 @@ class IntereventSession:
                 'canopy_area': 8 * Pl, 'root_map': 0 if rm is None else int(rm.resident_bytes),
                 'caller_reserve': self.reserve_bytes,
                 # decoded checkpoint arrays still alive while a restore initialises (0 outside load_session)
-                'restore_transient_reserve': int(self._transient_reserve)}
+                'restore_transient_reserve': int(self._transient_reserve),
+                # Phase 2 (0 when inactive): S-sized law tables (host + device mirror) and the live-sized stress counter
+                # (int32) + four float64 annual accumulators
+                'phase2_tables': int(self._p2_table_bytes),
+                'phase2_state': int(_demo.PERSISTENT_BYTES_PER_LIVE * Pl) if self._stress_on else 0}
 
     def _check_stage(self, stage, total, mem):
         mem[stage] = int(total)
@@ -534,12 +712,14 @@ class IntereventSession:
         Pl, Pa, S = self._Pl, self._Pa, self._S
         P0 = self._persistent(cur)
         g = int(_growth.memory_estimate('grow', Pl, S, self.backend)['total_bytes'])
+        # Phase 2: the NEW annual accumulators (four float64 per live plant) exist beside the accepted ones
+        acc = 32 * Pl if self._stress_on else 0
         rg = (_sum_items(P0, ('B', 'E', 'species_index', 'live', 'species_tables')) + carry + forcing_bytes + native_extra
-              + 16 * Pl + 24 * Pl + 8 * S * 10)
+              + 16 * Pl + 24 * Pl + 8 * S * 10 + acc)
         # candidate B2 / E2 (16 Pl) + full PlantState materialisation peak (incl. CUDA host copies) + derive_geometry
         # bound (192 per plant) + validation scratch + area arrays (16 Pl)
         pre = (_sum_items(P0) + carry + forcing_bytes + native_extra + 16 * Pl + self._materialize_peak()
-               + 192 * Pa + VALIDATE_SCRATCH_BYTES_PER_PLANT * Pa + 16 * Pl)
+               + 192 * Pa + VALIDATE_SCRATCH_BYTES_PER_PLANT * Pa + 16 * Pl + acc)
         return {'grow': {'reserve': rg, 'total': rg + g}, 'rebuild_preflight': {'reserve': 0, 'total': pre}}
 
     # ------------------------------------------------------------------ geometry / snapshot
@@ -550,14 +730,18 @@ class IntereventSession:
         return (MATERIALIZE_BYTES_PER_PLANT * self._Pa + 16 * self._Pl
                 + (16 * self._Pl if self.backend == 'cuda' else 0))
 
-    def _materialize(self, B_live, E_live, cursor):
-        '''Canonical PlantState at `cursor` from the private base arrays + working B / E (host arrays).'''
+    def _materialize(self, B_live, E_live, cursor, status_live=None):
+        '''Canonical PlantState at `cursor` from the private base arrays + working B / E (host arrays). `status_live`
+        (Phase 2 rebind only) optionally replaces the status codes of the working rows; ages of the rows that are
+        live in the CURRENT base advance to the cursor (frozen for every other plant).'''
         base = self._base
         a = base._arrays(copy=True)
         if self._Pl:
             a['agb_dry_kg'][self._live_rows] = B_live
             a['seasonal_agb_dry_kg'][self._live_rows] = E_live
             a['age_days'][self._live_rows] = a['age_days'][self._live_rows] + float(self.elapsed_days(cursor))
+            if status_live is not None:
+                a['status'][self._live_rows] = status_live
         prov = dict(base.provenance)
         prov['interevent'] = {'version': VERSION, 'cursor': cursor.isoformat(), 'sequence': int(self._b.sequence if self._b else 0)}
         return _state.PlantState(base.domain, base.species_names, base.catalog_hash, ids=a['ids'],
@@ -681,7 +865,9 @@ class IntereventSession:
             nb = nb + k * self._cadence
         return nb
 
-    def _publish(self, work, receipt, mem):
+    def _publish(self, work, receipt, mem, static=None):
+        '''ONE accepted-boundary replacement. `static` (Phase 2 rebind only) are the population-static session
+        attributes of the candidate (plain assignments performed after the last operation that can raise).'''
         work.sequence = int(work.sequence) + 1
         receipt['sequence'] = int(work.sequence)
         caps = {k: v for k, v in mem.items() if k.endswith('_builder_budget')}      # remaining capacities, NOT totals
@@ -695,6 +881,9 @@ class IntereventSession:
                                                 'separately; excluded: interpreter, JIT / CUDA context, allocator pools',
                              'scope': MEMORY_SCOPE}
         work.last_receipt = _clean(receipt)
+        if static:
+            for name, value in static.items():
+                setattr(self, name, value)
         self._b = work          # the ONE accepted-boundary replacement
         return dict(work.last_receipt)
 
@@ -711,6 +900,11 @@ class IntereventSession:
             if added_water_m is not None or potential_evaporation_m_s is not None:
                 raise IntereventError('a closed-gate record runs NO native hydrology: do not pass forcing arrays')
             return self._pause('closed_gate', record.start, record.end, None, interval_id, record=record)
+        if b.annual_due is not None and self._demo_on and self._has_plants:
+            raise IntereventStateError(
+                f'the annual demography decision for year {b.annual_due} is due: call apply_annual_decision('
+                f'{b.annual_due}) before the next open interval (growth of the new year must not mix into the '
+                'completed year\'s accumulators); nothing was changed')
         if added_water_m is None or potential_evaporation_m_s is None:
             raise IntereventError('an open record needs added_water_m [L, N] and potential_evaporation_m_s [N] '
                                   '(native forcing prepared by the caller / SYRUP)')
@@ -860,6 +1054,11 @@ class IntereventSession:
         work.next_boundary = self._advance_boundary(b.next_boundary, end) if end >= b.next_boundary else b.next_boundary
         work.cursor = end
         work.n_growth = work.n_growth
+        work.transport_pending = None            # the cursor moved: no transport interval awaits a decision
+        if year_end and self._demo_on and self._has_plants:
+            work.annual_due = int(record.start.year)       # the year that just completed
+        if self._demo_on:
+            rep['annual_decision_due_year'] = work.annual_due
         rep['native_time_s'] = float(work.native_state.t_s)
         rep['native_time_advanced_s'] = float(work.native_state.t_s) - t_native0
         rep['next_growth_boundary'] = work.next_boundary.isoformat()
@@ -964,6 +1163,14 @@ class IntereventSession:
             raise IntereventError('the aboveground population ledger did not close')
         B2, E2 = res['B_new_kg'].copy(), res['E_new_kg'].copy()    # copy out of the shared [12, P] buffer
         per_species = self._diagnostics(res, work, year_end)
+        # Phase 2: per-plant annual accumulators of the growth outputs computed HERE (actual native feedback through
+        # `delivered_m3`; S is applied once inside grow and not again): required / actual SUPPORT (kg*year) and planned /
+        # actual GROWTH (kg). Fresh backend arrays (no readback); published with B / E, never in place.
+        ann_new = None
+        if self._stress_on and work.ann_req is not None:
+            ann_new = (work.ann_req + res['required_support_kg_year'], work.ann_act + res['actual_support_kg_year'],
+                       work.ann_plan + (res['normal_plan_kg'] + res['extra_plan_kg']),
+                       work.ann_gain + (res['normal_gain_kg'] + res['extra_gain_kg']))
         del res
         period_days = float(work.pending_days)
         unchanged = (pk['sum_seasonal_loss_kg'] == 0.0 and pk['sum_normal_gain_kg'] == 0.0
@@ -979,7 +1186,7 @@ class IntereventSession:
         # pending D/U of this transaction (16 Pl: distinct from the accepted ones in a step; aliased in a flush, then a
         # labelled conservative double count) and the fresh A/T (old + new = 32 S, of which 16 S sit in the persistent sum).
         live_other = (_sum_items(self._persistent(cur)) + carry + forcing_bytes + native_extra + 16 * Pl + 16 * Pl
-                      + 16 * self._S)
+                      + 16 * self._S + (32 * Pl if ann_new is not None else 0))
         rm, area = self._build_geometry(Bh, Eh, cursor, live_other=live_other, mem=mem, stage=label + '_roots')
         # commit stage: new map + area + B2/E2 + fresh D/U + reset accumulators (16 Pl + 16 S) coexist with the old boundary
         self._check_stage(label + '_commit', live_other + int(rm.resident_bytes) + 8 * Pl + 16 * Pl + 16 * self._S, mem)
@@ -990,6 +1197,8 @@ class IntereventSession:
         for name in ('demand', 'bridge', 'accumulate'):
             self._check_stage('next_' + name, nxt[name]['total'], mem)
         work.B, work.E, work.root_map, work.area = B2, E2, rm, area
+        if ann_new is not None:
+            work.ann_req, work.ann_act, work.ann_plan, work.ann_gain = ann_new
         work.D, work.U = xp.zeros(Pl, dtype=np.float64), xp.zeros(Pl, dtype=np.float64)
         work.A, work.T = np.zeros(self._S), np.zeros(self._S)
         work.pending_days = Fraction(0)
@@ -1040,6 +1249,20 @@ class IntereventSession:
         b = self._b
         if b.pending_days != 0:
             raise IntereventStateError('pending growth must be flushed (flush_growth) before a transport / paused interval')
+        if self._demo_on and self._has_plants:
+            # bounded annual policy: an outstanding decision is never overwritten or relabelled, and a transport / pause
+            # may cross at most ONE new year (no invented / discarded years of stress during an event)
+            if b.annual_due is not None:
+                raise IntereventStateError(
+                    f'the annual demography decision for year {b.annual_due} is outstanding: call '
+                    f'apply_annual_decision({b.annual_due}) before advancing the calendar through a transport / pause')
+            ny0 = _next_new_year(start)
+            if ny0 is not None and ny0 <= end:
+                ny1 = _next_new_year(ny0)
+                if ny1 is not None and ny1 <= end:
+                    raise IntereventStateError(
+                        'with live plants and an active mortality law a transport / pause may cross at most ONE new year '
+                        '(split the event at the new year and take the annual decision in between); nothing was changed')
         rid = self._prepare_ids(b, kind, start, interval_id)
         ss, _ = _sw._native()
         column, L, N = self._column, self._L, self._N
@@ -1079,6 +1302,16 @@ class IntereventSession:
             skipped = int((nb - work.next_boundary) // self._cadence)
             work.next_boundary = nb
         work.cursor = end
+        # Phase 2: a transport interval (not a closed-gate pause) awaits at most ONE disturbance decision; any later
+        # accepted interval replaces / clears it. A year end sets the annual-decision flag (mortality law active only).
+        work.transport_pending = None
+        if kind in TRANSPORT_KINDS:
+            work.transport_pending = {'sequence': int(work.sequence) + 1, 'kind': kind, 'source': TRANSPORT_SOURCE[kind],
+                                      'start': start.isoformat(), 'end': end.isoformat(),
+                                      'start_days': self.time_days_at(start), 'end_days': self.time_days_at(end),
+                                      'interval_id': rid}
+        if season and self._demo_on and self._has_plants:
+            work.annual_due = int(end.year - 1)
         rep = {'kind': kind, 'interval_id': rid, 'start': start.isoformat(), 'end': end.isoformat(),
                'dt_seconds_exact': str(_forcing.exact_seconds(end - start)),
                'dt_days_exact': str(_forcing.exact_seconds(end - start) / SECONDS_PER_DAY),
@@ -1089,6 +1322,353 @@ class IntereventSession:
                'native_time_s': float(work.native_state.t_s), 'next_growth_boundary': work.next_boundary.isoformat(),
                'no_transpiration_growth_or_evaporation': True}
         return self._publish(work, rep, mem)
+
+    # ------------------------------------------------------------------ Phase 2: transactional population rebind
+    def _gather_host(self, arr, idx):
+        '''Host copy of arr[idx] (idx: host int64 working rows); an explicit counted transfer on cuda.'''
+        if self.backend == 'cuda':
+            return np.ascontiguousarray(_hostarr(arr[self._xp.asarray(idx)]))
+        return np.ascontiguousarray(arr[idx])
+
+    def _rebind(self, b, work, *, B_h, E_h, code, stress, ann, ann_reset, mem, label, cursor, extra_live):
+        '''Build the NEW live population (status / B / E of every CURRENT working row given as host arrays `B_h`,
+        `E_h`, `code`) BEFORE anything is published: new canonical base at the cursor (ages frozen for plants that stop
+        being live, anchors / IDs / X / Y untouched), live-row map, species index, common geometry through the shared
+        allometry, roots through the shared builder and the new working arrays. Everything is staged on a shallow
+        candidate session and on `work` (a clone); NOTHING of `self` changes. Returns (static, info): `static` is the
+        dict of session attributes the caller hands to `_publish`. Requires no pending growth. Admission: the old
+        boundary (old map included) stays resident, so old + new coexist in every stage.'''
+        xp, Pa, Pl_old, L, N = self._xp, self._Pa, self._Pl, self._L, self._N
+        if b.pending_days != 0:
+            raise IntereventStateError('pending growth must be flushed before a population change')
+        keep = np.asarray(code) == _state.LIVE
+        Pl_new = int(np.count_nonzero(keep))
+        old_sum = _sum_items(self._persistent(b))
+        old_map = 0 if b.root_map is None else int(b.root_map.resident_bytes)
+        acc_new = _demo.PERSISTENT_BYTES_PER_LIVE * Pl_new if self._stress_on else 0
+        base_live = old_sum + int(extra_live) + REBIND_ARRAY_BYTES_PER_LIVE * Pl_old
+        # new B2 / E2 / D2 / U2 (32), host Bh2 / Eh2 (16), species index + live (5), live rows / ids (16), area (8) = 77 / live
+        self._check_stage(label + '_rebind_preflight',
+                          base_live + self._materialize_peak() + ROW_BYTES_PER_PLANT * Pa + 192 * Pa
+                          + VALIDATE_SCRATCH_BYTES_PER_PLANT * Pa + 80 * Pl_new + acc_new + old_map, mem)
+        new_state = self._materialize(B_h, E_h, cursor, status_live=code)
+        live_rows = np.flatnonzero(new_state.status == _state.LIVE).astype(np.int64)
+        if not np.array_equal(live_rows, self._live_rows[keep]):
+            raise IntereventError('internal consistency: the rebind live-row mapping differs from the status codes')
+        cand = copy.copy(self)                  # shallow: tables, operator, column are shared, never mutated
+        cand._base, cand._live_rows, cand._Pl, cand._has_plants = new_state, live_rows, Pl_new, Pl_new > 0
+        cand._anchor, cand._time0 = cursor, float(new_state.time_days)       # re-anchored exactly like a restore
+        cand._live_ids = np.ascontiguousarray(new_state.ids[live_rows], dtype=np.int64)
+        cand._b = b                             # provenance of the materialisation only
+        ov = None
+        if self._overrides:
+            keys = np.array(sorted(self._overrides), dtype=np.int64)
+            ok = np.isin(keys, cand._live_ids)
+            ov = {int(k): self._overrides[int(k)] for k in keys[ok]} or None
+        cand._overrides = ov
+        cand._sidx = cand._live = None
+        if Pl_new:
+            sp = np.ascontiguousarray(new_state.species_index[live_rows], dtype=np.int32)
+            cand._sidx = xp.asarray(sp) if self.backend == 'cuda' else sp
+            lv = np.ones(Pl_new, dtype=np.bool_)
+            cand._live = xp.asarray(lv) if self.backend == 'cuda' else lv
+        Bh2 = np.ascontiguousarray(np.asarray(B_h)[keep], dtype=np.float64)
+        Eh2 = np.ascontiguousarray(np.asarray(E_h)[keep], dtype=np.float64)
+        rm = area = None
+        if Pl_new:
+            rm, area = cand._build_geometry(Bh2, Eh2, cursor, live_other=base_live + ROW_BYTES_PER_PLANT * Pa
+                                            + 80 * Pl_new + acc_new, mem=mem, stage=label + '_roots')
+            work.B, work.E = cand._to_backend(Bh2), cand._to_backend(Eh2)
+            work.D, work.U = xp.zeros(Pl_new, dtype=np.float64), xp.zeros(Pl_new, dtype=np.float64)
+        else:
+            work.B = work.E = work.D = work.U = xp.zeros(0, dtype=np.float64)
+        work.root_map, work.area = rm, area
+        if self._stress_on:
+            if Pl_new == 0:
+                work.stress, work.ann_req, work.ann_act, work.ann_plan, work.ann_gain = cand._zero_accumulators(0)
+            else:
+                kb = xp.asarray(keep) if self.backend == 'cuda' else keep
+                work.stress = stress[kb]
+                if ann_reset:
+                    _, work.ann_req, work.ann_act, work.ann_plan, work.ann_gain = cand._zero_accumulators(Pl_new)
+                else:
+                    work.ann_req, work.ann_act, work.ann_plan, work.ann_gain = (a[kb] for a in ann)
+        if Pl_new:
+            tmp = _Boundary()
+            tmp.root_map = rm
+            nxt = cand._stages(tmp, fire=False, carry=0, forcing_bytes=8 * L * N + 8 * N, native_extra=0)
+            for name in ('demand', 'bridge', 'accumulate'):          # the NEXT interval must fit with the new map
+                self._check_stage('next_' + name, nxt[name]['total'], mem)
+        shared = ('native_resident', 'native_state_accepted', 'caller_reserve', 'species_tables', 'phase2_tables',
+                  'restore_transient_reserve', 'pending_integrals_host')
+        self._check_stage(label + '_rebind_commit', base_live + _sum_items(cand._persistent(work), shared), mem)
+        work.n_population_rebinds = int(work.n_population_rebinds or 0) + 1
+        static = {'_base': new_state, '_live_rows': live_rows, '_Pl': Pl_new, '_has_plants': Pl_new > 0,
+                  '_sidx': cand._sidx, '_live': cand._live, '_live_ids': cand._live_ids, '_overrides': ov,
+                  '_anchor': cursor, '_time0': cand._time0}
+        info = {'performed': True, 'n_live_before': int(Pl_old), 'n_live_after': int(Pl_new),
+                'n_edges': None if rm is None else int(rm.n_edges), 'builder': self.root_builder,
+                'reanchored_at': cursor.isoformat(), 'ages_frozen_for_non_live': True,
+                'builder_budget_bytes': mem.get(label + '_roots_builder_budget'),
+                'growth_grid_preserved': True, 'native_water_untouched': True}
+        return static, info
+
+    def _lookup_rows(self, ids):
+        '''State rows of the given plant IDs (order preserved) without caching anything on the accepted base. Unknown or
+        duplicate IDs raise StateError. Scratch: 24 bytes per TOTAL plant (admitted by the caller).'''
+        q = _state._coerce_int(ids, 'plant_id', None, np.int64)
+        if q.size == 0:
+            return np.zeros(0, dtype=np.int64)
+        if np.unique(q).shape[0] != q.shape[0]:
+            raise _state.StateError('duplicate plant IDs in request')
+        base_ids = self._base.ids
+        if base_ids.shape[0] == 0:
+            raise _state.StateError('unknown plant IDs (population is empty)')
+        order = np.argsort(base_ids, kind='stable')
+        pos = np.searchsorted(base_ids[order], q)
+        pos_c = np.minimum(pos, base_ids.shape[0] - 1)
+        found = (pos < base_ids.shape[0]) & (base_ids[order][pos_c] == q)
+        if not found.all():
+            raise _state.StateError(f'unknown plant IDs {q[~found][:10].tolist()}')
+        return order[pos_c]
+
+    # ------------------------------------------------------------------ Phase 2: surface-event response
+    def apply_surface_event(self, event, current_surface, *, interval_id=None):
+        '''Species mechanical response (leaf.disturbance) of the LIVE plants named by `event`, applied right AFTER the
+        accepted transport interval the event describes (module docstring). Binding: the last accepted wind / rain /
+        recession interval must still await its decision, `event.source` must be its source (wind -> maple_wind, rain /
+        recession -> syrup_water), `time_start_days` / `time_end_days` must equal that interval (tolerance
+        max(1e-9, 64 eps |t|) days), IDs must resolve and be unique, and growth must be flushed (it always is after a
+        transport). `current_surface` (ny, nx) is the ACTUAL surface after the event; each plant samples its containing
+        cell against its FIXED establishment ground. A replay, a stale / future / wrong-interval event, a second event
+        for the same interval, a wrong unit / missing dose or any budget / rebuild failure raises with the accepted
+        boundary untouched. No random state is used or consumed; native water and time never change. Returns a compact
+        JSON-safe receipt (per-species and per-cause diagnostics, the dry-AGB ledger and the rebind packet).'''
+        b = self._b
+        if not isinstance(event, _events.SurfaceEventDiagnostics):
+            raise IntereventError('event must be a leaf.events.SurfaceEventDiagnostics')
+        tp = b.transport_pending
+        if tp is None:
+            ld = b.last_decision
+            tol0 = max(EVENT_TIME_TOL_DAYS, 64.0 * FP64_EPS * max(abs(event.time_end_days), 1.0))
+            if ld is not None and ld.get('kind') == 'disturbance' and ld.get('source') == event.source \
+                    and abs(float(ld.get('start_days', math.nan)) - event.time_start_days) <= tol0 \
+                    and abs(float(ld.get('end_days', math.nan)) - event.time_end_days) <= tol0:
+                raise IntereventStateError('replay refused: this transport interval already received its disturbance '
+                                           f'decision (event {ld.get("event_id")!r}); no second injury is applied')
+            raise IntereventStateError('no accepted transport interval awaits a disturbance decision: events apply only '
+                                       'right after advance_transport (stale, out-of-order or repeated event refused)')
+        if b.pending_days != 0:
+            raise IntereventStateError('pending growth must be flushed before a disturbance decision')
+        if event.source != tp['source']:
+            raise IntereventError(f'event source {event.source!r} does not match the last transport interval '
+                                  f'({tp["kind"]!r} -> {tp["source"]!r})')
+        tol = max(EVENT_TIME_TOL_DAYS, 64.0 * FP64_EPS * max(abs(float(tp['end_days'])), 1.0))
+        if abs(self.time_days_at(b.cursor) - float(tp['end_days'])) > tol:
+            raise IntereventStateError('transport binding is inconsistent with the cursor; refused')
+        if event.time_end_days < float(tp['end_days']) - tol:
+            raise IntereventStateError(f'stale event: it ends at {event.time_end_days} days, before the last transport '
+                                       f'interval end {tp["end_days"]}')
+        if event.time_end_days > float(tp['end_days']) + tol:
+            raise IntereventStateError(f'event ends at {event.time_end_days} days, after the accounted transport end '
+                                       f'{tp["end_days"]}: advance the calendar through the event first')
+        if abs(event.time_start_days - float(tp['start_days'])) > tol:
+            raise IntereventStateError(f'event start {event.time_start_days} != transport interval start {tp["start_days"]}')
+        base, n = self._base, event.n
+        mem = {}
+        P0 = self._persistent(b)
+        # ID lookup scratch (argsort 8 + sorted IDs 8 + masks 8 per TOTAL plant), the surface validation copy (8 per cell)
+        # and the event-sized index arrays are admitted BEFORE any of them exists. The lookup is LOCAL: it never writes
+        # the accepted base (PlantState.indices_of would cache 16 bytes per total plant that no ledger counts).
+        self._check_stage('event_lookup', _sum_items(P0) + 24 * self._Pa + 8 * self._N + 64 * n, mem)
+        try:
+            surface = base.domain.check_field(current_surface, 'current surface')
+            rows = self._lookup_rows(event.plant_id)
+        except _state.StateError as exc:
+            raise IntereventError(f'event / surface refused: {exc}') from exc
+        rid = self._prepare_ids(b, 'disturbance', b.cursor, interval_id)
+        est = _dist.estimate_event_bytes(n, self._S, self.backend)
+        need = _sum_items(P0) + est['total_bytes'] + 96 * n + 8 * self._N
+        self._check_stage('event_evaluate', need, mem)
+        Pl = self._Pl
+        status = np.array(base.status[rows], dtype=np.int8)
+        B_ev = np.array(base.agb_dry_kg[rows], dtype=np.float64)
+        E_ev = np.array(base.seasonal_agb_dry_kg[rows], dtype=np.float64)
+        pos = np.zeros(n, dtype=np.int64)
+        is_live = np.zeros(n, dtype=bool)
+        if Pl and n:
+            p0 = np.searchsorted(self._live_rows, rows)
+            pos = np.minimum(p0, Pl - 1)
+            is_live = (p0 < Pl) & (self._live_rows[pos] == rows)
+            if is_live.any():
+                idx = pos[is_live]
+                B_ev[is_live] = self._gather_host(b.B, idx)
+                E_ev[is_live] = self._gather_host(b.E, idx)
+        if not np.array_equal(status == _state.LIVE, is_live):
+            raise IntereventError('internal consistency: base status and the live-row mapping disagree')
+        try:
+            res = _dist.evaluate_event(self._dist, self.catalog, event, species_index=base.species_index[rows],
+                                       status=status, B=B_ev, E=E_ev, x_m=base.x_m[rows], y_m=base.y_m[rows],
+                                       establishment_ground_m=base.establishment_ground_m[rows], domain=base.domain,
+                                       current_surface=surface, max_bytes=self.max_bytes,
+                                       extra_reserve_bytes=_sum_items(P0) + 96 * n + 8 * self._N)
+        except _dist.DisturbanceBudgetError as exc:
+            raise IntereventAdmissionError('event_evaluate', need, self.max_bytes, dict(mem)) from exc
+        except (_dist.DisturbanceError, _state.StateError) as exc:
+            raise IntereventError(f'surface event refused: {exc}') from exc
+        changed = bool(np.any(res['B_new'] != B_ev) or np.any(res['E_new'] != E_ev) or np.any(res['status_new'] != status))
+        work = b.clone()
+        rep = {'kind': 'disturbance', 'interval_id': rid, 'start': b.cursor.isoformat(), 'end': b.cursor.isoformat(),
+               'accounted_days_for_ages': 0.0, 'no_transpiration_growth_or_evaporation': True,
+               'native_water_unchanged': True, 'rng_consumed': False,
+               'event': {'event_id': event.event_id, 'source': event.source, 'time_start_days': event.time_start_days,
+                         'time_end_days': event.time_end_days, 'n_plants': int(n),
+                         'bound_transport': {k: tp[k] for k in ('kind', 'source', 'start', 'end', 'interval_id')}},
+               'disturbance': res['diagnostics']}
+        static = None
+        if changed:
+            B_all = np.array(_hostarr(b.B), dtype=np.float64, copy=True)
+            E_all = np.array(_hostarr(b.E), dtype=np.float64, copy=True)
+            code = np.zeros(Pl, dtype=np.int8)
+            idx = pos[is_live]
+            B_all[idx], E_all[idx] = res['B_new'][is_live], res['E_new'][is_live]
+            code[idx] = res['status_new'][is_live]
+            ann = (b.ann_req, b.ann_act, b.ann_plan, b.ann_gain) if self._stress_on else None
+            static, rep['rebind'] = self._rebind(b, work, B_h=B_all, E_h=E_all, code=code, stress=b.stress, ann=ann,
+                                                 ann_reset=False, mem=mem, label='disturbance', cursor=b.cursor,
+                                                 extra_live=est['total_bytes'] + 320 * n)
+            del B_all, E_all, code
+        else:
+            rep['rebind'] = {'performed': False, 'reason': 'no plant changed: zero injury / no response'}
+        work.transport_pending = None
+        work.n_disturbance = int(work.n_disturbance or 0) + 1
+        work.last_decision = {'kind': 'disturbance', 'event_id': event.event_id, 'source': event.source,
+                              'start_days': event.time_start_days, 'end_days': event.time_end_days,
+                              'interval_id': rid, 'sequence': int(work.sequence) + 1, 'n_plants': int(n)}
+        rep['n_live_after'] = int(static['_Pl']) if static else int(self._Pl)
+        return self._publish(work, rep, mem, static)
+
+    # ------------------------------------------------------------------ Phase 2: annual age / background / stress decision
+    def apply_annual_decision(self, year, *, interval_id=None):
+        '''The explicit annual scheduler call (module docstring): refused unless the calendar crossed a new year and the
+        decision for the completed `year` is outstanding, growth is flushed, and an active mortality law exists. It
+        evaluates (leaf.demography.decide) the keyed age / background hazard and the persistent stress counter of every
+        live plant from the annual accumulators, applies death (dead_standing, B / E kept) and dieback (B and E scaled),
+        resets the annual accumulators and advances the decision counter. Rejected calls consume no random state, no
+        biomass and no water; native water / time never change. Returns a compact JSON-safe receipt.'''
+        b = self._b
+        if isinstance(year, (bool, np.bool_)) or not isinstance(year, (int, np.integer)):
+            raise IntereventError(f'year must be an integer, got {year!r}')
+        year = int(year)
+        if not self._demo_on:
+            raise IntereventError('no species has an active mortality law (catalog mortality.law): there is no annual '
+                                  'decision in this session')
+        if b.annual_due is None:
+            raise IntereventStateError('no annual decision is due: either it was already accepted (replay refused) or no '
+                                       'new year was crossed since the last decision')
+        if year != b.annual_due:
+            raise IntereventStateError(f'the outstanding annual decision is for year {b.annual_due}, not {year}')
+        if b.pending_days != 0:
+            raise IntereventStateError('pending growth must be flushed (flush_growth) before the annual decision')
+        if not self._has_plants:
+            raise IntereventStateError('no live plants: nothing to decide')
+        rid = self._prepare_ids(b, 'annual_decision', b.cursor, interval_id)
+        period_days = float(_forcing.exact_seconds(b.cursor - b.annual_cursor) / SECONDS_PER_DAY)
+        if not period_days > 0.0:
+            raise IntereventStateError('the decision period has zero length')
+        Pl, S = self._Pl, self._S
+        mem = {}
+        P0 = self._persistent(b)
+        est = _demo.memory_estimate(Pl, S, self.backend)
+        # decision + transient zero accumulators (age-only catalogs, 36 / live) + age host copy (8) + host results
+        # B / E / code (17), cause (1), loss (8), B_new / E_new / removed (24) per live plant
+        self._check_stage('annual_decide', _sum_items(P0) + est['total_bytes'] + 36 * Pl + 8 * Pl + 60 * Pl, mem)
+        base = self._base
+        age_end = np.ascontiguousarray(base.age_days[self._live_rows] + float(self.elapsed_days(b.cursor)),
+                                       dtype=np.float64)
+        if self._stress_on:
+            st, rq, ac, pl, gn = b.stress, b.ann_req, b.ann_act, b.ann_plan, b.ann_gain
+        else:
+            st, rq, ac, pl, gn = self._zero_accumulators(Pl)
+        counter = int(b.n_annual or 0)
+        try:
+            dec = _demo.decide(self._demo, species_index=self._sidx, plant_ids=self._live_ids, age_end_days=age_end,
+                               stress=st, required_support=rq, actual_support=ac, planned_growth=pl, actual_growth=gn,
+                               period_days=period_days, seed=self._rng_seed, counter=counter, max_bytes=self.max_bytes,
+                               extra_reserve_bytes=_sum_items(P0) + 36 * Pl + 8 * Pl + 60 * Pl)
+        except _demo.DemographyBudgetError as exc:
+            raise IntereventAdmissionError('annual_decide', _sum_items(P0) + est['total_bytes'], self.max_bytes,
+                                           dict(mem)) from exc
+        except _demo.DemographyError as exc:
+            raise IntereventError(f'annual decision refused: {exc}') from exc
+        cause = np.array(_hostarr(dec['cause']), dtype=np.int8)
+        loss = np.array(_hostarr(dec['loss_fraction']), dtype=np.float64)
+        stress_new = dec['stress_new']
+        summ = dec['summary']
+        B_h = np.array(_hostarr(b.B), dtype=np.float64, copy=True)
+        E_h = np.array(_hostarr(b.E), dtype=np.float64, copy=True)
+        dead = cause != _demo.CAUSE_NONE
+        dieback = (loss > 0.0) & (~dead)
+        B_new = np.where(dieback, B_h * (1.0 - loss), B_h)
+        E_new = np.where(dieback, np.minimum(E_h * (1.0 - loss), B_new), E_h)
+        if bool(np.any(B_new <= 0.0)) or bool(np.any(E_new > B_new)):
+            raise IntereventError('annual dieback would leave a standing plant with non-positive dry AGB (underflow)')
+        removed = B_h - B_new
+        resid = np.abs(B_h - (B_new + removed))
+        if bool(np.any(resid > _dist.LEDGER_EPS_FACTOR * FP64_EPS * B_h + 1e-300)):
+            raise IntereventError('annual dry AGB ledger does not close within 16 eps; refused')
+        code = np.where(dead, _state.DEAD_STANDING, _state.LIVE).astype(np.int8)
+        spx = np.array(base.species_index[self._live_rows], dtype=np.int64)
+        rem_sp = np.bincount(spx, weights=removed, minlength=S)
+        fc, cc = summ['flag_counts'], summ['cause_counts']
+        per = {}
+        for k, sid in enumerate(self._demo.species_ids):
+            n_k = int(np.count_nonzero(spx == k))
+            if not n_k:
+                continue
+            per[sid] = {'n_live_before': n_k,
+                        **{f'n_{name}': int(fc[k, i]) for i, name in enumerate(_demo.FLAG_NAMES)},
+                        'n_died_age_background': int(cc[k, _demo.CAUSE_AGE]), 'n_died_stress': int(cc[k, _demo.CAUSE_STRESS]),
+                        'n_dieback': int(round(float(summ['n_dieback'][k]))),
+                        'expected_age_background_deaths': float(summ['expected_age_deaths'][k]),
+                        'removed_dry_agb_kg_stress_dieback': float(rem_sp[k]),
+                        'active_law': bool(self._demo.active[k])}
+        tb, ta, tr = math.fsum(B_h.tolist()), math.fsum(B_new.tolist()), math.fsum(removed.tolist())
+        work = b.clone()
+        rep = {'kind': 'annual_decision', 'interval_id': rid, 'start': b.cursor.isoformat(), 'end': b.cursor.isoformat(),
+               'year': year, 'accounted_days_for_ages': 0.0, 'native_water_unchanged': True,
+               'no_transpiration_growth_or_evaporation': True, 'rng_consumed': True, 'decision_counter': counter,
+               'decision_counter_after': counter + 1, 'rng_seed_bound': True,
+               'period': {'start': b.annual_cursor.isoformat(), 'end': b.cursor.isoformat(), 'days': period_days,
+                          'years_365': period_days / _demo.DAYS_PER_YEAR},
+               'per_species': per,
+               'ledger': {'dry_agb_before_kg': tb, 'dry_agb_after_kg': ta, 'removed_dry_agb_kg': tr,
+                          'residual_kg': tb - (ta + tr), 'bound_kg': _dist.LEDGER_EPS_FACTOR * FP64_EPS * tb,
+                          'removed_by_cause_kg': {'stress_dieback': tr},
+                          'definition': 'old dry AGB = new retained + removed (stress dieback); dead_standing keeps its B / E'},
+               'n_died_age_background': int(np.count_nonzero(cause == _demo.CAUSE_AGE)),
+               'n_died_stress': int(np.count_nonzero(cause == _demo.CAUSE_STRESS)),
+               'n_dieback': int(np.count_nonzero(dieback)), 'n_live_before': int(Pl), 'caveats': list(_demo.CAVEATS)}
+        static = None
+        changed = bool(np.any(dead) or np.any(dieback))
+        if changed:
+            static, rep['rebind'] = self._rebind(b, work, B_h=B_new, E_h=E_new, code=code,
+                                                 stress=stress_new if self._stress_on else None, ann=None,
+                                                 ann_reset=True, mem=mem, label='annual', cursor=b.cursor,
+                                                 extra_live=est['total_bytes'] + 36 * Pl + 60 * Pl)
+        else:
+            rep['rebind'] = {'performed': False, 'reason': 'no death or dieback'}
+            if self._stress_on:
+                work.stress = stress_new
+                _, work.ann_req, work.ann_act, work.ann_plan, work.ann_gain = self._zero_accumulators(Pl)
+        del dec, B_h, E_h
+        work.n_annual = counter + 1
+        work.annual_due = None
+        work.annual_cursor = b.cursor
+        work.last_decision = {'kind': 'annual_decision', 'year': year, 'decision_counter': counter,
+                              'cursor': b.cursor.isoformat(), 'interval_id': rid, 'sequence': int(work.sequence) + 1}
+        rep['n_live_after'] = int(static['_Pl']) if static else int(self._Pl)
+        return self._publish(work, rep, mem, static)
 
     # ------------------------------------------------------------------ restart (implemented in leaf.checkpoint)
     def save(self, path, *, overwrite=False):

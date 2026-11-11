@@ -1,0 +1,30 @@
+{
+  "revision": 3,
+  "at_utc": "2026-11-11T19:15:36.487783+00:00",
+  "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+  "changed_files": [
+    "docs/phase2-disturbance.md",
+    "leaf/demography.py",
+    "report.md",
+    "tests/test_demography.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T19:14:41.456404+00:00",
+    "elapsed_seconds": 41.096095305169
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "`decide` now accepts the full signed int64 ID range. Nothing was run, so the new and corrected tests are NOT RUN.\n\n- **Production change (`leaf/demography.py`):** `_validate_content` now requires plant IDs to be exact int64 and unique, with no sign restriction. Zero, negatives and both int64 endpoints pass. Unique-ID and int64-dtype refusals are kept: duplicates and non-int64 IDs are still refused. The modulo-2^64 hash, the random streams and every other guard (species bounds, finite annual metrics, stress caps, dtype/device) are unchanged.\n- **R2 test fixed:** I removed the `zero_id` case that treated a zero ID as invalid. In its place the refusal list now has float and bool ID cases, set directly on the call so the `Call` helper's int64 coercion doesn't hide them.\n- **New numpy tests:**\n  - IDs `[-2**63, -1, 0, 2**63-1]` run through `decide`.\n  - They equal the independent scalar hash reference.\n  - A row permutation gives the same decisions per ID.\n  - Bool, float and duplicate IDs still refuse before the kernel.\n- **New numba and CUDA classes:** both check the same signed IDs against the scalar reference, with row permutations. They skip when the backend is unavailable.\n- **Docs and report:** the docs now state the signed-ID contract. `report.md` has a Revision 3 section that supersedes the earlier \"unique and positive\" wording, now marked historical. It lists the current signatures and budgets.",
+    "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

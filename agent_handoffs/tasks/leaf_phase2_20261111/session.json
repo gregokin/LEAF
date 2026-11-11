@@ -1,0 +1,15 @@
+{
+  "session_id": "711c5973-64c3-45f8-af8a-379ba0e357a7",
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase2_20261111/candidate",
+  "timeout_seconds": 2400,
+  "write_files": [
+    "leaf/demography.py",
+    "tests/test_demography.py",
+    "tests/test_interevent.py",
+    "report.md"
+  ],
+  "model": "sonnet",
+  "effort": "medium",
+  "model_authority": "User automatic Codex-Claude Phases1-3, source sharing and continue now2026-11-11",
+  "baseline_file": "baseline_revision_05.json"
+}
