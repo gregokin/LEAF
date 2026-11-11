@@ -1,0 +1,147 @@
+{
+  "scope": "Independent allocation profiling, not ecological time integration",
+  "backend": "numba",
+  "cases": [
+    {
+      "backend": "numba",
+      "n_plants": 200000,
+      "edges_per_plant": 1,
+      "n_resources": 1,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 16800016,
+          "traced_peak_additional_bytes": 9604328,
+          "traced_retained_additional_bytes": 8004432,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 1600136,
+          "traced_peak_additional_bytes": 1604866,
+          "traced_retained_additional_bytes": 1603964,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 4800136,
+          "traced_peak_additional_bytes": 4806076,
+          "traced_retained_additional_bytes": 4805060,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        }
+      ],
+      "unknown_free_events": null,
+      "requested_live_at_end_bytes": null
+    },
+    {
+      "backend": "numba",
+      "n_plants": 1,
+      "edges_per_plant": 100000,
+      "n_resources": 100000,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 4100059,
+          "traced_peak_additional_bytes": 1605872,
+          "traced_retained_additional_bytes": 1604288,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 3200112,
+          "traced_peak_additional_bytes": 3203856,
+          "traced_retained_additional_bytes": 2404064,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 1600144,
+          "traced_peak_additional_bytes": 1606020,
+          "traced_retained_additional_bytes": 1604996,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        }
+      ],
+      "unknown_free_events": null,
+      "requested_live_at_end_bytes": null
+    },
+    {
+      "backend": "numba",
+      "n_plants": 4096,
+      "edges_per_plant": 4,
+      "n_resources": 49152,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 1142792,
+          "traced_peak_additional_bytes": 430064,
+          "traced_retained_additional_bytes": 364896,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 1605736,
+          "traced_peak_additional_bytes": 1609512,
+          "traced_retained_additional_bytes": 1216528,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 884856,
+          "traced_peak_additional_bytes": 890828,
+          "traced_retained_additional_bytes": 889796,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        }
+      ],
+      "unknown_free_events": null,
+      "requested_live_at_end_bytes": null
+    },
+    {
+      "backend": "numba",
+      "n_plants": 0,
+      "edges_per_plant": 1,
+      "n_resources": 49152,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 393224,
+          "traced_peak_additional_bytes": 5424,
+          "traced_retained_additional_bytes": 3840,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 1572968,
+          "traced_peak_additional_bytes": 1576713,
+          "traced_retained_additional_bytes": 1183657,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 786552,
+          "traced_peak_additional_bytes": 792431,
+          "traced_retained_additional_bytes": 791391,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        }
+      ],
+      "unknown_free_events": null,
+      "requested_live_at_end_bytes": null
+    }
+  ],
+  "array_scale_underestimate_cases": 0
+}

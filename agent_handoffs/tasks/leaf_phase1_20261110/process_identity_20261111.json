@@ -1,0 +1,44 @@
+{
+  "at_utc": "2026-11-11T16:05:56.968687+00:00",
+  "checks": {
+    "leaf_phase1_20261110": {
+      "pid": 2685432,
+      "start_identity_matches": true,
+      "model": "claude-sonnet-5-5",
+      "last_thinking": 11700,
+      "writes": [],
+      "rate_statuses": [],
+      "final": null
+    },
+    "leaf_phase1_native_water_20261110": {
+      "pid": 2685373,
+      "start_identity_matches": true,
+      "model": "claude-sonnet-5-5",
+      "last_thinking": 11550,
+      "writes": [],
+      "rate_statuses": [
+        {
+          "type": "rate_limit_event",
+          "rate_limit_info": {
+            "status": "allowed",
+            "resetsAt": 1794585600,
+            "rateLimitType": "seven_day",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "seven_day": {
+                "utilization": 0.56,
+                "resetsAt": 1794585600
+              }
+            }
+          },
+          "uuid": "1981c5e0-f000-46f2-b390-e9ff637119c0",
+          "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3"
+        }
+      ],
+      "final": null
+    }
+  },
+  "note": "Inspected from same escalated process namespace as CLI launches; sandbox PID namespace does not see these IDs."
+}

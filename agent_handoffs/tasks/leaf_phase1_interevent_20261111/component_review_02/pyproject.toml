@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "leaf"
+version = "0.1.0"
+description = "Landscape Ecohydrology with Agent-based Flora (LEAF): spatial individual-plant state, species catalog, canopy view and generator (Phase 0)"
+readme = "docs/phase0-vegetation.md"
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.22"]
+
+[project.optional-dependencies]
+# Legacy coupled daily growth driver (leaf.coupling / leaf.stepwat / benchmarks): compiled kernels.
+growth = ["numba"]
+# GPU backend of the legacy driver (cupy wheel must match the local CUDA toolkit; e.g. cupy-cuda12x).
+gpu = ["cupy"]
+
+[project.scripts]
+leaf = "leaf.__main__:main"
+
+[tool.setuptools]
+# `benchmarks` is included only so the lazy legacy exports (leaf.coupling -> benchmarks.*) resolve when the
+# optional growth extra is installed; the Phase 0 core never imports it.
+packages = ["leaf", "benchmarks"]
+include-package-data = false

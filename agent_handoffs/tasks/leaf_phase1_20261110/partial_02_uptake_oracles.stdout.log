@@ -1,0 +1,36 @@
+{
+  "scope": "saved uptake correction only; roots/tests/docs incomplete",
+  "oracle_cases_passed": {
+    "numpy": [
+      "user_two_layers",
+      "competition_different_roots",
+      "native_accepts_less_than_proposal",
+      "nonseparable_three_layers_two_cells",
+      "unavailable_resource_does_not_redistribute",
+      "zero_demand_and_empty_roots",
+      "empty_population"
+    ],
+    "numba": [
+      "user_two_layers",
+      "competition_different_roots",
+      "native_accepts_less_than_proposal",
+      "nonseparable_three_layers_two_cells",
+      "unavailable_resource_does_not_redistribute",
+      "zero_demand_and_empty_roots",
+      "empty_population"
+    ]
+  },
+  "refusals_passed": [
+    "numpy:offset-overflow",
+    "numpy:overflow:[0, 0]",
+    "numpy:overflow:[0, 1]",
+    "numba:offset-overflow",
+    "numba:overflow:[0, 0]",
+    "numba:overflow:[0, 1]",
+    "conversion-zero-budget-before-copy",
+    "untyped-input:[True, 2]",
+    "untyped-input:[1, 2]"
+  ],
+  "native_accepted_roundoff_preserved": true,
+  "passed": true
+}

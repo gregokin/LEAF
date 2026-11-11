@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_interevent_20261111/profile_snapshot_01.py",
+    "numba"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_interevent_20261111/review_01",
+  "pid": 8,
+  "start_ticks": "188987536",
+  "started_at_utc": "2026-11-11T17:34:43.666820+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_interevent_20261111/review_01:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-phase0-cupy",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

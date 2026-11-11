@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/probe_root_public_03.py", line 40, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/probe_root_public_03.py", line 26, in main
+    roots.horizontal_edges_compiled(
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/snapshot_03/leaf/roots.py", line 242, in horizontal_edges_compiled
+    g = sm.build_root_graph_cpu(inputs, grid, 1, int(max_edges), int(max(max_bytes, 0)))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/snapshot_03/benchmarks/spatial_mapping.py", line 320, in build_root_graph_cpu
+    n = validate_inputs(inputs, grid)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/snapshot_03/benchmarks/spatial_mapping.py", line 135, in validate_inputs
+    if np.unique(ids).shape[0] != n:
+       ^^^^^^^^^^^^^^
+  File "/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/lib/_arraysetops_impl.py", line 296, in unique
+    ret = _unique1d(ar, return_index, return_inverse, return_counts,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/lib/_arraysetops_impl.py", line 367, in _unique1d
+    if not optional_indices and not return_counts and not np.ma.is_masked(ar):
+                                                          ^^^^^
+  File "/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/__init__.py", line 720, in __getattr__
+    import numpy.ma as ma
+  File "/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/ma/__init__.py", line 42, in <module>
+    from . import core, extras
+  File "/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/ma/core.py", line 8892, in <module>
+    arange = _convert2ma(
+             ^^^^^^^^^^^^
+  File "/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/ma/core.py", line 8883, in _convert2ma
+    f"found in the docstring for `np.{func.__name__}`. "
+                                      ^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 660, in __getattr__
+    raise AttributeError(name)
+AttributeError: __name__

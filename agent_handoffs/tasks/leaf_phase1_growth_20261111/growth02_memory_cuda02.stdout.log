@@ -1,0 +1,90 @@
+{
+  "scope": "pure current kernel array profiles, not session/phase qualification",
+  "results": [
+    {
+      "backend": "cuda",
+      "operation": "demand",
+      "plants": 0,
+      "declared_total_bytes": 880,
+      "declared_allocating_bytes": 432,
+      "live_requested_at_start_bytes": 88,
+      "live_requested_peak_bytes": 88,
+      "live_rounded_peak_bytes": 3072,
+      "declared_device_bytes": 160,
+      "array_underestimate": false,
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "backend": "cuda",
+      "operation": "grow",
+      "plants": 0,
+      "declared_total_bytes": 784,
+      "declared_allocating_bytes": 304,
+      "live_requested_at_start_bytes": 88,
+      "live_requested_peak_bytes": 88,
+      "live_rounded_peak_bytes": 3072,
+      "declared_device_bytes": 256,
+      "array_underestimate": false,
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "backend": "cuda",
+      "operation": "demand",
+      "plants": 4096,
+      "declared_total_bytes": 121344,
+      "declared_allocating_bytes": 34880,
+      "live_requested_at_start_bytes": 86104,
+      "live_requested_peak_bytes": 119784,
+      "live_rounded_peak_bytes": 123392,
+      "declared_device_bytes": 119784,
+      "array_underestimate": false,
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "backend": "cuda",
+      "operation": "grow",
+      "plants": 4096,
+      "declared_total_bytes": 549632,
+      "declared_allocating_bytes": 397600,
+      "live_requested_at_start_bytes": 151640,
+      "live_requested_peak_bytes": 547064,
+      "live_rounded_peak_bytes": 551424,
+      "declared_device_bytes": 547064,
+      "array_underestimate": false,
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "backend": "cuda",
+      "operation": "demand",
+      "plants": 200000,
+      "declared_total_bytes": 5829440,
+      "declared_allocating_bytes": 1628992,
+      "live_requested_at_start_bytes": 4200088,
+      "live_requested_peak_bytes": 5814440,
+      "live_rounded_peak_bytes": 5818368,
+      "declared_device_bytes": 5814440,
+      "array_underestimate": false,
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "backend": "cuda",
+      "operation": "grow",
+      "plants": 200000,
+      "declared_total_bytes": 26670144,
+      "declared_allocating_bytes": 19269664,
+      "live_requested_at_start_bytes": 7400088,
+      "live_requested_peak_bytes": 26634936,
+      "live_rounded_peak_bytes": 26639360,
+      "declared_device_bytes": 26634936,
+      "array_underestimate": false,
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    }
+  ],
+  "failure_count": 0
+}

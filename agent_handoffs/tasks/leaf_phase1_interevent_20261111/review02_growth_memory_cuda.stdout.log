@@ -1,0 +1,40 @@
+{
+  "scope": "seven actual native days including weekly growth, external arrays at builder entry",
+  "plants": 100000,
+  "cells": 4096,
+  "layers": 2,
+  "host_resident_array_lower_bound_bytes": 7800392,
+  "device_live_at_start_bytes": 10272272,
+  "device_live_requested_peak_bytes": 24039377,
+  "global_array_peak_lower_bound_bytes": 31839769,
+  "declared_global_peak_bytes": 508532456,
+  "underestimate_confirmed": true,
+  "root_builder_observations": [
+    {
+      "host_array_lower_bound_bytes": 16400424,
+      "actual_live_requested_device_bytes": 14337808,
+      "actual_external_array_lower_bound_bytes": 30738232,
+      "declared_external_bytes": 28338456,
+      "external_underestimate_confirmed": true
+    }
+  ],
+  "stage_estimates": {
+    "native_step": 18564736,
+    "demand": 18967448,
+    "bridge": 23286328,
+    "accumulate": 27286392,
+    "grow": 33408312,
+    "rebuild_preflight": 62738456,
+    "growth_grow": 33408312,
+    "growth_rebuild_preflight": 62738456,
+    "growth_roots_materialize": 38638456,
+    "growth_roots_geometry": 51638456,
+    "growth_roots_builder_budget": 508532456,
+    "next_demand": 18967448,
+    "next_bridge": 23286328,
+    "next_accumulate": 27286392
+  },
+  "note": "Host lower bound omits native host parameters and temporary host packets; raw device bytes include every hooked array and exclude pool rounding/context.",
+  "unknown_free_events": 0,
+  "requested_live_at_end_bytes": 0
+}

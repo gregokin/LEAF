@@ -1,0 +1,182 @@
+{
+  "scope": "review composition of interrupted modules; no phase acceptance",
+  "native_provenance": {
+    "pin": {
+      "repository_head": "c76c603dde4e8f79ec48b18d954a386580d8bc89",
+      "branch": "feature/subsurface-hydrology",
+      "subsurface_transpiration_version": "0.2.0",
+      "sha256": {
+        "subsurface.py": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+        "subsurface_transpiration.py": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9"
+      },
+      "withdrawal_law": "available = max(w - residual_m[l], 0); actual = min(requested, available); inactive cells carry zero requests; no compensation, no clipping after subtraction; t_s preserved"
+    },
+    "imported_version": "0.2.0",
+    "version_supported": true,
+    "files": {
+      "subsurface.py": "/home/okin/SYRUP/src/maple_syrup/subsurface.py",
+      "subsurface_transpiration.py": "/home/okin/SYRUP/src/maple_syrup/subsurface_transpiration.py"
+    },
+    "verified": true,
+    "sha256": {
+      "subsurface.py": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+      "subsurface_transpiration.py": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9"
+    },
+    "hash_matches": {
+      "subsurface.py": true,
+      "subsurface_transpiration.py": true
+    },
+    "all_hashes_match": true
+  },
+  "case_count": 9,
+  "results": [
+    {
+      "case": "user",
+      "map_backend": "cuda",
+      "native_backend": "cuda",
+      "delivered_m3": [
+        75.0
+      ],
+      "native_actual_m3": 75.00000000000001,
+      "water_residual_m3": -1.4210854715202004e-14,
+      "memory_total_bytes": 1794,
+      "native_calls": 1
+    },
+    {
+      "case": "competition",
+      "map_backend": "cuda",
+      "native_backend": "cuda",
+      "delivered_m3": [
+        62.5,
+        12.500000000000004
+      ],
+      "native_actual_m3": 75.00000000000001,
+      "water_residual_m3": -1.4210854715202004e-14,
+      "memory_total_bytes": 1874,
+      "native_calls": 1
+    },
+    {
+      "case": "different_layers",
+      "map_backend": "cuda",
+      "native_backend": "cuda",
+      "delivered_m3": [
+        20.0,
+        80.0
+      ],
+      "native_actual_m3": 100.0,
+      "water_residual_m3": 0.0,
+      "memory_total_bytes": 1890,
+      "native_calls": 1
+    },
+    {
+      "case": "inactive",
+      "map_backend": "cuda",
+      "native_backend": "cuda",
+      "delivered_m3": [
+        100.0
+      ],
+      "native_actual_m3": 100.0,
+      "water_residual_m3": 0.0,
+      "memory_total_bytes": 1660,
+      "native_calls": 1
+    },
+    {
+      "case": "empty",
+      "map_backend": "cuda",
+      "native_backend": "cuda",
+      "delivered_m3": [],
+      "native_actual_m3": 0.0,
+      "water_residual_m3": 0.0,
+      "memory_total_bytes": 1698,
+      "native_calls": 1
+    },
+    {
+      "case": "area_0.0625",
+      "map_backend": "cuda",
+      "native_backend": "cuda",
+      "delivered_m3": [
+        0.0001
+      ],
+      "native_actual_m3": 0.0001,
+      "water_residual_m3": 0.0,
+      "memory_total_bytes": 1458,
+      "native_calls": 1
+    },
+    {
+      "case": "area_1.0",
+      "map_backend": "cuda",
+      "native_backend": "cuda",
+      "delivered_m3": [
+        0.0001
+      ],
+      "native_actual_m3": 0.0001,
+      "water_residual_m3": 0.0,
+      "memory_total_bytes": 1458,
+      "native_calls": 1
+    },
+    {
+      "case": "area_2.3",
+      "map_backend": "cuda",
+      "native_backend": "cuda",
+      "delivered_m3": [
+        0.0001
+      ],
+      "native_actual_m3": 0.0001,
+      "water_residual_m3": 0.0,
+      "memory_total_bytes": 1458,
+      "native_calls": 1
+    },
+    {
+      "case": "nonbinary_area_exact_native_feedback",
+      "map_backend": "cuda",
+      "native_backend": "cuda",
+      "delivered_m3": [
+        0.000845229718005104,
+        0.00016181211807793786,
+        0.0005581868028183265,
+        0.00036871186172260704,
+        0.00021572702159820673,
+        0.00038643821355160935,
+        0.0004287363345945149,
+        0.0006117317653904817,
+        0.0007366494846427733,
+        1.6274366940114846e-05,
+        0.0002547868728788467,
+        0.0006045417087093663,
+        8.465295799245604e-05,
+        0.0009977659172420536,
+        0.0008325137783762033,
+        3.774058030965749e-05,
+        0.0005679722733352963,
+        0.0006097307969080585,
+        7.91965293475396e-06,
+        0.00017990479003932133,
+        0.0001657572913128693,
+        0.0004624959516243304,
+        0.0005674366126110653,
+        0.00045245731461331464,
+        0.0009198559044281547,
+        0.0008151092826622884,
+        0.0004017648884454417,
+        0.00020395839490536895,
+        0.0003589672129768448,
+        0.0008621730012011298,
+        0.0003494667390283418,
+        0.0009910745564193563
+      ],
+      "native_actual_m3": 0.015057544166296196,
+      "water_residual_m3": -1.734723475976807e-18,
+      "memory_total_bytes": 9704,
+      "native_calls": 1
+    }
+  ],
+  "guards": {
+    "cuda/cuda": [
+      "zero-budget-before-projection-or-debit",
+      "bad-demand-shape-before-debit",
+      "gather-failure-after-pure-native-stage",
+      "native-shortfall-uses-actual-one-real-debit"
+    ]
+  },
+  "passed": true
+}

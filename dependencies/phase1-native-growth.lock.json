@@ -1,0 +1,160 @@
+{
+  "installed_at_utc": "2026-11-11T18:22:49.560724+00:00",
+  "qualification_baseline": "4be8ae89dd240d5957893cc219656840a29556ff",
+  "composition": [
+    "A4",
+    "B4",
+    "C3",
+    "D3"
+  ],
+  "files": {
+    "README.md": {
+      "sha256": "9b22c50d5ecf0754bc954504ea7d8a15c15bf78adf4a90b9c74bb6b89c33b4d4",
+      "size_bytes": 12502
+    },
+    "docs/phase1-growth.md": {
+      "sha256": "81fb72ea3203e98210de60ee0821f16901a7b13c2f638b59ee8a3c45200beaf3",
+      "size_bytes": 15500
+    },
+    "docs/phase1-interevent.md": {
+      "sha256": "1055030d9a9d117fa35bbdfbb2be69b2f11872c3a075cfd46c6524d2ba809d04",
+      "size_bytes": 15395
+    },
+    "docs/phase1-native-water.md": {
+      "sha256": "f6c9c0c4c6cdaf16417ee2a3cdc886ccfbd06d88f5e8d69cb8c1e5d677abe03f",
+      "size_bytes": 13681
+    },
+    "docs/phase1-water-contract.md": {
+      "sha256": "f78816f0b056a671f0d88a5ab85a299bb8865dffc6988a7da77573f4526cdc1f",
+      "size_bytes": 17373
+    },
+    "examples/phase1/run_interevent.py": {
+      "sha256": "4f4185811723222acec067444e067fd12be71a4d227920ef77fbcf4995747a92",
+      "size_bytes": 7913
+    },
+    "examples/phase1/species.json": {
+      "sha256": "f8bf58cdc385566ad111574e3c5c3a45f5fcd11630079f384827b401e6ab72b0",
+      "size_bytes": 6889
+    },
+    "leaf/__init__.py": {
+      "sha256": "d9082d6aa827f6b34fe182281916325ee7f166d225bf5388d1e8af062124b5d9",
+      "size_bytes": 2872
+    },
+    "leaf/checkpoint.py": {
+      "sha256": "8337b5b739d47d8a3eeff0fe2da0b1b0226955fdeb4246789275dbaece41da9f",
+      "size_bytes": 27801
+    },
+    "leaf/forcing.py": {
+      "sha256": "fa79d12f2c96a15aac8012d713976ece8b4c055ca567968251225635fa9d7474",
+      "size_bytes": 19206
+    },
+    "leaf/growth.py": {
+      "sha256": "ce984de33fc8ec1154449706d8c59c8e31166b732ebedb6648bc47f68513998a",
+      "size_bytes": 70330
+    },
+    "leaf/interevent.py": {
+      "sha256": "5645b37dcee89009ac9c2d87cfc5c56329e61d980054909cc7791a6158a13d0e",
+      "size_bytes": 70589
+    },
+    "leaf/roots.py": {
+      "sha256": "6cf7ab0fd2ee5c508d48ef6d8071022dd58faa67fcbc8de9974ad9d752601b50",
+      "size_bytes": 31951
+    },
+    "leaf/syrup_water.py": {
+      "sha256": "baefec2a100b751cc35bda8739ea5d04339681f0d3f9d6b900972986161db215",
+      "size_bytes": 65854
+    },
+    "leaf/traits.py": {
+      "sha256": "4aecd751ae6a46fb996dfa295129d3f5c01e57abf98943d150103782f9ce8527",
+      "size_bytes": 27583
+    },
+    "leaf/uptake.py": {
+      "sha256": "675e4bf4b9a9c202ae166f50444032c105d4d691f366f94479034814952bfe2d",
+      "size_bytes": 67742
+    },
+    "tests/test_forcing.py": {
+      "sha256": "98fdc620aebc72ba5ffbc7cf7802bce329b2c4a68e634ba96c52a4604d2772e5",
+      "size_bytes": 13771
+    },
+    "tests/test_growth.py": {
+      "sha256": "7a849b2a5c995e3a83115438ec032f6b9f958b650683d08220d2c862baca5f08",
+      "size_bytes": 51898
+    },
+    "tests/test_interevent.py": {
+      "sha256": "e16f5a574de179e3b8d36c01b690e258920222438e02b5183e84386e58e9934d",
+      "size_bytes": 71065
+    },
+    "tests/test_roots.py": {
+      "sha256": "128b124e0c61a9bbd75be6bfc32e40a1f32dd8b31ee7a7807629155a68b6bd4f",
+      "size_bytes": 28575
+    },
+    "tests/test_syrup_water.py": {
+      "sha256": "c48cefcc2e10a674c5d833290f6a7af846854b15db16d66ced1352e9bf91febd",
+      "size_bytes": 67280
+    },
+    "tests/test_uptake.py": {
+      "sha256": "0fd6838f77e3da147e34c76542f28399a8c99325a279914a7f25a614e179621d",
+      "size_bytes": 39824
+    }
+  },
+  "upstream_identities": {
+    "leaf": {
+      "root": "/home/okin/leaf",
+      "head": "4be8ae89dd240d5957893cc219656840a29556ff",
+      "branch": "main",
+      "dirty_status_sha256": "ec7c46e56321b49e3d96b1f509c31af4d076ce4fccf583e7250803cce83cf47c",
+      "dirty_status_lines": 10
+    },
+    "syrup": {
+      "root": "/home/okin/SYRUP",
+      "head": "c76c603dde4e8f79ec48b18d954a386580d8bc89",
+      "branch": "feature/subsurface-hydrology",
+      "dirty_status_sha256": "ebc366c9f0b2d5419df7f259e24cc28247d802f8a0b25f3f7a685b2b8a60022b",
+      "dirty_status_lines": 42
+    },
+    "maple": {
+      "root": "/home/okin/MAPLE",
+      "head": "ed5bd49ab8f53659bcf110ff80a9ac982a682abf",
+      "branch": "main",
+      "dirty_status_sha256": "045c651357cc8faabc81b7cdafd1ce34b5c571d53a02cf0e8cfc8c8f73fa48ac",
+      "dirty_status_lines": 36
+    },
+    "masy": {
+      "root": "/home/okin/MASY",
+      "head": "fa8f2667679b7fcac21f85065e65856807743da3",
+      "branch": "main",
+      "dirty_status_sha256": "5fa08860d913b8f87bf18f962175d0532c4b4fc239ce602012f1c6b84866ffe6",
+      "dirty_status_lines": 3
+    }
+  },
+  "native_sources": {
+    "src/maple_syrup/subsurface.py": {
+      "sha256": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+      "size_bytes": 64044
+    },
+    "src/maple_syrup/subsurface_transpiration.py": {
+      "sha256": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9",
+      "size_bytes": 27929
+    }
+  },
+  "root_AGENTS_sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+  "scope": "Phase1 native water competition, dated demand, STEP-style dry AGB growth, weekly geometry and LEAF-native restart. No field calibration or full transport adapter.",
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "executable": "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "cupy-cuda12x": "14.2.0"
+  },
+  "native_support_sources": {
+    "/home/okin/MAPLE/src/maple/surface/voxels/_numerics.py": {
+      "sha256": "b1635932f23bfa6ff8c74aa52c072f796b448bd7a6454fab1e68a95ee2e40682",
+      "size_bytes": 22952
+    },
+    "/home/okin/SYRUP/src/maple_syrup/conservation.py": {
+      "sha256": "1072cdade368a76290c8a41162dfeb7a5b60ffaf970a7ede4707635bb3cf1bb1",
+      "size_bytes": 1904
+    }
+  },
+  "upstream_note": "MAPLE HEAD advanced through other work during qualification. This installation records actual final identities; LEAF did not edit upstream repositories. Relevant numerical-policy file is recorded separately."
+}

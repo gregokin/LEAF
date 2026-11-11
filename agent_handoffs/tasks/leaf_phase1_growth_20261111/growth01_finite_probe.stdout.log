@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "backend": "numpy",
+      "rejected": false,
+      "ledger": {
+        "sum_B_kg": 1e+308,
+        "sum_B_new_kg": 1e+308,
+        "sum_normal_gain_kg": 0.0,
+        "sum_extra_gain_kg": 0.0,
+        "sum_seasonal_loss_kg": 0.0,
+        "population_residual_kg": 0.0,
+        "population_tolerance_kg": Infinity,
+        "population_closed": true,
+        "max_plant_residual_kg": 0.0,
+        "plant_bound": "16.0 * eps * (B + Bnew + normal_gain + extra_gain + seasonal_loss)",
+        "statement": "Bnew == B + normal_gain + extra_gain - seasonal_loss (aboveground only; no carbon closure)"
+      },
+      "nonfinite_ledger_reported_closed": true
+    },
+    {
+      "backend": "numba",
+      "rejected": false,
+      "ledger": {
+        "sum_B_kg": 1e+308,
+        "sum_B_new_kg": 1e+308,
+        "sum_normal_gain_kg": 0.0,
+        "sum_extra_gain_kg": 0.0,
+        "sum_seasonal_loss_kg": 0.0,
+        "population_residual_kg": 0.0,
+        "population_tolerance_kg": Infinity,
+        "population_closed": true,
+        "max_plant_residual_kg": 0.0,
+        "plant_bound": "16.0 * eps * (B + Bnew + normal_gain + extra_gain + seasonal_loss)",
+        "statement": "Bnew == B + normal_gain + extra_gain - seasonal_loss (aboveground only; no carbon closure)"
+      },
+      "nonfinite_ledger_reported_closed": true
+    }
+  ]
+}

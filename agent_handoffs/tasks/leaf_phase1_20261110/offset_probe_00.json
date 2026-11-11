@@ -1,0 +1,18 @@
+{
+  "defect_reproduced": true,
+  "invalid_offsets_accepted": [
+    0,
+    9223372036854775807,
+    -9223372036854775807,
+    -1,
+    0
+  ],
+  "edge_count": 0,
+  "row_counts": [
+    9223372036854775807,
+    2,
+    9223372036854775806,
+    1
+  ],
+  "safety": "Construction only; scatter/gather intentionally NOT executed"
+}

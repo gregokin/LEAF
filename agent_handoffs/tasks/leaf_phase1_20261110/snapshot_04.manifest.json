@@ -1,0 +1,148 @@
+{
+  "at_utc": "2026-11-11T16:32:33.071076+00:00",
+  "source": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/candidate",
+  "snapshot": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/snapshot_04",
+  "files": {
+    "benchmarks/daily_water_growth.py": {
+      "sha256": "82b75464877a665b612a04c428496249a18952d128213f545b4f86e9a793ce4f",
+      "size_bytes": 79938
+    },
+    "benchmarks/spatial_mapping.py": {
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+      "size_bytes": 47260
+    },
+    "docs/phase1-water-contract.md": {
+      "sha256": "f78816f0b056a671f0d88a5ab85a299bb8865dffc6988a7da77573f4526cdc1f",
+      "size_bytes": 17373
+    },
+    "docs/shared-canopy.md": {
+      "sha256": "394c282e5541977b3a7747c5f8e11c1df0427e6ede1b932fe468b15997ec206d",
+      "size_bytes": 10738
+    },
+    "docs/stepwat-growth.md": {
+      "sha256": "6e4933b9e0e51fe22afde4e17996221231cb1de7d669aa168322a9c17712685b",
+      "size_bytes": 14524
+    },
+    "examples/phase0/generation.json": {
+      "sha256": "c23949480b017f901de24f497547ea2d0312858386b819c98b92af551c8662f0",
+      "size_bytes": 1025
+    },
+    "examples/phase0/plants.csv": {
+      "sha256": "096152d40e381967fe464574952a8af1f9df2fe2c041cf4dbc93557b11a10b4b",
+      "size_bytes": 362
+    },
+    "examples/phase0/species.json": {
+      "sha256": "c6d11e5de4038006a43ca79220e5e06858c2c40d8b2b4c50e19cce8c82e443db",
+      "size_bytes": 4371
+    },
+    "leaf/__init__.py": {
+      "sha256": "d9082d6aa827f6b34fe182281916325ee7f166d225bf5388d1e8af062124b5d9",
+      "size_bytes": 2872
+    },
+    "leaf/__main__.py": {
+      "sha256": "83b4589b1aeab57d43ad04c69d32b80daf6eb976004b38ae4b57410d861b8ee1",
+      "size_bytes": 15896
+    },
+    "leaf/canopy.py": {
+      "sha256": "6f16b97e7fbd248685495959b4e0322f44ef9b2ba950bb35ded0d70826adde0e",
+      "size_bytes": 33687
+    },
+    "leaf/coupling.py": {
+      "sha256": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+      "size_bytes": 28207
+    },
+    "leaf/events.py": {
+      "sha256": "2ec912dac4a5bb4ae1f52a64ef99e74e973d7f7dc68993f0f083fceb3cbed98e",
+      "size_bytes": 15605
+    },
+    "leaf/forcing.py": {
+      "sha256": "fa79d12f2c96a15aac8012d713976ece8b4c055ca567968251225635fa9d7474",
+      "size_bytes": 19206
+    },
+    "leaf/initialization.py": {
+      "sha256": "25e58f759761b525c2021eb18d64cd2b6bede8543b22ba983a8eb2d65967aeab",
+      "size_bytes": 32214
+    },
+    "leaf/recording.py": {
+      "sha256": "12ea3fee1dd660756b2e800adb20265f25b867a42604f456f01ea2728fa2c584",
+      "size_bytes": 8084
+    },
+    "leaf/roots.py": {
+      "sha256": "6cf7ab0fd2ee5c508d48ef6d8071022dd58faa67fcbc8de9974ad9d752601b50",
+      "size_bytes": 31951
+    },
+    "leaf/runtime.py": {
+      "sha256": "abbea7b0f873d87139f92c9eb4a6989f657def504c2080379d728f7ceb121826",
+      "size_bytes": 22606
+    },
+    "leaf/state.py": {
+      "sha256": "187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0",
+      "size_bytes": 48690
+    },
+    "leaf/stepwat.py": {
+      "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+      "size_bytes": 32213
+    },
+    "leaf/traits.py": {
+      "sha256": "4aecd751ae6a46fb996dfa295129d3f5c01e57abf98943d150103782f9ce8527",
+      "size_bytes": 27583
+    },
+    "leaf/uptake.py": {
+      "sha256": "675e4bf4b9a9c202ae166f50444032c105d4d691f366f94479034814952bfe2d",
+      "size_bytes": 67742
+    },
+    "pyproject.toml": {
+      "sha256": "76fae76c6026ab990d979349ffbc641059622d5bc44ac20aa9911c39df6e2216",
+      "size_bytes": 956
+    },
+    "report.md": {
+      "sha256": "30398af2b428e92cfa3d984c14c4fb38c548098d2f4af929e0423e2c5b881d46",
+      "size_bytes": 10755
+    },
+    "tests/test_coupling.py": {
+      "sha256": "13dcea19c2137c3dde3e813beedf5efe76e5b2c26fdac5027d4e336ece5e7efb",
+      "size_bytes": 35905
+    },
+    "tests/test_daily_water_growth.py": {
+      "sha256": "c73ae335a1a89d965e9af8dde83bfb8e252e39393154afabc26bda5ebf39deb4",
+      "size_bytes": 35234
+    },
+    "tests/test_forcing.py": {
+      "sha256": "98fdc620aebc72ba5ffbc7cf7802bce329b2c4a68e634ba96c52a4604d2772e5",
+      "size_bytes": 13771
+    },
+    "tests/test_phase0.py": {
+      "sha256": "a22c5a34652ffcdf0d3d4fa10ebc4701326a4eef67135dc685b7c77cfd3a0472",
+      "size_bytes": 109479
+    },
+    "tests/test_roots.py": {
+      "sha256": "128b124e0c61a9bbd75be6bfc32e40a1f32dd8b31ee7a7807629155a68b6bd4f",
+      "size_bytes": 28575
+    },
+    "tests/test_spatial_mapping.py": {
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0",
+      "size_bytes": 12394
+    },
+    "tests/test_stepwat.py": {
+      "sha256": "5b41f10aa3b5b9eda7e05adb72b1166f00c6a802c3b03827f40563c12f89d609",
+      "size_bytes": 45666
+    },
+    "tests/test_uptake.py": {
+      "sha256": "0fd6838f77e3da147e34c76542f28399a8c99325a279914a7f25a614e179621d",
+      "size_bytes": 39824
+    }
+  },
+  "write_files": [
+    "docs/phase1-water-contract.md",
+    "leaf/__init__.py",
+    "leaf/forcing.py",
+    "leaf/roots.py",
+    "leaf/traits.py",
+    "leaf/uptake.py",
+    "report.md",
+    "tests/test_forcing.py",
+    "tests/test_roots.py",
+    "tests/test_uptake.py"
+  ],
+  "scope_audit": "scope_04.json"
+}

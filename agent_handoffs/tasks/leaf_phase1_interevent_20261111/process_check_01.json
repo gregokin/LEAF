@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-11-11T17:01:28.372691+00:00",
+  "processes": [
+    {
+      "task": "leaf_phase1_interevent_20261111",
+      "pid": 2698166,
+      "exit_recorded": false,
+      "launched_at": "2026-11-11T16:44:14.477674+00:00",
+      "same_start_identity": true,
+      "state": "S",
+      "cpu_user_ticks": "643",
+      "cpu_system_ticks": "190",
+      "stdout_updated_utc": "2026-11-11T17:01:26.761698+00:00"
+    },
+    {
+      "task": "leaf_phase1_growth_20261111",
+      "pid": 2699981,
+      "exit_recorded": true,
+      "launched_at": "2026-11-11T16:54:23.306815+00:00",
+      "same_start_identity": false,
+      "stdout_updated_utc": "2026-11-11T16:54:44.263244+00:00"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "rejected": true,
+  "native_calls": 1,
+  "reason": "native result does not physically match the supplied inventory (cells violating each invariant: {'bad_after': 0, 'bad_actual': 0, 'bad_debit': 2, 'bad_inactive': 0, 'over_availability': 0, 'over_request': 0, 'bad_unmet': 0, 'bad_scale': 0}); returned water must equal supplied water minus the native actual debit, finite, non-negative, within saturation, inactive cells unchanged; nothing returned, inputs untouched"
+}

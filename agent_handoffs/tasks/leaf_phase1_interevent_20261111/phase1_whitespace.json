@@ -1,0 +1,18 @@
+{
+  "complete_archive_check_returncode": 2,
+  "reason": "Unmodified revision-pinned external STEP C reference files retain original whitespace. Preserve their source hashes rather than formatting archived science inputs.",
+  "leaf_and_all_other_evidence_check": [
+    "git",
+    "diff",
+    "--cached",
+    "--check",
+    "--",
+    ".",
+    ":!agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/",
+    ":!agent_handoffs/tasks/leaf_phase1_interevent_20261111/phase1_whitespace_archive.stdout.log"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "",
+  "raw_capture_note": "The preserved raw formatting-diagnostic log quotes the unchanged upstream source lines, so it retains their trailing whitespace too. That exact log is excluded with the original source; all other files pass."
+}

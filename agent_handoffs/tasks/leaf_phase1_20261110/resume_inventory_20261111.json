@@ -1,0 +1,113 @@
+{
+  "at_utc": "2026-11-11T16:02:18.602250+00:00",
+  "repositories": {
+    "LEAF": {
+      "head": {
+        "returncode": 0,
+        "stdout": "4be8ae89dd240d5957893cc219656840a29556ff\n",
+        "stderr": ""
+      },
+      "branch": {
+        "returncode": 0,
+        "stdout": "main\n",
+        "stderr": ""
+      },
+      "status": {
+        "returncode": 0,
+        "stdout": " M agent_handoffs/claude_report.md\n M agent_handoffs/codex_review.md\n M agent_handoffs/current_prompt.md\n M agent_handoffs/orchestration_state.md\n M agent_handoffs/verification.md\n?? agent_handoffs/phase_plan_20261110.md\n?? agent_handoffs/tasks/leaf_phase1_20261110/\n?? agent_handoffs/tasks/leaf_phase1_native_water_20261110/\n",
+        "stderr": ""
+      }
+    },
+    "SYRUP": {
+      "head": {
+        "returncode": 0,
+        "stdout": "c76c603dde4e8f79ec48b18d954a386580d8bc89\n",
+        "stderr": ""
+      },
+      "branch": {
+        "returncode": 0,
+        "stdout": "feature/subsurface-hydrology\n",
+        "stderr": ""
+      },
+      "status": {
+        "returncode": 0,
+        "stdout": " M .gitignore\n M AGENTS.md\n M claude.md\n M docs/subsurface_hydrology/development_phases_20261109.md\n M pyproject.toml\n M src/maple_syrup/case_import.py\n M src/maple_syrup/legacy_case.py\n M src/maple_syrup/legacy_driver.py\n M src/maple_syrup/legacy_gpu_driver.py\n M src/maple_syrup/rfid_case.py\n M src/maple_syrup/routing.py\n M src/maple_syrup/sediment_experiment.py\n?? benchmarks/additional_cases/\n?? benchmarks/subsurface/\n?? cases/abbott_companion/\n?? cases/mahleran_inputs/\n?? cases/plot2_companion/\n?? cases/plot3_companion/\n?? cases/plot4_companion/\n?? cases/remo_companion/\n?? cases/rfid_companion/\n?? cases/shrubland_companion/\n?? cases/subsurface/\n?? cases/wise_companion/\n?? conftest.py\n?? docs/additional_mahleran_cases/\n?? docs/subsurface_hydrology/diffusivity_literature_and_fit.md\n?? docs/subsurface_hydrology/ecohyd_reference_sources.md\n?? docs/subsurface_hydrology/neon_jorn_validation.md\n?? docs/subsurface_hydrology/neon_shallow_data_screen.md\n?? docs/subsurface_hydrology/nevada_validation_preparation.md\n?? docs/subsurface_hydrology/nevada_zero_flux_comparison.md\n?? docs/subsurface_hydrology/plot1_experiment.md\n?? docs/subsurface_hydrology/validation_data_candidates.md\n?? docs/testing_shared_storage_qualification.md\n?? patches/\n?? src/maple_syrup/masked_case.py\n?? tests/additional_cases/\n?? tests/additional_cases_frozen/\n?? tests/collection_compat/\n?? tests/subsurface/test_nevada_observations.py\n?? tests/subsurface/test_plot1_handoff.py\n",
+        "stderr": ""
+      }
+    },
+    "MASY": {
+      "head": {
+        "returncode": 0,
+        "stdout": "fa8f2667679b7fcac21f85065e65856807743da3\n",
+        "stderr": ""
+      },
+      "branch": {
+        "returncode": 0,
+        "stdout": "main\n",
+        "stderr": ""
+      },
+      "status": {
+        "returncode": 0,
+        "stdout": " M agent_handoffs/orchestration_state.md\n?? Source_audit_result_01.json\n?? agent_handoffs/ready_review_queue_20261027.json\n",
+        "stderr": ""
+      }
+    },
+    "MAPLE": {
+      "head": {
+        "returncode": 0,
+        "stdout": "9f466d2cfcd52991b24496cf67f4562d6268afa9\n",
+        "stderr": ""
+      },
+      "branch": {
+        "returncode": 0,
+        "stdout": "main\n",
+        "stderr": ""
+      },
+      "status": {
+        "returncode": 0,
+        "stdout": " M docs/user-guide/quickstart.md\n M docs/user-guide/synthetic-cases.md\n M src/maple/case_tools/compilers/case_compiler.py\n M src/maple/case_tools/generators/vegetation.py\n M src/maple/case_tools/importers/resolve.py\n M src/maple/case_tools/provenance.py\n M src/maple/core/parameters/case_import.py\n M src/maple/core/parameters/case_initialization.py\n M src/maple/experiment/manifest.py\n M src/maple/experiment/orchestrator.py\n M src/maple/surface/topographic_commit/closed_windowed_commit.py\n M tests/unit/test_case_tools_provenance.py\n?? CLAUDE_pre-compaction080926.md\n?? MAPLE_cases_1-4_20260928.zip\n?? MAPLE_cases_1-4_20260928.zip.sha256\n?? MAPLE_cases_6-8_10_20260928.zip\n?? MAPLE_cases_6-8_10_20260928.zip.sha256\n?? MAPLE_documentation_20260928.zip\n?? MAPLE_documentation_20260928.zip.sha256\n?? cases/01/\n?? cases/03/\n?? cases/barchan_800x100/README.md\n?? cases/barchan_800x100/initial_elevation.png\n?? cases/barchan_800x100/inspect_initial.py\n?? cases/barchan_800x100_immobile_base/README.md\n?? cases/barchan_direction_12h_local_shear/\n?? cases/barchan_direction_12h_regional/\n?? cases/barchan_rounded_h2_geometry_first_next12h/\n?? cases/barchan_rounded_h2_local_12h/\n?? cases/barchan_rounded_h2_local_pilot/\n?? cases/case10_first_contact_20261015/\n?? cases/case10_sand_v6_failure.zip\n?? cases/case10_sand_v6_failure.zip:Zone.Identifier\n?? cases/case10_sand_v6_failure/\n?? cases/case10_separation_evidence/\n?? cases/climbing_dune_north_24h_u08_10min_gpu/\n?? cases/climbing_gaussian_north_144h_u08_10min_gpu/\n?? cases/climbing_gaussian_north_24h_u08_10min_gpu/\n?? cases/climbing_gaussian_north_72h_u08_10min_gpu/\n?? cases/new_physics_24h_20261012/\n?? cases/portable_20260928/\n?? cases/random_superrepose_256_1h/\n?? cases/transverse_dunes_east_24h/\n?? cases/vegetation_first_contact_20261013/\n?? cases/vegetation_random_crest_v4_20261016/\n?? cases/vegetation_squares_2h/\n?? docs/user-guide/leaf-vegetation.md\n?? src/maple/case_tools/importers/leaf_vegetation.py\n?? src/maple/core/parameters/leaf_vegetation.py\n?? tests/leaf_vegetation/\n?? tests/unit/test_closed_windowed_import.py\n",
+        "stderr": ""
+      }
+    }
+  },
+  "sources": {
+    "/home/okin/SYRUP/src/maple_syrup/subsurface.py": {
+      "sha256": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+      "size_bytes": 64044,
+      "matches_previous": true
+    },
+    "/home/okin/SYRUP/src/maple_syrup/subsurface_transpiration.py": {
+      "sha256": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9",
+      "size_bytes": 27929,
+      "matches_previous": true
+    },
+    "/home/okin/MASY/src/masy/calendar.py": {
+      "sha256": "c73adcdbc1550a0c082bcd56212686f790049aebf79006a94d6f89c3d6a62bdc",
+      "size_bytes": 11610,
+      "matches_previous": true
+    },
+    "/home/okin/MASY/src/masy/coordinator.py": {
+      "sha256": "338e31e5f478225428f6410ca689a9cd3baf43b9631f1425936407ab4469d009",
+      "size_bytes": 39063,
+      "matches_previous": true
+    },
+    "/home/okin/MASY/src/masy/weather.py": {
+      "sha256": "e9c814a19569015201b1e177c00ee48e9f1eb1c16c1de655a99b67a8a29d5a80",
+      "size_bytes": 27580,
+      "matches_previous": true
+    }
+  },
+  "writers": {
+    "leaf_phase1_20261110": {
+      "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+      "previous_pid": 2561972,
+      "same_process_still_present": false
+    },
+    "leaf_phase1_native_water_20261110": {
+      "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+      "previous_pid": 2563030,
+      "same_process_still_present": false
+    }
+  },
+  "live_baseline_changes": []
+}

@@ -1,0 +1,29 @@
+{
+  "scope": "partial allocator CUDA core only; no full phase acceptance",
+  "actual_backend": {
+    "backend": "cuda",
+    "available": true,
+    "reason": null,
+    "cupy_version": "14.2.0",
+    "compute_capability": 61,
+    "device_id": 0,
+    "note": "maps bind to the current device at build time; no device switch or peer access"
+  },
+  "oracle_cases_passed": [
+    "user_two_layers",
+    "competition_different_roots",
+    "native_accepts_less_than_proposal",
+    "nonseparable_three_layers_two_cells",
+    "unavailable_resource_does_not_redistribute",
+    "zero_demand_and_empty_roots",
+    "empty_population"
+  ],
+  "layered_user_case_passed": true,
+  "device_native_map_passed": true,
+  "guards_refused": [
+    "proposal",
+    "feedback",
+    "actual-excess"
+  ],
+  "passed": true
+}

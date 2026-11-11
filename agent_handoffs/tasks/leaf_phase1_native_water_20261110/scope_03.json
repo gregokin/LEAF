@@ -1,0 +1,30 @@
+{
+  "revision": 3,
+  "at_utc": "2026-11-11T16:32:33.057979+00:00",
+  "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+  "changed_files": [
+    "docs/phase1-native-water.md",
+    "leaf/syrup_water.py",
+    "report.md",
+    "tests/test_syrup_water.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T16:29:13.458239+00:00",
+    "elapsed_seconds": 188.6933012548834
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "Revision 3 is written: the bridge now checks the returned soil water against the water you supplied, not just the native budget's reported totals. Nothing has been run (I can't execute code), so every check and test below is unrun and for Codex to run.\n\n**What the bridge now does** (`leaf/syrup_water.py`)\n- After the single native withdrawal, a read-only pass compares the supplied water, the returned water and the native actual, unmet, scale and request arrays cell by cell. It rejects:\n  - a missing debit, including a fresh copy of the original water;\n  - extra or unaccounted loss;\n  - a debit on the wrong cell or layer;\n  - changed inactive cells;\n  - returned water that is non-finite, negative or over saturation;\n  - actual removal above what was available or requested;\n  - unmet or scale values that don't match the request.\n- It uses one fixed 14-double packet. There are Numba and CUDA kernels plus a per-layer NumPy path, with no population-sized or grid-sized readback and no library reducers.\n- The conservation check now also requires the budget's storage-before, storage-after, actual, unmet and requested totals to match the actual array totals. It also requires `sum(before) - sum(after)` to equal the accepted volume.\n- The pass's scratch and packets are in the public ledger before any allocation. NumPy gets conservative per-layer scratch, Numba a 112-byte packet, and CUDA 112 bytes on each side.\n- A genuine shortfall on the original input still passes, as does area-conversion roundoff. I deliberately don't enforce a lower bound on the actual removal. The existing request/proposal enforcement is kept.\n\n**Tests** (`tests/test_syrup_water.py`)\n- **Corrected shortfall test:** I replaced the drier-state test, which hid water loss. The new one calls the real operator once on the original water with a halved request, then rewrites only the requested, unmet and scale diagnostics. It asserts the removed volume equals the delivery.\n- **New rejection tests:** a table of tampered returned inventories on CPU and a CUDA version. The CPU table covers:\n  - unchanged water;\n  - extra loss;\n  - a wrong-cell debit;\n  - changed inactive cells;\n  - NaN, negative and over-saturated water;\n  - inconsistent budget totals.\n- **Kernel and ledger tests:** a check that the plain-Python kernel agrees with the NumPy path, plus ledger assertions for the new entries.\n\n**To confirm**\n- **Tolerances:** I chose the `4 eps` and `8 eps` tolerances from the native `w - min(q, avail)` arithmetic. Codex should confirm they never false-reject real runs.\n- **Reviewer scripts:** I did not read the two `review_reference` scripts, and I hit no new tool errors this revision.\n\n`docs/phase1-native-water.md` and `report.md` are updated to describe the validation and the memory scope.",
+    "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

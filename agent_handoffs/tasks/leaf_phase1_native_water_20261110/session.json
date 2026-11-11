@@ -1,0 +1,15 @@
+{
+  "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/candidate",
+  "timeout_seconds": 2400,
+  "write_files": [
+    "leaf/syrup_water.py",
+    "tests/test_syrup_water.py",
+    "docs/phase1-native-water.md",
+    "report.md"
+  ],
+  "model": "sonnet",
+  "model_authority": "User continue now, 2026-11-11; decisions_20261111.md",
+  "baseline_file": "baseline_revision_02.json",
+  "effort": "medium"
+}

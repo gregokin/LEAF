@@ -1,0 +1,30 @@
+{
+  "revision": 4,
+  "at_utc": "2026-11-11T16:44:11.669876+00:00",
+  "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+  "changed_files": [
+    "docs/phase1-native-water.md",
+    "leaf/syrup_water.py",
+    "report.md",
+    "tests/test_syrup_water.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T16:37:36.776031+00:00",
+    "elapsed_seconds": 12.35687187500298
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "I fixed the brittle assertion in `test_native_requested_must_match_the_proposal`. I haven't run it, and Codex runs the real checks.\n\n- **Existing halved-request case:** it no longer looks for the substring `native_requested_matches_proposal`. It now requires only that a `SyrupWaterError` is raised, that the real native operator was called exactly once, and that the inputs are unchanged. The old assertion failed because the earlier physical validator now refuses this fixture first.\n- **New budget-only case:** I added a variant where only `requested_m3` is doubled and everything else is the real result. It must also be refused, again with one native call and unchanged inputs. This keeps a check on the requested-versus-proposal mismatch that doesn't depend on which validator fires first.\n\n`leaf/syrup_water.py` and the physical validator are unchanged. `report.md` has a short revision 4 section. I hit no new tool errors this revision.",
+    "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

@@ -1,0 +1,19 @@
+{
+  "classification": "rate_limit",
+  "literal_message": "You've reached your Fable limit. Switch to another model, or manage usage credits at claude.ai/settings/usage?from=cc_cli_limit_message, to continue.",
+  "reset": "unknown",
+  "reset_timezone": "unknown",
+  "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+  "revision": 2,
+  "process": {
+    "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+    "returncode": 1,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-10T15:20:41.544739+00:00",
+    "elapsed_seconds": 611.2877491910476
+  },
+  "automatic_preference_enabled": true,
+  "retry_scheduled": false,
+  "pending": "user choice of alternative Claude model or external availability change"
+}

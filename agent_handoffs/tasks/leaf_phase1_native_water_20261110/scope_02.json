@@ -1,0 +1,39 @@
+{
+  "revision": 2,
+  "at_utc": "2026-11-11T16:17:33.936109+00:00",
+  "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+  "changed_files": [
+    "docs/phase1-native-water.md",
+    "leaf/syrup_water.py",
+    "report.md",
+    "tests/test_syrup_water.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [
+    {
+      "classification": "tool_error",
+      "call": {
+        "name": "Read",
+        "file_path": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/candidate/review_reference"
+      },
+      "literal_error": "EISDIR: illegal operation on a directory, read '/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/candidate/review_reference'"
+    }
+  ],
+  "process": {
+    "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T16:17:08.146209+00:00",
+    "elapsed_seconds": 768.4553200639784
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "I finished all four deliverables, but nothing has been run. I can't execute code, so every check below, and every test in the new test file, is unrun and for Codex to run. All four are uncommitted in the candidate.\n\n**What changed**\n- **`leaf/syrup_water.py`**: I kept the saved bridge's API and pipeline and corrected two things.\n  - **Memory ledger and admission**: it now counts the native column's resident copies from SYRUP's own estimates, including the layer vectors and the host and device kernel-parameter copies. The saved bridge omitted the kernel-parameter copies.\n  - **No more hidden reduction scratch**: the bridge no longer runs CuPy reductions over the population or the grid. Totals come from the allocator's own scalar packets, and the CUDA availability projection reduces into a 16-byte packet. I removed that scratch rather than adding an allowance for it. Standalone availability admission uses the same ledger. The allocator's peak is checked against the root map's own byte budget before any allocation.\n- **Conservation checks**: the requested-equals-proposed check is now enforced. It is one of eight named checks, and any failure rejects the call. A new validator also rejects malformed native results before the allocator gather. Native physics and the accepted vector are untouched.\n- **`tests/test_syrup_water.py`**: it uses the real SYRUP API throughout, and the spies only wrap the real withdrawal. It covers:\n  - the water cases: the 75% case, proportional competition, shallow/deep and dry-layer no-compensation, inactive cells, non-unit areas, random overlaps, an empty population, and a shortfall;\n  - the guards and admission: malformed-result rejection, binding refusals, byte-budget and available-bytes refusals at exact bounds, and failure atomicity;\n  - the ledger scope, plus memory regressions on CPU (tracemalloc) and CUDA (a memory hook);\n  - core import isolation and CPU/GPU parity.\n- **`docs/phase1-native-water.md` and `report.md`**: the doc covers the API, units, pinned native binding, availability projection, memory scope and publication boundary. The report replaces the stale copy.\n\n**Limits you should know about**\n- **Cause of the 8,821-byte gap is inferred**: I think the CUDA gap came from CuPy reduction workspace over the population-sized `delivered`, `unmet` and `demand` arrays in the old reduction helper. That comes from reading the code, not from measuring it.\n- **First-run fixes likely**: the CuPy memory-hook arguments, the 128 KiB tracemalloc slack, and some exact-equality assertions on the availability projection may need adjusting on first run.\n- **Frozen-field workaround in one test**: it tightens a frozen `RootMap`'s byte cap with `object.__setattr__`. That is test-only.\n- **No cross-device test**: no test allocates on a second device, so cross-device affinity is covered only by code review and namespace-mismatch tests.\n\n**Tool errors, all in-tree** (not auth, rate or network):\n- Read on the candidate root directory raised `EISDIR`, and again on `review_reference`.\n- `README.md` and `docs/phase1-uptake.md` did not exist.\n- Two large reads were truncated by the tool's size cap and I continued them with an offset.\n- I couldn't list or open `review_reference/`, so I did not inspect it.",
+    "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

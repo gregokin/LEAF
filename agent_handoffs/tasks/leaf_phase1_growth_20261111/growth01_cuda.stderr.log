@@ -1,0 +1,56 @@
+test_estimate_is_itemized_and_scales (test_growth.TestAdmissionAndMemory.test_estimate_is_itemized_and_scales) ... ok
+test_exact_threshold (test_growth.TestAdmissionAndMemory.test_exact_threshold) ... ok
+test_real_allocation_stays_inside_estimate (test_growth.TestAdmissionAndMemory.test_real_allocation_stays_inside_estimate) ... ok
+test_validation_refused_before_work (test_growth.TestAdmissionAndMemory.test_validation_refused_before_work) ... ok
+test_cuda_matches_numpy (test_growth.TestBackendParity.test_cuda_matches_numpy) ... ok
+test_cuda_rejects_host_arrays_and_other_device (test_growth.TestBackendParity.test_cuda_rejects_host_arrays_and_other_device) ... ok
+test_numba_matches_numpy (test_growth.TestBackendParity.test_numba_matches_numpy) ... ok
+test_reference_is_sane (test_growth.TestBackendParity.test_reference_is_sane) ... ok
+test_backend_and_budget_arguments (test_growth.TestCompile.test_backend_and_budget_arguments) ... ok
+test_budget_refused_before_parsing_or_allocation (test_growth.TestCompile.test_budget_refused_before_parsing_or_allocation) ... ok
+test_fixture_compiles_with_sorted_ids_and_hash (test_growth.TestCompile.test_fixture_compiles_with_sorted_ids_and_hash) ... ok
+test_fixture_traits_in_documented_ranges (test_growth.TestCompile.test_fixture_traits_in_documented_ranges) ... ok
+test_missing_unknown_and_invalid_traits_fail (test_growth.TestCompile.test_missing_unknown_and_invalid_traits_fail) ... ok
+test_missing_unknown_or_unimplemented_laws_fail (test_growth.TestCompile.test_missing_unknown_or_unimplemented_laws_fail) ... ok
+test_phase0_catalog_still_loads_but_is_not_usable_here (test_growth.TestCompile.test_phase0_catalog_still_loads_but_is_not_usable_here) ... ok
+test_rate_above_one_rejected_not_rebounded (test_growth.TestCompile.test_rate_above_one_rejected_not_rebounded) ... ok
+test_area_optional_only_without_canopy_law (test_growth.TestDemand.test_area_optional_only_without_canopy_law) ... ok
+test_biomass_specific_law_units_no_second_live_fraction (test_growth.TestDemand.test_biomass_specific_law_units_no_second_live_fraction) ... ok
+test_canopy_law_units_and_arbitrary_area (test_growth.TestDemand.test_canopy_law_units_and_arbitrary_area) ... ok
+test_dtype_shape_and_type_refused_without_conversion (test_growth.TestDemand.test_dtype_shape_and_type_refused_without_conversion) ... ok
+test_failure_leaves_inputs_unchanged (test_growth.TestDemand.test_failure_leaves_inputs_unchanged) ... ok
+test_half_temperature_factor_scales_linearly (test_growth.TestDemand.test_half_temperature_factor_scales_linearly) ... ok
+test_invalid_content_and_overflow (test_growth.TestDemand.test_invalid_content_and_overflow) ... ok
+test_invalid_forcing_refused (test_growth.TestDemand.test_invalid_forcing_refused) ... ok
+test_zero_pet_dormancy_zero_temperature_and_dead_plants (test_growth.TestDemand.test_zero_pet_dormancy_zero_temperature_and_dead_plants) ... ok
+test_array_on_other_device_refused (test_growth.TestDeviceGuardMocked.test_array_on_other_device_refused) ... ok
+test_compile_cupy_requires_exact_current_device (test_growth.TestDeviceGuardMocked.test_compile_cupy_requires_exact_current_device) ... ok
+test_current_device_mismatch_refused_before_any_cupy_work (test_growth.TestDeviceGuardMocked.test_current_device_mismatch_refused_before_any_cupy_work) ... ok
+test_75_percent_delivery_gives_75_percent_of_full_growth (test_growth.TestHandCalculation.test_75_percent_delivery_gives_75_percent_of_full_growth) ... ok
+test_above_mature_never_shrinks_and_gains_nothing (test_growth.TestHandCalculation.test_above_mature_never_shrinks_and_gains_nothing) ... ok
+test_aggregate_packet_matches_plants (test_growth.TestHandCalculation.test_aggregate_packet_matches_plants) ... ok
+test_dormancy_and_zero_temperature_integral (test_growth.TestHandCalculation.test_dormancy_and_zero_temperature_integral) ... ok
+test_dry_and_zero_demand_give_no_gain (test_growth.TestHandCalculation.test_dry_and_zero_demand_give_no_gain) ... ok
+test_full_delivery_plan (test_growth.TestHandCalculation.test_full_delivery_plan) ... ok
+test_inactive_plants_unchanged_and_ignored (test_growth.TestHandCalculation.test_inactive_plants_unchanged_and_ignored) ... ok
+test_normal_plan_capped_to_room_to_mature (test_growth.TestHandCalculation.test_normal_plan_capped_to_room_to_mature) ... ok
+test_overdelivery_within_tolerance_clamps_and_reports (test_growth.TestHandCalculation.test_overdelivery_within_tolerance_clamps_and_reports) ... ok
+test_requested_support_below_requirement_scales_normal_and_blocks_extra (test_growth.TestHandCalculation.test_requested_support_below_requirement_scales_normal_and_blocks_extra) ... ok
+test_species_differ (test_growth.TestHandCalculation.test_species_differ) ... ok
+test_year_end_seasonal_loss_and_ledger (test_growth.TestHandCalculation.test_year_end_seasonal_loss_and_ledger) ... ok
+test_bad_integrals (test_growth.TestInvalidGrowthInputs.test_bad_integrals) ... ok
+test_bad_population_content (test_growth.TestInvalidGrowthInputs.test_bad_population_content) ... ok
+test_bad_types_shapes_flags (test_growth.TestInvalidGrowthInputs.test_bad_types_shapes_flags) ... ok
+test_empty_population (test_growth.TestInvalidGrowthInputs.test_empty_population) ... ok
+test_overflow_refused (test_growth.TestInvalidGrowthInputs.test_overflow_refused) ... /home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/_core/_methods.py:49: RuntimeWarning: overflow encountered in reduce
+  return umr_sum(a, axis, dtype, out, keepdims, initial, where)
+ok
+test_cardinal_points (test_growth.TestTemperatureAndForcing.test_cardinal_points) ... ok
+test_integral_increments (test_growth.TestTemperatureAndForcing.test_integral_increments) ... ok
+test_invalid_month_and_temperature_refused (test_growth.TestTemperatureAndForcing.test_invalid_month_and_temperature_refused) ... ok
+test_monthly_activity_by_actual_month (test_growth.TestTemperatureAndForcing.test_monthly_activity_by_actual_month) ... ok
+
+----------------------------------------------------------------------
+Ran 49 tests in 1.810s
+
+OK

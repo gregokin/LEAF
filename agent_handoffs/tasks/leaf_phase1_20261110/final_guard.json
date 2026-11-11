@@ -1,0 +1,36 @@
+{
+  "at_utc": "2026-11-10T15:46:56.722163+00:00",
+  "head": "4be8ae89dd240d5957893cc219656840a29556ff",
+  "protected_live_files_checked": 26,
+  "protected_live_changes": [],
+  "upstream_source_changes": [],
+  "snapshots": [
+    {
+      "path": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/snapshot_01",
+      "files_checked": 32,
+      "changes": []
+    },
+    {
+      "path": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02",
+      "files_checked": 32,
+      "changes": []
+    },
+    {
+      "path": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/partial_01",
+      "files_checked": 35,
+      "changes": []
+    },
+    {
+      "path": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/composed_review_00",
+      "files_checked": 35,
+      "changes": []
+    }
+  ],
+  "all_writers_reaped": true,
+  "active_writer": null,
+  "retry_scheduled": false,
+  "automatic_preference_enabled": true,
+  "new_commits_or_pushes": false,
+  "phase_1_complete": false,
+  "pending": "provider/model choice and scientific answers; source/test/memory corrections remain"
+}

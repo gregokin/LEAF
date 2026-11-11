@@ -1,0 +1,249 @@
+{
+  "scope": "live allocation probes of review composition; no phase acceptance",
+  "backend": "cuda",
+  "results": [
+    {
+      "observed_live_requested_peak_bytes": 19200482,
+      "observed_live_rounded_peak_bytes": 19213824,
+      "live_requested_at_call_start_bytes": 12800170,
+      "declared_native_required_bytes": 19200882,
+      "array_scale_underestimate": false,
+      "pool_reserved_bytes": 19220480,
+      "backend": "cuda",
+      "plants": 200000,
+      "cells": 1,
+      "layers": 2,
+      "declared_entries": {
+        "root_map_resident": {
+          "bytes": 11200008,
+          "side": "device",
+          "held_before_call": true
+        },
+        "demand_input": {
+          "bytes": 1600000,
+          "side": "device",
+          "held_before_call": true
+        },
+        "native_state_input": {
+          "bytes": 16,
+          "side": "device",
+          "held_before_call": true
+        },
+        "native_operator_parameters": {
+          "bytes": 32,
+          "side": "device",
+          "held_before_call": true
+        },
+        "native_column_resident": {
+          "bytes": 18,
+          "side": "device",
+          "held_before_call": true
+        },
+        "native_layer_vectors_host": {
+          "bytes": 192,
+          "side": "host",
+          "held_before_call": true
+        },
+        "native_kernel_parameters_host": {
+          "bytes": 96,
+          "side": "host",
+          "held_before_call": true
+        },
+        "native_kernel_parameters_device": {
+          "bytes": 96,
+          "side": "device",
+          "held_before_call": true
+        },
+        "availability_buffer": {
+          "bytes": 16,
+          "side": "device",
+          "held_before_call": false
+        },
+        "availability_packet_device": {
+          "bytes": 16,
+          "side": "device",
+          "held_before_call": false
+        },
+        "availability_packet_host": {
+          "bytes": 16,
+          "side": "host",
+          "held_before_call": false
+        },
+        "allocator_plan": {
+          "bytes": 1600168,
+          "side": "device",
+          "held_before_call": false
+        },
+        "request_depth_buffer": {
+          "bytes": 16,
+          "side": "device",
+          "held_before_call": false
+        },
+        "native_withdrawal_outputs": {
+          "bytes": 64,
+          "side": "device",
+          "held_before_call": false
+        },
+        "native_withdrawal_rows_scratch": {
+          "bytes": 264,
+          "side": "device",
+          "held_before_call": false
+        },
+        "native_host_packet": {
+          "bytes": 64,
+          "side": "host",
+          "held_before_call": false
+        },
+        "allocator_host_packets": {
+          "bytes": 224,
+          "side": "host",
+          "held_before_call": false
+        },
+        "accepted_volume_buffer": {
+          "bytes": 16,
+          "side": "device",
+          "held_before_call": false
+        },
+        "allocator_feedback": {
+          "bytes": 4800152,
+          "side": "device",
+          "held_before_call": false
+        },
+        "native_column_reserve": {
+          "bytes": 0,
+          "side": "reserve",
+          "held_before_call": false
+        },
+        "caller_reserve": {
+          "bytes": 0,
+          "side": "reserve",
+          "held_before_call": false
+        }
+      },
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "observed_live_requested_peak_bytes": 20971872,
+      "observed_live_rounded_peak_bytes": 20977664,
+      "live_requested_at_call_start_bytes": 1966312,
+      "declared_native_required_bytes": 27263640,
+      "array_scale_underestimate": false,
+      "pool_reserved_bytes": 23414784,
+      "backend": "cuda",
+      "plants": 4096,
+      "cells": 65536,
+      "layers": 3,
+      "declared_entries": {
+        "root_map_resident": {
+          "bytes": 229384,
+          "side": "device",
+          "held_before_call": true
+        },
+        "demand_input": {
+          "bytes": 32768,
+          "side": "device",
+          "held_before_call": true
+        },
+        "native_state_input": {
+          "bytes": 1572864,
+          "side": "device",
+          "held_before_call": true
+        },
+        "native_operator_parameters": {
+          "bytes": 48,
+          "side": "device",
+          "held_before_call": true
+        },
+        "native_column_resident": {
+          "bytes": 131096,
+          "side": "device",
+          "held_before_call": true
+        },
+        "native_layer_vectors_host": {
+          "bytes": 296,
+          "side": "host",
+          "held_before_call": true
+        },
+        "native_kernel_parameters_host": {
+          "bytes": 152,
+          "side": "host",
+          "held_before_call": true
+        },
+        "native_kernel_parameters_device": {
+          "bytes": 152,
+          "side": "device",
+          "held_before_call": true
+        },
+        "availability_buffer": {
+          "bytes": 1572864,
+          "side": "device",
+          "held_before_call": false
+        },
+        "availability_packet_device": {
+          "bytes": 16,
+          "side": "device",
+          "held_before_call": false
+        },
+        "availability_packet_host": {
+          "bytes": 16,
+          "side": "host",
+          "held_before_call": false
+        },
+        "allocator_plan": {
+          "bytes": 6324328,
+          "side": "device",
+          "held_before_call": false
+        },
+        "request_depth_buffer": {
+          "bytes": 1572864,
+          "side": "device",
+          "held_before_call": false
+        },
+        "native_withdrawal_outputs": {
+          "bytes": 6291456,
+          "side": "device",
+          "held_before_call": false
+        },
+        "native_withdrawal_rows_scratch": {
+          "bytes": 4718784,
+          "side": "device",
+          "held_before_call": false
+        },
+        "native_host_packet": {
+          "bytes": 64,
+          "side": "host",
+          "held_before_call": false
+        },
+        "allocator_host_packets": {
+          "bytes": 224,
+          "side": "host",
+          "held_before_call": false
+        },
+        "accepted_volume_buffer": {
+          "bytes": 1572864,
+          "side": "device",
+          "held_before_call": false
+        },
+        "allocator_feedback": {
+          "bytes": 3244152,
+          "side": "device",
+          "held_before_call": false
+        },
+        "native_column_reserve": {
+          "bytes": 0,
+          "side": "reserve",
+          "held_before_call": false
+        },
+        "caller_reserve": {
+          "bytes": 0,
+          "side": "reserve",
+          "held_before_call": false
+        }
+      },
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    }
+  ],
+  "underestimate_cases": 0
+}

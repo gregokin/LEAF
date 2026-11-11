@@ -1,0 +1,53 @@
+{
+  "revision": 1,
+  "at_utc": "2026-11-10T15:28:56.908034+00:00",
+  "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+  "changed_files": [
+    "leaf/syrup_water.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [
+    {
+      "classification": "tool_error",
+      "call": {
+        "name": "Read",
+        "file_path": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/candidate"
+      },
+      "literal_error": "EISDIR: illegal operation on a directory, read '/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/candidate'"
+    },
+    {
+      "classification": "tool_error",
+      "call": {
+        "name": "Read",
+        "file_path": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/candidate/README.md"
+      },
+      "literal_error": "File does not exist. Note: your current working directory is /home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/candidate."
+    },
+    {
+      "classification": "tool_error",
+      "call": {
+        "name": "Read",
+        "file_path": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/candidate/docs/phase1-uptake.md"
+      },
+      "literal_error": "File does not exist. Note: your current working directory is /home/okin/leaf/agent_handoffs/tasks/leaf_phase1_native_water_20261110/candidate."
+    }
+  ],
+  "process": {
+    "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3",
+    "returncode": 1,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-10T15:26:32.803402+00:00",
+    "elapsed_seconds": 599.1703574329149
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": true,
+    "result": "You've reached your Fable limit. Switch to another model, or manage usage credits at claude.ai/settings/usage?from=cc_cli_limit_message, to continue.",
+    "session_id": "b7e68832-ef32-4098-899b-b6bed02172c3"
+  },
+  "structured_completion_success": false,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance.",
+  "scope_recheck_note": "Original auditor wrongly treated the candidate root itself as outside the tree. The Read directory attempt returned EISDIR and read no file; retained as an ordinary tool_error. Original scope_01.json preserved."
+}

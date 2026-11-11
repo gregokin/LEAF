@@ -1,0 +1,22 @@
+{
+  "/home/okin/SYRUP/src/maple_syrup/subsurface.py": {
+    "sha256": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+    "size_bytes": 64044
+  },
+  "/home/okin/SYRUP/src/maple_syrup/subsurface_transpiration.py": {
+    "sha256": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9",
+    "size_bytes": 27929
+  },
+  "/home/okin/MASY/src/masy/calendar.py": {
+    "sha256": "c73adcdbc1550a0c082bcd56212686f790049aebf79006a94d6f89c3d6a62bdc",
+    "size_bytes": 11610
+  },
+  "/home/okin/MASY/src/masy/coordinator.py": {
+    "sha256": "338e31e5f478225428f6410ca689a9cd3baf43b9631f1425936407ab4469d009",
+    "size_bytes": 39063
+  },
+  "/home/okin/MASY/src/masy/weather.py": {
+    "sha256": "e9c814a19569015201b1e177c00ee48e9f1eb1c16c1de655a99b67a8a29d5a80",
+    "size_bytes": 27580
+  }
+}

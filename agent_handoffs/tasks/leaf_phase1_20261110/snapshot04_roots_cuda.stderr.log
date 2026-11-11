@@ -1,0 +1,22 @@
+test_builder_output_is_bound_to_the_current_device (test_roots.TestCudaRootBuilder.test_builder_output_is_bound_to_the_current_device) ... ok
+test_catalog_id_and_notes_kept_only_when_identical (test_roots.TestMultiFileCatalog.test_catalog_id_and_notes_kept_only_when_identical) ... ok
+test_deterministic_merge_equals_single_file_identity (test_roots.TestMultiFileCatalog.test_deterministic_merge_equals_single_file_identity) ... ok
+test_duplicates_incomplete_records_and_mismatches_refused (test_roots.TestMultiFileCatalog.test_duplicates_incomplete_records_and_mismatches_refused) ... ok
+test_metadata_compared_by_canonical_serialization_not_python_equality (test_roots.TestMultiFileCatalog.test_metadata_compared_by_canonical_serialization_not_python_equality) ... ok
+test_built_map_owns_its_arrays_and_leaves_no_writable_alias (test_roots.TestRootBuilder.test_built_map_owns_its_arrays_and_leaves_no_writable_alias) ... ok
+test_compiled_builder_parity (test_roots.TestRootBuilder.test_compiled_builder_parity) ... ok
+test_custom_general_map_can_replace_the_builder (test_roots.TestRootBuilder.test_custom_general_map_can_replace_the_builder) ... ok
+test_expanded_layer_edges_admitted_before_allocation (test_roots.TestRootBuilder.test_expanded_layer_edges_admitted_before_allocation) ... ok
+test_exported_compiled_helper_preflights_before_any_p_sized_allocation (test_roots.TestRootBuilder.test_exported_compiled_helper_preflights_before_any_p_sized_allocation) ... ok
+test_masked_cell_in_uptake_keeps_weights_fixed (test_roots.TestRootBuilder.test_masked_cell_in_uptake_keeps_weights_fixed) ... ok
+test_nonsquare_domain_refused_before_allocation (test_roots.TestRootBuilder.test_nonsquare_domain_refused_before_allocation) ... ok
+test_numpy_builder_matches_brute_force_geometry_and_labels_the_law (test_roots.TestRootBuilder.test_numpy_builder_matches_brute_force_geometry_and_labels_the_law) ... ok
+test_numpy_counting_scratch_is_admitted_before_any_bounding_grid_array (test_roots.TestRootBuilder.test_numpy_counting_scratch_is_admitted_before_any_bounding_grid_array) ... ok
+test_overrides_leave_no_persistent_index_cache_on_the_state (test_roots.TestRootBuilder.test_overrides_leave_no_persistent_index_cache_on_the_state) ... ok
+test_species_fractions_and_individual_overrides (test_roots.TestRootBuilder.test_species_fractions_and_individual_overrides) ... ok
+test_statuses_inactive_rows_and_empty_selection (test_roots.TestRootBuilder.test_statuses_inactive_rows_and_empty_selection) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.932s
+
+OK

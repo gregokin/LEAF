@@ -1,0 +1,8 @@
+{
+  "rejected": false,
+  "native_calls": 1,
+  "reported_closed": true,
+  "actual_water_removed_m3": 0.0,
+  "delivered_to_plants_m3": 75.0,
+  "mass_conservation_failure": true
+}

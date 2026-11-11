@@ -143,6 +143,22 @@ adds literature observations in litres per kilogram of **aboveground dry
 biomass** per day, with explicit transpiration/ET and biomass-timing distinctions.
 It includes checked savanna data and published covered-pot measurements.
 
+## Phase 1: dated native-water / growth session and restart
+
+The [interevent session guide](docs/phase1-interevent.md) documents `leaf.interevent.IntereventSession`: one accepted
+boundary of native SYRUP soil water, living-plant biomass, pending requested / delivered water and activity /
+temperature integrals, the current fixed root map and an exact fixed-offset calendar cursor. Each explicit interval
+runs the real native non-transpiration step, LEAF demand on the existing period geometry, one real native plant
+withdrawal and, at growth boundaries (cadence <= 7 days, new years, explicit flush), one `leaf.growth.grow` update with
+a root / canopy rebuild, then publishes everything by a single replacement; any failure leaves the previous boundary
+intact. Transport gates (wind, externally supplied rain / recession results, closed gate) advance calendar and ages
+without transpiration, growth or catch-up, and a year end inside an event is applied at the next open interval.
+`leaf.checkpoint` saves and restores the complete boundary (canonical `plants.csv` plus typed arrays, exact roots,
+hashes, atomic publication). A global byte ledger is admitted before every allocating stage. The runnable
+`examples/phase1/run_interevent.py` needs an explicit backend and budget and is UNCALIBRATED; no field calibration,
+storm / wind physics or full MASY coupling is claimed, and the tests in `tests/test_interevent.py` still need an
+independent run.
+
 ## Benchmark commands
 
 Use the existing environment; no installation or new environment is required:

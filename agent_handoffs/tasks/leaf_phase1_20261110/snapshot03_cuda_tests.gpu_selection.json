@@ -1,0 +1,33 @@
+{
+  "at_utc": "2026-11-11T16:18:40.306807+00:00",
+  "query": [
+    "nvidia-smi",
+    "--query-gpu=index,uuid,name,memory.total,memory.used,utilization.gpu",
+    "--format=csv,noheader"
+  ],
+  "query_returncode": 0,
+  "query_stdout": "0, GPU-5c8bd3d4-2885-82c6-a0f0-ad2b7f87b871, NVIDIA GeForce GTX 1080 Ti, 11264 MiB, 0 MiB, 0 %\n1, GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75, NVIDIA GeForce GTX 1080 Ti, 11264 MiB, 0 MiB, 0 %\n2, GPU-54e3597a-fed4-c1b9-473b-0b14af100a37, NVIDIA GeForce GTX 1080 Ti, 11264 MiB, 935 MiB, 6 %\n3, GPU-fcbcc375-a471-a9c3-ab1c-eed25d898ef0, NVIDIA GeForce GTX 1080 Ti, 11264 MiB, 123 MiB, 0 %\n",
+  "query_stderr": "",
+  "physical_index": 1,
+  "purpose": "bounded independent CUDA qualification; no transport scenario",
+  "authority": "User-authorized implementation and GPU qualification using an idle device",
+  "launch_allowed": true,
+  "uuid": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+  "gpu_name": "NVIDIA GeForce GTX 1080 Ti",
+  "used_mib": 0,
+  "utilization_percent": 0,
+  "pool_cap_bytes": 1500000000,
+  "cuda_visible_devices": "1",
+  "requested_command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_uptake.py",
+    "-v"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/snapshot_03"
+}

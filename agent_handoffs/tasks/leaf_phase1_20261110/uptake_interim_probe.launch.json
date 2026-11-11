@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "agent_handoffs/tasks/leaf_phase1_20261110/probe_uptake.py",
+    "agent_handoffs/tasks/leaf_phase1_20261110/review_snapshots/uptake_00.py"
+  ],
+  "cwd": "/home/okin/leaf",
+  "pid": 8,
+  "start_ticks": "179381989",
+  "started_at_utc": "2026-11-10T14:53:48.192167+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-phase0-cupy",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

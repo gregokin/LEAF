@@ -1,0 +1,58 @@
+{
+  "scope": "interim independent probes; not phase acceptance",
+  "numpy_oracles_passed": [
+    "user_two_layers",
+    "competition_different_roots",
+    "native_accepts_less_than_proposal",
+    "nonseparable_three_layers_two_cells",
+    "unavailable_resource_does_not_redistribute",
+    "zero_demand_and_empty_roots",
+    "empty_population"
+  ],
+  "numba_oracles_passed": [
+    "user_two_layers",
+    "competition_different_roots",
+    "native_accepts_less_than_proposal",
+    "nonseparable_three_layers_two_cells",
+    "unavailable_resource_does_not_redistribute",
+    "zero_demand_and_empty_roots",
+    "empty_population"
+  ],
+  "nonfinite_aggregate": {
+    "rejected": false,
+    "defect_reproduced": true,
+    "plan_demand_total": Infinity,
+    "closure": {
+      "accepted_total_m3": Infinity,
+      "delivered_total_m3": Infinity,
+      "residual_m3": NaN,
+      "tolerance_m3": Infinity,
+      "closed": false,
+      "definition": "sum(delivered) == sum(accepted) within closure_tolerance_m3 (FP64 summation tolerance)"
+    }
+  },
+  "admission": {
+    "feedback": {
+      "declared_operation_bytes": 4800025,
+      "traced_operation_peak_bytes": 8203504,
+      "traced_retained_operation_bytes": 4802264,
+      "resident_bytes": 9600032,
+      "cap_bytes": 14400057,
+      "declared_admission_accepted": true,
+      "defect_reproduced": true,
+      "method": "tracemalloc after tiny numba warmup; existing map/plan/caller arrays excluded; 100 kB allowance only distinguishes Python bookkeeping from array-scale error"
+    },
+    "with_backend_zero_cap": {
+      "traced_peak_bytes": 8003956,
+      "defect_reproduced": true
+    },
+    "sequence_input_zero_cap": {
+      "traced_peak_bytes": 6403098,
+      "defect_reproduced": true
+    }
+  },
+  "mixed_bool_ids": {
+    "rejected": false,
+    "defect_reproduced": true
+  }
+}

@@ -1,0 +1,417 @@
+{
+  "scope": "actual native pure-withdrawal fixtures; no dated growth driver or transport run",
+  "results": {
+    "numpy": {
+      "user_two_layers": {
+        "delivered_m3": [
+          75.0
+        ],
+        "satisfaction": [
+          0.75
+        ],
+        "native_actual_m3": 75.00000000000001,
+        "native_water_residual_m3": 1.4210854715202004e-14,
+        "native_water_bound_m3": 4.973799150320701e-12,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.0
+          ],
+          [
+            150.00000000000003
+          ]
+        ]
+      },
+      "competition_different_roots": {
+        "delivered_m3": [
+          62.5,
+          12.500000000000004
+        ],
+        "satisfaction": [
+          0.625,
+          0.25000000000000006
+        ],
+        "native_actual_m3": 75.00000000000001,
+        "native_water_residual_m3": 1.4210854715202004e-14,
+        "native_water_bound_m3": 4.973799150320701e-12,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.0
+          ],
+          [
+            150.00000000000003
+          ]
+        ]
+      },
+      "shallow_vs_deep": {
+        "delivered_m3": [
+          20.0,
+          80.0
+        ],
+        "satisfaction": [
+          0.2,
+          0.8
+        ],
+        "native_actual_m3": 100.0,
+        "native_water_residual_m3": 1.4210854715202004e-14,
+        "native_water_bound_m3": 3.730349362740526e-12,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.0
+          ],
+          [
+            1.3877787807814457e-14
+          ]
+        ]
+      },
+      "inactive_cell_no_redistribution": {
+        "delivered_m3": [
+          100.0
+        ],
+        "satisfaction": [
+          0.5
+        ],
+        "native_actual_m3": 100.0,
+        "native_water_residual_m3": 0.0,
+        "native_water_bound_m3": 2.9309887850104133e-12,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            150.00000000000003,
+            50.0
+          ]
+        ]
+      },
+      "area_0.0625": {
+        "delivered_m3": [
+          0.0001
+        ],
+        "satisfaction": [
+          1.0
+        ],
+        "native_actual_m3": 0.0001,
+        "native_water_residual_m3": -2.574980159653073e-19,
+        "native_water_bound_m3": 4.0667469392019486e-17,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.0008374999999999997
+          ]
+        ]
+      },
+      "area_1.0": {
+        "delivered_m3": [
+          0.0001
+        ],
+        "satisfaction": [
+          1.0
+        ],
+        "native_actual_m3": 0.0001,
+        "native_water_residual_m3": -2.859583229930518e-18,
+        "native_water_bound_m3": 6.360245663472597e-16,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.014899999999999997
+          ]
+        ]
+      },
+      "area_2.3": {
+        "delivered_m3": [
+          0.0001
+        ],
+        "satisfaction": [
+          1.0
+        ],
+        "native_actual_m3": 0.0001,
+        "native_water_residual_m3": 1.1018204577883939e-17,
+        "native_water_bound_m3": 1.4615864074585258e-15,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.03440000000000001
+          ]
+        ]
+      }
+    },
+    "numba": {
+      "user_two_layers": {
+        "delivered_m3": [
+          75.0
+        ],
+        "satisfaction": [
+          0.75
+        ],
+        "native_actual_m3": 75.00000000000001,
+        "native_water_residual_m3": 1.4210854715202004e-14,
+        "native_water_bound_m3": 4.973799150320701e-12,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.0
+          ],
+          [
+            150.00000000000003
+          ]
+        ]
+      },
+      "competition_different_roots": {
+        "delivered_m3": [
+          62.5,
+          12.500000000000004
+        ],
+        "satisfaction": [
+          0.625,
+          0.25000000000000006
+        ],
+        "native_actual_m3": 75.00000000000001,
+        "native_water_residual_m3": 1.4210854715202004e-14,
+        "native_water_bound_m3": 4.973799150320701e-12,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.0
+          ],
+          [
+            150.00000000000003
+          ]
+        ]
+      },
+      "shallow_vs_deep": {
+        "delivered_m3": [
+          20.0,
+          80.0
+        ],
+        "satisfaction": [
+          0.2,
+          0.8
+        ],
+        "native_actual_m3": 100.0,
+        "native_water_residual_m3": 1.4210854715202004e-14,
+        "native_water_bound_m3": 3.730349362740526e-12,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.0
+          ],
+          [
+            1.3877787807814457e-14
+          ]
+        ]
+      },
+      "inactive_cell_no_redistribution": {
+        "delivered_m3": [
+          100.0
+        ],
+        "satisfaction": [
+          0.5
+        ],
+        "native_actual_m3": 100.0,
+        "native_water_residual_m3": 0.0,
+        "native_water_bound_m3": 2.9309887850104133e-12,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            150.00000000000003,
+            50.0
+          ]
+        ]
+      },
+      "area_0.0625": {
+        "delivered_m3": [
+          0.0001
+        ],
+        "satisfaction": [
+          1.0
+        ],
+        "native_actual_m3": 0.0001,
+        "native_water_residual_m3": -2.574980159653073e-19,
+        "native_water_bound_m3": 4.0667469392019486e-17,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.0008374999999999997
+          ]
+        ]
+      },
+      "area_1.0": {
+        "delivered_m3": [
+          0.0001
+        ],
+        "satisfaction": [
+          1.0
+        ],
+        "native_actual_m3": 0.0001,
+        "native_water_residual_m3": -2.859583229930518e-18,
+        "native_water_bound_m3": 6.360245663472597e-16,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.014899999999999997
+          ]
+        ]
+      },
+      "area_2.3": {
+        "delivered_m3": [
+          0.0001
+        ],
+        "satisfaction": [
+          1.0
+        ],
+        "native_actual_m3": 0.0001,
+        "native_water_residual_m3": 1.1018204577883939e-17,
+        "native_water_bound_m3": 1.4615864074585258e-15,
+        "leaf_water_residual_m3": 0.0,
+        "preserves_exact_native_feedback": true,
+        "native_clock_unchanged": true,
+        "withdrawable_remaining_m3": [
+          [
+            0.03440000000000001
+          ]
+        ]
+      }
+    },
+    "roundoff_feedback": {
+      "delivered_m3": [
+        0.000845229718005104,
+        0.00016181211807793786,
+        0.0005581868028183265,
+        0.00036871186172260704,
+        0.00021572702159820673,
+        0.00038643821355160935,
+        0.0004287363345945149,
+        0.0006117317653904817,
+        0.0007366494846427733,
+        1.6274366940114846e-05,
+        0.0002547868728788467,
+        0.0006045417087093663,
+        8.465295799245604e-05,
+        0.0009977659172420536,
+        0.0008325137783762033,
+        3.774058030965749e-05,
+        0.0005679722733352963,
+        0.0006097307969080585,
+        7.91965293475396e-06,
+        0.00017990479003932133,
+        0.0001657572913128693,
+        0.0004624959516243304,
+        0.0005674366126110653,
+        0.00045245731461331464,
+        0.0009198559044281547,
+        0.0008151092826622884,
+        0.0004017648884454417,
+        0.00020395839490536895,
+        0.0003589672129768448,
+        0.0008621730012011298,
+        0.0003494667390283418,
+        0.0009910745564193563
+      ],
+      "satisfaction": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.9999999999999999,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "native_actual_m3": 0.015057544166296196,
+      "native_water_residual_m3": 1.9081958235744878e-17,
+      "native_water_bound_m3": 4.425081154239657e-14,
+      "leaf_water_residual_m3": 1.734723475976807e-18,
+      "preserves_exact_native_feedback": true,
+      "native_clock_unchanged": true,
+      "withdrawable_remaining_m3": [
+        [
+          0.009154770281994897,
+          0.009838187881922063,
+          0.009441813197181672,
+          0.009631288138277393,
+          0.009784272978401795,
+          0.009613561786448392,
+          0.009571263665405486,
+          0.00938826823460952,
+          0.009263350515357227,
+          0.009983725633059886,
+          0.009745213127121155,
+          0.009395458291290633,
+          0.009915347042007545,
+          0.009002234082757946,
+          0.009167486221623796,
+          0.009962259419690343,
+          0.009432027726664703,
+          0.009390269203091942,
+          0.009992080347065247,
+          0.009820095209960678,
+          0.00983424270868713,
+          0.00953750404837567,
+          0.009432563387388935,
+          0.009547542685386686,
+          0.009080144095571846,
+          0.009184890717337713,
+          0.009598235111554559,
+          0.009796041605094633,
+          0.009641032787023156,
+          0.009137826998798872,
+          0.009650533260971659,
+          0.009008925443580645
+        ]
+      ]
+    }
+  },
+  "all_numeric_water_oracles_passed": true,
+  "roundoff_feedback_defect_reproduced": false
+}

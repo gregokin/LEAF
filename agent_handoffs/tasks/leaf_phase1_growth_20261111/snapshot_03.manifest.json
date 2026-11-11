@@ -1,0 +1,67 @@
+{
+  "at_utc": "2026-11-11T17:00:42.611032+00:00",
+  "source": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_growth_20261111/candidate",
+  "snapshot": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_growth_20261111/snapshot_03",
+  "files": {
+    "docs/phase1-growth.md": {
+      "sha256": "81fb72ea3203e98210de60ee0821f16901a7b13c2f638b59ee8a3c45200beaf3",
+      "size_bytes": 15500
+    },
+    "docs/stepwat-growth.md": {
+      "sha256": "6e4933b9e0e51fe22afde4e17996221231cb1de7d669aa168322a9c17712685b",
+      "size_bytes": 14524
+    },
+    "examples/phase0/species.json": {
+      "sha256": "c6d11e5de4038006a43ca79220e5e06858c2c40d8b2b4c50e19cce8c82e443db",
+      "size_bytes": 4371
+    },
+    "examples/phase1/species.json": {
+      "sha256": "f8bf58cdc385566ad111574e3c5c3a45f5fcd11630079f384827b401e6ab72b0",
+      "size_bytes": 6889
+    },
+    "leaf/__init__.py": {
+      "sha256": "722eda1e6d3f3f89b5403011846e63ec0b541ae45fb7696509142b4d1641bbf1",
+      "size_bytes": 2412
+    },
+    "leaf/canopy.py": {
+      "sha256": "6f16b97e7fbd248685495959b4e0322f44ef9b2ba950bb35ded0d70826adde0e",
+      "size_bytes": 33687
+    },
+    "leaf/growth.py": {
+      "sha256": "ce984de33fc8ec1154449706d8c59c8e31166b732ebedb6648bc47f68513998a",
+      "size_bytes": 70330
+    },
+    "leaf/state.py": {
+      "sha256": "187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0",
+      "size_bytes": 48690
+    },
+    "leaf/stepwat.py": {
+      "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+      "size_bytes": 32213
+    },
+    "leaf/traits.py": {
+      "sha256": "40b98b4b16a90c432c8b1a666efec45c1a0cd14d22fcdfaa99d94d665871cbb2",
+      "size_bytes": 22792
+    },
+    "report.md": {
+      "sha256": "3fd288030b15112c31f038b09fec1a6ec2221de137183660f32f41bcfa84011e",
+      "size_bytes": 9471
+    },
+    "tests/test_growth.py": {
+      "sha256": "7a849b2a5c995e3a83115438ec032f6b9f958b650683d08220d2c862baca5f08",
+      "size_bytes": 51898
+    },
+    "tests/test_phase0.py": {
+      "sha256": "a22c5a34652ffcdf0d3d4fa10ebc4701326a4eef67135dc685b7c77cfd3a0472",
+      "size_bytes": 109479
+    }
+  },
+  "write_files": [
+    "docs/phase1-growth.md",
+    "examples/phase1/species.json",
+    "leaf/growth.py",
+    "report.md",
+    "tests/test_growth.py"
+  ],
+  "scope_audit": "scope_03.json"
+}

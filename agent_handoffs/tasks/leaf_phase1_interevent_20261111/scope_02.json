@@ -1,0 +1,31 @@
+{
+  "revision": 2,
+  "at_utc": "2026-11-11T18:01:01.122761+00:00",
+  "session_id": "ecdc127b-6348-4df5-8c50-87404f7afa8e",
+  "changed_files": [
+    "docs/phase1-interevent.md",
+    "leaf/checkpoint.py",
+    "leaf/interevent.py",
+    "report.md",
+    "tests/test_interevent.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "ecdc127b-6348-4df5-8c50-87404f7afa8e",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T17:55:38.427997+00:00",
+    "elapsed_seconds": 258.2919091300573
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "All seven corrections are made in the permitted files, but nothing has been run, including every new test. I recorded no tool errors in this pass.\n\n1. **Admission before copy.** The constructor now checks `max_edges`, `max_bytes` and `reserve_bytes` as strict non-boolean integers, with `reserve_bytes >= 0`. It then checks a lower bound computed from metadata only, before `PlantState.validate` or `copy` runs. `load_session` checks the same three arguments before touching the path.\n2. **Overrides.** The `int()` and `float()` coercion is gone. After memory admission they go through the shared `roots._validate_overrides`, and the session keeps an immutable copy.\n3. **Pending accumulation.** A new `_accumulate_checked` validates D, U, A, T, their totals and the pending duration before anything is published. The tolerance is `uptake.overdelivery_bound_rel` plus 16 eps, passed identically to `growth.grow`, the pending check and the restore check. It uses vectorised backend operations with scalar readbacks, **not a fused Numba/CUDA kernel**, which is a deviation from your preference. Its temporaries are in the ledger.\n4. **Water closure.** The native step budget is checked right after `ss.step`. The end-to-end residual must then fall inside the sum of the reported FP64 bounds, or the interval is refused before publication. `residual_within_tolerance` is now always true in a published receipt.\n5. **Native clock.** The rain/recession handoff tolerance is now `8 * eps * max(|t0|, |t1|, dt)`, about 1.8 \u00b5s at 1e9 s. The calendar cursor is unchanged.\n6. **Snapshot ledger.** I derived a structural per-plant bound from the shared state code: 62 + 62 + 17 + 16 = 157 bytes per plant. It adds age temporaries per live plant, and on CUDA the host B/E copies. It is used by `snapshot`, the rebuild stages, the growth preflight and the checkpoint save estimate. At P = 100000 this comes to at least about 15.7 MB on CPU and 18.9 MB on CUDA, against your observed 13.2 and 14.8 MB lower bounds. I did not measure it.\n7. **Accumulate coexistence.** The accumulate stage is now the full bridge ledger plus the new D/U, the validation temporaries and the old/new integrals. It is a conservative stage sum, and I did no profiling.\n\nI added a `GuardRegressions` class to `tests/test_interevent.py`. It covers:\n- zero, bool, float and negative budgets, with `PlantState.copy` and `validate` observed not called;\n- the four override coercion cases, plus valid overrides surviving a rebuild;\n- the 1e308 overflow fixture: day 2 is refused with the whole boundary unchanged, native `step` and `withdraw_transpiration` are called once each, and a zero-PET retry is accounted once;\n- misreported evaporation and a tampered withdrawal actual, both refused before publication;\n- the half-second clock case refused while the real native endpoint is accepted;\n- snapshot admission refusing one byte short;\n- the accumulate ledger containing the bridge ledger.\n\nOne of these tests skips if `TranspirationResult` is not a dataclass. `docs/phase1-interevent.md` has a new Guards section, and `report.md` has a Revision 2 section at the top. The older report sections below it are superseded where they differ.",
+    "session_id": "ecdc127b-6348-4df5-8c50-87404f7afa8e"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

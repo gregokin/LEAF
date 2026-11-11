@@ -1,0 +1,2 @@
+/home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:83: RuntimeWarning: overflow encountered in reduce
+  return ufunc.reduce(obj, axis, dtype, out, **passkwargs)

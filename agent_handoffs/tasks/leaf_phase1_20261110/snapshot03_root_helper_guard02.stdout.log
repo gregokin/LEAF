@@ -1,0 +1,16 @@
+{
+  "case": "exported compiled helper, zero edge/byte cap",
+  "refused": {
+    "type": "AdmissionError",
+    "stage": "roots.horizontal_compiled"
+  },
+  "allocations_before_refusal": [
+    {
+      "shape": [
+        100000
+      ],
+      "bytes": 800000
+    }
+  ],
+  "population_array_before_admission": true
+}

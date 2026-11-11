@@ -1,0 +1,36 @@
+{
+  "revision": 3,
+  "at_utc": "2026-11-11T16:17:33.955228+00:00",
+  "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+  "changed_files": [
+    "docs/phase1-water-contract.md",
+    "leaf/__init__.py",
+    "leaf/forcing.py",
+    "leaf/roots.py",
+    "leaf/traits.py",
+    "leaf/uptake.py",
+    "report.md",
+    "tests/test_forcing.py",
+    "tests/test_roots.py",
+    "tests/test_uptake.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T16:16:13.723518+00:00",
+    "elapsed_seconds": 713.479980413802
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "The revision 3 corrections are saved, but nothing has been executed (Read/Edit/Write only), so all tests are NOT RUN. I did not rewrite `leaf/uptake.py` and found no defect in it. `leaf/__init__.py` is unchanged, and nothing is committed.\n\n- **`leaf/roots.py`**\n  - **Ownership:** it now hands fresh, contiguous int64/float64 arrays to `uptake.adopt_owned_arrays`. That should clear the six erroring tests; `_take_ownership` is gone, and no state, catalog or override array is aliased.\n  - **Admission:** a ledger admits each stage's allocations together with everything still live, before allocating. Stages run from preflight and selection through overrides, horizontal inputs and builder, per-plant counts, layer expansion and the map's own validation scratch.\n  - **Counted:** the `derive_geometry` bound (192 bytes per plant, including its object-pointer arrays), the layer table, override and index scratch, and the old and new maps.\n  - **NumPy counting:** the largest bounding box's exact scratch is admitted before any per-plant array, and edge arrays are admitted after the count and before the fill.\n  - **Compiled builder:** it keeps int32 cells, so there is no conversion copy. It gets the budget left after the other live work, and its own estimate can only make it stricter. Root physics is unchanged.\n- **`leaf/traits.py`**: `from_files` compares top-level `catalog_id` and `notes` by canonical serialization. Values like `1`, `1.0` and `true` that differ in text are omitted, so reversing the paths cannot change the hash. A single file keeps its exact hash.\n- **`leaf/forcing.py`**\n  - `parse_date` uses `date.isoformat` plus a fixed-shape pattern, so `0099-03-01` works.\n  - Fractional UTC offsets are kept exactly, with a new `utc_offset_seconds_exact` field beside the float.\n  - `exact_microseconds` refuses submicrosecond instants.\n  - The docstring states that this part is microsecond-exact and not MASY's rational instants.\n  - Weather-row conversion refuses dates whose next day is not representable.\n- **Tests**\n  - **Updated:** `test_uptake.py` is rewritten for typed arrays, the new diagnostic names and the packet-based kernels. The CUDA excess test now multiplies `pg.proposed` by 1.01, so it genuinely exceeds the proposal.\n  - **Added:** `test_roots.py` and `test_forcing.py` gain regression tests for ownership and admission, canonical metadata, and the forcing edge cases.\n  - **Also:** `test_roots.py` now deep-copies in the species split helper so one file's edits can't leak into the other.\n- **Docs and report**: `docs/phase1-water-contract.md` and `report.md` are rewritten for the actual APIs and scopes.\n  - The report records the nine missing-file Read errors from revision 1.\n  - It records the Fable usage limit in revision 2.\n  - It records no new tool failures in revision 3.\n  - It makes no Phase 1 completion claim.\n\nResidual risks Codex should check:\n- My desk audit suggests the NumPy-reference temporary estimate in `estimate_feedback_bytes` may be slightly low for `accept` at large R. I did not touch or measure it; the compiled and CUDA paths are the ones you verified.\n- `derive_geometry` is bounded at 192 bytes per plant, not measured.\n- The shared compiled builder counts a `(layers+1)*N` grid term it never allocates, so it can refuse slightly early.",
+    "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

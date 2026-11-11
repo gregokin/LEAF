@@ -1,0 +1,178 @@
+{
+  "cases": {
+    "user_two_layers": {
+      "combined_request": {
+        "top": "50",
+        "bottom": "50"
+      },
+      "proposed": {
+        "top": "25",
+        "bottom": "50"
+      },
+      "accepted": {
+        "top": "25",
+        "bottom": "50"
+      },
+      "plants": [
+        {
+          "id": 7,
+          "delivered": "75",
+          "unmet": "25",
+          "satisfaction": "3/4"
+        }
+      ]
+    },
+    "competition_different_roots": {
+      "combined_request": {
+        "top": "100",
+        "bottom": "50"
+      },
+      "proposed": {
+        "top": "25",
+        "bottom": "50"
+      },
+      "accepted": {
+        "top": "25",
+        "bottom": "50"
+      },
+      "plants": [
+        {
+          "id": 7,
+          "delivered": "125/2",
+          "unmet": "75/2",
+          "satisfaction": "5/8"
+        },
+        {
+          "id": 99,
+          "delivered": "25/2",
+          "unmet": "75/2",
+          "satisfaction": "1/4"
+        }
+      ]
+    },
+    "native_accepts_less_than_proposal": {
+      "combined_request": {
+        "top": "50",
+        "bottom": "50"
+      },
+      "proposed": {
+        "top": "25",
+        "bottom": "50"
+      },
+      "accepted": {
+        "top": "25/2",
+        "bottom": "50"
+      },
+      "plants": [
+        {
+          "id": 7,
+          "delivered": "125/2",
+          "unmet": "75/2",
+          "satisfaction": "5/8"
+        }
+      ]
+    },
+    "nonseparable_three_layers_two_cells": {
+      "combined_request": {
+        "L0C0": "9",
+        "L0C1": "0",
+        "L1C0": "2",
+        "L1C1": "2",
+        "L2C0": "0",
+        "L2C1": "7"
+      },
+      "proposed": {
+        "L0C0": "1",
+        "L0C1": "0",
+        "L1C0": "2",
+        "L1C1": "2",
+        "L2C0": "0",
+        "L2C1": "4"
+      },
+      "accepted": {
+        "L0C0": "1",
+        "L0C1": "0",
+        "L1C0": "2",
+        "L1C1": "2",
+        "L2C0": "0",
+        "L2C1": "4"
+      },
+      "plants": [
+        {
+          "id": 5,
+          "delivered": "26/9",
+          "unmet": "64/9",
+          "satisfaction": "13/45"
+        },
+        {
+          "id": 6,
+          "delivered": "55/9",
+          "unmet": "35/9",
+          "satisfaction": "11/18"
+        }
+      ]
+    },
+    "unavailable_resource_does_not_redistribute": {
+      "combined_request": {
+        "masked": "8",
+        "wet": "2"
+      },
+      "proposed": {
+        "masked": "0",
+        "wet": "2"
+      },
+      "accepted": {
+        "masked": "0",
+        "wet": "2"
+      },
+      "plants": [
+        {
+          "id": 5,
+          "delivered": "2",
+          "unmet": "8",
+          "satisfaction": "1/5"
+        }
+      ]
+    },
+    "zero_demand_and_empty_roots": {
+      "combined_request": {
+        "wet": "0"
+      },
+      "proposed": {
+        "wet": "0"
+      },
+      "accepted": {
+        "wet": "0"
+      },
+      "plants": [
+        {
+          "id": 5,
+          "delivered": "0",
+          "unmet": "0",
+          "satisfaction": "0"
+        },
+        {
+          "id": 6,
+          "delivered": "0",
+          "unmet": "0",
+          "satisfaction": "0"
+        }
+      ]
+    },
+    "empty_population": {
+      "combined_request": {
+        "wet": "0"
+      },
+      "proposed": {
+        "wet": "0"
+      },
+      "accepted": {
+        "wet": "0"
+      },
+      "plants": []
+    }
+  },
+  "case_count": 7,
+  "exact_conservation": true,
+  "reordering_checked": true
+}

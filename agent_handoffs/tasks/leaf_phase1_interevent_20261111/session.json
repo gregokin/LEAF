@@ -1,0 +1,18 @@
+{
+  "session_id": "ecdc127b-6348-4df5-8c50-87404f7afa8e",
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_interevent_20261111/candidate",
+  "timeout_seconds": 2400,
+  "write_files": [
+    "leaf/interevent.py",
+    "leaf/checkpoint.py",
+    "tests/test_interevent.py",
+    "docs/phase1-interevent.md",
+    "examples/phase1/run_interevent.py",
+    "README.md",
+    "report.md"
+  ],
+  "model": "sonnet",
+  "effort": "medium",
+  "model_authority": "User continue now, 2026-11-11, same automatic relevant source-sharing authority",
+  "baseline_file": "baseline_revision_02.json"
+}

@@ -1,0 +1,63 @@
+{
+  "scope": "pure demand/growth microbenchmark only",
+  "source": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_growth_20261111/composed_review_02/leaf/growth.py",
+  "source_sha256": "ce984de33fc8ec1154449706d8c59c8e31166b732ebedb6648bc47f68513998a",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "numpy": "2.5.3",
+  "results": [
+    {
+      "backend": "numba",
+      "plants": 35000,
+      "observed_setup_and_first_calls_seconds": 1.3049978401977569,
+      "setup_note": "Observed in this process with existing cache directories; no claim of empty caches.",
+      "steady_state": {
+        "demand": {
+          "calls": 200,
+          "wall_seconds": 0.057666467037051916,
+          "wall_seconds_per_call": 0.00028833233518525957
+        },
+        "grow": {
+          "calls": 200,
+          "wall_seconds": 0.2513530219439417,
+          "wall_seconds_per_call": 0.0012567651097197085
+        }
+      },
+      "isolated_30year_compute_extrapolation": {
+        "start": "2026-01-01",
+        "end": "2056-01-01",
+        "daily_demand_calls": 10957,
+        "weekly_plus_year_end_growth_calls": 1591,
+        "estimated_wall_seconds": 5.158770686188945,
+        "excludes": "root scatter/gather and native hydrology, root/canopy rebuilds and transfers, event orchestration, snapshots/restart I/O and changing population/traits"
+      },
+      "fixture_note": "Repeated identical valid one-step inputs; biomass and water do not evolve. This is NOT a 30-year simulation or an end-to-end runtime estimate."
+    },
+    {
+      "backend": "numba",
+      "plants": 200000,
+      "observed_setup_and_first_calls_seconds": 0.023906220914795995,
+      "setup_note": "Observed in this process with existing cache directories; no claim of empty caches.",
+      "steady_state": {
+        "demand": {
+          "calls": 200,
+          "wall_seconds": 0.258827265817672,
+          "wall_seconds_per_call": 0.00129413632908836
+        },
+        "grow": {
+          "calls": 200,
+          "wall_seconds": 1.317267875885591,
+          "wall_seconds_per_call": 0.006586339379427954
+        }
+      },
+      "isolated_30year_compute_extrapolation": {
+        "start": "2026-01-01",
+        "end": "2056-01-01",
+        "daily_demand_calls": 10957,
+        "weekly_plus_year_end_growth_calls": 1591,
+        "estimated_wall_seconds": 24.65871771049104,
+        "excludes": "root scatter/gather and native hydrology, root/canopy rebuilds and transfers, event orchestration, snapshots/restart I/O and changing population/traits"
+      },
+      "fixture_note": "Repeated identical valid one-step inputs; biomass and water do not evolve. This is NOT a 30-year simulation or an end-to-end runtime estimate."
+    }
+  ]
+}

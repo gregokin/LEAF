@@ -1,0 +1,36 @@
+{
+  "revision": 4,
+  "at_utc": "2026-11-11T16:32:33.055148+00:00",
+  "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+  "changed_files": [
+    "docs/phase1-water-contract.md",
+    "leaf/__init__.py",
+    "leaf/forcing.py",
+    "leaf/roots.py",
+    "leaf/traits.py",
+    "leaf/uptake.py",
+    "report.md",
+    "tests/test_forcing.py",
+    "tests/test_roots.py",
+    "tests/test_uptake.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T16:27:04.569188+00:00",
+    "elapsed_seconds": 60.93166298000142
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "Both corrections are in place and none of it has been run (I can only Read/Edit/Write), so every test, including the two new ones, is NOT RUN. I changed `leaf/roots.py`, `tests/test_roots.py`, the contract doc and `report.md`. `leaf/uptake.py` and the shared benchmark are untouched.\n\n- **Exported compiled helper:** `horizontal_edges_compiled` now refuses anything but typed, contiguous 1-D float64 arrays, with no sequence conversion or copy. It checks the grid, then admits the shared estimator's total plus 22 bytes per plant of validation scratch. All of that runs before its own ids `arange` exists and before the shared helper validates or sorts. A zero-byte cap should therefore refuse before any P-sized allocation. The shared builder's physics is unchanged.\n- **Persistent index cache:** overrides no longer call `state.indices_of`, so the 16-bytes-per-plant `_order` / `_sorted_ids` cache is never created on the caller's state. `_validate_overrides` now does a local sorted lookup over the selected IDs, and the ledger accounts for that lookup in `roots.overrides`. A cache the caller already holds stays external and uncounted, and the docs say so.\n- **New tests in `tests/test_roots.py`:**\n  - The trap test spies on `np.arange` with a real wrapper, not a mock. It asserts that no 800,000-byte array is created under `max_bytes` of 0 or 1000, and that non-contiguous, float32, list and 2-D inputs are refused. It also checks the helper still builds the same result under a sufficient budget.\n  - The cache test asserts `state._order` and `state._sorted_ids` stay `None` after a build with overrides.\n- **Report:**\n  - `report.md` now treats your reference-allocator measurements as the resolution of my earlier desk concern, not a confirmed defect.\n  - It does not call the earlier MagicMock failure a product failure.\n  - It records no tool errors in this revision.\n\nThe existing override-error tests ({99} unknown, {14} dead_standing) should still raise `RootsError`, since the local lookup refuses both.",
+    "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

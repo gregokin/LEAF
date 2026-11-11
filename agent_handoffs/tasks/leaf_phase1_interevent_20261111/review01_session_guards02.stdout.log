@@ -1,0 +1,76 @@
+{
+  "scope": "independent tiny native session guard fixtures",
+  "results": [
+    {
+      "case": "zero-byte constructor before copy",
+      "passed": false,
+      "population_copies_before_refusal": [
+        2
+      ],
+      "reason": "max_bytes must be a non-boolean integer >= 1, got 0"
+    },
+    {
+      "case": "bool_id",
+      "passed": false,
+      "coerced_to": {
+        "1": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "case": "fractional_id",
+      "passed": false,
+      "coerced_to": {
+        "1": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "case": "id_alias_collision",
+      "passed": false,
+      "coerced_to": {
+        "1": [
+          0.1,
+          0.9
+        ]
+      }
+    },
+    {
+      "case": "bool_fractions",
+      "passed": false,
+      "coerced_to": {
+        "1": [
+          1.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "case": "late native clock off by half second",
+      "passed": false,
+      "accepted_time_error_s": 0.5
+    },
+    {
+      "case": "pending demand overflow",
+      "passed": false,
+      "finite_pending_demand": false,
+      "published_pending_demand": [
+        Infinity
+      ],
+      "published_cursor": "2024-02-29T00:00:00+00:00"
+    },
+    {
+      "case": "enforce end-to-end water closure",
+      "passed": false,
+      "reported_closed": false,
+      "reported_residual_m3": 0.000999999999999952,
+      "published_failed_boundary": true,
+      "real_native_calls": 1
+    }
+  ],
+  "failures": 8
+}

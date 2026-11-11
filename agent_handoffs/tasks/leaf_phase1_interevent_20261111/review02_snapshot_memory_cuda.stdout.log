@@ -1,0 +1,111 @@
+{
+  "scope": "actual simultaneous array-data lower bound during snapshot validation",
+  "backend": "cuda",
+  "plants": 100000,
+  "declaration": {
+    "declared_total_bytes": 36800906,
+    "resident_bytes": 17900906,
+    "declared_additional_bytes": 18900000
+  },
+  "observed_additional_lower_bound_bytes": 14800000,
+  "underestimate_confirmed": false,
+  "observations": [
+    {
+      "simultaneous_additional_array_bytes_lower_bound": 14800000,
+      "arrays": [
+        {
+          "label": "unique_output",
+          "bytes": 800000
+        },
+        {
+          "label": "_validate_arrays.ids",
+          "bytes": 800000
+        },
+        {
+          "label": "_validate_arrays.species_index",
+          "bytes": 400000
+        },
+        {
+          "label": "_validate_arrays.x_m",
+          "bytes": 800000
+        },
+        {
+          "label": "_validate_arrays.y_m",
+          "bytes": 800000
+        },
+        {
+          "label": "_validate_arrays.establishment_ground_m",
+          "bytes": 800000
+        },
+        {
+          "label": "_validate_arrays.establishment_unresolved",
+          "bytes": 100000
+        },
+        {
+          "label": "_validate_arrays.agb_dry_kg",
+          "bytes": 800000
+        },
+        {
+          "label": "_validate_arrays.seasonal_agb_dry_kg",
+          "bytes": 800000
+        },
+        {
+          "label": "_validate_arrays.age_days",
+          "bytes": 800000
+        },
+        {
+          "label": "_validate_arrays.status",
+          "bytes": 100000
+        },
+        {
+          "label": "_materialize.ids",
+          "bytes": 800000
+        },
+        {
+          "label": "_materialize.species_index",
+          "bytes": 400000
+        },
+        {
+          "label": "_materialize.x_m",
+          "bytes": 800000
+        },
+        {
+          "label": "_materialize.y_m",
+          "bytes": 800000
+        },
+        {
+          "label": "_materialize.establishment_ground_m",
+          "bytes": 800000
+        },
+        {
+          "label": "_materialize.establishment_unresolved",
+          "bytes": 100000
+        },
+        {
+          "label": "_materialize.agb_dry_kg",
+          "bytes": 800000
+        },
+        {
+          "label": "_materialize.seasonal_agb_dry_kg",
+          "bytes": 800000
+        },
+        {
+          "label": "_materialize.age_days",
+          "bytes": 800000
+        },
+        {
+          "label": "_materialize.status",
+          "bytes": 100000
+        },
+        {
+          "label": "_materialize.B_live",
+          "bytes": 800000
+        },
+        {
+          "label": "_materialize.E_live",
+          "bytes": 800000
+        }
+      ]
+    }
+  ]
+}

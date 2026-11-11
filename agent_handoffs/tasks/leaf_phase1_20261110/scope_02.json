@@ -1,0 +1,36 @@
+{
+  "revision": 2,
+  "at_utc": "2026-11-10T15:23:46.655418+00:00",
+  "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+  "changed_files": [
+    "docs/phase1-water-contract.md",
+    "leaf/__init__.py",
+    "leaf/forcing.py",
+    "leaf/roots.py",
+    "leaf/traits.py",
+    "leaf/uptake.py",
+    "report.md",
+    "tests/test_forcing.py",
+    "tests/test_roots.py",
+    "tests/test_uptake.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+    "returncode": 1,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-10T15:20:41.544739+00:00",
+    "elapsed_seconds": 611.2877491910476
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": true,
+    "result": "You've reached your Fable limit. Switch to another model, or manage usage credits at claude.ai/settings/usage?from=cc_cli_limit_message, to continue.",
+    "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7"
+  },
+  "structured_completion_success": false,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

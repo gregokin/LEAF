@@ -1,0 +1,108 @@
+{
+  "schema": "leaf.species_catalog",
+  "schema_version": 1,
+  "catalog_id": "phase1-growth-example-fixture",
+  "units": {"biomass": "kg", "length": "m", "time": "days"},
+  "root_layers": 2,
+  "notes": "FIXTURE catalog for the LEAF Phase 1 demand/growth kernels (leaf.growth, law stepwat_requested_support_v1). Every coefficient below is an UNCALIBRATED fixture chosen for a bounded readable example and for tests; none is a literature fit or a study calibration. Copy and edit; do not cite these numbers as species parameters.",
+  "species": {
+    "grass": {
+      "functional_type": "perennial_bunchgrass",
+      "name": "fixture shallow-rooted bunchgrass",
+      "allometry": {
+        "model": "power_law_v1",
+        "diameter": {"a": 0.9, "b": 0.45},
+        "height": {"a": 0.6, "b": 0.3},
+        "units": {"a_d": "m kg^-0.45", "a_h": "m kg^-0.3", "b": "dimensionless", "B": "kg dry aboveground mass"},
+        "notes": "diameter_m = a_d * B^b_d ; height_m = a_h * B^b_h. Fixture coefficients. Biomass is NOT assumed proportional to canopy area; leaf.growth only receives the area derived through leaf.canopy."
+      },
+      "roots": {
+        "lateral_radius_multiplier": 3.0,
+        "layer_fractions": [0.85, 0.15],
+        "notes": "shallow rooting: most roots in the top layer, some in the lower layer; root circle radius = 3 x canopy radius (uncalibrated fixture)"
+      },
+      "porosity": {"value": 0.2, "status": "uncalibrated constant matching the current MAPLE default; used by native MAPLE wind, unused by LEAF ecology"},
+      "growth": {
+        "law": "stepwat_requested_support_v1",
+        "status": "FIXTURE coefficients, not literature fits. intrinsic_rate_per_year must stay within the qualified [0, 1] weekly-Euler range.",
+        "traits": {
+          "mature_biomass_kg": 0.6,
+          "intrinsic_rate_per_year": 0.8,
+          "biomass_support_kg_per_m3": 2.0,
+          "live_fraction": 0.6,
+          "extra_growth_fraction": 0.25,
+          "monthly_activity": [0.0, 0.0, 0.2, 0.6, 1.0, 1.0, 0.7, 0.5, 0.8, 0.5, 0.1, 0.0],
+          "temperature_min_c": 2.0,
+          "temperature_opt_c": 22.0,
+          "temperature_max_c": 40.0
+        },
+        "units": {"mature_biomass_kg": "kg dry aboveground mass per individual",
+                  "intrinsic_rate_per_year": "1/year (weekly-or-shorter Euler adaptation, [0, 1])",
+                  "biomass_support_kg_per_m3": "kg aboveground biomass SUPPORTED per m3 of water, per year (kg*year/m3); not new biomass per m3",
+                  "live_fraction": "fraction of total dry AGB that is live",
+                  "extra_growth_fraction": "kg seasonal extra mass per kg*year of surplus support",
+                  "monthly_activity": "12 fractions January..December",
+                  "temperature_*_c": "degrees Celsius cardinal temperatures (factor 0 at/below min and at/above max, 1 at opt)"}
+      },
+      "water_use": {
+        "law": "canopy_pet_v1",
+        "status": "FIXTURE. Documented LEAF demand adaptation, not a STEPWAT daily-physiology claim.",
+        "traits": {"transpiration_coefficient": 0.6},
+        "units": {"transpiration_coefficient": "dimensionless multiplier of canopy_area_m2 * PET_mm_per_day * 0.001 m/mm"}
+      },
+      "reproduction": {"law": "unimplemented", "fixture_parameters": {"seed_dispersal_radius_m": 1.5, "reproductive_age_days": 365, "seeds_per_kg_agb": 500}},
+      "life_expectancy": {"mean": 8, "unit": "years", "notes": "metadata only; mean life expectancy, NOT a hard maximum age; no automatic death"},
+      "mortality": {"law": "unimplemented", "age_dependent": null, "notes": "no default mortality law"},
+      "disturbance": {"law": "unimplemented",
+                      "fixture_sensitivities": {"burial_sensitivity_per_m": 0.5, "erosion_sensitivity_per_m": 0.5, "abrasion_sensitivity_per_dose": 0.0},
+                      "units": {"burial": "fraction of height buried per m", "erosion": "fraction per m exposure", "abrasion": "per declared dose unit"},
+                      "notes": "placeholders for later response laws; unused by leaf.growth"}
+    },
+    "shrub": {
+      "functional_type": "shrub",
+      "name": "fixture deep-rooted shrub",
+      "allometry": {
+        "model": "power_law_v1",
+        "diameter": {"a": 1.6, "b": 0.4},
+        "height": {"a": 1.0, "b": 0.35},
+        "units": {"a_d": "m kg^-0.4", "a_h": "m kg^-0.35", "b": "dimensionless", "B": "kg dry aboveground mass"},
+        "notes": "fixture coefficients"
+      },
+      "roots": {
+        "lateral_radius_multiplier": 5.0,
+        "layer_fractions": [0.25, 0.75],
+        "notes": "deep rooting: most roots in the lower layer, some in the top layer; root circle radius = 5 x canopy radius (uncalibrated fixture)"
+      },
+      "porosity": {"value": 0.2, "status": "uncalibrated constant matching the current MAPLE default; used by native MAPLE wind, unused by LEAF ecology"},
+      "growth": {
+        "law": "stepwat_requested_support_v1",
+        "status": "FIXTURE coefficients, not literature fits.",
+        "traits": {
+          "mature_biomass_kg": 12.0,
+          "intrinsic_rate_per_year": 0.2,
+          "biomass_support_kg_per_m3": 3.5,
+          "live_fraction": 0.4,
+          "extra_growth_fraction": 0.2,
+          "monthly_activity": [0.1, 0.1, 0.3, 0.7, 1.0, 1.0, 1.0, 0.9, 0.7, 0.4, 0.2, 0.1],
+          "temperature_min_c": 0.0,
+          "temperature_opt_c": 25.0,
+          "temperature_max_c": 45.0
+        }
+      },
+      "water_use": {
+        "law": "biomass_specific_pet_v1",
+        "status": "FIXTURE. Per TOTAL dry AGB (live_fraction is not applied again). Documented LEAF demand adaptation.",
+        "traits": {"demand_m3_per_kg_day": 0.0004, "reference_pet_mm_per_day": 5.0},
+        "units": {"demand_m3_per_kg_day": "m3 of water per kg total dry AGB per day at reference PET",
+                  "reference_pet_mm_per_day": "mm/day PET at which demand_m3_per_kg_day applies"}
+      },
+      "reproduction": {"law": "unimplemented", "fixture_parameters": {"seed_dispersal_radius_m": 5.0, "reproductive_age_days": 1095, "seeds_per_kg_agb": 50}},
+      "life_expectancy": {"mean": 40, "unit": "years", "notes": "metadata only; mean, not a maximum"},
+      "mortality": {"law": "unimplemented", "age_dependent": null, "notes": "no default mortality law"},
+      "disturbance": {"law": "unimplemented",
+                      "fixture_sensitivities": {"burial_sensitivity_per_m": 0.2, "erosion_sensitivity_per_m": 0.3, "abrasion_sensitivity_per_dose": 0.0},
+                      "units": {"burial": "fraction of height buried per m", "erosion": "fraction per m exposure", "abrasion": "per declared dose unit"},
+                      "notes": "placeholders; unused by leaf.growth"}
+    }
+  }
+}

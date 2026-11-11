@@ -1,0 +1,44 @@
+{
+  "at_utc": "2026-11-10T14:42:20.570643+00:00",
+  "sources": [
+    {
+      "file": "ST_env.c",
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_env.c",
+      "revision": "003cb9b4adbf13d64a39d6d62fd95280adac27fc",
+      "status": "error",
+      "error": "<HTTPError 404: 'Not Found'>"
+    },
+    {
+      "file": "ST_mortality.c",
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_mortality.c",
+      "revision": "003cb9b4adbf13d64a39d6d62fd95280adac27fc",
+      "sha256": "7525737965cad5b0a2bdb95dfc081d4e09a33fb79db52d5c38511032c3d6ebe4",
+      "bytes": 53588,
+      "status": "downloaded"
+    },
+    {
+      "file": "ST_seedDispersal.c",
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_seedDispersal.c",
+      "revision": "003cb9b4adbf13d64a39d6d62fd95280adac27fc",
+      "sha256": "77761133be2891e717f2c9ebbc837ebde8f3c207cb89d4c5aa1e75cc5af1406c",
+      "bytes": 13281,
+      "status": "downloaded"
+    },
+    {
+      "file": "ST_resgroups.c",
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_resgroups.c",
+      "revision": "003cb9b4adbf13d64a39d6d62fd95280adac27fc",
+      "sha256": "054892f036c70dadf4d6bf97c06a74d9982a3b54f05e9b12cc70de432ca0012c",
+      "bytes": 47571,
+      "status": "downloaded"
+    },
+    {
+      "file": "ST_species.c",
+      "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/ST_species.c",
+      "revision": "003cb9b4adbf13d64a39d6d62fd95280adac27fc",
+      "sha256": "6915e37f8db999c9ce0228999f8b85a35acfd86f7344146bff423b07852fec8e",
+      "bytes": 22366,
+      "status": "downloaded"
+    }
+  ]
+}

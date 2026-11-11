@@ -1,10 +1,3 @@
-# Current Claude Report
+# Current implementer reports
 
-Task: shared_canopy_view_20261110, revision 2.
-Session: `a71f51bb-359e-4900-bf96-e903d709713c`.
-[Verbatim final report](tasks/shared_canopy_view_20261110/revision_02/report.md).
-
-Both scoped writer revisions completed successfully and were reaped. Read/Edit/
-Write only; Claude ran no tests, shell, Git, package installation or other agent.
-Codex independently reviewed, tested and installed the candidate; acceptance is
-[codex_review.md](codex_review.md), not the implementer's report.
+All Phase1 writers completed/reaped. Reports in final snapshots: [allocator/roots/calendar A4](tasks/leaf_phase1_20261110/snapshot_04/report.md), [native bridge B4](tasks/leaf_phase1_native_water_20261110/snapshot_04/report.md), [growth C3](tasks/leaf_phase1_growth_20261111/snapshot_03/report.md), [session/checkpoint D3](tasks/leaf_phase1_interevent_20261111/snapshot_03/report.md). Claude wrote code only and ran no tests; all execution and acceptance belong to Codex.

@@ -1,0 +1,31 @@
+{
+  "revision": 3,
+  "at_utc": "2026-11-11T18:20:27.422943+00:00",
+  "session_id": "ecdc127b-6348-4df5-8c50-87404f7afa8e",
+  "changed_files": [
+    "docs/phase1-interevent.md",
+    "leaf/checkpoint.py",
+    "leaf/interevent.py",
+    "report.md",
+    "tests/test_interevent.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "ecdc127b-6348-4df5-8c50-87404f7afa8e",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T18:20:11.711510+00:00",
+    "elapsed_seconds": 151.77241490990855
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "All four coexistence omissions are corrected in `leaf/interevent.py` and `leaf/checkpoint.py`, but nothing has been run, including the new tests. I recorded no tool errors.\n\n1. **Fresh pending D/U during rebuild.** The root-builder budget now counts the fresh pending D/U (16 per live plant) and fresh A/T on top of the B2/E2 candidates. A flush aliases the accepted D/U, so it double-counts them, which is labelled conservative in the code and docs. A new `<label>_commit` stage checks the new map, area, B2/E2, fresh D/U and reset accumulators against the old boundary before any state is rebound.\n2. **Area and callers.** On CUDA the host area copy is deleted after the device upload, so area is counted once. The builder gets `max_bytes` minus everything external to it. I audited initialization, growth, deferred season and restart verification; the verification path now has its own `restart_verify_compare` stage covering both maps, both areas and the host comparison copies.\n3. **Restore.** `load_session` frees the raw CSV, NPZ and manifest bytes once decoded. It carries the decoded arrays as a transient reserve through `_setup`, the native upload, the CSR upload and the verification rebuild, then resets it to 0. The restored session's `max_bytes` and `reserve_bytes` are exactly the values passed to `load`. I also removed a duplicate edge term from the CSR budget.\n4. **Reported peak.** `peak_estimate_bytes` is now the largest admitted stage total. Remaining builder budgets are reported separately as `builder_capacities` and `builder_external_bytes`. The builder's own admitted peak, plus the external live bytes, is a stage total.\n\nThe new `CoexistenceRegressions` class in `tests/test_interevent.py` spies on the real `build_root_map` budget and the real `RootMap.from_arrays` budget rather than mirroring constants:\n- It requires the budget to leave room for each distinct live item.\n- A global cap one byte below what is held at builder start refuses before the builder runs, leaves the boundary unchanged, and a valid retry is accounted once.\n- The reported peak is checked to be a stage total, far below the cap.\n- A restore of 60 plants must reserve the decoded array bytes during the CSR upload, preserve `max_bytes` and a non-zero `reserve_bytes`, and refuse safely under a one-byte-short cap.\n\n`docs/phase1-interevent.md` has a new coexistence section and `report.md` has a Revision 3 section.",
+    "session_id": "ecdc127b-6348-4df5-8c50-87404f7afa8e"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

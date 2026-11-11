@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_growth_20261111/profile_growth_02.py", line 110, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_growth_20261111/profile_growth_02.py", line 94, in main
+    table = growth.compile_species(catalog, backend, 1 << 29)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_growth_20261111/composed_review_02/leaf/growth.py", line 894, in compile_species
+    raise GrowthError('backend "cuda" requires an explicit integer device (exact binding, no fallback)')
+leaf.growth.GrowthError: backend "cuda" requires an explicit integer device (exact binding, no fallback)

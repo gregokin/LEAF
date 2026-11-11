@@ -1,0 +1,30 @@
+test_plain_python_kernels_are_the_same_algorithm (test_uptake.TestClosureAndOrdering.test_plain_python_kernels_are_the_same_algorithm)
+The authoritative per-edge definitions (executed here in pure Python on a tiny problem) agree with ... ok
+test_random_overlaps_closure_and_oracle (test_uptake.TestClosureAndOrdering.test_random_overlaps_closure_and_oracle) ... ok
+test_reordering_individuals_does_not_change_priority (test_uptake.TestClosureAndOrdering.test_reordering_individuals_does_not_change_priority) ... ok
+test_masked_cell_gets_nothing_and_weight_is_not_renormalised (test_uptake.TestContractExamples.test_masked_cell_gets_nothing_and_weight_is_not_renormalised) ... ok
+test_multi_plant_sharing_is_proportional_to_local_requests (test_uptake.TestContractExamples.test_multi_plant_sharing_is_proportional_to_local_requests) ... ok
+test_non_separable_weights_multiple_cells_and_layers (test_uptake.TestContractExamples.test_non_separable_weights_multiple_cells_and_layers) ... ok
+test_partial_acceptance_shortfall_and_honest_roundoff (test_uptake.TestContractExamples.test_partial_acceptance_shortfall_and_honest_roundoff) ... ok
+test_required_example_one_plant_two_layers_75_percent (test_uptake.TestContractExamples.test_required_example_one_plant_two_layers_75_percent) ... ok
+test_zero_demand_zero_supply_and_inactive_roots (test_uptake.TestContractExamples.test_zero_demand_zero_supply_and_inactive_roots) ... ok
+test_device_guards_do_not_touch_other_devices (test_uptake.TestCudaParity.test_device_guards_do_not_touch_other_devices) ... ok
+test_gpu_parity_closure_and_no_implicit_transfers (test_uptake.TestCudaParity.test_gpu_parity_closure_and_no_implicit_transfers) ... ok
+test_nonfinite_accepted_and_closure_flag (test_uptake.TestFiniteResults.test_nonfinite_accepted_and_closure_flag) ... ok
+test_overflowing_totals_and_scatter_are_refused (test_uptake.TestFiniteResults.test_overflowing_totals_and_scatter_are_refused) ... /home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/_core/_methods.py:49: RuntimeWarning: overflow encountered in reduce
+  return umr_sum(a, axis, dtype, out, keepdims, initial, where)
+ok
+test_cpu_parity_with_reference (test_uptake.TestNumbaParity.test_cpu_parity_with_reference) ... ok
+test_measured_feedback_scratch_stays_within_the_estimate (test_uptake.TestNumbaParity.test_measured_feedback_scratch_stays_within_the_estimate)
+Regression for the under-reported scratch: P = E = 100000 on ONE resource. Measured allocation of the ... ok
+test_conversion_and_construction_preflight_before_any_copy (test_uptake.TestRootMapValidation.test_conversion_and_construction_preflight_before_any_copy) ... ok
+test_device_identity_guards_without_any_device (test_uptake.TestRootMapValidation.test_device_identity_guards_without_any_device) ... ok
+test_invalid_arrays_refused_and_inputs_preserved (test_uptake.TestRootMapValidation.test_invalid_arrays_refused_and_inputs_preserved) ... ok
+test_memory_admission_refuses_before_allocation (test_uptake.TestRootMapValidation.test_memory_admission_refuses_before_allocation) ... ok
+test_offsets_overflow_is_rejected_before_any_subtraction (test_uptake.TestRootMapValidation.test_offsets_overflow_is_rejected_before_any_subtraction) ... ok
+test_typed_arrays_only_and_no_materialisation (test_uptake.TestRootMapValidation.test_typed_arrays_only_and_no_materialisation) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 1.838s
+
+OK

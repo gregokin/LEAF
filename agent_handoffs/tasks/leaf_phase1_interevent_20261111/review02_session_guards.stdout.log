@@ -1,0 +1,50 @@
+{
+  "scope": "independent tiny native session guard fixtures",
+  "results": [
+    {
+      "case": "zero-byte constructor before copy",
+      "passed": true,
+      "population_copies_before_refusal": [],
+      "reason": "max_bytes must be a non-boolean integer >= 1, got 0"
+    },
+    {
+      "case": "bool_id",
+      "passed": true,
+      "rejected": "layer_fraction_overrides refused: layer_fraction_overrides keys must be integer plant IDs, got True"
+    },
+    {
+      "case": "fractional_id",
+      "passed": true,
+      "rejected": "layer_fraction_overrides refused: layer_fraction_overrides keys must be integer plant IDs, got 1.9"
+    },
+    {
+      "case": "id_alias_collision",
+      "passed": true,
+      "rejected": "layer_fraction_overrides refused: layer_fraction_overrides keys must be integer plant IDs, got 1.9"
+    },
+    {
+      "case": "bool_fractions",
+      "passed": true,
+      "rejected": "layer_fraction_overrides refused: layer_fraction_overrides[1][0] must be a real number (not bool/str/None), got True"
+    },
+    {
+      "case": "late native clock off by half second",
+      "passed": true,
+      "rejected": "external native state time 1000086400.5 != expected end time 1000086400.0 (tolerance 1.7765103166311746e-06)"
+    },
+    {
+      "case": "pending demand overflow",
+      "passed": true,
+      "rejected": "pending requested / delivered water would become non-finite (overflow); nothing published, the previous boundary is intact",
+      "boundary_preserved": true
+    },
+    {
+      "case": "enforce end-to-end water closure",
+      "passed": true,
+      "rejected": "native step budget does not close: recomputed residual 0.001 m3, reported 0.0 m3, bound 2.771116669464391e-14 m3; nothing published",
+      "boundary_preserved": true,
+      "real_native_calls": 1
+    }
+  ],
+  "failures": 0
+}

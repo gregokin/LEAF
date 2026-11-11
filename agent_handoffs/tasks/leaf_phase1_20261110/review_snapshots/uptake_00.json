@@ -1,0 +1,8 @@
+{
+  "source": "agent_handoffs/tasks/leaf_phase1_20261110/candidate/leaf/uptake.py",
+  "snapshot": "agent_handoffs/tasks/leaf_phase1_20261110/review_snapshots/uptake_00.py",
+  "sha256": "bcda2e910dd5e48e39856b2e9e19fcf3c13e2e61c81498a7837a2b44978ce335",
+  "size_bytes": 43935,
+  "created_at_utc": "2026-11-10T14:52:45.804549+00:00",
+  "status": "interim read-only review; writer active; not acceptance"
+}

@@ -1,0 +1,31 @@
+{
+  "revision": 2,
+  "at_utc": "2026-11-11T16:37:40.571373+00:00",
+  "session_id": "f071b8f7-f17b-4046-88f9-25ed8aba25ee",
+  "changed_files": [
+    "docs/phase1-growth.md",
+    "examples/phase1/species.json",
+    "leaf/growth.py",
+    "report.md",
+    "tests/test_growth.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "f071b8f7-f17b-4046-88f9-25ed8aba25ee",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T16:36:53.309388+00:00",
+    "elapsed_seconds": 258.22161181713454
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "Revision 2 is written in the five allowed files, but nothing was run. All tests are NOT RUN.\n\n1. **Non-finite ledger bounds:**\n   - NumPy, Numba and CUDA now refuse any plant whose ledger reference, residual or tolerance is non-finite. The reproduced case (`mature = B = 1e308`) raises `GrowthDataError`.\n   - The host checks that the population scale, residual and bound are finite and that the ledger closes, and raises otherwise. It no longer returns `population_closed=False`.\n   - The normal plan is exactly 0 when `B-E >= mature`, set before the `(1 - (B-E)/mature)` product. Tolerances are unchanged and plans are not clipped.\n   - Live plants with B above roughly 1e307 are now rejected. This replaces the earlier success case in `test_overflow_refused`.\n   - The new `TestNonFiniteLedgerAllBackends` runs on every available backend.\n2. **Admission for helpers:**\n   - `species_response` and `integral_increments` now require `max_bytes` and take an optional `extra_reserve_bytes`. They are admitted through new `memory_estimate` operations `'response'` and `'integrals'`, which cover the live tables, outputs and S scratch, before any array is created.\n   - `temperature_factor` is scalar-only and returns a float.\n   - The `demand` forcing-scratch estimate rose from 48\u00b7S to 128\u00b7S bytes. These S-scratch constants are my counts, not measurements.\n   - A new test patches the private vector routine to fail, which shows refusal happens before any work.\n3. **Unit names (no numerical change):**\n   - The traits are `biomass_support_kg_year_per_m3` and `extra_growth_rate_per_year`, still in [0, 1].\n   - The outputs are `required_support_kg_year`, `requested_support_kg_year`, `actual_support_kg_year` and `maintenance_deficit_kg_year`, and the packet slot is `sum_maintenance_deficit_kg_year`.\n   - Tests, fixture and docs follow the new names. The docs now state kg\u00b7year for supports and elapsed years for the integrals. The old law and module are untouched.\n4. **Backend naming:** the canonical name is `'cuda'`. `'cupy'` is accepted only as an alias and converted on entry. The exact-device guards are unchanged.\n\nRemaining risks are syntax or typing slips, since nothing was executed, and the revised scratch constants. `report.md` has a Revision 2 section listing these.",
+    "session_id": "f071b8f7-f17b-4046-88f9-25ed8aba25ee"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

@@ -33,6 +33,7 @@ import copy
 import hashlib
 import json
 import math
+import os
 import re
 
 import numpy as np
@@ -289,10 +290,17 @@ class SpeciesCatalog:
     species_ids: SORTED tuple (the species name/index table used by PlantState; see SPECIES_TABLE_ORDER).
     hash: canonical catalog hash accompanying every state.'''
 
-    def __init__(self, document, *, source=None):
+    def __init__(self, document, *, source=None, sources=None, species_sources=None):
         self.species_ids, self.root_layers = validate_catalog_document(document)
         self._document = copy.deepcopy(document)
         self.source = None if source is None else str(source)
+        # provenance METADATA only (never hashed): the list of source files and the file each species came from
+        if sources is None:
+            sources = () if self.source is None else (self.source,)
+        self.sources = tuple(str(s) for s in sources)
+        if species_sources is None:
+            species_sources = {} if self.source is None else {sid: self.source for sid in self.species_ids}
+        self.species_sources = {str(k): str(v) for k, v in dict(species_sources).items()}
         self.hash = catalog_hash(self._document)
         self._index = {sid: i for i, sid in enumerate(self.species_ids)}
         sp = self._document['species']
@@ -317,6 +325,61 @@ class SpeciesCatalog:
     def from_file(cls, path):
         with open(path, 'r', encoding='utf-8') as fh:
             return cls.from_text(fh.read(), source=path)
+
+    @classmethod
+    def from_files(cls, paths):
+        '''One catalog from one or more CO-LOCATED species files. Every file is a complete, independently
+        valid catalog (same schema / units / root_layers) holding one or more COMPLETE species records
+        (allometry, roots, growth, water_use, ... together); species are merged whole, never split or
+        overridden across files, and a species ID appearing in two files is refused even when the records are
+        identical. The merged species table is sorted, so the canonical hash is independent of the file order
+        (and of key order inside files); with a single path the result is identical to from_file (same hash).
+        With several files, top-level catalog_id / notes are kept only when every file carries a value with the
+        SAME CANONICAL SERIALIZATION (1, 1.0 and true differ; otherwise omitted deterministically), so the merged
+        hash never depends on the path order. Paths are provenance metadata (`sources`, `species_sources`), never
+        hash input.'''
+        if isinstance(paths, (str, bytes, os.PathLike)):
+            raise CatalogError('from_files expects a sequence of catalog paths (use from_file for one path)')
+        try:
+            plist = [os.fspath(p) for p in paths]
+        except TypeError as exc:
+            raise CatalogError(f'from_files: every path must be str / PathLike ({exc})') from exc
+        plist = [p.decode('utf-8') if isinstance(p, bytes) else p for p in plist]
+        if not plist:
+            raise CatalogError('from_files: at least one catalog file is required')
+        if len({os.path.abspath(p) for p in plist}) != len(plist):
+            raise CatalogError(f'from_files: a catalog file is listed more than once: {plist}')
+        docs = []
+        for p in plist:
+            with open(p, 'r', encoding='utf-8') as fh:
+                doc = parse_strict_json(fh.read(), what=f'species catalog {p!r}')
+            ids, L = validate_catalog_document(doc)        # each file is a complete valid catalog on its own
+            docs.append((p, doc, ids, L))
+        if len(docs) == 1:
+            p, doc, ids, _ = docs[0]
+            return cls(doc, source=p, sources=(p,), species_sources={sid: p for sid in ids})
+        L0 = docs[0][3]
+        species, species_sources = {}, {}
+        for p, doc, ids, L in docs:
+            if L != L0:
+                raise CatalogError(f'root_layers differ across catalog files: {docs[0][0]!r} has {L0}, {p!r} has {L}')
+            for sid in ids:
+                if sid in species:
+                    raise CatalogError(f'species {sid!r} is defined in both {species_sources[sid]!r} and {p!r}; a species '
+                                       'must be complete in exactly one file (duplicates are refused even when identical)')
+                species[sid] = copy.deepcopy(doc['species'][sid])
+                species_sources[sid] = p
+        merged = {'schema': SCHEMA, 'schema_version': SCHEMA_VERSION, 'units': dict(REQUIRED_UNITS), 'root_layers': L0,
+                  'species': {sid: species[sid] for sid in sorted(species)}}
+        # top-level metadata is compared by CANONICAL SERIALIZATION (the text that is hashed), never by Python ==:
+        # 1 == 1.0 == True in Python but they serialize differently, so keeping "the first equal value" would make
+        # the merged hash depend on the path order. Differing (or missing) metadata is omitted deterministically.
+        for key in ('catalog_id', 'notes'):
+            if all(key in doc for _, doc, _, _ in docs):
+                texts = [canonical_json(doc[key]) for _, doc, _, _ in docs]
+                if all(t == texts[0] for t in texts):
+                    merged[key] = copy.deepcopy(docs[0][1][key])
+        return cls(merged, source=None, sources=tuple(plist), species_sources=species_sources)
 
     @property
     def document(self):
@@ -461,11 +524,16 @@ class SpeciesCatalog:
         return {'schema': SCHEMA, 'schema_version': SCHEMA_VERSION, 'catalog_id': self._document.get('catalog_id'),
                 'hash': self.hash, 'species_ids': list(self.species_ids), 'species_table_order': SPECIES_TABLE_ORDER,
                 'root_layers': self.root_layers, 'units': dict(REQUIRED_UNITS), 'allometry_model': ALLOMETRY_MODEL,
-                'leaf_version': LEAF_VERSION, 'source': self.source}
+                'leaf_version': LEAF_VERSION, 'source': self.source, 'sources': list(self.sources),
+                'species_sources': dict(self.species_sources),
+                'provenance_note': 'source paths are metadata only; the hash covers the canonical document'}
 
 
 def load_catalog(path):
-    return SpeciesCatalog.from_file(path)
+    '''One path -> SpeciesCatalog.from_file; a sequence of paths -> SpeciesCatalog.from_files.'''
+    if isinstance(path, (str, bytes, os.PathLike)):
+        return SpeciesCatalog.from_file(path)
+    return SpeciesCatalog.from_files(path)
 
 
 __all__ = ['LEAF_VERSION', 'SCHEMA', 'SCHEMA_VERSION', 'ALLOMETRY_MODEL', 'REQUIRED_UNITS', 'TIME_UNIT_DAYS',

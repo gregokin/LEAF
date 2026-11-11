@@ -364,3 +364,7 @@ Both studies' fast seedling growth conflicts with its current normal annual-rate
 range. Diagnostic timing and adult/annual phenology, mature size, seasonal mass,
 canopy/demand and ET/T partition require resolution before runtime traits can
 be selected. Runtime/locks and earlier accepted archives are preserved.
+
+## Phase1 mechanics accepted —2026-11-11
+
+See [final independent review](tasks/leaf_phase1_interevent_20261111/final_review.md). STEP-style requested-support planning plus actual/requested water once; species traits co-located, authoritative real SYRUP withdrawals, dated interevent session, weekly shared geometry and complete LEAF-native checkpoint. Fixtures are uncalibrated. Full transport/E-partition/rational-calendar adapters and evolving-surface remapping remain deferred. User authorizes publication and automatic progression to Phase2/3.

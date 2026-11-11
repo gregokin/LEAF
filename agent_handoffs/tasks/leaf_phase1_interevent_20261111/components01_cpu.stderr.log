@@ -1,0 +1,295 @@
+test_case_max_bytes_scalar_guard_before_allocation (test_coupling.AdmissionTests.test_case_max_bytes_scalar_guard_before_allocation) ... ok
+test_column_reserve_counted_under_case_max_bytes (test_coupling.AdmissionTests.test_column_reserve_counted_under_case_max_bytes) ... ok
+test_memory_report_scopes (test_coupling.AdmissionTests.test_memory_report_scopes) ... ok
+test_native_availability_applies_to_weekly_rebuild_and_retry (test_coupling.AdmissionTests.test_native_availability_applies_to_weekly_rebuild_and_retry) ... ok
+test_native_memory_checked_before_vegetation_allocation (test_coupling.AdmissionTests.test_native_memory_checked_before_vegetation_allocation) ... ok
+test_vegetation_admission_uses_full_ledger_peak (test_coupling.AdmissionTests.test_vegetation_admission_uses_full_ledger_peak) ... ok
+test_actual_uptake_drives_weekly_growth (test_coupling.CoupledBasicsTests.test_actual_uptake_drives_weekly_growth) ... ok
+test_depth_volume_conversion_two_areas (test_coupling.CoupledBasicsTests.test_depth_volume_conversion_two_areas) ... ok
+test_dry_top_vs_dry_bottom (test_coupling.CoupledBasicsTests.test_dry_top_vs_dry_bottom) ... ok
+test_forcing_records_daily_only (test_coupling.CoupledBasicsTests.test_forcing_records_daily_only) ... ok
+test_gather_and_commit_validate_arrays_before_launch (test_coupling.CoupledBasicsTests.test_gather_and_commit_validate_arrays_before_launch) ... /home/okin/leaf/agent_handoffs/tasks/leaf_phase1_interevent_20261111/component_review_01/tests/test_coupling.py:183: PendingDeprecationWarning: the matrix subclass is not the recommended way to represent matrices or deal with linear algebra (see https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html). Please adjust your code to use regular ndarray.
+  [[1.0, 1.0]], np.matrix([[1.0, 1.0]])):
+ok
+test_phase_exclusion_before_work (test_coupling.CoupledBasicsTests.test_phase_exclusion_before_work) ... ok
+test_two_competing_individuals_with_different_fractions (test_coupling.CoupledBasicsTests.test_two_competing_individuals_with_different_fractions) ... ok
+test_vegetation_only_has_no_water_and_refuses_synthetic_paths (test_coupling.CoupledBasicsTests.test_vegetation_only_has_no_water_and_refuses_synthetic_paths) ... ok
+test_cpu_gpu_parity (test_coupling.GpuTests.test_cpu_gpu_parity) ... skipped 'CuPy device with CC >= 6.0 not available'
+test_gpu_coupled_entry_points_check_bound_device (test_coupling.GpuTests.test_gpu_coupled_entry_points_check_bound_device) ... skipped 'CuPy device with CC >= 6.0 not available'
+test_gpu_gather_rejects_before_launch (test_coupling.GpuTests.test_gpu_gather_rejects_before_launch) ... skipped 'CuPy device with CC >= 6.0 not available'
+test_hydrology_budget_split_run_matches_single_run (test_coupling.MaskGeometryTests.test_hydrology_budget_split_run_matches_single_run) ... ok
+test_inactive_cells_unmapped_demand (test_coupling.MaskGeometryTests.test_inactive_cells_unmapped_demand) ... ok
+test_mismatches_refused (test_coupling.MaskGeometryTests.test_mismatches_refused) ... ok
+test_nonzero_initial_time_and_fixed_profiles (test_coupling.MaskGeometryTests.test_nonzero_initial_time_and_fixed_profiles) ... ok
+test_gather_failure_rolls_back_whole_day (test_coupling.RollbackAndLatchTests.test_gather_failure_rolls_back_whole_day) ... ok
+test_native_failure_rolls_back_whole_day (test_coupling.RollbackAndLatchTests.test_native_failure_rolls_back_whole_day) ... ok
+test_weekly_refusal_latches_and_retries (test_coupling.RollbackAndLatchTests.test_weekly_refusal_latches_and_retries) ... ok
+test_initial_bound_counts_each_trait_separately (test_daily_water_growth.AdmissionTests.test_initial_bound_counts_each_trait_separately) ... ok
+test_invalid_scalars_rejected (test_daily_water_growth.AdmissionTests.test_invalid_scalars_rejected) ... ok
+test_memory_hook_entered_before_initialization (test_daily_water_growth.AdmissionTests.test_memory_hook_entered_before_initialization) ... ok
+test_memory_refusal_before_generation (test_daily_water_growth.AdmissionTests.test_memory_refusal_before_generation) ... ok
+test_refusal_does_not_generate_or_transfer (test_daily_water_growth.AdmissionTests.test_refusal_does_not_generate_or_transfer) ... ok
+test_rejected_weekly_update_preserves_state_and_latches (test_daily_water_growth.AdmissionTests.test_rejected_weekly_update_preserves_state_and_latches) ... ok
+test_cpu_gpu_parity_profiles_heterogeneous_water (test_daily_water_growth.GpuTests.test_cpu_gpu_parity_profiles_heterogeneous_water) ... skipped 'CuPy device with compute capability >= 6.0 not available'
+test_cpu_gpu_parity_short (test_daily_water_growth.GpuTests.test_cpu_gpu_parity_short) ... skipped 'CuPy device with compute capability >= 6.0 not available'
+test_gpu_unavailable_is_explicit (test_daily_water_growth.GpuTests.test_gpu_unavailable_is_explicit) ... ok
+test_counters_and_pending_uptake (test_daily_water_growth.GrowthAndCalendarTests.test_counters_and_pending_uptake) ... ok
+test_demand_map_cached_within_week (test_daily_water_growth.GrowthAndCalendarTests.test_demand_map_cached_within_week) ... ok
+test_split_run_matches_single_run (test_daily_water_growth.GrowthAndCalendarTests.test_split_run_matches_single_run) ... ok
+test_weekly_growth_derives_radii_and_budgets (test_daily_water_growth.GrowthAndCalendarTests.test_weekly_growth_derives_radii_and_budgets) ... ok
+test_admission_preflight_precedes_profile_materialization (test_daily_water_growth.RootProfileTests.test_admission_preflight_precedes_profile_materialization) ... ok
+test_all_dry_finite_supply_growth_and_fixed_third_profile (test_daily_water_growth.RootProfileTests.test_all_dry_finite_supply_growth_and_fixed_third_profile) ... ok
+test_cli_json_case_with_profiles (test_daily_water_growth.RootProfileTests.test_cli_json_case_with_profiles) ... {"event": "progress", "case": "test", "backend": "cpu", "day": 8, "year": 0.021917808219178082, "water_total_m3": 3.01921259349417, "water_residual": -4.440892098500626e-16, "flux_residual": 1.3877787807814457e-17, "biomass_total_kg": 1.720581938040345, "biomass_residual": 0.0, "pending_uptake_m3": 0.005161745814121034, "n_edges": 39, "audit_ok": true, "elapsed_s": 0.00024673505686223507, "block_wall_s": 1.2943055480718613e-05, "weekly_wall_s": 0.00015702121891081333}
+{"event": "case_done", "case": "test", "backend": "cpu", "status": "ok", "error": null}
+ok
+test_default_class_rows_required_only_when_used (test_daily_water_growth.RootProfileTests.test_default_class_rows_required_only_when_used) ... ok
+test_default_profiles_scatter_per_layer_demand (test_daily_water_growth.RootProfileTests.test_default_profiles_scatter_per_layer_demand) ... ok
+test_explicit_uniform_profile_matches_equal_layer_reference (test_daily_water_growth.RootProfileTests.test_explicit_uniform_profile_matches_equal_layer_reference) ... ok
+test_generated_population_runs_with_configured_profiles (test_daily_water_growth.RootProfileTests.test_generated_population_runs_with_configured_profiles) ... ok
+test_invalid_profiles_and_ids_refuse_before_generation (test_daily_water_growth.RootProfileTests.test_invalid_profiles_and_ids_refuse_before_generation) ... ok
+test_memory_formula_matches_live_ledger (test_daily_water_growth.RootProfileTests.test_memory_formula_matches_live_ledger) ... ok
+test_opposite_profiles_dry_layer_disadvantage (test_daily_water_growth.RootProfileTests.test_opposite_profiles_dry_layer_disadvantage) ... ok
+test_dry_cells_give_no_phantom_uptake (test_daily_water_growth.SoilWaterTests.test_dry_cells_give_no_phantom_uptake) ... ok
+test_recharge_overflow_budget (test_daily_water_growth.SoilWaterTests.test_recharge_overflow_budget) ... ok
+test_single_plant_depletes_without_overdraw (test_daily_water_growth.SoilWaterTests.test_single_plant_depletes_without_overdraw) ... ok
+test_two_plants_share_finite_store (test_daily_water_growth.SoilWaterTests.test_two_plants_share_finite_store) ... ok
+test_dates_below_year_1000_and_strict_shape (test_forcing.TestRecord.test_dates_below_year_1000_and_strict_shape) ... ok
+test_exact_fractions_and_partial_days (test_forcing.TestRecord.test_exact_fractions_and_partial_days) ... ok
+test_fractional_utc_offsets_are_preserved_exactly (test_forcing.TestRecord.test_fractional_utc_offsets_are_preserved_exactly) ... ok
+test_growth_boundary_split_and_contiguity (test_forcing.TestRecord.test_growth_boundary_split_and_contiguity) ... ok
+test_leap_day_year_boundary_and_midnight_split (test_forcing.TestRecord.test_leap_day_year_boundary_and_midnight_split) ... ok
+test_submicrosecond_instants_are_refused_not_rounded (test_forcing.TestRecord.test_submicrosecond_instants_are_refused_not_rounded) ... ok
+test_validation (test_forcing.TestRecord.test_validation) ... ok
+test_weather_rows_conversion (test_forcing.TestRecord.test_weather_rows_conversion) ... ok
+test_estimate_is_itemized_and_scales (test_growth.TestAdmissionAndMemory.test_estimate_is_itemized_and_scales) ... ok
+test_exact_threshold (test_growth.TestAdmissionAndMemory.test_exact_threshold) ... ok
+test_real_allocation_stays_inside_estimate (test_growth.TestAdmissionAndMemory.test_real_allocation_stays_inside_estimate) ... ok
+test_validation_refused_before_work (test_growth.TestAdmissionAndMemory.test_validation_refused_before_work) ... ok
+test_canonical_cuda_and_alias (test_growth.TestBackendNaming.test_canonical_cuda_and_alias) ... ok
+test_cuda_matches_numpy (test_growth.TestBackendParity.test_cuda_matches_numpy) ... skipped 'no CUDA device / CuPy'
+test_cuda_rejects_host_arrays_and_other_device (test_growth.TestBackendParity.test_cuda_rejects_host_arrays_and_other_device) ... skipped 'no CUDA device / CuPy'
+test_numba_matches_numpy (test_growth.TestBackendParity.test_numba_matches_numpy) ... ok
+test_reference_is_sane (test_growth.TestBackendParity.test_reference_is_sane) ... ok
+test_backend_and_budget_arguments (test_growth.TestCompile.test_backend_and_budget_arguments) ... ok
+test_budget_refused_before_parsing_or_allocation (test_growth.TestCompile.test_budget_refused_before_parsing_or_allocation) ... ok
+test_fixture_compiles_with_sorted_ids_and_hash (test_growth.TestCompile.test_fixture_compiles_with_sorted_ids_and_hash) ... ok
+test_fixture_traits_in_documented_ranges (test_growth.TestCompile.test_fixture_traits_in_documented_ranges) ... ok
+test_missing_unknown_and_invalid_traits_fail (test_growth.TestCompile.test_missing_unknown_and_invalid_traits_fail) ... ok
+test_missing_unknown_or_unimplemented_laws_fail (test_growth.TestCompile.test_missing_unknown_or_unimplemented_laws_fail) ... ok
+test_phase0_catalog_still_loads_but_is_not_usable_here (test_growth.TestCompile.test_phase0_catalog_still_loads_but_is_not_usable_here) ... ok
+test_rate_above_one_rejected_not_rebounded (test_growth.TestCompile.test_rate_above_one_rejected_not_rebounded) ... ok
+test_area_optional_only_without_canopy_law (test_growth.TestDemand.test_area_optional_only_without_canopy_law) ... ok
+test_biomass_specific_law_units_no_second_live_fraction (test_growth.TestDemand.test_biomass_specific_law_units_no_second_live_fraction) ... ok
+test_canopy_law_units_and_arbitrary_area (test_growth.TestDemand.test_canopy_law_units_and_arbitrary_area) ... ok
+test_dtype_shape_and_type_refused_without_conversion (test_growth.TestDemand.test_dtype_shape_and_type_refused_without_conversion) ... ok
+test_failure_leaves_inputs_unchanged (test_growth.TestDemand.test_failure_leaves_inputs_unchanged) ... ok
+test_half_temperature_factor_scales_linearly (test_growth.TestDemand.test_half_temperature_factor_scales_linearly) ... ok
+test_invalid_content_and_overflow (test_growth.TestDemand.test_invalid_content_and_overflow) ... ok
+test_invalid_forcing_refused (test_growth.TestDemand.test_invalid_forcing_refused) ... ok
+test_zero_pet_dormancy_zero_temperature_and_dead_plants (test_growth.TestDemand.test_zero_pet_dormancy_zero_temperature_and_dead_plants) ... ok
+test_array_on_other_device_refused (test_growth.TestDeviceGuardMocked.test_array_on_other_device_refused) ... ok
+test_compile_cupy_requires_exact_current_device (test_growth.TestDeviceGuardMocked.test_compile_cupy_requires_exact_current_device) ... ok
+test_current_device_mismatch_refused_before_any_cupy_work (test_growth.TestDeviceGuardMocked.test_current_device_mismatch_refused_before_any_cupy_work) ... ok
+test_75_percent_delivery_gives_75_percent_of_full_growth (test_growth.TestHandCalculation.test_75_percent_delivery_gives_75_percent_of_full_growth) ... ok
+test_above_mature_never_shrinks_and_gains_nothing (test_growth.TestHandCalculation.test_above_mature_never_shrinks_and_gains_nothing) ... ok
+test_aggregate_packet_matches_plants (test_growth.TestHandCalculation.test_aggregate_packet_matches_plants) ... ok
+test_dormancy_and_zero_temperature_integral (test_growth.TestHandCalculation.test_dormancy_and_zero_temperature_integral) ... ok
+test_dry_and_zero_demand_give_no_gain (test_growth.TestHandCalculation.test_dry_and_zero_demand_give_no_gain) ... ok
+test_full_delivery_plan (test_growth.TestHandCalculation.test_full_delivery_plan) ... ok
+test_inactive_plants_unchanged_and_ignored (test_growth.TestHandCalculation.test_inactive_plants_unchanged_and_ignored) ... ok
+test_normal_plan_capped_to_room_to_mature (test_growth.TestHandCalculation.test_normal_plan_capped_to_room_to_mature) ... ok
+test_overdelivery_within_tolerance_clamps_and_reports (test_growth.TestHandCalculation.test_overdelivery_within_tolerance_clamps_and_reports) ... ok
+test_requested_support_below_requirement_scales_normal_and_blocks_extra (test_growth.TestHandCalculation.test_requested_support_below_requirement_scales_normal_and_blocks_extra) ... ok
+test_species_differ (test_growth.TestHandCalculation.test_species_differ) ... ok
+test_year_end_seasonal_loss_and_ledger (test_growth.TestHandCalculation.test_year_end_seasonal_loss_and_ledger) ... ok
+test_bad_integrals (test_growth.TestInvalidGrowthInputs.test_bad_integrals) ... ok
+test_bad_population_content (test_growth.TestInvalidGrowthInputs.test_bad_population_content) ... ok
+test_bad_types_shapes_flags (test_growth.TestInvalidGrowthInputs.test_bad_types_shapes_flags) ... ok
+test_empty_population (test_growth.TestInvalidGrowthInputs.test_empty_population) ... ok
+test_overflow_refused (test_growth.TestInvalidGrowthInputs.test_overflow_refused) ... /home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/_core/_methods.py:49: RuntimeWarning: overflow encountered in reduce
+  return umr_sum(a, axis, dtype, out, keepdims, initial, where)
+ok
+test_infinite_bound_refused_everywhere (test_growth.TestNonFiniteLedgerAllBackends.test_infinite_bound_refused_everywhere) ... ok
+test_ordinary_finite_values_still_close_everywhere (test_growth.TestNonFiniteLedgerAllBackends.test_ordinary_finite_values_still_close_everywhere) ... ok
+test_cardinal_points (test_growth.TestTemperatureAndForcing.test_cardinal_points) ... ok
+test_helper_admission_and_scalar_only_temperature_factor (test_growth.TestTemperatureAndForcing.test_helper_admission_and_scalar_only_temperature_factor) ... ok
+test_integral_increments (test_growth.TestTemperatureAndForcing.test_integral_increments) ... ok
+test_invalid_month_and_temperature_refused (test_growth.TestTemperatureAndForcing.test_invalid_month_and_temperature_refused) ... ok
+test_monthly_activity_by_actual_month (test_growth.TestTemperatureAndForcing.test_monthly_activity_by_actual_month) ... ok
+test_generate_example_config_and_report_collision (test_phase0.TestCLIAndExamples.test_generate_example_config_and_report_collision) ... ok
+test_help_and_usage (test_phase0.TestCLIAndExamples.test_help_and_usage) ... ok
+test_import_isolation_subprocess (test_phase0.TestCLIAndExamples.test_import_isolation_subprocess) ... ok
+test_init_inspect_export_round_trip (test_phase0.TestCLIAndExamples.test_init_inspect_export_round_trip) ... ok
+test_legacy_lazy_exports_and_all_consistency (test_phase0.TestCLIAndExamples.test_legacy_lazy_exports_and_all_consistency) ... ok
+test_validate_species_example (test_phase0.TestCLIAndExamples.test_validate_species_example) ... ok
+test_cover_analytic_circles_edges_groups_and_bounds (test_phase0.TestCanopy.test_cover_analytic_circles_edges_groups_and_bounds) ... ok
+test_cover_independent_finer_resolution_agrees (test_phase0.TestCanopy.test_cover_independent_finer_resolution_agrees) ... ok
+test_cover_working_memory_is_admitted_and_scoped (test_phase0.TestCanopy.test_cover_working_memory_is_admitted_and_scoped) ... ok
+test_geometry_derived_pure_and_constant_porosity (test_phase0.TestCanopy.test_geometry_derived_pure_and_constant_porosity) ... ok
+test_maple_view_safe_default_uses_current_surface_and_anchor (test_phase0.TestCanopy.test_maple_view_safe_default_uses_current_surface_and_anchor) ... ok
+test_allometry_positive_monotone_inverse_and_output_validation (test_phase0.TestCatalog.test_allometry_positive_monotone_inverse_and_output_validation) ... ok
+test_document_is_a_defensive_copy (test_phase0.TestCatalog.test_document_is_a_defensive_copy) ... ok
+test_load_hash_stability_and_sorted_table (test_phase0.TestCatalog.test_load_hash_stability_and_sorted_table) ... ok
+test_schema_errors (test_phase0.TestCatalog.test_schema_errors) ... ok
+test_traits_sections_and_lifespan_metadata (test_phase0.TestCatalog.test_traits_sections_and_lifespan_metadata) ... ok
+test_containing_cell_subcell_edges_offset_nonsquare (test_phase0.TestDomain.test_containing_cell_subcell_edges_offset_nonsquare) ... ok
+test_validation_immutability_and_metadata_conflicts (test_phase0.TestDomain.test_validation_immutability_and_metadata_conflicts) ... ok
+test_apply_defaults_to_diagnostics_and_rolls_back_failed_handlers (test_phase0.TestEvents.test_apply_defaults_to_diagnostics_and_rolls_back_failed_handlers) ... ok
+test_construction_validation_immutability_and_dict_round_trip (test_phase0.TestEvents.test_construction_validation_immutability_and_dict_round_trip) ... ok
+test_bounded_impossible_and_degenerate_cases (test_phase0.TestGeneration.test_bounded_impossible_and_degenerate_cases) ... ok
+test_count_formulas_use_size_variance (test_phase0.TestGeneration.test_count_formulas_use_size_variance) ... ok
+test_global_nonoverlap_large_first_and_surface_resolution (test_phase0.TestGeneration.test_global_nonoverlap_large_first_and_surface_resolution) ... ok
+test_mixed_size_exclusion_regression_128_quarter_metre (test_phase0.TestGeneration.test_mixed_size_exclusion_regression_128_quarter_metre)
+Grass 6 % (0.15 m +- 0.05 m) with shrubs 5 % (2 m +- 0.3 m): random interleaving needed millions of ... ok
+test_reproducible_overlap_allowed_species_cover (test_phase0.TestGeneration.test_reproducible_overlap_allowed_species_cover) ... ok
+test_advance_time_preflights_overflow_and_commits_atomically (test_phase0.TestPlantState.test_advance_time_preflights_overflow_and_commits_atomically) ... ok
+test_age_advances_with_calendar_only_for_live_and_no_automatic_death (test_phase0.TestPlantState.test_age_advances_with_calendar_only_for_live_and_no_automatic_death) ... ok
+test_atomic_no_overwrite_never_falls_back_to_replace (test_phase0.TestPlantState.test_atomic_no_overwrite_never_falls_back_to_replace) ... ok
+test_constructor_requires_explicit_unresolved_mask_and_owns_arrays (test_phase0.TestPlantState.test_constructor_requires_explicit_unresolved_mask_and_owns_arrays) ... ok
+test_empty_population_round_trip (test_phase0.TestPlantState.test_empty_population_round_trip) ... ok
+test_exact_fp64_round_trip_and_metadata_checks (test_phase0.TestPlantState.test_exact_fp64_round_trip_and_metadata_checks) ... ok
+test_ids_resolve_regardless_of_row_order (test_phase0.TestPlantState.test_ids_resolve_regardless_of_row_order) ... ok
+test_invalid_rows_refused_without_partial_state (test_phase0.TestPlantState.test_invalid_rows_refused_without_partial_state) ... ok
+test_metadata_noninitial_surface_token_refused_before_sampling (test_phase0.TestPlantState.test_metadata_noninitial_surface_token_refused_before_sampling) ... ok
+test_surface_token_resolved_once_and_anchor_preserved (test_phase0.TestPlantState.test_surface_token_resolved_once_and_anchor_preserved) ... ok
+test_updates_are_transactional_and_by_id (test_phase0.TestPlantState.test_updates_are_transactional_and_by_id) ... ok
+test_cadence_initial_final_skip_and_errors (test_phase0.TestRecording.test_cadence_initial_final_skip_and_errors) ... ok
+test_failed_writes_leave_scheduling_untouched (test_phase0.TestRecording.test_failed_writes_leave_scheduling_untouched) ... ok
+test_capture_by_id_with_reordering_profiles_ages_and_type_checks (test_phase0.TestRuntimeBridge.test_capture_by_id_with_reordering_profiles_ages_and_type_checks) ... ok
+test_capture_from_non_step_driver_never_erases_seasonal_mass_silently (test_phase0.TestRuntimeBridge.test_capture_from_non_step_driver_never_erases_seasonal_mass_silently) ... ok
+test_capture_from_real_legacy_driver (test_phase0.TestRuntimeBridge.test_capture_from_real_legacy_driver) ... ok
+test_device_vector_metadata_is_checked_before_transfer (test_phase0.TestRuntimeBridge.test_device_vector_metadata_is_checked_before_transfer) ... ok
+test_legacy_inputs_check_the_species_law_not_one_biomass (test_phase0.TestRuntimeBridge.test_legacy_inputs_check_the_species_law_not_one_biomass) ... ok
+test_legacy_inputs_seasonal_mass_policies_and_restore (test_phase0.TestRuntimeBridge.test_legacy_inputs_seasonal_mass_policies_and_restore) ... ok
+test_maple_adapter_delegates_to_shared_computation_without_recomputing (test_phase0.TestSharedCanopyView.test_maple_adapter_delegates_to_shared_computation_without_recomputing) ... ok
+test_maple_adapter_is_a_projection_of_the_shared_view_by_id (test_phase0.TestSharedCanopyView.test_maple_adapter_is_a_projection_of_the_shared_view_by_id) ... ok
+test_shared_view_retains_buried_and_elevated_plants_with_diagnostics (test_phase0.TestSharedCanopyView.test_shared_view_retains_buried_and_elevated_plants_with_diagnostics) ... ok
+test_builder_output_is_bound_to_the_current_device (test_roots.TestCudaRootBuilder.test_builder_output_is_bound_to_the_current_device) ... skipped "cuda backend unavailable: cupy/CUDA unavailable: CUDARuntimeError('cudaErrorInsufficientDriver: CUDA driver version is insufficient for CUDA runtime version')"
+test_catalog_id_and_notes_kept_only_when_identical (test_roots.TestMultiFileCatalog.test_catalog_id_and_notes_kept_only_when_identical) ... ok
+test_deterministic_merge_equals_single_file_identity (test_roots.TestMultiFileCatalog.test_deterministic_merge_equals_single_file_identity) ... ok
+test_duplicates_incomplete_records_and_mismatches_refused (test_roots.TestMultiFileCatalog.test_duplicates_incomplete_records_and_mismatches_refused) ... ok
+test_metadata_compared_by_canonical_serialization_not_python_equality (test_roots.TestMultiFileCatalog.test_metadata_compared_by_canonical_serialization_not_python_equality) ... ok
+test_built_map_owns_its_arrays_and_leaves_no_writable_alias (test_roots.TestRootBuilder.test_built_map_owns_its_arrays_and_leaves_no_writable_alias) ... ok
+test_compiled_builder_parity (test_roots.TestRootBuilder.test_compiled_builder_parity) ... ok
+test_custom_general_map_can_replace_the_builder (test_roots.TestRootBuilder.test_custom_general_map_can_replace_the_builder) ... ok
+test_expanded_layer_edges_admitted_before_allocation (test_roots.TestRootBuilder.test_expanded_layer_edges_admitted_before_allocation) ... ok
+test_exported_compiled_helper_preflights_before_any_p_sized_allocation (test_roots.TestRootBuilder.test_exported_compiled_helper_preflights_before_any_p_sized_allocation) ... ok
+test_masked_cell_in_uptake_keeps_weights_fixed (test_roots.TestRootBuilder.test_masked_cell_in_uptake_keeps_weights_fixed) ... ok
+test_nonsquare_domain_refused_before_allocation (test_roots.TestRootBuilder.test_nonsquare_domain_refused_before_allocation) ... ok
+test_numpy_builder_matches_brute_force_geometry_and_labels_the_law (test_roots.TestRootBuilder.test_numpy_builder_matches_brute_force_geometry_and_labels_the_law) ... ok
+test_numpy_counting_scratch_is_admitted_before_any_bounding_grid_array (test_roots.TestRootBuilder.test_numpy_counting_scratch_is_admitted_before_any_bounding_grid_array) ... ok
+test_overrides_leave_no_persistent_index_cache_on_the_state (test_roots.TestRootBuilder.test_overrides_leave_no_persistent_index_cache_on_the_state) ... ok
+test_species_fractions_and_individual_overrides (test_roots.TestRootBuilder.test_species_fractions_and_individual_overrides) ... ok
+test_statuses_inactive_rows_and_empty_selection (test_roots.TestRootBuilder.test_statuses_inactive_rows_and_empty_selection) ... ok
+test_audit_fails_on_zero_edge_plant (test_spatial_mapping.AuditAndStatusRegressionTest.test_audit_fails_on_zero_edge_plant) ... ok
+test_clump_parameters_bounded (test_spatial_mapping.AuditAndStatusRegressionTest.test_clump_parameters_bounded) ... ok
+test_gpu_rejection_before_transfer (test_spatial_mapping.AuditAndStatusRegressionTest.test_gpu_rejection_before_transfer) ... ok
+test_partial_status_when_gpu_unavailable (test_spatial_mapping.AuditAndStatusRegressionTest.test_partial_status_when_gpu_unavailable) ... ok
+test_rejection_happens_before_host_generation (test_spatial_mapping.AuditAndStatusRegressionTest.test_rejection_happens_before_host_generation) ... ok
+test_sampled_cover_is_approximate_and_capped (test_spatial_mapping.CanopyTest.test_sampled_cover_is_approximate_and_capped) ... ok
+test_small_plant_in_coarse_cell_is_reported_missed (test_spatial_mapping.CanopyTest.test_small_plant_in_coarse_cell_is_reported_missed) ... ok
+test_capacity_refusal_before_allocation (test_spatial_mapping.GenerationAndAdmissionTest.test_capacity_refusal_before_allocation) ... ok
+test_deterministic_generation (test_spatial_mapping.GenerationAndAdmissionTest.test_deterministic_generation) ... ok
+test_invalid_inputs_rejected (test_spatial_mapping.GenerationAndAdmissionTest.test_invalid_inputs_rejected) ... ok
+test_run_case_cpu_small (test_spatial_mapping.GenerationAndAdmissionTest.test_run_case_cpu_small) ... ok
+test_cpu_gpu_parity_within_tolerance (test_spatial_mapping.GpuParityTest.test_cpu_gpu_parity_within_tolerance) ... skipped "GPU unavailable: CUDARuntimeError('cudaErrorInsufficientDriver: CUDA driver version is insufficient for CUDA runtime version')"
+test_layered_sum_equals_plant_count (test_spatial_mapping.ReductionTest.test_layered_sum_equals_plant_count) ... ok
+test_plants_sharing_one_cell (test_spatial_mapping.ReductionTest.test_plants_sharing_one_cell) ... ok
+test_boundary_clipping_renormalizes (test_spatial_mapping.RootPredicateTest.test_boundary_clipping_renormalizes) ... ok
+test_csr_matches_oracle_and_is_normalized (test_spatial_mapping.RootPredicateTest.test_csr_matches_oracle_and_is_normalized) ... ok
+test_root_predicate_independent_of_canopy_radius (test_spatial_mapping.RootPredicateTest.test_root_predicate_independent_of_canopy_radius) ... ok
+test_subcell_root_at_cell_centre_maps_one_cell (test_spatial_mapping.RootPredicateTest.test_subcell_root_at_cell_centre_maps_one_cell) ... ok
+test_subcell_root_at_cell_corner_maps_four_cells (test_spatial_mapping.RootPredicateTest.test_subcell_root_at_cell_corner_maps_four_cells) ... ok
+test_tangent_contact_is_not_an_edge (test_spatial_mapping.RootPredicateTest.test_tangent_contact_is_not_an_edge) ... ok
+test_cell_areas_and_inactive_mask_with_evaporation (test_stepwat.CoupledStepTests.test_cell_areas_and_inactive_mask_with_evaporation) ... ok
+test_grass_shrub_traits_all_layer_profiles (test_stepwat.CoupledStepTests.test_grass_shrub_traits_all_layer_profiles) ... ok
+test_invalid_forcing_refused_before_any_native_or_plant_change (test_stepwat.CoupledStepTests.test_invalid_forcing_refused_before_any_native_or_plant_change) ... ok
+test_split_run_equivalence_with_hydrology (test_stepwat.CoupledStepTests.test_split_run_equivalence_with_hydrology) ... ok
+test_weekly_old_new_peak_counts_growth_state (test_stepwat.CoupledStepTests.test_weekly_old_new_peak_counts_growth_state) ... ok
+test_weekly_refusal_latches_then_retry_matches_twin (test_stepwat.CoupledStepTests.test_weekly_refusal_latches_then_retry_matches_twin) ... ok
+test_wet_week_native_water_matches_equations (test_stepwat.CoupledStepTests.test_wet_week_native_water_matches_equations) ... ok
+test_cpu_gpu_parity_and_device_residency (test_stepwat.GpuStepTests.test_cpu_gpu_parity_and_device_residency) ... skipped 'CuPy device with CC >= 6.0 not available'
+test_calendar_helpers (test_stepwat.PureHelperTests.test_calendar_helpers) ... ok
+test_trait_validation_pure (test_stepwat.PureHelperTests.test_trait_validation_pure) ... ok
+test_dormancy_month_switch (test_stepwat.VegetationOnlyStepTests.test_dormancy_month_switch) ... ok
+test_initial_state_and_mode_guards (test_stepwat.VegetationOnlyStepTests.test_initial_state_and_mode_guards) ... ok
+test_invalid_traits_refused_before_materialization (test_stepwat.VegetationOnlyStepTests.test_invalid_traits_refused_before_materialization) ... ok
+test_limited_zero_and_temperature (test_stepwat.VegetationOnlyStepTests.test_limited_zero_and_temperature) ... ok
+test_mature_bound_caps_gains (test_stepwat.VegetationOnlyStepTests.test_mature_bound_caps_gains) ... ok
+test_memory_ledger_counts_growth_state (test_stepwat.VegetationOnlyStepTests.test_memory_ledger_counts_growth_state) ... ok
+test_wet_week_matches_equations (test_stepwat.VegetationOnlyStepTests.test_wet_week_matches_equations) ... ok
+test_year_end_partial_period_and_closure (test_stepwat.VegetationOnlyStepTests.test_year_end_partial_period_and_closure) ... ok
+test_year_end_refusal_then_retry_once (test_stepwat.VegetationOnlyStepTests.test_year_end_refusal_then_retry_once) ... ok
+test_projection_matches_the_native_law_on_every_cpu_backend (test_syrup_water.TestAvailabilitySnapshot.test_projection_matches_the_native_law_on_every_cpu_backend) ... ok
+test_standalone_admission_counts_native_resident_copies (test_syrup_water.TestAvailabilitySnapshot.test_standalone_admission_counts_native_resident_copies) ... ok
+test_cpu_gpu_parity_with_inactive_cells_and_nonunit_area (test_syrup_water.TestCudaBridge.test_cpu_gpu_parity_with_inactive_cells_and_nonunit_area) ... skipped 'cuda backend unavailable'
+test_declared_device_bound_covers_the_hooked_live_peak (test_syrup_water.TestCudaBridge.test_declared_device_bound_covers_the_hooked_live_peak)
+Regression for the omitted device scope: hooked live pool bytes (rounded sizes) of one call must fit the ... skipped 'cuda backend unavailable'
+test_failure_after_staging_preserves_device_inputs (test_syrup_water.TestCudaBridge.test_failure_after_staging_preserves_device_inputs) ... skipped 'cuda backend unavailable'
+test_gpu_availability_snapshot_and_invalid_state (test_syrup_water.TestCudaBridge.test_gpu_availability_snapshot_and_invalid_state) ... skipped 'cuda backend unavailable'
+test_gpu_physical_debit_verification_rejects_tampered_inventory (test_syrup_water.TestCudaBridge.test_gpu_physical_debit_verification_rejects_tampered_inventory) ... skipped 'cuda backend unavailable'
+test_namespace_guards_need_no_second_device (test_syrup_water.TestCudaBridge.test_namespace_guards_need_no_second_device) ... skipped 'cuda backend unavailable'
+test_user_75_percent_on_the_device (test_syrup_water.TestCudaBridge.test_user_75_percent_on_the_device) ... skipped 'cuda backend unavailable'
+test_allocator_peak_is_prechecked_against_the_root_map_budget (test_syrup_water.TestGuardsAdmissionAndAtomicity.test_allocator_peak_is_prechecked_against_the_root_map_budget) ... ok
+test_binding_refusals_before_any_allocation_or_native_call (test_syrup_water.TestGuardsAdmissionAndAtomicity.test_binding_refusals_before_any_allocation_or_native_call) ... ok
+test_byte_budget_refuses_before_allocation_and_native_execution (test_syrup_water.TestGuardsAdmissionAndAtomicity.test_byte_budget_refuses_before_allocation_and_native_execution) ... ok
+test_failure_after_staging_preserves_inputs (test_syrup_water.TestGuardsAdmissionAndAtomicity.test_failure_after_staging_preserves_inputs) ... ok
+test_invalid_demand_is_refused_before_native_call (test_syrup_water.TestGuardsAdmissionAndAtomicity.test_invalid_demand_is_refused_before_native_call) ... ok
+test_invalid_native_state_content_is_refused_before_proposal_and_native_call (test_syrup_water.TestGuardsAdmissionAndAtomicity.test_invalid_native_state_content_is_refused_before_proposal_and_native_call) ... ok
+test_native_available_bytes_is_checked_first_and_native_sees_the_same_requirement (test_syrup_water.TestGuardsAdmissionAndAtomicity.test_native_available_bytes_is_checked_first_and_native_sees_the_same_requirement) ... ok
+test_unsupported_native_version_is_refused (test_syrup_water.TestGuardsAdmissionAndAtomicity.test_unsupported_native_version_is_refused) ... ok
+test_core_import_isolation (test_syrup_water.TestImportsAndPureKernels.test_core_import_isolation)
+Importing leaf.uptake and leaf.syrup_water imports neither native SYRUP, numba nor cupy. ... ok
+test_missing_native_is_a_clear_error_not_a_fallback (test_syrup_water.TestImportsAndPureKernels.test_missing_native_is_a_clear_error_not_a_fallback) ... ok
+test_pin_and_documented_projection (test_syrup_water.TestImportsAndPureKernels.test_pin_and_documented_projection) ... ok
+test_plain_python_projection_kernel_matches_the_law (test_syrup_water.TestImportsAndPureKernels.test_plain_python_projection_kernel_matches_the_law) ... ok
+test_cpu_fresh_allocations_stay_inside_the_declared_host_bound (test_syrup_water.TestLedgerScope.test_cpu_fresh_allocations_stay_inside_the_declared_host_bound)
+tracemalloc (NumPy arrays included) over one call: peak fresh bytes <= the ledger's fresh host bytes plus a ... ok
+test_ledger_covers_every_named_live_array_and_the_allocator_peak (test_syrup_water.TestLedgerScope.test_ledger_covers_every_named_live_array_and_the_allocator_peak) ... ok
+test_native_kernel_parameter_layer_and_column_copies_are_counted (test_syrup_water.TestLedgerScope.test_native_kernel_parameter_layer_and_column_copies_are_counted) ... ok
+test_no_population_term_outside_map_demand_and_allocator (test_syrup_water.TestLedgerScope.test_no_population_term_outside_map_demand_and_allocator) ... ok
+test_accepted_shortfall_on_the_original_inventory_conserves_water (test_syrup_water.TestNativeContractAndCases.test_accepted_shortfall_on_the_original_inventory_conserves_water)
+Legitimate acceptance cap: the REAL operator is called ONCE on the ORIGINAL supplied water with a REDUCED ... ok
+test_empty_population_is_a_zero_withdrawal (test_syrup_water.TestNativeContractAndCases.test_empty_population_is_a_zero_withdrawal) ... ok
+test_inactive_cells_have_no_availability_and_no_renormalisation (test_syrup_water.TestNativeContractAndCases.test_inactive_cells_have_no_availability_and_no_renormalisation) ... ok
+test_malformed_native_results_are_rejected (test_syrup_water.TestNativeContractAndCases.test_malformed_native_results_are_rejected) ... ok
+test_native_pin_and_provenance (test_syrup_water.TestNativeContractAndCases.test_native_pin_and_provenance) ... ok
+test_native_requested_must_match_the_proposal (test_syrup_water.TestNativeContractAndCases.test_native_requested_must_match_the_proposal) ... ok
+test_nonunit_areas_preserve_water_units_and_exact_accepted_feedback (test_syrup_water.TestNativeContractAndCases.test_nonunit_areas_preserve_water_units_and_exact_accepted_feedback) ... ok
+test_physical_debit_is_verified_against_the_supplied_inventory (test_syrup_water.TestNativeContractAndCases.test_physical_debit_is_verified_against_the_supplied_inventory)
+Tampered returned inventories (the real operator is still called once on the real input) are rejected. ... ok
+test_plain_python_verify_kernel_matches_the_numpy_path (test_syrup_water.TestNativeContractAndCases.test_plain_python_verify_kernel_matches_the_numpy_path) ... ok
+test_proportional_competition_unequal_roots (test_syrup_water.TestNativeContractAndCases.test_proportional_competition_unequal_roots) ... ok
+test_random_overlaps_finite_nonnegative_unit_closure_and_purity (test_syrup_water.TestNativeContractAndCases.test_random_overlaps_finite_nonnegative_unit_closure_and_purity) ... ok
+test_shallow_and_deep_profiles_and_no_compensation (test_syrup_water.TestNativeContractAndCases.test_shallow_and_deep_profiles_and_no_compensation) ... ok
+test_user_75_percent_and_deep_water_left (test_syrup_water.TestNativeContractAndCases.test_user_75_percent_and_deep_water_left) ... ok
+test_plain_python_kernels_are_the_same_algorithm (test_uptake.TestClosureAndOrdering.test_plain_python_kernels_are_the_same_algorithm)
+The authoritative per-edge definitions (executed here in pure Python on a tiny problem) agree with ... ok
+test_random_overlaps_closure_and_oracle (test_uptake.TestClosureAndOrdering.test_random_overlaps_closure_and_oracle) ... ok
+test_reordering_individuals_does_not_change_priority (test_uptake.TestClosureAndOrdering.test_reordering_individuals_does_not_change_priority) ... ok
+test_masked_cell_gets_nothing_and_weight_is_not_renormalised (test_uptake.TestContractExamples.test_masked_cell_gets_nothing_and_weight_is_not_renormalised) ... ok
+test_multi_plant_sharing_is_proportional_to_local_requests (test_uptake.TestContractExamples.test_multi_plant_sharing_is_proportional_to_local_requests) ... ok
+test_non_separable_weights_multiple_cells_and_layers (test_uptake.TestContractExamples.test_non_separable_weights_multiple_cells_and_layers) ... ok
+test_partial_acceptance_shortfall_and_honest_roundoff (test_uptake.TestContractExamples.test_partial_acceptance_shortfall_and_honest_roundoff) ... ok
+test_required_example_one_plant_two_layers_75_percent (test_uptake.TestContractExamples.test_required_example_one_plant_two_layers_75_percent) ... ok
+test_zero_demand_zero_supply_and_inactive_roots (test_uptake.TestContractExamples.test_zero_demand_zero_supply_and_inactive_roots) ... ok
+test_device_guards_do_not_touch_other_devices (test_uptake.TestCudaParity.test_device_guards_do_not_touch_other_devices) ... skipped "cuda backend unavailable: cupy/CUDA unavailable: CUDARuntimeError('cudaErrorInsufficientDriver: CUDA driver version is insufficient for CUDA runtime version')"
+test_gpu_parity_closure_and_no_implicit_transfers (test_uptake.TestCudaParity.test_gpu_parity_closure_and_no_implicit_transfers) ... skipped "cuda backend unavailable: cupy/CUDA unavailable: CUDARuntimeError('cudaErrorInsufficientDriver: CUDA driver version is insufficient for CUDA runtime version')"
+test_nonfinite_accepted_and_closure_flag (test_uptake.TestFiniteResults.test_nonfinite_accepted_and_closure_flag) ... ok
+test_overflowing_totals_and_scatter_are_refused (test_uptake.TestFiniteResults.test_overflowing_totals_and_scatter_are_refused) ... /home/okin/MAPLE/.venv-cupy/lib/python3.12/site-packages/numpy/_core/_methods.py:49: RuntimeWarning: overflow encountered in reduce
+  return umr_sum(a, axis, dtype, out, keepdims, initial, where)
+ok
+test_cpu_parity_with_reference (test_uptake.TestNumbaParity.test_cpu_parity_with_reference) ... ok
+test_measured_feedback_scratch_stays_within_the_estimate (test_uptake.TestNumbaParity.test_measured_feedback_scratch_stays_within_the_estimate)
+Regression for the under-reported scratch: P = E = 100000 on ONE resource. Measured allocation of the ... ok
+test_conversion_and_construction_preflight_before_any_copy (test_uptake.TestRootMapValidation.test_conversion_and_construction_preflight_before_any_copy) ... ok
+test_device_identity_guards_without_any_device (test_uptake.TestRootMapValidation.test_device_identity_guards_without_any_device) ... ok
+test_invalid_arrays_refused_and_inputs_preserved (test_uptake.TestRootMapValidation.test_invalid_arrays_refused_and_inputs_preserved) ... ok
+test_memory_admission_refuses_before_allocation (test_uptake.TestRootMapValidation.test_memory_admission_refuses_before_allocation) ... ok
+test_offsets_overflow_is_rejected_before_any_subtraction (test_uptake.TestRootMapValidation.test_offsets_overflow_is_rejected_before_any_subtraction) ... ok
+test_typed_arrays_only_and_no_materialisation (test_uptake.TestRootMapValidation.test_typed_arrays_only_and_no_materialisation) ... ok
+
+----------------------------------------------------------------------
+Ran 274 tests in 7.447s
+
+OK (skipped=19)

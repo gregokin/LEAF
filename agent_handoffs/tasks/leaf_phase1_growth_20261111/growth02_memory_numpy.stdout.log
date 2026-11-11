@@ -1,0 +1,84 @@
+{
+  "scope": "pure current kernel array profiles, not session/phase qualification",
+  "results": [
+    {
+      "backend": "numpy",
+      "operation": "demand",
+      "plants": 0,
+      "declared_total_bytes": 720,
+      "declared_allocating_bytes": 360,
+      "traced_allocation_peak_bytes": 6454,
+      "traced_retained_bytes": 5651,
+      "numpy_data_retained_bytes": 49,
+      "array_underestimate": false,
+      "all_trace_exceeds_bound": true,
+      "note": "All-trace peak includes excluded Python metadata; retained NumPy data is separate. A retained-data excess is definite; total-trace excess alone is not."
+    },
+    {
+      "backend": "numpy",
+      "operation": "grow",
+      "plants": 0,
+      "declared_total_bytes": 528,
+      "declared_allocating_bytes": 136,
+      "traced_allocation_peak_bytes": 8183,
+      "traced_retained_bytes": 7743,
+      "numpy_data_retained_bytes": 1,
+      "array_underestimate": false,
+      "all_trace_exceeds_bound": true,
+      "note": "All-trace peak includes excluded Python metadata; retained NumPy data is separate. A retained-data excess is definite; total-trace excess alone is not."
+    },
+    {
+      "backend": "numpy",
+      "operation": "demand",
+      "plants": 4096,
+      "declared_total_bytes": 643792,
+      "declared_allocating_bytes": 557416,
+      "traced_allocation_peak_bytes": 169090,
+      "traced_retained_bytes": 38738,
+      "numpy_data_retained_bytes": 32816,
+      "array_underestimate": false,
+      "all_trace_exceeds_bound": false,
+      "note": "All-trace peak includes excluded Python metadata; retained NumPy data is separate. A retained-data excess is definite; total-trace excess alone is not."
+    },
+    {
+      "backend": "numpy",
+      "operation": "grow",
+      "plants": 4096,
+      "declared_total_bytes": 2642448,
+      "declared_allocating_bytes": 2490504,
+      "traced_allocation_peak_bytes": 1223927,
+      "traced_retained_bytes": 401914,
+      "numpy_data_retained_bytes": 393216,
+      "array_underestimate": false,
+      "all_trace_exceeds_bound": false,
+      "note": "All-trace peak includes excluded Python metadata; retained NumPy data is separate. A retained-data excess is definite; total-trace excess alone is not."
+    },
+    {
+      "backend": "numpy",
+      "operation": "demand",
+      "plants": 200000,
+      "declared_total_bytes": 14189328,
+      "declared_allocating_bytes": 9988968,
+      "traced_allocation_peak_bytes": 3772362,
+      "traced_retained_bytes": 1605970,
+      "numpy_data_retained_bytes": 1600048,
+      "array_underestimate": false,
+      "all_trace_exceeds_bound": false,
+      "note": "All-trace peak includes excluded Python metadata; retained NumPy data is separate. A retained-data excess is definite; total-trace excess alone is not."
+    },
+    {
+      "backend": "numpy",
+      "operation": "grow",
+      "plants": 200000,
+      "declared_total_bytes": 60154960,
+      "declared_allocating_bytes": 52754568,
+      "traced_allocation_peak_bytes": 34613975,
+      "traced_retained_bytes": 19208698,
+      "numpy_data_retained_bytes": 19200000,
+      "array_underestimate": false,
+      "all_trace_exceeds_bound": false,
+      "note": "All-trace peak includes excluded Python metadata; retained NumPy data is separate. A retained-data excess is definite; total-trace excess alone is not."
+    }
+  ],
+  "failure_count": 0
+}

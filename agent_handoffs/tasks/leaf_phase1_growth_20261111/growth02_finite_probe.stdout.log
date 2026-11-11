@@ -1,0 +1,14 @@
+{
+  "cases": [
+    {
+      "backend": "numpy",
+      "rejected": true,
+      "reason": "invalid growth input/result: 1 plant(s) with non-finite or inconsistent outputs (overflow?); inputs unchanged, nothing returned"
+    },
+    {
+      "backend": "numba",
+      "rejected": true,
+      "reason": "invalid growth input/result: 1 plant(s) with non-finite or inconsistent outputs (overflow?); inputs unchanged, nothing returned"
+    }
+  ]
+}

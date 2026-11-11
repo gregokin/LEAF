@@ -1,0 +1,227 @@
+{
+  "scope": "Independent allocation profiling, not ecological time integration",
+  "backend": "cuda",
+  "cases": [
+    {
+      "backend": "cuda",
+      "n_plants": 200000,
+      "edges_per_plant": 1,
+      "n_resources": 1,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 24800024,
+          "requested_peak_additional_bytes": 8000008,
+          "pool_rounded_peak_additional_bytes": 8000512,
+          "requested_retained_additional_bytes": 8000008,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 9601024,
+          "pool_reserved_bytes_after": 9608192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 1600136,
+          "requested_peak_additional_bytes": 1600136,
+          "pool_rounded_peak_additional_bytes": 1602560,
+          "requested_retained_additional_bytes": 1600024,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 11202560,
+          "pool_reserved_bytes_after": 11208192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 4800136,
+          "requested_peak_additional_bytes": 4800136,
+          "pool_rounded_peak_additional_bytes": 4801536,
+          "requested_retained_additional_bytes": 4800016,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 16003584,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        }
+      ],
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "backend": "cuda",
+      "n_plants": 1,
+      "edges_per_plant": 100000,
+      "n_resources": 100000,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 5700091,
+          "requested_peak_additional_bytes": 1600032,
+          "pool_rounded_peak_additional_bytes": 1602048,
+          "requested_retained_additional_bytes": 1600032,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 2402816,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 3200112,
+          "requested_peak_additional_bytes": 3200112,
+          "pool_rounded_peak_additional_bytes": 3202048,
+          "requested_retained_additional_bytes": 2400008,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 4804096,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 1600144,
+          "requested_peak_additional_bytes": 1600144,
+          "pool_rounded_peak_additional_bytes": 1602560,
+          "requested_retained_additional_bytes": 1600024,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 6406144,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        }
+      ],
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "backend": "cuda",
+      "n_plants": 4096,
+      "edges_per_plant": 4,
+      "n_resources": 49152,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 1503248,
+          "requested_peak_additional_bytes": 360456,
+          "pool_rounded_peak_additional_bytes": 360960,
+          "requested_retained_additional_bytes": 360456,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 786944,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 1605736,
+          "requested_peak_additional_bytes": 1605736,
+          "pool_rounded_peak_additional_bytes": 1606144,
+          "requested_retained_additional_bytes": 1212416,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 1999360,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 884856,
+          "requested_peak_additional_bytes": 884856,
+          "pool_rounded_peak_additional_bytes": 885248,
+          "requested_retained_additional_bytes": 884736,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 2884096,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        }
+      ],
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "backend": "cuda",
+      "n_plants": 0,
+      "edges_per_plant": 1,
+      "n_resources": 49152,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 393232,
+          "requested_peak_additional_bytes": 8,
+          "pool_rounded_peak_additional_bytes": 512,
+          "requested_retained_additional_bytes": 8,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 393728,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 1572968,
+          "requested_peak_additional_bytes": 1572968,
+          "pool_rounded_peak_additional_bytes": 1573376,
+          "requested_retained_additional_bytes": 1179648,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 1573376,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 786552,
+          "requested_peak_additional_bytes": 786552,
+          "pool_rounded_peak_additional_bytes": 786944,
+          "requested_retained_additional_bytes": 786432,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 2359808,
+          "pool_reserved_bytes_after": 16008192,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        }
+      ],
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    },
+    {
+      "backend": "cuda",
+      "n_plants": 200000,
+      "edges_per_plant": 1,
+      "n_resources": 1,
+      "device_source": true,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 16800016,
+          "requested_peak_additional_bytes": 9600016,
+          "pool_rounded_peak_additional_bytes": 9601024,
+          "requested_retained_additional_bytes": 8000008,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 16001536,
+          "pool_reserved_bytes_after": 17679360,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 1600136,
+          "requested_peak_additional_bytes": 1600136,
+          "pool_rounded_peak_additional_bytes": 1602560,
+          "requested_retained_additional_bytes": 1600024,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 17603072,
+          "pool_reserved_bytes_after": 17679360,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 4800136,
+          "requested_peak_additional_bytes": 4800136,
+          "pool_rounded_peak_additional_bytes": 4801536,
+          "requested_retained_additional_bytes": 4800016,
+          "array_scale_underestimate": false,
+          "pool_used_bytes_after": 22404096,
+          "pool_reserved_bytes_after": 22479360,
+          "measurement_note": "CUDA pool hook, raw requested algorithm allocations compared to estimate; rounded pool/context are separate"
+        }
+      ],
+      "unknown_free_events": 0,
+      "requested_live_at_end_bytes": 0
+    }
+  ],
+  "array_scale_underestimate_cases": 0
+}

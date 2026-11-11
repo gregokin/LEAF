@@ -1,0 +1,881 @@
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_environs.c:1: trailing whitespace.
++/** 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_environs.c:3: trailing whitespace.
++ * \brief Controls all environmental phenomenon from creating ppt and temp to 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_environs.c:5: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:3: trailing whitespace.
++ * \brief Implements all of the mortality functions.  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:4: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:7: trailing whitespace.
++ *  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:13: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:15: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:86: trailing whitespace.
++static void _stretched_clonal( GrpIndex rg, Int start, Int last, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:100: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:122: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:124: trailing whitespace.
++ *  resource availability, age, growth rate, and fecal pats, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:125: trailing whitespace.
++ *  ant mounds, and animal burrows. Also, succulents are 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:127: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:138: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:164: trailing whitespace.
++ *  - Execute disturbances from fecal pats, ant mounds, and animal 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:166: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:167: trailing whitespace.
++ *  Note that other disturbances (i.e. fire and grazing) are implemented 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:169: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:172: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:174: trailing whitespace.
++ *             linked list in Species[sp]->IndivHead, so expect the 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:177: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:180: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:258: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:260: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:263: trailing whitespace.
++ *         Note that the return values does _not_ indicate whether the 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:265: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:276: trailing whitespace.
++    if((Globals->currYear < RGroup[rg]->killfreq_startyr) || 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:280: trailing whitespace.
++    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:290: trailing whitespace.
++    } else if (((Globals->currYear - RGroup[rg]->killfreq_startyr) % 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:311: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:315: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:317: trailing whitespace.
++ * If prescribed fire is simulated it is possible to specify inputs such that fire will 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:319: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:325: trailing whitespace.
++ *             
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:328: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:338: trailing whitespace.
++   * struct that it updates (cheatgrassPrecip) can be incorporated into the 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:342: trailing whitespace.
++         Globals->currYear, cheatgrassPrecip->springMean, cheatgrassPrecip->currentSpring, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:373: trailing whitespace.
++      
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:388: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:390: trailing whitespace.
++ * every rgroup. If it is, it performs grazing on all species in the given group. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:391: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:395: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:398: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:401: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:447: trailing whitespace.
++        
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:457: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:461: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:464: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:492: trailing whitespace.
++ * \brief Free all memory allocated inside the 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:494: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:496: trailing whitespace.
++ *     All local variables that have been dynamically allocated will be 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:498: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:514: trailing whitespace.
++ * \brief Load a different CheatgrassPrecip struct into the 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:516: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:517: trailing whitespace.
++ * This is particularly useful in [gridded mode](\ref GRID) where each 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:519: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:520: trailing whitespace.
++ * As far as allocation goes, you can either allocate the new 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:523: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:534: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:537: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:549: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:552: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:556: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:559: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:563: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:576: trailing whitespace.
++    cheatgrassPrecip->springMean = 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:577: trailing whitespace.
++        get_running_mean(year - 1, cheatgrassPrecip->springMean, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:583: trailing whitespace.
++      cheatgrassPrecip->winterMean = 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:756: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:759: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:761: trailing whitespace.
++ *             species in RGroup[rg] will be given a chance to recover some biomass. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:762: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:765: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:775: trailing whitespace.
++            /* Recovery of biomass after fire cannot occur for an RGroup[rg] until the year 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:812: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:815: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:817: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:818: trailing whitespace.
++ * \sideeffect If Species[sp]->disturbclass is VerySensitive or Sensitive 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:822: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:824: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:830: trailing whitespace.
++    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:831: trailing whitespace.
++    kills = (IndivType **)Mem_Calloc(SuperGlobals.max_indivs_per_spp, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:862: trailing whitespace.
++    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:869: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:871: trailing whitespace.
++ * it kills most species with the exception of succulents (Coffin and 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:873: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:875: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:880: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:882: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:908: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:911: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:913: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:914: trailing whitespace.
++ * \sideeffect Species[sp]->disturbclass doesn't matter for burrows. All 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:918: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:920: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:941: trailing whitespace.
++ * \brief Reduces succulent biomass based on reduction specified in inputs 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:943: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:944: trailing whitespace.
++ * This function will remove the same amount of biomass from all individuals 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:946: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:948: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:952: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:956: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:964: trailing whitespace.
++  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:965: trailing whitespace.
++  kills = (IndivType **)Mem_Calloc(SuperGlobals.max_indivs_per_spp, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:980: trailing whitespace.
++  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:987: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:988: trailing whitespace.
++ * Kill plants if the growth rate is less than the "slow rate" which is 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:990: trailing whitespace.
++ * the species-level parameters (max_rate). The slow rate is 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1002: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1004: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1006: trailing whitespace.
++ *                  the species.\n 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1011: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1013: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1022: trailing whitespace.
++  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1023: trailing whitespace.
++  kills = (IndivType **)Mem_Calloc(SuperGlobals.max_indivs_per_spp, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1046: trailing whitespace.
++  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1052: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1053: trailing whitespace.
++ * Kills individuals in a species by the age-independent function (eqn 14) in 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1055: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1056: trailing whitespace.
++ * Annuals are NOT killed here. Also, if Species[sp]->max_age == 0 (a species 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1058: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1059: trailing whitespace.
++ * Initial programming by Chris Bennett @ LTER-CSU 6/15/2000  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1060: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1062: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1063: trailing whitespace.
++ * \sideeffect Some individuals from the Species[sp]->IndivHead linked list 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1066: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1068: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1111: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1116: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1119: trailing whitespace.
++ * before or after the growing season. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1120: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1122: trailing whitespace.
++ * _stretched_clonal() to kill additional amounts of clonal plants due 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1124: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1125: trailing whitespace.
++ * Note that to make it here, the rgroup's PR MUST BE > 1.0., which is 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1127: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1129: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1131: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1135: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1138: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1178: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1180: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1185: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1189: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1191: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1213: trailing whitespace.
++  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1283: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1292: trailing whitespace.
++ * indiv_create() for more details. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1293: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1296: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1317: trailing whitespace.
++ * \brief Remove superfluous growth due to extra resources accumulated during the 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1318: trailing whitespace.
++ * growing season. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1319: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1320: trailing whitespace.
++ * This should be done after all the statistics are accumulated for the year. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1321: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1323: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1327: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1346: trailing whitespace.
++            /* Now FINALLY remove individuals that were killed because of fire or grazing and set 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1366: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1368: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1371: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1387: trailing whitespace.
++            holder = p->Prev; 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1445: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1447: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1483: space before tab in indent.
++  	  pfgAGB += RGroup_GetBiomass(RGroup_Name2Index(pfgRGroupNames[i]));
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1537: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1538: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1541: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_mortality.c:1551: trailing whitespace.
++  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1: trailing whitespace.
++/**  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:4: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:8: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:11: trailing whitespace.
++ * functions in the [species](\ref SPECIES) module and in the 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:13: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:17: trailing whitespace.
++ *     Freddy Pierson\n 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:19: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:21: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:78: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:79: trailing whitespace.
++ * The allocation of resources happens in three steps: 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:83: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:85: trailing whitespace.
++ *             [indiv](\ref IndivType)->res_avail and [indiv](\ref IndivType)->res_required will be set 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:87: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:98: trailing whitespace.
++        
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:143: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:144: trailing whitespace.
++ * Annual establishment uses a seedbank to determine how many seedlings will 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:147: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:151: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:154: trailing whitespace.
++ * \param lastyear_relsize is the relative size of the species in the previous year. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:156: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:158: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:160: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:162: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:214: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:217: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:219: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:221: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:223: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:240: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:243: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:245: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:279: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:281: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:286: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:288: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:290: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:292: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:300: trailing whitespace.
++    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:350: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:352: trailing whitespace.
++ * within a group are ignored. Partitioning is proportional to the size of individuals, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:354: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:356: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:359: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:363: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:377: space before tab in indent.
++    		*size_obase; /* biomass of functional groups that can use extra resources */
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:379: trailing whitespace.
++    size_base = (RealF *)Mem_Calloc(SuperGlobals.max_rgroups, sizeof(RealF), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:381: trailing whitespace.
++    size_obase = (RealF *)Mem_Calloc(SuperGlobals.max_rgroups, sizeof(RealF), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:383: trailing whitespace.
++    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:435: trailing whitespace.
++     * increment plant sizes. Extra resources that remain after this step which are 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:436: trailing whitespace.
++     * applied to superfluous biomass increment that will ultimately be killed at the 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:462: trailing whitespace.
++                    /* If individuals already have the resources they require do 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:467: trailing whitespace.
++                    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:469: trailing whitespace.
++                    * by the individual using what was assigned to the individual 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:497: trailing whitespace.
++    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:503: trailing whitespace.
++ * \brief Growth function for all [groups](\ref RGROUP), [species](\ref SPECIES), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:505: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:508: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:512: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:516: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:557: trailing whitespace.
++                
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:561: trailing whitespace.
++                
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:564: trailing whitespace.
++                
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:565: trailing whitespace.
++                /* For clonal species, if the individual appears killed it was 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:566: trailing whitespace.
++                 * reduced due to low resources last year. It can reproduce vegetatively 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:596: trailing whitespace.
++        
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:597: trailing whitespace.
++        /* Implement growth due to extra resources which will support superfluous 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:606: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:607: trailing whitespace.
++ * When there are resources beyond the minimum necessary for "normal" growth, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:608: trailing whitespace.
++ * the extra resources are converted to superfluous growth in the current year 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:609: trailing whitespace.
++ * and is removed at the end of the year in killExtraGrowth. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:610: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:612: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:613: trailing whitespace.
++ * \sideeffect 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:618: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:622: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:682: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:685: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:686: trailing whitespace.
++ * \sideeffect 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:687: trailing whitespace.
++ *     \* \ref RGroup[rg]->min_res_req will be recalculated for all [rg](\ref GrpIndex) if the number of 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:691: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:695: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:696: trailing whitespace.
++ * \sa 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:697: trailing whitespace.
++ *     \* Species_NumEstablish() and _add_annuals() which are called in this function to calculate the 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:701: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:738: trailing whitespace.
++                    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:782: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:783: trailing whitespace.
++ * \sideeffect 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:785: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:788: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:822: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:824: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:825: trailing whitespace.
++ * \return RealF greater than or equal to 0 representing the summed 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:827: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:829: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:831: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:850: trailing whitespace.
++/** 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:852: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:853: trailing whitespace.
++ * grp_res_prop reflects the proportion of the groups total relative size belonging to 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:855: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:857: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:860: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:894: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:896: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:898: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:902: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:923: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:925: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:926: trailing whitespace.
++ * \return 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:929: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:930: trailing whitespace.
++ * \author 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:932: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:952: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:954: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:956: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:970: trailing whitespace.
++        
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:977: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:979: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:981: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:984: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1004: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1006: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1010: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1013: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1048: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1049: trailing whitespace.
++ * \param rg is the [index](\ref GrpIndex) in \ref RGroup of the resource group to 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1053: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1055: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1057: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1078: trailing whitespace.
++ * \brief Kill the given [resource group](\ref GroupType) and never allow it to 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1080: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1082: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1083: trailing whitespace.
++ * \sideeffect 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1086: trailing whitespace.
++ *  
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1087: trailing whitespace.
++ * \author 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1089: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1091: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1108: trailing whitespace.
++ * allocated before calling this function. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1109: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1112: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1114: trailing whitespace.
++ *             dest will be overwritten with src's data. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1130: trailing whitespace.
++        dest->kills = (IntUS*) Mem_Calloc(GrpMaxAge(src->grp_num), sizeof(IntUS), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1205: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1207: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1209: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1211: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1213: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1228: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1233: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1235: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1236: trailing whitespace.
++ * \sideeffect 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1238: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1241: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_resgroups.c:1242: trailing whitespace.
++ * \ingroup RGROUP    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_seedDispersal.c:135: space before tab in indent.
++    	if (!Species[sp]->use_dispersal)
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_seedDispersal.c:136: space before tab in indent.
++    		continue;
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_seedDispersal.c:161: trailing whitespace.
++            
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_seedDispersal.c:171: trailing whitespace.
++              
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_seedDispersal.c:174: trailing whitespace.
++                
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:4: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:7: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:9: trailing whitespace.
++ * in \ref ST_resgroup.c. There very few times were we would want to call these 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:11: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:74: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:75: trailing whitespace.
++ * This function stochastically determines for each species, the number of 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:76: trailing whitespace.
++ * seedlings that will establish this year based on the maximum number of 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:78: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:79: trailing whitespace.
++ * Initial programming by Chris Bennett @ LTER-CSU 6/15/2000. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:81: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:83: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:85: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:94: trailing whitespace.
++        if(Species[sp]->seedsPresent && 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:97: trailing whitespace.
++            return (IntS) RandUniIntRange(1, Species[sp]->max_seed_estab, 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:124: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:126: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:129: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:140: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:142: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:145: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:148: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:185: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:187: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:189: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:192: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:195: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:212: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:214: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:218: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:220: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:229: trailing whitespace.
++/** 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:231: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:233: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:236: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:238: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:248: space before tab in indent.
++    	while(p)
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:249: space before tab in indent.
++    	{
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:250: space before tab in indent.
++        	sum += p->relsize;
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:252: space before tab in indent.
++    	}
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:260: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:262: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:263: trailing whitespace.
++ * \return A float. The height of the tallest individual of the species in 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:265: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:267: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:279: trailing whitespace.
++    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:296: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:298: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:300: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:303: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:306: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:327: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:331: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:332: trailing whitespace.
++ * \param src Is a pointer to the \ref SpeciesType struct to copy information 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:336: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:337: trailing whitespace.
++ * \sideeffect 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:339: trailing whitespace.
++ *     the size of the source. And, of course, all fields of the destination 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:341: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:348: trailing whitespace.
++	// Error checking. If src == dest we would just end up loosing the linked 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:358: trailing whitespace.
++		dest->kills = (IntUS*) Mem_Calloc(src->max_age, sizeof(IntUS), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:366: trailing whitespace.
++	dest->seedprod = (IntUS*) Mem_Calloc(src->viable_yrs, sizeof(IntUS), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:430: trailing whitespace.
++		destIndv = (IndivType*) Mem_Calloc(1, sizeof(IndivType), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:443: trailing whitespace.
++			destIndv->Next = (IndivType*) Mem_Calloc(1, sizeof(IndivType), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:459: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:461: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:463: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:465: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:467: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:474: trailing whitespace.
++	p = (SpeciesType *) Mem_Calloc(1, sizeof(SpeciesType), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:476: trailing whitespace.
++        p->name = Mem_Calloc(SuperGlobals.max_speciesnamelen + 1, sizeof(char), 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:484: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:486: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:488: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:489: trailing whitespace.
++ * \return The index in \ref Species of the species with this name. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:491: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:510: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:512: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:515: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:518: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:520: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:537: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:539: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:540: trailing whitespace.
++ * This proportion is removed from every individual in the species. 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:541: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:546: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:547: trailing whitespace.
++ * \sideeffect All individuals in the \ref Species[sp]->IndivHead linked list 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:549: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:567: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:570: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:574: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:578: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:582: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:583: trailing whitespace.
++ * \sa indiv_proportion_Grazing() which is the function this function calls to 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:585: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:612: trailing whitespace.
++ * \brief Proportion Recovery (representing re-sprouting after fire) for all 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:614: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:617: trailing whitespace.
++ * \param proportionRecovery The proportion of previous (before the fire) biomass 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:621: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:623: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:626: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:644: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:646: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:648: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:651: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:652: trailing whitespace.
++ * \sideeffect 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:655: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:658: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:671: trailing whitespace.
++    
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:677: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:680: trailing whitespace.
++ * what proportion of relative size was killed due to disturbances as well as 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:682: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/ST_species.c:685: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/sxw_environs.c:3: trailing whitespace.
++ * \brief Generates [SOILWAT2](\ref sw_src) precipitation information and 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/sxw_environs.c:5: trailing whitespace.
++ * 
+agent_handoffs/tasks/leaf_phase1_20261110/reference_sources/sxw_environs.c:47: new blank line at EOF.

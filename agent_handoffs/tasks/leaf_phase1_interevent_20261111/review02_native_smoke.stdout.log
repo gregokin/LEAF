@@ -1,0 +1,18 @@
+{
+  "scope": "early independent actual-native interevent fixture",
+  "days": 10,
+  "crossed_leap_day": true,
+  "restart_at_day": 3,
+  "restart_equivalent": true,
+  "final_cursor": "2024-03-08T00:00:00+00:00",
+  "native_time_s": 864010.25,
+  "agb_dry_kg": [
+    0.05005430949121986,
+    2.00095710125
+  ],
+  "age_days": [
+    110.0,
+    1010.0
+  ],
+  "whole_phase_accepted": false
+}

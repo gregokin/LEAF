@@ -1,0 +1,41 @@
+{
+  "scope": "seven actual native days including weekly growth, external arrays at builder entry",
+  "plants": 100000,
+  "cells": 4096,
+  "layers": 2,
+  "host_resident_array_lower_bound_bytes": 7800392,
+  "device_live_at_start_bytes": 10272272,
+  "device_live_requested_peak_bytes": 24039377,
+  "global_array_peak_lower_bound_bytes": 31839769,
+  "declared_global_peak_bytes": 62738456,
+  "underestimate_confirmed": false,
+  "root_builder_observations": [
+    {
+      "host_array_lower_bound_bytes": 15600424,
+      "actual_live_requested_device_bytes": 14337808,
+      "actual_external_array_lower_bound_bytes": 29938232,
+      "declared_external_bytes": 29938488,
+      "external_underestimate_confirmed": false
+    }
+  ],
+  "stage_estimates": {
+    "native_step": 18564736,
+    "demand": 18967448,
+    "bridge": 23286328,
+    "accumulate": 27286392,
+    "grow": 33408312,
+    "rebuild_preflight": 62738456,
+    "growth_grow": 33408312,
+    "growth_rebuild_preflight": 62738456,
+    "growth_roots_materialize": 40238488,
+    "growth_roots_geometry": 53238488,
+    "growth_roots_builder_admitted_peak": 56138512,
+    "growth_commit": 29338528,
+    "next_demand": 18967448,
+    "next_bridge": 23286328,
+    "next_accumulate": 27286392
+  },
+  "note": "Host lower bound omits native host parameters and temporary host packets; raw device bytes include every hooked array and exclude pool rounding/context.",
+  "unknown_free_events": 0,
+  "requested_live_at_end_bytes": 0
+}

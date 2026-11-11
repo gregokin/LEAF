@@ -1,0 +1,147 @@
+{
+  "scope": "Independent allocation profiling, not ecological time integration",
+  "backend": "numpy",
+  "cases": [
+    {
+      "backend": "numpy",
+      "n_plants": 200000,
+      "edges_per_plant": 1,
+      "n_resources": 1,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 16800016,
+          "traced_peak_additional_bytes": 9604328,
+          "traced_retained_additional_bytes": 8004432,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 7600182,
+          "traced_peak_additional_bytes": 4803808,
+          "traced_retained_additional_bytes": 1604000,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 17200174,
+          "traced_peak_additional_bytes": 11204056,
+          "traced_retained_additional_bytes": 4805008,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        }
+      ],
+      "unknown_free_events": null,
+      "requested_live_at_end_bytes": null
+    },
+    {
+      "backend": "numpy",
+      "n_plants": 1,
+      "edges_per_plant": 100000,
+      "n_resources": 100000,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 4100059,
+          "traced_peak_additional_bytes": 1605872,
+          "traced_retained_additional_bytes": 1604288,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 9400126,
+          "traced_peak_additional_bytes": 6004304,
+          "traced_retained_additional_bytes": 2404072,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 8600174,
+          "traced_peak_additional_bytes": 4604520,
+          "traced_retained_additional_bytes": 1605536,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        }
+      ],
+      "unknown_free_events": null,
+      "requested_live_at_end_bytes": null
+    },
+    {
+      "backend": "numpy",
+      "n_plants": 4096,
+      "edges_per_plant": 4,
+      "n_resources": 49152,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 1142792,
+          "traced_peak_additional_bytes": 430064,
+          "traced_retained_additional_bytes": 364896,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 4186216,
+          "traced_peak_additional_bytes": 2264920,
+          "traced_retained_additional_bytes": 1216568,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 3399800,
+          "traced_peak_additional_bytes": 1921264,
+          "traced_retained_additional_bytes": 889776,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        }
+      ],
+      "unknown_free_events": null,
+      "requested_live_at_end_bytes": null
+    },
+    {
+      "backend": "numpy",
+      "n_plants": 0,
+      "edges_per_plant": 1,
+      "n_resources": 49152,
+      "device_source": false,
+      "operations": [
+        {
+          "stage": "map",
+          "estimated_additional_bytes": 393224,
+          "traced_peak_additional_bytes": 5424,
+          "traced_retained_additional_bytes": 3840,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "plan",
+          "estimated_additional_bytes": 3833960,
+          "traced_peak_additional_bytes": 2117633,
+          "traced_retained_additional_bytes": 1183513,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        },
+        {
+          "stage": "feedback",
+          "estimated_additional_bytes": 2654328,
+          "traced_peak_additional_bytes": 1822579,
+          "traced_retained_additional_bytes": 791187,
+          "array_scale_underestimate": false,
+          "measurement_note": "Includes Python bookkeeping; 16 KiB distinguishes bookkeeping from array-scale error, not an increased admission cap"
+        }
+      ],
+      "unknown_free_events": null,
+      "requested_live_at_end_bytes": null
+    }
+  ],
+  "array_scale_underestimate_cases": 0
+}

@@ -1,0 +1,21 @@
+{
+  "scope": "daily actual native step, synthetic hot-resource population, no growth boundary",
+  "plants": 100000,
+  "cells": 4096,
+  "layers": 2,
+  "host_resident_array_lower_bound_bytes": 7800392,
+  "device_live_at_start_bytes": 10272272,
+  "device_live_requested_peak_bytes": 17624240,
+  "global_array_peak_lower_bound_bytes": 25424632,
+  "declared_global_peak_bytes": 27286392,
+  "underestimate_confirmed": false,
+  "stage_estimates": {
+    "native_step": 18564736,
+    "demand": 18967448,
+    "bridge": 23286328,
+    "accumulate": 27286392
+  },
+  "note": "Host lower bound omits native host parameters and temporary host packets; raw device bytes include every hooked array and exclude pool rounding/context.",
+  "unknown_free_events": 0,
+  "requested_live_at_end_bytes": 0
+}

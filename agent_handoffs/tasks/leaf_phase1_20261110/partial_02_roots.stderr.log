@@ -1,0 +1,88 @@
+test_catalog_id_and_notes_kept_only_when_identical (test_roots.TestMultiFileCatalog.test_catalog_id_and_notes_kept_only_when_identical) ... ok
+test_deterministic_merge_equals_single_file_identity (test_roots.TestMultiFileCatalog.test_deterministic_merge_equals_single_file_identity) ... ok
+test_duplicates_incomplete_records_and_mismatches_refused (test_roots.TestMultiFileCatalog.test_duplicates_incomplete_records_and_mismatches_refused) ... ok
+test_compiled_builder_parity (test_roots.TestRootBuilder.test_compiled_builder_parity) ... ERROR
+test_custom_general_map_can_replace_the_builder (test_roots.TestRootBuilder.test_custom_general_map_can_replace_the_builder) ... ok
+test_expanded_layer_edges_admitted_before_allocation (test_roots.TestRootBuilder.test_expanded_layer_edges_admitted_before_allocation) ... ERROR
+test_masked_cell_in_uptake_keeps_weights_fixed (test_roots.TestRootBuilder.test_masked_cell_in_uptake_keeps_weights_fixed) ... ERROR
+test_nonsquare_domain_refused_before_allocation (test_roots.TestRootBuilder.test_nonsquare_domain_refused_before_allocation) ... ok
+test_numpy_builder_matches_brute_force_geometry_and_labels_the_law (test_roots.TestRootBuilder.test_numpy_builder_matches_brute_force_geometry_and_labels_the_law) ... ERROR
+test_species_fractions_and_individual_overrides (test_roots.TestRootBuilder.test_species_fractions_and_individual_overrides) ... ERROR
+test_statuses_inactive_rows_and_empty_selection (test_roots.TestRootBuilder.test_statuses_inactive_rows_and_empty_selection) ... ERROR
+
+======================================================================
+ERROR: test_compiled_builder_parity (test_roots.TestRootBuilder.test_compiled_builder_parity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/tests/test_roots.py", line 216, in test_compiled_builder_parity
+    a = roots.build_root_map(self.st, self.cat, max_edges=100_000, max_bytes=BIG, builder='numpy',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/leaf/roots.py", line 310, in build_root_map
+    return _uptake.RootMap.from_arrays(ids, offsets, resources, weights, n_layers=L, n_cells=N, backend=backend,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: RootMap.from_arrays() got an unexpected keyword argument '_take_ownership'
+
+======================================================================
+ERROR: test_expanded_layer_edges_admitted_before_allocation (test_roots.TestRootBuilder.test_expanded_layer_edges_admitted_before_allocation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/tests/test_roots.py", line 167, in test_expanded_layer_edges_admitted_before_allocation
+    full = roots.build_root_map(self.st, self.cat, max_edges=100_000, max_bytes=BIG, builder='numpy')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/leaf/roots.py", line 310, in build_root_map
+    return _uptake.RootMap.from_arrays(ids, offsets, resources, weights, n_layers=L, n_cells=N, backend=backend,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: RootMap.from_arrays() got an unexpected keyword argument '_take_ownership'
+
+======================================================================
+ERROR: test_masked_cell_in_uptake_keeps_weights_fixed (test_roots.TestRootBuilder.test_masked_cell_in_uptake_keeps_weights_fixed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/tests/test_roots.py", line 184, in test_masked_cell_in_uptake_keeps_weights_fixed
+    m = roots.build_root_map(self.st, self.cat, max_edges=100_000, max_bytes=BIG, builder='numpy')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/leaf/roots.py", line 310, in build_root_map
+    return _uptake.RootMap.from_arrays(ids, offsets, resources, weights, n_layers=L, n_cells=N, backend=backend,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: RootMap.from_arrays() got an unexpected keyword argument '_take_ownership'
+
+======================================================================
+ERROR: test_numpy_builder_matches_brute_force_geometry_and_labels_the_law (test_roots.TestRootBuilder.test_numpy_builder_matches_brute_force_geometry_and_labels_the_law)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/tests/test_roots.py", line 95, in test_numpy_builder_matches_brute_force_geometry_and_labels_the_law
+    m = roots.build_root_map(self.st, self.cat, max_edges=100_000, max_bytes=BIG, builder='numpy')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/leaf/roots.py", line 310, in build_root_map
+    return _uptake.RootMap.from_arrays(ids, offsets, resources, weights, n_layers=L, n_cells=N, backend=backend,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: RootMap.from_arrays() got an unexpected keyword argument '_take_ownership'
+
+======================================================================
+ERROR: test_species_fractions_and_individual_overrides (test_roots.TestRootBuilder.test_species_fractions_and_individual_overrides)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/tests/test_roots.py", line 120, in test_species_fractions_and_individual_overrides
+    m = roots.build_root_map(self.st, self.cat, max_edges=100_000, max_bytes=BIG, builder='numpy',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/leaf/roots.py", line 310, in build_root_map
+    return _uptake.RootMap.from_arrays(ids, offsets, resources, weights, n_layers=L, n_cells=N, backend=backend,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: RootMap.from_arrays() got an unexpected keyword argument '_take_ownership'
+
+======================================================================
+ERROR: test_statuses_inactive_rows_and_empty_selection (test_roots.TestRootBuilder.test_statuses_inactive_rows_and_empty_selection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/tests/test_roots.py", line 136, in test_statuses_inactive_rows_and_empty_selection
+    m = roots.build_root_map(self.st, self.cat, max_edges=100_000, max_bytes=BIG, builder='numpy',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/partial_02/leaf/roots.py", line 310, in build_root_map
+    return _uptake.RootMap.from_arrays(ids, offsets, resources, weights, n_layers=L, n_cells=N, backend=backend,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: RootMap.from_arrays() got an unexpected keyword argument '_take_ownership'
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.467s
+
+FAILED (errors=6)

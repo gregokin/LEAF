@@ -1,0 +1,15 @@
+{
+  "session_id": "f071b8f7-f17b-4046-88f9-25ed8aba25ee",
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_growth_20261111/candidate",
+  "timeout_seconds": 2400,
+  "write_files": [
+    "leaf/growth.py",
+    "tests/test_growth.py",
+    "examples/phase1/species.json",
+    "docs/phase1-growth.md",
+    "report.md"
+  ],
+  "model": "sonnet",
+  "model_authority": "User continuation 2026-11-11, recorded decisions_20261111.md",
+  "effort": "medium"
+}

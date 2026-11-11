@@ -1,0 +1,20 @@
+{
+  "session_id": "fd82b85e-8a07-4982-b621-b132f845eab7",
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase1_20261110/candidate",
+  "timeout_seconds": 2400,
+  "write_files": [
+    "leaf/uptake.py",
+    "leaf/roots.py",
+    "leaf/forcing.py",
+    "leaf/traits.py",
+    "leaf/__init__.py",
+    "tests/test_uptake.py",
+    "tests/test_roots.py",
+    "tests/test_forcing.py",
+    "docs/phase1-water-contract.md",
+    "report.md"
+  ],
+  "model": "sonnet",
+  "model_authority": "User continue now, 2026-11-11; decisions_20261111.md",
+  "effort": "medium"
+}
