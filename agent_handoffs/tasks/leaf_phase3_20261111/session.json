@@ -1,0 +1,15 @@
+{
+  "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814",
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase3_20261111/candidate",
+  "timeout_seconds": 2400,
+  "write_files": [
+    "leaf/interevent.py",
+    "tests/test_interevent.py",
+    "docs/phase3-reproduction.md",
+    "report.md"
+  ],
+  "model": "sonnet",
+  "effort": "medium",
+  "model_authority": "User explicit automatic Codex-Claude Phases1-3 implementation and source sharing; Phase3 nearby daughter records explicitly selected2026-11-11",
+  "baseline_file": "baseline_revision_03.json"
+}

@@ -548,5 +548,39 @@ class CudaParity(unittest.TestCase):
                       period_days=365.0, seed=7, counter=1, max_bytes=BIG)
 
 
+class NewbornExposure(unittest.TestCase):
+    '''Phase 3 deliberate correction: a plant accrues background hazard only for the time it was ALIVE in the period,
+    min(period_days, age_end); plants that lived the whole period are unchanged.'''
+
+    def test_background_hazard_is_capped_by_actual_time_alive(self):
+        cat = load_cat(only_age(bg_grass=0.2, weibull=False))
+        t = dm.compile_species(cat, 'numpy')
+        out = Call(cat, ['grass', 'grass', 'grass'], [1, 2, 3], [73.0, 365.0, 3000.0]).run(t, period=365.0)
+        p = out['p_age']
+        self.assertAlmostEqual(float(p[0]), -math.expm1(-0.2 * 73.0 / 365.0), places=14)     # newborn: 73 days alive
+        self.assertAlmostEqual(float(p[1]), -math.expm1(-0.2), places=14)                    # exactly one full period
+        self.assertAlmostEqual(float(p[2]), -math.expm1(-0.2), places=14)                    # existing plant unchanged
+        # a long empty period never charges the newborn: period 1095 days, newborn alive 10 days
+        out = Call(cat, ['grass'], [1], [10.0]).run(t, period=1095.0)
+        self.assertAlmostEqual(float(out['p_age'][0]), -math.expm1(-0.2 * 10.0 / 365.0), places=14)
+        # zero age: no exposure at all
+        out = Call(cat, ['grass'], [1], [0.0]).run(t, period=365.0)
+        self.assertEqual(float(out['p_age'][0]), 0.0)
+
+    def test_age_hazard_behaviour_is_retained(self):
+        cat = load_cat(only_age(bg_grass=0.0, weibull=True))
+        t = dm.compile_species(cat, 'numpy')
+        out = Call(cat, ['grass'], [1], [100.0]).run(t, period=365.0)
+        k, lam = 3.0, 8.0
+        self.assertAlmostEqual(float(out['p_age'][0]), -math.expm1(-((100.0 / 365.0 / lam) ** k)), places=14)
+
+    @unittest.skipUnless(NUMBA, 'numba backend unavailable')
+    def test_numba_kernel_uses_the_same_exposure(self):
+        cat = load_cat(only_age(bg_grass=0.2, weibull=False))
+        a = Call(cat, ['grass', 'grass'], [1, 2], [50.0, 3000.0]).run(dm.compile_species(cat, 'numpy'))
+        b = Call(cat, ['grass', 'grass'], [1, 2], [50.0, 3000.0]).run(dm.compile_species(cat, 'numba'))
+        np.testing.assert_allclose(a['p_age'], b['p_age'], rtol=1e-12, atol=1e-300)
+
+
 if __name__ == '__main__':
     unittest.main()

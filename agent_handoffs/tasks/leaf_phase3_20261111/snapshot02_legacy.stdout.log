@@ -1,0 +1,26 @@
+[
+  {
+    "version": 1,
+    "allow_source_change": false,
+    "refused": true,
+    "message": "unsupported restart format: schema 'leaf.interevent_restart' version 1 (int); this loader reads exactly schema 'leaf.interevent_restart' integer version 3. Older checkpoints (version 1 lacks the Phase 2 arrays / manifest block, version 2 lacks the Phase 3 reproduction block) are NOT migrated or defaulted (allow_source_change does not authorize a format conversion; use the pinned runtime that wrote them)"
+  },
+  {
+    "version": 1,
+    "allow_source_change": true,
+    "refused": true,
+    "message": "unsupported restart format: schema 'leaf.interevent_restart' version 1 (int); this loader reads exactly schema 'leaf.interevent_restart' integer version 3. Older checkpoints (version 1 lacks the Phase 2 arrays / manifest block, version 2 lacks the Phase 3 reproduction block) are NOT migrated or defaulted (allow_source_change does not authorize a format conversion; use the pinned runtime that wrote them)"
+  },
+  {
+    "version": 2,
+    "allow_source_change": false,
+    "refused": true,
+    "message": "unsupported restart format: schema 'leaf.interevent_restart' version 2 (int); this loader reads exactly schema 'leaf.interevent_restart' integer version 3. Older checkpoints (version 1 lacks the Phase 2 arrays / manifest block, version 2 lacks the Phase 3 reproduction block) are NOT migrated or defaulted (allow_source_change does not authorize a format conversion; use the pinned runtime that wrote them)"
+  },
+  {
+    "version": 2,
+    "allow_source_change": true,
+    "refused": true,
+    "message": "unsupported restart format: schema 'leaf.interevent_restart' version 2 (int); this loader reads exactly schema 'leaf.interevent_restart' integer version 3. Older checkpoints (version 1 lacks the Phase 2 arrays / manifest block, version 2 lacks the Phase 3 reproduction block) are NOT migrated or defaulted (allow_source_change does not authorize a format conversion; use the pinned runtime that wrote them)"
+  }
+]

@@ -1,0 +1,10 @@
+?? agent_handoffs/tasks/leaf_phase2_20261111/phase2_commit.stderr.log
+?? agent_handoffs/tasks/leaf_phase2_20261111/phase2_commit.stdout.log
+?? agent_handoffs/tasks/leaf_phase2_20261111/phase2_push.stderr.log
+?? agent_handoffs/tasks/leaf_phase2_20261111/phase2_push.stdout.log
+?? agent_handoffs/tasks/leaf_phase2_20261111/publication.json
+?? agent_handoffs/tasks/leaf_phase3_20261111/freeze_candidate.py
+?? agent_handoffs/tasks/leaf_phase3_20261111/launch_claude.py
+?? agent_handoffs/tasks/leaf_phase3_20261111/run_check.py
+?? agent_handoffs/tasks/leaf_phase3_20261111/run_gpu_check.py
+?? agent_handoffs/tasks/leaf_phase3_20261111/session.json

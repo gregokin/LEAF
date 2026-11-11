@@ -181,6 +181,24 @@ not an ECOTONE / STEPWAT2 reproduction; there is no wind or water physics, surfa
 new tests (`tests/test_disturbance.py`, `tests/test_demography.py`, the Phase 2 classes of `tests/test_interevent.py`)
 still need an independent run.
 
+## Phase 3: simple seed establishment and nearby vegetative daughter plants
+
+The [Phase 3 guide](docs/phase3-reproduction.md) documents `IntereventSession.apply_reproduction(year, current_surface,
+max_new_plants=, max_total_records=, max_attempts=)`, the explicit annual reproduction boundary (after growth, post-event
+damage and the due annual mortality decision). Species-local opt-in laws (`leaf.recruitment`, catalog `reproduction` section,
+law `simple_seed_clonal_v1`; null / `unimplemented` stays inactive) give (1) a STEP-inspired establishment trial per
+ecological PATCH (an explicit fixed physical size, independent of the hydraulic cell size) and species with an external-
+propagule assumption and a bounded integer number of seedlings, and (2) vegetative reproduction as separately located
+DAUGHTER plants (own ID, age 0, uniform in a disk, bounded rejection, never wrapped) funded by an exact transfer of parent
+dry AGB and seasonal E. Seedling AGB is an external establishment credit in a closed dry-AGB ledger; no water is added or
+withdrawn. Births are published by the same transactional rebind as Phase 2 (generalised to appended births), randomness is
+keyed by (seed, accepted-opportunity counter) and independent of row order, and the version-3 complete checkpoint carries the
+new state (version 1 and 2 checkpoints are refused, not migrated). Phase 2 background mortality now charges a newborn only the
+time it was alive. `examples/phase3/species.json` holds UNCALIBRATED FIXTURES and `examples/phase3/run_recruitment.py` is a
+bounded synthetic example. Limits: aboveground only, external propagules, canopy overlap allowed, host (not GPU-resident)
+placement, no seed bank, no surface remapping, no calibration; the new tests (`tests/test_recruitment.py`, the Phase 3 classes
+of `tests/test_interevent.py`, `tests/test_demography.py::NewbornExposure`) still need an independent run.
+
 ## Benchmark commands
 
 Use the existing environment; no installation or new environment is required:

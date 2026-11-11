@@ -1,0 +1,30 @@
+{
+  "revision": 3,
+  "at_utc": "2026-11-11T20:08:22.728987+00:00",
+  "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814",
+  "changed_files": [
+    "docs/phase3-reproduction.md",
+    "leaf/interevent.py",
+    "report.md",
+    "tests/test_interevent.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T20:07:50.978863+00:00",
+    "elapsed_seconds": 22.087822522968054
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "Revision 3 is written, but I haven't run anything, so every check is still NOT RUN.\n\n`apply_reproduction` in `leaf/interevent.py` now records the full evaluate stage in the session's memory receipt on every accepted call. This includes the case where all requested daughters are rejected and no rebind follows. Right after `evaluate` returns, it calls `_check_stage('reproduction_evaluate', ...)` with the same reserve, host gather and pure scratch estimate that `evaluate` already admitted. The published `peak_estimate_bytes` therefore covers that work in both the all-rejected and successful-birth cases.\n\nThe admissions inside `evaluate`, the caps, the science and all other modules are untouched.\n\nI added a regression, `test_all_rejected_requests_still_record_the_full_evaluate_stage_in_the_peak`, in `tests/test_interevent.py`.\n- **Setup:** grass with clonal probability 1, seeds off, a dispersal radius of 1e6 m and one attempt per daughter. A single draw landing inside the 4 m domain has probability around 1e-11, so all requests should be rejected.\n- **Checks:**\n  - Daughters are requested but none are placed and nothing is born.\n  - The receipt lists both `reproduction_preflight` and `reproduction_evaluate`.\n  - The evaluate stage is at least the pure estimate and larger than the preflight stage.\n  - The peak equals the maximum stage total.\n  - IDs, positions, B, E, ages, statuses and native water are unchanged, and only the opportunity counter and last year advance.\n\n`docs/phase3-reproduction.md` and `report.md` describe the new stage record. Please re-run the all-rejected and successful-birth profiles and the CPU/CUDA suites.",
+    "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

@@ -1,0 +1,132 @@
+{
+  "schema": "leaf.species_catalog",
+  "schema_version": 1,
+  "catalog_id": "phase3-reproduction-example-fixture",
+  "units": {"biomass": "kg", "length": "m", "time": "days"},
+  "root_layers": 2,
+  "notes": "FIXTURE catalog for LEAF Phase 3 (leaf.recruitment law simple_seed_clonal_v1) on top of the Phase 1 growth / water-use laws and the Phase 2 background-hazard law. UNCALIBRATED FIXTURES: EVERY number below (reproduction probabilities, counts, initial dry AGB, donation fractions, dispersal radii, ages) is a readable-contrast fixture for tests and examples, not a field default, a literature fit or a calibration. Each species carries its complete record; all reproduction numbers live in that species' own reproduction section. grass = clonal only (seed pathway disabled), shrub = seed only, forb = both, moss_inactive = inactive reproduction. life_expectancy is metadata only.",
+  "species": {
+    "grass": {
+      "functional_type": "perennial_bunchgrass",
+      "name": "fixture clonal-only bunchgrass (UNCALIBRATED)",
+      "allometry": {"model": "power_law_v1", "diameter": {"a": 0.9, "b": 0.45}, "height": {"a": 0.6, "b": 0.3}},
+      "roots": {"lateral_radius_multiplier": 3.0, "layer_fractions": [0.85, 0.15]},
+      "porosity": {"value": 0.2, "status": "uncalibrated constant; used by native MAPLE wind, unused by LEAF ecology"},
+      "growth": {
+        "law": "stepwat_requested_support_v1",
+        "status": "FIXTURE coefficients, not literature fits.",
+        "traits": {"mature_biomass_kg": 0.6, "intrinsic_rate_per_year": 0.8, "biomass_support_kg_year_per_m3": 2.0,
+                   "live_fraction": 0.6, "extra_growth_rate_per_year": 0.25,
+                   "monthly_activity": [0.0, 0.0, 0.2, 0.6, 1.0, 1.0, 0.7, 0.5, 0.8, 0.5, 0.1, 0.0],
+                   "temperature_min_c": 2.0, "temperature_opt_c": 22.0, "temperature_max_c": 40.0}
+      },
+      "water_use": {"law": "canopy_pet_v1", "status": "FIXTURE.", "traits": {"transpiration_coefficient": 0.6}},
+      "reproduction": {
+        "law": "simple_seed_clonal_v1",
+        "status": "UNCALIBRATED FIXTURE numbers; clonal pathway only (the seed pathway is disabled).",
+        "traits": {
+          "seed": null,
+          "clonal": {"min_age_days": 365.0, "min_agb_dry_kg": 0.2, "probability": 0.5, "max_daughters_per_parent": 2,
+                     "initial_agb_dry_kg": 0.05, "max_donation_fraction": 0.4, "dispersal_radius_m": 0.6,
+                     "max_attempts_per_daughter": 4}
+        },
+        "units": {"min_age_days": "days", "min_agb_dry_kg": "kg dry aboveground", "probability": "per eligible live parent and annual opportunity",
+                  "initial_agb_dry_kg": "kg dry aboveground per daughter, TRANSFERRED from the parent", "max_donation_fraction": "(0, 1) of the parent's B",
+                  "dispersal_radius_m": "m, uniform in a disk (sqrt radial draw), finite non-periodic domain", "max_attempts_per_daughter": "bounded rejection attempts"},
+        "notes": "UNCALIBRATED FIXTURE"
+      },
+      "life_expectancy": {"mean": 8, "unit": "years", "notes": "metadata only"},
+      "mortality": {
+        "law": "age_background_stress_v1",
+        "status": "UNCALIBRATED FIXTURE.",
+        "traits": {"age_hazard": null, "background_hazard_per_year": 0.02, "stress": null},
+        "units": {"background_hazard_per_year": "1/year"}
+      },
+      "disturbance": {"law": "unimplemented"}
+    },
+    "shrub": {
+      "functional_type": "shrub",
+      "name": "fixture seed-only shrub (UNCALIBRATED)",
+      "allometry": {"model": "power_law_v1", "diameter": {"a": 1.6, "b": 0.4}, "height": {"a": 1.0, "b": 0.35}},
+      "roots": {"lateral_radius_multiplier": 5.0, "layer_fractions": [0.25, 0.75]},
+      "porosity": {"value": 0.2, "status": "uncalibrated constant; used by native MAPLE wind, unused by LEAF ecology"},
+      "growth": {
+        "law": "stepwat_requested_support_v1",
+        "status": "FIXTURE coefficients, not literature fits.",
+        "traits": {"mature_biomass_kg": 12.0, "intrinsic_rate_per_year": 0.2, "biomass_support_kg_year_per_m3": 3.5,
+                   "live_fraction": 0.4, "extra_growth_rate_per_year": 0.2,
+                   "monthly_activity": [0.1, 0.1, 0.3, 0.7, 1.0, 1.0, 1.0, 0.9, 0.7, 0.4, 0.2, 0.1],
+                   "temperature_min_c": 0.0, "temperature_opt_c": 25.0, "temperature_max_c": 45.0}
+      },
+      "water_use": {"law": "biomass_specific_pet_v1", "status": "FIXTURE.",
+                    "traits": {"demand_m3_per_kg_day": 0.0004, "reference_pet_mm_per_day": 5.0}},
+      "reproduction": {
+        "law": "simple_seed_clonal_v1",
+        "status": "UNCALIBRATED FIXTURE numbers; seed pathway only (external-propagule assumption).",
+        "traits": {
+          "seed": {"establishment_probability": 0.6, "max_recruits_per_patch": 3, "initial_agb_dry_kg": 0.02,
+                   "initial_seasonal_fraction": 0.5},
+          "clonal": null
+        },
+        "units": {"establishment_probability": "per ecological patch, species and annual opportunity (NOT per hydraulic cell)",
+                  "max_recruits_per_patch": "uniform integer 1..max on success", "initial_agb_dry_kg": "kg dry aboveground per seedling; an EXTERNAL establishment / seed-reserve credit",
+                  "initial_seasonal_fraction": "E / B of a seedling"},
+        "notes": "UNCALIBRATED FIXTURE"
+      },
+      "life_expectancy": {"mean": 40, "unit": "years", "notes": "metadata only"},
+      "mortality": {"law": "unimplemented"},
+      "disturbance": {"law": "unimplemented"}
+    },
+    "forb": {
+      "functional_type": "forb",
+      "name": "fixture seed-and-clonal forb (UNCALIBRATED)",
+      "allometry": {"model": "power_law_v1", "diameter": {"a": 0.7, "b": 0.45}, "height": {"a": 0.5, "b": 0.3}},
+      "roots": {"lateral_radius_multiplier": 2.0, "layer_fractions": [0.6, 0.4]},
+      "porosity": {"value": 0.2, "status": "uncalibrated constant; used by native MAPLE wind, unused by LEAF ecology"},
+      "growth": {
+        "law": "stepwat_requested_support_v1",
+        "status": "FIXTURE coefficients, not literature fits.",
+        "traits": {"mature_biomass_kg": 0.3, "intrinsic_rate_per_year": 0.7, "biomass_support_kg_year_per_m3": 2.5,
+                   "live_fraction": 0.7, "extra_growth_rate_per_year": 0.2,
+                   "monthly_activity": [0.0, 0.0, 0.3, 0.7, 1.0, 0.8, 0.5, 0.4, 0.6, 0.3, 0.0, 0.0],
+                   "temperature_min_c": 2.0, "temperature_opt_c": 20.0, "temperature_max_c": 38.0}
+      },
+      "water_use": {"law": "canopy_pet_v1", "status": "FIXTURE.", "traits": {"transpiration_coefficient": 0.5}},
+      "reproduction": {
+        "law": "simple_seed_clonal_v1",
+        "status": "UNCALIBRATED FIXTURE numbers; both pathways.",
+        "traits": {
+          "seed": {"establishment_probability": 0.3, "max_recruits_per_patch": 2, "initial_agb_dry_kg": 0.01,
+                   "initial_seasonal_fraction": 0.0},
+          "clonal": {"min_age_days": 200.0, "min_agb_dry_kg": 0.1, "probability": 0.4, "max_daughters_per_parent": 3,
+                     "initial_agb_dry_kg": 0.02, "max_donation_fraction": 0.5, "dispersal_radius_m": 0.4,
+                     "max_attempts_per_daughter": 5}
+        },
+        "notes": "UNCALIBRATED FIXTURE"
+      },
+      "life_expectancy": {"mean": 4, "unit": "years", "notes": "metadata only"},
+      "mortality": {"law": "unimplemented"},
+      "disturbance": {"law": "unimplemented"}
+    },
+    "moss_inactive": {
+      "functional_type": "moss",
+      "name": "fixture species with inactive reproduction (UNCALIBRATED)",
+      "allometry": {"model": "power_law_v1", "diameter": {"a": 0.3, "b": 0.5}, "height": {"a": 0.1, "b": 0.3}},
+      "roots": {"lateral_radius_multiplier": 1.0, "layer_fractions": [1.0, 0.0]},
+      "porosity": {"value": 0.2, "status": "uncalibrated constant; used by native MAPLE wind, unused by LEAF ecology"},
+      "growth": {
+        "law": "stepwat_requested_support_v1",
+        "status": "FIXTURE coefficients, not literature fits.",
+        "traits": {"mature_biomass_kg": 0.05, "intrinsic_rate_per_year": 0.5, "biomass_support_kg_year_per_m3": 1.0,
+                   "live_fraction": 0.9, "extra_growth_rate_per_year": 0.1,
+                   "monthly_activity": [0.2, 0.2, 0.5, 0.8, 1.0, 0.6, 0.3, 0.3, 0.6, 0.5, 0.3, 0.2],
+                   "temperature_min_c": 0.0, "temperature_opt_c": 15.0, "temperature_max_c": 30.0}
+      },
+      "water_use": {"law": "canopy_pet_v1", "status": "FIXTURE.", "traits": {"transpiration_coefficient": 0.3}},
+      "reproduction": {"law": "unimplemented"},
+      "life_expectancy": null,
+      "mortality": {"law": "unimplemented"},
+      "disturbance": {"law": "unimplemented"}
+    }
+  }
+}

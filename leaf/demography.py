@@ -21,7 +21,9 @@ Decision period (one annual decision, the explicit scheduler boundary of the ses
 catalog TIME_UNIT_DAYS convention). With the plant ages a0 = max(age_end - period_days, 0) and a1 = age_end (days, live
 plants age only while live):
   cumulative age hazard   H(a) = (a / 365 / scale_years) ** shape                         (Weibull; 0 when off)
-  total hazard            dH = max(H(a1) - H(a0), 0) + background_hazard_per_year * period_days / 365
+  total hazard            dH = max(H(a1) - H(a0), 0) + background_hazard_per_year * min(period_days, a1) / 365
+                          (Phase 3 newborn correction: a plant born inside the period is charged only for the time it was
+                          alive; identical to the Phase 2 formula whenever a1 >= period_days)
   death probability       p = -expm1(-dH)       p = 0 for dH = 0 and p = 1 exactly when dH is large enough
   keyed uniform           u = keyed_uniform(seed, decision_counter, STREAM_AGE, plant_id);  death iff u < p
 so probability 0 never kills and probability 1 always kills. A plant that dies is `dead_standing`: it keeps its B / E.
@@ -400,7 +402,10 @@ def _decide_xp(xp, tf, ti, s, ids_u64, age, stress, req, act, plan, gain, period
         y0 = xp.maximum(age - period_days, 0.0) / DAYS_PER_YEAR
         h_age = xp.power(y1 / f(F_SCALE), f(F_SHAPE)) - xp.power(y0 / f(F_SCALE), f(F_SHAPE))
         h_age = xp.where(i(I_AGE_ON) == 1, xp.maximum(h_age, 0.0), 0.0)
-        dh = h_age + f(F_BG) * (period_days / DAYS_PER_YEAR)
+        # newborn correction (Phase 3): a plant only accrues background hazard for the time it was ALIVE in the period,
+        # min(period_days, age_end); unchanged for every plant that lived the whole period (age_end >= period_days)
+        expo = xp.minimum(age, period_days)
+        dh = h_age + f(F_BG) * (expo / DAYS_PER_YEAR)
         p_age = -xp.expm1(-dh)
     dead_age = _uniform_xp(xp, key_age, ids_u64) < p_age
     st_on = i(I_STRESS_ON) == 1
@@ -458,7 +463,8 @@ def _numba_kernel():
                 h_age = (y1 / tf[F_SCALE, k]) ** tf[F_SHAPE, k] - (y0 / tf[F_SCALE, k]) ** tf[F_SHAPE, k]
                 if h_age < 0.0:
                     h_age = 0.0
-            dh = h_age + tf[F_BG, k] * (period_days / DAYS_PER_YEAR)
+            expo = period_days if period_days < a else a      # newborn correction: time actually alive in the period
+            dh = h_age + tf[F_BG, k] * (expo / DAYS_PER_YEAR)
             pa = -math.expm1(-dh)
             dead_age = u01(key_age, ids[p]) < pa
             st_on = ti[I_STRESS_ON, k] == 1

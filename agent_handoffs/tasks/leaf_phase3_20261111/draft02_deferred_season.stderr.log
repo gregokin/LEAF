@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/leaf_phase3_20261111/probe_deferred_season_01.py", line 24, in <module>
+    assert not report['prior_season_applied_to_newborns'],'deferred season from before birth applied to new recruits'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: deferred season from before birth applied to new recruits

@@ -1,0 +1,152 @@
+{
+  "schema": "leaf.species_catalog",
+  "schema_version": 1,
+  "catalog_id": "phase2-disturbance-example-fixture",
+  "units": {"biomass": "kg", "length": "m", "time": "days"},
+  "root_layers": 2,
+  "notes": "FIXTURE catalog for LEAF Phase 2 (leaf.disturbance law mechanical_response_v1, leaf.demography law age_background_stress_v1) on top of the Phase 1 growth / water-use laws. EVERY number below is an UNCALIBRATED fixture chosen for readable contrasts and for tests; none is a literature fit, a field value or a study calibration. Copy and edit; do not cite these numbers as species parameters. Each species carries its complete record: allometry, roots, growth, water_use, mortality and disturbance live side by side. life_expectancy is metadata only (a mean, not a maximum): nothing in LEAF kills a plant at that age.",
+  "species": {
+    "grass": {
+      "functional_type": "perennial_bunchgrass",
+      "name": "fixture shallow-rooted bunchgrass (burial sensitive, shallow anchorage)",
+      "allometry": {
+        "model": "power_law_v1",
+        "diameter": {"a": 0.9, "b": 0.45},
+        "height": {"a": 0.6, "b": 0.3},
+        "units": {"a_d": "m kg^-0.45", "a_h": "m kg^-0.3", "b": "dimensionless", "B": "kg dry aboveground mass"},
+        "notes": "diameter_m = a_d * B^b_d ; height_m = a_h * B^b_h. Fixture coefficients."
+      },
+      "roots": {
+        "lateral_radius_multiplier": 3.0,
+        "layer_fractions": [0.85, 0.15],
+        "notes": "shallow rooting (uncalibrated fixture)"
+      },
+      "porosity": {"value": 0.2, "status": "uncalibrated constant matching the current MAPLE default; used by native MAPLE wind, unused by LEAF ecology"},
+      "growth": {
+        "law": "stepwat_requested_support_v1",
+        "status": "FIXTURE coefficients, not literature fits. intrinsic_rate_per_year must stay within the qualified [0, 1] weekly-Euler range.",
+        "traits": {
+          "mature_biomass_kg": 0.6,
+          "intrinsic_rate_per_year": 0.8,
+          "biomass_support_kg_year_per_m3": 2.0,
+          "live_fraction": 0.6,
+          "extra_growth_rate_per_year": 0.25,
+          "monthly_activity": [0.0, 0.0, 0.2, 0.6, 1.0, 1.0, 0.7, 0.5, 0.8, 0.5, 0.1, 0.0],
+          "temperature_min_c": 2.0,
+          "temperature_opt_c": 22.0,
+          "temperature_max_c": 40.0
+        }
+      },
+      "water_use": {
+        "law": "canopy_pet_v1",
+        "status": "FIXTURE. Documented LEAF demand adaptation, not a STEPWAT daily-physiology claim.",
+        "traits": {"transpiration_coefficient": 0.6}
+      },
+      "reproduction": {"law": "unimplemented"},
+      "life_expectancy": {"mean": 8, "unit": "years", "notes": "metadata only; mean life expectancy, NOT a hard maximum age; no automatic death"},
+      "mortality": {
+        "law": "age_background_stress_v1",
+        "status": "UNCALIBRATED FIXTURE. Explicit opt-in laws; every coefficient is a catalog value, none is a literature constant.",
+        "traits": {
+          "age_hazard": {"weibull_shape": 3.0, "weibull_scale_years": 8.0},
+          "background_hazard_per_year": 0.01,
+          "stress": {
+            "metric": "support_ratio",
+            "low_threshold": 0.5,
+            "exempt_until_age_days": 365.0,
+            "limit_years": 2,
+            "counter_cap_years": 4,
+            "mortality_probability": 0.3,
+            "biomass_loss_fraction": 0.25
+          }
+        },
+        "units": {"weibull_scale_years": "years (365-day)", "background_hazard_per_year": "1/year", "low_threshold": "ratio of actual support to required support (kg*year / kg*year), a support diagnostic, not a production yield", "exempt_until_age_days": "days: plants with age <= this are never evaluated for stress (first-year rule)", "limit_years / counter_cap_years": "years with a LOW ratio; a healthy year decrements the counter", "mortality_probability": "probability per stressed year (keyed draw)", "biomass_loss_fraction": "fraction of dry AGB lost per stressed year when the plant survives"},
+        "notes": "dormant (zero required support) or exempt years are never counted as stress"
+      },
+      "disturbance": {
+        "law": "mechanical_response_v1",
+        "status": "UNCALIBRATED FIXTURE threshold / response curves; no wind or water physics.",
+        "traits": {
+          "burial": {"increment_basis": "net", "scale": "height_fraction", "injury_threshold": 0.05, "injury_saturation": 0.5,
+                     "max_injury_fraction": 0.6, "curve": "linear", "lethal_depth_m": null, "lethal_height_fraction": 0.9},
+          "exposure": {"increment_basis": "net", "injury_threshold_m": 0.02, "injury_saturation_m": 0.10,
+                       "max_injury_fraction": 0.5, "curve": "smoothstep", "lethal_depth_m": 0.15, "dislodgement_depth_m": 0.25},
+          "abrasion": {"dose_unit": "kg m-1", "applies_to_sources": ["maple_wind"], "injury_threshold": 0.5,
+                       "injury_saturation": 5.0, "max_injury_fraction": 0.4, "curve": "linear", "lethal_dose": 50.0}
+        },
+        "units": {"burial": "increment in fraction of the intact allometric height (scale=height_fraction) or m; lethal_height_fraction = post-event burial / intact height", "exposure": "m of root exposure (establishment ground minus current ground)", "abrasion": "dose in the declared dose_unit (NOT a transport flux)"},
+        "notes": "burial / exposure injuries respond to this event's increment; absolute post-event depths cross the lethal / dislodgement thresholds"
+      }
+    },
+    "shrub": {
+      "functional_type": "shrub",
+      "name": "fixture deep-rooted shrub (burial tolerant, firm anchorage)",
+      "allometry": {
+        "model": "power_law_v1",
+        "diameter": {"a": 1.6, "b": 0.4},
+        "height": {"a": 1.0, "b": 0.35},
+        "units": {"a_d": "m kg^-0.4", "a_h": "m kg^-0.35", "b": "dimensionless", "B": "kg dry aboveground mass"},
+        "notes": "fixture coefficients"
+      },
+      "roots": {
+        "lateral_radius_multiplier": 5.0,
+        "layer_fractions": [0.25, 0.75],
+        "notes": "deep rooting (uncalibrated fixture)"
+      },
+      "porosity": {"value": 0.2, "status": "uncalibrated constant matching the current MAPLE default; used by native MAPLE wind, unused by LEAF ecology"},
+      "growth": {
+        "law": "stepwat_requested_support_v1",
+        "status": "FIXTURE coefficients, not literature fits.",
+        "traits": {
+          "mature_biomass_kg": 12.0,
+          "intrinsic_rate_per_year": 0.2,
+          "biomass_support_kg_year_per_m3": 3.5,
+          "live_fraction": 0.4,
+          "extra_growth_rate_per_year": 0.2,
+          "monthly_activity": [0.1, 0.1, 0.3, 0.7, 1.0, 1.0, 1.0, 0.9, 0.7, 0.4, 0.2, 0.1],
+          "temperature_min_c": 0.0,
+          "temperature_opt_c": 25.0,
+          "temperature_max_c": 45.0
+        }
+      },
+      "water_use": {
+        "law": "biomass_specific_pet_v1",
+        "status": "FIXTURE. Per TOTAL dry AGB (live_fraction is not applied again). Documented LEAF demand adaptation.",
+        "traits": {"demand_m3_per_kg_day": 0.0004, "reference_pet_mm_per_day": 5.0}
+      },
+      "reproduction": {"law": "unimplemented"},
+      "life_expectancy": {"mean": 40, "unit": "years", "notes": "metadata only; mean, not a maximum"},
+      "mortality": {
+        "law": "age_background_stress_v1",
+        "status": "UNCALIBRATED FIXTURE.",
+        "traits": {
+          "age_hazard": {"weibull_shape": 4.0, "weibull_scale_years": 60.0},
+          "background_hazard_per_year": 0.002,
+          "stress": {
+            "metric": "growth_ratio",
+            "low_threshold": 0.4,
+            "exempt_until_age_days": 730.0,
+            "limit_years": 3,
+            "counter_cap_years": 6,
+            "mortality_probability": 0.2,
+            "biomass_loss_fraction": 0.1
+          }
+        },
+        "units": {"growth_ratio": "actual growth / planned growth over the year (kg / kg); not evaluated when the plan is zero (mature size cap, dormancy)"}
+      },
+      "disturbance": {
+        "law": "mechanical_response_v1",
+        "status": "UNCALIBRATED FIXTURE threshold / response curves.",
+        "traits": {
+          "burial": {"increment_basis": "net", "scale": "m", "injury_threshold": 0.1, "injury_saturation": 0.8,
+                     "max_injury_fraction": 0.3, "curve": "linear", "lethal_depth_m": 1.5, "lethal_height_fraction": null},
+          "exposure": {"increment_basis": "gross", "injury_threshold_m": 0.05, "injury_saturation_m": 0.5,
+                       "max_injury_fraction": 0.3, "curve": "smoothstep", "lethal_depth_m": 0.6, "dislodgement_depth_m": 1.0},
+          "abrasion": {"dose_unit": "kg m-1", "applies_to_sources": ["maple_wind"], "injury_threshold": 2.0,
+                       "injury_saturation": 20.0, "max_injury_fraction": 0.2, "curve": "linear", "lethal_dose": null}
+        },
+        "units": {"burial": "increment in m", "exposure": "m (gross erosion depth of the event)", "abrasion": "dose in kg m-1"}
+      }
+    }
+  }
+}

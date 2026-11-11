@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/leaf_phase3_20261111/verify_native_recruitment_02.py",
+    "numba"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase3_20261111/snapshot_03",
+  "pid": 8,
+  "start_ticks": "189910399",
+  "started_at_utc": "2026-11-11T20:08:32.289818+00:00",
+  "overrides": {
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/leaf_phase3_20261111/snapshot_03:/home/okin/SYRUP/src",
+    "NUMBA_CACHE_DIR": "/tmp/leaf-phase0-numba",
+    "CUPY_CACHE_DIR": "/tmp/leaf-phase0-cupy",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  }
+}

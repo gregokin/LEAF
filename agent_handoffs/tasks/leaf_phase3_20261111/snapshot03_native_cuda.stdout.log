@@ -1,0 +1,21 @@
+{
+  "backend": "cuda",
+  "cases": [
+    {
+      "initially_empty": false,
+      "rollback_exact": true,
+      "restart_exact": true,
+      "water_untouched_by_birth": true,
+      "new_roots_actual_next_day_uptake": true,
+      "dry_AGB_ledger_closed": true
+    },
+    {
+      "initially_empty": true,
+      "rollback_exact": true,
+      "restart_exact": true,
+      "water_untouched_by_birth": true,
+      "new_roots_actual_next_day_uptake": true,
+      "dry_AGB_ledger_closed": true
+    }
+  ]
+}

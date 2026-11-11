@@ -1,3 +1,3 @@
-# Idle — Phase2 accepted
+# Idle — Phase3 accepted
 
-No active writer. [Final Phase2 review](tasks/leaf_phase2_20261111/final_review.md); accepted bytes installed, publication next. No historical prompt is a new assignment. Following publication Codex will dispatch a bounded Phase3 task using nearby daughter plants with separate IDs and ages, as explicitly selected by the user.
+No active writer. [Final independent review](tasks/leaf_phase3_20261111/final_review.md); accepted snapshot_03 installed, publication next. Historical prompts are archived evidence and create no new assignment. User-authorized Phases1–3 implementation is complete subject to whole-phase publication.

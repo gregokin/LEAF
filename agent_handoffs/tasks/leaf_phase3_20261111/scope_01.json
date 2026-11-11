@@ -1,0 +1,40 @@
+{
+  "revision": 1,
+  "at_utc": "2026-11-11T19:56:01.323875+00:00",
+  "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814",
+  "changed_files": [
+    "README.md",
+    "docs/maple-leaf-integration.md",
+    "docs/phase3-reproduction.md",
+    "examples/phase3/run_recruitment.py",
+    "examples/phase3/species.json",
+    "leaf/__init__.py",
+    "leaf/checkpoint.py",
+    "leaf/demography.py",
+    "leaf/interevent.py",
+    "leaf/recruitment.py",
+    "report.md",
+    "tests/test_demography.py",
+    "tests/test_interevent.py",
+    "tests/test_recruitment.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T19:55:51.359231+00:00",
+    "elapsed_seconds": 844.3551875681151
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "The Phase 3 candidate is written, but nothing has been run. I had no execution tool, so every check is NOT RUN and I can't say it works. Codex should run the tests before relying on any of it. `report.md` lists these open points.\n\nOnly the allowed files were changed. The existing Phase 2 checkpoint-version test asserted version 2, so I updated it to version 3. The format bump is required by the task, and no guard was weakened.\n\n**What now exists**\n- **`leaf/recruitment.py` (new):** the opt-in `simple_seed_clonal_v1` law, parsed from each species' own `reproduction` section.\n  - A species can be seed-only, clonal-only, both, or inactive.\n  - `unimplemented` or null stays inactive, and an inactive catalog holds no arrays.\n  - Seeds are one trial per fixed physical patch and species, then 1..max seedlings placed uniformly in the actual clipped patch.\n  - Daughters are bounded disk draws that are rejected, never clipped or wrapped, outside the finite domain. Only accepted daughters are paid for, by an exact parent B/E transfer.\n  - New IDs go above max(existing IDs, 0), and IDs of any sign, including the int64 endpoints, are accepted.\n- **Session API (`leaf/interevent.py`):**\n  - `apply_reproduction(year, current_surface, max_new_plants=, max_total_records=, max_attempts=)` and a new `decline_reproduction_opportunity(year)`.\n  - The Phase 2 `_rebind` now also appends births, through the same staged path. Surviving root overrides are kept and newborns use species roots.\n- **Newborn hazard fix (`leaf/demography.py`):** background hazard now uses `min(period_days, age_end)`. Phase 2 results change only for plants younger than the decision period.\n- **Checkpoints (`leaf/checkpoint.py`):** the schema is now version 3, with a `phase3` block and no new arrays. Versions 1 and 2 are refused, even with `allow_source_change=True`.\n- **Tests, example and docs:** `tests/test_recruitment.py` is new. Phase 3 session tests are appended to `tests/test_interevent.py` and a newborn-hazard test class to `tests/test_demography.py`. The example catalog and script are in `examples/phase3/`, with `docs/phase3-reproduction.md` and README/MAPLE-integration notes. All example numbers are labelled uncalibrated fixtures.\n\n**Deviations and limits**\n- **Opportunity calendar:** opportunities are strict and sequential. A skipped or stale year must be declined explicitly, so a year is never dropped silently and the session isn't stuck.\n- **No GPU-resident placement:** placement is a vectorised NumPy host reference on every backend. On CUDA, B/E are read back and the rebuilt state uploaded, and both are counted in the memory ledger. There is no compiled or CUDA eligibility kernel yet.\n- **Estimated byte constants:** the memory numbers are conservative estimates, not measurements.\n- **Statistical test assertions:** the seed-count assertions in the new tests carry a small chance of failing on a given fixed seed (about 0.6% for the unit seed test).\n- **Existing Phase 2 tests not fully re-read:** an equality check on the `rebind` dict, or a test using a plant younger than its decision period, could need adapting. I saw none that does.",
+    "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

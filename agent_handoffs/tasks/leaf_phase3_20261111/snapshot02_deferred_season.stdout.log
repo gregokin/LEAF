@@ -1,0 +1,23 @@
+[
+  {
+    "case": "empty",
+    "old_season_finalized_once": true,
+    "rollback_exact": true,
+    "native_water_and_clock_untouched_by_flush": true,
+    "no_prebirth_tissue_loss": true
+  },
+  {
+    "case": "live_zero_E",
+    "old_season_finalized_once": true,
+    "rollback_exact": true,
+    "native_water_and_clock_untouched_by_flush": true,
+    "no_prebirth_tissue_loss": true
+  },
+  {
+    "case": "live_positive_E",
+    "old_season_finalized_once": true,
+    "rollback_exact": true,
+    "native_water_and_clock_untouched_by_flush": true,
+    "no_prebirth_tissue_loss": true
+  }
+]

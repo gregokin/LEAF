@@ -11,6 +11,27 @@ This guide describes the **thin MAPLE adapter** `maple_vegetation_view` on top o
 because MAPLE's *current* `VegetationObjectSet` cannot hold fully buried or elevated-base objects; those
 restrictions are MAPLE-specific and are not part of the shared view.
 
+## 0. Phase 3 addendum — newborn plants (reproduction) for MAPLE / SYRUP developers
+
+LEAF Phase 3 can ADD plants between storms (`IntereventSession.apply_reproduction`, `docs/phase3-reproduction.md`). No MAPLE or
+SYRUP change is made or required, but consumers must not assume a fixed plant list:
+
+* **IDs are stable and append-only.** Existing plants keep ID, X/Y, establishment ground, age and status (dead_standing and
+  removed records persist, never compacted or renumbered). New plants get fresh int64 IDs above max(existing IDs, 0); IDs
+  of any sign (zero, negative, the endpoints) may already exist. Key per-plant feedback by ID, never by row.
+* **Re-export the canopy after the boundary.** Call `session.flush_growth()` (no pending growth is required anyway) and then
+  `session.export_canopy_view(current_surface)` / `canopy.canopy_view(session.snapshot(), catalog, current_surface)` for the
+  next MAPLE wind or SYRUP interval; newborn plants (age 0, small dry AGB from the species allometry) and debited donor
+  parents appear through the SAME shared allometry. Canopies may overlap (parents / daughters / neighbours): the shared view
+  already permits overlap; nothing is clipped or separated by LEAF.
+* **Water.** Newborn plants request water only from the NEXT interevent interval; the reproduction call itself changes no
+  native soil water, time or rain / ET. Seedling AGB is an external credit, not water-derived biomass.
+* **Old season first.** If a year end passed inside a transport / closed gate, call `session.flush_deferred_season()` before
+  `apply_reproduction` (otherwise refused): newborns never pay the previous season's turnover.
+* **Event decisions first.** `apply_reproduction` is refused while a transport interval still awaits its
+  `apply_surface_event` decision, with pending growth, or with an unresolved annual mortality decision: run those first.
+* **Checkpoints** are version 3; the canonical plant CSV (initial / snapshots / final / checkpoint) is unchanged (version 1).
+
 ## 1. Three vegetation modes
 
 | mode | vegetation source | LEAF calls | notes |

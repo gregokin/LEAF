@@ -1,0 +1,25 @@
+{
+  "reports": [
+    {
+      "check": "counter_uint64_overflow",
+      "refused": true,
+      "message": "phase3.n_reproduction (the RNG counter) must lie in [0, 2**63)"
+    },
+    {
+      "check": "counter_more_than_handled_years",
+      "refused": true,
+      "message": "phase3.n_reproduction=1 exceeds the 0 sequentially handled opportunities (declined years consume no random state, so accepted <= handled)"
+    },
+    {
+      "check": "opportunity_before_start_year",
+      "refused": true,
+      "message": "phase3.last_opportunity_year 2022 must lie in [2023, 2024] (original start year - 1 .. last completed year of the cursor)"
+    },
+    {
+      "check": "invented_last_record",
+      "refused": true,
+      "message": "phase3.last_reproduction must be null before any opportunity was handled"
+    }
+  ],
+  "failures": []
+}

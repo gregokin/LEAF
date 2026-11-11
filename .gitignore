@@ -43,5 +43,7 @@ agent_handoffs/tasks/**/*.zip
 
 !agent_handoffs/tasks/leaf_phase2_*/**/examples/phase0/plants.csv
 
+!agent_handoffs/tasks/leaf_phase3_*/**/examples/phase0/plants.csv
+
 # Generated user runs; examples/phase0 remains versioned.
 runs/

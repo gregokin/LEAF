@@ -1,0 +1,35 @@
+{
+  "revision": 2,
+  "at_utc": "2026-11-11T20:03:32.716213+00:00",
+  "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814",
+  "changed_files": [
+    "docs/maple-leaf-integration.md",
+    "docs/phase3-reproduction.md",
+    "examples/phase3/run_recruitment.py",
+    "leaf/checkpoint.py",
+    "leaf/interevent.py",
+    "leaf/recruitment.py",
+    "report.md",
+    "tests/test_interevent.py",
+    "tests/test_recruitment.py"
+  ],
+  "scope_violations": [],
+  "intermediate_tool_errors": [],
+  "process": {
+    "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814",
+    "returncode": 0,
+    "timed_out": false,
+    "child_reaped": true,
+    "ended_at_utc": "2026-11-11T20:03:19.860331+00:00",
+    "elapsed_seconds": 148.5032572990749
+  },
+  "final_result": {
+    "subtype": "success",
+    "is_error": false,
+    "result": "Revision 2 is written, but every check is still NOT RUN. I had no execution tool, so none of the changes or new tests have been imported or run.\n\n**1. Standalone API guards (`leaf/recruitment.py`)**\n- `evaluate` now takes `live_ids` only as a typed 1-D ndarray before any shape or admission work. It refuses duplicate IDs and `n_total_records` smaller than the live count.\n- `max_existing_id` must be `None` exactly when the population is empty, and otherwise at least every live ID, so newborn IDs can't collide.\n- A wrong `patch` type raises `ReproductionError`, and `None` is allowed only when no species has a seed law.\n- Patch counts use exact Python integers, and an unrepresentable patch size is refused before any array is built.\n- The attempt total is accumulated in float and refused near the int64 range.\n- `coefficients('moss_inactive')` now refuses, which is what the existing `Law.test_parse_inactive_and_active` expected. I did not touch that test.\n\n**2. Prebirth seasonal loss (`leaf/interevent.py`)**\n- New `flush_deferred_season()` applies the old season's turnover to the current live plants at the cursor. It reuses `_growth_update(year_end=True)`, rebuilds geometry and roots through the shared path, and publishes once. It changes no water, time or ET, does not reset the growth grid, and runs no catch-up.\n- With no live plants it just clears the flag. It is a no-op if nothing is deferred, refuses with pending growth, and a failure leaves everything unchanged.\n- `apply_reproduction` now refuses while `season_due` is set, with a message naming `flush_deferred_season`. `flush_growth` keeps its contract.\n- Documented scheduler order: pending growth, post-transport damage, deferred season, due mortality, reproduction.\n\n**3. Strict restart metadata (`leaf/checkpoint.py`)**\n- The checkpoint now persists `start_year` explicitly in the `phase3` block, because the session re-anchors and the manifest's `original_anchor` is not the true start.\n- A manifest is refused if any of these fail, before any session is adopted:\n  - the counter is outside `[0, 2**63)`;\n  - `start_year - 1 <= last_opportunity_year <= cursor.year - 1` fails;\n  - the accepted count exceeds the handled count (declined years consume no RNG);\n  - `last_reproduction` is present before anything was handled, missing afterwards, or structurally wrong (keys, year, counter, births, sequence, cursor, declined flag).\n- Format 3 keeps its number, and the checks listed above are the only new restart rules.\n\n**New tests**\n- `tests/test_recruitment.py`: a new `ApiGuards` class.\n- `tests/test_interevent.py`:\n  - empty-population deferred-season refusal followed by a flush and no newborn loss;\n  - a live-plant flush with an injected root failure, checking exact rollback;\n  - a pending-growth refusal;\n  - hash-consistent invalid `phase3` manifests (each refused) and a coherent one that loads;\n  - a declined-year restart roundtrip.\n\nI also made small updates to `run_recruitment.py` and the docs. `demography.py` is unchanged this round. The one new assumption in the tests is that the live-plant deferred-season case uses a shrub with `shrub_e=0.5`, which must lose a strictly positive amount of E at turnover. Please run the full suites first; `report.md` has the revision list.",
+    "session_id": "a5c6d72f-e529-49ec-beea-b376caaa8814"
+  },
+  "structured_completion_success": true,
+  "report_present": true,
+  "note": "Intermediate read failures remain failures requiring explicit disposition; structured completion alone is not task or phase acceptance."
+}

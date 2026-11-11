@@ -37,6 +37,14 @@ not representable in the CSV). A checkpoint written before Phase 2 (no `phase2` 
 silent migration. Restoring verifies seed binding, counters, counter caps, finiteness, decision-period / binding
 consistency and the active-law flags before a session object exists; a restored session continues with the same keyed
 random draws as an uninterrupted run (only (seed, counter) are random state).
+
+PHASE 3 state (SCHEMA VERSION 3). `restart.json` gains a `phase3` block: active flags, the explicit ecological patch size
+(metres), the accepted reproduction-opportunity counter (the reproduction RNG counter), the last handled opportunity year
+and the last compact reproduction record. There are NO new arrays: newborn plants are ordinary rows of `plants.csv` and
+their IDs derive from max(existing ID, 0) + 1 (no ID counter needs persisting because records are never deleted). The
+canonical plant CSV stays version 1. COMPATIBILITY BOUNDARY: version 1 and version 2 checkpoints are REFUSED, never
+migrated or defaulted (not even with allow_source_change=True, which only relaxes the module-source comparison); the module
+source hashes now include leaf.recruitment.
 '''
 from __future__ import annotations
 
@@ -61,10 +69,13 @@ from leaf import traits as _traits
 from leaf import uptake as _uptake
 
 SCHEMA = 'leaf.interevent_restart'
-SCHEMA_VERSION = 2       # v2 = Phase 2 layout (five required arrays + `phase2` block); the plant CSV format stays version 1
+SCHEMA_VERSION = 3       # v3 = Phase 3 layout (v2 + the `phase3` reproduction block); the plant CSV format stays version 1
 CSV_NAME, NPZ_NAME, MANIFEST_NAME = 'plants.csv', 'restart_arrays.npz', 'restart.json'
 SOURCE_MODULES = ('interevent', 'checkpoint', 'growth', 'roots', 'uptake', 'syrup_water', 'forcing', 'canopy',
-                  'state', 'traits', 'demography', 'disturbance', 'events')
+                  'state', 'traits', 'demography', 'disturbance', 'events', 'recruitment')
+PHASE3_SCHEMA = 'leaf.phase3_state'
+PHASE3_KEYS = ('schema', 'reproduction_active', 'seed_active', 'clonal_active', 'patch_size_m', 'n_reproduction',
+               'start_year', 'last_opportunity_year', 'last_reproduction')
 ARRAY_SPECS = {   # name -> (dtype, ndim)
     'native_water_m': (np.float64, 2), 'pending_requested_m3': (np.float64, 1), 'pending_delivered_m3': (np.float64, 1),
     'pending_activity_integral': (np.float64, 1), 'pending_temperature_integral': (np.float64, 1),
@@ -210,6 +221,12 @@ def save_session(session, path, *, overwrite=False):
               'annual_cursor': b.annual_cursor.isoformat(),
               'transport_pending': None if b.transport_pending is None else dict(b.transport_pending),
               'last_decision': None if b.last_decision is None else dict(b.last_decision)}
+    phase3 = {'schema': PHASE3_SCHEMA, 'reproduction_active': bool(session._repro_on),
+              'seed_active': bool(session._repro.any_seed), 'clonal_active': bool(session._repro.any_clonal),
+              'patch_size_m': None if session._patch is None else float(session._patch.patch_size_m),
+              'n_reproduction': int(b.n_reproduction or 0), 'start_year': int(b.repro_start_year),
+              'last_opportunity_year': int(b.repro_last_year),
+              'last_reproduction': None if b.last_reproduction is None else dict(b.last_reproduction)}
     buf = io.BytesIO()
     np.savez(buf, **arrays)
     npz_bytes = buf.getvalue()
@@ -233,7 +250,7 @@ def save_session(session, path, *, overwrite=False):
                   'native_elapsed_offset_s': float(b.native_state.t_s) - float(session._native_anchor_t),
                   'time_days': snap.time_days, 'n_growth': int(b.n_growth), 'n_rebuilds': int(b.n_rebuilds),
                   'original_anchor': session._anchor.isoformat(), 'original_time_days': session._time0},
-        'last_receipt': b.last_receipt, 'last_growth': b.last_growth, 'phase2': phase2,
+        'last_receipt': b.last_receipt, 'last_growth': b.last_growth, 'phase2': phase2, 'phase3': phase3,
         'sources': {'modules': module_hashes(), 'native_pin': _ie._clean(session._provenance.get('pin')),
                     'native_files_sha256': _ie._clean(session._provenance.get('sha256'))},
         'files': {CSV_NAME: _sha(csv_bytes), NPZ_NAME: _sha(npz_bytes)},
@@ -317,9 +334,10 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
     if man.get('schema') != SCHEMA or type(ver) is not int or ver != SCHEMA_VERSION:   # a real int: not 2.0, not bool
         raise CheckpointError(
             f'unsupported restart format: schema {man.get("schema")!r} version {ver!r} ({type(ver).__name__}); this loader '
-            f'reads exactly schema {SCHEMA!r} integer version {SCHEMA_VERSION}. Older (version 1) checkpoints lack the '
-            'Phase 2 arrays and manifest block and are NOT migrated or defaulted (allow_source_change does not authorize '
-            'a format conversion; use the pinned Phase 1 runtime that wrote them)')
+            f'reads exactly schema {SCHEMA!r} integer version {SCHEMA_VERSION}. Older checkpoints (version 1 lacks the '
+            'Phase 2 arrays / manifest block, version 2 lacks the Phase 3 reproduction block) are NOT migrated or '
+            'defaulted (allow_source_change does not authorize a format conversion; use the pinned runtime that wrote '
+            'them)')
     body = {k: v for k, v in man.items() if k != 'content_hash'}
     if man.get('content_hash') != _sha(_canonical(body)):
         raise CheckpointError('manifest content hash mismatch (corrupt or edited manifest)')
@@ -477,6 +495,79 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
         raise CheckpointError('phase2.last_decision is malformed')
     if p2['annual_due'] is not None and pending != 0:
         raise CheckpointError('an outstanding annual decision cannot coexist with pending growth')
+    # ---- Phase 3 reproduction state: strict parse BEFORE any session object exists
+    p3 = _need(man, 'phase3', 'manifest')
+    if not isinstance(p3, dict) or set(p3) != set(PHASE3_KEYS) or p3.get('schema') != PHASE3_SCHEMA:
+        raise CheckpointError('manifest phase3 block is missing or malformed (no silent migration)')
+    for k in ('reproduction_active', 'seed_active', 'clonal_active'):
+        if not isinstance(p3[k], bool):
+            raise CheckpointError(f'phase3.{k} must be a boolean')
+    psz = p3['patch_size_m']
+    if psz is not None and (isinstance(psz, bool) or not isinstance(psz, (int, float)) or not float(psz) > 0.0
+                            or float(psz) == float('inf')):
+        raise CheckpointError('phase3.patch_size_m must be null or a finite number > 0')
+    for k in ('n_reproduction', 'start_year', 'last_opportunity_year'):
+        if isinstance(p3[k], bool) or not isinstance(p3[k], int):
+            raise CheckpointError(f'phase3.{k} must be an integer')
+    n_rep, last_y = p3['n_reproduction'], p3['last_opportunity_year']
+    if not 0 <= n_rep < (1 << 63):
+        raise CheckpointError('phase3.n_reproduction (the RNG counter) must lie in [0, 2**63)')
+    start_year = p3['start_year']
+    if not 1 <= start_year <= cursor.year:
+        raise CheckpointError('phase3.start_year must lie in [1, cursor.year]')
+    if not start_year - 1 <= last_y <= cursor.year - 1:
+        raise CheckpointError(f'phase3.last_opportunity_year {last_y} must lie in [{start_year - 1}, {cursor.year - 1}] '
+                              '(original start year - 1 .. last completed year of the cursor)')
+    handled = last_y - (start_year - 1)          # sequentially handled opportunities (accepted + explicitly declined)
+    if n_rep > handled:
+        raise CheckpointError(f'phase3.n_reproduction={n_rep} exceeds the {handled} sequentially handled opportunities '
+                              '(declined years consume no random state, so accepted <= handled)')
+    if n_rep > 0 and not p3['reproduction_active']:
+        raise CheckpointError('reproduction opportunities are recorded but no reproduction law is active')
+    lr = p3['last_reproduction']
+    if handled == 0:
+        if lr is not None:
+            raise CheckpointError('phase3.last_reproduction must be null before any opportunity was handled')
+    else:
+        if not isinstance(lr, dict):
+            raise CheckpointError('phase3.last_reproduction is required once an opportunity was handled')
+        declined = lr.get('declined')
+        need = {'year', 'counter', 'interval_id', 'cursor', 'sequence', 'n_births'}
+        if declined is None:
+            need |= {'n_seed_recruits', 'n_daughters_placed', 'n_daughters_rejected'}
+        elif declined is not True:
+            raise CheckpointError('phase3.last_reproduction.declined must be true when present')
+        else:
+            need |= {'declined'}
+        if set(lr) != need:
+            raise CheckpointError(f'phase3.last_reproduction must hold exactly {sorted(need)}')
+
+        def _isint(v):
+            return isinstance(v, int) and not isinstance(v, bool)
+        if not _isint(lr['year']) or lr['year'] != last_y:
+            raise CheckpointError('phase3.last_reproduction.year must equal last_opportunity_year')
+        if declined is True:
+            if lr['counter'] is not None or lr['n_births'] != 0 or not _isint(lr['n_births']):
+                raise CheckpointError('a declined record has no RNG counter and no births')
+        else:
+            if n_rep < 1 or not _isint(lr['counter']) or lr['counter'] != n_rep - 1:
+                raise CheckpointError('phase3.last_reproduction.counter must equal n_reproduction - 1')
+            for k in ('n_births', 'n_seed_recruits', 'n_daughters_placed', 'n_daughters_rejected'):
+                if not _isint(lr[k]) or lr[k] < 0:
+                    raise CheckpointError(f'phase3.last_reproduction.{k} must be a non-negative integer')
+            if lr['n_births'] != lr['n_seed_recruits'] + lr['n_daughters_placed']:
+                raise CheckpointError('phase3.last_reproduction births do not equal seeds + placed daughters')
+        if not isinstance(lr['interval_id'], str) or not lr['interval_id']:
+            raise CheckpointError('phase3.last_reproduction.interval_id must be a non-empty string')
+        if not _isint(lr['sequence']) or not 1 <= lr['sequence'] <= seq:
+            raise CheckpointError('phase3.last_reproduction.sequence must lie in [1, manifest sequence]')
+        try:
+            rc = _dt.datetime.fromisoformat(lr['cursor'])
+        except (TypeError, ValueError) as exc:
+            raise CheckpointError(f'phase3.last_reproduction.cursor invalid: {exc}') from exc
+        if rc.tzinfo is None or rc.utcoffset() != cursor.utcoffset() or rc > cursor \
+                or rc < _dt.datetime(last_y + 1, 1, 1, tzinfo=cursor.tzinfo):
+            raise CheckpointError('phase3.last_reproduction.cursor must lie between 1 January of year + 1 and the cursor')
     # ---- the session object (nothing is returned unless everything passes)
     sess = _ie.IntereventSession.__new__(_ie.IntereventSession)
     # decoded arrays (and the parsed plants, counted by _setup as the persistent population) stay alive during the
@@ -487,8 +578,11 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
     sess._setup(base=plants, catalog=catalog, operator=operator, backend=backend, cadence=cadence, max_edges=max_edges,
                 max_bytes=max_bytes, reserve_bytes=reserve_bytes, root_builder=builder, overrides=overrides,
                 anchor=cursor, native_anchor_t=anchor_t, verify_native=verify_native_sources, native_state=None,
-                rng_seed=seed)
+                rng_seed=seed, patch_size_m=None if psz is None else float(psz))
     sess._original_anchor = anchor0
+    if (p3['reproduction_active'], p3['seed_active'], p3['clonal_active']) != (
+            bool(sess._repro_on), bool(sess._repro.any_seed), bool(sess._repro.any_clonal)):
+        raise CheckpointError('the active Phase 3 reproduction laws of the catalog differ from the checkpoint flags')
     if (p2['demography_active'], p2['stress_active'], p2['disturbance_active']) != (
             bool(sess._demo_on), bool(sess._stress_on), bool(sess._dist.any_active)):
         raise CheckpointError('the active Phase 2 laws of the catalog differ from the checkpoint flags')
@@ -524,6 +618,9 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
     b.annual_due, b.annual_cursor = p2['annual_due'], annual_cursor
     b.transport_pending = None if tp is None else dict(tp)
     b.last_decision = None if ld is None else dict(ld)
+    b.n_reproduction, b.repro_last_year = p3['n_reproduction'], p3['last_opportunity_year']
+    b.repro_start_year = p3['start_year']
+    b.last_reproduction = None if lr is None else dict(lr)
     if sess._stress_on:
         if Pl:
             (b.stress, b.ann_req, b.ann_act, b.ann_plan, b.ann_gain) = (sess._to_backend(a) for a in p2_arrays)

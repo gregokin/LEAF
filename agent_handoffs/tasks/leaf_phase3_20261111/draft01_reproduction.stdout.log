@@ -1,0 +1,59 @@
+{
+  "reports": [
+    {
+      "check": "ledger/ground/signedIDs/roworder/physical-patch-resolution",
+      "pass": true
+    },
+    {
+      "check": "int64_exhausted",
+      "refused": true,
+      "message": "int64 ID space exhausted: 7 new IDs needed above 9223372036854775807; refused before any birth array exists"
+    },
+    {
+      "check": "one_byte_cap",
+      "refused": true,
+      "message": "reproduction trials need ~1408 bytes (patch trials 4, live 3) > max_bytes=1; refused before any array exists"
+    },
+    {
+      "check": "wrong_ID_dtype",
+      "refused": true,
+      "message": "live_ids must be int64 (canonical IDs of any sign)"
+    },
+    {
+      "check": "boolean_limit",
+      "refused": true,
+      "message": "max_new_plants must be a non-boolean integer in [0, inf], got True"
+    },
+    {
+      "check": "birth_at_last_signed_int64_ID",
+      "pass": true
+    },
+    {
+      "check": "max_ID_with_no_birth",
+      "pass": true
+    },
+    {
+      "check": "empty_population_seed_establishment",
+      "pass": true
+    }
+  ],
+  "failures": [
+    {
+      "check": "duplicate_IDs",
+      "incorrectly_accepted": true
+    },
+    {
+      "check": "max_existing_below_live_ID",
+      "incorrectly_accepted": true
+    },
+    {
+      "check": "total_records_below_live",
+      "incorrectly_accepted": true
+    },
+    {
+      "check": "wrong_patch_type",
+      "secondary_exception": "AttributeError",
+      "message": "'dict' object has no attribute 'n_patches'"
+    }
+  ]
+}

@@ -372,3 +372,7 @@ See [final independent review](tasks/leaf_phase1_interevent_20261111/final_revie
 ## Phase2 mechanics and Phase3 ramet choice —2026-11-11
 
 Accept opt-in species-specific mechanical injury, age/background/stress mortality and complete version2 restart; [independent review](tasks/leaf_phase2_20261111/final_review.md). Fixtures are uncalibrated, standing-dead removal remains deferred, and native water is untouched by instantaneous biology. The user explicitly selected vegetative reproduction as nearby daughter plants with their own IDs and ages. Phase3 will implement that choice alongside simple seed establishment; publish Phase2 first.
+
+## Phase3 reproduction mechanics accepted —2026-11-11
+
+Accept simple_seed_clonal_v1, following the user's explicit nearby daughter-plant choice: separate IDs/age0/current establishment ground, parent-funded dry-AGB/E transfers, external seedling credit, fixed physical ecological patches, overlap allowed and finite bounded placement. Species numbers remain uncalibrated and co-located. Shared population/root/canopy transactions preserve actual native water and existing partial-year metrics; prior seasons finalize explicitly before births. Full restart becomes format3 with strict sequential opportunity/RNG history. [Independent acceptance,actual CPU/GPU tests and bounded memory/timing](tasks/leaf_phase3_20261111/final_review.md). Publish whole Phase3; no additional implementation phase is inferred.

@@ -95,6 +95,15 @@ the session / manifest), the decision counter, the year-due flag, the start of t
 transport binding and the last decision record. Auxiliary pending / annual arrays live in `restart_arrays.npz` next to
 the canonical `plants.csv`, which remains the single plant-record format (the arrays carry no plant identity of their
 own: they follow the live-row mapping of the CSV). No whole-history or event-ID list exists.
+
+PHASE 3 (simple seed establishment and nearby vegetative daughters; UNQUALIFIED, UNCALIBRATED). `apply_reproduction(year,
+current_surface, max_new_plants=, max_total_records=, max_attempts=)` is the explicit annual boundary (laws:
+leaf.recruitment; docs/phase3-reproduction.md). It generalises the Phase 2 transactional rebind: ONE staged path
+(`_rebind(..., births=...)`) handles status / B changes AND appended births (canonical PlantState, Domain containing
+cell, shared allometry / canopy / root builder; surviving per-plant root overrides kept, newborns use species roots; fresh
+zero stress / annual accumulators only for newborns). The session adds the accepted-opportunity counter (the keyed RNG
+counter), the last handled opportunity year and the explicit patch size; they are part of complete (version 3) checkpoints.
+`decline_reproduction_opportunity(year)` records an unusable opportunity explicitly. Inactive catalogs hold no array.
 '''
 from __future__ import annotations
 
@@ -113,6 +122,7 @@ from leaf import disturbance as _dist
 from leaf import events as _events
 from leaf import forcing as _forcing
 from leaf import growth as _growth
+from leaf import recruitment as _rec
 from leaf import roots as _roots
 from leaf import state as _state
 from leaf import syrup_water as _sw
@@ -127,6 +137,8 @@ EVENT_TIME_TOL_DAYS = 1e-9        # event / transport binding tolerance (days); 
 REBIND_ARRAY_BYTES_PER_LIVE = 17  # host B, E (float64) + new status code (int8) handed to a rebind
 PHASE2_SCOPE = ('UNQUALIFIED / UNCALIBRATED Phase 2: species mechanical response after transport, keyed age / '
                 'background hazard and persistent low-growth stress; aboveground dry biomass only')
+PHASE3_SCOPE = ('UNQUALIFIED / UNCALIBRATED Phase 3: simple external-propagule seed establishment per ecological patch and '
+                'nearby vegetative daughter plants funded by an exact parent AGB / E transfer; aboveground dry biomass only')
 EXTERNAL_WATER_KINDS = ('rain', 'recession')
 MAX_CADENCE = _dt.timedelta(days=7)
 ROW_BYTES_PER_PLANT = 62          # host base population: ids 8, species 4, x 8, y 8, est 8, unresolved 1, B 8, E 8, age 8, status 1
@@ -245,7 +257,10 @@ class _Boundary:
                  # Phase 2 accepted ecological state (None / 0 when inactive): per-live stress counter and annual
                  # accumulators (backend arrays), decision counters / guards, decision-period start, transport binding
                  'stress', 'ann_req', 'ann_act', 'ann_plan', 'ann_gain', 'n_annual', 'n_disturbance', 'annual_due',
-                 'annual_cursor', 'transport_pending', 'last_decision', 'n_population_rebinds')
+                 'annual_cursor', 'transport_pending', 'last_decision', 'n_population_rebinds',
+                 # Phase 3 accepted reproduction state: accepted-opportunity counter (the keyed RNG counter), the last
+                 # handled opportunity year (accepted OR explicitly declined) and a compact last receipt summary
+                 'n_reproduction', 'repro_last_year', 'last_reproduction', 'repro_start_year')
 
     def __init__(self):
         for k in self.__slots__:
@@ -267,7 +282,7 @@ class IntereventSession:
     # ------------------------------------------------------------------ construction
     def __init__(self, plants, catalog, *, operator, native_state, start, backend, growth_cadence, max_edges,
                  max_bytes, reserve_bytes=0, root_builder='compiled', layer_fraction_overrides=None, root_map=None,
-                 verify_native_sources=True, rng_seed=None):
+                 verify_native_sources=True, rng_seed=None, reproduction_patch_size_m=None):
         if root_map is not None:
             raise IntereventError('an external root map is refused: the session always builds species-separable roots '
                                   'with the shared builder (custom non-separable maps need an explicit compatible '
@@ -296,12 +311,13 @@ class IntereventSession:
         self._setup(base=base, catalog=catalog, operator=operator, backend=backend, cadence=growth_cadence,
                     max_edges=max_edges, max_bytes=max_bytes, reserve_bytes=reserve_bytes, root_builder=root_builder,
                     overrides=layer_fraction_overrides, anchor=start, native_anchor_t=None,
-                    verify_native=verify_native_sources, native_state=native_state, rng_seed=rng_seed)
+                    verify_native=verify_native_sources, native_state=native_state, rng_seed=rng_seed,
+                    patch_size_m=reproduction_patch_size_m)
         self._init_boundary(native_state)
 
     # ---- static configuration (shared with checkpoint restore)
     def _setup(self, *, base, catalog, operator, backend, cadence, max_edges, max_bytes, reserve_bytes, root_builder,
-               overrides, anchor, native_anchor_t, verify_native, native_state, rng_seed=None):
+               overrides, anchor, native_anchor_t, verify_native, native_state, rng_seed=None, patch_size_m=None):
         if not isinstance(catalog, _traits.SpeciesCatalog):
             raise IntereventError('catalog must be a leaf.traits.SpeciesCatalog')
         if base.catalog_hash != catalog.hash:
@@ -381,20 +397,38 @@ class IntereventSession:
                                                extra_reserve_bytes=initial)
             self._demo = _demo.compile_species(catalog, backend, device=dev, max_bytes=self.max_bytes,
                                                extra_reserve_bytes=initial + self._dist.resident_bytes())
-        except (_dist.DisturbanceBudgetError, _demo.DemographyBudgetError) as exc:
+            # Phase 3: S-sized host reproduction table (0 bytes and no array for an inactive catalog)
+            self._repro = _rec.compile_species(catalog, max_bytes=self.max_bytes,
+                                               extra_reserve_bytes=initial + self._dist.resident_bytes()
+                                               + self._demo.resident_bytes())
+        except (_dist.DisturbanceBudgetError, _demo.DemographyBudgetError, _rec.ReproductionBudgetError) as exc:
             raise IntereventAdmissionError('initialization_phase2_tables', initial, self.max_bytes) from exc
         except (_dist.DisturbanceError, _demo.DemographyError) as exc:
             raise IntereventError(f'species catalog Phase 2 laws refused: {exc}') from exc
+        except _rec.ReproductionError as exc:
+            raise IntereventError(f'species catalog Phase 3 reproduction laws refused: {exc}') from exc
         self._demo_on = bool(self._demo.any_active)
         self._stress_on = bool(self._demo.any_stress)
+        self._repro_on = bool(self._repro.any_active)
         if self._demo_on and rng_seed is None:
             raise IntereventError('the catalog has an active mortality law: an explicit integer rng_seed is REQUIRED '
                                   '(keyed counter-based randomness; there is no default seed and no global RNG)')
+        if self._repro_on and rng_seed is None:
+            raise IntereventError('the catalog has an active reproduction law: an explicit integer rng_seed is REQUIRED '
+                                  '(keyed counter-based randomness; there is no default seed and no global RNG)')
+        try:
+            self._patch = None if patch_size_m is None else _rec.PatchConfig(patch_size_m)
+        except _rec.ReproductionError as exc:
+            raise IntereventError(f'reproduction patch configuration refused: {exc}') from exc
+        if self._repro.any_seed and self._patch is None:
+            raise IntereventError('a seed reproduction law is active: an explicit ecological patch size '
+                                  '(reproduction_patch_size_m, metres, independent of the hydraulic cell size) is REQUIRED')
         try:
             self._rng_seed = None if rng_seed is None else _demo.check_seed(rng_seed)
         except _demo.DemographyError as exc:
             raise IntereventError(str(exc)) from exc
-        self._p2_table_bytes = int(self._dist.resident_bytes() + self._demo.resident_bytes())
+        self._p2_table_bytes = int(self._dist.resident_bytes() + self._demo.resident_bytes()
+                                   + self._repro.resident_bytes())
         if self._p2_table_bytes or self._stress_on:
             self._check_stage('initialization_phase2', initial + self._p2_table_bytes
                               + (_demo.PERSISTENT_BYTES_PER_LIVE * Pl if self._stress_on else 0), {})
@@ -450,6 +484,10 @@ class IntereventSession:
         b.annual_cursor = self._anchor
         b.transport_pending = None
         b.last_decision = None
+        b.n_reproduction = 0
+        b.repro_last_year = int(self._anchor.year) - 1       # the first opportunity is the end of the start year
+        b.last_reproduction = None
+        b.repro_start_year = int(self._anchor.year)           # fixed for the whole run (persisted; never re-anchored)
         b.stress = b.ann_req = b.ann_act = b.ann_plan = b.ann_gain = None
         if self._stress_on:
             b.stress, b.ann_req, b.ann_act, b.ann_plan, b.ann_gain = self._zero_accumulators(Pl)
@@ -607,6 +645,37 @@ class IntereventSession:
                 'last_decision': None if b.last_decision is None else dict(b.last_decision),
                 'disturbance_table': self._dist.describe(), 'demography_table': self._demo.describe()}
 
+    # ---- Phase 3 accessors (read only)
+    @property
+    def reproduction_active(self):
+        return bool(self._repro_on)
+
+    @property
+    def reproduction_patch_size_m(self):
+        return None if self._patch is None else self._patch.patch_size_m
+
+    @property
+    def n_reproduction_opportunities(self):
+        '''Accepted (random-consuming) annual reproduction opportunities; also the keyed RNG counter.'''
+        return int(self._b.n_reproduction or 0)
+
+    @property
+    def reproduction_last_year(self):
+        '''Last handled opportunity year (accepted or explicitly declined); the next one is this + 1.'''
+        return self._b.repro_last_year
+
+    @property
+    def n_total_records(self):
+        return int(self._Pa)
+
+    def phase3_state(self):
+        b = self._b
+        return {'scope': PHASE3_SCOPE, 'reproduction_active': bool(self._repro_on),
+                'patch': None if self._patch is None else self._patch.to_dict(),
+                'n_reproduction_opportunities': int(b.n_reproduction or 0), 'last_opportunity_year': b.repro_last_year,
+                'last_reproduction': None if b.last_reproduction is None else dict(b.last_reproduction),
+                'reproduction_table': self._repro.describe()}
+
     def boundaries(self):
         '''Boundaries the caller must split records at, from the current cursor.'''
         b = self._b
@@ -648,7 +717,7 @@ class IntereventSession:
                 'n_root_edges': None if b.root_map is None else int(b.root_map.n_edges),
                 'n_growth_updates': int(b.n_growth), 'n_rebuilds': int(b.n_rebuilds),
                 'row_mapping': 'working row i is plant ids[live_rows[i]]; live plants only; state row order',
-                'memory_scope': MEMORY_SCOPE, 'phase2': self.phase2_state()}
+                'memory_scope': MEMORY_SCOPE, 'phase2': self.phase2_state(), 'phase3': self.phase3_state()}
 
     # ------------------------------------------------------------------ memory ledger
     def _persistent(self, cur):
@@ -730,10 +799,12 @@ class IntereventSession:
         return (MATERIALIZE_BYTES_PER_PLANT * self._Pa + 16 * self._Pl
                 + (16 * self._Pl if self.backend == 'cuda' else 0))
 
-    def _materialize(self, B_live, E_live, cursor, status_live=None):
+    def _materialize(self, B_live, E_live, cursor, status_live=None, births=None):
         '''Canonical PlantState at `cursor` from the private base arrays + working B / E (host arrays). `status_live`
         (Phase 2 rebind only) optionally replaces the status codes of the working rows; ages of the rows that are
-        live in the CURRENT base advance to the cursor (frozen for every other plant).'''
+        live in the CURRENT base advance to the cursor (frozen for every other plant). `births` (Phase 3 rebind only)
+        is a dict of NEW live plants (ids, species_index, x_m, y_m, establishment_ground_m, agb_dry_kg,
+        seasonal_agb_dry_kg) APPENDED after every existing record with age 0 at the cursor.'''
         base = self._base
         a = base._arrays(copy=True)
         if self._Pl:
@@ -742,6 +813,15 @@ class IntereventSession:
             a['age_days'][self._live_rows] = a['age_days'][self._live_rows] + float(self.elapsed_days(cursor))
             if status_live is not None:
                 a['status'][self._live_rows] = status_live
+        if births is not None and int(births['ids'].shape[0]):
+            nb = int(births['ids'].shape[0])
+            add = {'ids': births['ids'], 'species_index': births['species_index'], 'x_m': births['x_m'],
+                   'y_m': births['y_m'], 'establishment_ground_m': births['establishment_ground_m'],
+                   'establishment_unresolved': np.zeros(nb, dtype=np.bool_), 'agb_dry_kg': births['agb_dry_kg'],
+                   'seasonal_agb_dry_kg': births['seasonal_agb_dry_kg'], 'age_days': np.zeros(nb, dtype=np.float64),
+                   'status': np.full(nb, _state.LIVE, dtype=np.int8)}
+            for k in a:
+                a[k] = np.concatenate([a[k], np.asarray(add[k], dtype=a[k].dtype)])
         prov = dict(base.provenance)
         prov['interevent'] = {'version': VERSION, 'cursor': cursor.isoformat(), 'sequence': int(self._b.sequence if self._b else 0)}
         return _state.PlantState(base.domain, base.species_names, base.catalog_hash, ids=a['ids'],
@@ -1330,33 +1410,43 @@ class IntereventSession:
             return np.ascontiguousarray(_hostarr(arr[self._xp.asarray(idx)]))
         return np.ascontiguousarray(arr[idx])
 
-    def _rebind(self, b, work, *, B_h, E_h, code, stress, ann, ann_reset, mem, label, cursor, extra_live):
+    def _rebind(self, b, work, *, B_h, E_h, code, stress, ann, ann_reset, mem, label, cursor, extra_live, births=None):
         '''Build the NEW live population (status / B / E of every CURRENT working row given as host arrays `B_h`,
         `E_h`, `code`) BEFORE anything is published: new canonical base at the cursor (ages frozen for plants that stop
         being live, anchors / IDs / X / Y untouched), live-row map, species index, common geometry through the shared
         allometry, roots through the shared builder and the new working arrays. Everything is staged on a shallow
         candidate session and on `work` (a clone); NOTHING of `self` changes. Returns (static, info): `static` is the
         dict of session attributes the caller hands to `_publish`. Requires no pending growth. Admission: the old
-        boundary (old map included) stays resident, so old + new coexist in every stage.'''
+        boundary (old map included) stays resident, so old + new coexist in every stage. Phase 3: `births` (dict of
+        NEW live plants, see `_materialize`) are APPENDED after every existing record in the same staged path; the
+        working rows of the new live population are the surviving old rows followed by the births (state row order);
+        stress / annual accumulators of the births are fresh zeros.'''
         xp, Pa, Pl_old, L, N = self._xp, self._Pa, self._Pl, self._L, self._N
         if b.pending_days != 0:
             raise IntereventStateError('pending growth must be flushed before a population change')
         keep = np.asarray(code) == _state.LIVE
-        Pl_new = int(np.count_nonzero(keep))
+        n_new = 0 if births is None else int(births['ids'].shape[0])
+        Pa_new = Pa + n_new
+        Pl_new = int(np.count_nonzero(keep)) + n_new
         old_sum = _sum_items(self._persistent(b))
         old_map = 0 if b.root_map is None else int(b.root_map.resident_bytes)
         acc_new = _demo.PERSISTENT_BYTES_PER_LIVE * Pl_new if self._stress_on else 0
         base_live = old_sum + int(extra_live) + REBIND_ARRAY_BYTES_PER_LIVE * Pl_old
+        birth_extra = (MATERIALIZE_BYTES_PER_PLANT + (32 if self.backend == 'cuda' else 16)) * n_new
         # new B2 / E2 / D2 / U2 (32), host Bh2 / Eh2 (16), species index + live (5), live rows / ids (16), area (8) = 77 / live
         self._check_stage(label + '_rebind_preflight',
-                          base_live + self._materialize_peak() + ROW_BYTES_PER_PLANT * Pa + 192 * Pa
-                          + VALIDATE_SCRATCH_BYTES_PER_PLANT * Pa + 80 * Pl_new + acc_new + old_map, mem)
-        new_state = self._materialize(B_h, E_h, cursor, status_live=code)
+                          base_live + self._materialize_peak() + birth_extra + ROW_BYTES_PER_PLANT * Pa_new + 192 * Pa_new
+                          + VALIDATE_SCRATCH_BYTES_PER_PLANT * Pa_new + 80 * Pl_new + acc_new + old_map, mem)
+        new_state = self._materialize(B_h, E_h, cursor, status_live=code, births=births)
         live_rows = np.flatnonzero(new_state.status == _state.LIVE).astype(np.int64)
-        if not np.array_equal(live_rows, self._live_rows[keep]):
+        expect_rows = self._live_rows[keep]
+        if n_new:
+            expect_rows = np.concatenate([expect_rows, np.arange(Pa, Pa_new, dtype=np.int64)])
+        if not np.array_equal(live_rows, expect_rows):
             raise IntereventError('internal consistency: the rebind live-row mapping differs from the status codes')
         cand = copy.copy(self)                  # shallow: tables, operator, column are shared, never mutated
         cand._base, cand._live_rows, cand._Pl, cand._has_plants = new_state, live_rows, Pl_new, Pl_new > 0
+        cand._Pa = Pa_new
         cand._anchor, cand._time0 = cursor, float(new_state.time_days)       # re-anchored exactly like a restore
         cand._live_ids = np.ascontiguousarray(new_state.ids[live_rows], dtype=np.int64)
         cand._b = b                             # provenance of the materialisation only
@@ -1374,9 +1464,12 @@ class IntereventSession:
             cand._live = xp.asarray(lv) if self.backend == 'cuda' else lv
         Bh2 = np.ascontiguousarray(np.asarray(B_h)[keep], dtype=np.float64)
         Eh2 = np.ascontiguousarray(np.asarray(E_h)[keep], dtype=np.float64)
+        if n_new:
+            Bh2 = np.ascontiguousarray(np.concatenate([Bh2, births['agb_dry_kg']]), dtype=np.float64)
+            Eh2 = np.ascontiguousarray(np.concatenate([Eh2, births['seasonal_agb_dry_kg']]), dtype=np.float64)
         rm = area = None
         if Pl_new:
-            rm, area = cand._build_geometry(Bh2, Eh2, cursor, live_other=base_live + ROW_BYTES_PER_PLANT * Pa
+            rm, area = cand._build_geometry(Bh2, Eh2, cursor, live_other=base_live + ROW_BYTES_PER_PLANT * Pa_new
                                             + 80 * Pl_new + acc_new, mem=mem, stage=label + '_roots')
             work.B, work.E = cand._to_backend(Bh2), cand._to_backend(Eh2)
             work.D, work.U = xp.zeros(Pl_new, dtype=np.float64), xp.zeros(Pl_new, dtype=np.float64)
@@ -1388,11 +1481,15 @@ class IntereventSession:
                 work.stress, work.ann_req, work.ann_act, work.ann_plan, work.ann_gain = cand._zero_accumulators(0)
             else:
                 kb = xp.asarray(keep) if self.backend == 'cuda' else keep
-                work.stress = stress[kb]
+
+                def _grow_rows(arr):             # survivors in row order, then fresh zeros for the births
+                    out = arr[kb]
+                    return out if not n_new else xp.concatenate([out, xp.zeros(n_new, dtype=out.dtype)])
+                work.stress = _grow_rows(stress)
                 if ann_reset:
                     _, work.ann_req, work.ann_act, work.ann_plan, work.ann_gain = cand._zero_accumulators(Pl_new)
                 else:
-                    work.ann_req, work.ann_act, work.ann_plan, work.ann_gain = (a[kb] for a in ann)
+                    work.ann_req, work.ann_act, work.ann_plan, work.ann_gain = (_grow_rows(a) for a in ann)
         if Pl_new:
             tmp = _Boundary()
             tmp.root_map = rm
@@ -1405,8 +1502,8 @@ class IntereventSession:
         work.n_population_rebinds = int(work.n_population_rebinds or 0) + 1
         static = {'_base': new_state, '_live_rows': live_rows, '_Pl': Pl_new, '_has_plants': Pl_new > 0,
                   '_sidx': cand._sidx, '_live': cand._live, '_live_ids': cand._live_ids, '_overrides': ov,
-                  '_anchor': cursor, '_time0': cand._time0}
-        info = {'performed': True, 'n_live_before': int(Pl_old), 'n_live_after': int(Pl_new),
+                  '_anchor': cursor, '_time0': cand._time0, '_Pa': Pa_new}
+        info = {'performed': True, 'n_live_before': int(Pl_old), 'n_live_after': int(Pl_new), 'n_births': int(n_new),
                 'n_edges': None if rm is None else int(rm.n_edges), 'builder': self.root_builder,
                 'reanchored_at': cursor.isoformat(), 'ages_frozen_for_non_live': True,
                 'builder_budget_bytes': mem.get(label + '_roots_builder_budget'),
@@ -1669,6 +1766,200 @@ class IntereventSession:
                               'cursor': b.cursor.isoformat(), 'interval_id': rid, 'sequence': int(work.sequence) + 1}
         rep['n_live_after'] = int(static['_Pl']) if static else int(self._Pl)
         return self._publish(work, rep, mem, static)
+
+    # ------------------------------------------------------------------ Phase 3: annual reproduction opportunity
+    def _repro_year_gate(self, b, year, *, decline):
+        '''Calendar / ordering gate of one reproduction opportunity (all refusals happen before any array work).
+        Opportunity `year` = the local calendar year that just COMPLETED; it is usable only while the cursor lies in
+        year + 1 (the first accepted boundary after the new year may be later than 1 January: the opportunity is then
+        taken at the cursor, newborns have age 0 there). Opportunities are strictly sequential: year must equal
+        last handled year + 1 (a replay / earlier year, a skipped year and a not-yet-completed year are all refused); an
+        opportunity that can no longer be taken (cursor beyond year + 1) must be declined explicitly with
+        `decline_reproduction_opportunity`: no catch-up and no silent drop.'''
+        if isinstance(year, (bool, np.bool_)) or not isinstance(year, (int, np.integer)):
+            raise IntereventError(f'year must be an integer, got {year!r}')
+        year = int(year)
+        if not self._repro_on:
+            raise IntereventError('no species has an active reproduction law (catalog reproduction.law): there is no '
+                                  'reproduction opportunity in this session')
+        last = int(b.repro_last_year)
+        if year <= last:
+            raise IntereventStateError(f'replay / stale opportunity refused: year {year} was already handled (last '
+                                       f'handled year {last}); annual chances are never charged twice')
+        if year != last + 1:
+            raise IntereventStateError(f'the next opportunity is year {last + 1}, not {year}: earlier opportunities are '
+                                       f'never skipped silently (take or explicitly decline year {last + 1} first)')
+        cy = int(b.cursor.year)
+        if year > cy - 1:
+            raise IntereventStateError(f'the opportunity for year {year} is not due: the cursor {b.cursor.isoformat()} has '
+                                       f'not crossed 1 January {year + 1}')
+        if not decline and year < cy - 1:
+            raise IntereventStateError(
+                f'the opportunity for year {year} can no longer be taken: the cursor {b.cursor.isoformat()} is in year '
+                f'{cy} (a gap of more than one year is unsupported; no catch-up, no multi-year chances). Call '
+                f'decline_reproduction_opportunity({year}) to record the missed year explicitly')
+        return year
+
+    def apply_reproduction(self, year, current_surface, *, max_new_plants, max_total_records, max_attempts,
+                           interval_id=None):
+        '''The explicit annual reproduction boundary (module docstring of leaf.recruitment; docs/phase3-reproduction.md).
+        Ordering inside a year: complete growth (flush_growth; the year-end growth of an open interval is already
+        applied) -> post-event damage (apply_surface_event, so no transport decision is pending) -> the due annual
+        mortality decision (apply_annual_decision) -> THIS call. It is refused during pending growth, with a pending
+        transport diagnostic, an unresolved annual mortality decision, a replayed / stale / skipped / not-yet-due
+        opportunity or a gap beyond one year. New plants request water only on the NEXT open interval. Randomness: keyed
+        by (rng_seed, accepted-opportunity counter), consumed only when the call is accepted; native water / time, the
+        growth grid, the deferred season, every existing plant's ID / location / age / anchor / status / root override and
+        the annual metrics of existing plants are untouched (donor parents lose exactly the transferred B / E).
+        `current_surface` (ny, nx) supplies the establishment GROUND of the newborns (containing cell). Limits are
+        explicit strict integers; nothing is truncated. Returns a compact JSON-safe receipt.'''
+        b = self._b
+        try:
+            mx_new, mx_tot, mx_att = _rec.check_limits(max_new_plants, max_total_records, max_attempts)
+        except _rec.ReproductionError as exc:
+            raise IntereventError(str(exc)) from exc
+        year = self._repro_year_gate(b, year, decline=False)
+        if b.pending_days != 0:
+            raise IntereventStateError('pending growth must be flushed (flush_growth) before the reproduction opportunity')
+        if b.transport_pending is not None:
+            raise IntereventStateError('a transport interval still awaits its disturbance decision: call '
+                                       'apply_surface_event (or accept a later interval) before reproducing')
+        if b.annual_due is not None:
+            raise IntereventStateError(f'the annual mortality decision for year {b.annual_due} is outstanding: call '
+                                       f'apply_annual_decision({b.annual_due}) before reproducing')
+        if b.season_due:
+            raise IntereventStateError('a deferred seasonal turnover from a year end inside a transport / closed-gate '
+                                       'interval is still pending: call flush_deferred_season() first so that the OLD '
+                                       'season is finalised before any newborn exists (new tissue never pays a prior-season '
+                                       'loss); scheduler order: pending growth, post-transport damage, deferred season, due '
+                                       'annual mortality, then reproduction')
+        rid = self._prepare_ids(b, 'reproduction', b.cursor, interval_id)
+        Pl, Pa = self._Pl, self._Pa
+        base = self._base
+        mem = {}
+        P0 = self._persistent(b)
+        try:
+            est1, _ = _rec.preflight_bytes(self._repro, self._patch, base.domain, Pl)
+        except _rec.ReproductionError as exc:
+            raise IntereventError(str(exc)) from exc
+        gather = (80 + (16 if self.backend == 'cuda' else 0)) * Pl     # host B/E/age/ids/species/x/y + device->host copies
+        self._check_stage('reproduction_preflight', _sum_items(P0) + est1['total_bytes'] + gather, mem)
+        if Pl:
+            rows = self._live_rows
+            B_h = np.array(_hostarr(b.B), dtype=np.float64, copy=True)
+            E_h = np.array(_hostarr(b.E), dtype=np.float64, copy=True)
+            l_ids = np.ascontiguousarray(base.ids[rows], dtype=np.int64)
+            l_sp = np.ascontiguousarray(base.species_index[rows], dtype=np.int32)
+            l_age = np.ascontiguousarray(base.age_days[rows] + float(self.elapsed_days(b.cursor)), dtype=np.float64)
+            l_x = np.ascontiguousarray(base.x_m[rows], dtype=np.float64)
+            l_y = np.ascontiguousarray(base.y_m[rows], dtype=np.float64)
+        else:
+            B_h = E_h = l_age = l_x = l_y = np.zeros(0, dtype=np.float64)
+            l_ids, l_sp = np.zeros(0, dtype=np.int64), np.zeros(0, dtype=np.int32)
+        max_id = int(base.ids.max()) if Pa else None
+        counter = int(b.n_reproduction or 0)
+        try:
+            res = _rec.evaluate(self._repro, self._patch, base.domain, current_surface, live_ids=l_ids, live_species=l_sp,
+                                live_age_days=l_age, live_B=B_h, live_E=E_h, live_x=l_x, live_y=l_y, max_existing_id=max_id,
+                                n_total_records=Pa, seed=self._rng_seed, counter=counter, max_new_plants=mx_new,
+                                max_total_records=mx_tot, max_attempts=mx_att, max_bytes=self.max_bytes,
+                                extra_reserve_bytes=_sum_items(P0) + gather)
+        except _rec.ReproductionBudgetError as exc:
+            raise IntereventAdmissionError('reproduction_evaluate', _sum_items(P0) + gather, self.max_bytes,
+                                           dict(mem)) from exc
+        except _rec.ReproductionError as exc:
+            raise IntereventError(f'reproduction refused: {exc}') from exc
+        diag = res['diagnostics']
+        births = res['births']
+        # record the FULL admitted evaluate stage (same reserve + gather + pure scratch estimate evaluate admitted) on every
+        # accepted call, also when all placements failed and no rebind follows, so the published peak covers that work
+        self._check_stage('reproduction_evaluate', _sum_items(P0) + gather + int(diag['memory_estimate']['total_bytes']), mem)
+        n_new = int(diag['n_births'])
+        work = b.clone()
+        static = None
+        rebind = {'performed': False, 'reason': 'no birth: no recruit and no accepted daughter (no donation)'}
+        if n_new:
+            B_all, E_all = B_h, E_h                   # owned copies; donors are debited exactly
+            pr = res['parent_rows']
+            if pr.shape[0]:
+                B_all[pr] = res['parent_B_new']
+                E_all[pr] = res['parent_E_new']
+            code = np.zeros(Pl, dtype=np.int8)        # every existing working row stays live
+            ann = (b.ann_req, b.ann_act, b.ann_plan, b.ann_gain) if self._stress_on else None
+            static, rebind = self._rebind(b, work, B_h=B_all, E_h=E_all, code=code, stress=b.stress, ann=ann,
+                                          ann_reset=False, mem=mem, label='reproduction', cursor=b.cursor,
+                                          extra_live=int(diag['memory_estimate']['total_bytes']) + gather,
+                                          births=births)
+            if Pl == 0 and self._demo_on:
+                # plants reappear after an empty period: the empty period carries no stress / hazard (their exposure is
+                # capped by their own age at the next annual decision) and the decision period restarts here
+                work.annual_cursor = b.cursor
+        work.n_reproduction = counter + 1
+        work.repro_last_year = year
+        skipped = 0
+        work.last_reproduction = {'year': year, 'counter': counter, 'interval_id': rid, 'cursor': b.cursor.isoformat(),
+                                  'sequence': int(work.sequence) + 1, 'n_seed_recruits': int(diag['n_seed_recruits']),
+                                  'n_daughters_placed': int(diag['n_daughters_placed']),
+                                  'n_daughters_rejected': int(diag['n_daughters_rejected']), 'n_births': n_new}
+        rep = {'kind': 'reproduction', 'interval_id': rid, 'start': b.cursor.isoformat(), 'end': b.cursor.isoformat(),
+               'year': year, 'accounted_days_for_ages': 0.0, 'native_water_unchanged': True,
+               'no_transpiration_growth_or_evaporation': True, 'rng_consumed': True, 'reproduction_counter': counter,
+               'reproduction_counter_after': counter + 1, 'new_plants_request_water_from': 'the next open interval',
+               'opportunities_skipped_explicitly': skipped, 'patch': None if self._patch is None else self._patch.to_dict(),
+               'reproduction': diag, 'rebind': rebind, 'n_live_before': int(Pl),
+               'n_live_after': int(static['_Pl']) if static else int(Pl),
+               'n_total_records_after': int(static['_Pa']) if static else int(Pa),
+               'host_transfer_note': 'population placement runs on the host; on cuda B / E are read back (counted) and the '
+                                     'rebuilt state is uploaded; this phase is not GPU resident'}
+        del res, births, B_h, E_h
+        return self._publish(work, rep, mem, static)
+
+    def flush_deferred_season(self, interval_id=None):
+        '''Explicitly finalise the PRIOR season when a year end passed inside a transport / closed-gate interval
+        (`season_due`): applies the seasonal turnover (`growth.grow(year_end=True)` with zero water, zero integrals and no
+        duration) to the CURRENT live population at the cursor, rebuilds geometry / roots through the shared path and clears
+        the flag. No native water / time / ET, no growth-grid reset, no catch-up; one atomic publication (a failure leaves
+        everything unchanged). With no live plant the flag is simply cleared (nothing to finalise). Refused with pending
+        growth. A no-op (nothing published) when no season is deferred. Use it BEFORE `apply_reproduction`.'''
+        b = self._b
+        rid = self._prepare_ids(b, 'deferred_season_flush', b.cursor, interval_id)
+        rep = {'kind': 'deferred_season_flush', 'interval_id': rid, 'start': b.cursor.isoformat(),
+               'end': b.cursor.isoformat(), 'accounted_days_for_ages': 0.0, 'native_water_unchanged': True,
+               'no_transpiration_growth_or_evaporation': True, 'rng_consumed': False}
+        if not b.season_due:
+            rep['published'] = False
+            rep['deferred_season_applied'] = False
+            return _clean(rep)
+        if b.pending_days != 0:
+            raise IntereventStateError('pending growth must be flushed (flush_growth) before the deferred season')
+        mem = {}
+        work = b.clone()
+        if self._has_plants:
+            self._growth_update(work, cur=b, carry=0, year_end=True, forcing_bytes=0, native_extra=0, mem=mem, rep=rep,
+                                label='deferred_season', cursor=b.cursor)
+        else:
+            rep['deferred_season'] = {'performed': False, 'reason': 'no live plants'}
+        work.season_due = False
+        rep['deferred_season_applied'] = bool(self._has_plants)
+        rep['published'] = True
+        return self._publish(work, rep, mem)
+
+    def decline_reproduction_opportunity(self, year, *, interval_id=None):
+        '''Explicitly record that the opportunity `year` is NOT taken (the only way to pass a missed / stale year; no
+        random state is consumed, no plant changes, nothing is relabelled). The year must be the next sequential one and
+        already completed. Returns a compact receipt.'''
+        b = self._b
+        year = self._repro_year_gate(b, year, decline=True)
+        rid = self._prepare_ids(b, 'reproduction_declined', b.cursor, interval_id)
+        work = b.clone()
+        work.repro_last_year = year
+        work.last_reproduction = {'year': year, 'counter': None, 'interval_id': rid, 'cursor': b.cursor.isoformat(),
+                                  'sequence': int(work.sequence) + 1, 'declined': True, 'n_births': 0}
+        rep = {'kind': 'reproduction_declined', 'interval_id': rid, 'start': b.cursor.isoformat(),
+               'end': b.cursor.isoformat(), 'year': year, 'accounted_days_for_ages': 0.0, 'rng_consumed': False,
+               'native_water_unchanged': True, 'no_transpiration_growth_or_evaporation': True,
+               'reproduction_counter': int(b.n_reproduction or 0)}
+        return self._publish(work, rep, {}, None)
 
     # ------------------------------------------------------------------ restart (implemented in leaf.checkpoint)
     def save(self, path, *, overwrite=False):

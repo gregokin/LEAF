@@ -1,0 +1,132 @@
+{
+  "installed_at_utc": "2026-11-11T20:11:37.093235+00:00",
+  "qualification_baseline": "5e887e66415f0522771ea789654b8345226d2496",
+  "snapshot": "agent_handoffs/tasks/leaf_phase3_20261111/snapshot_03",
+  "files": {
+    "README.md": {
+      "sha256": "4c81a2382054eabfce16eba99c74749206c3e8d41381fea1e3c88014e16a1f4d",
+      "size_bytes": 16625
+    },
+    "docs/maple-leaf-integration.md": {
+      "sha256": "1f85852a4de518b2737f2e5c6a89168d8531f5ba7fd77beb83f6a7d72eaab3d1",
+      "size_bytes": 11891
+    },
+    "docs/phase3-reproduction.md": {
+      "sha256": "db64bf0ca4f2346d9cfeef78da5fb4906faef9206209fa1e2ce5a442c0714114",
+      "size_bytes": 15246
+    },
+    "examples/phase3/run_recruitment.py": {
+      "sha256": "c4718adc1d24a0e1c2e988665d1d385a70d29c27723ef4d41bd2e971510277af",
+      "size_bytes": 8230
+    },
+    "examples/phase3/species.json": {
+      "sha256": "06e4e5df180c0518a9f20f830dde8ecd58be98c2fceb6bc51c0a4a1ace8cc626",
+      "size_bytes": 8711
+    },
+    "leaf/__init__.py": {
+      "sha256": "5d0f3e40077546da9287d043c9f53058efcc0e495f077478426cd18f3f2d4f1d",
+      "size_bytes": 3314
+    },
+    "leaf/checkpoint.py": {
+      "sha256": "02eddb43da85ecb8637791967d8e17f8cb5b21d1acaf3be1d424da8b29788357",
+      "size_bytes": 44870
+    },
+    "leaf/demography.py": {
+      "sha256": "7648b8f4a23016dc07196b9c790498bccb3cf18db0a20bbbda408974834dce1a",
+      "size_bytes": 35677
+    },
+    "leaf/interevent.py": {
+      "sha256": "10a8e43fdf39a39d0d0f4221c6b7c4f31bb687e62897b458058078b4b8da099c",
+      "size_bytes": 133666
+    },
+    "leaf/recruitment.py": {
+      "sha256": "a4918c363e84d10465fc9bea6d1c22664c6236eb05ad139d7daf4f925f99e632",
+      "size_bytes": 42194
+    },
+    "tests/test_demography.py": {
+      "sha256": "4f1d5657770f228fd828ddb505d1dc5893057955b197d384ad4c8141464b737a",
+      "size_bytes": 33167
+    },
+    "tests/test_interevent.py": {
+      "sha256": "82d86839b004b8d3d0be7d2289753a5e89ca8da336cf8ac9b121eb95f1ef3814",
+      "size_bytes": 143249
+    },
+    "tests/test_recruitment.py": {
+      "sha256": "795bac6bd6e43d60bbaf2ff4dfec7fa815e22f863406cb0b696c31c484a26e7c",
+      "size_bytes": 20525
+    }
+  },
+  "upstream_identities": {
+    "leaf": {
+      "root": "/home/okin/leaf",
+      "head": "5e887e66415f0522771ea789654b8345226d2496",
+      "branch": "main",
+      "dirty_status_sha256": "220472c5ede62bc8183ce5ce35917ce827f044f8fe9922464bea19c002965bf0",
+      "dirty_status_lines": 495
+    },
+    "syrup": {
+      "root": "/home/okin/SYRUP",
+      "head": "c76c603dde4e8f79ec48b18d954a386580d8bc89",
+      "branch": "feature/subsurface-hydrology",
+      "dirty_status_sha256": "b9b5729485e4b40af0345bf76874dca6211410dc050ade602bc162dc8bb559e9",
+      "dirty_status_lines": 3453
+    },
+    "maple": {
+      "root": "/home/okin/MAPLE",
+      "head": "ed5bd49ab8f53659bcf110ff80a9ac982a682abf",
+      "branch": "main",
+      "dirty_status_sha256": "054380a4aab5bcc4030241fb13bd71d614d9cc1398adecb4d1f0dbfa7e97b0ba",
+      "dirty_status_lines": 21542
+    },
+    "masy": {
+      "root": "/home/okin/MASY",
+      "head": "fa8f2667679b7fcac21f85065e65856807743da3",
+      "branch": "main",
+      "dirty_status_sha256": "df204b00b0da78f7543f85b8c326337ac01ed15cbe0dcdc53457677cbd992220",
+      "dirty_status_lines": 3
+    }
+  },
+  "native_sources": {
+    "src/maple_syrup/subsurface.py": {
+      "sha256": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+      "size_bytes": 64044
+    },
+    "src/maple_syrup/subsurface_transpiration.py": {
+      "sha256": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9",
+      "size_bytes": 27929
+    }
+  },
+  "native_support_sources": {
+    "/home/okin/MAPLE/src/maple/surface/voxels/_numerics.py": {
+      "sha256": "b1635932f23bfa6ff8c74aa52c072f796b448bd7a6454fab1e68a95ee2e40682",
+      "size_bytes": 22952
+    },
+    "/home/okin/SYRUP/src/maple_syrup/conservation.py": {
+      "sha256": "1072cdade368a76290c8a41162dfeb7a5b60ffaf970a7ede4707635bb3cf1bb1",
+      "size_bytes": 1904
+    }
+  },
+  "root_AGENTS_sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "executable": "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "cupy-cuda12x": "14.2.0"
+  },
+  "independent_checks": [
+    "snapshot03_cpu",
+    "snapshot03_cuda",
+    "snapshot03_native",
+    "snapshot03_native_cuda",
+    "snapshot03_deferred_season",
+    "snapshot03_example",
+    "snapshot03_reject_many_memory",
+    "snapshot03_birth_memory",
+    "snapshot02_guards",
+    "snapshot02_restart_metadata",
+    "snapshot02_legacy",
+    "snapshot02_newborn"
+  ],
+  "scope": "Species-local opt-in seed establishment and nearby daughter ramets, dry-AGB/E transfers, actual-population root/canopy rebind, prior-season finalization, newborn age exposure and strict complete restart v3. CPU/NumPy placement between GPU periods; no field calibration, new upstream physics or full transport adapter."
+}

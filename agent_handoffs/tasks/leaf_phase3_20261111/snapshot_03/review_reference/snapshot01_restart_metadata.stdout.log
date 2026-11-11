@@ -1,0 +1,21 @@
+{
+  "reports": [],
+  "failures": [
+    {
+      "check": "counter_uint64_overflow",
+      "incorrectly_accepted": true
+    },
+    {
+      "check": "counter_more_than_handled_years",
+      "incorrectly_accepted": true
+    },
+    {
+      "check": "opportunity_before_start_year",
+      "incorrectly_accepted": true
+    },
+    {
+      "check": "invented_last_record",
+      "incorrectly_accepted": true
+    }
+  ]
+}

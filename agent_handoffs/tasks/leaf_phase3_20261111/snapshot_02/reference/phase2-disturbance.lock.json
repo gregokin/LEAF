@@ -1,0 +1,121 @@
+{
+  "installed_at_utc": "2026-11-11T19:37:40.514031+00:00",
+  "qualification_baseline": "f0d0b56854a576b35ee38bce4a8eab6dd623baf6",
+  "snapshot": "agent_handoffs/tasks/leaf_phase2_20261111/snapshot_05",
+  "files": {
+    "README.md": {
+      "sha256": "57ef366656608de306c4f8b6f12c4fe659c1f810a697444abc2a43f845f1e639",
+      "size_bytes": 14721
+    },
+    "docs/phase2-disturbance.md": {
+      "sha256": "8a6db4524521d624743f83bbdee001dbcc06c217209897795ac8e4a97c709ad5",
+      "size_bytes": 21022
+    },
+    "examples/phase2/run_disturbance.py": {
+      "sha256": "5d5117f48c90554962527fdb1945491ad4fe2d1e02f2686d0bc525d8ec08ccf1",
+      "size_bytes": 10106
+    },
+    "examples/phase2/species.json": {
+      "sha256": "5003f248452ca1f97408b0ec40d997d074f3428c47444e49c9ffce8f38ab71fb",
+      "size_bytes": 8974
+    },
+    "leaf/checkpoint.py": {
+      "sha256": "ad13779db3dfb73b266cffac96685e9d7810134b743231200527985fa3675114",
+      "size_bytes": 37686
+    },
+    "leaf/demography.py": {
+      "sha256": "90e61481353455d9ea08df83d5b153bc39f795c3164a921e7643e48610c37364",
+      "size_bytes": 35068
+    },
+    "leaf/disturbance.py": {
+      "sha256": "38a9dfa4521cdcb2512b904a83d5f2af4fbad97fa1a0c972bb70b0cb6906f9c0",
+      "size_bytes": 45703
+    },
+    "leaf/interevent.py": {
+      "sha256": "62f58447eee6dd52fb6225f606f831c543dc07b2ff47c9d79a80c051c0772fb9",
+      "size_bytes": 112014
+    },
+    "tests/test_demography.py": {
+      "sha256": "f53e23de73bf08ec3fc41df9e09fbd16ec7dab283f4e72d71f99a384f32396e5",
+      "size_bytes": 30988
+    },
+    "tests/test_disturbance.py": {
+      "sha256": "e20487b13a9010881b3d8b3ac2b525d840b583dade7abcaa5de7825c4e997db5",
+      "size_bytes": 25597
+    },
+    "tests/test_interevent.py": {
+      "sha256": "86b0c3d379e55149caced9eb344dfac42ea51c8f0bddd70497369c5b24d4d1ae",
+      "size_bytes": 112300
+    }
+  },
+  "upstream_identities": {
+    "leaf": {
+      "root": "/home/okin/leaf",
+      "head": "f0d0b56854a576b35ee38bce4a8eab6dd623baf6",
+      "branch": "main",
+      "dirty_status_sha256": "e5c116d4879cd75e66067aa57a35bdd7f1c3662e2b2c4ab0ebc7e37680739ee2",
+      "dirty_status_lines": 530
+    },
+    "syrup": {
+      "root": "/home/okin/SYRUP",
+      "head": "c76c603dde4e8f79ec48b18d954a386580d8bc89",
+      "branch": "feature/subsurface-hydrology",
+      "dirty_status_sha256": "74e4b181c7a48caa3740ac15f31e14ca73d7181e68b663bbb3824a1bd3724abb",
+      "dirty_status_lines": 3452
+    },
+    "maple": {
+      "root": "/home/okin/MAPLE",
+      "head": "ed5bd49ab8f53659bcf110ff80a9ac982a682abf",
+      "branch": "main",
+      "dirty_status_sha256": "617a53a8d986f305c44f234f277d97b0517f162ffc4520734bd9fb75258c17ca",
+      "dirty_status_lines": 21530
+    },
+    "masy": {
+      "root": "/home/okin/MASY",
+      "head": "fa8f2667679b7fcac21f85065e65856807743da3",
+      "branch": "main",
+      "dirty_status_sha256": "df204b00b0da78f7543f85b8c326337ac01ed15cbe0dcdc53457677cbd992220",
+      "dirty_status_lines": 3
+    }
+  },
+  "native_sources": {
+    "src/maple_syrup/subsurface.py": {
+      "sha256": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+      "size_bytes": 64044
+    },
+    "src/maple_syrup/subsurface_transpiration.py": {
+      "sha256": "3b9191872522755924271bbaba4ae2bac290e1cad4ecffebc2d2735c4a0a9fb9",
+      "size_bytes": 27929
+    }
+  },
+  "native_support_sources": {
+    "/home/okin/MAPLE/src/maple/surface/voxels/_numerics.py": {
+      "sha256": "b1635932f23bfa6ff8c74aa52c072f796b448bd7a6454fab1e68a95ee2e40682",
+      "size_bytes": 22952
+    },
+    "/home/okin/SYRUP/src/maple_syrup/conservation.py": {
+      "sha256": "1072cdade368a76290c8a41162dfeb7a5b60ffaf970a7ede4707635bb3cf1bb1",
+      "size_bytes": 1904
+    }
+  },
+  "root_AGENTS_sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "executable": "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "numpy": "2.5.3",
+    "numba": "0.67.0",
+    "cupy-cuda12x": "14.2.0"
+  },
+  "scope": "Phase2 mechanical injury/mortality and annual age/background/stress decisions; complete native checkpoint format2. No calibrated disturbance laws, standing-dead removal, transport physics or upstream modifications.",
+  "independent_checks": [
+    "snapshot05_cpu",
+    "snapshot05_cuda",
+    "snapshot05_native_biology",
+    "snapshot05_native_biology_cuda",
+    "snapshot05_signed_ids_cuda",
+    "snapshot05_legacy_checkpoint",
+    "snapshot05_example",
+    "snapshot04_entrypoints",
+    "snapshot02_half_dead_memory"
+  ]
+}

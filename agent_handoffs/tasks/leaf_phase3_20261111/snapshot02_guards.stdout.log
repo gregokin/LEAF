@@ -1,0 +1,60 @@
+{
+  "reports": [
+    {
+      "check": "ledger/ground/signedIDs/roworder/physical-patch-resolution",
+      "pass": true
+    },
+    {
+      "check": "duplicate_IDs",
+      "refused": true,
+      "message": "live_ids must be unique canonical int64 IDs (any sign, zero included)"
+    },
+    {
+      "check": "max_existing_below_live_ID",
+      "refused": true,
+      "message": "max_existing_id is inconsistent with the live IDs (it must be >= every existing ID); refused to avoid ID collisions"
+    },
+    {
+      "check": "total_records_below_live",
+      "refused": true,
+      "message": "n_total_records=0 is smaller than the 3 live records provided"
+    },
+    {
+      "check": "int64_exhausted",
+      "refused": true,
+      "message": "int64 ID space exhausted: 7 new IDs needed above 9223372036854775807; refused before any birth array exists"
+    },
+    {
+      "check": "one_byte_cap",
+      "refused": true,
+      "message": "reproduction trials need ~1408 bytes (patch trials 4, live 3) > max_bytes=1; refused before any array exists"
+    },
+    {
+      "check": "wrong_ID_dtype",
+      "refused": true,
+      "message": "live_ids must be int64 (canonical IDs of any sign)"
+    },
+    {
+      "check": "boolean_limit",
+      "refused": true,
+      "message": "max_new_plants must be a non-boolean integer in [0, inf], got True"
+    },
+    {
+      "check": "wrong_patch_type",
+      "refused": true
+    },
+    {
+      "check": "birth_at_last_signed_int64_ID",
+      "pass": true
+    },
+    {
+      "check": "max_ID_with_no_birth",
+      "pass": true
+    },
+    {
+      "check": "empty_population_seed_establishment",
+      "pass": true
+    }
+  ],
+  "failures": []
+}

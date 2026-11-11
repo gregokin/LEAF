@@ -1,0 +1,74 @@
+{
+  "scope": "one annual population boundary and one actual native day, synthetic clustered population, no transport scenario",
+  "records_before": 100000,
+  "live_before": 25000,
+  "records_after": 100000,
+  "live_after": 25000,
+  "requested_daughters": 62403,
+  "placed_daughters": 0,
+  "new_seedlings": 0,
+  "all_placements_rejected_case": true,
+  "root_edges_after": 200000,
+  "cells": 4096,
+  "layers": 2,
+  "startup_and_warmup_seconds": 1.4519680889789015,
+  "annual_birth_seconds": 0.019465520046651363,
+  "following_day_seconds": 0.007099736947566271,
+  "birth_host_resident_before_bytes": 6633704,
+  "birth_device_before_bytes": 5097272,
+  "birth_device_requested_peak_bytes": 5097272,
+  "birth_host_resident_after_bytes": 6633704,
+  "birth_host_tracemalloc_new_peak_bytes": 12740980,
+  "birth_host_tracemalloc_new_live_bytes": 14257,
+  "birth_observer_samples": [
+    {
+      "new_numpy_array_bytes": 1325000,
+      "device_current_bytes": 5097272,
+      "global_array_lower_bound_bytes": 13055976
+    },
+    {
+      "new_numpy_array_bytes": 2350002,
+      "device_current_bytes": 5097272,
+      "global_array_lower_bound_bytes": 14080978
+    },
+    {
+      "new_numpy_array_bytes": 2575002,
+      "device_current_bytes": 5097272,
+      "global_array_lower_bound_bytes": 14305978
+    },
+    {
+      "new_numpy_array_bytes": 11725763,
+      "device_current_bytes": 5097272,
+      "global_array_lower_bound_bytes": 23456739
+    },
+    {
+      "new_numpy_array_bytes": 11725763,
+      "device_current_bytes": 5097272,
+      "global_array_lower_bound_bytes": 23456739
+    },
+    {
+      "new_numpy_array_bytes": 12287390,
+      "device_current_bytes": 5097272,
+      "global_array_lower_bound_bytes": 24018366
+    }
+  ],
+  "birth_sampled_global_array_lower_bound_bytes": 24018366,
+  "birth_declared_global_peak_bytes": 42398464,
+  "birth_stage_estimates": {
+    "reproduction_preflight": 20432608,
+    "reproduction_evaluate": 42398464
+  },
+  "pure_recruitment_scratch_estimate_bytes": 28398624,
+  "daily_host_resident_array_bytes": 6633704,
+  "daily_device_requested_peak_bytes": 7574240,
+  "daily_global_array_peak_lower_bound_bytes": 14207944,
+  "daily_declared_global_peak_bytes": 14911616,
+  "daily_underestimate_confirmed": false,
+  "pool_used_bytes": 5107200,
+  "pool_reserved_bytes": 11841024,
+  "pool_cap_bytes": 1500000000,
+  "limitations": "resident host arrays + hooked device peak is an array-data lower bound; host tracemalloc includes Python overhead and is reported separately. No complete process/context peak or 30-year extrapolation. Birth timing includes allocation observation instrumentation; exact concurrent samples count NumPy allocation-domain bytes plus resident host arrays and current hooked device bytes.",
+  "birth_underestimate_confirmed": false,
+  "unknown_free_events": 0,
+  "requested_live_at_end_bytes": 0
+}

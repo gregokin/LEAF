@@ -1705,19 +1705,21 @@ class Phase2Disturbance(unittest.TestCase):
             with self.assertRaises(checkpoint.CheckpointError):
                 self._load(path)
 
-    def test_checkpoint_format_version_two_is_explicit_and_strict(self):
-        self.assertEqual(checkpoint.SCHEMA_VERSION, 2)
+    def test_checkpoint_format_version_three_is_explicit_and_strict(self):
+        # Phase 3 bumps the complete-checkpoint layout to version 3 (adds the `phase3` reproduction block); versions 1 and
+        # 2 are refused without migration (see Phase3Reproduction.test_old_checkpoint_versions_are_refused_not_migrated)
+        self.assertEqual(checkpoint.SCHEMA_VERSION, 3)
         with tempfile.TemporaryDirectory() as td:
             s = self.ready()
             path = pathlib.Path(s.save(os.path.join(td, 'cp')))
             doc0 = json.loads((path / 'restart.json').read_text())
             self.assertIs(type(doc0['schema_version']), int)
-            self.assertEqual(doc0['schema_version'], 2)
+            self.assertEqual(doc0['schema_version'], 3)
             self.assertEqual(self._load(path).sequence, s.sequence)                  # round trip
             with open(path / 'plants.csv', 'r', encoding='utf-8') as fh:
                 self.assertEqual(json.loads(fh.readline()[2:])['schema_version'], 1)  # canonical CSV stays version 1
             # internally hashed manifests with another version are refused BEFORE arrays are decoded / state allocated
-            for bad in (1, 3, 2.0, True, '2', None):
+            for bad in (1, 2, 4, 3.0, True, '3', None):
                 doc = json.loads((path / 'restart.json').read_text())
                 doc['schema_version'] = bad
                 body = {k: v for k, v in doc.items() if k != 'content_hash'}
@@ -1728,7 +1730,7 @@ class Phase2Disturbance(unittest.TestCase):
                     with self.assertRaises(checkpoint.CheckpointError) as cm:
                         self._load(path)
                 self.assertIn('version', str(cm.exception))
-                self.assertIn('2', str(cm.exception))
+                self.assertIn('3', str(cm.exception))
             (path / 'restart.json').write_text(json.dumps(doc0))
             self._load(path)                                                         # original restored: loads again
 
@@ -1997,6 +1999,523 @@ class Phase2CudaParity(unittest.TestCase):
             np.testing.assert_array_equal(loaded.stress_counters(), s.stress_counters())
             np.testing.assert_array_equal(loaded.snapshot().status, s.snapshot().status)
             self.assertEqual(loaded.n_annual_decisions, 1)
+
+
+# ------------------------------------------------------------------ Phase 3: annual reproduction (seeds + daughters)
+P3_START = dt.datetime(2026, 12, 29, tzinfo=UTC)
+P3_LAW = 'simple_seed_clonal_v1'
+P3_LIMS = dict(max_new_plants=1000, max_total_records=100000, max_attempts=100000)
+P3_SURFACE = 100.0 + 0.01 * np.arange(NX * NY, dtype=np.float64).reshape(NY, NX)       # SYNTHETIC non-constant ground
+
+
+def p3_modify(*, seed_p=1.0, clonal_p=1.0, bg=None):
+    '''UNCALIBRATED fixture reproduction numbers on the Phase 1 catalog: grass = clonal only, shrub = seed only.'''
+    def mod(doc):
+        g, sh = doc['species']['grass'], doc['species']['shrub']
+        g['reproduction'] = {'law': P3_LAW, 'traits': {'seed': None, 'clonal': {
+            'min_age_days': 250.0, 'min_agb_dry_kg': 0.2, 'probability': clonal_p, 'max_daughters_per_parent': 2,
+            'initial_agb_dry_kg': 0.05, 'max_donation_fraction': 0.4, 'dispersal_radius_m': 0.5,
+            'max_attempts_per_daughter': 8}}}
+        sh['reproduction'] = {'law': P3_LAW, 'traits': {'seed': {
+            'establishment_probability': seed_p, 'max_recruits_per_patch': 2, 'initial_agb_dry_kg': 0.03,
+            'initial_seasonal_fraction': 0.5}, 'clonal': None}}
+        if bg is not None:
+            g['mortality'] = {'law': 'age_background_stress_v1', 'traits': {
+                'age_hazard': None, 'background_hazard_per_year': bg, 'stress': None}}
+    return mod
+
+
+def p3_step(s, env, n):
+    out = []
+    for _ in range(n):
+        a, e = env.forcing(0.0)
+        t0 = s.cursor
+        rec = forcing.TimestepRecord(t0, t0 + DAY, 22.0, 5.0)
+        out.extend(s.step_interevent(p, added_water_m=a, potential_evaporation_m_s=e) for p in s.split_record(rec))
+    return out
+
+
+def p3_empty_plants(catalog):
+    z = np.zeros(0)
+    return state.PlantState(state.Domain(NX, NY, 1.0), catalog.species_ids, catalog.hash, ids=np.zeros(0, np.int64),
+                            species_index=np.zeros(0, np.int32), x_m=z, y_m=z, establishment_ground_m=z,
+                            agb_dry_kg=z, age_days=z, status=np.zeros(0, np.int8))
+
+
+def p3_direct(env, cat, plants, **kw):
+    return IntereventSession(plants, cat, operator=env.operator, native_state=env.state(), start=P3_START,
+                             backend=env.backend, growth_cadence=dt.timedelta(days=7), max_edges=10_000_000,
+                             max_bytes=BIG, root_builder='numpy', verify_native_sources=VERIFY_NATIVE, **kw)
+
+
+@needs_native
+class Phase3Reproduction(unittest.TestCase):
+    backend = 'numpy'
+
+    def setUp(self):
+        self.env = Env(self.backend)
+        self.cat = load_catalog(p3_modify())
+
+    def year_end(self, cat=None, plants=None, seed=5):
+        cat = cat or self.cat
+        s = make_session(self.env, cat, plants=plants, start=P3_START, rng_seed=seed, reproduction_patch_size_m=2.0)
+        p3_step(s, self.env, 3)                          # 29, 30, 31 December: the year-end growth fires at 1 January
+        return s
+
+    def reproduce(self, s, year=2026, **over):
+        lim = dict(P3_LIMS)
+        lim.update(over)
+        return s.apply_reproduction(year, P3_SURFACE, **lim)
+
+    def load(self, path, cat=None, **kw):
+        return IntereventSession.load(path, cat or self.cat, operator=self.env.operator, backend=self.backend,
+                                      max_edges=10_000_000, max_bytes=BIG, verify_native_sources=VERIFY_NATIVE, **kw)
+
+    # ---- the transaction
+    def test_seed_and_clonal_births_with_ledger_unchanged_water_and_next_step_uptake(self):
+        s = self.year_end()
+        s0, w0, t0, cur0 = s.snapshot(), host(s.native_state.water_m).copy(), s.native_state.t_s, s.cursor
+        rep = self.reproduce(s)
+        d = rep['reproduction']
+        s1 = s.snapshot()
+        n0, nb = s0.n, int(d['n_births'])
+        self.assertEqual(s1.n, n0 + nb)
+        self.assertGreaterEqual(d['n_seed_recruits'], 4)                 # 4 patches of 2 m, p = 1, 1..2 recruits each
+        self.assertLessEqual(d['n_seed_recruits'], 8)
+        self.assertTrue(2 <= d['n_daughters_placed'] <= 4)               # parents 1 and 3 are eligible (age, size)
+        self.assertTrue(d['ledger']['closed'])
+        # existing records: IDs, locations, ages, anchors, statuses persist; dead / removed retained deterministically
+        for k in ('ids', 'species_index', 'x_m', 'y_m', 'establishment_ground_m', 'age_days', 'status'):
+            np.testing.assert_array_equal(getattr(s1, k)[:n0], getattr(s0, k), err_msg=k)
+        donors = np.flatnonzero(s1.agb_dry_kg[:n0] != s0.agb_dry_kg)
+        self.assertTrue(set(s0.ids[donors].tolist()) <= {1, 3})
+        self.assertTrue(np.all(s1.agb_dry_kg[donors] > 0.0))
+        self.assertTrue(np.all(s1.seasonal_agb_dry_kg[:n0] <= s1.agb_dry_kg[:n0]))
+        # newborns: own consecutive IDs above the maximum, age 0, live, ground sampled from the CURRENT surface
+        np.testing.assert_array_equal(s1.ids[n0:], np.arange(int(s0.ids.max()) + 1, int(s0.ids.max()) + 1 + nb))
+        self.assertTrue(np.all(s1.age_days[n0:] == 0.0))
+        self.assertTrue(np.all(s1.status[n0:] == state.LIVE))
+        np.testing.assert_array_equal(s1.establishment_ground_m[n0:],
+                                      s1.domain.sample(P3_SURFACE, s1.x_m[n0:], s1.y_m[n0:]))
+        daughters = s1.species_index[n0 + d['n_seed_recruits']:]
+        self.assertTrue(np.all(daughters == self.cat.index('grass')))
+        self.assertTrue(np.all(s1.species_index[n0:n0 + d['n_seed_recruits']] == self.cat.index('shrub')))
+        # ledger: old total + external seed credit = new retained total (clonal transfer cancels)
+        np.testing.assert_allclose(float(s1.agb_dry_kg.sum()), float(s0.agb_dry_kg.sum()) + d['ledger']['external_seed_agb_kg'],
+                                   rtol=1e-12)
+        # no phantom water, time, calendar or growth-grid change
+        np.testing.assert_array_equal(host(s.native_state.water_m), w0)
+        self.assertEqual((s.native_state.t_s, s.cursor), (t0, cur0))
+        self.assertTrue(rep['rng_consumed'] and rep['native_water_unchanged'])
+        self.assertEqual((s.n_reproduction_opportunities, s.reproduction_last_year), (1, 2026))
+        self.assertEqual(s.n_live, 5 + nb)
+        self.assertEqual(s.root_map.n_plants, s.n_live)
+        # the NEXT open interval: new plants request water (D / U sized by the new live population)
+        store = []
+        with mock.patch.object(growth, 'demand', spy(growth.demand, store)):
+            p3_step(s, self.env, 1)
+        self.assertEqual(store[0]['kwargs']['B_kg'].shape, (s.n_live,))
+        self.assertEqual(host(s._b.U).shape, (s.n_live,))
+
+    def test_replay_stale_wrong_type_and_limit_refusals_leave_everything_unchanged(self):
+        s = self.year_end()
+        before = fp(s)
+        for bad in (True, 2026.0, '2026', None):
+            with self.assertRaises(IntereventError):
+                s.apply_reproduction(bad, P3_SURFACE, **P3_LIMS)
+        for bad in (True, 1.5, -1, None):
+            with self.assertRaises(IntereventError):
+                self.reproduce(s, max_new_plants=bad)
+        for kw in (dict(max_new_plants=0), dict(max_total_records=7), dict(max_attempts=0)):
+            with self.assertRaises(IntereventError):
+                self.reproduce(s, **kw)
+        with self.assertRaises(IntereventStateError):
+            self.reproduce(s, year=2027)                       # not yet completed
+        with self.assertRaises(IntereventStateError):
+            self.reproduce(s, year=2025)                       # before the first opportunity (replay / stale)
+        assert_same(self, before, fp(s))
+        self.assertEqual(s.n_reproduction_opportunities, 0)    # rejected calls consumed nothing
+        self.reproduce(s)
+        with self.assertRaises(IntereventStateError):          # replay: an annual chance is never charged twice
+            self.reproduce(s)
+        self.assertEqual(s.n_reproduction_opportunities, 1)
+
+    def test_ordering_pending_growth_pending_transport_and_unresolved_mortality(self):
+        cat = load_catalog(p3_modify(bg=0.01))
+        s = make_session(self.env, cat, start=P3_START, rng_seed=5, reproduction_patch_size_m=2.0)
+        p3_step(s, self.env, 2)
+        with self.assertRaises(IntereventStateError):
+            self.reproduce(s)                                  # still December: nothing due
+        p3_step(s, self.env, 1)
+        self.assertEqual(s.annual_due_year, 2026)
+        before = fp(s)
+        with self.assertRaises(IntereventStateError):
+            self.reproduce(s)                                  # annual mortality unresolved
+        assert_same(self, before, fp(s))
+        s.apply_annual_decision(2026)
+        # a pending transport diagnostic blocks it; a later accepted interval clears it and the opportunity may then
+        # be taken LATER than 1 January (newborns have age 0 at the cursor)
+        s.advance_transport('wind', s.cursor, s.cursor + DAY)
+        self.assertIsNotNone(s.transport_pending)
+        with self.assertRaises(IntereventStateError):
+            self.reproduce(s)
+        p3_step(s, self.env, 1)
+        self.assertTrue(s.has_pending_growth)
+        with self.assertRaises(IntereventStateError):
+            self.reproduce(s)                                  # pending growth must be completed first
+        s.flush_growth()
+        period0 = s.annual_period_start
+        rep = self.reproduce(s)
+        self.assertEqual(s.cursor, dt.datetime(2027, 1, 3, tzinfo=UTC))
+        self.assertEqual(s.annual_period_start, period0)       # existing parents' real partial-year metrics preserved
+        self.assertGreater(rep['reproduction']['n_births'], 0)
+
+    def test_multi_year_gap_is_refused_and_must_be_declined_explicitly(self):
+        s = self.year_end()
+        s.advance_transport('wind', s.cursor, s.cursor + 400 * DAY)       # no mortality law: a multi-year event is allowed
+        p3_step(s, self.env, 1)
+        before = fp(s)
+        with self.assertRaises(IntereventStateError) as cm:
+            self.reproduce(s, year=2026)
+        self.assertIn('decline', str(cm.exception))
+        with self.assertRaises(IntereventStateError):
+            self.reproduce(s, year=2027)                       # years are strictly sequential: 2026 first
+        assert_same(self, before, fp(s))
+        rec = s.decline_reproduction_opportunity(2026)
+        self.assertFalse(rec['rng_consumed'])
+        self.assertEqual((s.reproduction_last_year, s.n_reproduction_opportunities), (2026, 0))
+        s.flush_growth()
+        self.reproduce(s, year=2027)
+        self.assertEqual(s.n_reproduction_opportunities, 1)
+
+    def test_inactive_catalog_needs_no_seed_no_arrays_and_refuses_the_call(self):
+        cat = load_catalog()
+        s = make_session(self.env, cat)
+        self.assertFalse(s.reproduction_active)
+        self.assertEqual(s._repro.resident_bytes(), 0)
+        self.assertIsNone(s._repro._f)
+        self.assertEqual(s._persistent(s._b)['phase2_tables'], 0)
+        with self.assertRaises(IntereventError):
+            s.apply_reproduction(2026, P3_SURFACE, **P3_LIMS)
+        with self.assertRaises(IntereventError):                 # an active law REQUIRES an explicit seed and a patch size
+            make_session(self.env, self.cat, reproduction_patch_size_m=2.0)
+        with self.assertRaises(IntereventError):
+            make_session(self.env, self.cat, rng_seed=1)
+        bad = load_catalog(lambda d: d['species']['grass'].update(reproduction={'law': 'mystery_v1'}))
+        with self.assertRaises(IntereventError):
+            make_session(self.env, bad, rng_seed=1)
+
+    def test_zero_record_domain_gets_seed_recruits_and_requests_water_next_step(self):
+        s = p3_direct(self.env, self.cat, p3_empty_plants(self.cat), rng_seed=3, reproduction_patch_size_m=2.0)
+        self.assertEqual((s.n_live, s.n_total_records), (0, 0))
+        p3_step(s, self.env, 3)
+        rep = self.reproduce(s)
+        self.assertEqual(rep['reproduction']['n_daughters_requested'], 0)
+        self.assertGreaterEqual(s.n_live, 4)
+        np.testing.assert_array_equal(s.snapshot().ids, np.arange(1, s.n_live + 1))
+        self.assertEqual(s.root_map.n_plants, s.n_live)
+        p3_step(s, self.env, 1)
+        self.assertEqual(host(s._b.U).shape, (s.n_live,))
+
+    def test_zero_live_with_dead_records_and_mortality_law_restarts_the_decision_period(self):
+        cat = load_catalog(p3_modify(bg=0.01))
+        rec = [dict(plant_id=9, species='grass', x_m=1.0, y_m=1.0, establishment_ground_m=100.0, agb_dry_kg=0.3,
+                    seasonal_agb_dry_kg=0.0, age_days=500.0, status='dead_standing')]
+        plants = state.PlantState.from_records(cat, state.Domain(NX, NY, 1.0), rec)
+        s = p3_direct(self.env, cat, plants, rng_seed=3, reproduction_patch_size_m=2.0)
+        p3_step(s, self.env, 3)
+        self.assertIsNone(s.annual_due_year)                    # no live plant: no annual mortality decision exists
+        self.reproduce(s)
+        snap = s.snapshot()
+        self.assertEqual(int(snap.ids[0]), 9)
+        self.assertEqual(int(snap.status[0]), state.DEAD_STANDING)
+        self.assertTrue(np.all(snap.ids[1:] >= 10))
+        self.assertEqual(s.annual_period_start, s.cursor)       # the empty period is not inherited
+
+    def test_signed_ids_and_int64_exhaustion_guard(self):
+        def rec_(pid, sp, x, y, st_='live'):
+            return dict(plant_id=pid, species=sp, x_m=x, y_m=y, establishment_ground_m=100.0, agb_dry_kg=0.3,
+                        seasonal_agb_dry_kg=0.0, age_days=300.0, status=st_)
+        ids = [-(2 ** 63), -4, 0, 2 ** 63 - 1]
+        recs = [rec_(ids[0], 'grass', 0.8, 0.8), rec_(ids[1], 'grass', 3.0, 3.0), rec_(ids[2], 'grass', 2.0, 1.0),
+                rec_(ids[3], 'shrub', 1.0, 3.0)]
+        plants = state.PlantState.from_records(self.cat, state.Domain(NX, NY, 1.0), recs)
+        s = self.year_end(plants=plants)
+        before = fp(s)
+        with self.assertRaises(IntereventError):                 # births need IDs above int64 max: refused, untouched
+            self.reproduce(s)
+        assert_same(self, before, fp(s))
+        self.assertEqual(s.n_reproduction_opportunities, 0)
+        # zero births: no failure merely because the population contains max-int64; the opportunity is consumed
+        quiet = load_catalog(p3_modify(seed_p=0.0, clonal_p=0.0))
+        s2 = self.year_end(cat=quiet, plants=state.PlantState.from_records(quiet, state.Domain(NX, NY, 1.0), recs))
+        rep = self.reproduce(s2)
+        self.assertEqual(rep['reproduction']['n_births'], 0)
+        self.assertEqual(s2.n_reproduction_opportunities, 1)
+
+    def test_surviving_root_overrides_preserved_and_daughters_use_species_roots(self):
+        s = self.year_end()
+        s2 = make_session(self.env, self.cat, start=P3_START, rng_seed=5, reproduction_patch_size_m=2.0,
+                          overrides={1: [0.5, 0.5], 4: [0.1, 0.9]})
+        p3_step(s2, self.env, 3)
+        self.reproduce(s2)
+        self.assertEqual(s2._overrides, {1: (0.5, 0.5), 4: (0.1, 0.9)})
+        self.assertEqual(set(s2.live_ids.tolist()) & {1, 4}, {1, 4})
+        self.assertGreater(s2.n_live, s.n_live - 1000)
+        h = s2.root_map.host_arrays()
+        np.testing.assert_array_equal(h['ids'], s2.live_ids)
+
+    def test_row_permutation_gives_identical_by_id_births(self):
+        recs = []
+        for i, pid in enumerate((1, 2, 3, 4, 5)):
+            recs.append(dict(plant_id=pid, species='grass' if pid <= 3 else 'shrub', x_m=0.8 + 0.5 * i, y_m=1.0 + 0.4 * i,
+                             establishment_ground_m=100.0, agb_dry_kg=0.3 + 0.01 * i, seasonal_agb_dry_kg=0.0,
+                             age_days=300.0 + i, status='live'))
+        a = state.PlantState.from_records(self.cat, state.Domain(NX, NY, 1.0), recs)
+        b = state.PlantState.from_records(self.cat, state.Domain(NX, NY, 1.0), recs[::-1])
+        sa, sb = self.year_end(plants=a), self.year_end(plants=b)
+        self.reproduce(sa)
+        self.reproduce(sb)
+        na, nb = sa.snapshot(), sb.snapshot()
+        oa, ob = np.argsort(na.ids), np.argsort(nb.ids)
+        for k in ('ids', 'species_index', 'x_m', 'y_m', 'establishment_ground_m', 'age_days', 'status'):
+            np.testing.assert_array_equal(getattr(na, k)[oa], getattr(nb, k)[ob], err_msg=k)
+        np.testing.assert_array_equal(na.agb_dry_kg[oa], nb.agb_dry_kg[ob])
+
+    # ---- deferred prior-season finalisation before births (revision 2)
+    def closed_year_end(self, plants, cat=None):
+        '''Session that passes the year end inside a CLOSED-gate interval (season deferred, nothing else happens).'''
+        cat = cat or self.cat
+        s = p3_direct(self.env, cat, plants, rng_seed=3, reproduction_patch_size_m=2.0)
+        end = dt.datetime(2027, 1, 1, tzinfo=UTC)
+        s.step_interevent(forcing.TimestepRecord(s.cursor, end, 0.0, None, 'interevent', 'closed'))
+        self.assertTrue(s.season_due)
+        return s
+
+    def test_reproduction_refuses_until_deferred_season_is_flushed_empty_population(self):
+        s = self.closed_year_end(p3_empty_plants(self.cat))
+        before = fp(s)
+        with self.assertRaises(IntereventStateError) as cm:
+            self.reproduce(s)
+        self.assertIn('flush_deferred_season', str(cm.exception))
+        assert_same(self, before, fp(s))
+        rec = s.flush_deferred_season()
+        self.assertTrue(rec['published'])
+        self.assertFalse(s.season_due)
+        self.assertEqual(s.flush_deferred_season()['published'], False)        # nothing deferred: no-op
+        self.reproduce(s)
+        born = s.snapshot()
+        self.assertGreaterEqual(born.n, 4)
+        p3_step(s, self.env, 1)
+        after = s.snapshot()
+        # newborn tissue never pays a prior-season loss
+        np.testing.assert_array_equal(after.agb_dry_kg[:born.n] >= born.agb_dry_kg - 1e-15, True)
+        self.assertNotIn('deferred_season_applied', s.last_receipt)
+        self.assertEqual(s.last_receipt.get('deferred_season_applied', False), False)
+
+    def test_flush_deferred_season_applies_old_season_to_live_plants_only_and_is_atomic(self):
+        plants = make_plants(self.cat, shrub_e=0.5)               # shrub id 4 carries seasonal biomass
+        s = self.closed_year_end(plants)
+        s0, w0, t0, cur0, nb0 = s.snapshot(), host(s.native_state.water_m).copy(), s.native_state.t_s, s.cursor, s.boundaries()['next_growth_boundary']
+        before = fp(s)
+        real = roots.build_root_map
+        wrapper, box = fail_once(real, RuntimeError('injected'))
+        with mock.patch.object(roots, 'build_root_map', wrapper):
+            with self.assertRaises(RuntimeError):
+                s.flush_deferred_season()
+        assert_same(self, before, fp(s))
+        self.assertTrue(s.season_due)                              # failure: nothing changed, flag still set
+        s.flush_deferred_season()
+        s1 = s.snapshot()
+        self.assertFalse(s.season_due)
+        self.assertLess(float(s1.seasonal_agb_dry_kg[3]), float(s0.seasonal_agb_dry_kg[3]))     # true turnover of old tissue
+        self.assertLessEqual(float(s1.agb_dry_kg[3]), float(s0.agb_dry_kg[3]))
+        np.testing.assert_array_equal(host(s.native_state.water_m), w0)                         # no water / time / ET
+        self.assertEqual((s.native_state.t_s, s.cursor, s.boundaries()['next_growth_boundary']), (t0, cur0, nb0))
+        self.reproduce(s)
+        s2 = s.snapshot()
+        self.assertGreater(s2.n, s1.n)
+        p3_step(s, self.env, 1)
+        self.assertNotIn('deferred_season', s.last_receipt)           # nothing left to apply at the next open interval
+
+    def test_flush_deferred_season_refuses_with_pending_growth(self):
+        s = self.year_end()
+        p3_step(s, self.env, 1)
+        self.assertTrue(s.has_pending_growth)
+        real = s._b
+        s._b = real.clone()
+        s._b.season_due = True                                    # simulate a deferred season beside pending growth
+        try:
+            with self.assertRaises(IntereventStateError):
+                s.flush_deferred_season()
+        finally:
+            s._b = real
+
+    # ---- strict restart metadata (revision 2)
+    def test_inconsistent_but_hash_consistent_phase3_metadata_is_refused(self):
+        def rehash(doc):
+            body = {k: v for k, v in doc.items() if k != 'content_hash'}
+            doc['content_hash'] = checkpoint._sha(checkpoint._canonical(body))
+        with tempfile.TemporaryDirectory() as td:
+            path = pathlib.Path(self.year_end().save(os.path.join(td, 'cp')))      # start 2026, nothing handled yet
+            orig = json.loads((path / 'restart.json').read_text())
+            rec_ok = {'year': 2026, 'counter': 0, 'interval_id': 'x', 'cursor': '2027-01-01T00:00:00+00:00',
+                      'sequence': 1, 'n_seed_recruits': 1, 'n_daughters_placed': 0, 'n_daughters_rejected': 0, 'n_births': 1}
+            muts = (lambda d: d['phase3'].update(n_reproduction=2 ** 64),
+                    lambda d: d['phase3'].update(n_reproduction=1),
+                    lambda d: d['phase3'].update(last_opportunity_year=2022),
+                    lambda d: d['phase3'].update(start_year=2024),
+                    lambda d: d['phase3'].update(last_reproduction={'year': 2023}),
+                    lambda d: d['phase3'].update(last_opportunity_year=2026, last_reproduction=None),
+                    lambda d: d['phase3'].update(last_opportunity_year=2026, n_reproduction=1,
+                                                 last_reproduction=dict(rec_ok, counter=5)),
+                    lambda d: d['phase3'].update(last_opportunity_year=2026, n_reproduction=1,
+                                                 last_reproduction=dict(rec_ok, year=2025)),
+                    lambda d: d['phase3'].update(last_opportunity_year=2026, n_reproduction=1,
+                                                 last_reproduction=dict(rec_ok, n_births=3)),
+                    lambda d: d['phase3'].update(last_opportunity_year=2026, n_reproduction=1,
+                                                 last_reproduction=dict(rec_ok, cursor='2026-06-01T00:00:00+00:00')),
+                    lambda d: d['phase3'].update(last_opportunity_year=2027))
+            for m in muts:
+                doc = json.loads(json.dumps(orig))
+                m(doc)
+                rehash(doc)
+                (path / 'restart.json').write_text(json.dumps(doc))
+                with self.assertRaises(checkpoint.CheckpointError):
+                    self.load(path)
+            # a coherent handled state loads
+            doc = json.loads(json.dumps(orig))
+            doc['phase3'].update(last_opportunity_year=2026, n_reproduction=1, last_reproduction=rec_ok)
+            rehash(doc)
+            (path / 'restart.json').write_text(json.dumps(doc))
+            self.assertEqual(self.load(path).n_reproduction_opportunities, 1)
+
+    def test_declined_year_roundtrips_with_fewer_accepted_than_handled(self):
+        with tempfile.TemporaryDirectory() as td:
+            s = self.year_end()
+            s.decline_reproduction_opportunity(2026)
+            loaded = self.load(s.save(os.path.join(td, 'cp')))
+            self.assertEqual((loaded.reproduction_last_year, loaded.n_reproduction_opportunities), (2026, 0))
+            self.assertTrue(loaded.phase3_state()['last_reproduction']['declined'])
+
+    # ---- memory record of the full evaluate stage (revision 3)
+    def test_all_rejected_requests_still_record_the_full_evaluate_stage_in_the_peak(self):
+        def reject_all(doc):
+            p3_modify(seed_p=0.0, clonal_p=1.0)(doc)
+            c = doc['species']['grass']['reproduction']['traits']['clonal']
+            c['dispersal_radius_m'] = 1.0e6              # a single attempt lands outside the 4 m domain (p ~ 1e-11)
+            c['max_attempts_per_daughter'] = 1
+        cat = load_catalog(reject_all)
+        s = self.year_end(cat=cat)
+        s0, w0 = s.snapshot(), host(s.native_state.water_m).copy()
+        rep = self.reproduce(s)
+        d = rep['reproduction']
+        self.assertGreater(d['n_daughters_requested'], 0)
+        self.assertEqual((d['n_daughters_placed'], d['n_births']), (0, 0))
+        mem = rep['memory']
+        self.assertIn('reproduction_preflight', mem['stage_totals'])
+        self.assertIn('reproduction_evaluate', mem['stage_totals'])
+        self.assertGreaterEqual(mem['stage_totals']['reproduction_evaluate'], d['memory_estimate']['total_bytes'])
+        self.assertGreater(mem['stage_totals']['reproduction_evaluate'], mem['stage_totals']['reproduction_preflight'])
+        self.assertEqual(mem['peak_estimate_bytes'], max(mem['stage_totals'].values()))
+        self.assertGreaterEqual(mem['peak_estimate_bytes'], mem['stage_totals']['reproduction_evaluate'])
+        s1 = s.snapshot()                                 # nothing donated, nothing born; only the opportunity is consumed
+        for k in ('ids', 'x_m', 'y_m', 'agb_dry_kg', 'seasonal_agb_dry_kg', 'age_days', 'status'):
+            np.testing.assert_array_equal(getattr(s1, k), getattr(s0, k), err_msg=k)
+        np.testing.assert_array_equal(host(s.native_state.water_m), w0)
+        self.assertEqual((s.n_reproduction_opportunities, s.reproduction_last_year), (1, 2026))
+
+    # ---- failure atomicity / retry
+    def test_fault_injection_leaves_state_unchanged_and_valid_retry_counts_once(self):
+        s = self.year_end()
+        before = fp(s)
+        real = roots.build_root_map
+        wrapper, box = fail_once(real, RuntimeError('injected root failure'))
+        with mock.patch.object(roots, 'build_root_map', wrapper):
+            with self.assertRaises(RuntimeError):
+                self.reproduce(s)
+        self.assertEqual(box['n'], 1)
+        assert_same(self, before, fp(s))
+        self.assertEqual((s.n_reproduction_opportunities, s.reproduction_last_year, s.n_total_records), (0, 2025, 7))
+        s.max_bytes = 1000                                       # an admission refusal also leaves everything intact
+        with self.assertRaises(IntereventAdmissionError):
+            self.reproduce(s)
+        s.max_bytes = BIG
+        assert_same(self, before, fp(s))
+        self.reproduce(s)                                        # the valid retry accounts exactly once
+        self.assertEqual(s.n_reproduction_opportunities, 1)
+        ref = self.year_end()
+        self.reproduce(ref)
+        np.testing.assert_array_equal(s.snapshot().x_m, ref.snapshot().x_m)     # same (seed, counter): same draws
+
+    # ---- restart
+    def test_checkpoint_roundtrip_state_and_identical_continuation(self):
+        with tempfile.TemporaryDirectory() as td:
+            c = self.year_end()
+            path = c.save(os.path.join(td, 'cp'))               # opportunity outstanding at the save
+            loaded = self.load(path)
+            self.assertEqual((loaded.reproduction_last_year, loaded.n_reproduction_opportunities), (2025, 0))
+            self.assertEqual(loaded.reproduction_patch_size_m, 2.0)
+            self.reproduce(c)
+            self.reproduce(loaded)
+            a, b = c.snapshot(), loaded.snapshot()
+            for k in ('ids', 'x_m', 'y_m', 'agb_dry_kg', 'seasonal_agb_dry_kg', 'age_days', 'status'):
+                np.testing.assert_array_equal(getattr(a, k), getattr(b, k), err_msg=k)
+            # a checkpoint AFTER the opportunity restores the counter, the guard and the patch; the replay is refused
+            path2 = c.save(os.path.join(td, 'cp2'))
+            loaded2 = self.load(path2)
+            self.assertEqual((loaded2.reproduction_last_year, loaded2.n_reproduction_opportunities), (2026, 1))
+            self.assertEqual(loaded2.last_receipt['kind'], 'reproduction')
+            with self.assertRaises(IntereventStateError):
+                self.reproduce(loaded2)
+            np.testing.assert_array_equal(loaded2.live_ids, c.live_ids)
+            doc = json.loads((pathlib.Path(path2) / 'restart.json').read_text())
+            self.assertEqual(doc['phase3']['n_reproduction'], 1)
+            self.assertEqual(doc['schema_version'], 3)
+
+    def test_old_checkpoint_versions_are_refused_not_migrated(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = pathlib.Path(self.year_end().save(os.path.join(td, 'cp')))
+            for old in (1, 2):
+                doc = json.loads((path / 'restart.json').read_text())
+                doc['schema_version'] = old
+                body = {k: v for k, v in doc.items() if k != 'content_hash'}
+                doc['content_hash'] = checkpoint._sha(checkpoint._canonical(body))
+                (path / 'restart.json').write_text(json.dumps(doc))
+                for allow in (False, True):                      # allow_source_change never authorises a migration
+                    with self.assertRaises(checkpoint.CheckpointError):
+                        self.load(path, allow_source_change=allow)
+
+    def test_phase3_block_corruption_and_flag_mismatch_are_refused(self):
+        def rehash(doc):
+            body = {k: v for k, v in doc.items() if k != 'content_hash'}
+            doc['content_hash'] = checkpoint._sha(checkpoint._canonical(body))
+        with tempfile.TemporaryDirectory() as td:
+            path = pathlib.Path(self.year_end().save(os.path.join(td, 'cp')))
+            orig = json.loads((path / 'restart.json').read_text())
+            muts = (lambda d: d['phase3'].update(n_reproduction='1'), lambda d: d['phase3'].update(n_reproduction=True),
+                    lambda d: d['phase3'].update(patch_size_m=-1.0), lambda d: d['phase3'].update(patch_size_m=True),
+                    lambda d: d['phase3'].update(last_opportunity_year=2.5),
+                    lambda d: d['phase3'].update(reproduction_active=False), lambda d: d['phase3'].update(extra=1),
+                    lambda d: d.pop('phase3'))
+            for m in muts:
+                doc = json.loads(json.dumps(orig))
+                m(doc)
+                rehash(doc)
+                (path / 'restart.json').write_text(json.dumps(doc))
+                with self.assertRaises(checkpoint.CheckpointError):
+                    self.load(path)
+            (path / 'restart.json').write_text(json.dumps(orig))
+            self.load(path)
+            # a different catalog reproduction law (hash differs) is refused: no silent catalog migration
+            with self.assertRaises(checkpoint.CheckpointError):
+                self.load(path, cat=load_catalog(p3_modify(seed_p=0.5)))
+
+
+@unittest.skipUnless(NATIVE and CUDA, 'CUDA backend unavailable')
+class Phase3ReproductionCuda(Phase3Reproduction):
+    '''The same transactions on the actual CUDA backend (explicit host placement; B / E transfers are counted).'''
+    backend = 'cuda'
 
 
 if __name__ == '__main__':
