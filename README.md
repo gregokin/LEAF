@@ -1,5 +1,14 @@
 # LEAF — Landscape Ecohydrology with Agent-based Flora
 
+**Layered water/LEAF qualification, 12 November 2026:** the opt-in native
+calendar completed the small fixed-bed example on actual committed NumPy,
+Numba and CUDA runtimes, with equivalent state and exact same-backend combined
+restart. See [the source-specific qualification](docs/phase1_release_qualification.md).
+The source selection is SYRUP `e40a1b8`, LEAF `52f39fe`, MASY `a704002` and
+historical MAPLE `9f466d2`, on `feature/subsurface-phase1` where applicable.
+This adds no wind-with-persistent-soil, field, moving-soil or large-domain
+claim. Earlier source-specific milestones below remain historical references.
+
 LEAF will evaluate vegetation and persistent soil-water processes for eventual
 coupling with [MAPLE](../MAPLE), [SYRUP](../SYRUP), and [MASY](../MASY). MAPLE
 supplies wind transport, SYRUP supplies water and sediment processes, and MASY
