@@ -1,3 +1,3 @@
-# Codex review — ACCEPT
+# Codex review — ACCEPT; published
 
-[Literature scenario parameters](tasks/literature_parameters_20261111/final_review.md) accepted after three bounded Claude revisions and independent source review. Ten numeric entries updated; per-parameter source/original-species/proxy/gap labels added. Candidate and installed tree: 70 checks each passed. Historical preview preserved with exact frozen catalog. No model/generation/rendering or upstream changes. Commit/push pending under standing authorization.
+[Literature scenario update](tasks/literature_parameters_20261111/final_review.md) accepted after independent primary-source review and three bounded Claude revisions. Ten numeric parameters updated; per-parameter citations, original species/site, proxy and gap labels added. Candidate and installed tree each passed 70 schema/arithmetic/preservation checks. Historical preview preserved with exact frozen catalog. No model run or new initialization. Published commit `416ba95bdac825c9033343b932363da237b8fa8b`; [remote verification](tasks/literature_parameters_20261111/publication.json).

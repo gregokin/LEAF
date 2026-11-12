@@ -5,3 +5,5 @@
 [Primary checked evidence](tasks/literature_parameters_20261111/codex_checked_evidence_02.md), [public source identities](tasks/literature_parameters_20261111/public_downloads_01.json), [pinned model inputs](tasks/literature_parameters_20261111/public_downloads_02.json), [FAO/Hanson sources](tasks/literature_parameters_20261111/public_downloads_03.json), [full scope audit](tasks/literature_parameters_20261111/scope_audit.json). All three Claude revisions structured success/is_error=false, exit0/reaped. Research HTTP/DNS/PDF-extraction limits were documented and alternative primary access supplied by Codex. Initial setup shell had no `python`; reran with existing python3, no mutation occurred from that failed pre-dispatch command. No task/session usage limit occurred.
 
 No forward model, production initialization, image rendering, GPU benchmark, dependency install or upstream write occurred. Native source unchanged. Numerical/source checks are not field validation.
+
+Publication verified: code commit `416ba95bdac825c9033343b932363da237b8fa8b` pushed to origin/main; [push and independent ls-remote receipt](tasks/literature_parameters_20261111/publication.json).

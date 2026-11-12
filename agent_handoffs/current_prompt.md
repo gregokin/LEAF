@@ -1,3 +1,3 @@
-# Idle — accepted; publication pending
+# Idle — changes published
 
-[Literature scenario update](tasks/literature_parameters_20261111/final_review.md) accepted and installed; no Claude assignment remains. Codex is committing/pushing under standing authorization. No active writer, model or scheduler. Historical prompts are evidence, not assignments.
+[Literature scenario parameters](tasks/literature_parameters_20261111/final_review.md) accepted and published in `416ba95bdac825c9033343b932363da237b8fa8b` to origin/main. [Publication](tasks/literature_parameters_20261111/publication.json). No active writer, model or scheduler; historical prompts are evidence, not assignments.
