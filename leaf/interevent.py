@@ -119,6 +119,7 @@ from fractions import Fraction
 
 import numpy as np
 
+from leaf import biocalendar as _bc
 from leaf import canopy as _canopy
 from leaf import demography as _demo
 from leaf import disturbance as _dist
@@ -222,14 +223,11 @@ def _real_pos_int(v, name, lo=0):
 
 
 def _next_new_year(t):
-    try:
-        return _dt.datetime(t.year + 1, 1, 1, tzinfo=t.tzinfo)
-    except (OverflowError, ValueError):
-        return None
+    return _bc.next_new_year(t)          # the pure biology-calendar arithmetic (leaf.biocalendar), identical behaviour
 
 
 def _year_days(t):
-    return 366 if calendar.isleap(t.year) else 365
+    return _bc.year_days(t)
 
 
 def _sum_items(items, exclude=()):
@@ -943,10 +941,7 @@ class IntereventSession:
             raise IntereventStateError(f'interval start {start.isoformat()} != cursor {b.cursor.isoformat()}: {why}')
 
     def _advance_boundary(self, nb, end):
-        if end >= nb:
-            k = (end - nb) // self._cadence + 1
-            nb = nb + k * self._cadence
-        return nb
+        return _bc.advance_boundary(nb, end, self._cadence)
 
     def _publish(self, work, receipt, mem, static=None):
         '''ONE accepted-boundary replacement. `static` (Phase 2 rebind only) are the population-static session
