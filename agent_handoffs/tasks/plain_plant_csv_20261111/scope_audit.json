@@ -1,0 +1,35 @@
+{
+  "tool_counts": {
+    "Read": 53,
+    "Edit": 157,
+    "Write": 4
+  },
+  "violations": [],
+  "results": [
+    {
+      "file": "claude_01.stdout.jsonl",
+      "subtype": "success",
+      "is_error": true,
+      "result": "You've reached your Fable limit. Switch to another model, or manage usage credits at claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+    },
+    {
+      "file": "claude_02.stdout.jsonl",
+      "subtype": "success",
+      "is_error": false,
+      "result": "The change is written, but nothing has been run: I only had Read/Edit/Write, so every test and the preview helper is unexecuted. Please run the checks in `report.md` first.\n\n**What the new layout does**\n- Plant CSVs are now plain: the nine-column header, then nine fields per row. No `#` line, JSON or comments. `plant_csv_text` always returns plain CSV, and the `metadata=` and `provenance=` keywords were removed, so no code path can write embedded metadata.\n- Metadata lives in `<stem>.metadata.json` beside the CSV, bound to the CSV's exact bytes by a SHA-256. It carries time, domain, catalog hash and species table, row count, units, the initial/SURFACE flags and provenance.\n- File readers load and verify the companion automatically. They refuse a stale, edited or mismatched pair, and a SURFACE token in a file not declared initial (checked before any surface is sampled).\n- A CSV with no companion is read as a handwritten plain list, with the domain supplied by the caller. Old files with an embedded `# {json}` first line are still read, but never written.\n- Writes validate and serialise both files, preflight both paths, publish the companion first and the CSV second, and undo the companion if the CSV fails. An interruption between the two renames is detected on read rather than prevented. The docs say the pair is not atomic.\n- Checkpoints now hold `plants.csv`, `plants.metadata.json`, `restart_arrays.npz` and `restart.json`. The restart schema is bumped to version 4, and version"
+    },
+    {
+      "file": "claude_03.stdout.jsonl",
+      "subtype": "success",
+      "is_error": false,
+      "result": "All six corrections are made in the candidate, but none of it has been run: I had Read/Edit/Write only. The revision-2 test run you reported is yours. My fixes are unexecuted, so I'm claiming no pass.\n\n1. **Mutation-test bug:** `test_edited_companion_fields_are_refused` now restores the pristine companion directly in the temp directory before every mutation. It no longer goes through `write_plant_csv(overwrite=True)`. The production overwrite guard is unchanged, and all the old corruption cases are kept.\n2. **Actual companion memory accounting:** the arbitrary `3 * 16384` ledger constant is gone. A new `state.plant_metadata_size` counts the companion JSON with a streaming pass over the whole provenance, with no truncation and no full text built. `estimate_save_bytes` counts it at 4 copies before the snapshot. `save_session` recounts from the real snapshot provenance and re-admits against `max_bytes`, as stage `checkpoint_save_metadata`, before any serialization or file exists. A new large-provenance test in `tests/test_interevent.py` (2 MB blob) checks both refusals and an unchanged round trip.\n3. **Preview helper scope:** the `--rerender-from` feature is removed from `render_preview.py` and the README. The companion output, provenance file hashes and read-back check stay.\n4. **Metadata consistency:** `csv.n_bytes` must now be a non-negative integer equal to the exact CSV size, checked alongside the SHA-256. I added mutation tests for it, and the test helper that re-binds edi"
+    },
+    {
+      "file": "claude_04.stdout.jsonl",
+      "subtype": "success",
+      "is_error": false,
+      "result": "The uniform initial-age rule is in the candidate, with its tests and docs. Nothing has been executed, so the new code and tests are all unrun.\n\n**What it does**\n- When `initial_age_days` is omitted, each plant's age is now drawn independently and uniformly from 0 to its species' nominal life expectancy. The bound comes from `catalog.life_expectancy_days(sid)`, with years counted as 365 days.\n- The explicit selector `{\"distribution\": \"uniform_to_life_expectancy\"}` does the same thing. It reuses the existing single vectorised `rng.uniform` call per species batch.\n- A species with a null life expectancy gets a clear validation error under the default or the selector, naming the species.\n- Explicit numeric, constant and bounded-uniform ages still work with a null life expectancy.\n- The replayable config keeps the source rule (the selector, written explicitly even when the original omitted the key). The resolved bounds, life-expectancy value and unit, catalog hash and origin go into the report and the state provenance. That puts them in the companion metadata, never in the plain CSV.\n- Handwritten ages, loaded snapshots/restarts and age-0 recruits are untouched.\n\n**Shipped configs and docs**\n- `examples/phase0/generation.json` and the Jornada `generation.json` now use the selector.\n- The Jornada ranges are 0\u201315 years for BOER and 0\u201380 years for PROGLA, read from the unchanged `species.json`.\n- The docs state that this is only an initial sampling range, not a hard death age; mortal"
+    }
+  ],
+  "pass_scope": true
+}

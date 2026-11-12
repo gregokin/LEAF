@@ -1,0 +1,5 @@
+# Trial case verification
+
+Command: /home/okin/MAPLE/.venv-cupy/bin/python agent_handoffs/tasks/trial_case_20261111/static_review.py. Final exit0; [static result](tasks/trial_case_20261111/static_review.json), [installation identity](tasks/trial_case_20261111/installation.json), [final review](tasks/trial_case_20261111/final_review.md). Scope is standard-library file parsing/arithmetic/AST source inspection only.365weatherrows,72alternatingevents,12exactmonthlyrainbudgets=223.012mm/year. No scientific modules imported, no PET/soil/native validators/generators/models/tests/GPU jobs.
+
+Failures preserved and resolved: revision1 explicit Fable rate_limit/model_requires_usage_credits, reset unknown, child reaped; Sonnet continuation completed. Initial static assertion wrongly required weather provenance bytes unchanged despite approved path edit; exact one-string correction and unchanged physical data independently verified, disposition archived. No scientific criterion or cap relaxed. All four Claude processes reaped; no pending execution.

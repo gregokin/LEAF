@@ -1,0 +1,57 @@
+# =============================================================================
+# soil.toml - PLANNING MANIFEST mapped to the SYRUP subsurface public API
+# (NOT a native input schema; no loader reads this file). Paths resolve from the
+# case directory. SYRUP branch feature/subsurface-hydrology OWNS persistent soil
+# water. Tags: [LIT] literature texture prior; [AUTHOR] author / existing-API
+# illustrative assumption; [DERIVED]. Nothing here is site-specific measurement.
+#
+# Intended calls (all arguments as keywords/arrays; no execution here):
+#   layers   = soil_layers(depth_edges_m, theta_residual, theta_field_capacity,
+#                          theta_saturation, diffusivity_m2_s,
+#                          theta_evaporation_stress, evaporation_factor,
+#                          gravity_drainage)
+#   column   = prepare_column(layers, active_mask, cell_area, backend, reserve_bytes)
+#   state    = uniform_state(column, theta_initial, t_s=0)
+#   operator = prepare_transpiration(column)
+# Scalars are broadcast to all 3 layers as currently supported by the API.
+# =============================================================================
+
+[soil_layers]
+depth_edges_m = [0.0, 0.2, 0.5, 1.2]       # [AUTHOR] proposed; layers 0.2 / 0.3 / 0.7 m thick; same 3 layers as root_layers in species.json
+theta_residual = 0.065                     # [LIT] Carsel & Parrish 1988 sandy-loam texture prior (not site-specific)
+theta_saturation = 0.41                    # [LIT] Carsel & Parrish 1988 sandy-loam texture prior (not site-specific)
+theta_field_capacity = 0.20                # [AUTHOR] illustrative; not from the Carsel & Parrish table
+theta_evaporation_stress = 0.15            # [AUTHOR] illustrative; evaporation multiplier ramps (theta/stress)^2 below this
+diffusivity_m2_s = 2.0e-7                  # [AUTHOR] illustrative diffusivity; NOT a saturated hydraulic conductivity (Ksat)
+evaporation_factor = 1.0                   # [AUTHOR] existing-API illustrative value
+gravity_drainage = true                    # [AUTHOR] existing-API illustrative value
+texture = "uniform sandy-loam coefficients for all cells now; evolving texture/voxel remap is future work"
+
+[column]
+active_mask = "all 65536 cells active"     # 256 x 256
+n_cells = 65536                            # [DERIVED]
+cell_area_m2 = 0.0625                      # [DERIVED] 0.25 m x 0.25 m
+backend = "cuda"                           # [AUTHOR] explicit; no fallback
+reserve_bytes = 67108864                   # [AUTHOR] shared with case.toml [runtime]
+
+[initial_state]
+theta_initial = [0.10, 0.12, 0.14]         # [AUTHOR] antecedent volumetric moisture per layer, shallow -> deep (between residual and field capacity)
+t_s = 0
+
+[forcing_between_storms]
+added_water_m = "zeros: no daily extra rain, irrigation or run-on in any interevent step"
+storm_infiltration = "ONLY the accepted infiltration reported by SYRUP's storm/water owner; no second rainfall or infiltration authority in LEAF or in this package"
+storage_policy = "subsurface storage persists between storms; no reset at event end"
+
+[potential_soil_evaporation]
+rule = "potential_evaporation_m_s = 0.7 * shared_PET_mm_per_day / 1000 / 86400"   # conversion mm/day -> m/s
+fraction_of_pet = 0.7                      # [AUTHOR] PROVISIONAL partition, plus the native moisture-stress multiplier
+status = "NOT a calibrated canopy/bare-soil energy partition, NOT an observation of soil evaporation. Do not claim E+T <= PET. SYRUP/the caller must own and qualify the shared atmospheric E/T partition before any coupled execution. The native ledger closes WATER, not energy."
+plant_demand = "LEAF demands are already biomass-specific (species.json water_use); water is debited once by SYRUP's plant withdrawal; no double debit"
+
+[events]
+wind = "native water unchanged; no E/T/growth during wind"
+rain_and_recession = "SYRUP/external owner supplies the resulting SoilColumnState; LEAF runs no storm physics; no E/T/growth during rain AND recession"
+no_catch_up = "no biological catch-up at event boundaries"
+surface_moisture_wind_feedback = "disabled socket (future work)"
+rain_water_profile_id = "trial_sandy_loam"   # id named in scheduler/examples/rain.json; the upstream owner must bind a qualified profile to it; no transport parameter set is copied here

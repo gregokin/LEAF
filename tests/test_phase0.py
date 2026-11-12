@@ -278,7 +278,9 @@ class TestPlantState(unittest.TestCase):
             s.advance_time(1.0)      # unresolved initial placements cannot move forward in time
         text = state.plant_csv_text(s, initial=True)
         self.assertIn('SURFACE', text)
-        self.assertIn('"initial": true', text)
+        self.assertNotIn('#', text)                       # plain CSV: no embedded metadata / comment line
+        self.assertNotIn('"initial"', text)
+        self.assertTrue(state.plant_metadata(s, text, initial=True)['initial'])   # the declaration lives in the companion
         surf = np.arange(400, dtype=float).reshape(20, 20) + 100.0  # value = 100 + row*20 + col
         self.assertEqual(s.resolve_establishment(surf), 3)
         self.assertTrue(s.establishment_resolved)
@@ -369,7 +371,10 @@ class TestPlantState(unittest.TestCase):
         s = state.PlantState.empty(self.cat, self.dom, time_days=12.5)
         self.assertEqual(len(s), 0)
         text = state.plant_csv_text(s)
-        back = state.parse_plant_csv(text, self.cat)
+        self.assertEqual(text.count('\n'), 1)             # header only, plain CSV
+        with self.assertRaises(state.StateError):         # a plain CSV carries no domain: caller context is required
+            state.parse_plant_csv(text, self.cat)
+        back = state.parse_plant_csv(text, self.cat, metadata=state.plant_metadata(s, text))
         self.assertEqual(len(back), 0)
         self.assertEqual(back.time_days, 12.5)
         self.assertEqual(back.domain, self.dom)
@@ -405,74 +410,103 @@ class TestPlantState(unittest.TestCase):
                              time_days=0.1 + 0.2, provenance={'test': 'round-trip'})
         with tempfile.TemporaryDirectory() as td:
             path = os.path.join(td, 'veg.csv')
+            mpath = os.path.join(td, 'veg.metadata.json')
+            self.assertEqual(state.metadata_path(path), mpath)
             state.write_plant_csv(s, path)
+            self.assertTrue(os.path.isfile(mpath))
             with self.assertRaises(FileExistsError):
                 state.write_plant_csv(s, path)  # no overwrite by default
             state.write_plant_csv(s, path, overwrite=True)
-            back = state.read_plant_csv(path, self.cat)
+            back = state.read_plant_csv(path, self.cat)     # the companion is loaded and verified automatically
             for k in state.PlantState.ARRAY_NAMES:
                 np.testing.assert_array_equal(getattr(back, k), getattr(s, k), err_msg=k)
             self.assertEqual(back.time_days, 0.1 + 0.2)
             self.assertEqual(back.domain, dom)
             self.assertEqual(back.provenance['test'], 'round-trip')
             self.assertEqual(back.catalog_hash, self.cat.hash)
-            with open(path, 'r', encoding='utf-8') as fh:
+            with open(path, 'r', encoding='utf-8', newline='') as fh:
                 text = fh.read()
-            with self.assertRaises(state.StateError):
-                state.parse_plant_csv(text, consistent_catalog())        # catalog mismatch
-            with self.assertRaises(state.StateError):
-                state.parse_plant_csv(text, self.cat, domain=state.Domain(37, 23, 0.7))   # domain disagreement
-            self.assertEqual(len(state.parse_plant_csv(text, self.cat, domain=dom)), n)
+            with open(mpath, 'r', encoding='utf-8') as fh:
+                meta_text = fh.read()
+            meta = json.loads(meta_text)
+            self.assertEqual(meta['n_plants'], n)
+            self.assertEqual(meta['csv']['sha256'], state._sha256(text.encode('utf-8')))
+            self.assertEqual(meta['csv']['n_bytes'], len(text.encode('utf-8')))
+            self.assertNotIn('#', text)                                 # plain CSV: header + rows only
             lines = text.splitlines(True)
+            self.assertEqual(lines[0].rstrip('\n'), ','.join(state.CSV_COLUMNS))
+            self.assertEqual(len(lines), n + 1)
+
+            def rebound(m, new_text, **changes):
+                m = copy.deepcopy(m)                                    # a companion consistent with an EDITED csv text
+                m['csv']['sha256'] = state._sha256(new_text.encode('utf-8'))      # refresh BOTH the hash and the size so
+                m['csv']['n_bytes'] = len(new_text.encode('utf-8'))               # the intended later check is reached
+                m.update(changes)
+                return m
+            # catalog / domain / time guards come from the companion (or the caller) and are all refused
             with self.assertRaises(state.StateError):
-                state.parse_plant_csv(''.join(lines[:-1]), self.cat)     # truncated (n_plants mismatch)
+                state.parse_plant_csv(text, consistent_catalog(), metadata=meta_text)        # catalog mismatch
             with self.assertRaises(state.StateError):
-                state.parse_plant_csv(''.join(lines[:-1]) + lines[-1].rsplit(',', 2)[0] + '\n', self.cat)  # malformed row
+                state.parse_plant_csv(text, self.cat, domain=state.Domain(37, 23, 0.7), metadata=meta_text)   # domain disagreement
             with self.assertRaises(state.StateError):
-                state.parse_plant_csv(lines[0] + lines[1].replace('plant_id', 'id') + ''.join(lines[2:]), self.cat)
-            meta = json.loads(lines[0][1:])
-            meta['schema_version'] = 99
+                state.parse_plant_csv(text, self.cat, time_days=5.0, metadata=meta_text)     # time disagreement
+            self.assertEqual(len(state.parse_plant_csv(text, self.cat, domain=dom, metadata=meta_text)), n)
+            with self.assertRaises(state.StateError):                  # truncated text: size + SHA-256 binding
+                state.parse_plant_csv(''.join(lines[:-1]), self.cat, metadata=meta_text)
+            wrong_size = copy.deepcopy(meta)
+            wrong_size['csv']['n_bytes'] += 1                          # right SHA-256, wrong declared size
             with self.assertRaises(state.StateError):
-                state.parse_plant_csv('# ' + json.dumps(meta) + '\n' + ''.join(lines[1:]), self.cat)
-            meta = json.loads(lines[0][1:])
-            meta['domain']['edges'] = 'periodic'
+                state.parse_plant_csv(text, self.cat, metadata=wrong_size)
+            self.assertEqual(len(state.parse_plant_csv(text, self.cat, metadata=meta)), n)   # pristine companion still accepted
+            with self.assertRaises(state.StateError):                  # truncated text with a re-bound hash: n_plants
+                state.parse_plant_csv(''.join(lines[:-1]), self.cat, metadata=rebound(meta, ''.join(lines[:-1])))
+            # row-level checks (plain list + caller domain; no companion is involved)
             with self.assertRaises(state.StateError):
-                state.parse_plant_csv('# ' + json.dumps(meta) + '\n' + ''.join(lines[1:]), self.cat)
+                state.parse_plant_csv(''.join(lines[:-1]) + lines[-1].rsplit(',', 2)[0] + '\n', self.cat, domain=dom)  # malformed row
             with self.assertRaises(state.StateError):
-                state.parse_plant_csv(''.join(lines[1:]), self.cat)      # handwritten CSV needs a domain
-            self.assertEqual(len(state.parse_plant_csv(''.join(lines[1:]), self.cat, domain=dom)), n)
+                state.parse_plant_csv(lines[0].replace('plant_id', 'id') + ''.join(lines[1:]), self.cat, domain=dom)
+            bad_meta = copy.deepcopy(meta)
+            bad_meta['schema_version'] = 99
+            with self.assertRaises(state.StateError):
+                state.parse_plant_csv(text, self.cat, metadata=bad_meta)
+            bad_meta = copy.deepcopy(meta)
+            bad_meta['domain']['edges'] = 'periodic'
+            with self.assertRaises(state.StateError):
+                state.parse_plant_csv(text, self.cat, metadata=bad_meta)
+            with self.assertRaises(state.StateError):
+                state.parse_plant_csv(text, self.cat)                  # a plain CSV needs a domain from the caller
+            self.assertEqual(len(state.parse_plant_csv(text, self.cat, domain=dom)), n)
             # standard strict CSV: an unterminated quoted last field is refused ...
             last_status = state.STATUS_NAMES[int(s.status[-1])]
             quoted = ''.join(lines[:-1]) + lines[-1].rsplit(',', 1)[0] + ',"' + last_status + '\n'
             with self.assertRaises(state.StateError):
-                state.parse_plant_csv(quoted, self.cat)
+                state.parse_plant_csv(quoted, self.cat, domain=dom)
             # ... while ordinary quoted status / numeric fields (spreadsheet style) round-trip exactly
             quoted_ok = ''.join(lines[:-1]) + lines[-1].rsplit(',', 1)[0] + ',"' + last_status + '"\n'
-            qb = state.parse_plant_csv(quoted_ok, self.cat)
+            qb = state.parse_plant_csv(quoted_ok, self.cat, domain=dom)
             for k in state.PlantState.ARRAY_NAMES:
                 np.testing.assert_array_equal(getattr(qb, k), getattr(s, k), err_msg=k)
-            f = lines[2].rstrip('\n').split(',')
+            f = lines[1].rstrip('\n').split(',')
             row_q = ','.join([f[0], '"' + f[1] + '"'] + ['"' + v + '"' for v in f[2:8]] + [f[8]]) + '\n'
-            qn = state.parse_plant_csv(lines[0] + lines[1] + row_q + ''.join(lines[3:]), self.cat)
+            qn = state.parse_plant_csv(lines[0] + row_q + ''.join(lines[2:]), self.cat, domain=dom)
             for k in state.PlantState.ARRAY_NAMES:
                 np.testing.assert_array_equal(getattr(qn, k), getattr(s, k), err_msg=k)
             with self.assertRaises(state.StateError):   # stray quote inside a field is malformed CSV
-                state.parse_plant_csv(lines[0] + lines[1] + lines[2].replace(',live', ',li"ve') + ''.join(lines[3:]), self.cat)
+                state.parse_plant_csv(lines[0] + lines[1].replace(',live', ',li"ve') + ''.join(lines[2:]), self.cat, domain=dom)
 
     def test_metadata_noninitial_surface_token_refused_before_sampling(self):
         s = small_state(self.cat, resolved=False)
         text = state.plant_csv_text(s, initial=True)
-        line, body = text.split('\n', 1)
-        meta = json.loads(line[1:])
+        meta = state.plant_metadata(s, text, initial=True)
         later = state.constant_surface(self.dom, 55.0)
         for mutate in (lambda m: m.update(initial=False, time_days=7.0),
                        lambda m: m.pop('initial'),
                        lambda m: m.update(establishment_resolved=True)):
-            m = dict(meta)
+            m = copy.deepcopy(meta)
             mutate(m)
             with self.assertRaises(state.StateError):
-                state.parse_plant_csv('# ' + json.dumps(m) + '\n' + body, self.cat, surface=later)
-        ok = state.parse_plant_csv(text, self.cat, surface=later)   # declared initial: resolved from the INITIAL surface once
+                state.parse_plant_csv(text, self.cat, surface=later, metadata=m)
+        ok = state.parse_plant_csv(text, self.cat, surface=later, metadata=meta)   # declared initial: resolved from the INITIAL surface once
         self.assertTrue(ok.establishment_resolved)
         self.assertEqual(ok.establishment_ground_m[ok.indices_of([1])[0]], 55.0)
         self.assertEqual(ok.establishment_ground_m[ok.indices_of([3])[0]], 99.9)
@@ -1201,7 +1235,22 @@ class TestRecording(unittest.TestCase):
             self.assertEqual(wb.records, [])
             self.assertEqual(wb.skipped_total, 0)
             with open(pc, 'r', encoding='utf-8') as fh:
-                self.assertIn('"time_days": 10.0', fh.readline())
+                self.assertEqual(fh.readline().rstrip('\n'), ','.join(state.CSV_COLUMNS))   # plain CSV: header first
+            with open(state.metadata_path(pc), 'r', encoding='utf-8') as fh:
+                self.assertEqual(json.load(fh)['time_days'], 10.0)                           # metadata lives in the companion
+            # the destination collision covers the COMPANION too: a stale companion alone blocks the write, nothing changes
+            tpl2 = os.path.join(td, 'veg2_{index}.csv')
+            w2 = recording.SnapshotWriter(tpl2)
+            stale = os.path.join(td, 'veg2_0.metadata.json')
+            with open(stale, 'w', encoding='utf-8') as fh:
+                fh.write('{"unrelated": true}\n')
+            with self.assertRaises(FileExistsError):
+                w2.write_initial(s)
+            self.assertFalse(os.path.exists(os.path.join(td, 'veg2_0.csv')))
+            with open(stale, 'r', encoding='utf-8') as fh:
+                self.assertEqual(fh.read(), '{"unrelated": true}\n')   # unrelated metadata is never overwritten
+            self.assertEqual(w2.records, [])
+            self.assertEqual(wa.records[0]['metadata_path'], state.metadata_path(pa))
 
 
 # =============================================================== events
@@ -1592,7 +1641,13 @@ class TestCLIAndExamples(unittest.TestCase):
             with open(raw, 'r', encoding='utf-8') as fh:
                 head = fh.read()
             self.assertIn('SURFACE', head)
-            self.assertIn('"initial": true', head)
+            self.assertNotIn('#', head)                                   # plain CSV
+            self.assertEqual(head.splitlines()[0], ','.join(state.CSV_COLUMNS))
+            with open(os.path.join(td, 'raw.metadata.json'), 'r', encoding='utf-8') as fh:
+                raw_meta = json.load(fh)
+            self.assertIs(raw_meta['initial'], True)                      # the declaration lives in the companion
+            self.assertIs(raw_meta['establishment_resolved'], False)
+            self.assertTrue(os.path.isfile(os.path.join(td, 'init.metadata.json')))
             code, _, err = run_cli(['export-canopy', '--species', str(SPECIES_JSON), '--plants', raw, '--surface-constant', '100.0',
                                     '--out', os.path.join(td, 'v.json')])
             self.assertEqual(code, 1)
@@ -1663,6 +1718,9 @@ class TestCLIAndExamples(unittest.TestCase):
             self.assertEqual(len(s), brief['n_plants'])
             self.assertTrue(s.establishment_resolved)
             np.testing.assert_array_equal(s.establishment_ground_m, 12.0)
+            for sid, years in (('grass', 8), ('shrub', 40)):     # shipped example: uniform 0 .. species life expectancy
+                a = s.age_days[s.species_index == cat.index(sid)]
+                self.assertTrue(np.all((a >= 0.0) & (a < years * 365.0)) and float(a.std()) > 0.0, sid)
             with open(rep, 'r', encoding='utf-8') as fh:
                 report = json.load(fh)
             self.assertEqual(report['seed'], 20261110)
@@ -1673,6 +1731,33 @@ class TestCLIAndExamples(unittest.TestCase):
             view = canopy.maple_vegetation_view(s, cat, state.constant_surface(s.domain, 12.0))
             self.assertEqual(view['meta']['n_objects'], len(s))
             self.assertTrue(view['meta']['native_maple_valid'])
+            # plain CSV + companion metadata (not embedded), both reported
+            gen_meta = os.path.join(td, 'gen.metadata.json')
+            self.assertEqual(brief['metadata_written'], gen_meta)
+            with open(out, 'r', encoding='utf-8') as fh:
+                self.assertEqual(fh.readline().rstrip('\n'), ','.join(state.CSV_COLUMNS))
+            with open(gen_meta, 'r', encoding='utf-8') as fh:
+                gm = json.load(fh)
+            self.assertEqual((gm['n_plants'], gm['initial'], gm['time_days']), (len(s), False, s.time_days))
+            self.assertEqual(gm['provenance']['command'], 'leaf generate')
+            self.assertEqual(report['metadata_written'], gen_meta)
+            # --report may not alias the COMPANION of --out either: refused before any output
+            out3 = os.path.join(td, 'gen3.csv')
+            code, _, err = run_cli(['generate', '--species', str(SPECIES_JSON), '--config', str(GENERATION_JSON), '--out', out3,
+                                    '--report', os.path.join(td, 'gen3.metadata.json')])
+            self.assertEqual(code, 1)
+            self.assertEqual([n for n in os.listdir(td) if n.startswith('gen3')], [])
+            # an existing (possibly unrelated) companion blocks the run before generation: nothing else is written
+            stale = os.path.join(td, 'gen4.metadata.json')
+            with open(stale, 'w', encoding='utf-8') as fh:
+                fh.write('{"unrelated": true}\n')
+            code, _, err = run_cli(['generate', '--species', str(SPECIES_JSON), '--config', str(GENERATION_JSON), '--out',
+                                    os.path.join(td, 'gen4.csv'), '--report', os.path.join(td, 'gen4_report.json')])
+            self.assertEqual(code, 1)
+            self.assertIn('exists', err)
+            self.assertEqual(sorted(n for n in os.listdir(td) if n.startswith('gen4')), ['gen4.metadata.json'])
+            with open(stale, 'r', encoding='utf-8') as fh:
+                self.assertEqual(fh.read(), '{"unrelated": true}\n')
             # existing report without --overwrite: refused before generation, CSV untouched
             mtime = os.path.getmtime(out)
             code, _, err = run_cli(['generate', '--species', str(SPECIES_JSON), '--config', str(GENERATION_JSON), '--out',

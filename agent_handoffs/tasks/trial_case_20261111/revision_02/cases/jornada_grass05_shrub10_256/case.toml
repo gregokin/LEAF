@@ -1,0 +1,133 @@
+# =============================================================================
+# case.toml - PLANNING / API-MAPPING MANIFEST (NOT a native input file)
+# Case: jornada_grass05_shrub10_256   Authored: 2026-11-11 (trial_case_20261111)
+#
+# READ THIS FIRST
+#   * There is NO generic `leaf run case.toml` loader, no CLI that reads this
+#     file, and no end-to-end coupled MAPLE/SYRUP/MASY/LEAF year driver in the
+#     supplied code. This TOML only records, in one readable place, the exact
+#     values a future caller (script or driver) intends to pass to PUBLIC APIs.
+#   * Native, strictly validated inputs in this package: generation.json
+#     (leaf.generation_config v1), species.json (leaf.species_catalog v1),
+#     climate/weather_2027.json (masy.weather.v1) and the three event examples
+#     in scheduler/examples/ (masy.wind_event.v1, masy.rain_event.v1,
+#     masy.interevent.v1). Everything else here (TOML/CSV) is a planning format.
+#   * All relative paths below resolve from THIS case directory.
+#   * Provenance tags: [USER] user request; [AUTHOR] author trial choice;
+#     [DERIVED] arithmetic from tagged inputs; [REF] existing reference setting;
+#     [NOAA] published normals. See PARAMETERS.md and SOURCES.md for the
+#     exhaustive table. Nothing here is a field calibration.
+#   * No model, generator, validator or test was executed while authoring.
+# =============================================================================
+
+[manifest]
+case_id = "jornada_grass05_shrub10_256"
+status = "input-authoring candidate; not executed; not validated by running code"
+format = "planning manifest (no loader exists)"
+baseline_git = "1e468e1410992430e0aa5045ca44637b382ac0e9"
+authored = "2026-11-11"
+path_base = "this case directory"
+
+[paths]
+generation_config = "generation.json"            # native leaf.generation_config v1
+species_catalog = "species.json"                 # native leaf.species_catalog v1
+weather = "climate/weather_2027.json"            # native masy.weather.v1
+monthly_normals = "climate/monthly_normals.csv"  # planning/derivation table
+landscape = "landscape.toml"                     # planning manifest
+soil = "soil.toml"                               # planning manifest (SYRUP API mapping)
+scheduler_settings = "scheduler/settings.toml"   # planning manifest
+scheduler_plan = "scheduler/annual_plan.csv"     # DESIGN EXAMPLE, not native MASY scenario
+scheduler_examples = "scheduler/examples/"       # native event-file examples
+# Expected AFTER separate, explicitly authorised preparation steps (do NOT exist now):
+surface_expected = "inputs/surface.npy"          # not generated; no placeholder is provided
+plants_expected = "inputs/plants.csv"            # not generated; no placeholder is provided
+outputs_dir = "outputs/"
+
+[domain]                                          # mirrors generation.json domain
+nx = 256
+ny = 256
+dx_m = 0.25
+dy_m = 0.25
+origin_x_m = 0.0
+origin_y_m = 0.0
+area_m2 = 4096.0                                  # [DERIVED] 64 m x 64 m
+boundary = "finite closed NON-periodic for LEAF placement, crowns and roots; no invented edge mode"
+
+[calendar]
+start = "2027-01-01T00:00:00-07:00"               # [AUTHOR]
+end = "2028-01-01T00:00:00-07:00"                 # [AUTHOR] 365 days
+utc_offset = "-07:00"                             # fixed MST, no DST
+native_model_epoch_s = 0                          # model time 0 = start
+year_days = 365                                   # 2027 is not a leap year
+
+[runtime]                                         # intended IntereventSession arguments
+backend = "cuda"                                  # [AUTHOR] explicit; no fallback to numpy/numba
+cuda_device = "caller supplies an explicit integer device at run time (never switched, no fallback)"
+root_builder = "compiled"                         # shared compiled root builder
+daily_step_max_s = 86400                          # accounting interval at most one day, split further at midnight/growth/events
+growth_cadence_days = 7                           # fixed 7-day growth grid; max supported cadence
+roots_rebuilt = "after growth and after population changes"
+flush_growth_at = "start of every transport event (before advance_transport)"
+max_edges = 20000000                              # [AUTHOR] cap, not a measured requirement
+max_bytes = 2147483648                            # [AUTHOR] 2 GiB global admission budget
+reserve_bytes = 67108864                          # [AUTHOR] 64 MiB caller reserve
+budget_policy = "never raised after a refusal"
+rng_seed = 20261111                               # [AUTHOR]
+
+[reproduction]                                    # annual boundary: IntereventSession.apply_reproduction
+reproduction_patch_size_m = 5.0                   # [AUTHOR] explicit ecological patch size, needed by PROGLA seed pathway
+max_new_plants = 20000                            # [AUTHOR]
+max_total_records = 200000                        # [AUTHOR]
+max_attempts = 200000                             # [AUTHOR]
+calls_per_year = 1
+notes = "New IDs and age 0; clonal daughters funded by the parent; seedling AGB is an external credit; no seed bank and no water filter. generation.json overlap=disallowed does not constrain later growth or recruitment."
+
+[mortality_and_disturbance]
+annual_decision = "IntereventSession.apply_annual_decision once per completed year (species.json mortality)"
+surface_event_response = "IntereventSession.apply_surface_event only after an accepted transport interval (species.json disturbance)"
+abrasion = "disabled (null) until an explicit calibrated dose unit and response exist; flux is never treated as dose"
+temperature_gate = "demand/growth multiplier only; NO freezing mortality and NO fire module"
+
+[snapshots]                                       # leaf.recording.SnapshotWriter mapping (CSV format 1)
+cadence_days = 30.0                               # [AUTHOR] EXACT 30-day cadence, user selectable; APPROXIMATELY monthly, NOT calendar months
+path_template = "outputs/plants_{index:04d}.csv"  # caller resolves relative to this case directory
+start_time_days = "set by write_initial(state) at model day 0"
+initial = "explicit write_initial(state) at day 0"
+cadence_due_days = [30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]   # [DERIVED] k*30 days if the caller reaches them
+final = "explicit write_final(state) at day 365"
+event_snapshots = "written separately by the caller (a second SnapshotWriter with its own path_template, or leaf.state.write_plant_csv); SnapshotWriter itself has no event kind"
+missed_due_policy = "a due time crossed INSIDE transport (no plant state exists there) is listed in skipped_due_times_days and counted as missed; the state is never interpolated or fabricated"
+calendar_month_cadence = "not implemented; a caller must handle calendar months explicitly if wanted"
+same_csv_format = "initial, cadence, event and final snapshots all use the SAME canonical leaf.plant_state_csv format 1"
+
+[checkpoints]
+directory = "outputs/checkpoints/"                # user selectable
+format = "complete restart format 3 (IntereventSession.save/load), distinct from the plant CSV format 1"
+cadence = "caller choice; not defined by this manifest"
+
+[weather]
+file = "climate/weather_2027.json"
+latitude_deg = 31.8                               # [AUTHOR] rounded El Paso-area proxy; must be bound in the MAPLE case.yaml location.latitude_deg for native MASY; NOT derived from the NOAA table or the weather file
+pet = "SYRUP ecohyd_hargreaves computed at run time by the owning library; no PET value is computed or stored here"
+
+[soil_and_water]
+manifest = "soil.toml"
+water_authority = "SYRUP owns persistent soil water; LEAF never subtracts water itself"
+extra_water_in_interevent = "none: added_water_m is zeros (no daily extra rain, irrigation or run-on); storm infiltration is accepted only from SYRUP"
+
+[scheduler]
+settings = "scheduler/settings.toml"
+plan = "scheduler/annual_plan.csv"
+gap_policy_note = "a native masy.scenario.v1 gap_policy supports ONLY refuse or idle; idle runs NO evaporation, transpiration or growth. This case's design needs interevent biology in the gaps, which a caller must fill at run time from actual terminal transport times."
+
+[limitations]
+items = [
+  "No generic case runner: this file is documentation of intended API arguments.",
+  "annual_plan.csv is a reviewed DESIGN EXAMPLE, not a native MASY scenario; MASY idle gaps do no E/T/growth.",
+  "The rain recession guard (21600 s) is a MAXIMUM, not the realized recession duration.",
+  "No full MAPLE/SYRUP transport calibration or profile set is copied here; those belong upstream and must be qualified there.",
+  "Soil-evaporation partition (0.7 x shared PET) is a provisional AUTHOR choice that SYRUP/the caller must qualify before full coupling.",
+  "Surface-moisture feedback to wind is disabled; evolving soil-surface-to-soil-layer remapping is deferred.",
+  "No surface.npy and no plants.csv are included; neither terrain nor population has been generated.",
+  "Parameters are uncalibrated trial hypotheses, not field validation of Jornada dynamics."
+]

@@ -1,0 +1,76 @@
+# =============================================================================
+# scheduler/settings.toml - DRIVER DESIGN EXAMPLE (planning manifest)
+# NOT a native MASY scenario (masy.scenario.v1), NOT a CLI input, NOT loaded by
+# any code. It documents the intended year of alternating wind / rain forcing and
+# the interevent biology that a future driver must run in the gaps.
+# Paths resolve from the case directory. Every date, count, duration,
+# disaggregation rule and wind-forcing value below is an AUTHOR synthetic choice;
+# only the 12 monthly precipitation totals (and the monthly temperatures in the
+# weather file) come from the NOAA 1991-2020 normals.
+# =============================================================================
+
+[manifest]
+format = "design example (planning manifest)"
+plan_file = "scheduler/annual_plan.csv"
+native_event_examples = ["scheduler/examples/wind.json", "scheduler/examples/rain.json", "scheduler/examples/interevent.json"]
+calendar_start = "2027-01-01T00:00:00-07:00"
+calendar_end = "2028-01-01T00:00:00-07:00"
+year_length_s = 31536000
+pairs = 36
+transport_rows = 72
+
+[wind]
+schema = "masy.wind_event.v1"
+example_file = "scheduler/examples/wind.json"
+shear_velocity_m_s = 0.6                   # [AUTHOR] reference experimental forcing, NOT an average wind climate
+directions_deg_to = [22.5, 157.5]          # [AUTHOR] bimodal, 135 deg separation, vector mean east (90 deg)
+block_duration_s = [21600, 21600]          # compact 2-block example; the MAPLE reference toggles with 600 s blocks - this differs but retains the directions and total duration
+total_duration_s = 43200                   # 12 h forcing
+start_local_time = "09:00 MST on the day BEFORE the paired rain"
+nominal_end_local_time = "21:00 MST on that day"
+additional_settlement = "any extra settlement the owning model counts is ACTUAL elapsed time and is not ignored"
+surface_soil_feedback_to_wind = "disabled"
+
+[rain]
+schema = "masy.rain_event.v1"
+example_file = "scheduler/examples/rain.json"
+water_profile_id = "trial_sandy_loam"
+start_local_time = "09:00 MST"
+recession_guard_s = 21600                  # native MAXIMUM allowed recession, NOT the realized duration
+water_block_end = "ONLY the actual SYRUP terminal recession time"
+background_rain = "none"
+monthly_counts = [2, 2, 3, 3, 3, 3, 4, 4, 4, 3, 3, 2]                      # [AUTHOR] sum 36
+dates_by_month = [[4, 18], [4, 18], [4, 14, 24], [4, 14, 24], [4, 14, 24], [4, 14, 24], [3, 10, 17, 24], [3, 10, 17, 24], [3, 10, 17, 24], [4, 14, 24], [4, 14, 24], [4, 18]]   # [AUTHOR] day of month
+duration_s_by_month = [21600, 21600, 21600, 14400, 14400, 10800, 10800, 10800, 10800, 14400, 21600, 21600]   # [AUTHOR] Jan,Feb,Mar,Nov,Dec 6 h; Apr,May,Oct 4 h; Jun-Sep 3 h
+monthly_total_mm = [9.906, 10.16, 6.096, 4.318, 10.922, 18.542, 40.132, 42.418, 38.608, 14.986, 10.922, 16.002]   # [NOAA] 25.4 x published inches
+annual_total_mm = 223.012                  # [DERIVED] sum of the 12 totals = 25.4 x 8.78 in
+jul_sep_total_mm = 121.158                 # [DERIVED] about 54.3 percent of the annual total
+disaggregation = "split each monthly total equally into N events at 0.001 mm precision; the first N-1 events take the total/N rounded to the nearest 0.001 mm (half rounds up), the LAST event takes the remainder so the month sums exactly"
+intensity_mm_h = "event_depth_mm / (duration_s / 3600), constant within an event (single interval). rain_depth_mm in annual_plan.csv is the authoritative budget; the CSV intensity is a 9-decimal display value (depth error at most about 2e-9 mm) and an adapter must rebuild intensity from depth/duration"
+forcing_ref_note = "annual_plan.csv forcing_ref values (scheduler/examples/wind.json, scheduler/examples/rain.json) are PATTERN references: each row's own depth/duration builds a fresh native event; the July example is not replayed for every month"
+example_july_first = { depth_mm = 10.033, duration_s = 10800, intensity_mm_h = 3.344333333333333 }
+
+[pairing]
+rule = "36 PAIRS in strict wind -> rain alternation: each rain is preceded by one wind event starting 09:00 the previous day"
+order = "wind_p01, rain_p01, wind_p02, rain_p02, ..., wind_p36, rain_p36"
+nominal_wind_to_rain_gap_s = 43200         # 21:00 -> 09:00
+overlap_policy = "NO overlap: if a scheduled start would precede the realized end of the previous block, REFUSE; forcing is never truncated or shifted"
+
+[interevent]
+schema = "masy.interevent.v1 (per-day pieces; see examples/interevent.json)"
+processes = { evaporation = true, transpiration = true, growth = true }
+initial_period = "2027-01-01T00:00:00-07:00 -> start of wind_p01 (2027-01-03T09:00:00-07:00 = 205200 s, 57 h)"
+between_periods = "from the ACTUAL terminal time of each accepted transport block to the FIXED start of the next block"
+final_period = "from the ACTUAL terminal time of rain_p36 (nominal rain end 2027-12-18T15:00 = 30380400 s; static forcing-plus-full-guard arithmetic = 30402000 s, not a measured terminal time) to 2028-01-01T00:00:00-07:00 = 31536000 s"
+fill_rule = "a future driver fills every interevent period at run time from actual accepted transport end times to the next fixed start, split at local midnight, the 7-day growth grid and the new year (IntereventSession.split_record)"
+inside_wind_rain_recession = "NO evaporation, transpiration or growth and NO hidden catch-up; the calendar advances and growth-grid points crossed by transport are skipped (advance_transport)"
+masy_native_gap_policy = "refuse or idle only; idle runs NO hydrology or biology, therefore this annual plan cannot be loaded as a native scenario and gap_policy=interevent does not exist"
+water_authority = "no second rainfall/infiltration authority; accepted storm water comes only from SYRUP; added_water_m = 0 in interevent steps; no double debit of transpiration or evaporation"
+
+[annual_boundary]
+order_after_year_end = ["flush_growth", "apply_surface_event if a transport diagnostic is pending", "flush_deferred_season if season_due", "apply_annual_decision", "apply_reproduction"]
+note = "The plan year ends 2028-01-01; the final annual decision and reproduction opportunity occur at/after that boundary in the caller."
+
+[status]
+qualified_end_to_end = false
+note = "No end-to-end LEAF/MAPLE/SYRUP/MASY year driver is supplied or qualified. This file does not copy any MAPLE wind or SYRUP storm calibration or profile; those owners must supply qualified parameter sets and source pairs."

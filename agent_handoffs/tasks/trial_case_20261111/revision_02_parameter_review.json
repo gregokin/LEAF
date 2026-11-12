@@ -1,0 +1,28 @@
+{
+  "scope": "Revision2 static schema-key and parameter arithmetic, no native module imports or calls",
+  "errors": [],
+  "details": {
+    "BOER": {
+      "layer_sum": 1.0,
+      "root_integration": [
+        0.39639133268704063,
+        0.3360854884442371,
+        0.26752317886872223
+      ],
+      "support_k_kg_year_per_m3": 0.07024938531787846,
+      "nominal_B_from_mean_D": 0.00757636850657921,
+      "nominal_count": 25073.02488093859
+    },
+    "PROGLA": {
+      "layer_sum": 1.0,
+      "root_integration": [
+        0.33283263377678235,
+        0.32719499000870794,
+        0.33997237621450965
+      ],
+      "support_k_kg_year_per_m3": 0.10537407797681772,
+      "nominal_B_from_mean_D": 0.3088161777508183,
+      "nominal_count": 516.355363884676
+    }
+  }
+}

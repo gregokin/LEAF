@@ -1,0 +1,56 @@
+# =============================================================================
+# landscape.toml - PLANNING MANIFEST (NOT a native input; no loader reads it)
+# Records the computational landscape for jornada_grass05_shrub10_256.
+# Paths resolve from the case directory. All values are reference COMPUTATIONAL
+# settings, NOT observed El Paso/Jornada terrain.
+# Tags: [REF] copied from the MAPLE reference case leaf_shrubs11_bimodal135_256_12h
+# (/home/okin/MAPLE/cases/leaf_shrubs11_bimodal135_256_12h/{case.yaml,source/generation.json});
+# [USER]/[AUTHOR]/[DERIVED] as in PARAMETERS.md.
+# =============================================================================
+
+[grid]
+nx = 256                 # [REF]
+ny = 256                 # [REF]
+dx_m = 0.25              # [REF]
+dy_m = 0.25              # [REF]
+width_m = 64.0           # [DERIVED] nx*dx_m
+height_m = 64.0          # [DERIVED] ny*dy_m
+area_m2 = 4096.0         # [DERIVED]
+origin_x_m = 0.0         # [REF] landscape frame == MAPLE frame, south-west corner
+origin_y_m = 0.0         # [REF]
+axes = "(ny, nx): row = y north, col = x east"
+cell_sampling = "containing_cell_closed_upper"
+
+[boundaries]
+leaf_placement_and_roots = "finite, closed, NON-periodic; crowns and roots are edge-clipped; nothing wraps"
+reference_transport_boundary = "the MAPLE reference case uses periodic TRANSPORT boundaries"
+flag = "FUTURE COUPLING CHOICE: LEAF finite edges versus periodic MAPLE transport has not been reconciled here. No toroidal biology is implemented and none is claimed."
+
+[surface]
+status = "NOT GENERATED - no inputs/surface.npy exists and no fake surface is provided"
+bare_seed = 1173                        # [REF] passed directly to the upstream generator (not combined with the LEAF seed)
+generator = "MAPLE/src/maple/case_tools/generators/random_field.py::generate_spectral_gaussian_field"
+generator_note = "existing implementation; do NOT duplicate it in this package. A future preparation step calls the actual upstream public generator and then adds the reference level."
+reference_level_m = 0.6                 # [REF] flat reference level (12 x 0.1 m)
+call_arguments = { ny = 256, nx = 256, dx_m = 0.25, dy_m = 0.25, correlation_length_x_m = 1.0, correlation_length_y_m = 1.0, relief_m = 0.05, seed = 1173 }
+relief_m = 0.05                         # [REF] EXACT peak-to-peak relief of the perturbation (periodic spectral Gaussian, zero mean)
+correlation_length_m = 1.0              # [REF]
+expected_file = "inputs/surface.npy"
+expected_shape = "(256, 256) float64, metres = reference_level_m + perturbation"
+sediment_voxels = { count = 12, dz_m = 0.1 }   # [REF] MAPLE sediment voxels
+sediment_note = "Hydraulic/soil water layers (soil.toml) are NOT sediment voxels and NOT the active sediment layer. The reference case's sediment calibration (explicitly test-only) and its plant list are NOT imported."
+soil_surface_feedback = "evolving soil-surface remapping deferred; shared MASY surface owns geometry and ultimately texture"
+
+[vegetation]
+generation_config = "generation.json"
+species_catalog = "species.json"
+plants_expected = "inputs/plants.csv"   # produced only by a separate, explicitly authorised generator run
+plants_status = "NOT GENERATED - no plant population file or placeholder exists"
+cover_basis = "per-species union cover (leaf.canopy.measure_cover)"
+placement = "overlap=disallowed: large-canopy-first hard-core rejection placement; not an unconditioned Poisson process"
+diameter_distribution = "LOGNORMAL with the requested arithmetic population mean and SD (existing generator); not a truncated Gaussian"
+expected_count_estimate = { BOER = 25073, PROGLA = 516 }   # [DERIVED] N=A f/(pi/4 (mean^2+SD^2)); estimates, not outputs
+establishment_ground = "SURFACE tokens resolved once from inputs/surface.npy by the generator/preparation step; anchor retained forever; no initial plant-height field"
+
+[location]
+latitude_deg = 31.8                     # [AUTHOR] rounded El Paso-area proxy for MAPLE case.yaml location.latitude_deg; not from NOAA table or weather file

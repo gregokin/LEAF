@@ -29,6 +29,9 @@ physics qualification remain future work (§7).
 from leaf import traits, state, canopy
 cat = traits.SpeciesCatalog.from_file('species.json')
 pop = state.read_plant_csv('plants.csv', cat, domain=state.Domain(nx, ny, dx_m, dy_m))
+# plants.csv is a PLAIN nine-column CSV (no embedded metadata). A neighbouring plants.metadata.json companion (written
+# by LEAF; docs/phase0-vegetation.md section 2.3) is loaded and verified automatically and supplies domain / time, so
+# `domain=` is only needed for a handwritten list (and must agree with the companion when both exist).
 pop.resolve_establishment(initial_surface)                 # SURFACE anchors resolved ONCE (ny, nx)
 
 view = canopy.canopy_view(pop, cat, current_surface)       # current (ny, nx) surface REQUIRED
@@ -137,5 +140,6 @@ mismatch, non-finite geometry → `StateError`. Nothing is partially returned.
 Upstream adoption by MAPLE and SYRUP (both still have to call `canopy_view`), physics qualification of
 porosity/height/radius for hydrology, any MAPLE container extension that would let `unsupported_policy`
 become unnecessary, rasterization conventions in either model, periodic-boundary requalification, and all
-ecological responses to burial/exposure. The CSV, allometry conventions, resource bounds and fixtures are
-unchanged.
+ecological responses to burial/exposure. The CSV columns and row semantics, allometry conventions, resource bounds and
+fixtures are unchanged; only the location of the file metadata moved (a plain CSV plus a companion `<stem>.metadata.json`,
+no embedded metadata line).

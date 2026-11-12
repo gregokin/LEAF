@@ -1,0 +1,7 @@
+# Orchestration State
+
+Automatic Codex–Claude preference/source-sharing authority remains enabled for requested bounded work. Latest user task2026-11-11 COMPLETE: input-only annotated trial case and annual alternating wind/water scheduler example installed under cases/jornada_grass05_shrub10_256/. [Independent acceptance](tasks/trial_case_20261111/final_review.md), [static evidence](tasks/trial_case_20261111/static_review.json), [byte-identity installation](tasks/trial_case_20261111/installation.json).
+
+No active assignment/writer/model/check process, daemon or scheduler. Claude sole input author; Codex scope/context/controller/reviewer/static verification/freeze/install. All four sessions reaped: default-model limit classified/resetunknown, then Sonnet completion/corrections. No terrain or plants generated, scientific modules imported, native validators/tests/models/GPU jobs run, commits/pushes, package installs/new environment or upstream edits. Root AGENTS and existing source/locks preserved. Case scientific coefficients remain provisional; TOML/annualCSV are explicit planning manifests, not an implemented fully coupled year driver.
+
+Prior Phases1–3 remain accepted/published: Phase1 f0d0b56854a576b35ee38bce4a8eab6dd623baf6; Phase2 5e887e66415f0522771ea789654b8345226d2496; Phase3 044dacfac11872a20824af29d46c36ab928648cb; source baseline1e468e1410992430e0aa5045ca44637b382ac0e9. Preserve other jobs/dirty work; further execution requires the user's separately agreed scope.

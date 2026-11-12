@@ -1,0 +1,180 @@
+{
+  "csv_path": "cases/jornada_grass05_shrub10_256/preview/initial_plants.csv",
+  "embedded_metadata": {
+    "catalog_hash": "sha256:b75041ae900d4053a5782a9f40ea7fca0e9cbdd668b4affc871db958db4dba6b",
+    "cell_sampling": "containing_cell_closed_upper",
+    "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)",
+    "domain": {
+      "axes": "(ny, nx): row = y north, col = x east",
+      "cell_sampling": "containing_cell_closed_upper",
+      "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)",
+      "dx_m": 0.25,
+      "dy_m": 0.25,
+      "edges": "finite closed domain, non-periodic",
+      "nx": 256,
+      "ny": 256,
+      "origin_x_m": 0.0,
+      "origin_y_m": 0.0
+    },
+    "establishment_resolved": true,
+    "initial": true,
+    "leaf_version": "0.1.0",
+    "model": "LEAF",
+    "n_plants": 25589,
+    "provenance": {
+      "catalog_hash": "sha256:b75041ae900d4053a5782a9f40ea7fca0e9cbdd668b4affc871db958db4dba6b",
+      "derived": {
+        "ordering_convention": "large_canopy_first: all candidates sorted by descending diameter (stable tie-break: species order, then sample order) and placed sequentially with global canopy exclusion",
+        "species": {
+          "BOER": {
+            "diameter_distribution": {
+              "mu": -2.3221954495706862,
+              "rule": "sigma^2 = ln(1 + std^2/mean^2), mu = ln(mean) - sigma^2/2",
+              "sigma": 0.1980422004353651,
+              "type": "lognormal"
+            },
+            "expected_crown_area_m2": 0.008168140899333463,
+            "initial_count_estimate": 25073
+          },
+          "PROGLA": {
+            "diameter_distribution": {
+              "mu": -0.004975165426584046,
+              "rule": "sigma^2 = ln(1 + std^2/mean^2), mu = ln(mean) - sigma^2/2",
+              "sigma": 0.0997513451195927,
+              "type": "lognormal"
+            },
+            "expected_crown_area_m2": 0.7932521450314227,
+            "initial_count_estimate": 516
+          }
+        }
+      },
+      "generation_config": {
+        "cover_definition": "per_species_union",
+        "cover_subsamples": 8,
+        "cover_tolerance": 0.001,
+        "domain": {
+          "axes": "(ny, nx): row = y north, col = x east",
+          "cell_sampling": "containing_cell_closed_upper",
+          "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)",
+          "dx_m": 0.25,
+          "dy_m": 0.25,
+          "edges": "finite closed domain, non-periodic",
+          "nx": 256,
+          "ny": 256,
+          "origin_x_m": 0.0,
+          "origin_y_m": 0.0
+        },
+        "limits": {
+          "max_attempts": 2000000,
+          "max_cover_bytes": 8388608,
+          "max_cover_cells": 4194304,
+          "max_plants": 200000,
+          "max_working_bytes": 1048576
+        },
+        "max_iterations": 12,
+        "overlap": "disallowed",
+        "schema": "leaf.generation_config",
+        "schema_version": 1,
+        "seed": 20261111,
+        "species": {
+          "BOER": {
+            "diameter_mean_m": 0.1,
+            "diameter_std_m": 0.02,
+            "initial_age_days": {
+              "distribution": "constant",
+              "value_days": 730.0
+            },
+            "target_cover": 0.05
+          },
+          "PROGLA": {
+            "diameter_mean_m": 1.0,
+            "diameter_std_m": 0.1,
+            "initial_age_days": {
+              "distribution": "constant",
+              "value_days": 1825.0
+            },
+            "target_cover": 0.1
+          }
+        },
+        "time_days": 0.0
+      },
+      "generator": "leaf.generation_report",
+      "generator_version": 2,
+      "rng": {
+        "bit_generator": "PCG64",
+        "constructor": "numpy.random.default_rng(seed)",
+        "draw_order": "per species batch: diameters, ages; then per placement pass, per candidate in descending size order, per proposal: x (uniform), y (uniform)",
+        "numpy_version": "2.5.3",
+        "seed": 20261111
+      },
+      "species": {
+        "BOER": {
+          "count": 25073,
+          "measured_union_cover": 0.04993104934692383,
+          "target_cover": 0.05
+        },
+        "PROGLA": {
+          "count": 516,
+          "measured_union_cover": 0.10078167915344238,
+          "target_cover": 0.1
+        }
+      }
+    },
+    "schema": "leaf.plant_state_csv",
+    "schema_version": 1,
+    "species_names": [
+      "BOER",
+      "PROGLA"
+    ],
+    "species_table_order": "sorted species ids (deterministic across JSON key order)",
+    "status_codes": {
+      "dead_standing": 1,
+      "live": 0,
+      "removed": 2
+    },
+    "time_days": 0.0,
+    "units": {
+      "agb_dry_kg": "kg dry aboveground mass per individual",
+      "age_days": "days",
+      "establishment_ground_m": "m elevation at establishment",
+      "seasonal_agb_dry_kg": "kg dry aboveground mass (subcomponent of agb_dry_kg, 0 <= E <= B)",
+      "time_days": "days (model calendar)",
+      "x_m": "m, landscape-frame easting (same frame as origin_x_m; not origin-relative)",
+      "y_m": "m, landscape-frame northing (same frame as origin_y_m; not origin-relative)"
+    }
+  },
+  "plant_table_sha256": "169fe16fee30ea4f76f84832f0a161a2bb0791b92dfddf3be62e0ab4a6cacd08",
+  "n_plants": 25589,
+  "csv_columns": [
+    "plant_id",
+    "species",
+    "x_m",
+    "y_m",
+    "establishment_ground_m",
+    "agb_dry_kg",
+    "seasonal_agb_dry_kg",
+    "age_days",
+    "status"
+  ],
+  "row_widths": [
+    9
+  ],
+  "preserved_files": {
+    "cases/jornada_grass05_shrub10_256/preview/vegetation_initial.png": {
+      "sha256": "d74491d018426ec06b28073af09644323c454ab0d022ec1352280e997f922f02",
+      "size": 2004645
+    },
+    "cases/jornada_grass05_shrub10_256/preview/initial_surface.npy": {
+      "sha256": "a2966584858a9feb5e4d969d5a188ea32657bb97e7e6e3542ae700e7d79a48d5",
+      "size": 524416
+    },
+    "cases/jornada_grass05_shrub10_256/species.json": {
+      "sha256": "9db3dace6a2a8e9212204d23aa7408414e1875a408ec3149d3e0233f7bd480e4",
+      "size": 21325
+    },
+    "cases/jornada_grass05_shrub10_256/generation.json": {
+      "sha256": "a72458ca7166a6305e73f214c6055f4843cf11c5c06874205a3552ce7458541b",
+      "size": 2890
+    }
+  }
+}

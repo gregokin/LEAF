@@ -19,8 +19,12 @@ keyed by stable, case-sensitive species IDs. Per species:
   growth, water_use, reproduction, mortality, disturbance
                    null or an object with a non-empty string "law" (e.g. "unimplemented"); contents are
                    validated generically (finite numbers) and preserved verbatim for later consumers.
-  life_expectancy  null or {"mean": > 0, "unit": "days" | "years"}  METADATA ONLY: LEAF never kills a plant
-                   because its age reaches the mean life expectancy (mean != hard maximum).
+  life_expectancy  null or {"mean": > 0, "unit": "days" | "years"}  NOMINAL mean life expectancy (years = 365 days).
+                   It is NOT a death age: LEAF never kills a plant because its age reaches it (mean != hard maximum;
+                   mortality is the separate probabilistic law of leaf.demography). It also supplies the UPPER BOUND of
+                   the species-linked initial-age rule of leaf.initialization (the default when a generation config
+                   omits initial_age_days): initial ages are drawn uniformly on [0, life_expectancy_days). A species
+                   with life_expectancy null cannot use that rule (validation error; explicit ages still work).
 
 Ownership: the parsed document is private; `catalog.document` returns a deep copy, so user edits can never
 change canonical content behind the cached coefficients or the hash. The species name/index table is the
@@ -494,7 +498,8 @@ class SpeciesCatalog:
         return [float(v) for v in self._table[self.index(sid)]]
 
     def life_expectancy_days(self, sid):
-        '''Mean life expectancy converted to days, or None. Metadata only: never triggers mortality.'''
+        '''Nominal mean life expectancy converted to days (years = 365), or None. Never triggers mortality by itself; it
+        is the upper bound of the species-linked initial-age sampling of leaf.initialization.'''
         le = self._document['species'][self.species_ids[self.index(sid)]]['life_expectancy']
         if le is None:
             return None

@@ -1,7 +1,7 @@
 {
   "schema": "leaf.generation_config",
   "schema_version": 1,
-  "notes": "FIXTURE example at the intended initial scale: 128 x 128 cells of 0.25 m (32 m x 32 m). Covers, diameters and ages are illustrative fixtures, not calibrations. Copy and edit. Switch overlap to \"disallowed\" for large-canopy-first global canopy exclusion.",
+  "notes": "FIXTURE example at the intended initial scale: 128 x 128 cells of 0.25 m (32 m x 32 m). Covers and diameters are illustrative fixtures, not calibrations. Initial ages use the species-linked rule {\"distribution\": \"uniform_to_life_expectancy\"} (also the default when initial_age_days is omitted): each plant's age is drawn independently and uniformly from 0 to its species' nominal life_expectancy in the catalog (fixture catalog: grass 8 years, shrub 40 years); that is an initial sampling range, not a death age. Explicit controls (a number of days, constant, bounded uniform) remain available for fixtures. Copy and edit. Switch overlap to \"disallowed\" for large-canopy-first global canopy exclusion.",
   "domain": {"nx": 128, "ny": 128, "dx_m": 0.25},
   "seed": 20261110,
   "overlap": "allowed",
@@ -12,8 +12,9 @@
   "limits": {"max_plants": 200000, "max_attempts": 50000, "max_cover_cells": 4000000, "max_cover_bytes": 8000000, "max_working_bytes": 1048576},
   "time_days": 0.0,
   "species": {
-    "grass": {"target_cover": 0.06, "diameter_mean_m": 0.15, "diameter_std_m": 0.03, "initial_age_days": 730},
+    "grass": {"target_cover": 0.06, "diameter_mean_m": 0.15, "diameter_std_m": 0.03,
+              "initial_age_days": {"distribution": "uniform_to_life_expectancy"}},
     "shrub": {"target_cover": 0.05, "diameter_mean_m": 2.0, "diameter_std_m": 0.3,
-              "initial_age_days": {"distribution": "uniform", "min_days": 365, "max_days": 7300}}
+              "initial_age_days": {"distribution": "uniform_to_life_expectancy"}}
   }
 }

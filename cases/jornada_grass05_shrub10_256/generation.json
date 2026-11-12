@@ -1,0 +1,36 @@
+{
+  "schema": "leaf.generation_config",
+  "schema_version": 1,
+  "notes": "Native LEAF generation config (leaf.initialization.validate_generation_config; strict keys, JSON comments are forbidden so all commentary is in notes). 256 x 256 cells of 0.25 m = 64 m x 64 m = 4096 m2, origin (0,0) at the south-west corner in the landscape frame; the domain is finite, closed and NON-periodic (edge-clipped crowns and roots, no invented edge mode). USER vegetation targets: BOER cover 0.05, diameter mean 0.10 m, SD 0.02 m; PROGLA cover 0.10, diameter mean 1.0 m, SD 0.10 m (user choices, not field measurements). Existing generator behaviour (leaf/initialization.py is authoritative): diameters are sampled LOGNORMAL with exactly the requested arithmetic population mean and SD (sigma^2=ln(1+SD^2/mean^2), mu=ln(mean)-sigma^2/2; BOER mu=-2.322195, sigma=0.198042; PROGLA mu=-0.004975, sigma=0.099751), not a truncated Gaussian. overlap=disallowed: large-canopy-first hard-core rejection placement with global cross-species canopy exclusion (roots may overlap) - a reproducible initialisation algorithm, NOT an unconditioned Poisson process; later growth and recruitment may overlap. Count estimate N0 = A f / (pi/4 (mean^2+SD^2)) at 4096 m2 gives about 25,073 BOER and 516 PROGLA plants - an ESTIMATE only, not generated output; sample mean/SD/count are not promised exact until the generator runs. seed 20261111, cover_tolerance 0.001 (absolute fraction = 0.1 percentage point), cover_subsamples 8, max_iterations 12 and every limit are AUTHOR numerical/resource choices, not science; the two 2048 x 2048 coverage bitmaps total 8,388,608 bytes and the generator's own byte admission decides whether the run passes (no promise). INITIAL AGES (revision of 2026-11-11 per the user): each plant's age is drawn independently and uniformly from 0 to the NOMINAL life expectancy of its species in species.json (rule {\"distribution\": \"uniform_to_life_expectancy\"}, also the generator default; the bound is read from the catalog, not duplicated here): BOER 0..15 years (0..5475 d), PROGLA 0..80 years (0..29200 d), years = 365 d; both life expectancies are provisional AUTHOR traits. This is only the INITIAL sampling range; the life expectancy is not a hard death age (the separate probabilistic mortality law is unchanged). Earlier versions of this file used constant ages 730 d (BOER) and 1825 d (PROGLA); the existing initial-vegetation preview in preview/ was made with those constant ages and is NOT a realization of the uniform-age rule (a new initialization needs a separate request). Generated initial seasonal AGB is zero. No plants.csv exists in this package.",
+  "domain": {"nx": 256, "ny": 256, "dx_m": 0.25, "dy_m": 0.25, "origin_x_m": 0.0, "origin_y_m": 0.0},
+  "seed": 20261111,
+  "overlap": "disallowed",
+  "cover_definition": "per_species_union",
+  "cover_tolerance": 0.001,
+  "cover_subsamples": 8,
+  "max_iterations": 12,
+  "limits": {
+    "max_plants": 200000,
+    "max_attempts": 2000000,
+    "max_cover_cells": 4194304,
+    "max_cover_bytes": 8388608,
+    "max_working_bytes": 1048576
+  },
+  "time_days": 0.0,
+  "species": {
+    "BOER": {
+      "target_cover": 0.05,
+      "diameter_mean_m": 0.1,
+      "diameter_std_m": 0.02,
+      "initial_age_days": {"distribution": "uniform_to_life_expectancy"},
+      "notes": "USER cover/diameters; initial age uniform on 0..15 years (species.json life_expectancy, AUTHOR); lognormal diameters; expected count about 25,073 (estimate)."
+    },
+    "PROGLA": {
+      "target_cover": 0.1,
+      "diameter_mean_m": 1.0,
+      "diameter_std_m": 0.1,
+      "initial_age_days": {"distribution": "uniform_to_life_expectancy"},
+      "notes": "USER cover/diameters; initial age uniform on 0..80 years (species.json life_expectancy, AUTHOR); lognormal diameters; expected count about 516 (estimate)."
+    }
+  }
+}

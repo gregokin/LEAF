@@ -1,0 +1,10 @@
+{
+  "schema": "masy.wind_event.v1",
+  "event_id": "wind_bimodal_u06_12h",
+  "wind_forcing": {
+    "blocks": [
+      {"shear_velocity_m_s": 0.6, "direction_deg": 22.5, "duration_s": 21600.0},
+      {"shear_velocity_m_s": 0.6, "direction_deg": 157.5, "duration_s": 21600.0}
+    ]
+  }
+}

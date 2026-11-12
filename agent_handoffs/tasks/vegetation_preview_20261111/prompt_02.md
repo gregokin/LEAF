@@ -1,0 +1,11 @@
+# Bounded vegetation preview revision2 — layout only
+
+# Source/image review — revision1: correct layout only
+Native initialization/render completed0, time0, 25,073BOER and516PROGLA; no growth/hydrology/transport. Saved actual arrays/population/report remain LOCAL and are NOT in your read/share scope. Codex visually inspected PNG. Canopy geometry and full/zoom positioning look correct. Two presentation defects: zoom x-axis label overlaps legend title; metadata line is cut off at the right image edge.
+
+Make ONLY these focused script changes (plus report.md):
+1. Move zoom axes upward slightly / reduce its height, maintaining top alignment and equal aspect (e.g az=[.625,.44,.33,.445]) so its x(m) label is fully above legend. Do not move main plot or change data/ZOOM/canopy sizes.
+2. Break/shorten metadata strings into lines safely within the right-hand column. Replace long concatenated Circles...Close-up... text with two short lines; terrain note two short lines. Keep source-reported sampled diameter lines; no font shrinking below8.6pt. No clipping or overlapping caption. Do not add/remove plotted plants or resize circles.
+3. Legend covers as percentages with2decimals, targets as percentages, and counts with thousands separators (readability only).
+
+No other code/data/settings changes. Do not execute or read generated arrays/images/logs. Codex will re-render ONLY from existing unchanged preview population/surface; no second initialization. Existing render(surface,geo,report,ref_level,domain) function suffices, so no new CLI mode is needed. Keep native initialization path and provenance logic otherwise intact. Report honestly manual source-only, uncommitted. Read/Edit/Write only. Source scope remains copiedcontext+your outputs+thisprompt; write only renderer andreport for this revision. All prior prohibitions on models/tests/network/Git/installs persist.

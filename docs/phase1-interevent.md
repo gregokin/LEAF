@@ -121,16 +121,43 @@ and the new CSR back (explicit and counted). It is not claimed to be GPU residen
 ## Restart (`leaf.checkpoint`)
 
 `session.save(dir, overwrite=False)` publishes a directory atomically (temporary directory in the parent, fsync, rename;
-never overwrites by default): `plants.csv` (the canonical plant CSV of ALL plants at the cursor), `restart_arrays.npz`
+never overwrites by default) holding four files: `plants.csv` (the canonical PLAIN plant CSV of ALL plants at the
+cursor: nine-column header and nine fields per row, no embedded metadata, comment or JSON), `plants.metadata.json` (its
+companion: time, domain, species / catalog identity, row count, units, provenance, `"initial": false` and the CSV's
+SHA-256; schema `leaf.plant_state_metadata`, see `docs/phase0-vegetation.md` §2.3), `restart_arrays.npz`
 (native water, pending D/U/A/T, canopy areas, row mapping, the exact current root CSR, overrides; loaded with
 `allow_pickle=False`) and `restart.json` (schema, exact cursor / boundary / pending days / season flag / sequence,
 native fingerprint of the column, backend, species / catalog hash, module and native source hashes, last receipt,
-file and per-array sha256, content hash). `IntereventSession.load(dir, catalog, operator=..., backend=..., max_edges=...,
+per-file sha256 of the CSV, the companion and the arrays file, per-array sha256, content hash). The plain CSV stays
+directly readable: `leaf.state.read_plant_csv('dir/plants.csv', catalog)` loads and verifies the neighbouring companion
+automatically. The directory is one atomic rename, so unlike a standalone CSV + companion pair the two plant files of a
+checkpoint are never visible half-written. `IntereventSession.load(dir, catalog, operator=..., backend=..., max_edges=...,
 max_bytes=...)` verifies every hash, schema, dtype, shape, finiteness and time / boundary / pending consistency,
 validates the CSR through `leaf.uptake`, rebuilds roots and canopy areas and compares them exactly (`verify_roots`),
 and only then returns a session; nothing is adopted on any failure. No silent migration of catalog, backend, native
 column, root builder or sources (`allow_source_change` relaxes only the module-source comparison). The session is
 re-anchored at the saved cursor, so ages agree with a continuous run to FP64 rounding of one addition.
+
+**Companion memory accounting.** `plants.metadata.json` is admitted at its ACTUAL serialized size: a streaming counting pass
+(`state.plant_metadata_size`, whole provenance, no truncation, worst-case clock / size scalars) enters the save ledger
+(`estimate_save_bytes`: `plant_metadata_text_bytes`, and `plant_metadata` = 4 copies for encoder chunks, joined text, UTF-8
+bytes and write buffer) before the snapshot exists, and `save_session` recounts it from the real snapshot provenance and
+re-admits against `max_bytes` (stage `checkpoint_save_metadata`) before any CSV / companion text, npz buffer or file is created.
+Provenance of any size therefore round-trips unchanged under a sufficient budget and is refused, never trimmed, under a tight
+one. Small structural overhead of the encoder objects follows the existing documented ledger exclusions. Loading keeps its
+size-based admission (4 x the companion file size).
+
+Plants are parsed with the companion verified against the CSV bytes (size and SHA-256, catalog hash and species table, domain, row
+count, `initial` must be false, time equal to the manifest time), so a corrupt, edited, missing or inconsistent
+companion or CSV returns nothing and adopts nothing (`CheckpointError`).
+
+**Layout version 4 (plain plant CSV) and compatibility.** `restart.json` `schema_version` is now **4**: version 3 wrote
+the plant metadata as a `# {json}` first line inside `plants.csv`; version 4 writes the plain CSV and the companion
+`plants.metadata.json` (listed in `files`; a checkpoint directory holds exactly the four files). Nothing else in
+`restart.json` changed. This loader reads exactly version 4: versions 1, 2 and **3** are REFUSED, never migrated,
+defaulted or reinterpreted (`allow_source_change=True` does not authorise a format conversion), and a version-3
+directory (no companion) is reported as an incomplete older layout. Use the pinned runtime that wrote it, or
+re-create the checkpoint. The module-source hashes include `leaf.state`, so a restart is tied to the writer code as before.
 
 Coupled-restart scope: this restores the LEAF accepted boundary and the native water / time of this column only. A full
 MASY-level coupled restart (storm / wind owners, shared scheduler state, event queue, surface remapping) is not part of
@@ -172,7 +199,7 @@ this phase.
   builder-reported admitted peak from the map's provenance + the external live bytes). Remaining builder capacities are
   reported separately under `builder_capacities` / `builder_external_bytes` and never enter the peak. All peaks are
   conservative stage sums and exclude interpreter, JIT / CUDA context and allocator pools.
-* `load_session` releases the raw CSV / NPZ / manifest bytes once decoded and carries the decoded arrays dict as
+* `load_session` releases the raw CSV / companion / NPZ / manifest bytes once decoded and carries the decoded arrays dict as
   `restore_transient_reserve` through `_setup`, the native upload, the root CSR upload, the verification rebuild and its
   host comparison copies; it resets to 0 afterwards. `max_bytes` and `reserve_bytes` of the restored session are exactly
   the values supplied to `load`.

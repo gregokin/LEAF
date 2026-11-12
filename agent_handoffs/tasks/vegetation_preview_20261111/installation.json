@@ -1,0 +1,38 @@
+{
+  "at_utc": "2026-11-11T23:44:53.714171+00:00",
+  "destination": "/home/okin/leaf/cases/jornada_grass05_shrub10_256/preview",
+  "files": {
+    "preview/initialization_report.json": {
+      "sha256": "6bfc85c954e470f7bd4039fe6318433999bf005ed47b7643fbb875d9b0fbd2d9",
+      "size_bytes": 8538
+    },
+    "preview/vegetation_initial.png": {
+      "sha256": "d74491d018426ec06b28073af09644323c454ab0d022ec1352280e997f922f02",
+      "size_bytes": 2004645
+    },
+    "preview/render_preview.py": {
+      "sha256": "03451fd8e25d62d1e61260c932af8db4db7b19b3b65430a2e3edde89678a0168",
+      "size_bytes": 18142
+    },
+    "preview/initial_surface.npy": {
+      "sha256": "a2966584858a9feb5e4d969d5a188ea32657bb97e7e6e3542ae700e7d79a48d5",
+      "size_bytes": 524416
+    },
+    "preview/README.md": {
+      "sha256": "b8f1c1090b43ec9e62cf3457d1f1ca50795ddd448f256a84a3b9c5f35d4cf569",
+      "size_bytes": 4171
+    },
+    "preview/preview_provenance.json": {
+      "sha256": "7c86db70cada45f6e8ddfc124dd653d603f37c8caf2fb95e320ebe28dd7daf15",
+      "size_bytes": 7913
+    },
+    "preview/initial_plants.csv": {
+      "sha256": "15e060e34bc82dd545c414db510aba13e2f2d09698ed2bb97413c3db64ccea54",
+      "size_bytes": 2619080
+    }
+  },
+  "data_reinitialized_for_layout_fix": false,
+  "simulation_time_days": 0,
+  "source_and_parameters_unchanged": true,
+  "no_commit_push": true
+}

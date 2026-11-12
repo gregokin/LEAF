@@ -1,0 +1,20 @@
+{
+  "status": "accept metadata component; uniform-age addition still active; not yet published",
+  "source_sha256": {
+    "leaf/state.py": "a9eefbc5520b094d0a5ec63b5ca5e8f1a1f2d0595595bb1b80a6ca33774a62cd",
+    "leaf/checkpoint.py": "b59b555b475277f428d14f125c04e22ef13ac328df6f21436703e413867f935d",
+    "leaf/recording.py": "49564345dd53505148de90de00b5bcb02d7d0e23b8b483e75ebac96af2ff9ef0",
+    "leaf/__main__.py": "e1e40edddf48c656e0b55cf2b5d8bd8387bf8f581439d23609ffbc3d99b27294",
+    "leaf/__init__.py": "e8d289c0c597dbaf987a94e1f53b036ebd5f1dc08f2900be7cc6b3aacb5e78b5",
+    "leaf/interevent.py": "ff7b9287c9ac810287dde89bcbb550af6b4f8380eeb5ee55d5a98d161f78ff5f",
+    "tests/test_phase0.py": "395ae0b608999d7e1a9e40bf4f9802f046efd11e68601e724640a914693dc234",
+    "tests/test_interevent.py": "fafc22f7bc49f994c39f3bab552c4959b9c25bf69f8b744cd4c2b4e201af26d5",
+    "tests/test_plant_csv.py": "0f1cb4b773f782f14586997f4ba8942f24ad9a520eaa36c7aea1482d091fd218"
+  },
+  "cpu_tests_total": 564,
+  "cpu_executed_pass": 519,
+  "cuda_skips": 45,
+  "preview_plant_rows_exactly_preserved": true,
+  "preview_image_surface_catalog_generation_preserved_at_this_step": true,
+  "root_AGENTS_preserved": true
+}

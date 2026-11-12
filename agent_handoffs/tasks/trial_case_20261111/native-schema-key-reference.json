@@ -1,0 +1,162 @@
+{
+  "traits": {
+    "REQUIRED_UNITS": {
+      "biomass": "kg",
+      "length": "m",
+      "time": "days"
+    },
+    "REQUIRED_SECTIONS": [
+      "functional_type",
+      "allometry",
+      "roots",
+      "porosity",
+      "growth",
+      "water_use",
+      "reproduction",
+      "life_expectancy",
+      "mortality",
+      "disturbance"
+    ],
+    "OPTIONAL_SPECIES_KEYS": [
+      "name",
+      "notes",
+      "references"
+    ],
+    "TOP_LEVEL_KEYS": [
+      "schema",
+      "schema_version",
+      "catalog_id",
+      "units",
+      "root_layers",
+      "species",
+      "notes"
+    ]
+  },
+  "initialization": {
+    "TOP_KEYS": [
+      "schema",
+      "schema_version",
+      "domain",
+      "seed",
+      "overlap",
+      "cover_definition",
+      "cover_tolerance",
+      "cover_subsamples",
+      "max_iterations",
+      "limits",
+      "species",
+      "time_days",
+      "notes"
+    ],
+    "SPECIES_KEYS": [
+      "target_cover",
+      "diameter_mean_m",
+      "diameter_std_m",
+      "initial_age_days",
+      "notes"
+    ]
+  },
+  "growth": {
+    "_SECTION_KEYS": [
+      "law",
+      "traits",
+      "status",
+      "notes",
+      "units"
+    ]
+  },
+  "demography": {
+    "_SECTION_KEYS": [
+      "law",
+      "traits",
+      "status",
+      "notes",
+      "units"
+    ],
+    "_TRAIT_KEYS": [
+      "age_hazard",
+      "background_hazard_per_year",
+      "stress"
+    ],
+    "_AGE_KEYS": [
+      "weibull_shape",
+      "weibull_scale_years"
+    ],
+    "_STRESS_KEYS": [
+      "metric",
+      "low_threshold",
+      "exempt_until_age_days",
+      "limit_years",
+      "counter_cap_years",
+      "mortality_probability",
+      "biomass_loss_fraction"
+    ]
+  },
+  "disturbance": {
+    "_SECTION_KEYS": [
+      "law",
+      "traits",
+      "status",
+      "notes",
+      "units"
+    ],
+    "_TRAIT_KEYS": [
+      "burial",
+      "exposure",
+      "abrasion"
+    ],
+    "_BURIAL_KEYS": [
+      "increment_basis",
+      "scale",
+      "injury_threshold",
+      "injury_saturation",
+      "max_injury_fraction",
+      "curve",
+      "lethal_depth_m",
+      "lethal_height_fraction"
+    ],
+    "_EXPOSURE_KEYS": [
+      "increment_basis",
+      "injury_threshold_m",
+      "injury_saturation_m",
+      "max_injury_fraction",
+      "curve",
+      "lethal_depth_m",
+      "dislodgement_depth_m"
+    ],
+    "_ABRASION_KEYS": [
+      "dose_unit",
+      "applies_to_sources",
+      "injury_threshold",
+      "injury_saturation",
+      "max_injury_fraction",
+      "curve",
+      "lethal_dose"
+    ]
+  },
+  "recruitment": {
+    "_SECTION_KEYS": [
+      "law",
+      "traits",
+      "status",
+      "notes",
+      "units"
+    ],
+    "_SEED_KEYS": [
+      "establishment_probability",
+      "max_recruits_per_patch",
+      "initial_agb_dry_kg",
+      "initial_seasonal_fraction"
+    ],
+    "_CLONAL_KEYS": [
+      "min_age_days",
+      "min_agb_dry_kg",
+      "probability",
+      "max_daughters_per_parent",
+      "initial_agb_dry_kg",
+      "max_donation_fraction",
+      "dispersal_radius_m",
+      "max_attempts_per_daughter"
+    ]
+  }
+}

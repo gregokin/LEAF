@@ -30,7 +30,9 @@ SYRUP change is made or required, but consumers must not assume a fixed plant li
   `apply_reproduction` (otherwise refused): newborns never pay the previous season's turnover.
 * **Event decisions first.** `apply_reproduction` is refused while a transport interval still awaits its
   `apply_surface_event` decision, with pending growth, or with an unresolved annual mortality decision: run those first.
-* **Checkpoints** are version 3; the canonical plant CSV (initial / snapshots / final / checkpoint) is unchanged (version 1).
+* **Checkpoints** are layout version 4 (plain `plants.csv` + companion `plants.metadata.json`; version 3 embedded the metadata in
+  the CSV and is refused, not migrated). The plant CSV columns and rows (initial / snapshots / final / checkpoint) are unchanged;
+  see section 2 for where the file metadata lives.
 
 ## 1. Three vegetation modes
 
@@ -59,6 +61,14 @@ objects = VegetationObjectSet(**view['fields'])       # MAPLE side: its existing
 ids = view['sidecar']['plant_id']                     # keep beside the raster for feedback by ID
 ```
 
+**Plant files are plain CSV (project rule).** LEAF writes no metadata inside a plant CSV. The metadata of every saved
+plant file (time, domain, species-catalog hash and table, row count, units, initial / `SURFACE` declaration, provenance and
+the CSV's SHA-256) is the companion `<stem>.metadata.json` beside it (`plants.csv` → `plants.metadata.json`;
+`docs/phase0-vegetation.md` §2.3). `read_plant_csv` loads and verifies the companion automatically and refuses a CSV that does
+not match it; a handwritten plain list needs no companion (pass the `domain` as above, optionally `time_days`). MAPLE-side
+code that reads or copies LEAF plant files must carry the pair together. Old files with an embedded `# {json}` first line are
+still readable, but are never written.
+
 `view['fields']` / `view['sidecar']` are **exactly** `shared['fields']` / `shared['sidecar']` for the same
 `plant_id` (the adapter adds no geometry); `view['meta']['derived_from']` names the shared schema. The
 `export-canopy` CLI keeps writing this MAPLE-compatible projection.
@@ -72,8 +82,8 @@ ids = view['sidecar']['plant_id']                     # keep beside the raster f
 * **Surface code resolution**: the CSV token `SURFACE` (initial files only) is resolved by LEAF from MAPLE's
   *initial* surface with the containing-cell rule (`col = floor((x − x0)/dx)` clipped; upper edge in the
   last cell). After that the establishment elevation is fixed and saved; later surfaces never rewrite it.
-* **Species file hash and table**: `view['meta']['catalog_hash']` (also in every CSV). LEAF refuses to
-  pair a state with a different catalog hash or a different (sorted) species table.
+* **Species file hash and table**: `view['meta']['catalog_hash']` (also in every plant file's companion
+  `<stem>.metadata.json`). LEAF refuses to pair a state with a different catalog hash or a different (sorted) species table.
 * **Rasterization**: use MAPLE's existing rasterizer; LEAF does not copy it and does not define raster
   semantics. Keep `sidecar['plant_id']` (and `species`, `status`) beside the raster so wind results can be
   reported back per plant.
@@ -117,8 +127,9 @@ periodic interpretation; it must not claim exact cover or guaranteed non-overlap
 LEAF ages live plants only through `pop.advance_time(days)`; MAPLE (or the orchestrator) calls it once per
 elapsed interval, including wind/transport intervals, so wind-only runs still age plants. Snapshots are
 written only when due (`SnapshotWriter`), plus explicit initial/final; every missed due time is listed,
-never fabricated; all bookkeeping is committed only after a successful write. Snapshot CSVs carry the
-catalog hash, species table, domain (with its conventions), time and provenance.
+never fabricated; all bookkeeping is committed only after a successful write of BOTH files. Each snapshot is a
+plain CSV plus its `<stem>.metadata.json` companion, which carries the catalog hash, species table, domain (with its
+conventions), time, provenance and the CSV SHA-256 (the CSV itself has no metadata line).
 
 ## 6. Event feedback (MAPLE wind / shared surface, SYRUP water)
 

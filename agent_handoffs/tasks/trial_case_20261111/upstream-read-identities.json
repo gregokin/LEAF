@@ -1,0 +1,64 @@
+{
+  "at_utc": "2026-11-11T22:15:11.216826+00:00",
+  "upstreams": {
+    "maple": {
+      "path": "/home/okin/MAPLE",
+      "head": "ed5bd49ab8f53659bcf110ff80a9ac982a682abf",
+      "branch": "main",
+      "qualified_runtime_pair": false,
+      "note": "Read-only current checkout identity, not a new dependency compatibility lock; scoped source files hashed in source-manifest.json."
+    },
+    "syrup": {
+      "path": "/home/okin/SYRUP",
+      "head": "c76c603dde4e8f79ec48b18d954a386580d8bc89",
+      "branch": "feature/subsurface-hydrology",
+      "qualified_runtime_pair": false,
+      "note": "Read-only current checkout identity, not a new dependency compatibility lock; scoped source files hashed in source-manifest.json."
+    },
+    "masy": {
+      "path": "/home/okin/MASY",
+      "head": "fa8f2667679b7fcac21f85065e65856807743da3",
+      "branch": "main",
+      "qualified_runtime_pair": false,
+      "note": "Read-only current checkout identity, not a new dependency compatibility lock; scoped source files hashed in source-manifest.json."
+    }
+  },
+  "scoped_sources_unchanged_since_copy": {
+    "context/leaf/AGENTS.md": true,
+    "context/leaf/claude.md": true,
+    "context/leaf/agent_handoffs/AGENTS.md": true,
+    "context/leaf/leaf/traits.py": true,
+    "context/leaf/leaf/initialization.py": true,
+    "context/leaf/leaf/state.py": true,
+    "context/leaf/leaf/growth.py": true,
+    "context/leaf/leaf/interevent.py": true,
+    "context/leaf/leaf/roots.py": true,
+    "context/leaf/leaf/demography.py": true,
+    "context/leaf/leaf/disturbance.py": true,
+    "context/leaf/leaf/recruitment.py": true,
+    "context/leaf/leaf/recording.py": true,
+    "context/leaf/leaf/forcing.py": true,
+    "context/leaf/leaf/__main__.py": true,
+    "context/leaf/docs/phase1-interevent.md": true,
+    "context/leaf/docs/phase3-reproduction.md": true,
+    "context/leaf/docs/biomass-specific-water-use.md": true,
+    "context/leaf/docs/study-stepwat-parameters.md": true,
+    "context/leaf/docs/candidate-uptake-parameters.md": true,
+    "context/leaf/examples/phase0/generation.json": true,
+    "context/leaf/examples/phase3/species.json": true,
+    "context/leaf/dependencies/phase1-native-growth.lock.json": true,
+    "context/leaf/dependencies/phase2-disturbance.lock.json": true,
+    "context/leaf/dependencies/phase3-reproduction.lock.json": true,
+    "context/maple/case.yaml": true,
+    "context/maple/random_field.py": true,
+    "context/syrup/subsurface.py": true,
+    "context/syrup/weather_pet.py": true,
+    "context/masy/scenario.py": true,
+    "context/masy/weather.py": true,
+    "context/masy/wind_a.json": true,
+    "context/masy/rain_a.json": true,
+    "context/masy/interevent_2d.json": true,
+    "context/masy/weather_simplified.json": true,
+    "context/source-facts.md": true
+  }
+}

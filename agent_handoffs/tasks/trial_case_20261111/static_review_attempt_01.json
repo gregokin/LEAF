@@ -1,0 +1,174 @@
+{
+  "kind": "STATIC INPUT REVIEW ONLY",
+  "scientific_modules_imported": false,
+  "native_validators_tests_generators_models_run": false,
+  "passed_checks": 6849,
+  "errors": [
+    "stable unmodified input climate/weather_2027.json"
+  ],
+  "case_files": {
+    "SOURCES.md": {
+      "sha256": "55462def2f1304dbd34b7ca486d28f71b8610df6ee9e6b1c4fc0119883edea77",
+      "size_bytes": 6637
+    },
+    "PARAMETERS.md": {
+      "sha256": "c9d32433ee07b3f253518cb04766b519cbc345b2976efc35b7c4b51953750377",
+      "size_bytes": 20423
+    },
+    "species.json": {
+      "sha256": "9db3dace6a2a8e9212204d23aa7408414e1875a408ec3149d3e0233f7bd480e4",
+      "size_bytes": 21325
+    },
+    "soil.toml": {
+      "sha256": "30ea01a1b62aca2fdad3f6fcaafe74a6160d58ac7511fe46c902c99a2c53f092",
+      "size_bytes": 4952
+    },
+    "case.toml": {
+      "sha256": "0c7f6cbcd3de1022744a0343fd9105f87a631bcee18bf6b25ce3620da7518c46",
+      "size_bytes": 10014
+    },
+    "README.md": {
+      "sha256": "0bde1eef778a3279ea7c8e2e96a529503342c42d9a245ce88ed2a98d0e0a7d16",
+      "size_bytes": 6503
+    },
+    "generation.json": {
+      "sha256": "a72458ca7166a6305e73f214c6055f4843cf11c5c06874205a3552ce7458541b",
+      "size_bytes": 2890
+    },
+    "landscape.toml": {
+      "sha256": "c859d49dc6caba381a6b4a70aec58ee3c621ef585fe4f068a31e99c736ebfd3a",
+      "size_bytes": 4147
+    },
+    "outputs/README.md": {
+      "sha256": "8007d97b848735e9fef504e5ea55a8c144f93ed291f8361d2ea3489ef7bf84f3",
+      "size_bytes": 1957
+    },
+    "inputs/README.md": {
+      "sha256": "1e66c8ac3232c26ee2c4338ab28146d6b6987ddf13d51ba13ca7ac513330b0a8",
+      "size_bytes": 1455
+    },
+    "climate/monthly_normals.csv": {
+      "sha256": "a9764380ff79dea00731cbbd80a22407c877db5ec39bb84898032b0bfe89d6e3",
+      "size_bytes": 1335
+    },
+    "climate/weather_2027.json": {
+      "sha256": "dccb90c0bef891463e1e13e26678e4e58c15649aa4d715d2cbcb197b6cd556e9",
+      "size_bytes": 28856
+    },
+    "scheduler/settings.toml": {
+      "sha256": "ef418c5cef7f0a990678051f137f77d176c28462dc0a9c69b8daee0480db563f",
+      "size_bytes": 6443
+    },
+    "scheduler/annual_plan.csv": {
+      "sha256": "0e090dadadbaa4bf480abc342ba0b673df792907a73c586da68c1058ea2ab1b9",
+      "size_bytes": 11116
+    },
+    "scheduler/README.md": {
+      "sha256": "7fe4efb7edf344f9ee27cc5011253255296ac204c0dd3b3e9413ca017b84c3b0",
+      "size_bytes": 6852
+    },
+    "scheduler/examples/rain.json": {
+      "sha256": "a60bec5928dd1f93c362c1e3b4664189e4a880ca7d174ea4f3f9d6029d2957a6",
+      "size_bytes": 242
+    },
+    "scheduler/examples/interevent.json": {
+      "sha256": "29b1c0933990f4216c9fae98cc797a4fdedf52da57056272af1efde3bc8badef",
+      "size_bytes": 168
+    },
+    "scheduler/examples/wind.json": {
+      "sha256": "9019a9f26e766120a718cc38ccc2024e53a2c974ceae55c05ea1a9011dbac261",
+      "size_bytes": 284
+    }
+  },
+  "parameter_arithmetic": {
+    "BOER": {
+      "root_sum": 1.0,
+      "support_kg_year_per_m3": 0.07024938531787846,
+      "expected_initial_count_estimate": 25073.02488093859
+    },
+    "PROGLA": {
+      "root_sum": 1.0,
+      "support_kg_year_per_m3": 0.10537407797681772,
+      "expected_initial_count_estimate": 516.355363884676
+    }
+  },
+  "weather_rows": 365,
+  "transport_rows": 72,
+  "rain_counts": [
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    3,
+    3,
+    2
+  ],
+  "monthly_rain_mm": [
+    "9.906",
+    "10.160",
+    "6.096",
+    "4.318",
+    "10.922",
+    "18.542",
+    "40.132",
+    "42.418",
+    "38.608",
+    "14.986",
+    "10.922",
+    "16.002"
+  ],
+  "annual_rain_mm": "223.012",
+  "max_rounded_intensity_depth_error_mm": 2.000000165480742e-09,
+  "sessions": [
+    {
+      "revision": 1,
+      "returncode": 1,
+      "is_error": true,
+      "child_reaped": true,
+      "tools": {},
+      "failure_class": "rate_limit; reset unknown; resolved by Sonnet continuation"
+    },
+    {
+      "revision": 2,
+      "returncode": 0,
+      "is_error": false,
+      "child_reaped": true,
+      "tools": {
+        "Read": 35,
+        "Write": 19
+      },
+      "failure_class": null
+    },
+    {
+      "revision": 3,
+      "returncode": 0,
+      "is_error": false,
+      "child_reaped": true,
+      "tools": {
+        "Edit": 47,
+        "Read": 3
+      },
+      "failure_class": null
+    },
+    {
+      "revision": 4,
+      "returncode": 0,
+      "is_error": false,
+      "child_reaped": true,
+      "tools": {
+        "Edit": 2
+      },
+      "failure_class": null
+    }
+  ],
+  "limits": [
+    "No native loading or execution; formats compared statically to current source.",
+    "Event completion unmeasured; calendar is a design example, not an executable coupled driver.",
+    "Scientific trial coefficients remain uncalibrated; source proxies are explicitly labelled."
+  ]
+}

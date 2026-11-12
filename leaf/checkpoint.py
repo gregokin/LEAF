@@ -4,8 +4,13 @@ A checkpoint is a DIRECTORY published atomically (written under a hidden tempora
 fsynced, then renamed; an existing target is never overwritten unless `overwrite=True`, and a half-written
 checkpoint is never visible under the final name):
 
-    plants.csv            canonical LEAF plant CSV (same format as initial / snapshot / final files) at the cursor:
+    plants.csv            PLAIN canonical LEAF plant CSV (nine-column header + one nine-field row per plant; NO embedded
+                          metadata, comment or JSON; same format as initial / snapshot / final files) at the cursor:
                           stable IDs, species, X/Y, establishment ground, B, E, age and status of ALL plants
+    plants.metadata.json  the companion metadata of plants.csv (leaf.state schema `leaf.plant_state_metadata`: time,
+                          domain, species catalog identity, row count, units, provenance, initial = false and the
+                          SHA-256 of plants.csv). `leaf.state.read_plant_csv(<dir>/plants.csv, catalog)` loads and
+                          verifies it automatically, so the plain CSV stays convenient to read on its own
     restart_arrays.npz    typed arrays (np.load(allow_pickle=False)): native water [L, N] and its time, pending
                           requested / delivered water D, U [live], pending activity / temperature integrals [S],
                           canopy areas [live], live_rows, the EXACT current root CSR (ids, offsets, resources,
@@ -42,9 +47,24 @@ PHASE 3 state (SCHEMA VERSION 3). `restart.json` gains a `phase3` block: active 
 (metres), the accepted reproduction-opportunity counter (the reproduction RNG counter), the last handled opportunity year
 and the last compact reproduction record. There are NO new arrays: newborn plants are ordinary rows of `plants.csv` and
 their IDs derive from max(existing ID, 0) + 1 (no ID counter needs persisting because records are never deleted). The
-canonical plant CSV stays version 1. COMPATIBILITY BOUNDARY: version 1 and version 2 checkpoints are REFUSED, never
-migrated or defaulted (not even with allow_source_change=True, which only relaxes the module-source comparison); the module
-source hashes now include leaf.recruitment.
+module source hashes include leaf.recruitment.
+
+PLAIN PLANT CSV (SCHEMA VERSION 4, the project rule "no embedded metadata in a plant file"). Version 3 wrote the plant
+metadata as a "# {json}" first line INSIDE plants.csv. Version 4 writes a plain plants.csv and moves that metadata into the
+companion `plants.metadata.json` (listed, with its SHA-256, in `restart.json` `files`; the checkpoint directory holds
+exactly plants.csv, plants.metadata.json, restart_arrays.npz and restart.json). `restart.json` content (Phase 1-3 blocks,
+arrays, hashes, memory limits, transactional directory publication) is otherwise unchanged. On load the plants are parsed
+with the verified companion (CSV SHA-256 binding, catalog hash, species table, domain, row count, initial = false, time
+equal to the manifest time). COMPATIBILITY BOUNDARY: versions 1, 2 and 3 are REFUSED, never migrated, defaulted or
+reinterpreted (not even with allow_source_change=True, which only relaxes the module-source comparison); a version 3
+directory (embedded metadata, no companion) is reported as an incomplete / unsupported older layout. The module source
+hashes include leaf.state, so a checkpoint is also tied to the writer that produced it. The two plant files and the other
+two files are published together as ONE directory rename: the pair inside a checkpoint is never visible half-written.
+MEMORY: the companion JSON is accounted at its ACTUAL size, not a fixed guess. `estimate_save_bytes` counts it (streaming
+`json.JSONEncoder.iterencode`, whole provenance, no truncation) before the snapshot exists and `save_session` recounts it from
+the real snapshot provenance and re-admits against `max_bytes` BEFORE any CSV / companion text, npz buffer or file is created
+(`COMPANION_COPIES` = 4 copies: encoder chunks, joined text, UTF-8 bytes, write buffer). `load_session` keeps its existing
+size-based admission (4 x the companion file size).
 '''
 from __future__ import annotations
 
@@ -69,8 +89,10 @@ from leaf import traits as _traits
 from leaf import uptake as _uptake
 
 SCHEMA = 'leaf.interevent_restart'
-SCHEMA_VERSION = 3       # v3 = Phase 3 layout (v2 + the `phase3` reproduction block); the plant CSV format stays version 1
+SCHEMA_VERSION = 4       # v4 = plain plants.csv + companion plants.metadata.json (v3 = Phase 3 layout with an embedded metadata line)
 CSV_NAME, NPZ_NAME, MANIFEST_NAME = 'plants.csv', 'restart_arrays.npz', 'restart.json'
+META_NAME = _state.metadata_path(CSV_NAME)        # 'plants.metadata.json'
+FILE_NAMES = (CSV_NAME, META_NAME, NPZ_NAME, MANIFEST_NAME)
 SOURCE_MODULES = ('interevent', 'checkpoint', 'growth', 'roots', 'uptake', 'syrup_water', 'forcing', 'canopy',
                   'state', 'traits', 'demography', 'disturbance', 'events', 'recruitment')
 PHASE3_SCHEMA = 'leaf.phase3_state'
@@ -93,8 +115,10 @@ PHASE2_KEYS = ('schema', 'demography_active', 'stress_active', 'disturbance_acti
                'n_disturbance', 'n_population_rebinds', 'annual_due', 'annual_cursor', 'transport_pending',
                'last_decision')
 TRANSPORT_PENDING_KEYS = ('sequence', 'kind', 'source', 'start', 'end', 'start_days', 'end_days', 'interval_id')
-SERIALIZATION_NOTE = ('save: snapshot PlantState + CSV text (+ its UTF-8 bytes) + npz bytes + host copies of device '
-                      'arrays are counted in the global ledger')
+SERIALIZATION_NOTE = ('save: snapshot PlantState + plain CSV text (+ its UTF-8 bytes) + the ACTUAL companion metadata JSON '
+                      '(counted size of the whole provenance; text + encoder chunks + bytes + write buffer) + npz bytes + '
+                      'host copies of device arrays are counted in the global ledger')
+COMPANION_COPIES = 4    # JSON chunk list + joined text + UTF-8 bytes + write buffer of plants.metadata.json (conservative)
 
 
 class CheckpointError(ValueError):
@@ -148,18 +172,36 @@ def _write_file(path, data):
         os.fsync(fh.fileno())
 
 
+def _checkpoint_provenance(prov):
+    return dict(prov, checkpoint=SCHEMA)
+
+
+def estimate_companion_bytes(session):
+    '''Conservative size (bytes) of plants.metadata.json for this session BEFORE the snapshot exists: a streaming counting
+    pass over the companion of the session's base population with the provenance `snapshot()` + `save_session` will
+    attach (base provenance whole, the small `interevent` record, the `checkpoint` tag). The provenance is never
+    truncated; its true serialized size enters the ledger. save_session recounts the exact snapshot after it exists.'''
+    base, b = session._base, session._b
+    prov = dict(base.provenance)
+    prov['interevent'] = {'version': _ie.VERSION, 'cursor': b.cursor.isoformat(), 'sequence': int(b.sequence)}
+    return int(_state.plant_metadata_size(base, provenance=_checkpoint_provenance(prov)))
+
+
 def estimate_save_bytes(session):
     '''Conservative serialization ledger of save_session (bytes): snapshot population (host, twice during
-    construction), CSV text + encoded bytes + write buffer (~ 3 x 180 B per plant), host copies of device arrays,
-    the npz buffer and its array copies.'''
+    construction), CSV text + encoded bytes + write buffer (~ 3 x 180 B per plant), the ACTUAL size of the companion
+    metadata JSON (whole provenance, COMPANION_COPIES copies), host copies of device arrays, the npz buffer and its array
+    copies.'''
     L, N, Pl, Pa, S = session._L, session._N, session._Pl, session._Pa, session._S
     rm = session._b.root_map
     E = 0 if rm is None else int(rm.n_edges)
     arrays = 8 * L * N + 8 * Pl * 4 + 16 * S + 8 * Pl + 8 * (Pl + 1) + 16 * E + 8 * (Pl + 1) + 36 * Pl
     snap = session._materialize_peak()            # structural materialisation peak incl. CUDA host B / E copies
+    meta = estimate_companion_bytes(session)
     return {'snapshot_population': snap, 'csv_text_and_bytes': 3 * 180 * Pa,
+            'plant_metadata_text_bytes': meta, 'plant_metadata': COMPANION_COPIES * meta,
             'host_array_copies': arrays, 'npz_buffer': arrays + 4096, 'manifest': 65536,
-            'total_bytes': snap + 3 * 180 * Pa + 2 * arrays + 4096 + 65536}
+            'total_bytes': snap + 3 * 180 * Pa + COMPANION_COPIES * meta + 2 * arrays + 4096 + 65536}
 
 
 # ------------------------------------------------------------------ save
@@ -180,9 +222,18 @@ def save_session(session, path, *, overwrite=False):
     if total > session.max_bytes:
         raise _ie.IntereventAdmissionError('checkpoint_save', total, session.max_bytes, est)
     snap = session.snapshot()
-    csv_text = _state.plant_csv_text(snap, provenance=dict(snap.provenance, checkpoint=SCHEMA))
-    csv_bytes = csv_text.encode('utf-8')
-    del csv_text
+    # exact recount of the companion from the real snapshot provenance (counting pass, no text built) and re-admission
+    # BEFORE the CSV / companion text and the npz buffers are allocated and before any file exists
+    prov = _checkpoint_provenance(snap.provenance)
+    meta_exact = int(_state.plant_metadata_size(snap, provenance=prov))
+    total_exact = total + COMPANION_COPIES * (meta_exact - int(est['plant_metadata_text_bytes']))
+    if total_exact > session.max_bytes:
+        est['plant_metadata_text_bytes'], est['plant_metadata'] = meta_exact, COMPANION_COPIES * meta_exact
+        raise _ie.IntereventAdmissionError('checkpoint_save_metadata', total_exact, session.max_bytes, est)
+    # plain CSV + companion metadata, both serialised and validated BEFORE anything is written
+    csv_text, meta_text = _state.plant_files_text(snap, provenance=prov, csv_file=CSV_NAME)
+    csv_bytes, meta_bytes = csv_text.encode('utf-8'), meta_text.encode('utf-8')
+    del csv_text, meta_text
     rm = b.root_map
     arrays = {'native_water_m': np.ascontiguousarray(_ie._hostarr(b.native_state.water_m), dtype=np.float64),
               'pending_requested_m3': np.ascontiguousarray(_ie._hostarr(b.D), dtype=np.float64),
@@ -253,7 +304,7 @@ def save_session(session, path, *, overwrite=False):
         'last_receipt': b.last_receipt, 'last_growth': b.last_growth, 'phase2': phase2, 'phase3': phase3,
         'sources': {'modules': module_hashes(), 'native_pin': _ie._clean(session._provenance.get('pin')),
                     'native_files_sha256': _ie._clean(session._provenance.get('sha256'))},
-        'files': {CSV_NAME: _sha(csv_bytes), NPZ_NAME: _sha(npz_bytes)},
+        'files': {CSV_NAME: _sha(csv_bytes), META_NAME: _sha(meta_bytes), NPZ_NAME: _sha(npz_bytes)},
         'array_hashes': {k: _arr_hash(v) for k, v in arrays.items()},
         'serialization_note': SERIALIZATION_NOTE}
     manifest = _ie._clean(manifest)
@@ -262,6 +313,7 @@ def save_session(session, path, *, overwrite=False):
     tmp = tempfile.mkdtemp(prefix='.leaf-checkpoint-', suffix='.tmp', dir=parent)
     try:
         _write_file(os.path.join(tmp, CSV_NAME), csv_bytes)
+        _write_file(os.path.join(tmp, META_NAME), meta_bytes)
         _write_file(os.path.join(tmp, NPZ_NAME), npz_bytes)
         _write_file(os.path.join(tmp, MANIFEST_NAME), manifest_bytes)
         _fsync_dir(tmp)
@@ -315,12 +367,18 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
     path = os.fspath(path)
     if not os.path.isdir(path):
         raise CheckpointError(f'{path!r} is not a checkpoint directory')
-    sizes = {n: os.path.getsize(os.path.join(path, n)) for n in (CSV_NAME, NPZ_NAME, MANIFEST_NAME)
+    sizes = {n: os.path.getsize(os.path.join(path, n)) for n in FILE_NAMES
              if os.path.exists(os.path.join(path, n))}
-    if set(sizes) != {CSV_NAME, NPZ_NAME, MANIFEST_NAME}:
-        raise CheckpointError(f'checkpoint {path!r} is incomplete: files {sorted(sizes)}')
+    if set(sizes) != set(FILE_NAMES):
+        legacy_hint = ''
+        if set(sizes) == {CSV_NAME, NPZ_NAME, MANIFEST_NAME}:
+            legacy_hint = (f' (a plants.csv + restart files layout WITHOUT {META_NAME} is the older version <= 3 layout '
+                           f'with metadata embedded in the CSV; this loader reads exactly version {SCHEMA_VERSION} and does '
+                           'not migrate it)')
+        raise CheckpointError(f'checkpoint {path!r} is incomplete: files {sorted(sizes)}, expected {sorted(FILE_NAMES)}'
+                              + legacy_hint)
     mb = max_bytes
-    need = 4 * sizes[CSV_NAME] + 3 * sizes[NPZ_NAME] + 2 * sizes[MANIFEST_NAME] + reserve_bytes
+    need = (4 * sizes[CSV_NAME] + 4 * sizes[META_NAME] + 3 * sizes[NPZ_NAME] + 2 * sizes[MANIFEST_NAME] + reserve_bytes)
     if need > mb:
         raise _ie.IntereventAdmissionError('checkpoint_load_read', need, mb, {'file_sizes': sizes})
     mbytes = _read(path, MANIFEST_NAME)
@@ -335,16 +393,19 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
         raise CheckpointError(
             f'unsupported restart format: schema {man.get("schema")!r} version {ver!r} ({type(ver).__name__}); this loader '
             f'reads exactly schema {SCHEMA!r} integer version {SCHEMA_VERSION}. Older checkpoints (version 1 lacks the '
-            'Phase 2 arrays / manifest block, version 2 lacks the Phase 3 reproduction block) are NOT migrated or '
-            'defaulted (allow_source_change does not authorize a format conversion; use the pinned runtime that wrote '
-            'them)')
+            'Phase 2 arrays / manifest block, version 2 lacks the Phase 3 reproduction block, version 3 embeds the plant '
+            'metadata in plants.csv and has no plants.metadata.json) are NOT migrated or defaulted (allow_source_change '
+            'does not authorize a format conversion; use the pinned runtime that wrote them)')
     body = {k: v for k, v in man.items() if k != 'content_hash'}
     if man.get('content_hash') != _sha(_canonical(body)):
         raise CheckpointError('manifest content hash mismatch (corrupt or edited manifest)')
-    csv_bytes, npz_bytes = _read(path, CSV_NAME), _read(path, NPZ_NAME)
+    csv_bytes, meta_bytes, npz_bytes = _read(path, CSV_NAME), _read(path, META_NAME), _read(path, NPZ_NAME)
     files = _need(man, 'files', 'manifest')
-    if _sha(csv_bytes) != files.get(CSV_NAME) or _sha(npz_bytes) != files.get(NPZ_NAME):
-        raise CheckpointError('file hash mismatch (corrupt plants.csv or restart_arrays.npz)')
+    if not isinstance(files, dict) or set(files) != {CSV_NAME, META_NAME, NPZ_NAME}:
+        raise CheckpointError(f'manifest files table must list exactly {sorted((CSV_NAME, META_NAME, NPZ_NAME))}')
+    if _sha(csv_bytes) != files.get(CSV_NAME) or _sha(meta_bytes) != files.get(META_NAME) \
+            or _sha(npz_bytes) != files.get(NPZ_NAME):
+        raise CheckpointError('file hash mismatch (corrupt plants.csv, plants.metadata.json or restart_arrays.npz)')
     cfg, st = _need(man, 'config', 'manifest'), _need(man, 'state', 'manifest')
     if man.get('backend') != backend:
         raise CheckpointError(f'checkpoint backend {man.get("backend")!r} != requested {backend!r}; no silent backend migration')
@@ -387,10 +448,13 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
             raise CheckpointError(f'array {k} hash mismatch')
     # ---- plants
     try:
-        plants = _state.parse_plant_csv(csv_bytes, catalog, source=os.path.join(path, CSV_NAME))
+        plant_meta = _state.parse_plant_metadata(meta_bytes, source=os.path.join(path, META_NAME))
+        if plant_meta['initial'] is not False:
+            raise CheckpointError('plants.metadata.json declares an INITIAL file; a checkpoint holds concrete anchors only')
+        plants = _state.parse_plant_csv(csv_bytes, catalog, source=os.path.join(path, CSV_NAME), metadata=plant_meta)
     except _state.StateError as exc:
-        raise CheckpointError(f'plants.csv invalid: {exc}') from exc
-    del csv_bytes                       # redundant once parsed (released before the session is initialised)
+        raise CheckpointError(f'plants.csv / plants.metadata.json invalid: {exc}') from exc
+    del csv_bytes, meta_bytes, plant_meta   # redundant once parsed (released before the session is initialised)
     plants.require_resolved('restoring a session')
     if plants.n != cfg.get('n_plants_total') or plants.time_days != st.get('time_days'):
         raise CheckpointError('plants.csv population size / time differs from the manifest')

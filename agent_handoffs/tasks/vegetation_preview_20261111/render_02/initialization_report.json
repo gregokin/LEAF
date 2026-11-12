@@ -1,0 +1,246 @@
+{
+  "attempts": 32780,
+  "catalog_hash": "sha256:b75041ae900d4053a5782a9f40ea7fca0e9cbdd668b4affc871db958db4dba6b",
+  "catalog_species_table": [
+    "BOER",
+    "PROGLA"
+  ],
+  "count_iterations_total": 0,
+  "cover_admission": {
+    "max_cover_bytes": 8388608,
+    "max_cover_cells": 4194304,
+    "max_working_bytes": 1048576,
+    "raster_bytes": 8388608,
+    "raster_cells": 4194304,
+    "raster_shape": [
+      2048,
+      2048
+    ],
+    "rows_per_chunk": 53,
+    "scope": "raster_bytes: boolean union raster(s); working_bytes: 1-D coordinate scratch + row-tiled footprint temporaries (float64 distance + bool mask). P-sized index arrays are reported as index_bytes by measure_cover and scale with the population, not the grid",
+    "subsamples": 8,
+    "total_bytes": 9431040,
+    "working_bytes": 1042432
+  },
+  "cover_definition": "per_species_union",
+  "cover_measurement": {
+    "boundary_note": "finite closed non-periodic domain: canopies are clipped at the domain edge for cover and never wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster interpretation would change both cover and overlap and must be requalified by the adapter, not assumed equal",
+    "definition": "per-group projected union ground cover clipped to the finite non-periodic domain (same-group overlap counted once; cross-group overlap counted in each group); nominal = sum of unclipped crown areas / domain area",
+    "error_basis": "midpoint sampling at resolution dx/s: each circle boundary is resolved to about one raster cell, relative error per circle ~ resolution / radius; sampled, not analytic",
+    "index_bytes": 409424,
+    "method": "midpoint_raster_union",
+    "raster_bytes": 8388608,
+    "raster_cells": 4194304,
+    "raster_shape": [
+      2048,
+      2048
+    ],
+    "resolution_m": [
+      0.03125,
+      0.03125
+    ],
+    "rows_per_chunk": 53,
+    "subsamples": 8,
+    "working_bytes": 1042432
+  },
+  "cover_tolerance": 0.001,
+  "derived": {
+    "ordering_convention": "large_canopy_first: all candidates sorted by descending diameter (stable tie-break: species order, then sample order) and placed sequentially with global canopy exclusion",
+    "species": {
+      "BOER": {
+        "diameter_distribution": {
+          "mu": -2.3221954495706862,
+          "rule": "sigma^2 = ln(1 + std^2/mean^2), mu = ln(mean) - sigma^2/2",
+          "sigma": 0.1980422004353651,
+          "type": "lognormal"
+        },
+        "expected_crown_area_m2": 0.008168140899333463,
+        "initial_count_estimate": 25073
+      },
+      "PROGLA": {
+        "diameter_distribution": {
+          "mu": -0.004975165426584046,
+          "rule": "sigma^2 = ln(1 + std^2/mean^2), mu = ln(mean) - sigma^2/2",
+          "sigma": 0.0997513451195927,
+          "type": "lognormal"
+        },
+        "expected_crown_area_m2": 0.7932521450314227,
+        "initial_count_estimate": 516
+      }
+    }
+  },
+  "domain": {
+    "axes": "(ny, nx): row = y north, col = x east",
+    "cell_sampling": "containing_cell_closed_upper",
+    "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)",
+    "dx_m": 0.25,
+    "dy_m": 0.25,
+    "edges": "finite closed domain, non-periodic",
+    "nx": 256,
+    "ny": 256,
+    "origin_x_m": 0.0,
+    "origin_y_m": 0.0
+  },
+  "domain_area_m2": 4096.0,
+  "establishment": "resolved from the supplied initial surface",
+  "fixture_note": "diameters/ages are configured fixtures, not calibrations",
+  "generation_config": {
+    "cover_definition": "per_species_union",
+    "cover_subsamples": 8,
+    "cover_tolerance": 0.001,
+    "domain": {
+      "axes": "(ny, nx): row = y north, col = x east",
+      "cell_sampling": "containing_cell_closed_upper",
+      "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)",
+      "dx_m": 0.25,
+      "dy_m": 0.25,
+      "edges": "finite closed domain, non-periodic",
+      "nx": 256,
+      "ny": 256,
+      "origin_x_m": 0.0,
+      "origin_y_m": 0.0
+    },
+    "limits": {
+      "max_attempts": 2000000,
+      "max_cover_bytes": 8388608,
+      "max_cover_cells": 4194304,
+      "max_plants": 200000,
+      "max_working_bytes": 1048576
+    },
+    "max_iterations": 12,
+    "overlap": "disallowed",
+    "schema": "leaf.generation_config",
+    "schema_version": 1,
+    "seed": 20261111,
+    "species": {
+      "BOER": {
+        "diameter_mean_m": 0.1,
+        "diameter_std_m": 0.02,
+        "initial_age_days": {
+          "distribution": "constant",
+          "value_days": 730.0
+        },
+        "target_cover": 0.05
+      },
+      "PROGLA": {
+        "diameter_mean_m": 1.0,
+        "diameter_std_m": 0.1,
+        "initial_age_days": {
+          "distribution": "constant",
+          "value_days": 1825.0
+        },
+        "target_cover": 0.1
+      }
+    },
+    "time_days": 0.0
+  },
+  "generation_config_note": "accepted SOURCE configuration: generate_population(catalog, generation_config, surface=...) with the same catalog/surface replays this run exactly",
+  "id_assignment": "ids 1..P in final placement order",
+  "leaf_version": "0.1.0",
+  "limits": {
+    "max_attempts": 2000000,
+    "max_cover_bytes": 8388608,
+    "max_cover_cells": 4194304,
+    "max_plants": 200000,
+    "max_working_bytes": 1048576
+  },
+  "n_plants": 25589,
+  "ordering_convention": "large_canopy_first: all candidates sorted by descending diameter (stable tie-break: species order, then sample order) and placed sequentially with global canopy exclusion",
+  "overlap": "disallowed",
+  "placement": "large-canopy-first sequential uniform proposals with global cross-species canopy exclusion (roots may overlap); complete re-placement after each count correction; sparse hashed bins, not all pairs; not a Poisson process",
+  "placement_passes": 1,
+  "rng": {
+    "bit_generator": "PCG64",
+    "constructor": "numpy.random.default_rng(seed)",
+    "draw_order": "per species batch: diameters, ages; then per placement pass, per candidate in descending size order, per proposal: x (uniform), y (uniform)",
+    "numpy_version": "2.5.3",
+    "seed": 20261111
+  },
+  "schema": "leaf.generation_report",
+  "schema_version": 2,
+  "seed": 20261111,
+  "species": [
+    {
+      "accepted": true,
+      "agb_dry_kg_total": 200.2427757098688,
+      "age_sample_days": {
+        "max": 730.0,
+        "mean": 730.0,
+        "min": 730.0,
+        "n": 25073,
+        "std": 0.0
+      },
+      "count": 25073,
+      "count_formula": "N0 = A f / E[A_c], E[A_c] = pi/4 (mean^2 + std^2)",
+      "diameter_requested": {
+        "distribution": "lognormal",
+        "mean_m": 0.1,
+        "std_m": 0.02
+      },
+      "diameter_sample_m": {
+        "max": 0.2114315087017011,
+        "mean": 0.09997547532793162,
+        "min": 0.04158322313176966,
+        "n": 25073,
+        "std": 0.019993306505161144
+      },
+      "expected_crown_area_m2": 0.008168140899333463,
+      "history": [
+        {
+          "count": 25073,
+          "measured_cover": 0.04993104934692383,
+          "placement_pass": 1
+        }
+      ],
+      "initial_count_estimate": 25073,
+      "iterations": 0,
+      "measured_union_cover": 0.04993104934692383,
+      "nominal_crown_area_fraction": 0.04997508488876294,
+      "relative_error_scale": 0.62515331680087,
+      "species": "BOER",
+      "target_cover": 0.05
+    },
+    {
+      "accepted": true,
+      "agb_dry_kg_total": 166.0029683324423,
+      "age_sample_days": {
+        "max": 1825.0,
+        "mean": 1825.0,
+        "min": 1825.0,
+        "n": 516,
+        "std": 0.0
+      },
+      "count": 516,
+      "count_formula": "N0 = A f / E[A_c], E[A_c] = pi/4 (mean^2 + std^2)",
+      "diameter_requested": {
+        "distribution": "lognormal",
+        "mean_m": 1.0,
+        "std_m": 0.1
+      },
+      "diameter_sample_m": {
+        "max": 1.37696741177763,
+        "mean": 1.0089266616472738,
+        "min": 0.6707513931328956,
+        "n": 516,
+        "std": 0.10085558102131142
+      },
+      "expected_crown_area_m2": 0.7932521450314227,
+      "history": [
+        {
+          "count": 516,
+          "measured_cover": 0.10078167915344238,
+          "placement_pass": 1
+        }
+      ],
+      "initial_count_estimate": 516,
+      "iterations": 0,
+      "measured_union_cover": 0.10078167915344238,
+      "nominal_crown_area_fraction": 0.10172250483855075,
+      "relative_error_scale": 0.06194701991317812,
+      "species": "PROGLA",
+      "target_cover": 0.1
+    }
+  ],
+  "sum_of_species_union_covers": 0.1507127285003662,
+  "total_union_cover_all_species": 0.1507127285003662
+}

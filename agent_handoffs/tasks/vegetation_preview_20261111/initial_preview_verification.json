@@ -1,0 +1,27 @@
+{
+  "scope": "Independent initial-preview verification only; no dynamic simulation",
+  "errors": [],
+  "n_plants": 25589,
+  "time_days": 0.0,
+  "surface_relief_m": 0.04999999999999993,
+  "image_dimensions": [
+    3000,
+    1800
+  ],
+  "species": {
+    "BOER": {
+      "count": 25073,
+      "measured_cover_fraction": 0.04993104934692383,
+      "target_cover_fraction": 0.05,
+      "sample_diameter_mean_m": 0.09997547532793159,
+      "sample_diameter_sd_m": 0.01999330650516114
+    },
+    "PROGLA": {
+      "count": 516,
+      "measured_cover_fraction": 0.10078167915344238,
+      "target_cover_fraction": 0.1,
+      "sample_diameter_mean_m": 1.0089266616472738,
+      "sample_diameter_sd_m": 0.10085558102131142
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "strict_plain_csv_columns": 9,
+  "n_existing_preview_plants": 25589,
+  "existing_model_time_days": 0.0,
+  "plant_row_bytes_unchanged": true,
+  "image_terrain_species_catalog_unchanged": true,
+  "original_preview_provenance_report_unchanged": true,
+  "root_AGENTS_unchanged": true,
+  "current_generation_age_ranges_days": {
+    "BOER": {
+      "distribution": "uniform",
+      "min_days": 0.0,
+      "max_days": 5475.0
+    },
+    "PROGLA": {
+      "distribution": "uniform",
+      "min_days": 0.0,
+      "max_days": 29200.0
+    }
+  },
+  "case_json_toml_parse": "pass",
+  "checkpoint_description_format": 4,
+  "scope": "Pure file/schema/record checks; NO full-case initialization, forward evolution, wind/water, rendering or benchmarks."
+}

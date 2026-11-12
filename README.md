@@ -23,11 +23,29 @@ ground elevation at establishment, total aboveground **dry** biomass in kg,
 seasonal biomass, age in days and status. Initial `SURFACE` anchors resolve once
 against the supplied topography and are then saved as numeric elevations.
 
+**Plant files carry no embedded metadata (project convention).** A LEAF plant CSV
+is plain: the nine-column header on line 1 and nine fields on every data row, with
+no `#` metadata line, JSON or comments — in every file LEAF writes (CLI `init` /
+`generate`, snapshots, final output, checkpoint `plants.csv`, preview tables).
+File metadata (time, domain, species-catalog identity, row count, units, initial /
+`SURFACE` declaration, provenance and the CSV's SHA-256) lives in a separate,
+human-readable companion JSON `<stem>.metadata.json` beside the CSV
+(`initial_plants.csv` → `initial_plants.metadata.json`, `plants.csv` →
+`plants.metadata.json`). Readers load and verify the companion automatically and
+refuse a CSV that does not match it; a handwritten plain list needs no companion
+(the caller supplies the domain). Old files with an embedded `# {json}` first line
+can still be read, but nothing writes that form. Details: the
+[Phase 0 guide](docs/phase0-vegetation.md#23-plant-csv-and-companion-metadata).
+
 Generate multiple species from target cover and mean/standard-deviation canopy
 diameter, with seeded random placement and optional canopy exclusion. Cover is
 per-species union ground cover on a finite domain, measured at a declared sampling
 resolution and tolerance. Size draws are positive lognormal; exclusion places
-larger canopies first and refuses infeasible requests within explicit resource bounds.
+larger canopies first and refuses infeasible requests within explicit resource bounds. Initial ages are drawn
+independently and uniformly from 0 to each species' nominal life expectancy (read from its catalog record; the default
+when `initial_age_days` is omitted, selector `{"distribution": "uniform_to_life_expectancy"}`); this is an initial
+sampling range, not a death age, and a species with `life_expectancy: null` must be given explicit ages
+([details](docs/phase0-vegetation.md#4-generator-leafinitialization)).
 
 The [MAPLE developer handoff](docs/maple-leaf-integration.md) describes shared
 loading, placement and allometry calls for prescribed vegetation, without requiring
@@ -154,11 +172,13 @@ withdrawal and, at growth boundaries (cadence <= 7 days, new years, explicit flu
 a root / canopy rebuild, then publishes everything by a single replacement; any failure leaves the previous boundary
 intact. Transport gates (wind, externally supplied rain / recession results, closed gate) advance calendar and ages
 without transpiration, growth or catch-up, and a year end inside an event is applied at the next open interval.
-`leaf.checkpoint` saves and restores the complete boundary (canonical `plants.csv` plus typed arrays, exact roots,
-hashes, atomic publication). A global byte ledger is admitted before every allocating stage. The runnable
+`leaf.checkpoint` saves and restores the complete boundary (canonical plain `plants.csv` with its companion
+`plants.metadata.json`, plus typed arrays, exact roots, hashes, atomic directory publication; layout version 4). A global byte ledger is admitted before every allocating stage. The runnable
 `examples/phase1/run_interevent.py` needs an explicit backend and budget and is UNCALIBRATED; no field calibration,
-storm / wind physics or full MASY coupling is claimed, and the tests in `tests/test_interevent.py` still need an
-independent run.
+storm / wind physics or full MASY coupling is claimed. The Phase 1 implementation was independently reviewed and
+verified in its own task records under `agent_handoffs/tasks/`. The plain-CSV / layout-version-4 change and species-linked
+uniform initial ages passed independent verification: 531 CPU tests passed, with 45 CUDA skips. See the
+[current review and evidence](agent_handoffs/tasks/plain_plant_csv_20261111/final_review.md).
 
 ## Phase 2: disturbance, biomass loss and persistent mortality state
 
@@ -177,9 +197,10 @@ and RNG state preserved on any failure), and the accepted Phase 2 state (stress 
 counters, replay guards) is part of the complete checkpoint. Every species coefficient lives in the species' catalog record
 (`mortality`, `disturbance`); `examples/phase2/species.json` holds UNCALIBRATED fixtures, and
 `examples/phase2/run_disturbance.py` is a bounded synthetic example. This is an explicit aboveground-only LEAF adaptation,
-not an ECOTONE / STEPWAT2 reproduction; there is no wind or water physics, surface remapping, fire or calibration, and the
-new tests (`tests/test_disturbance.py`, `tests/test_demography.py`, the Phase 2 classes of `tests/test_interevent.py`)
-still need an independent run.
+not an ECOTONE / STEPWAT2 reproduction; there is no wind or water physics, surface remapping, fire or calibration. The Phase 2
+implementation and its tests (`tests/test_disturbance.py`, `tests/test_demography.py`, the Phase 2 classes of
+`tests/test_interevent.py`) were independently reviewed and verified in their own task records under `agent_handoffs/tasks/`
+(`codex_review.md`, `verification.md`); see those records for the accepted evidence.
 
 ## Phase 3: simple seed establishment and nearby vegetative daughter plants
 
@@ -192,12 +213,14 @@ propagule assumption and a bounded integer number of seedlings, and (2) vegetati
 DAUGHTER plants (own ID, age 0, uniform in a disk, bounded rejection, never wrapped) funded by an exact transfer of parent
 dry AGB and seasonal E. Seedling AGB is an external establishment credit in a closed dry-AGB ledger; no water is added or
 withdrawn. Births are published by the same transactional rebind as Phase 2 (generalised to appended births), randomness is
-keyed by (seed, accepted-opportunity counter) and independent of row order, and the version-3 complete checkpoint carries the
-new state (version 1 and 2 checkpoints are refused, not migrated). Phase 2 background mortality now charges a newborn only the
+keyed by (seed, accepted-opportunity counter) and independent of row order, and the complete checkpoint carries the
+new state (layout version 4 since the plain-CSV change; versions 1, 2 and 3 are refused, not migrated). Phase 2 background mortality now charges a newborn only the
 time it was alive. `examples/phase3/species.json` holds UNCALIBRATED FIXTURES and `examples/phase3/run_recruitment.py` is a
 bounded synthetic example. Limits: aboveground only, external propagules, canopy overlap allowed, host (not GPU-resident)
-placement, no seed bank, no surface remapping, no calibration; the new tests (`tests/test_recruitment.py`, the Phase 3 classes
-of `tests/test_interevent.py`, `tests/test_demography.py::NewbornExposure`) still need an independent run.
+placement, no seed bank, no surface remapping, no calibration. The Phase 3 implementation and its tests
+(`tests/test_recruitment.py`, the Phase 3 classes of `tests/test_interevent.py`, `tests/test_demography.py::NewbornExposure`)
+were independently reviewed and verified in their own task records under `agent_handoffs/tasks/` (`codex_review.md`,
+`verification.md`); see those records for the accepted evidence.
 
 ## Benchmark commands
 

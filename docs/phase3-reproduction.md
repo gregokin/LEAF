@@ -10,7 +10,7 @@ number below is a field default (all example numbers are UNCALIBRATED FIXTURES i
 |---|---|
 | species-local laws, keyed randomness, evaluation | `leaf/recruitment.py` (law `simple_seed_clonal_v1`) |
 | annual boundary API, staged population path | `leaf/interevent.py` (`apply_reproduction`, `decline_reproduction_opportunity`, `_rebind(births=...)`) |
-| version-3 complete checkpoint | `leaf/checkpoint.py` |
+| complete checkpoint (Phase 3 block; layout version 3, now 4 with the plain plant CSV) | `leaf/checkpoint.py` |
 | newborn background-hazard correction | `leaf/demography.py` |
 | example catalog / script | `examples/phase3/species.json`, `examples/phase3/run_recruitment.py` |
 
@@ -157,11 +157,13 @@ is **not GPU resident**. The rebuilt roots use the selected builder (`compiled` 
 
 ## 10. Checkpoint compatibility boundary
 
-Complete checkpoints are **schema version 3**: `restart.json` gains a `phase3` block (flags, patch size, accepted-opportunity
+Phase 3 introduced checkpoint **schema version 3**: `restart.json` gains a `phase3` block (flags, patch size, accepted-opportunity
 counter, last handled year, last compact record) and the module hashes include `leaf.recruitment`; no new array exists (newborns
-are ordinary `plants.csv` rows; next IDs derive from the retained records). The canonical plant CSV stays version 1. Version 1
-and 2 checkpoints are REFUSED with a clear message and are never migrated or defaulted, even with `allow_source_change=True`.
-A different catalog (hash) or flag mismatch is refused.
+are ordinary `plants.csv` rows; next IDs derive from the retained records). The **current layout is version 4**: identical
+content, but `plants.csv` is a plain CSV (no embedded metadata) and its metadata is the companion `plants.metadata.json`
+(project rule: do not embed metadata in a plant file; see `docs/phase1-interevent.md` and `docs/phase0-vegetation.md` §2.3).
+The `phase3` block and its restore semantics below are unchanged. Versions 1, 2 and 3 are REFUSED with a clear message and are
+never migrated or defaulted, even with `allow_source_change=True`. A different catalog (hash) or flag mismatch is refused.
 
 Strict `phase3` semantics at restore (all checked before a session exists): `start_year` (the original start year, persisted
 because the session re-anchors) with `start_year - 1 <= last_opportunity_year <= cursor.year - 1`; `0 <= n_reproduction < 2**63`
@@ -170,7 +172,7 @@ no `last_reproduction` before anything was handled; afterwards a record with exa
 (`year, counter, interval_id, cursor, sequence, n_births, n_seed_recruits, n_daughters_placed, n_daughters_rejected`) or the
 declined keys (`... declined: true, counter: null, n_births: 0`), `year == last_opportunity_year`, accepted `counter ==
 n_reproduction - 1`, `n_births == seeds + placed`, `1 <= sequence <= manifest sequence`, cursor between 1 January of year + 1 and
-the checkpoint cursor. Draft format 3 keeps its number (not yet published).
+the checkpoint cursor. (The Phase 3 `phase3` block was added in layout 3 and is carried unchanged by layout 4.)
 
 ## 11. Developer notes (MAPLE / SYRUP; neither model is edited)
 

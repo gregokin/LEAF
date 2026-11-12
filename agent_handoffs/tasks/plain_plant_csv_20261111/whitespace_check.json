@@ -1,0 +1,10 @@
+{
+  "source_docs_cases_command": "git diff --cached --check -- . ':(exclude)agent_handoffs/tasks'",
+  "source_docs_cases_exit_code": 0,
+  "full_archive_check_exit_code": 2,
+  "verbatim_archive_findings": [
+    "one raw failed-test stderr line ends in whitespace",
+    "four archived prompt/review files have extra blank lines at EOF"
+  ],
+  "disposition": "Preserved exact immutable dispatched prompts and raw stderr rather than altering archival evidence. All current source, docs, examples, case data and handoff controls pass."
+}

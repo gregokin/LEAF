@@ -55,8 +55,10 @@ injury or damage physics; it ships species trait *sockets* and event diagnostics
   with a non-empty string `"law"` (`"unimplemented"` for unselected laws); validated generically and
   preserved verbatim (`SpeciesCatalog.section(id, name)` returns a copy).
   `growth.law == "stepwat_weekly_aboveground_v0.1"` + `traits` → `SpeciesCatalog.stepwat_traits()`.
-* **`life_expectancy`**: `null` or `{"mean": > 0, "unit": "days" | "years"}` → `life_expectancy_days(id)`.
-  Metadata only: **no plant ever dies because its age reaches it** (mean ≠ hard maximum).
+* **`life_expectancy`**: `null` or `{"mean": > 0, "unit": "days" | "years"}` → `life_expectancy_days(id)` (years = 365 d).
+  A nominal mean: **no plant ever dies because its age reaches it** (mean ≠ hard maximum; mortality is the separate
+  probabilistic law). It also supplies the upper bound of the generator's default initial-age sampling (§4): ages are
+  drawn uniformly on `[0, life_expectancy)`; `null` makes that default unusable (explicit ages still work).
 * Example numbers are fixtures, never calibrations.
 
 ### 1.2 Validation, ownership, hash, species table
@@ -130,30 +132,83 @@ metadata only.
 copy; unknown/duplicate IDs, `E > B`, non-positive live mass, `removed → *` or `dead_standing → live` leave
 the state untouched.
 
-### 2.3 Plant-state CSV (`leaf.plant_state_csv`, version 1)
+### 2.3 Plant CSV and companion metadata
+
+**Convention (persistent project rule): do not embed metadata in a plant file.** A LEAF plant file is a
+**plain nine-column CSV**: line 1 is the header, every following line is one plant with exactly nine
+fields, and there is no `#` line, JSON or comment — in every file LEAF writes (`init` / `generate`,
+snapshots, final output, checkpoint `plants.csv`, preview tables). There is no option, flag or keyword that
+writes embedded metadata. The saved-file metadata lives in a **separate human-readable companion JSON**
+named `<stem>.metadata.json` in the same directory (`initial_plants.csv` → `initial_plants.metadata.json`,
+`veg_0001.csv` → `veg_0001.metadata.json`, `plants.csv` → `plants.metadata.json`; the stem is the file name
+without its last extension; `leaf.state.metadata_path(csv_path)`).
+
+`plants.csv` (plain, exactly as written — only the header and rows):
 
 ```
-# {"schema": "leaf.plant_state_csv", "schema_version": 1, "time_days": 0.0, "n_plants": 6, "catalog_hash": "sha256:…", "species_names": [...], "domain": {...}, "units": {...}, "coordinate_frame": "...", "establishment_resolved": false, "initial": true, "provenance": {...}}
 plant_id,species,x_m,y_m,establishment_ground_m,agb_dry_kg,seasonal_agb_dry_kg,age_days,status
 1,grass,2.5,3.5,SURFACE,0.12,0.0,730.0,live
 ```
 
-* One schema for initial input, snapshots and final output. Handwritten initial lists may omit the
-  metadata line (the API/CLI supplies domain and time). With a metadata line: schema version, catalog
-  hash, species table, units, coordinate frame, domain (and a supplied domain), row count and the
-  **initial declaration** are checked before anything is built.
-* `SURFACE` is accepted only in a handwritten list or a metadata-bearing file declared `"initial": true`
-  (and not `establishment_resolved: true`). A saved non-initial snapshot carrying the token is refused
-  **before any surface is sampled**, so a later surface can never be mistaken for the establishment surface.
+`plants.metadata.json` (schema `leaf.plant_state_metadata`, version 1; abbreviated):
+
+```json
+{
+  "schema": "leaf.plant_state_metadata", "schema_version": 1, "model": "LEAF", "leaf_version": "0.1.0",
+  "csv": {"file": "plants.csv", "sha256": "sha256:…", "n_bytes": 1234, "columns": ["plant_id", "species", …]},
+  "time_days": 0.0, "n_plants": 6, "catalog_hash": "sha256:…", "species_names": ["grass", "shrub"],
+  "domain": {"nx": 20, "ny": 20, "dx_m": 1.0, …}, "units": {…}, "coordinate_frame": "…",
+  "status_codes": {…}, "establishment_resolved": false, "initial": true, "cell_sampling": "…",
+  "provenance": {…}
+}
+```
+
+* One CSV format for initial input, snapshots and final output. **Readers** (`read_plant_csv`, the CLI,
+  the checkpoint loader) load the companion automatically and verify it **against the exact CSV bytes**:
+  schema and integer version, `csv.n_bytes` (a non-negative integer equal to the exact CSV size) and `csv.sha256`
+  (a stale, edited, reformatted or half-written pair is refused),
+  `n_plants`, catalog hash and species table, domain and `time_days` (and any domain / time the caller also
+  supplied must agree), units, coordinate frame, header columns, and the **initial declaration** — all before
+  anything is built. A companion that lacks a required key, has a wrong type, duplicate keys or `NaN` is
+  refused. `csv.file` is informational only (a pair may be moved or renamed together; the hash is the
+  binding).
+* **No companion = handwritten plain list.** Handwritten initial lists need no companion: the caller supplies
+  the domain (`--domain` / `--nx --ny --dx-m` in the CLI), optionally `time_days` (default 0) and, for
+  `SURFACE` anchors, the initial surface. `read_plant_csv(path, catalog, metadata=False)` deliberately
+  ignores a companion (the companion's declared time and SURFACE safety then no longer protect the read).
+  `parse_plant_csv(text, catalog, metadata=<dict | JSON text | bytes>)` verifies an in-memory pair, and
+  `plant_csv_text(state, initial=)` / `plant_metadata(state, csv_text, initial=, provenance=)` /
+  `plant_files_text(...)` produce them; the in-memory serializer **always returns plain CSV**.
+* `SURFACE` is accepted only in a plain list without companion or in a file whose companion declares
+  `"initial": true` (and `establishment_resolved: false`, which must agree with the CSV). A file whose companion
+  does not declare it initial but whose CSV carries the token is refused **before any surface is sampled**, so
+  a later surface can never be mistaken for the establishment surface. Non-initial snapshots cannot be
+  written with the token.
 * Floats are written with `repr()` and parsed with a strict decimal regex (exact FP64 round trip; no
   `nan`/`inf`/`1_000`). Rows are **standard strict CSV** (`csv.reader(strict=True)`): ordinary quoted
   fields such as `"0.12"` or `"live"` are accepted (spreadsheet writers quote freely); an unterminated or
-  stray quote is malformed and refused. The `# {json}` metadata line is parsed separately as JSON (it
-  naturally contains quotes). Reads are all-or-nothing (`StateError`).
-* Writes: `preflight_destination` (directory exists, no clobber), validate, serialise, then
-  `atomic_write_bytes`: temp file + fsync, published with `os.link` when `overwrite=False` (fails if the
-  destination exists; **no check-then-replace fallback** — on filesystems without hard links the write is
-  refused, use `overwrite=True` to replace intentionally via `os.replace`).
+  stray quote is malformed and refused. Reads are all-or-nothing (`StateError`).
+* **Two-file writes** (`write_plant_files` / `write_plant_csv`, snapshots, `init`, `generate`, preview):
+  validate and serialise **both** files first; preflight **both** destinations (directory exists; neither the
+  CSV nor its companion exists unless `overwrite=True`; an overwrite never replaces a metadata file that is not a
+  LEAF plant companion, so unrelated `<stem>.metadata.json` files are never clobbered); then publish the
+  companion first and the CSV second, each with `atomic_write_bytes` (temp file + fsync, published with `os.link`
+  when `overwrite=False` — **no check-then-replace fallback**, on filesystems without hard links the write is
+  refused; `os.replace` only for `overwrite=True`). If the CSV cannot be published a newly created companion is
+  removed (a replaced one is restored) and the error is re-raised. **Two renames are not one atomic
+  operation:** if the process dies between them, an orphan companion without a CSV (every reader fails: missing
+  CSV) or, on overwrite, a new companion beside the old CSV (every reader fails: SHA-256 mismatch) remains;
+  such a pair is *detected and refused*, never silently used. Remove the stale companion (or rewrite with
+  `overwrite=True`) to recover. A checkpoint directory is still published by one directory rename.
+* **Editing a CSV by hand** invalidates its companion hash: either delete the companion (the file is then a
+  plain list read with caller context) or regenerate the pair (`python -m leaf init --plants edited.csv …`
+  after removing the old companion, which writes a verified pair).
+* **Legacy files.** Files written before this convention carry the metadata as a first line
+  `# {"schema": "leaf.plant_state_csv", "schema_version": 1, …}`. They are still **read** (same checks as
+  before, domain and time from that line), but not together with a companion (refused as ambiguous), and no
+  code path writes that form. A first line starting with `#` that is not that JSON line is refused — plain
+  files have no comments. To convert one, split the first line into `<stem>.metadata.json` (new schema, with
+  the CSV SHA-256) using `plant_metadata`; the rows are unchanged.
 * The file holds vegetation state only (no soil water, RNG, pending uptake or driver internals).
 
 ---
@@ -231,8 +286,32 @@ Config (`leaf.generation_config` v1; `examples/phase0/generation.json`): `domain
 (`allowed` | `disallowed`), `cover_definition` (`per_species_union`), `cover_tolerance` (**finite positive
 < 1, mandatory** — acceptance cannot be disabled), `cover_subsamples`, `max_iterations`, `limits`
 (`max_plants`, `max_attempts`, `max_cover_cells`, `max_cover_bytes`, `max_working_bytes`), `time_days`,
-`species.<id>` = `target_cover ∈ [0,1)`, `diameter_mean_m`, `diameter_std_m`, `initial_age_days` (number or
-`{distribution: constant|uniform, …}`). Species are processed in sorted-id order.
+`species.<id>` = `target_cover ∈ [0,1)`, `diameter_mean_m`, `diameter_std_m` and the OPTIONAL `initial_age_days`
+(see "Initial ages" below). Species are processed in sorted-id order.
+
+**Initial ages (default: uniform from 0 to the species' life expectancy).** When `initial_age_days` is omitted — and
+for the explicit selector `{"distribution": "uniform_to_life_expectancy"}`, which the shipped example and the Jornada
+trial config write out — every generated plant's age is drawn **independently** from a continuous **uniform**
+distribution on `[0, L)` days, where `L = SpeciesCatalog.life_expectancy_days(species)` is the nominal
+`life_expectancy` of **that species' catalog record** (`mean × 365` for `unit: years`, `mean × 1` for `days`).
+The bound is read from the catalog: it is never duplicated in the config and never inferred from allometry or from a
+mortality (Weibull) scale. One vectorised `rng.uniform(0, L, k)` call per species batch uses the existing seeded RNG;
+diameters, placement, cover acceptance and memory limits are unchanged and **no age–biomass relation is invented**
+(ages are independent of size). Fixture catalog: grass 8 years → 0..2920 d, shrub 40 years → 0..14 600 d; Jornada trial
+case: BOER 15 years → 0..15 years (0..5475 d), PROGLA 80 years → 0..80 years (0..29 200 d). **This is only the
+initial sampling range.** The life expectancy is a *nominal mean*, not a death age: LEAF never kills a plant because its
+age reaches it (a plant may start, or become, older than `L` only by explicit input; mortality is the separate
+probabilistic law of `leaf.demography`). A species whose `life_expectancy` is `null` cannot use the default or the
+selector: `validate_generation_config` raises a `CatalogError` naming the species (no guessed bound, no silent zero).
+Explicit controls remain for reproducible fixtures and controlled experiments and work with `life_expectancy: null`:
+a number of days, `{"distribution": "constant", "value_days": …}` and `{"distribution": "uniform", "min_days": …,
+"max_days": …}`. Handwritten plant files, loaded snapshots/restarts and age-0 recruits (Phase 3) are not touched by the
+generator rule. Reporting: `report['generation_config']` keeps the **source rule** (the selector, written explicitly even
+if the original omitted the key) so that replay with the same catalog re-resolves the same bounds; the **resolved**
+bounds, the life-expectancy value/unit, the catalog hash, its origin (`species[<id>].life_expectancy`) and whether the
+rule was the default are in `report['derived']['species'][<id>]['initial_age']`, `report['species'][i]['age_requested']`
+and the state provenance (hence in the companion metadata, never in the plain CSV). Replay with a *different* catalog
+gives a different range by design (its hash differs).
 
 1. Diameters: lognormal with the requested population mean/SD (`σ² = ln(1 + s²/m²)`, `μ = ln m − σ²/2`;
    `std = 0` constant). Biomass = species inverse allometry. Non-finite derived quantities (crown area,
@@ -282,9 +361,12 @@ w.write_manifest('out/manifest.json')
   `skipped_due_times_days` (cadence 10: snapshots at 10 then 35 → `[20, 30]`; at 10 then 30 → `[20]`).
   Nothing is fabricated or interpolated; the snapshot always carries the actual state time.
 * **All** bookkeeping (origin, due index, records, skipped totals, last time) is staged and committed only
-  after the file exists; a failed initial/cadence/final write (validation, unresolved anchors, existing
-  file, missing directory, I/O) leaves the writer exactly as before.
-* Destination collisions (same kind/index/time path) raise `FileExistsError` unless `overwrite=True`.
+  after **both** files (the plain snapshot CSV and its `<stem>.metadata.json` companion, §2.3) exist; a failed
+  initial/cadence/final write (validation, unresolved anchors, existing CSV or companion, missing directory,
+  I/O) leaves the writer exactly as before. Each record lists `path` (CSV) and `metadata_path`; the
+  companion's provenance carries the snapshot kind, index, cadence and skipped due times.
+* Destination collisions (same kind/index/time path, or an existing companion) raise `FileExistsError` unless
+  `overwrite=True`.
 
 ---
 
@@ -343,18 +425,28 @@ python -m leaf export-canopy --species S --plants veg0.csv --surface-constant 10
 ```
 
 `init`/`generate` take the INITIAL surface (optional; without it the output is an initial file keeping the
-`SURFACE` token). `inspect`/`export-canopy` take the CURRENT surface; `export-canopy` **requires** it. In the
-example, `plants.csv` holds explicit anchors (99.9, 100.0, 99.8) at or below the surface of 100 m, so the
-first export is native-MAPLE-valid; the second command shows the explicit handling of a deposition that
-fully buries the grasses (refused by default). `generate --report` must differ from `--out`; both
-destinations are preflighted and both outputs serialised before any file is committed. Outputs are atomic;
-existing files are refused without `--overwrite`; errors exit 1 (usage 2).
+`SURFACE` token, with `"initial": true` in its companion). `inspect`/`export-canopy` take the CURRENT surface;
+`export-canopy` **requires** it. In the example, `plants.csv` holds explicit anchors (99.9, 100.0, 99.8) at or
+below the surface of 100 m, so the first export is native-MAPLE-valid; the second command shows the explicit
+handling of a deposition that fully buries the grasses (refused by default).
+
+`init` and `generate` write a **plain CSV plus its companion** (`veg0.csv` + `veg0.metadata.json`,
+`gen.csv` + `gen.metadata.json`; the JSON output lists `written` and `metadata_written`). Every command that
+reads a plant CSV loads and verifies the companion automatically (no `--domain` is needed when one exists; a
+conflicting `--domain` / `--nx…` or an edited CSV is refused, exit 1); a handwritten plain list has no companion,
+so give the domain. `generate --report` must differ from `--out` **and from `--out`'s companion**
+(`<stem>.metadata.json`); the CSV destination, the companion destination and the report are preflighted and
+all outputs serialised before any file is committed; the report is published first and removed again if the
+plant pair cannot be published (a newly created companion is removed too). Outputs are atomic per file;
+existing files (including an existing companion, which may belong to another file) are refused without
+`--overwrite`; errors exit 1 (usage 2).
 
 ## 9. Examples and reproducibility
 
 `examples/phase0/species.json` (two fixture species), `plants.csv` (SURFACE and explicit anchors, ages,
 dead and removed rows), `generation.json` (128² cells of 0.25 m, grass 6 % at 0.15 ± 0.03 m, shrub 5 % at
-2.0 ± 0.3 m, overlap allowed, seed 20261110). All numbers are fixtures. Generation is reproducible from the
+2.0 ± 0.3 m, overlap allowed, seed 20261110, initial ages uniform 0..life expectancy of each species via the selector). All
+numbers are fixtures. Generation is reproducible from the
 report's `generation_config` + catalog hash.
 
 ## 10. Limitations (Phase 0)

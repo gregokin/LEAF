@@ -1,0 +1,15 @@
+{
+  "changed_source_files": [
+    "report.md",
+    "cases/jornada_grass05_shrub10_256/preview/render_preview.py"
+  ],
+  "script_sha256": "03451fd8e25d62d1e61260c932af8db4db7b19b3b65430a2e3edde89678a0168",
+  "second_initialization": false,
+  "time_days": 0.0,
+  "reused_data_files": [
+    "initial_surface.npy",
+    "initial_plants.csv",
+    "initialization_report.json"
+  ],
+  "png": "/home/okin/leaf/agent_handoffs/tasks/vegetation_preview_20261111/render_02/vegetation_initial.png"
+}

@@ -175,7 +175,9 @@ loop (the CUDA path is vectorised CuPy on one explicit device, not a hand-writte
 
 ## Checkpoint (`leaf.checkpoint`)
 
-`plants.csv` remains the SINGLE canonical plant-record format. The auxiliary accepted state lives in the existing
+`plants.csv` remains the SINGLE canonical plant-record format (since layout version 4 a PLAIN CSV with no embedded metadata;
+its time, domain, catalog identity, row count and SHA-256 live in the checkpoint's companion `plants.metadata.json`, see
+`docs/phase1-interevent.md`). The auxiliary accepted state lives in the existing
 full-checkpoint arrays: `stress_counter`, `annual_required_support_kg_year`, `annual_actual_support_kg_year`,
 `annual_planned_growth_kg`, `annual_actual_growth_kg` (live-sized, zero-length unless a stress law is active) and a
 `phase2` manifest block (RNG seed as decimal text, decision counters, year-due flag, decision-period start, pending
@@ -185,14 +187,17 @@ written before Phase 2 is refused (no silent migration). Restore verifies hashes
 refuses), counters, counter caps, finiteness, active-law flags and binding consistency before a session exists; a
 restored session makes the same keyed draws as an uninterrupted run.
 
-**Format version.** The Phase 2 restart layout (five required arrays plus the required `phase2` manifest block) is
-`restart.json` schema `leaf.interevent_restart` **`schema_version` 2**; the canonical plant CSV stays version 1. The
-loader requires an actual non-boolean integer equal to 2 (2.0, `true`, `"2"`, null, 1 and 3 are refused) and checks it right
-after parsing the manifest, BEFORE any array is decoded or any population is allocated; the message reports the actual
-schema / version and the expected 2. Version-1 (Phase 1) checkpoints are NOT read, defaulted or migrated, and
-`allow_source_change` does not authorize a format conversion; resume such runs with the pinned Phase 1 runtime. Any future
-migration needs separate qualification: the CSV alone is not a complete restart (pending growth, random counters and stress
-state live in the arrays / manifest).
+**Format version.** The Phase 2 restart layout (five required arrays plus the required `phase2` manifest block) was
+introduced as `restart.json` schema `leaf.interevent_restart` `schema_version` 2 (HISTORICAL; the current loader reads
+only **version 4**, see below and `docs/phase3-reproduction.md` / `docs/phase1-interevent.md`). The loader requires an
+actual non-boolean integer equal to the supported version (2.0, `true`, strings, null and every other number are refused)
+and checks it right after parsing the manifest, BEFORE any array is decoded or any population is allocated; the message
+reports the actual schema / version and the expected one. Version-1 (Phase 1), version-2 (this layout), version-3 and
+any older checkpoints are NOT read, defaulted or migrated by the current loader, and `allow_source_change` does not
+authorize a format conversion; resume such runs with the pinned runtime that wrote them. The current layout (version 4)
+only moves the plant metadata out of `plants.csv` into `plants.metadata.json`; the Phase 2 arrays and `phase2` block are
+unchanged. Any future migration needs separate qualification: the CSV alone is not a complete restart (pending growth,
+random counters and stress state live in the arrays / manifest).
 
 ## Tests and example
 

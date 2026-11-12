@@ -93,8 +93,10 @@ Accepted ecological state (live-sized, in the boundary and in complete checkpoin
 four annual accumulators (required support, actual support, planned growth, actual growth; float64), the RNG seed (in
 the session / manifest), the decision counter, the year-due flag, the start of the current decision period, the pending
 transport binding and the last decision record. Auxiliary pending / annual arrays live in `restart_arrays.npz` next to
-the canonical `plants.csv`, which remains the single plant-record format (the arrays carry no plant identity of their
-own: they follow the live-row mapping of the CSV). No whole-history or event-ID list exists.
+the canonical `plants.csv`, which remains the single plant-record format (a PLAIN nine-column CSV with no embedded
+metadata; its time / domain / catalog identity / row count / SHA-256 are in the companion `plants.metadata.json` of the
+same checkpoint directory; see leaf.checkpoint). The arrays carry no plant identity of their own: they follow the
+live-row mapping of the CSV. No whole-history or event-ID list exists.
 
 PHASE 3 (simple seed establishment and nearby vegetative daughters; UNQUALIFIED, UNCALIBRATED). `apply_reproduction(year,
 current_surface, max_new_plants=, max_total_records=, max_attempts=)` is the explicit annual boundary (laws:
@@ -102,7 +104,8 @@ leaf.recruitment; docs/phase3-reproduction.md). It generalises the Phase 2 trans
 (`_rebind(..., births=...)`) handles status / B changes AND appended births (canonical PlantState, Domain containing
 cell, shared allometry / canopy / root builder; surviving per-plant root overrides kept, newborns use species roots; fresh
 zero stress / annual accumulators only for newborns). The session adds the accepted-opportunity counter (the keyed RNG
-counter), the last handled opportunity year and the explicit patch size; they are part of complete (version 3) checkpoints.
+counter), the last handled opportunity year and the explicit patch size; they are part of complete checkpoints (introduced with layout version 3; the current layout is
+version 4: plain `plants.csv` + companion `plants.metadata.json`, versions 1-3 are refused).
 `decline_reproduction_opportunity(year)` records an unusable opportunity explicitly. Inactive catalogs hold no array.
 '''
 from __future__ import annotations

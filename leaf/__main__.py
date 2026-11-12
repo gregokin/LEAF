@@ -8,12 +8,20 @@
 
 domain : --domain domain.json  (object with nx, ny, dx_m[, dy_m, origin_x_m, origin_y_m])
          or --nx NX --ny NY --dx-m DX [--dy-m DY --origin-x-m X0 --origin-y-m Y0]
-         (not needed when the plant CSV carries a metadata line)
+         (not needed when a companion <stem>.metadata.json sits beside the plant CSV)
 surface: --surface surface.npy (np.load allow_pickle=False, shape (ny, nx)) or --surface-constant Z
          init/generate: the INITIAL surface resolving SURFACE anchors (optional: without it the output is an
          initial file keeping the token). inspect/export-canopy: the CURRENT surface; export-canopy REQUIRES
          it because safe MAPLE publication validates every canopy against its establishment anchor.
-Outputs are written atomically; existing files are refused unless --overwrite. Errors exit with status 1.
+Plant files: plant CSVs are PLAIN nine-column CSV (no embedded metadata, comments or JSON). init/generate write the
+         CSV and a companion JSON "<stem>.metadata.json" beside it (out.csv -> out.metadata.json: time, domain, catalog
+         identity, row count, units, initial / SURFACE declaration, provenance and the CSV SHA-256). Every command that
+         reads a plant CSV loads and verifies the companion automatically; a CSV that does not match it is refused.
+         A handwritten plain list has no companion: give the domain (--domain or --nx/--ny/--dx-m).
+Outputs are written atomically (both plant files are validated and serialised first, both destinations are
+preflighted, the companion is published before the CSV and removed again if the CSV cannot be written); existing
+files, including a companion or a --report that would collide with either plant file, are refused unless
+--overwrite. Errors exit with status 1.
 '''
 from __future__ import annotations
 
@@ -32,7 +40,7 @@ from leaf import traits as _traits
 
 
 def _add_domain_args(p):
-    g = p.add_argument_group('domain (optional when the CSV has a metadata line)')
+    g = p.add_argument_group('domain (optional when a <stem>.metadata.json companion sits beside the CSV)')
     g.add_argument('--domain', metavar='JSON', help='domain JSON file {nx, ny, dx_m[, dy_m, origin_x_m, origin_y_m]}')
     g.add_argument('--nx', type=int)
     g.add_argument('--ny', type=int)
@@ -122,23 +130,29 @@ def cmd_validate_species(args):
 
 def cmd_init(args):
     cat = _traits.load_catalog(args.species)
-    _state.preflight_destination(args.out, overwrite=args.overwrite)
+    _state.preflight_plant_files(args.out, overwrite=args.overwrite)       # CSV and companion destinations
     state, _ = _load_state(args, cat, resolve=True)
     initial = not state.establishment_resolved
     if initial:
         print(f'note: {int(state.establishment_unresolved.sum())} plant(s) keep the SURFACE token (no initial surface '
-              'given); the output is an INITIAL input file ("initial": true), not a publishable snapshot', file=sys.stderr)
-    path = _state.write_plant_csv(state, args.out, overwrite=args.overwrite, initial=initial,
-                                  provenance={'command': 'leaf init', 'source_csv': args.plants, 'species_file': args.species})
-    _dump({'written': path, 'initial': initial, 'summary': state.summary()})
+              'given); the output is an INITIAL input file (companion metadata "initial": true), not a publishable '
+              'snapshot', file=sys.stderr)
+    path, meta_path = _state.write_plant_files(
+        state, args.out, overwrite=args.overwrite, initial=initial,
+        provenance={'command': 'leaf init', 'source_csv': args.plants, 'species_file': args.species})
+    _dump({'written': path, 'metadata_written': meta_path, 'initial': initial, 'summary': state.summary()})
     return 0
 
 
 def cmd_generate(args):
     cat = _traits.load_catalog(args.species)
+    meta_out = _state.metadata_path(args.out)
     if args.report is not None and _same_path(args.out, args.report):
         raise ValueError('--report must not be the same file as --out (the JSON report would replace the plant CSV)')
-    _state.preflight_destination(args.out, overwrite=args.overwrite)
+    if args.report is not None and _same_path(meta_out, args.report):
+        raise ValueError(f'--report must not be the plant metadata companion {meta_out!r} of --out (the JSON report '
+                         'would replace the companion metadata of the plant CSV)')
+    _state.preflight_plant_files(args.out, overwrite=args.overwrite)       # CSV and companion destinations
     if args.report is not None:
         _state.preflight_destination(args.report, overwrite=args.overwrite)
     with open(args.config, 'r', encoding='utf-8') as fh:
@@ -147,10 +161,12 @@ def cmd_generate(args):
     surface = _surface_from_args(args, cfg['domain'])
     state, report = _init.generate_population(cat, config, surface=surface)
     initial = not state.establishment_resolved
-    # serialise BOTH outputs before touching any file
-    csv_text = _state.plant_csv_text(state, initial=initial,
-                                     provenance=dict(state.provenance, command='leaf generate', config_file=args.config))
+    # serialise ALL outputs (plain CSV, companion metadata, report) before touching any file
+    csv_text, meta_text = _state.plant_files_text(
+        state, initial=initial, provenance=dict(state.provenance, command='leaf generate', config_file=args.config),
+        csv_file=os.path.basename(args.out))
     report['written'] = os.path.abspath(args.out)
+    report['metadata_written'] = os.path.abspath(meta_out)
     report_text = json.dumps(_jsonable(report), indent=1, allow_nan=False) + '\n' if args.report is not None else None
     report_created = False
     if report_text is not None:
@@ -158,7 +174,8 @@ def cmd_generate(args):
         _state.atomic_write_text(args.report, report_text, overwrite=args.overwrite)
         report_created = not report_existed
     try:
-        path = _state.atomic_write_text(args.out, csv_text, overwrite=args.overwrite)
+        path, meta_path = _state.publish_plant_files(args.out, csv_text.encode('utf-8'), meta_text.encode('utf-8'),
+                                                     overwrite=args.overwrite)
     except BaseException:
         if report_created:
             try:
@@ -166,7 +183,7 @@ def cmd_generate(args):
             except OSError:
                 pass
         raise
-    brief = {'written': path, 'report_written': args.report, 'n_plants': report['n_plants'],
+    brief = {'written': path, 'metadata_written': meta_path, 'report_written': args.report, 'n_plants': report['n_plants'],
              'establishment': report['establishment'], 'initial': initial,
              'species': [{k: p[k] for k in ('species', 'target_cover', 'measured_union_cover', 'count', 'accepted')}
                          for p in report['species']],
@@ -248,7 +265,8 @@ def build_parser():
 
     p = sub.add_parser('init', help='read a plant list CSV, resolve SURFACE anchors from the INITIAL surface, write a state CSV')
     p.add_argument('--species', required=True)
-    p.add_argument('--plants', required=True, help='input plant CSV (handwritten lists may omit the metadata line)')
+    p.add_argument('--plants', required=True,
+                   help='input plain plant CSV (a handwritten list has no <stem>.metadata.json companion: give the domain)')
     p.add_argument('--time-days', type=float, dest='time_days', default=None)
     p.add_argument('--out', required=True)
     p.add_argument('--overwrite', action='store_true')
@@ -260,7 +278,8 @@ def build_parser():
     p.add_argument('--species', required=True)
     p.add_argument('--config', required=True, help='generation JSON (domain, seed, overlap, limits, species targets)')
     p.add_argument('--out', required=True)
-    p.add_argument('--report', default=None, help='optional JSON generation report path (must differ from --out)')
+    p.add_argument('--report', default=None,
+                   help='optional JSON generation report path (must differ from --out and from its <stem>.metadata.json companion)')
     p.add_argument('--overwrite', action='store_true')
     _add_surface_args(p, 'INITIAL')
     p.set_defaults(func=cmd_generate)

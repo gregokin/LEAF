@@ -1,0 +1,10 @@
+{
+  "revision": 1,
+  "class": "rate_limit",
+  "reset": "unknown",
+  "literal": "You've reached your Fable limit. Switch to another model, or manage usage credits at claude.ai/settings/usage?from=cc_cli_limit_message, to continue.",
+  "api_error": "model_requires_usage_credits",
+  "is_error": true,
+  "process_reaped": true,
+  "disposition": "No output authored. Same bounded task resumed using Sonnet, as in preceding project workflow. No credits purchased; no repeated unavailable-model retry; automatic preference unchanged."
+}

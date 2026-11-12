@@ -1,0 +1,7 @@
+{
+  "classification": "rate_limit",
+  "literal": "You've reached your Fable limit. Switch to another model, or manage usage credits at claude.ai/settings/usage?from=cc_cli_limit_message, to continue.",
+  "reset": "unknown",
+  "changes": "No implementation edits before limit",
+  "next_action": "One bounded same-session attempt using sonnet, as prior successful project handoffs; no repeated limit retries."
+}

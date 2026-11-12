@@ -1,0 +1,62 @@
+{
+  "context/AGENTS.md": {
+    "source": "/home/okin/leaf/AGENTS.md",
+    "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+    "size_bytes": 2353
+  },
+  "context/claude.md": {
+    "source": "/home/okin/leaf/claude.md",
+    "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714",
+    "size_bytes": 2731
+  },
+  "context/agent_handoffs/AGENTS.md": {
+    "source": "/home/okin/leaf/agent_handoffs/AGENTS.md",
+    "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f",
+    "size_bytes": 8488
+  },
+  "context/leaf/initialization.py": {
+    "source": "/home/okin/leaf/leaf/initialization.py",
+    "sha256": "25e58f759761b525c2021eb18d64cd2b6bede8543b22ba983a8eb2d65967aeab",
+    "size_bytes": 32214
+  },
+  "context/leaf/canopy.py": {
+    "source": "/home/okin/leaf/leaf/canopy.py",
+    "sha256": "6f16b97e7fbd248685495959b4e0322f44ef9b2ba950bb35ded0d70826adde0e",
+    "size_bytes": 33687
+  },
+  "context/leaf/state.py": {
+    "source": "/home/okin/leaf/leaf/state.py",
+    "sha256": "187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0",
+    "size_bytes": 48690
+  },
+  "context/leaf/traits.py": {
+    "source": "/home/okin/leaf/leaf/traits.py",
+    "sha256": "4aecd751ae6a46fb996dfa295129d3f5c01e57abf98943d150103782f9ce8527",
+    "size_bytes": 27583
+  },
+  "context/cases/jornada_grass05_shrub10_256/generation.json": {
+    "source": "/home/okin/leaf/cases/jornada_grass05_shrub10_256/generation.json",
+    "sha256": "a72458ca7166a6305e73f214c6055f4843cf11c5c06874205a3552ce7458541b",
+    "size_bytes": 2890
+  },
+  "context/cases/jornada_grass05_shrub10_256/species.json": {
+    "source": "/home/okin/leaf/cases/jornada_grass05_shrub10_256/species.json",
+    "sha256": "9db3dace6a2a8e9212204d23aa7408414e1875a408ec3149d3e0233f7bd480e4",
+    "size_bytes": 21325
+  },
+  "context/cases/jornada_grass05_shrub10_256/landscape.toml": {
+    "source": "/home/okin/leaf/cases/jornada_grass05_shrub10_256/landscape.toml",
+    "sha256": "c859d49dc6caba381a6b4a70aec58ee3c621ef585fe4f068a31e99c736ebfd3a",
+    "size_bytes": 4147
+  },
+  "context/cases/jornada_grass05_shrub10_256/README.md": {
+    "source": "/home/okin/leaf/cases/jornada_grass05_shrub10_256/README.md",
+    "sha256": "0bde1eef778a3279ea7c8e2e96a529503342c42d9a245ce88ed2a98d0e0a7d16",
+    "size_bytes": 6503
+  },
+  "context/maple_random_field.py": {
+    "source": "/home/okin/MAPLE/src/maple/case_tools/generators/random_field.py",
+    "sha256": "a87dda5a3b17da91ba0a91c7efd35ed12095e5d399be49ca1af588dbaf377c80",
+    "size_bytes": 7699
+  }
+}

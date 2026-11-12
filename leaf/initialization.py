@@ -1,8 +1,21 @@
 '''leaf.initialization: cover-driven multispecies population generator (bounded, reproducible).
 
 Per species the configuration gives a target fractional cover f in [0, 1), a diameter mean m and standard
-deviation s (lognormal with exactly that population mean/SD; s = 0 -> constant), and an initial age.
-Biomass follows from each sampled diameter through the species inverse allometry.
+deviation s (lognormal with exactly that population mean/SD; s = 0 -> constant), and an initial age rule.
+Biomass follows from each sampled diameter through the species inverse allometry (no age-biomass relation is
+invented: ages are drawn independently of size).
+
+Initial ages. DEFAULT (when `initial_age_days` is omitted) and explicit selector {"distribution":
+"uniform_to_life_expectancy"}: each individual's age is drawn independently from a continuous UNIFORM distribution on
+[0, L_sp) days, where L_sp = SpeciesCatalog.life_expectancy_days(species) is the nominal life expectancy of THAT species'
+catalog record (life_expectancy.mean x 365 for unit "years", x 1 for "days"). The bound is read from the catalog, never
+duplicated in the config or inferred from allometry or a mortality scale. It is an INITIAL SAMPLING range only: LEAF never
+kills a plant because its age reaches the life expectancy (the nominal value is not a hard death age; mortality is the
+separate probabilistic law of leaf.demography). A species without a usable life expectancy (null) makes the default /
+selector a validation error (no guessed bound, no silent zero). Explicit rules remain for reproducible fixtures and
+controlled experiments: a number of days, {"distribution": "constant", "value_days"} and {"distribution": "uniform",
+"min_days", "max_days"} (these work with life_expectancy null). One vectorised `rng.uniform(lo, hi, k)` call draws the ages
+of a species batch. Handwritten plant files, loaded snapshots/restarts and age-0 recruits are not affected.
 
 Counts. With E[d^2] = m^2 + s^2 the expected crown area is E[A_c] = pi/4 * E[d^2]. Overlap allowed:
 Poisson-Boolean start N0 = -A ln(1 - f) / E[A_c]; overlap disallowed: N0 = A f / E[A_c]. Counts are integers
@@ -38,6 +51,7 @@ version, so a run is reproducible from the report's `generation_config` + catalo
 '''
 from __future__ import annotations
 
+import copy
 import math
 
 import numpy as np
@@ -59,14 +73,18 @@ DEFAULTS = {'overlap': 'allowed', 'cover_tolerance': 0.005, 'cover_subsamples': 
 TOP_KEYS = ('schema', 'schema_version', 'domain', 'seed', 'overlap', 'cover_definition', 'cover_tolerance',
             'cover_subsamples', 'max_iterations', 'limits', 'species', 'time_days', 'notes')
 SPECIES_KEYS = ('target_cover', 'diameter_mean_m', 'diameter_std_m', 'initial_age_days', 'notes')
+REQUIRED_SPECIES_KEYS = SPECIES_KEYS[:3]       # initial_age_days is optional: omitted -> AGE_UNIFORM_TO_LIFE (the default)
+AGE_UNIFORM_TO_LIFE = 'uniform_to_life_expectancy'
+DEFAULT_AGE_SPEC = {'distribution': AGE_UNIFORM_TO_LIFE}
 ORDERING = {'allowed': 'species in sorted catalog-id order, individuals in sample order (independent uniform centres)',
             'disallowed': 'large_canopy_first: all candidates sorted by descending diameter (stable tie-break: species '
                           'order, then sample order) and placed sequentially with global canopy exclusion'}
 RNG_RECORD = {'constructor': 'numpy.random.default_rng(seed)', 'bit_generator': 'PCG64',
               'draw_order': {'allowed': 'per species batch: diameters (lognormal or none), x (uniform), y (uniform), '
-                                        'ages (constant: none / uniform)',
-                             'disallowed': 'per species batch: diameters, ages; then per placement pass, per candidate '
-                                           'in descending size order, per proposal: x (uniform), y (uniform)'}}
+                                        'ages (constant: none; uniform / uniform_to_life_expectancy: one vector '
+                                        'rng.uniform(min, max, k) draw)',
+                             'disallowed': 'per species batch: diameters, ages (same age draw as above); then per placement '
+                                           'pass, per candidate in descending size order, per proposal: x (uniform), y (uniform)'}}
 
 
 class GenerationError(RuntimeError):
@@ -136,6 +154,12 @@ def _age_spec(v, name):
     if not isinstance(v, dict) or 'distribution' not in v:
         raise _traits.CatalogError(f'{name} must be a number of days or an object with "distribution"')
     dist = v['distribution']
+    if dist == AGE_UNIFORM_TO_LIFE:
+        extra = sorted(set(v) - {'distribution'})
+        if extra:
+            raise _traits.CatalogError(f'{name}: {AGE_UNIFORM_TO_LIFE!r} takes no parameters (the bound is the species '
+                                       f'catalog life_expectancy), got extra keys {extra}')
+        return {'distribution': AGE_UNIFORM_TO_LIFE}
     if dist == 'constant':
         extra = sorted(set(v) - {'distribution', 'value_days'})
         if extra or 'value_days' not in v:
@@ -150,7 +174,35 @@ def _age_spec(v, name):
         if hi < lo:
             raise _traits.CatalogError(f'{name}: max_days < min_days')
         return {'distribution': 'uniform', 'min_days': lo, 'max_days': hi}
-    raise _traits.CatalogError(f'{name}: unsupported age distribution {dist!r} (constant | uniform)')
+    raise _traits.CatalogError(f'{name}: unsupported age distribution {dist!r} '
+                               f'({AGE_UNIFORM_TO_LIFE} | constant | uniform)')
+
+
+def _resolve_age(age, catalog, sid, name, from_default):
+    '''(sampling spec, resolved record) of one normalised age rule. The species-linked rule reads its upper bound from
+    the catalog (SpeciesCatalog.life_expectancy_days: mean x 365 for "years") and refuses a species without one; explicit
+    rules are passed through unchanged (they work with life_expectancy null).'''
+    if age['distribution'] != AGE_UNIFORM_TO_LIFE:
+        return dict(age), dict(age, rule='explicit', rule_source='explicit initial_age_days in the config')
+    life = catalog.life_expectancy_days(sid)
+    if life is None or not math.isfinite(life) or life <= 0.0:
+        raise _traits.CatalogError(
+            f'{name}: the age rule {AGE_UNIFORM_TO_LIFE!r}'
+            + (' (the DEFAULT when initial_age_days is omitted)' if from_default else '')
+            + f' needs a usable life_expectancy in the catalog record of species {sid!r}, but it is '
+            f'{"null" if life is None else repr(life)}; no upper bound is guessed and zero is never used. Declare '
+            'life_expectancy for the species, or give an explicit initial_age_days (a number of days, a constant or '
+            'a bounded uniform distribution)')
+    le = catalog.section(sid, 'life_expectancy')
+    record = {'rule': AGE_UNIFORM_TO_LIFE,
+              'rule_source': ('DEFAULT: initial_age_days omitted in the config' if from_default
+                              else 'explicit selector in the config'),
+              'distribution': 'uniform', 'min_days': 0.0, 'max_days': life, 'life_expectancy_days': life,
+              'life_expectancy': {'mean': le['mean'], 'unit': le['unit']}, 'days_per_unit': _traits.TIME_UNIT_DAYS[le['unit']],
+              'catalog_hash': catalog.hash, 'catalog_origin': f'species[{sid!r}].life_expectancy (mean x days per unit)',
+              'note': 'initial sampling range only: the nominal life expectancy is not a hard death age (LEAF never kills a '
+                      'plant for reaching it; mortality is the separate probabilistic law)'}
+    return {'distribution': 'uniform', 'min_days': 0.0, 'max_days': life}, record
 
 
 def validate_generation_config(config, catalog):
@@ -207,9 +259,13 @@ def validate_generation_config(config, catalog):
         if not isinstance(cfg, dict):
             raise E(f'species[{sid!r}] must be an object')
         unknown = sorted(set(cfg) - set(SPECIES_KEYS))
-        missing = [k for k in SPECIES_KEYS[:4] if k not in cfg]
+        missing = [k for k in REQUIRED_SPECIES_KEYS if k not in cfg]
         if unknown or missing:
             raise E(f'species[{sid!r}]: unknown keys {unknown}, missing {missing}')
+        age_name = f'species[{sid!r}].initial_age_days'
+        from_default = 'initial_age_days' not in cfg
+        age = _age_spec(dict(DEFAULT_AGE_SPEC) if from_default else cfg['initial_age_days'], age_name)
+        age_sampling, age_resolved = _resolve_age(age, catalog, sid, age_name, from_default)
         f = _traits.nonnegative(cfg['target_cover'], f'species[{sid!r}].target_cover')
         if f >= 1.0:
             raise E(f'species[{sid!r}].target_cover must be < 1')
@@ -217,8 +273,8 @@ def validate_generation_config(config, catalog):
         s = _traits.nonnegative(cfg['diameter_std_m'], f'species[{sid!r}].diameter_std_m')
         ea = expected_crown_area_m2(m, s)
         species.append({'id': sid, 'index': catalog.index(sid), 'target_cover': f, 'diameter_mean_m': m,
-                        'diameter_std_m': s, 'initial_age_days': _age_spec(cfg['initial_age_days'], f'species[{sid!r}].initial_age_days'),
-                        'lognormal': lognormal_parameters(m, s), 'expected_crown_area_m2': ea,
+                        'diameter_std_m': s, 'initial_age_days': age, 'age_sampling': age_sampling,
+                        'age_resolved': age_resolved, 'lognormal': lognormal_parameters(m, s), 'expected_crown_area_m2': ea,
                         'initial_count_estimate': initial_count(domain.area_m2, f, ea, overlap == 'allowed')})
     return {'schema': GENERATION_SCHEMA, 'schema_version': GENERATION_SCHEMA_VERSION, 'domain': domain, 'seed': seed,
             'overlap': overlap, 'cover_definition': 'per_species_union', 'cover_tolerance': tol, 'cover_subsamples': sub,
@@ -229,7 +285,10 @@ def validate_generation_config(config, catalog):
 def config_record(cfg):
     '''JSON-able complete SOURCE configuration: exactly what validate_generation_config accepts, so
     generate_population(catalog, report['generation_config'], surface=...) replays the run array-for-array
-    (same catalog/surface). Derived quantities live in derived_record().'''
+    (same catalog/surface). The species-linked age rule is recorded as its SOURCE RULE (the selector
+    {"distribution": "uniform_to_life_expectancy"}, written explicitly even when the original config omitted
+    initial_age_days) so the rule itself is never lost; its resolved bounds and catalog origin are in
+    derived_record() / the report. Derived quantities live in derived_record().'''
     return {'schema': cfg['schema'], 'schema_version': cfg['schema_version'], 'domain': cfg['domain'].to_dict(),
             'seed': cfg['seed'], 'overlap': cfg['overlap'], 'cover_definition': cfg['cover_definition'],
             'cover_tolerance': cfg['cover_tolerance'], 'cover_subsamples': cfg['cover_subsamples'],
@@ -246,7 +305,8 @@ def derived_record(cfg):
                                                              {'type': 'lognormal', 'mu': sp['lognormal'][0], 'sigma': sp['lognormal'][1],
                                                               'rule': 'sigma^2 = ln(1 + std^2/mean^2), mu = ln(mean) - sigma^2/2'}),
                                    'expected_crown_area_m2': sp['expected_crown_area_m2'],
-                                   'initial_count_estimate': sp['initial_count_estimate']} for sp in cfg['species']}}
+                                   'initial_count_estimate': sp['initial_count_estimate'],
+                                   'initial_age': copy.deepcopy(sp['age_resolved'])} for sp in cfg['species']}}
 
 
 # ------------------------------------------------------------------ sampling helpers
@@ -263,7 +323,9 @@ def _sample_diameters(rng, spec, n):
 
 
 def _sample_ages(rng, spec, n):
-    a = spec['initial_age_days']
+    '''Ages of n new individuals: constant, or ONE vectorised continuous uniform draw on [min, max) days (the resolved
+    bounds: explicit, or 0 .. the species life expectancy for the species-linked rule).'''
+    a = spec['age_sampling']
     if a['distribution'] == 'constant':
         return np.full(n, a['value_days'], dtype=np.float64)
     return rng.uniform(a['min_days'], a['max_days'], n) if n else np.zeros(0)
@@ -481,6 +543,7 @@ def generate_population(catalog, config, *, surface=None):
                             'diameter_requested': {'mean_m': spec['diameter_mean_m'], 'std_m': spec['diameter_std_m'],
                                                    'distribution': 'constant' if spec['lognormal'] is None else 'lognormal'},
                             'diameter_sample_m': _stats(d), 'age_sample_days': _stats(age_all[m]),
+                            'age_requested': copy.deepcopy(spec['age_resolved']),
                             'agb_dry_kg_total': float(B[m].sum()) if m.any() else 0.0,
                             'accepted': abs(g['union_fraction'] - spec['target_cover']) <= tol,
                             'iterations': len(histories[si]) - 1, 'history': histories[si],
@@ -491,7 +554,13 @@ def generate_population(catalog, config, *, surface=None):
               'catalog_hash': catalog.hash, 'catalog_species_table': list(catalog.species_ids),
               'generation_config': config_record(cfg),
               'generation_config_note': 'accepted SOURCE configuration: generate_population(catalog, generation_config, '
-                                        'surface=...) with the same catalog/surface replays this run exactly',
+                                        'surface=...) with the same catalog/surface replays this run exactly (a species-linked age '
+                                        'rule is recorded as its source rule and is re-resolved from that same catalog; the '
+                                        'resolved bounds and their catalog origin are in derived.species.<id>.initial_age)',
+              'initial_age_note': 'ages are drawn independently of size from each species\' resolved initial-age rule; the '
+                                  'species-linked rule samples uniformly on [0, nominal life expectancy) of that species\' '
+                                  'catalog record: an initial sampling range, not a hard death age and not an age-biomass '
+                                  'relation',
               'derived': derived_record(cfg),
               'rng': {'seed': cfg['seed'], 'constructor': RNG_RECORD['constructor'], 'bit_generator': RNG_RECORD['bit_generator'],
                       'numpy_version': np.__version__, 'draw_order': RNG_RECORD['draw_order'][cfg['overlap']]},
@@ -529,6 +598,6 @@ def generate_population(catalog, config, *, surface=None):
 
 
 __all__ = ['GENERATION_SCHEMA', 'GENERATION_SCHEMA_VERSION', 'REPORT_SCHEMA', 'REPORT_SCHEMA_VERSION', 'OVERLAP_MODES',
-           'DEFAULT_LIMITS', 'DEFAULTS', 'ORDERING', 'RNG_RECORD', 'GenerationError', 'lognormal_parameters',
+           'DEFAULT_LIMITS', 'DEFAULTS', 'AGE_UNIFORM_TO_LIFE', 'DEFAULT_AGE_SPEC', 'ORDERING', 'RNG_RECORD', 'GenerationError', 'lognormal_parameters',
            'expected_crown_area_m2', 'initial_count', 'next_count', 'validate_generation_config', 'config_record',
            'derived_record', 'generate_population']

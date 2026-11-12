@@ -9,9 +9,14 @@ The CALLER owns the clock (PlantState.advance_time). The writer only decides whe
     Example: cadence 10 from 0, snapshots at 10 then 35 -> the 35-snapshot lists [20, 30]; a snapshot at
     30 instead would list [20]. The next due time is the first one strictly after the current time.
   - write_final(state): explicit final snapshot regardless of cadence.
-Every write validates and serialises first, then writes atomically; ALL bookkeeping (origin, due index,
-record list, skipped totals, last time) is staged and committed only after the file exists. Failures leave
-the writer and existing files untouched. Existing files are never overwritten unless overwrite=True.
+Every snapshot is a PLAIN plant CSV (no embedded metadata, comment or JSON) plus a companion
+"<stem>.metadata.json" next to it (time, domain, catalog identity, row count, units, provenance incl. the snapshot
+kind / index / skipped due times, and the SHA-256 of the CSV; see leaf.state). Every write validates and serialises
+BOTH files first, preflights both destinations, then writes atomically (companion first, CSV second; a failed CSV
+write removes / restores the companion); ALL bookkeeping (origin, due index, record list, skipped totals, last time)
+is staged and committed only after both files exist. Failures leave the writer and existing files untouched.
+Existing files (CSV or companion) are never overwritten unless overwrite=True. The path template names the CSV; the
+companion is `leaf.state.metadata_path(csv_path)` and is listed in every record as `metadata_path`.
 '''
 from __future__ import annotations
 
@@ -90,7 +95,8 @@ class SnapshotWriter:
             raise RecordingError(f'bad path_template {self.path_template!r}: {exc}') from exc
 
     def _write(self, state, kind, skipped):
-        '''Validate, serialise and atomically write; returns (path, record). NO bookkeeping change.'''
+        '''Validate, serialise and atomically write the plain CSV + companion metadata; returns (csv path, record).
+        NO bookkeeping change.'''
         if not isinstance(state, _state.PlantState):
             raise RecordingError('state must be a leaf.state.PlantState')
         t = _state._finite_float(state.time_days, 'state.time_days')
@@ -102,9 +108,9 @@ class SnapshotWriter:
         prov.update(self.provenance)
         prov.update({'snapshot_kind': kind, 'snapshot_index': len(self.records), 'cadence_days': self.cadence_days,
                      'skipped_due_times_days': list(skipped)})
-        _state.write_plant_csv(state, path, overwrite=self.overwrite, provenance=prov)
-        record = {'kind': kind, 'index': len(self.records), 'time_days': t, 'path': path, 'n_plants': state.n,
-                  'skipped_due_times_days': list(skipped)}
+        csv_path, meta_path = _state.write_plant_files(state, path, overwrite=self.overwrite, provenance=prov)
+        record = {'kind': kind, 'index': len(self.records), 'time_days': t, 'path': csv_path,
+                  'metadata_path': meta_path, 'n_plants': state.n, 'skipped_due_times_days': list(skipped)}
         return path, record
 
     def _commit(self, record, skipped):

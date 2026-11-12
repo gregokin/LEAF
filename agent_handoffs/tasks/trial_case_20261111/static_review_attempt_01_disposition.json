@@ -1,0 +1,7 @@
+{
+  "class": "check_failed",
+  "component": "Codex static-review assertion",
+  "attempt_record": "static_review_attempt_01.json",
+  "literal": "stable unmodified input climate/weather_2027.json",
+  "disposition": "Review assertion was broader than the revision3 correction contract. Diff showed ONLY approved provenance-text path correction ../landscape.toml -> landscape.toml in the case root. Reviewer now checks exact expected one-string replacement plus equality of entire remaining JSON and all numerical fields. Data/physical requirements and resource limits unchanged. Final static review passes."
+}

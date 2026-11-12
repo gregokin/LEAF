@@ -1,0 +1,216 @@
+{
+  "case": "/home/okin/leaf/cases/jornada_grass05_shrub10_256",
+  "catalog_hash": "sha256:b75041ae900d4053a5782a9f40ea7fca0e9cbdd668b4affc871db958db4dba6b",
+  "checks_measured_at_run": {
+    "age_days_by_species": {
+      "BOER": [
+        730.0
+      ],
+      "PROGLA": [
+        1825.0
+      ]
+    },
+    "all_species_accepted": true,
+    "anchor_vs_initial_surface_max_abs_diff_m": 0.0,
+    "anchors_resolved": true,
+    "geometry_diameter_stats_m": {
+      "BOER": {
+        "mean_m": 0.09997547532793159,
+        "n": 25073,
+        "std_m": 0.01999330650516114
+      },
+      "PROGLA": {
+        "mean_m": 1.0089266616472738,
+        "n": 516,
+        "std_m": 0.10085558102131142
+      }
+    },
+    "geometry_vs_report_mean_diameter_abs_diff_m": {
+      "BOER": 2.7755575615628914e-17,
+      "PROGLA": 0.0
+    },
+    "perturbation_peak_to_peak_m": 0.05,
+    "status_counts": {
+      "dead_standing": 0,
+      "live": 25589,
+      "removed": 0
+    },
+    "surface_delta_all_zero": true,
+    "surface_max_m": 0.6238958963795241,
+    "surface_min_m": 0.5738958963795242,
+    "time_days": 0.0,
+    "time_days_is_zero": true
+  },
+  "elapsed_s_before_provenance": 3.919,
+  "environment": {
+    "MPLCONFIGDIR": "/tmp/leaf_vegetation_preview_mpl",
+    "matplotlib": "3.11.2",
+    "matplotlib_backend": "Agg",
+    "numpy": "2.5.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "generation_config": {
+    "cover_definition": "per_species_union",
+    "cover_subsamples": 8,
+    "cover_tolerance": 0.001,
+    "domain": {
+      "axes": "(ny, nx): row = y north, col = x east",
+      "cell_sampling": "containing_cell_closed_upper",
+      "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)",
+      "dx_m": 0.25,
+      "dy_m": 0.25,
+      "edges": "finite closed domain, non-periodic",
+      "nx": 256,
+      "ny": 256,
+      "origin_x_m": 0.0,
+      "origin_y_m": 0.0
+    },
+    "limits": {
+      "max_attempts": 2000000,
+      "max_cover_bytes": 8388608,
+      "max_cover_cells": 4194304,
+      "max_plants": 200000,
+      "max_working_bytes": 1048576
+    },
+    "max_iterations": 12,
+    "overlap": "disallowed",
+    "schema": "leaf.generation_config",
+    "schema_version": 1,
+    "seed": 20261111,
+    "species": {
+      "BOER": {
+        "diameter_mean_m": 0.1,
+        "diameter_std_m": 0.02,
+        "initial_age_days": {
+          "distribution": "constant",
+          "value_days": 730.0
+        },
+        "target_cover": 0.05
+      },
+      "PROGLA": {
+        "diameter_mean_m": 1.0,
+        "diameter_std_m": 0.1,
+        "initial_age_days": {
+          "distribution": "constant",
+          "value_days": 1825.0
+        },
+        "target_cover": 0.1
+      }
+    },
+    "time_days": 0.0
+  },
+  "image": {
+    "circle_rendering": "matplotlib EllipseCollection, units=xy, widths=heights=derive_geometry diameter_m (exact data units), offsets=derive_geometry centres; no fixed-size markers",
+    "derive_geometry_call": "derive_geometry(plants, catalog, current_surface=surface)",
+    "dpi": 200,
+    "figsize_in": [
+      15.0,
+      9.0
+    ],
+    "file": "vegetation_initial.png",
+    "pixels": [
+      3000,
+      1800
+    ],
+    "plants_plotted_main": 25589,
+    "zoom_circles_intersecting_window": {
+      "BOER": 425,
+      "PROGLA": 5
+    },
+    "zoom_window_m": [
+      28.0,
+      36.0,
+      28.0,
+      36.0
+    ]
+  },
+  "leaf_version": "0.1.0",
+  "output_dir": "/home/okin/leaf/agent_handoffs/tasks/vegetation_preview_20261111/render_02",
+  "outputs": {
+    "initial_plants.csv": "sha256:15e060e34bc82dd545c414db510aba13e2f2d09698ed2bb97413c3db64ccea54",
+    "initial_surface.npy": "sha256:a2966584858a9feb5e4d969d5a188ea32657bb97e7e6e3542ae700e7d79a48d5",
+    "initialization_report.json": "sha256:6bfc85c954e470f7bd4039fe6318433999bf005ed47b7643fbb875d9b0fbd2d9",
+    "vegetation_initial.png": "sha256:d74491d018426ec06b28073af09644323c454ab0d022ec1352280e997f922f02"
+  },
+  "preview_population_note": "separate preview population; case inputs/plants.csv and inputs/surface.npy were not created",
+  "repo": "/home/okin/leaf",
+  "schema": "leaf.vegetation_preview_provenance",
+  "schema_version": 1,
+  "scope": "INITIALIZATION_ONLY",
+  "sources": {
+    "generation.json": {
+      "path": "/home/okin/leaf/cases/jornada_grass05_shrub10_256/generation.json",
+      "sha256": "sha256:a72458ca7166a6305e73f214c6055f4843cf11c5c06874205a3552ce7458541b"
+    },
+    "landscape.toml": {
+      "path": "/home/okin/leaf/cases/jornada_grass05_shrub10_256/landscape.toml",
+      "sha256": "sha256:c859d49dc6caba381a6b4a70aec58ee3c621ef585fe4f068a31e99c736ebfd3a"
+    },
+    "leaf/__init__.py": {
+      "path": "/home/okin/leaf/leaf/__init__.py",
+      "sha256": "sha256:5d0f3e40077546da9287d043c9f53058efcc0e495f077478426cd18f3f2d4f1d"
+    },
+    "leaf/canopy.py": {
+      "path": "/home/okin/leaf/leaf/canopy.py",
+      "sha256": "sha256:6f16b97e7fbd248685495959b4e0322f44ef9b2ba950bb35ded0d70826adde0e"
+    },
+    "leaf/initialization.py": {
+      "path": "/home/okin/leaf/leaf/initialization.py",
+      "sha256": "sha256:25e58f759761b525c2021eb18d64cd2b6bede8543b22ba983a8eb2d65967aeab"
+    },
+    "leaf/state.py": {
+      "path": "/home/okin/leaf/leaf/state.py",
+      "sha256": "sha256:187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0"
+    },
+    "leaf/traits.py": {
+      "path": "/home/okin/leaf/leaf/traits.py",
+      "sha256": "sha256:4aecd751ae6a46fb996dfa295129d3f5c01e57abf98943d150103782f9ce8527"
+    },
+    "maple_random_field.py": {
+      "path": "/home/okin/MAPLE/src/maple/case_tools/generators/random_field.py",
+      "sha256": "sha256:a87dda5a3b17da91ba0a91c7efd35ed12095e5d399be49ca1af588dbaf377c80"
+    },
+    "render_preview.py": {
+      "path": "/home/okin/leaf/agent_handoffs/tasks/vegetation_preview_20261111/revision_02/cases/jornada_grass05_shrub10_256/preview/render_preview.py",
+      "sha256": "sha256:03451fd8e25d62d1e61260c932af8db4db7b19b3b65430a2e3edde89678a0168"
+    },
+    "species.json": {
+      "path": "/home/okin/leaf/cases/jornada_grass05_shrub10_256/species.json",
+      "sha256": "sha256:9db3dace6a2a8e9212204d23aa7408414e1875a408ec3149d3e0233f7bd480e4"
+    }
+  },
+  "statement": "Initial placement/surface only. No ecological or transport simulation (no growth, hydrology, wind/water events, mortality, recruitment, evolution) was run; simulation time is 0 days.",
+  "surface": {
+    "call_arguments": {
+      "correlation_length_x_m": 1.0,
+      "correlation_length_y_m": 1.0,
+      "dx_m": 0.25,
+      "dy_m": 0.25,
+      "nx": 256,
+      "ny": 256,
+      "relief_m": 0.05,
+      "seed": 1173
+    },
+    "dtype": "float64",
+    "generator": "/home/okin/MAPLE/src/maple/case_tools/generators/random_field.py::generate_spectral_gaussian_field",
+    "reference_level_m": 0.6,
+    "shape": [
+      256,
+      256
+    ]
+  },
+  "initialization_renderer_source": {
+    "path": "/home/okin/leaf/agent_handoffs/tasks/vegetation_preview_20261111/revision_01/cases/jornada_grass05_shrub10_256/preview/render_preview.py",
+    "sha256": "sha256:fdac5b0f25906539fc8038fededfbef7f2e638d3e9787a0ec6290d98d131472e"
+  },
+  "rerender": {
+    "at_utc": "2026-11-11T23:42:59.817295+00:00",
+    "method": "Reuse unchanged saved population/surface/report; call only reviewed render() with shared derive_geometry output. No second initialization and no elapsed model time.",
+    "prior_provenance_path": "/home/okin/leaf/agent_handoffs/tasks/vegetation_preview_20261111/render_01/preview_provenance.json",
+    "prior_provenance_sha256": "sha256:ec84ed0ee6142d6b1de6bab37cd01674241e1872795797afe5e556f3f12daaf3",
+    "population_surface_report_byte_identical": true,
+    "render_elapsed_s": 1.3712888900190592,
+    "reason": "Separate zoom x-axis label and legend; wrap metadata and format cover percentages."
+  }
+}

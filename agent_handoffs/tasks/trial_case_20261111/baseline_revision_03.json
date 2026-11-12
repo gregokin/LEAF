@@ -1,0 +1,230 @@
+{
+  "at_utc": "2026-11-11T22:25:44.285062+00:00",
+  "candidate_files": {
+    "SOURCE_INDEX.txt": {
+      "sha256": "4597b494c4ee83e75a3b3cad35dc959c8ee31876c031a3ab0e7a3de832ef755f",
+      "size_bytes": 1231
+    },
+    "report.md": {
+      "sha256": "0fd3482dd0f69786aa97fa5ceece654c5d7b73b112ad1138e2727d7d52977209",
+      "size_bytes": 7258
+    },
+    "context/source-facts.md": {
+      "sha256": "f4bab417ef1a27709fe60751d2156f61c81820ff5bbd8fafd3b7ec37491f432f",
+      "size_bytes": 19557
+    },
+    "cases/jornada_grass05_shrub10_256/SOURCES.md": {
+      "sha256": "1a24dac8dddfd1cef84f1e02b921515741b01c0dddfad2b0b540bba1520daeb3",
+      "size_bytes": 6054
+    },
+    "cases/jornada_grass05_shrub10_256/PARAMETERS.md": {
+      "sha256": "3da1377e9c385936dce01e068127995fda75eddea5f9270fbb9ed5a6d5eaadcc",
+      "size_bytes": 19124
+    },
+    "cases/jornada_grass05_shrub10_256/species.json": {
+      "sha256": "15a76fe8adab1b280c606b78740439907d44a62b066dd01367a3aa11c1ee6d19",
+      "size_bytes": 20175
+    },
+    "cases/jornada_grass05_shrub10_256/soil.toml": {
+      "sha256": "b43adda1b3ee929e58c13861e9ec3d93a31057840042e07cf8afb58aa4d5e96e",
+      "size_bytes": 4295
+    },
+    "cases/jornada_grass05_shrub10_256/case.toml": {
+      "sha256": "f445fdaa88524b3bb6f63ace3453bc9551130648a71a744e728a9625f7e719d9",
+      "size_bytes": 9096
+    },
+    "cases/jornada_grass05_shrub10_256/README.md": {
+      "sha256": "d67e8e08c32710b459ee3e56fbde4984fbe60b32bcf2a31c0f72ada4192b6762",
+      "size_bytes": 5902
+    },
+    "cases/jornada_grass05_shrub10_256/generation.json": {
+      "sha256": "a72458ca7166a6305e73f214c6055f4843cf11c5c06874205a3552ce7458541b",
+      "size_bytes": 2890
+    },
+    "cases/jornada_grass05_shrub10_256/landscape.toml": {
+      "sha256": "f93755f7776db095a2c283b719f8c8f348bfca08bc10be805a35a5291a4e2277",
+      "size_bytes": 4055
+    },
+    "cases/jornada_grass05_shrub10_256/outputs/README.md": {
+      "sha256": "f099b77f4f847b6260714c779d125d4297f3802ca573288bd920fee28d35be02",
+      "size_bytes": 1475
+    },
+    "cases/jornada_grass05_shrub10_256/inputs/README.md": {
+      "sha256": "1e66c8ac3232c26ee2c4338ab28146d6b6987ddf13d51ba13ca7ac513330b0a8",
+      "size_bytes": 1455
+    },
+    "cases/jornada_grass05_shrub10_256/climate/monthly_normals.csv": {
+      "sha256": "a9764380ff79dea00731cbbd80a22407c877db5ec39bb84898032b0bfe89d6e3",
+      "size_bytes": 1335
+    },
+    "cases/jornada_grass05_shrub10_256/climate/weather_2027.json": {
+      "sha256": "4c3d855b896f147890555942cbde1d1b5ea45beb92fa162233afea519f131512",
+      "size_bytes": 28842
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/settings.toml": {
+      "sha256": "3f26b44bd0dac30ba752948f1cb3bff7fd5ee57303efea53a6d7a6156eeca19d",
+      "size_bytes": 5972
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/annual_plan.csv": {
+      "sha256": "5d6b23c55e179fd767fb74e09c50d58e0b153f8fa0a95461b16979040d454d4f",
+      "size_bytes": 10385
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/README.md": {
+      "sha256": "e8d58880f1703bec9466273e30b93ba1ac088bdc157be4ce17938c1cd440abe3",
+      "size_bytes": 5809
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/examples/rain.json": {
+      "sha256": "a60bec5928dd1f93c362c1e3b4664189e4a880ca7d174ea4f3f9d6029d2957a6",
+      "size_bytes": 242
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/examples/interevent.json": {
+      "sha256": "29b1c0933990f4216c9fae98cc797a4fdedf52da57056272af1efde3bc8badef",
+      "size_bytes": 168
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/examples/wind.json": {
+      "sha256": "9019a9f26e766120a718cc38ccc2024e53a2c974ceae55c05ea1a9011dbac261",
+      "size_bytes": 284
+    },
+    "context/leaf/claude.md": {
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714",
+      "size_bytes": 2731
+    },
+    "context/leaf/AGENTS.md": {
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+      "size_bytes": 2353
+    },
+    "context/masy/wind_a.json": {
+      "sha256": "ecbf395311f9506c9ac33adb66ad1137317207c2d84d576365f4f4694bac12b0",
+      "size_bytes": 271
+    },
+    "context/masy/weather.py": {
+      "sha256": "e9c814a19569015201b1e177c00ee48e9f1eb1c16c1de655a99b67a8a29d5a80",
+      "size_bytes": 27580
+    },
+    "context/masy/weather_simplified.json": {
+      "sha256": "54ef385fc85a87fc4d246a161b24fd843e9744403f9d05233042e50678d3cf4a",
+      "size_bytes": 1469
+    },
+    "context/masy/scenario.py": {
+      "sha256": "049faf1959b772e54234874e370e8b7aac7cf86a59cdf8ff37c8b92367dad422",
+      "size_bytes": 14327
+    },
+    "context/masy/interevent_2d.json": {
+      "sha256": "6617dfed60cf9249cf978a5099f9615b84dbad0ba6a8735508f36b32501aafb5",
+      "size_bytes": 169
+    },
+    "context/masy/rain_a.json": {
+      "sha256": "edf9379bdef287eca4fc8ab839df2a717429bdbc1200871ad65a956d1152fc94",
+      "size_bytes": 262
+    },
+    "context/maple/case.yaml": {
+      "sha256": "dbf33a0374f9fc0a919816a29276bea0a68b4076a4317492fc6f7c32f0008db7",
+      "size_bytes": 2173
+    },
+    "context/maple/random_field.py": {
+      "sha256": "a87dda5a3b17da91ba0a91c7efd35ed12095e5d399be49ca1af588dbaf377c80",
+      "size_bytes": 7699
+    },
+    "context/syrup/subsurface.py": {
+      "sha256": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+      "size_bytes": 64044
+    },
+    "context/syrup/weather_pet.py": {
+      "sha256": "abd04baed539c0d64abffe40c4fd1f47bbe1092884e4fdbd606831cfd82d9169",
+      "size_bytes": 72166
+    },
+    "context/leaf/dependencies/phase3-reproduction.lock.json": {
+      "sha256": "656e9b4a627b44ed0ec67b6b25f0bff9b4ed7d09324ce109ff05b442d6bd91f7",
+      "size_bytes": 5040
+    },
+    "context/leaf/dependencies/phase1-native-growth.lock.json": {
+      "sha256": "2e019af8c0138961402410e8bf45ab18cefa30b133bf07d2533d168e8c681cb7",
+      "size_bytes": 6025
+    },
+    "context/leaf/dependencies/phase2-disturbance.lock.json": {
+      "sha256": "cb688d4fbeb5e0917602fed8f1ada6b65029ca2db0fce0b01496c3c86719a77a",
+      "size_bytes": 4576
+    },
+    "context/leaf/agent_handoffs/AGENTS.md": {
+      "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f",
+      "size_bytes": 8488
+    },
+    "context/leaf/leaf/initialization.py": {
+      "sha256": "25e58f759761b525c2021eb18d64cd2b6bede8543b22ba983a8eb2d65967aeab",
+      "size_bytes": 32214
+    },
+    "context/leaf/leaf/traits.py": {
+      "sha256": "4aecd751ae6a46fb996dfa295129d3f5c01e57abf98943d150103782f9ce8527",
+      "size_bytes": 27583
+    },
+    "context/leaf/leaf/__main__.py": {
+      "sha256": "83b4589b1aeab57d43ad04c69d32b80daf6eb976004b38ae4b57410d861b8ee1",
+      "size_bytes": 15896
+    },
+    "context/leaf/leaf/growth.py": {
+      "sha256": "ce984de33fc8ec1154449706d8c59c8e31166b732ebedb6648bc47f68513998a",
+      "size_bytes": 70330
+    },
+    "context/leaf/leaf/disturbance.py": {
+      "sha256": "38a9dfa4521cdcb2512b904a83d5f2af4fbad97fa1a0c972bb70b0cb6906f9c0",
+      "size_bytes": 45703
+    },
+    "context/leaf/leaf/interevent.py": {
+      "sha256": "10a8e43fdf39a39d0d0f4221c6b7c4f31bb687e62897b458058078b4b8da099c",
+      "size_bytes": 133666
+    },
+    "context/leaf/leaf/recording.py": {
+      "sha256": "12ea3fee1dd660756b2e800adb20265f25b867a42604f456f01ea2728fa2c584",
+      "size_bytes": 8084
+    },
+    "context/leaf/leaf/state.py": {
+      "sha256": "187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0",
+      "size_bytes": 48690
+    },
+    "context/leaf/leaf/demography.py": {
+      "sha256": "7648b8f4a23016dc07196b9c790498bccb3cf18db0a20bbbda408974834dce1a",
+      "size_bytes": 35677
+    },
+    "context/leaf/leaf/forcing.py": {
+      "sha256": "fa79d12f2c96a15aac8012d713976ece8b4c055ca567968251225635fa9d7474",
+      "size_bytes": 19206
+    },
+    "context/leaf/leaf/roots.py": {
+      "sha256": "6cf7ab0fd2ee5c508d48ef6d8071022dd58faa67fcbc8de9974ad9d752601b50",
+      "size_bytes": 31951
+    },
+    "context/leaf/leaf/recruitment.py": {
+      "sha256": "a4918c363e84d10465fc9bea6d1c22664c6236eb05ad139d7daf4f925f99e632",
+      "size_bytes": 42194
+    },
+    "context/leaf/docs/study-stepwat-parameters.md": {
+      "sha256": "8ecd818073dd26db1dfdb011d9341b7d1e68ce8b3c588a4c441aa4f71dcc233a",
+      "size_bytes": 7145
+    },
+    "context/leaf/docs/phase1-interevent.md": {
+      "sha256": "1055030d9a9d117fa35bbdfbb2be69b2f11872c3a075cfd46c6524d2ba809d04",
+      "size_bytes": 15395
+    },
+    "context/leaf/docs/candidate-uptake-parameters.md": {
+      "sha256": "20aa37c02fcacda5582435e56721a0f7ca359008da69a5468acd0140f89c79b2",
+      "size_bytes": 2275
+    },
+    "context/leaf/docs/phase3-reproduction.md": {
+      "sha256": "db64bf0ca4f2346d9cfeef78da5fb4906faef9206209fa1e2ce5a442c0714114",
+      "size_bytes": 15246
+    },
+    "context/leaf/docs/biomass-specific-water-use.md": {
+      "sha256": "9508d50882788467cbbdab99d81657b206392c9350d527c06d2db5b878f05dda",
+      "size_bytes": 7243
+    },
+    "context/leaf/examples/phase3/species.json": {
+      "sha256": "06e4e5df180c0518a9f20f830dde8ecd58be98c2fceb6bc51c0a4a1ace8cc626",
+      "size_bytes": 8711
+    },
+    "context/leaf/examples/phase0/generation.json": {
+      "sha256": "c23949480b017f901de24f497547ea2d0312858386b819c98b92af551c8662f0",
+      "size_bytes": 1025
+    }
+  },
+  "no_scientific_execution": true
+}

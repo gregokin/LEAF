@@ -1,0 +1,82 @@
+{
+  "leaf/state.py": {
+    "size": 64524,
+    "sha256": "faace0f8047097cf1221488954ca7e96d4b0fe02f19d5890ab40e8907eb7d776"
+  },
+  "leaf/__main__.py": {
+    "size": 17616,
+    "sha256": "e1e40edddf48c656e0b55cf2b5d8bd8387bf8f581439d23609ffbc3d99b27294"
+  },
+  "leaf/checkpoint.py": {
+    "size": 48394,
+    "sha256": "51a99475383fd191b9a18a5e00adaef51c88906d9dc7aaf29f67b7b6633427f8"
+  },
+  "leaf/recording.py": {
+    "size": 8755,
+    "sha256": "49564345dd53505148de90de00b5bcb02d7d0e23b8b483e75ebac96af2ff9ef0"
+  },
+  "tests/test_phase0.py": {
+    "size": 115375,
+    "sha256": "67e3fd2208bb025c709451af029a8faf4369eda8a7bdc8819f24fddb7a6d18a5"
+  },
+  "tests/test_interevent.py": {
+    "size": 148702,
+    "sha256": "90fef32076f874ef77fb19307667cd99dd6823baac98e00373529ebbec6f76c1"
+  },
+  "tests/test_plant_csv.py": {
+    "size": 45679,
+    "sha256": "39525078670aeb887ecf1525e989be2b11dc82a7dc58b079f79e64e2f084bd7a"
+  },
+  "README.md": {
+    "size": 17748,
+    "sha256": "7c16494277f63819723ceee77a1b0d252b39564f776247b55a4a9cc1a7d39b52"
+  },
+  "docs/phase0-vegetation.md": {
+    "size": 31268,
+    "sha256": "0b6f98e4f1e32e8250930dd3edfff47e94420c1022bfb0a6680e6efa7782b22b"
+  },
+  "docs/phase1-interevent.md": {
+    "size": 17218,
+    "sha256": "27dbe82b81ed341a3ee7d59f220133541cf86493e54dad2e52df1f697c3e22d5"
+  },
+  "docs/phase2-disturbance.md": {
+    "size": 21619,
+    "sha256": "b8e6286bfd638a2f5f63d8e6bd9fb958a7fd598af5a6db064ecd2eb8a113a92c"
+  },
+  "docs/phase3-reproduction.md": {
+    "size": 15654,
+    "sha256": "bbf25fd4e1ca6e1532c8a2fd9fee782ca73f9e1b45a15ea302c991ff36988c56"
+  },
+  "docs/shared-canopy.md": {
+    "size": 11231,
+    "sha256": "3e70f03326936d4998912f8386288977db4f15323ce9aba73a4b7e33f3bb3332"
+  },
+  "docs/maple-leaf-integration.md": {
+    "size": 13023,
+    "sha256": "2f65d2c930ee2500cd6fbd6a0349afaef5c83b6d788dcba881905747f700a050"
+  },
+  "cases/jornada_grass05_shrub10_256/README.md": {
+    "size": 8271,
+    "sha256": "3b129523760e364b3b2a757e325bd38ebe64b35d271436ac01e1d2bdd290863a"
+  },
+  "cases/jornada_grass05_shrub10_256/preview/README.md": {
+    "size": 6138,
+    "sha256": "a8f6257006a46748d7fe914b72114d9a3c75b14ece208f940868187123fdcb69"
+  },
+  "cases/jornada_grass05_shrub10_256/preview/render_preview.py": {
+    "size": 27076,
+    "sha256": "dda72495e6658bd6077313e74440695a6fac23a7cb631fc853fc21a91f77ad92"
+  },
+  "report.md": {
+    "size": 11245,
+    "sha256": "4a76e5a861438c144ef52cf19c4725ebf7908c8212d971c14904b04446950980"
+  },
+  "leaf/interevent.py": {
+    "size": 133666,
+    "sha256": "10a8e43fdf39a39d0d0f4221c6b7c4f31bb687e62897b458058078b4b8da099c"
+  },
+  "leaf/__init__.py": {
+    "size": 3314,
+    "sha256": "5d0f3e40077546da9287d043c9f53058efcc0e495f077478426cd18f3f2d4f1d"
+  }
+}

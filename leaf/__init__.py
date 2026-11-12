@@ -19,7 +19,8 @@ Phase 1 part A (NumPy-only imports; numba / cupy load lazily per backend):
 Phase 3 (NumPy-only, host reference; lazily imported):
   leaf.recruitment     opt-in species-local simple seed establishment per ecological patch and nearby vegetative
                        daughter plants (law simple_seed_clonal_v1; keyed counter-based randomness; UNCALIBRATED)
-  IntereventSession.apply_reproduction  the explicit annual reproduction boundary (complete checkpoints are version 3)
+  IntereventSession.apply_reproduction  the explicit annual reproduction boundary (complete checkpoints are layout
+                       version 4: a plain plants.csv plus a companion plants.metadata.json; versions 1-3 are refused)
 
 Legacy coupled growth (optional dependencies numba / cupy / maple_syrup) stays reachable through LAZY
 exports: `from leaf import CoupledSimulation, CoupledPhaseError, stepwat` and `leaf.coupling` import the

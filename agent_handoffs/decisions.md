@@ -376,3 +376,11 @@ Accept opt-in species-specific mechanical injury, age/background/stress mortalit
 ## Phase3 reproduction mechanics accepted —2026-11-11
 
 Accept simple_seed_clonal_v1, following the user's explicit nearby daughter-plant choice: separate IDs/age0/current establishment ground, parent-funded dry-AGB/E transfers, external seedling credit, fixed physical ecological patches, overlap allowed and finite bounded placement. Species numbers remain uncalibrated and co-located. Shared population/root/canopy transactions preserve actual native water and existing partial-year metrics; prior seasons finalize explicitly before births. Full restart becomes format3 with strict sequential opportunity/RNG history. [Independent acceptance,actual CPU/GPU tests and bounded memory/timing](tasks/leaf_phase3_20261111/final_review.md). Publish whole Phase3; no additional implementation phase is inferred.
+
+## Plain plant tables — user decision, 2026-11-11
+
+Plant CSV files must contain only the canonical column header and individual plant records. Never embed JSON, provenance, run configuration or other metadata in plant files. Keep contextual metadata in companion JSON or the run/checkpoint manifest. Apply this to initial input, snapshots and final output; preserve species parameters separately. Legacy embedded metadata may be read for compatibility, but must never be written. User explicitly authorized commit and push after this change is independently accepted. Task: plain_plant_csv_20261111.
+
+## Initial generated ages — user decision, 2026-11-11
+
+Normally generated individuals receive independent uniform ages from zero to their species nominal life expectancy, read from the species catalog. This is an initial-condition rule, not a deterministic death age or an age-biomass relationship. Supplied plant records, restart ages and age-zero recruits retain their explicit ages. Existing preview remains historical; the next requested initialization will use the new rule.

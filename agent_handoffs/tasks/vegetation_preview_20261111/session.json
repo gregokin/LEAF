@@ -1,0 +1,13 @@
+{
+  "session_id": "bf074a19-9e08-4efc-b956-6da32f1ceaf9",
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/vegetation_preview_20261111/candidate",
+  "timeout_seconds": 1200,
+  "effort": "medium",
+  "model": "sonnet",
+  "write_files": [
+    "cases/jornada_grass05_shrub10_256/preview/render_preview.py",
+    "cases/jornada_grass05_shrub10_256/preview/README.md",
+    "cases/jornada_grass05_shrub10_256/README.md",
+    "report.md"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "all_plant_arrays_equal": true,
+  "converted_at_utc": "2026-11-12T01:17:39.711349+00:00",
+  "csv": {
+    "file": "initial_plants.csv",
+    "n_bytes": 2615223,
+    "sha256": "sha256:169fe16fee30ea4f76f84832f0a161a2bb0791b92dfddf3be62e0ab4a6cacd08"
+  },
+  "exact_plant_row_bytes_preserved": true,
+  "metadata": {
+    "file": "initial_plants.metadata.json",
+    "schema": "leaf.plant_state_metadata",
+    "sha256": "sha256:e3eb6145e280eb8b52093f553b66c8d0d1366cf878a7fc2b109d28eebfe3cc0b"
+  },
+  "model_time_days": 0.0,
+  "n_plants": 25589,
+  "original_csv_sha256": "sha256:15e060e34bc82dd545c414db510aba13e2f2d09698ed2bb97413c3db64ccea54",
+  "original_render_provenance": {
+    "file": "preview_provenance.json",
+    "note": "Historical render record contains the pre-conversion CSV hash; this addendum records the current pair.",
+    "preserved_unchanged": true,
+    "sha256": "sha256:7c86db70cada45f6e8ddfc124dd653d603f37c8caf2fb95e320ebe28dd7daf15"
+  },
+  "plant_columns": [
+    "plant_id",
+    "species",
+    "x_m",
+    "y_m",
+    "establishment_ground_m",
+    "agb_dry_kg",
+    "seasonal_agb_dry_kg",
+    "age_days",
+    "status"
+  ],
+  "plant_table_sha256_before": "sha256:169fe16fee30ea4f76f84832f0a161a2bb0791b92dfddf3be62e0ab4a6cacd08",
+  "preserved_files": {
+    "cases/jornada_grass05_shrub10_256/generation.json": "sha256:a72458ca7166a6305e73f214c6055f4843cf11c5c06874205a3552ce7458541b",
+    "cases/jornada_grass05_shrub10_256/preview/initial_surface.npy": "sha256:a2966584858a9feb5e4d969d5a188ea32657bb97e7e6e3542ae700e7d79a48d5",
+    "cases/jornada_grass05_shrub10_256/preview/vegetation_initial.png": "sha256:d74491d018426ec06b28073af09644323c454ab0d022ec1352280e997f922f02",
+    "cases/jornada_grass05_shrub10_256/species.json": "sha256:9db3dace6a2a8e9212204d23aa7408414e1875a408ec3149d3e0233f7bd480e4"
+  },
+  "schema": "leaf.plant_file_storage_migration",
+  "schema_version": 1,
+  "scope": "STORAGE_ONLY_NO_MODEL_EVOLUTION",
+  "statement": "Removed the legacy embedded metadata line from the existing preview CSV; saved its context in a separate companion. Exact header/plant-row bytes, all arrays, model time, parameters, terrain and image are unchanged. No initialization, growth, hydrology, transport or rendering was run.",
+  "strict_nine_column_csv": true,
+  "task": "plain_plant_csv_20261111",
+  "writer_sources": {
+    "leaf/state.py": "sha256:faace0f8047097cf1221488954ca7e96d4b0fe02f19d5890ab40e8907eb7d776"
+  }
+}

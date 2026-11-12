@@ -1,0 +1,182 @@
+{
+  "context/leaf/AGENTS.md": {
+    "source": "/home/okin/leaf/AGENTS.md",
+    "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31",
+    "size_bytes": 2353
+  },
+  "context/leaf/claude.md": {
+    "source": "/home/okin/leaf/claude.md",
+    "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714",
+    "size_bytes": 2731
+  },
+  "context/leaf/agent_handoffs/AGENTS.md": {
+    "source": "/home/okin/leaf/agent_handoffs/AGENTS.md",
+    "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f",
+    "size_bytes": 8488
+  },
+  "context/leaf/leaf/traits.py": {
+    "source": "/home/okin/leaf/leaf/traits.py",
+    "sha256": "4aecd751ae6a46fb996dfa295129d3f5c01e57abf98943d150103782f9ce8527",
+    "size_bytes": 27583
+  },
+  "context/leaf/leaf/initialization.py": {
+    "source": "/home/okin/leaf/leaf/initialization.py",
+    "sha256": "25e58f759761b525c2021eb18d64cd2b6bede8543b22ba983a8eb2d65967aeab",
+    "size_bytes": 32214
+  },
+  "context/leaf/leaf/state.py": {
+    "source": "/home/okin/leaf/leaf/state.py",
+    "sha256": "187ecb5f9e042cc47beb8ae5ba118f4111ee7cdc2d725ef820e730cec349e6a0",
+    "size_bytes": 48690
+  },
+  "context/leaf/leaf/growth.py": {
+    "source": "/home/okin/leaf/leaf/growth.py",
+    "sha256": "ce984de33fc8ec1154449706d8c59c8e31166b732ebedb6648bc47f68513998a",
+    "size_bytes": 70330
+  },
+  "context/leaf/leaf/interevent.py": {
+    "source": "/home/okin/leaf/leaf/interevent.py",
+    "sha256": "10a8e43fdf39a39d0d0f4221c6b7c4f31bb687e62897b458058078b4b8da099c",
+    "size_bytes": 133666
+  },
+  "context/leaf/leaf/roots.py": {
+    "source": "/home/okin/leaf/leaf/roots.py",
+    "sha256": "6cf7ab0fd2ee5c508d48ef6d8071022dd58faa67fcbc8de9974ad9d752601b50",
+    "size_bytes": 31951
+  },
+  "context/leaf/leaf/demography.py": {
+    "source": "/home/okin/leaf/leaf/demography.py",
+    "sha256": "7648b8f4a23016dc07196b9c790498bccb3cf18db0a20bbbda408974834dce1a",
+    "size_bytes": 35677
+  },
+  "context/leaf/leaf/disturbance.py": {
+    "source": "/home/okin/leaf/leaf/disturbance.py",
+    "sha256": "38a9dfa4521cdcb2512b904a83d5f2af4fbad97fa1a0c972bb70b0cb6906f9c0",
+    "size_bytes": 45703
+  },
+  "context/leaf/leaf/recruitment.py": {
+    "source": "/home/okin/leaf/leaf/recruitment.py",
+    "sha256": "a4918c363e84d10465fc9bea6d1c22664c6236eb05ad139d7daf4f925f99e632",
+    "size_bytes": 42194
+  },
+  "context/leaf/leaf/recording.py": {
+    "source": "/home/okin/leaf/leaf/recording.py",
+    "sha256": "12ea3fee1dd660756b2e800adb20265f25b867a42604f456f01ea2728fa2c584",
+    "size_bytes": 8084
+  },
+  "context/leaf/leaf/forcing.py": {
+    "source": "/home/okin/leaf/leaf/forcing.py",
+    "sha256": "fa79d12f2c96a15aac8012d713976ece8b4c055ca567968251225635fa9d7474",
+    "size_bytes": 19206
+  },
+  "context/leaf/leaf/__main__.py": {
+    "source": "/home/okin/leaf/leaf/__main__.py",
+    "sha256": "83b4589b1aeab57d43ad04c69d32b80daf6eb976004b38ae4b57410d861b8ee1",
+    "size_bytes": 15896
+  },
+  "context/leaf/docs/phase1-interevent.md": {
+    "source": "/home/okin/leaf/docs/phase1-interevent.md",
+    "sha256": "1055030d9a9d117fa35bbdfbb2be69b2f11872c3a075cfd46c6524d2ba809d04",
+    "size_bytes": 15395
+  },
+  "context/leaf/docs/phase3-reproduction.md": {
+    "source": "/home/okin/leaf/docs/phase3-reproduction.md",
+    "sha256": "db64bf0ca4f2346d9cfeef78da5fb4906faef9206209fa1e2ce5a442c0714114",
+    "size_bytes": 15246
+  },
+  "context/leaf/docs/biomass-specific-water-use.md": {
+    "source": "/home/okin/leaf/docs/biomass-specific-water-use.md",
+    "sha256": "9508d50882788467cbbdab99d81657b206392c9350d527c06d2db5b878f05dda",
+    "size_bytes": 7243
+  },
+  "context/leaf/docs/study-stepwat-parameters.md": {
+    "source": "/home/okin/leaf/docs/study-stepwat-parameters.md",
+    "sha256": "8ecd818073dd26db1dfdb011d9341b7d1e68ce8b3c588a4c441aa4f71dcc233a",
+    "size_bytes": 7145
+  },
+  "context/leaf/docs/candidate-uptake-parameters.md": {
+    "source": "/home/okin/leaf/docs/candidate-uptake-parameters.md",
+    "sha256": "20aa37c02fcacda5582435e56721a0f7ca359008da69a5468acd0140f89c79b2",
+    "size_bytes": 2275
+  },
+  "context/leaf/examples/phase0/generation.json": {
+    "source": "/home/okin/leaf/examples/phase0/generation.json",
+    "sha256": "c23949480b017f901de24f497547ea2d0312858386b819c98b92af551c8662f0",
+    "size_bytes": 1025
+  },
+  "context/leaf/examples/phase3/species.json": {
+    "source": "/home/okin/leaf/examples/phase3/species.json",
+    "sha256": "06e4e5df180c0518a9f20f830dde8ecd58be98c2fceb6bc51c0a4a1ace8cc626",
+    "size_bytes": 8711
+  },
+  "context/leaf/dependencies/phase1-native-growth.lock.json": {
+    "source": "/home/okin/leaf/dependencies/phase1-native-growth.lock.json",
+    "sha256": "2e019af8c0138961402410e8bf45ab18cefa30b133bf07d2533d168e8c681cb7",
+    "size_bytes": 6025
+  },
+  "context/leaf/dependencies/phase2-disturbance.lock.json": {
+    "source": "/home/okin/leaf/dependencies/phase2-disturbance.lock.json",
+    "sha256": "cb688d4fbeb5e0917602fed8f1ada6b65029ca2db0fce0b01496c3c86719a77a",
+    "size_bytes": 4576
+  },
+  "context/leaf/dependencies/phase3-reproduction.lock.json": {
+    "source": "/home/okin/leaf/dependencies/phase3-reproduction.lock.json",
+    "sha256": "656e9b4a627b44ed0ec67b6b25f0bff9b4ed7d09324ce109ff05b442d6bd91f7",
+    "size_bytes": 5040
+  },
+  "context/maple/case.yaml": {
+    "source": "/home/okin/MAPLE/cases/leaf_shrubs11_bimodal135_256_12h/case.yaml",
+    "sha256": "dbf33a0374f9fc0a919816a29276bea0a68b4076a4317492fc6f7c32f0008db7",
+    "size_bytes": 2173
+  },
+  "context/maple/random_field.py": {
+    "source": "/home/okin/MAPLE/src/maple/case_tools/generators/random_field.py",
+    "sha256": "a87dda5a3b17da91ba0a91c7efd35ed12095e5d399be49ca1af588dbaf377c80",
+    "size_bytes": 7699
+  },
+  "context/syrup/subsurface.py": {
+    "source": "/home/okin/SYRUP/src/maple_syrup/subsurface.py",
+    "sha256": "5e77f14df8af4e473e8a22278700b519ccb2888c722883a9f7da508abdf14ae9",
+    "size_bytes": 64044
+  },
+  "context/syrup/weather_pet.py": {
+    "source": "/home/okin/SYRUP/src/maple_syrup/weather_pet.py",
+    "sha256": "abd04baed539c0d64abffe40c4fd1f47bbe1092884e4fdbd606831cfd82d9169",
+    "size_bytes": 72166
+  },
+  "context/masy/scenario.py": {
+    "source": "/home/okin/MASY/src/masy/scenario.py",
+    "sha256": "049faf1959b772e54234874e370e8b7aac7cf86a59cdf8ff37c8b92367dad422",
+    "size_bytes": 14327
+  },
+  "context/masy/weather.py": {
+    "source": "/home/okin/MASY/src/masy/weather.py",
+    "sha256": "e9c814a19569015201b1e177c00ee48e9f1eb1c16c1de655a99b67a8a29d5a80",
+    "size_bytes": 27580
+  },
+  "context/masy/wind_a.json": {
+    "source": "/home/okin/MASY/examples/phase0_scenario/events/wind_a.json",
+    "sha256": "ecbf395311f9506c9ac33adb66ad1137317207c2d84d576365f4f4694bac12b0",
+    "size_bytes": 271
+  },
+  "context/masy/rain_a.json": {
+    "source": "/home/okin/MASY/examples/phase0_scenario/events/rain_a.json",
+    "sha256": "edf9379bdef287eca4fc8ab839df2a717429bdbc1200871ad65a956d1152fc94",
+    "size_bytes": 262
+  },
+  "context/masy/interevent_2d.json": {
+    "source": "/home/okin/MASY/examples/phase0_scenario/events/interevent_2d.json",
+    "sha256": "6617dfed60cf9249cf978a5099f9615b84dbad0ba6a8735508f36b32501aafb5",
+    "size_bytes": 169
+  },
+  "context/masy/weather_simplified.json": {
+    "source": "/home/okin/MASY/examples/phase0_scenario/weather_simplified.json",
+    "sha256": "54ef385fc85a87fc4d246a161b24fd843e9744403f9d05233042e50678d3cf4a",
+    "size_bytes": 1469
+  },
+  "context/source-facts.md": {
+    "source": "/home/okin/leaf/agent_handoffs/tasks/trial_case_20261111/source-facts.md",
+    "sha256": "f4bab417ef1a27709fe60751d2156f61c81820ff5bbd8fafd3b7ec37491f432f",
+    "size_bytes": 19557
+  }
+}

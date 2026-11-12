@@ -1,0 +1,9 @@
+{
+  "schema": "masy.rain_event.v1",
+  "event_id": "rain_jul_first_10p033mm_3h",
+  "water_profile_id": "trial_sandy_loam",
+  "intervals": [
+    {"duration_s": 10800.0, "intensity_mm_h": 3.344333333333333}
+  ],
+  "recession_guard_s": 21600.0
+}

@@ -744,11 +744,29 @@ class RestartTests(unittest.TestCase):
         s = make_session(self.env, self.catalog)
         run_days(s, self.env, 2)
         path = s.save(self.dir / 'cp')
+        # the plain CSV is directly readable: its companion plants.metadata.json is loaded and verified automatically
         snap = state.read_plant_csv(os.path.join(path, 'plants.csv'), self.catalog)
         np.testing.assert_array_equal(snap.ids, np.arange(1, 8))
         np.testing.assert_array_equal(snap.agb_dry_kg, s.snapshot().agb_dry_kg)
         self.assertEqual(snap.time_days, s.snapshot().time_days)
-        self.assertEqual(sorted(os.listdir(path)), ['plants.csv', 'restart.json', 'restart_arrays.npz'])
+        self.assertEqual(sorted(os.listdir(path)),
+                         ['plants.csv', 'plants.metadata.json', 'restart.json', 'restart_arrays.npz'])
+        with open(os.path.join(path, 'plants.csv'), 'r', encoding='utf-8', newline='') as fh:
+            lines = fh.read().splitlines()
+        self.assertEqual(lines[0], ','.join(state.CSV_COLUMNS))             # plain CSV: no embedded metadata / comment
+        self.assertEqual(len(lines), 1 + 7)
+        self.assertTrue(all(len(row.split(',')) == 9 for row in lines))
+        self.assertFalse(any(row.startswith('#') for row in lines))
+        meta = json.loads((pathlib.Path(path) / 'plants.metadata.json').read_text())
+        self.assertEqual((meta['schema'], meta['n_plants'], meta['initial']), ('leaf.plant_state_metadata', 7, False))
+        self.assertEqual(meta['time_days'], s.snapshot().time_days)
+        man = json.loads((pathlib.Path(path) / 'restart.json').read_text())
+        self.assertEqual(sorted(man['files']), ['plants.csv', 'plants.metadata.json', 'restart_arrays.npz'])
+        self.assertEqual(man['files']['plants.metadata.json'], checkpoint._sha((pathlib.Path(path) / 'plants.metadata.json').read_bytes()))
+        # the checkpoint's plain CSV is bound to its companion by SHA-256: an edited CSV is refused by the plain reader too
+        (pathlib.Path(path) / 'plants.csv').write_text('\n'.join(lines[:-1]) + '\n')
+        with self.assertRaises(state.StateError):
+            state.read_plant_csv(os.path.join(path, 'plants.csv'), self.catalog)
 
     def test_deferred_season_is_restored(self):
         start = dt.datetime(2027, 12, 30, tzinfo=UTC)
@@ -816,6 +834,52 @@ class RestartTests(unittest.TestCase):
         with self.assertRaises(checkpoint.CheckpointError):
             self.load(self._tamper('drop', drop))
 
+        def drop_meta(p):
+            os.unlink(p / 'plants.metadata.json')
+        with self.assertRaises(checkpoint.CheckpointError):                      # missing companion: incomplete checkpoint
+            self.load(self._tamper('dropmeta', drop_meta))
+
+        def edit_meta(p):                                                         # edited companion: file hash mismatch
+            doc = json.loads((p / 'plants.metadata.json').read_text())
+            doc['time_days'] = doc['time_days'] + 1.0
+            (p / 'plants.metadata.json').write_text(json.dumps(doc))
+        with self.assertRaises(checkpoint.CheckpointError):
+            self.load(self._tamper('editmeta', edit_meta))
+
+    def test_consistent_but_mismatched_companion_is_rejected(self):
+        '''A companion + manifest recomputed together (every file hash valid) is still refused when it contradicts the
+        CSV (SHA-256 binding), the manifest time or the declared initial flag.'''
+        def rewrite(fn):
+            def go(p):
+                meta = json.loads((p / 'plants.metadata.json').read_text())
+                csv_bytes = (p / 'plants.csv').read_bytes()
+                new_csv = fn(meta, csv_bytes)
+                if new_csv is not None:
+                    (p / 'plants.csv').write_bytes(new_csv)
+                (p / 'plants.metadata.json').write_text(json.dumps(meta))
+                doc = json.loads((p / 'restart.json').read_text())
+                doc['files']['plants.csv'] = checkpoint._sha((p / 'plants.csv').read_bytes())
+                doc['files']['plants.metadata.json'] = checkpoint._sha((p / 'plants.metadata.json').read_bytes())
+                body = {k: v for k, v in doc.items() if k != 'content_hash'}
+                doc['content_hash'] = checkpoint._sha(checkpoint._canonical(body))
+                (p / 'restart.json').write_text(json.dumps(doc))
+            return go
+
+        def stale_hash(meta, csv_bytes):          # the companion describes another CSV
+            meta['csv']['sha256'] = 'sha256:' + '0' * 64
+        def later_time(meta, csv_bytes):          # time disagrees with the manifest
+            meta['time_days'] = meta['time_days'] + 5.0
+        def declared_initial(meta, csv_bytes):    # a checkpoint is never an initial file
+            meta['initial'] = True
+        def wrong_count(meta, csv_bytes):         # row count disagrees with the CSV
+            meta['n_plants'] = meta['n_plants'] + 1
+        def wrong_size(meta, csv_bytes):          # declared CSV size disagrees with the CSV bytes
+            meta['csv']['n_bytes'] = meta['csv']['n_bytes'] + 1
+        for name, fn in (('stale', stale_hash), ('time', later_time), ('initial', declared_initial), ('count', wrong_count),
+                         ('size', wrong_size)):
+            with self.assertRaises(checkpoint.CheckpointError, msg=name):
+                self.load(self._tamper(name, rewrite(fn)))
+
     def test_consistent_but_wrong_content_is_rejected(self):
         '''A manifest + array hash that were recomputed over inconsistent pending arrays is still rejected.'''
         def rewrite(p):
@@ -864,6 +928,55 @@ class RestartTests(unittest.TestCase):
                 self.load(path)                                                         # verification rebuild fails: no adoption
         self.load(path, verify_roots=False)
 
+    def test_large_provenance_is_accounted_at_its_real_size_and_round_trips_unchanged(self):
+        '''The companion JSON is admitted at its ACTUAL serialized size (whole provenance, no truncation): a tight budget
+        refuses before the snapshot, any serialization or any file exists; a sufficient budget round-trips it unchanged.'''
+        blob = 'p' * 2_000_000
+        plants = make_plants(self.catalog)
+        plants.provenance = {'blob': blob, 'note': 'large provenance fixture'}
+        big = make_session(self.env, self.catalog, plants=plants)
+        small = make_session(self.env, self.catalog)
+        e_big, e_small = checkpoint.estimate_save_bytes(big), checkpoint.estimate_save_bytes(small)
+        self.assertGreater(e_big['plant_metadata_text_bytes'] - e_small['plant_metadata_text_bytes'], len(blob) - 64)
+        self.assertEqual(e_big['plant_metadata'], checkpoint.COMPANION_COPIES * e_big['plant_metadata_text_bytes'])
+        self.assertGreater(e_big['total_bytes'] - e_small['total_bytes'], checkpoint.COMPANION_COPIES * (len(blob) - 64))
+        total = sum(big._persistent(big._b).values()) + e_big['total_bytes']
+        leftovers = lambda: [n for n in os.listdir(self.dir) if n.startswith('.leaf-checkpoint') or n in ('tight', 'cp')]  # noqa: E731
+        # (a) one byte short: refused BEFORE the snapshot is taken, nothing written
+        big.max_bytes = total - 1
+        with mock.patch.object(IntereventSession, 'snapshot', side_effect=AssertionError('snapshot before admission')), \
+                mock.patch.object(state, 'plant_files_text', side_effect=AssertionError('serialised before admission')):
+            with self.assertRaises(IntereventAdmissionError):
+                big.save(self.dir / 'tight')
+        self.assertEqual(leftovers(), [])
+        # (b) the exact recount after the snapshot refuses too (before ANY serialization or file)
+        big.max_bytes = total + 4096
+        real_size = state.plant_metadata_size
+        calls = []
+
+        def second_count_is_huge(st, **kw):
+            calls.append(1)
+            n = real_size(st, **kw)
+            return n if len(calls) == 1 else n + 10 ** 9
+        with mock.patch.object(state, 'plant_metadata_size', second_count_is_huge), \
+                mock.patch.object(state, 'plant_files_text', side_effect=AssertionError('serialised before admission')):
+            with self.assertRaises(IntereventAdmissionError) as cm:
+                big.save(self.dir / 'tight')
+        self.assertEqual(cm.exception.stage, 'checkpoint_save_metadata')
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(leftovers(), [])
+        # (c) a sufficient budget publishes the whole provenance unchanged and it restores unchanged
+        big.max_bytes = total + 4096
+        path = big.save(self.dir / 'cp')
+        meta = json.loads((pathlib.Path(path) / 'plants.metadata.json').read_text())
+        self.assertEqual(meta['provenance']['blob'], blob)
+        self.assertEqual(meta['provenance']['note'], 'large provenance fixture')
+        self.assertGreaterEqual(e_big['plant_metadata_text_bytes'], (pathlib.Path(path) / 'plants.metadata.json').stat().st_size)
+        self.assertEqual(state.read_plant_csv(os.path.join(path, 'plants.csv'), self.catalog).provenance['blob'], blob)
+        loaded = self.load(path)
+        self.assertEqual(loaded.snapshot().provenance['blob'], blob)
+        self.assertEqual(loaded.max_bytes, BIG)
+
     def test_save_admission_counts_serialization_buffers(self):
         s = make_session(self.env, self.catalog)
         s.max_bytes = 5000
@@ -900,6 +1013,10 @@ class NoPlantsAndPopulations(unittest.TestCase):
             self.assertEqual(s.cursor, START + DAY)
             snap = state.read_plant_csv(p, load_catalog())
             self.assertEqual(snap.n, 7)
+            self.assertTrue(os.path.isfile(state.metadata_path(p)))              # companion beside the plain CSV
+            with open(p, 'r', encoding='utf-8') as fh:
+                self.assertEqual(fh.readline().rstrip('\n'), ','.join(state.CSV_COLUMNS))
+            self.assertEqual(snap.time_days, s.snapshot().time_days)
 
 
 # ------------------------------------------------------------------ revision 2: guards, closure, memory
@@ -1705,21 +1822,33 @@ class Phase2Disturbance(unittest.TestCase):
             with self.assertRaises(checkpoint.CheckpointError):
                 self._load(path)
 
-    def test_checkpoint_format_version_three_is_explicit_and_strict(self):
-        # Phase 3 bumps the complete-checkpoint layout to version 3 (adds the `phase3` reproduction block); versions 1 and
-        # 2 are refused without migration (see Phase3Reproduction.test_old_checkpoint_versions_are_refused_not_migrated)
-        self.assertEqual(checkpoint.SCHEMA_VERSION, 3)
+    def test_checkpoint_format_version_four_is_explicit_and_strict(self):
+        # Version 4 = plain plants.csv + companion plants.metadata.json (version 3 embedded the metadata as a "# {json}"
+        # first line of plants.csv). Versions 1, 2 and 3 are refused without migration (see
+        # Phase3Reproduction.test_old_checkpoint_versions_are_refused_not_migrated)
+        self.assertEqual(checkpoint.SCHEMA_VERSION, 4)
         with tempfile.TemporaryDirectory() as td:
             s = self.ready()
             path = pathlib.Path(s.save(os.path.join(td, 'cp')))
             doc0 = json.loads((path / 'restart.json').read_text())
             self.assertIs(type(doc0['schema_version']), int)
-            self.assertEqual(doc0['schema_version'], 3)
+            self.assertEqual(doc0['schema_version'], 4)
             self.assertEqual(self._load(path).sequence, s.sequence)                  # round trip
             with open(path / 'plants.csv', 'r', encoding='utf-8') as fh:
-                self.assertEqual(json.loads(fh.readline()[2:])['schema_version'], 1)  # canonical CSV stays version 1
+                self.assertEqual(fh.readline().rstrip('\n'), ','.join(state.CSV_COLUMNS))   # plain CSV: header first line
+            self.assertEqual(json.loads((path / 'plants.metadata.json').read_text())['schema_version'], 1)  # companion v1
+            # a version 3 style directory (embedded metadata line, no companion) is refused, never reinterpreted
+            legacy = pathlib.Path(td) / 'legacy3'
+            legacy.mkdir()
+            for name in ('restart.json', 'restart_arrays.npz'):
+                (legacy / name).write_bytes((path / name).read_bytes())
+            (legacy / 'plants.csv').write_text('# {"schema": "leaf.plant_state_csv", "schema_version": 1}\n'
+                                               + (path / 'plants.csv').read_text())
+            with self.assertRaises(checkpoint.CheckpointError) as cm3:
+                self._load(legacy)
+            self.assertIn('plants.metadata.json', str(cm3.exception))
             # internally hashed manifests with another version are refused BEFORE arrays are decoded / state allocated
-            for bad in (1, 2, 4, 3.0, True, '3', None):
+            for bad in (1, 2, 3, 5, 4.0, True, '4', None):
                 doc = json.loads((path / 'restart.json').read_text())
                 doc['schema_version'] = bad
                 body = {k: v for k, v in doc.items() if k != 'content_hash'}
@@ -1730,7 +1859,7 @@ class Phase2Disturbance(unittest.TestCase):
                     with self.assertRaises(checkpoint.CheckpointError) as cm:
                         self._load(path)
                 self.assertIn('version', str(cm.exception))
-                self.assertIn('3', str(cm.exception))
+                self.assertIn('4', str(cm.exception))
             (path / 'restart.json').write_text(json.dumps(doc0))
             self._load(path)                                                         # original restored: loads again
 
@@ -2471,12 +2600,12 @@ class Phase3Reproduction(unittest.TestCase):
             np.testing.assert_array_equal(loaded2.live_ids, c.live_ids)
             doc = json.loads((pathlib.Path(path2) / 'restart.json').read_text())
             self.assertEqual(doc['phase3']['n_reproduction'], 1)
-            self.assertEqual(doc['schema_version'], 3)
+            self.assertEqual(doc['schema_version'], 4)
 
     def test_old_checkpoint_versions_are_refused_not_migrated(self):
         with tempfile.TemporaryDirectory() as td:
             path = pathlib.Path(self.year_end().save(os.path.join(td, 'cp')))
-            for old in (1, 2):
+            for old in (1, 2, 3):
                 doc = json.loads((path / 'restart.json').read_text())
                 doc['schema_version'] = old
                 body = {k: v for k, v in doc.items() if k != 'content_hash'}

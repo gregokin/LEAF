@@ -20,29 +20,58 @@ Conventions (LEAF Phase 0)
               (advance_time); dead/removed plants keep the age they had when their status changed. Reaching
               a species life expectancy never changes status here. Unresolved initial placements cannot be
               advanced in time (resolve first).
-  SURFACE     an initial CSV (handwritten, or metadata-bearing with "initial": true) may carry the literal
-              token SURFACE in establishment_ground_m. It is resolved ONCE from the caller's initial surface
-              (resolve_establishment) and the concrete elevation is saved thereafter; later
-              erosion/deposition never rewrites it. A metadata-bearing file that is not declared initial
-              must carry concrete anchors (refused BEFORE any surface is sampled). Direct construction
-              requires the explicit `establishment_unresolved` mask; a bare NaN anchor is an error.
+  SURFACE     an initial CSV (handwritten plain list, or a file whose companion metadata declares
+              "initial": true) may carry the literal token SURFACE in establishment_ground_m. It is resolved
+              ONCE from the caller's initial surface (resolve_establishment) and the concrete elevation is saved
+              thereafter; later erosion/deposition never rewrites it. A file whose companion metadata does not
+              declare "initial": true must carry concrete anchors (refused BEFORE any surface is sampled).
+              Direct construction requires the explicit `establishment_unresolved` mask; a bare NaN anchor is
+              an error.
 
 Ownership: the canonical arrays are owned copies and are READ-ONLY; every supported mutation
 (resolve_establishment, advance_time, update_plants, adopt) validates a candidate and then replaces whole
 arrays, so caller-owned inputs never alias the state and the by-ID index can never go stale.
 
-CSV format (one schema for initial input, snapshots and final output)
-  optional first line  "# {json metadata}"  (schema, time_days, catalog_hash, domain, units, initial, ...)
+PLAIN PLANT CSV CONVENTION (project rule; do not embed metadata in a plant file)
+  A LEAF plant file is a PLAIN CSV: line 1 is the nine-column header, every following line is one plant with
+  exactly nine fields. No "# ..." metadata line, no JSON, no comments, in ANY file LEAF writes (initial input
+  written by `python -m leaf init|generate`, snapshots and final outputs, checkpoint plants.csv, preview tables).
+  Saved-file metadata lives in a SEPARATE human-readable companion JSON named "<stem>.metadata.json" in the same
+  directory (initial_plants.csv -> initial_plants.metadata.json, plants.csv -> plants.metadata.json). There is no
+  option that writes embedded metadata.
+
   header               plant_id,species,x_m,y_m,establishment_ground_m,agb_dry_kg,seasonal_agb_dry_kg,age_days,status
   rows                 floats written with repr() -> exact FP64 round trip. Rows are standard strict CSV
                        (csv.reader(strict=True)): ordinary quoted fields such as "0.12" or "live" are
                        accepted (spreadsheet writers quote freely); malformed/unterminated quotes fail.
-                       The metadata line is parsed separately as JSON (which naturally contains quotes).
+
+  companion metadata   schema "leaf.plant_state_metadata" version 1: time_days, n_plants, catalog_hash,
+                       species_names, domain, units, coordinate_frame, initial / establishment_resolved (SURFACE
+                       safety), provenance and a binding to the CSV bytes (csv.sha256 = "sha256:<hex>" of the exact
+                       file bytes, csv.n_bytes, csv.columns; csv.file is informational only). `read_plant_csv`
+                       loads the companion automatically and REFUSES a CSV whose bytes do not match it (stale or
+                       partially written pair), a wrong catalog / domain / time / row count, or an undeclared
+                       SURFACE token. Without a companion the file is a handwritten plain list: the caller supplies
+                       the domain (and optionally time_days / a surface). `plant_csv_text` always returns plain CSV;
+                       `plant_metadata(state, csv_text, ...)` builds the matching companion dict, which
+                       `parse_plant_csv(..., metadata=dict)` can verify in memory.
+  two-file writes      `write_plant_files` validates and serialises BOTH files first, preflights BOTH destinations
+                       (an existing CSV or an existing companion is never replaced unless overwrite=True, and an
+                       overwrite never replaces a file that is not a LEAF plant-state companion), publishes the
+                       companion FIRST and the CSV SECOND (each with its own atomic temp-file + fsync + hard-link /
+                       os.replace), and removes / restores the companion if the CSV publication fails. Two renames
+                       are NOT one atomic operation: if the process dies between them an orphan companion without
+                       a CSV (reads fail: no CSV) or, on overwrite, a new companion beside the old CSV (reads fail:
+                       hash mismatch) remains. A reader never silently accepts a mismatched pair.
+  legacy reads         a first line "# {json}" (the pre-companion embedded form, schema "leaf.plant_state_csv"
+                       version 1) is still READ for old files, with the old checks; it cannot be combined with a
+                       companion, and LEAF never writes it.
 Reads and updates are all-or-nothing: every row is validated before a state exists or is replaced.
 '''
 from __future__ import annotations
 
 import csv
+import hashlib
 import io
 import json
 import math
@@ -54,8 +83,11 @@ import numpy as np
 
 from leaf import traits as _traits
 
-CSV_SCHEMA = 'leaf.plant_state_csv'
+CSV_SCHEMA = 'leaf.plant_state_csv'          # LEGACY embedded "# {json}" metadata line (read-only compatibility)
 CSV_SCHEMA_VERSION = 1
+METADATA_SCHEMA = 'leaf.plant_state_metadata'  # companion "<stem>.metadata.json" of a plain plant CSV
+METADATA_SCHEMA_VERSION = 1
+METADATA_SUFFIX = '.metadata.json'
 CSV_COLUMNS = ('plant_id', 'species', 'x_m', 'y_m', 'establishment_ground_m', 'agb_dry_kg',
                'seasonal_agb_dry_kg', 'age_days', 'status')
 SURFACE_TOKEN = 'SURFACE'
@@ -785,25 +817,27 @@ def _build_from_rows(catalog, domain, rows, *, time_days, surface, provenance, s
     return state
 
 
-def csv_metadata(state, *, initial=False, provenance=None):
-    return {'schema': CSV_SCHEMA, 'schema_version': CSV_SCHEMA_VERSION, 'model': 'LEAF', 'leaf_version': _traits.LEAF_VERSION,
-            'time_days': state.time_days, 'n_plants': state.n, 'catalog_hash': state.catalog_hash,
-            'species_names': list(state.species_names), 'species_table_order': _traits.SPECIES_TABLE_ORDER,
-            'domain': state.domain.to_dict(), 'units': dict(UNITS), 'coordinate_frame': COORDINATE_FRAME,
-            'status_codes': dict(STATUS_CODES), 'establishment_resolved': state.establishment_resolved,
-            'initial': bool(initial), 'cell_sampling': CELL_SAMPLING_CONVENTION,
-            'provenance': dict(provenance) if provenance is not None else dict(state.provenance)}
+def _sha256(data):
+    return 'sha256:' + hashlib.sha256(data).hexdigest()
 
 
-def plant_csv_text(state, *, initial=False, provenance=None, metadata=True):
-    '''Serialise a state. Unresolved SURFACE anchors are only allowed with initial=True.'''
+def metadata_path(path):
+    '''Companion metadata path of a plant CSV: "<stem>.metadata.json" in the same directory, where the stem is the
+    file name without its last extension (initial_plants.csv -> initial_plants.metadata.json).'''
+    path = os.fspath(path)
+    if path.endswith(METADATA_SUFFIX):
+        raise StateError(f'{path!r} is a metadata companion name, not a plant CSV path')
+    return os.path.splitext(path)[0] + METADATA_SUFFIX
+
+
+def plant_csv_text(state, *, initial=False):
+    '''Serialise a state as PLAIN CSV text (header + one nine-field row per plant; never any metadata, comment or
+    JSON). Unresolved SURFACE anchors are only allowed with initial=True. The matching companion metadata is built by
+    `plant_metadata` / `plant_files_text`.'''
     state.validate()
     if not state.establishment_resolved and not initial:
         state.require_resolved('writing a non-initial snapshot')
     buf = io.StringIO()
-    if metadata:
-        buf.write('# ' + json.dumps(csv_metadata(state, initial=initial, provenance=provenance),
-                                    sort_keys=True, allow_nan=False) + '\n')
     w = csv.writer(buf, lineterminator='\n')
     w.writerow(CSV_COLUMNS)
     names = state.species_names
@@ -817,49 +851,208 @@ def plant_csv_text(state, *, initial=False, provenance=None, metadata=True):
     return buf.getvalue()
 
 
-def parse_plant_csv(text, catalog, *, domain=None, surface=None, time_days=None, provenance=None, source='csv'):
-    '''All-or-nothing parse of plant CSV text. The optional "# {json}" metadata line is parsed separately
-    (schema version, catalog hash, species table, domain (if also given), row count and the initial/SURFACE
-    declaration are checked before anything is built); the rows are read with csv.reader(strict=True), so
-    ordinary quoted fields are accepted while malformed/unterminated quotes raise. Without metadata the
-    caller must supply the domain (handwritten initial list).'''
-    if isinstance(text, bytes):
-        text = text.decode('utf-8')
+def plant_metadata(state, csv_text, *, initial=False, provenance=None, csv_file=None):
+    '''Companion metadata dict (schema METADATA_SCHEMA) of a plain plant CSV. `csv_text` (str, or the exact UTF-8
+    bytes) is the output of `plant_csv_text` for the SAME state: its SHA-256 and size bind the pair. Unresolved
+    SURFACE anchors need initial=True. `csv_file` (a file name) is informational only.'''
+    if not state.establishment_resolved and not initial:
+        state.require_resolved('describing a non-initial snapshot')
+    data = csv_text.encode('utf-8') if isinstance(csv_text, str) else bytes(csv_text)
+    csv_block = {'columns': list(CSV_COLUMNS), 'sha256': _sha256(data), 'n_bytes': len(data)}
+    if csv_file is not None:
+        csv_block['file'] = str(csv_file)
+    return {'schema': METADATA_SCHEMA, 'schema_version': METADATA_SCHEMA_VERSION, 'model': 'LEAF',
+            'leaf_version': _traits.LEAF_VERSION,
+            'description': 'Companion metadata of a plain nine-column LEAF plant CSV; the CSV itself carries no metadata.',
+            'csv': csv_block,
+            'time_days': state.time_days, 'n_plants': state.n, 'catalog_hash': state.catalog_hash,
+            'species_names': list(state.species_names), 'species_table_order': _traits.SPECIES_TABLE_ORDER,
+            'domain': state.domain.to_dict(), 'units': dict(UNITS), 'coordinate_frame': COORDINATE_FRAME,
+            'status_codes': dict(STATUS_CODES), 'establishment_resolved': state.establishment_resolved,
+            'initial': bool(initial), 'cell_sampling': CELL_SAMPLING_CONVENTION,
+            'provenance': dict(provenance) if provenance is not None else dict(state.provenance)}
+
+
+def plant_metadata_text(meta):
+    '''Human-readable companion JSON text (sorted keys, indent 2, trailing newline; NaN/Infinity refused).'''
+    return json.dumps(meta, sort_keys=True, indent=2, allow_nan=False) + '\n'
+
+
+METADATA_SIZE_SLACK_BYTES = 512     # scalar fields whose text length depends on the final CSV / clock (see plant_metadata_size)
+
+
+def plant_metadata_size(state, *, initial=False, provenance=None):
+    '''Conservative size in BYTES of the companion JSON text (`plant_metadata_text`) of `state`, computed by a
+    STREAMING counting pass (json.JSONEncoder.iterencode with the same options; no full text is ever built, the largest
+    transient is one encoded value). Provenance is counted whole (it is unbounded and never truncated). The CSV block
+    uses a placeholder with the fixed SHA-256 text length, a 20-digit `n_bytes` and the longest finite float repr for
+    `time_days`, so the result does not depend on the clock or the final CSV size and is >= the real text length;
+    METADATA_SIZE_SLACK_BYTES is extra margin. The encoder escapes to ASCII, so characters equal bytes. Use it to admit
+    the serialized companion BEFORE serialising.'''
+    meta = plant_metadata(state, b'', initial=initial, provenance=provenance)
+    meta['csv']['n_bytes'] = 10 ** 20 - 1
+    meta['time_days'] = -1.7976931348623157e308
+    enc = json.JSONEncoder(sort_keys=True, indent=2, allow_nan=False)
+    n = 0
+    for chunk in enc.iterencode(meta):
+        n += len(chunk)
+    return n + 1 + METADATA_SIZE_SLACK_BYTES      # + the trailing newline
+
+
+def plant_files_text(state, *, initial=False, provenance=None, csv_file=None):
+    '''(plain CSV text, companion JSON text) of a state, both serialised and validated, nothing written.'''
+    csv_text = plant_csv_text(state, initial=initial)
+    meta = plant_metadata(state, csv_text, initial=initial, provenance=provenance, csv_file=csv_file)
+    return csv_text, plant_metadata_text(meta)
+
+
+_SHA_RE = re.compile(r'sha256:[0-9a-f]{64}')
+
+
+def parse_plant_metadata(data, *, source='metadata'):
+    '''Strictly parse a companion document (JSON text / bytes / an already parsed dict) and check its structure
+    (schema, integer schema_version, required keys, types, SHA-256 form, non-negative integer csv.n_bytes). Catalog /
+    domain / time / CSV size + SHA-256 consistency is checked later against the CSV by `parse_plant_csv`. Returns a
+    dict (a copy for dict input).'''
+    if isinstance(data, (bytes, bytearray, str)):
+        try:
+            meta = _traits.parse_strict_json(data, what=f'{source} companion metadata')
+        except _traits.CatalogError as exc:
+            raise StateError(f'{source}: companion metadata is not valid strict JSON: {exc}') from exc
+    elif isinstance(data, dict):
+        meta = dict(data)
+    else:
+        raise StateError(f'{source}: companion metadata must be JSON text / bytes or a dict, got {type(data).__name__}')
+    if not isinstance(meta, dict):
+        raise StateError(f'{source}: companion metadata must be a JSON object')
+    if meta.get('schema') != METADATA_SCHEMA:
+        raise StateError(f'{source}: metadata schema {meta.get("schema")!r} != {METADATA_SCHEMA!r}')
+    ver = meta.get('schema_version')
+    if type(ver) is not int or ver != METADATA_SCHEMA_VERSION:
+        raise StateError(f'{source}: unsupported plant metadata schema_version {ver!r} (this reader supports exactly '
+                         f'integer version {METADATA_SCHEMA_VERSION})')
+    required = ('catalog_hash', 'species_names', 'domain', 'time_days', 'n_plants', 'initial', 'establishment_resolved',
+                'units', 'coordinate_frame', 'csv')
+    missing = [k for k in required if k not in meta]
+    if missing:
+        raise StateError(f'{source}: companion metadata lacks required keys {missing}')
+    blk = meta['csv']
+    if not isinstance(blk, dict) or not isinstance(blk.get('sha256'), str) or not _SHA_RE.fullmatch(blk['sha256']):
+        raise StateError(f'{source}: companion metadata csv.sha256 must be a "sha256:<64 hex>" string')
+    nb = blk.get('n_bytes')
+    if isinstance(nb, bool) or not isinstance(nb, int) or nb < 0:
+        raise StateError(f'{source}: companion metadata csv.n_bytes must be a non-negative integer (the exact CSV size), '
+                         f'got {nb!r}')
+    if not isinstance(meta['species_names'], list) or any(not isinstance(s, str) for s in meta['species_names']):
+        raise StateError(f'{source}: companion metadata species_names must be a list of strings')
+    n = meta['n_plants']
+    if isinstance(n, bool) or not isinstance(n, int) or n < 0:
+        raise StateError(f'{source}: companion metadata n_plants must be a non-negative integer')
+    for k in ('initial', 'establishment_resolved'):
+        if not isinstance(meta[k], bool):
+            raise StateError(f'{source}: metadata {k!r} must be a JSON boolean')
+    return meta
+
+
+def _check_context(meta, catalog, domain, time_days, source):
+    '''Shared catalog / table / domain / time / unit checks of legacy and companion metadata. Returns (domain, time_days).'''
+    if meta.get('catalog_hash') != catalog.hash:
+        raise StateError(f'{source}: catalog hash mismatch (file {meta.get("catalog_hash")!r}, catalog {catalog.hash!r})')
+    if 'species_names' in meta:
+        names = meta['species_names']
+        if not isinstance(names, list) or names != list(catalog.species_ids):
+            raise StateError(f'{source}: species name table {names} differs from catalog {list(catalog.species_ids)}')
+    if 'domain' in meta:
+        md = Domain.from_dict(meta['domain'])
+        if domain is not None and md != domain:
+            raise StateError(f'{source}: metadata domain {md!r} differs from the supplied domain {domain!r}')
+        domain = md
+    if 'time_days' in meta:
+        mt = _finite_float(meta['time_days'], f'{source} metadata time_days')
+        if time_days is not None and float(time_days) != mt:
+            raise StateError(f'{source}: metadata time_days {mt!r} differs from the supplied time_days {time_days!r}')
+        time_days = mt
+    if 'units' in meta and meta['units'] != UNITS:
+        raise StateError(f'{source}: metadata units differ from {UNITS}')
+    if 'coordinate_frame' in meta and meta['coordinate_frame'] != COORDINATE_FRAME:
+        raise StateError(f'{source}: coordinate frame {meta["coordinate_frame"]!r} differs from {COORDINATE_FRAME!r}')
+    if 'initial' in meta and not isinstance(meta['initial'], bool):
+        raise StateError(f'{source}: metadata "initial" must be a JSON boolean')
+    return domain, time_days
+
+
+def _legacy_metadata(first_line, source):
+    '''LEGACY READ ONLY: the embedded "# {json}" first line of pre-companion files.'''
+    try:
+        meta = _traits.parse_strict_json(first_line[1:].strip(), what=f'{source} metadata line')
+    except _traits.CatalogError as exc:
+        raise StateError(f'{source}: the first line starts with "#" but is not a legacy JSON metadata line (plain plant '
+                         f'CSV files carry no comments or metadata): {exc}') from exc
+    if not isinstance(meta, dict):
+        raise StateError(f'{source}: metadata line must be a JSON object')
+    if meta.get('schema') != CSV_SCHEMA:
+        raise StateError(f'{source}: metadata schema {meta.get("schema")!r} != {CSV_SCHEMA!r}')
+    if meta.get('schema_version') != CSV_SCHEMA_VERSION or isinstance(meta.get('schema_version'), bool):
+        raise StateError(f'{source}: unsupported plant CSV schema_version {meta.get("schema_version")!r}')
+    return meta
+
+
+def _csv_bytes_and_text(text, source):
+    if isinstance(text, (bytes, bytearray, memoryview)):
+        raw = bytes(text)
+        try:
+            return raw, raw.decode('utf-8')
+        except UnicodeDecodeError as exc:
+            raise StateError(f'{source}: plant CSV is not valid UTF-8: {exc}') from exc
+    if isinstance(text, str):
+        try:
+            return text.encode('utf-8'), text
+        except UnicodeEncodeError as exc:
+            raise StateError(f'{source}: plant CSV text cannot be encoded as UTF-8: {exc}') from exc
+    raise StateError(f'{source}: plant CSV must be str or bytes, got {type(text).__name__}')
+
+
+def parse_plant_csv(text, catalog, *, domain=None, surface=None, time_days=None, provenance=None, source='csv',
+                    metadata=None):
+    '''All-or-nothing parse of plain plant CSV text / bytes. Optional `metadata` (companion JSON text / bytes or the
+    dict of `plant_metadata`) supplies and VERIFIES the file context before anything is built: schema version,
+    CSV SHA-256 and row count binding (a stale or mismatched pair is refused), catalog hash and species table,
+    domain / time (and any caller-supplied domain / time_days must agree), units and the initial / SURFACE
+    declaration. Rows are read with csv.reader(strict=True), so ordinary quoted fields are accepted while
+    malformed/unterminated quotes raise. Without metadata the file is a handwritten plain list: the caller must
+    supply the domain (time_days defaults to 0) and a SURFACE token is allowed. LEGACY: a first line "# {json}"
+    (embedded metadata of old files) is still read with the old checks, but not together with `metadata`, and is
+    never written.'''
+    raw, text = _csv_bytes_and_text(text, source)
     lines = io.StringIO(text, newline='')
     first = lines.readline()
-    meta = None
+    explicit = metadata is not None and metadata is not False
+    meta, legacy = None, False
     if first.startswith('#'):
-        meta = _traits.parse_strict_json(first[1:].strip(), what=f'{source} metadata line')
-        if not isinstance(meta, dict):
-            raise StateError(f'{source}: metadata line must be a JSON object')
-        if meta.get('schema') != CSV_SCHEMA:
-            raise StateError(f'{source}: metadata schema {meta.get("schema")!r} != {CSV_SCHEMA!r}')
-        if meta.get('schema_version') != CSV_SCHEMA_VERSION or isinstance(meta.get('schema_version'), bool):
-            raise StateError(f'{source}: unsupported plant CSV schema_version {meta.get("schema_version")!r}')
-        if meta.get('catalog_hash') != catalog.hash:
-            raise StateError(f'{source}: catalog hash mismatch (file {meta.get("catalog_hash")!r}, catalog {catalog.hash!r})')
-        if 'species_names' in meta and list(meta['species_names']) != list(catalog.species_ids):
-            raise StateError(f'{source}: species name table {meta["species_names"]} differs from catalog {list(catalog.species_ids)}')
-        if 'domain' in meta:
-            md = Domain.from_dict(meta['domain'])
-            if domain is not None and md != domain:
-                raise StateError(f'{source}: metadata domain {md!r} differs from the supplied domain {domain!r}')
-            domain = md
-        if 'time_days' in meta:
-            mt = _finite_float(meta['time_days'], f'{source} metadata time_days')
-            if time_days is not None and float(time_days) != mt:
-                raise StateError(f'{source}: metadata time_days {mt!r} differs from the supplied time_days {time_days!r}')
-            time_days = mt
-        if 'units' in meta and meta['units'] != UNITS:
-            raise StateError(f'{source}: metadata units differ from {UNITS}')
-        if 'coordinate_frame' in meta and meta['coordinate_frame'] != COORDINATE_FRAME:
-            raise StateError(f'{source}: coordinate frame {meta["coordinate_frame"]!r} differs from {COORDINATE_FRAME!r}')
-        if 'initial' in meta and not isinstance(meta['initial'], bool):
-            raise StateError(f'{source}: metadata "initial" must be a JSON boolean')
+        if explicit:
+            raise StateError(f'{source}: the file starts with an embedded legacy metadata line AND companion metadata was '
+                             'supplied; refusing the ambiguous pair')
+        meta, legacy = _legacy_metadata(first, source), True
     else:
         lines.seek(0)
+        if explicit:
+            meta = parse_plant_metadata(metadata, source=source)
+            if meta['csv']['n_bytes'] != len(raw):
+                raise StateError(f'{source}: the CSV has {len(raw)} bytes but the companion metadata declares '
+                                 f'csv.n_bytes={meta["csv"]["n_bytes"]}: the sizes do not match, so the pair is stale, '
+                                 'edited or partially written; refusing to use it')
+            if meta['csv']['sha256'] != _sha256(raw):
+                raise StateError(f'{source}: the CSV bytes ({_sha256(raw)}) do not match the companion metadata '
+                                 f'({meta["csv"]["sha256"]}): the pair is stale, edited or partially written; refusing '
+                                 'to use it')
+            if 'columns' in meta['csv'] and meta['csv']['columns'] != list(CSV_COLUMNS):
+                raise StateError(f'{source}: companion metadata csv.columns {meta["csv"]["columns"]} differ from '
+                                 f'{list(CSV_COLUMNS)}')
+    if meta is not None:
+        domain, time_days = _check_context(meta, catalog, domain, time_days, source)
     if domain is None:
-        raise StateError(f'{source}: no metadata domain; a Domain must be supplied for a handwritten CSV')
+        raise StateError(f'{source}: no domain: a plain CSV without companion metadata ("<stem>{METADATA_SUFFIX}") needs '
+                         'a Domain supplied by the caller')
     if time_days is None:
         time_days = 0.0
     reader = csv.reader(lines, strict=True)
@@ -883,21 +1076,41 @@ def parse_plant_csv(text, catalog, *, domain=None, surface=None, time_days=None,
         raise StateError(f'{source}: metadata n_plants {meta["n_plants"]} != {len(rows)} data rows (truncated or extended file)')
     n_tokens = sum(1 for row in rows if len(row) > 4 and _is_surface_token(row[4]))
     if meta is not None and n_tokens:
-        # declared non-initial (or undeclared) metadata-bearing files must carry concrete anchors: refuse BEFORE
+        # a file with metadata that does not declare "initial": true must carry concrete anchors: refuse BEFORE
         # any surface is sampled, so a later surface can never be mistaken for the establishment surface
         if meta.get('initial') is not True or meta.get('establishment_resolved') is True:
-            raise StateError(f'{source}: {n_tokens} SURFACE anchor(s) in a metadata-bearing file that is not declared '
+            raise StateError(f'{source}: {n_tokens} SURFACE anchor(s) in a file whose metadata does not declare '
                              '"initial": true (saved snapshots must carry concrete establishment elevations); refused '
                              'before any surface is sampled')
+    if meta is not None and not legacy and meta['establishment_resolved'] != (n_tokens == 0):
+        raise StateError(f'{source}: companion metadata establishment_resolved={meta["establishment_resolved"]} '
+                         f'contradicts the CSV ({n_tokens} SURFACE token(s))')
     prov = dict(provenance) if provenance is not None else (dict(meta.get('provenance') or {}) if meta else {})
     return _build_from_rows(catalog, domain, rows, time_days=time_days, surface=surface, provenance=prov, source=source)
 
 
-def read_plant_csv(path, catalog, *, domain=None, surface=None, time_days=None, provenance=None):
-    with open(path, 'r', encoding='utf-8', newline='') as fh:
-        text = fh.read()
-    return parse_plant_csv(text, catalog, domain=domain, surface=surface, time_days=time_days,
-                           provenance=provenance, source=os.fspath(path))
+def read_plant_companion(path):
+    '''Raw bytes of the companion metadata of a plant CSV path, or None when no companion file exists.'''
+    mpath = metadata_path(path)
+    if not os.path.lexists(mpath):
+        return None
+    with open(mpath, 'rb') as fh:
+        return fh.read()
+
+
+def read_plant_csv(path, catalog, *, domain=None, surface=None, time_days=None, provenance=None, metadata=None):
+    '''Read a plain plant CSV. The companion "<stem>.metadata.json" beside it is loaded automatically and verified
+    against the exact CSV bytes (see `parse_plant_csv`); a mismatched / stale / invalid companion is refused. With no
+    companion the file is a handwritten plain list (supply `domain`). `metadata` may be companion JSON text / bytes /
+    dict to use instead of the file, or False to read the CSV as a plain list while IGNORING a companion (an explicit
+    opt-out: the declared time / SURFACE safety of the companion then no longer protects the read).'''
+    path = os.fspath(path)
+    with open(path, 'rb') as fh:
+        data = fh.read()
+    if metadata is None:
+        metadata = read_plant_companion(path)
+    return parse_plant_csv(data, catalog, domain=domain, surface=surface, time_days=time_days,
+                           provenance=provenance, source=path, metadata=metadata)
 
 
 # ------------------------------------------------------------------ atomic output
@@ -953,15 +1166,83 @@ def atomic_write_text(path, text, *, overwrite=False):
     return atomic_write_bytes(path, text.encode('utf-8'), overwrite=overwrite)
 
 
+def _check_replaceable_companion(meta_path):
+    '''overwrite=True may only replace a file that is a LEAF plant-state companion (never unrelated metadata).'''
+    try:
+        with open(meta_path, 'rb') as fh:
+            doc = _traits.parse_strict_json(fh.read(), what=f'existing metadata file {meta_path!r}')
+    except (OSError, _traits.CatalogError) as exc:
+        raise FileExistsError(f'{meta_path!r} exists and is not a readable LEAF plant-state companion ({exc}); '
+                              'refusing to overwrite it') from exc
+    if not isinstance(doc, dict) or doc.get('schema') != METADATA_SCHEMA:
+        raise FileExistsError(f'{meta_path!r} exists but is not a {METADATA_SCHEMA!r} companion; refusing to overwrite '
+                              'unrelated metadata')
+
+
+def preflight_plant_files(path, *, overwrite=False):
+    '''Check BOTH destinations of a plant file pair (CSV and "<stem>.metadata.json") before any work: the directory
+    exists and neither file exists unless overwrite=True; an overwrite never replaces a metadata file that is not a
+    LEAF plant-state companion. Returns (csv_path, metadata_path); nothing is created.'''
+    csv_path = preflight_destination(path, overwrite=overwrite)
+    meta_path = metadata_path(csv_path)
+    if os.path.isdir(meta_path):
+        raise IsADirectoryError(f'{meta_path!r} is a directory')
+    if os.path.lexists(meta_path):
+        if not overwrite:
+            raise FileExistsError(f'metadata companion {meta_path!r} exists (it may belong to another file with the same '
+                                  'stem); not overwritten; pass overwrite=True to replace it')
+        _check_replaceable_companion(meta_path)
+    return csv_path, meta_path
+
+
+def publish_plant_files(path, csv_bytes, metadata_bytes, *, overwrite=False):
+    '''Publish an already serialised pair. Both destinations are preflighted first. The companion is published FIRST
+    and the CSV SECOND (each atomically, see atomic_write_bytes); if the CSV cannot be published, a newly created
+    companion is removed and a replaced one is restored. The two publications are NOT one atomic operation: if the
+    process dies in between, an orphan companion without CSV (overwrite=False) or a new companion beside the old CSV
+    (overwrite=True) remains, and every reader refuses it (missing CSV / SHA-256 mismatch) instead of using it.
+    Returns (csv_path, metadata_path).'''
+    csv_path, meta_path = preflight_plant_files(path, overwrite=overwrite)
+    existed = os.path.lexists(meta_path)
+    prior = None
+    if existed:
+        with open(meta_path, 'rb') as fh:
+            prior = fh.read()
+    atomic_write_bytes(meta_path, metadata_bytes, overwrite=overwrite)
+    try:
+        atomic_write_bytes(csv_path, csv_bytes, overwrite=overwrite)
+    except BaseException:
+        try:
+            if existed:
+                atomic_write_bytes(meta_path, prior, overwrite=True)     # restore the previous companion
+            else:
+                os.unlink(meta_path)                                       # remove the companion this call created
+        except OSError:
+            pass    # best effort: a leftover companion fails the hash binding on read, never silently used
+        raise
+    return csv_path, meta_path
+
+
+def write_plant_files(state, path, *, overwrite=False, initial=False, provenance=None):
+    '''Validate and serialise BOTH files (plain CSV + companion JSON), preflight both destinations, then publish.
+    Nothing is written when validation or a preflight fails. Returns (csv_path, metadata_path).'''
+    preflight_plant_files(path, overwrite=overwrite)
+    csv_text, meta_text = plant_files_text(state, initial=initial, provenance=provenance,
+                                           csv_file=os.path.basename(os.fspath(path)))
+    return publish_plant_files(path, csv_text.encode('utf-8'), meta_text.encode('utf-8'), overwrite=overwrite)
+
+
 def write_plant_csv(state, path, *, overwrite=False, initial=False, provenance=None):
-    '''Validate, serialise, then atomically write. Nothing is written when validation fails.'''
-    preflight_destination(path, overwrite=overwrite)
-    text = plant_csv_text(state, initial=initial, provenance=provenance)
-    return atomic_write_text(path, text, overwrite=overwrite)
+    '''Write the plain CSV and its companion metadata (see write_plant_files); returns the CSV path.'''
+    return write_plant_files(state, path, overwrite=overwrite, initial=initial, provenance=provenance)[0]
 
 
-__all__ = ['CSV_SCHEMA', 'CSV_SCHEMA_VERSION', 'CSV_COLUMNS', 'SURFACE_TOKEN', 'LIVE', 'DEAD_STANDING', 'REMOVED',
+__all__ = ['CSV_SCHEMA', 'CSV_SCHEMA_VERSION', 'METADATA_SCHEMA', 'METADATA_SCHEMA_VERSION', 'METADATA_SUFFIX',
+           'CSV_COLUMNS', 'SURFACE_TOKEN', 'LIVE', 'DEAD_STANDING', 'REMOVED',
            'STATUS_CODES', 'STATUS_NAMES', 'CELL_SAMPLING_CONVENTION', 'AXES_CONVENTION', 'EDGE_CONVENTION',
            'COORDINATE_FRAME', 'UNITS', 'StateError', 'Domain', 'constant_surface', 'load_surface', 'status_codes',
-           'PlantState', 'csv_metadata', 'plant_csv_text', 'parse_plant_csv', 'read_plant_csv', 'write_plant_csv',
+           'PlantState', 'metadata_path', 'plant_csv_text', 'plant_metadata', 'plant_metadata_text', 'plant_metadata_size',
+           'METADATA_SIZE_SLACK_BYTES', 'plant_files_text',
+           'parse_plant_metadata', 'parse_plant_csv', 'read_plant_companion', 'read_plant_csv',
+           'preflight_plant_files', 'publish_plant_files', 'write_plant_files', 'write_plant_csv',
            'preflight_destination', 'atomic_write_bytes', 'atomic_write_text']
