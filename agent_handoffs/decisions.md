@@ -389,3 +389,17 @@ Normally generated individuals receive independent uniform ages from zero to the
 ## 2026-11-11 local — literature scenario parameters
 
 Accepted [literature update](tasks/literature_parameters_20261111/final_review.md). Case `jornada_grass05_shrub10_256` now uses Northup2005 honey-mesquite dry standing-mass/crown-area median allometry, McClaran2013 velvet-mesquite height proxy, live share0.906 and corresponding support k0.2386722866kg*yr/m3; blue-grama STEP input rate0.474/yr and daughter1.5096g dry AGB are explicit related-species MODEL proxies. FAO sandy-loam FC0.23 replaces the old assumed0.20. Preserve same-species origins versus site transfer versus proxy distinctions; support is not production WUE. Other parameters stay assumptions where definitions do not match literature. Grass field clump persistence2–4yr remains a validation gap against assumed15yr aging mean. Preserve saved preview with frozen original catalog; do not silently reinterpret historical dry masses under revised allometry. No new initialization/model run authorized by this parameter task.
+
+## Grass recruitment pathways — user decision, 2026-11-11 local
+
+For the intended scenarios, use seed recruitment for Southwestern Sporobolus
+species and vegetative recruitment for black grama (Bouteloua eriopoda) and
+blue grama (B. gracilis). Vegetative recruits retain the earlier choice of
+nearby daughter plants with their own IDs and age zero, funded by the parent.
+Keep recruitment traits species-specific and independent of any proxy species
+used for canopy allometry, growth or water demand. Borrowing a Sporobolus
+biomass relationship does not select its recruitment pathway for a grama.
+
+The current BOER trial record already has `seed: null` and an enabled clonal
+pathway. This decision records the user's scenario policy; it does not supply
+measured recruitment probabilities or introduce another species into the case.
