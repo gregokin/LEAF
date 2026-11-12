@@ -1,0 +1,17 @@
+{
+  "code_commit": "dcb7a88ea38c4576984dac33d62d89e70a7d3b30",
+  "branch": "main",
+  "remote": "https://github.com/gregokin/LEAF.git",
+  "pushed_at_utc": "2026-11-12 01:35:55 UTC",
+  "command": "GIT_TERMINAL_PROMPT=0 git push origin main",
+  "returncode": 0,
+  "stdout": "To https://github.com/gregokin/LEAF.git\n   1e468e1..dcb7a88  main -> main\n",
+  "scope": "Reviewed metadata-free plant files, companion metadata, species-linked uniform initial ages, prior accepted trial case/preview and durable handoff evidence.",
+  "verification": {
+    "total": 576,
+    "passed": 531,
+    "cuda_skipped": 45,
+    "trial_regenerated": false,
+    "trial_forward_run": false
+  }
+}
