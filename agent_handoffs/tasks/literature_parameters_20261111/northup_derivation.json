@@ -1,0 +1,21 @@
+{
+  "source": "Northup et al. 2005 Tables 1, 7: Prosopis glandulosa var. glandulosa, La Copita southern Texas; canopy allometry for total live+standing-dead DRY aboveground mass in grams; June-Aug 1994-1995. Height-vs-area proxy McClaran 2013 Prosopis velutina Table 2.",
+  "convention": "Uncorrected log-space median B_kg = exp(6.960)/1000 * CA_m2**1.492. CF=1.006 reported, intentionally not applied; geometry inverse is deterministic median-curve inversion, not a new inverse regression.",
+  "C_kg_per_m2_to_1p492": 1.0536335572423194,
+  "diameter_a": 1.1087951253470727,
+  "diameter_b": 0.3351206434316354,
+  "height_a": 1.1015229296155495,
+  "height_b": 0.2546916890080429,
+  "live_fraction": 0.906,
+  "support_kg_year_per_m3": 0.23867228661749212,
+  "diameter_1_m": {
+    "area_m2": 0.7853981633974483,
+    "B_kg_dry_AGB": 0.7347907779912205,
+    "height_m": 1.0183722297676923
+  },
+  "diameter_2_m": {
+    "area_m2": 3.141592653589793,
+    "B_kg_dry_AGB": 5.813493672465879,
+    "height_m": 1.7246038235919356
+  }
+}

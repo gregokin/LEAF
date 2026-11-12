@@ -1,0 +1,12 @@
+{
+  "python_executable": "/home/okin/MAPLE/.venv-cupy/bin/python",
+  "python_version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "numpy_version": "2.5.3",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "new_environments_or_installs": false,
+  "gpu_used": false,
+  "parameter_check_backend": "numpy",
+  "dependency_files": {
+    "pyproject.toml": "76fae76c6026ab990d979349ffbc641059622d5bc44ac20aa9911c39df6e2216"
+  }
+}

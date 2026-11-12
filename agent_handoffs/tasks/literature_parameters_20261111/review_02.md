@@ -1,0 +1,5 @@
+# Codex review — revision 2: correct (documentation only)
+
+All 70 independent schema/arithmetic/preservation checks passed. Exact 9 species numeric fields + soil FC update match source derivations. Frozen catalog/preview identities match baseline; all native two-species trait tables parse. No growth/water/model/generation/rendering ran. Structured Claude result success/is_error false, process exit0/reaped.
+
+Bounded correction: replace erroneous isotope-tracer wording (the study used lithium uptake); insert direct source links in secondary per-parameter rows that still say same/above; remove unverified exact 35C Hanson result and unsupported assertion that both seedling allometry source ranges are known; clarify lifespan is used by age initialization (not metadata only); describe genet persistence without assigning FEIS long-lived phrase solely to genets; add direct primary citations for candidate grass sources; fix README revision marker. Numeric values accepted pending corrected documentation. Final stable checks will be repeated after correction.

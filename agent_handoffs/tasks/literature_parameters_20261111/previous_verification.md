@@ -1,0 +1,3 @@
+# Verification — plain plant CSV and uniform initial ages
+
+[Final review](tasks/plain_plant_csv_20261111/final_review.md), [CPU log](tasks/plain_plant_csv_20261111/cpu_suite_03.stderr.log), [exit](tasks/plain_plant_csv_20261111/cpu_suite_03.exit.json), [case checks](tasks/plain_plant_csv_20261111/final_case_verification.json), [tool scope](tasks/plain_plant_csv_20261111/scope_audit.json), [source scope](tasks/plain_plant_csv_20261111/final_scope.json), [source identities](tasks/plain_plant_csv_20261111/final_source_manifest.json). 576 tests total: 531 passed, 45 CUDA skips. Trial not advanced or regenerated. Actual commit/push results are recorded separately after publication.

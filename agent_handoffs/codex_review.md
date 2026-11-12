@@ -1,3 +1,3 @@
-# Accept — changes published
+# Codex review — ACCEPT
 
-[Final independent review](tasks/plain_plant_csv_20261111/final_review.md). 531 executed CPU passes +45 CUDA skips. Plain plant CSV with external companion metadata; uniform generated ages from zero to species life expectancy. Trial settings updated; exact historical preview records/image preserved. Published commit `dcb7a88ea38c4576984dac33d62d89e70a7d3b30` to origin/main: [publication record](tasks/plain_plant_csv_20261111/publication.json).
+[Literature scenario parameters](tasks/literature_parameters_20261111/final_review.md) accepted after three bounded Claude revisions and independent source review. Ten numeric entries updated; per-parameter source/original-species/proxy/gap labels added. Candidate and installed tree: 70 checks each passed. Historical preview preserved with exact frozen catalog. No model/generation/rendering or upstream changes. Commit/push pending under standing authorization.

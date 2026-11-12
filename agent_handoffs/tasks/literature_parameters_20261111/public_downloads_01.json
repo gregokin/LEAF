@@ -1,0 +1,26 @@
+[
+  {
+    "file": "mcclaran2013.pdf",
+    "url": "https://cales.arizona.edu/research/archer/publications/refereed_journal_articles/McClaran-et-al_2012_JAridEnv.pdf",
+    "resolved_url": "https://cales.arizona.edu/research/archer/publications/refereed_journal_articles/McClaran-et-al_2012_JAridEnv.pdf",
+    "bytes": 283416,
+    "sha256": "d1c5fe7efde2188f4a999f21ad49ce4bd5b1c2c5d8d55a65d06843bb9de4012f",
+    "content_type": "application/pdf"
+  },
+  {
+    "file": "northup2005.pdf",
+    "url": "https://cales.arizona.edu/research/archer/publications/refereed_journal_articles/Northup-et-al_2005_JAridEnv.pdf",
+    "resolved_url": "https://cales.arizona.edu/research/archer/publications/refereed_journal_articles/Northup-et-al_2005_JAridEnv.pdf",
+    "bytes": 453830,
+    "sha256": "03ac65ed22e0ea738e4497a253fa42a218933c06035baba8ea3497038dea6cfc",
+    "content_type": "application/pdf"
+  },
+  {
+    "file": "stepwat_tree.json",
+    "url": "https://api.github.com/repos/DrylandEcology/STEPWAT2/git/trees/003cb9b4adbf13d64a39d6d62fd95280adac27fc?recursive=1",
+    "resolved_url": "https://api.github.com/repos/DrylandEcology/STEPWAT2/git/trees/003cb9b4adbf13d64a39d6d62fd95280adac27fc?recursive=1",
+    "bytes": 39782,
+    "sha256": "d4d4575d4395cdd3e9444e521b3e9cadc360ae11732da682249b1960dad44e48",
+    "content_type": "application/json; charset=utf-8"
+  }
+]

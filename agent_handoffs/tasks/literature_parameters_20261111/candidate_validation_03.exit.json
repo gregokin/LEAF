@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "/home/okin/leaf/agent_handoffs/tasks/literature_parameters_20261111/verify_parameters.py",
+    "/home/okin/leaf/agent_handoffs/tasks/literature_parameters_20261111/candidate"
+  ],
+  "cwd": "/home/okin/leaf",
+  "environment_overrides": {
+    "PYTHONPATH": "/home/okin/leaf",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "started_utc": "2026-11-12T02:08:00.431456+00:00",
+  "ended_utc": "2026-11-12T02:08:00.979590+00:00",
+  "returncode": 0,
+  "elapsed_s": 0.5481363879516721,
+  "scope": "Read-only schemas/arithmetic and historical-preview read; no growth/water/generation/rendering"
+}

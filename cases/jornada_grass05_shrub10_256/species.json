@@ -1,35 +1,35 @@
 {
   "schema": "leaf.species_catalog",
   "schema_version": 1,
-  "catalog_id": "jornada_grass05_shrub10_trial_20261111",
+  "catalog_id": "jornada_grass05_shrub10_litparam_rev2_20261111",
   "units": {"biomass": "kg", "length": "m", "time": "days"},
   "root_layers": 3,
-  "notes": "TRIAL catalog authored 2026-11-11 for the 64 m x 64 m Jornada-style grass/shrub example case. Two species, ONE complete record each (all traits of a species stay together). Biomass everywhere is kg DRY aboveground mass (no roots, no tissue water). Root layers are the three SYRUP soil layers [0,0.2], [0.2,0.5], [0.5,1.2] m (shallow to deep; see soil.toml in the case root). Provenance tags used in notes/status: [USER] user request; [AUTHOR] author trial choice, not calibrated; [DERIVED] arithmetic from tagged inputs; [LIT] published value used as stated; [EXAMPLE] copied from an existing LEAF example fixture; [PROXY] proxy-species or conditional source. Exact per-parameter provenance and citations: PARAMETERS.md and SOURCES.md in the case root (this file is also in the case root). NOTHING in this file is a field calibration or a validation of Jornada vegetation dynamics. Strict native keys only: unknown keys are refused by the LEAF loaders, so commentary lives in notes/status/units/references fields.",
+  "notes": "TRIAL catalog authored 2026-11-11 for the 64 m x 64 m Jornada-style grass/shrub example case, revised by literature_parameters_20261111 rev2 (2026-11-12). Two species, ONE complete record each (all traits of a species stay together). Biomass everywhere is kg DRY aboveground mass (no roots, no tissue water). Root layers are the three SYRUP soil layers [0,0.2], [0.2,0.5], [0.5,1.2] m (shallow to deep; see soil.toml in the case root). Provenance tags used in notes/status: [USER] user request; [AUTHOR] author trial choice, not calibrated; [DERIVED] arithmetic from tagged inputs; [LIT] published value used as stated; [LIT-DERIVED] published fit algebraically transformed to a native coefficient; [MODEL-PROXY] input of another species in the pinned STEPWAT2 model, not a field estimate; [EXAMPLE] copied from an existing LEAF example fixture; [PROXY] proxy-species or conditional source; [ASSUMED-SHAPE] explicit prior curve with only qualitative literature limits. NUMERIC FIELDS CHANGED vs the frozen baseline catalog jornada_grass05_shrub10_trial_20261111 (preview/species_at_initialization.json): PROGLA allometry.diameter a 1.6 -> 1.1087951253470727 and b 0.4 -> 0.3351206434316354 [LIT-DERIVED from Northup et al. 2005 Table 7, Prosopis glandulosa total oven-dry aboveground biomass vs crown area]; PROGLA allometry.height a 0.8 -> 1.1015229296155495 and b 0.4 -> 0.2546916890080429 [PROXY: McClaran et al. 2013 Table 2, Prosopis velutina height vs crown area, composed with the Northup law]; PROGLA growth.live_fraction 0.4 -> 0.906 [LIT-DERIVED: complement 1 - 0.094 of the standing dead wood fraction printed in Northup 2005 Table 1; 0.906 itself is not printed] and the consistent support k 0.10537407797681772 -> 0.23867228661749212 [DERIVED]; BOER growth.intrinsic_rate_per_year 0.8 -> 0.474 [MODEL-PROXY: pinned STEPWAT2 species.in row bogr, Bouteloua gracilis]; BOER reproduction.clonal.initial_agb_dry_kg 0.001 -> 0.0015096 [MODEL-PROXY size] and min_agb_dry_kg 0.01 -> 0.015096 [AUTHOR-DERIVED = 10 x daughter mass]. soil.toml theta_field_capacity 0.20 -> 0.23 changed outside this file. EVERY OTHER numeric value is unchanged. Source links per parameter: PARAMETERS.md (case root); derivations: research_notes.md in the task directory. The saved preview population was initialised with the FROZEN earlier catalog; its stored dry masses and ages must NOT be reinterpreted with this catalog's PROGLA allometry (a new initialization is required; not run). NOTHING in this file is a field calibration or a validation of Jornada vegetation dynamics: the mesquite laws come from southern Texas (diameter law) and Arizona (height law) and the grass rate is a model input of a related species. Strict native keys only: unknown keys are refused by the LEAF loaders, so commentary lives in notes/status/units/references fields.",
   "species": {
     "BOER": {
       "functional_type": "perennial_bunchgrass",
       "name": "black grama proxy (Bouteloua eriopoda), trial parameters",
-      "notes": "Black grama proxy. Initial population (cover 0.05, diameter mean 0.10 m, SD 0.02 m) is a [USER] choice in generation.json (case root), not a measured field estimate. Allometry, growth, water-use, mortality, disturbance and reproduction numbers are [AUTHOR] trial hypotheses unless a section note says [LIT]/[DERIVED]/[EXAMPLE]. USDA FEIS (Simonin 2000) supports qualitative statements only (long-lived warm-season C4 bunchgrass, upper-soil root concentration with roots to about 1.2 m, summer growth, vegetative spread) and does not supply any exact coefficient below.",
-      "references": ["Simonin2000_FEIS_BOER", "VitoSala2026", "Belovitch2023", "Palmquist2018_STEPWAT2", "Peters2002_ECOTONE", "CASE_AUTHOR_20261111"],
+      "notes": "Black grama proxy. Initial population (cover 0.05, diameter mean 0.10 m, SD 0.02 m) is a [USER] choice in generation.json (case root), not a measured field estimate. REV2 numeric changes: growth.intrinsic_rate_per_year 0.8 -> 0.474; reproduction.clonal.initial_agb_dry_kg 0.001 -> 0.0015096; clonal.min_agb_dry_kg 0.01 -> 0.015096. All three come from, or are derived from, the pinned STEPWAT2 species.in row bogr = Bouteloua gracilis (blue grama, a related C4 grass; NOT black grama; a sagebrush/shortgrass-steppe MODEL input, not a field estimate): https://github.com/DrylandEcology/STEPWAT2/blob/003cb9b4adbf13d64a39d6d62fd95280adac27fc/testing.sagebrush.master/Stepwat_Inputs/Input/species.in . Allometry (EXAMPLE fixture; no compatible black grama total-standing-mass vs crown-diameter equation found), mature biomass, live fraction, extra growth, activity levels, cardinal temperatures, the demand proxy, clonal probability and all mortality/disturbance numbers remain [AUTHOR]/[PROXY] hypotheses. USDA FEIS (Simonin 2000) supports qualitative statements only (long-lived warm-season C4 bunchgrass, upper-soil root concentration with roots to about 1.2 m, summer growth, vegetative spread). Consequence to know: at the user's mean diameter 0.10 m a plant holds only 0.00758 kg, below clonal.min_agb_dry_kg 0.015096 kg, so most initial plants are not eligible to produce daughters until they grow (D = 0.9 B^0.45 gives D about 0.137 m at 0.015096 kg).",
+      "references": ["Simonin2000_FEIS_BOER", "VitoSala2026", "Belovitch2023", "Palmquist2018_STEPWAT2", "STEPWAT2_species_in_bogr_003cb9b4", "Peters2002_ECOTONE", "Valentine1970_via_FEIS_BOER", "Nelson1934_via_FEIS_BOER", "Neilson1986_via_FEIS_BOER", "Wright1972_JRM_chart_quadrat_persistence", "Smith2004_Gramas_AgronMono45", "CASE_AUTHOR_20261111"],
       "allometry": {
         "model": "power_law_v1",
         "diameter": {"a": 0.9, "b": 0.45},
         "height": {"a": 0.9, "b": 0.3},
         "units": {"a_d": "m kg^-b_d (diameter_m = a_d * B_kg_dry_AGB**b_d)", "b_d": "dimensionless", "a_h": "m kg^-b_h (height_m = a_h * B_kg_dry_AGB**b_h)", "b_h": "dimensionless"},
-        "notes": "[EXAMPLE]+[AUTHOR] diameter exponent 0.45 and a=0.9 follow the LEAF example fixture grass diameter law; the height law a=0.9,b=0.3 is an [AUTHOR] trial anchor. Neither is a published standing-biomass equation and ANPP regressions must not be substituted. [DERIVED] mean diameter 0.10 m implies B = (0.10/0.9)**(1/0.45) = 0.0075763685 kg dry AGB and height about 0.208 m (FEIS only supports plausibility of tens-of-cm stems)."
+        "notes": "UNCHANGED [EXAMPLE]+[AUTHOR]: diameter exponent 0.45 and a=0.9 follow the LEAF example fixture grass diameter law; the height law a=0.9,b=0.3 is an [AUTHOR] trial anchor. GAP: no compatible published equation for TOTAL standing dry aboveground mass vs crown diameter of black grama was identified (the current-year mass vs basal diameter relation of Nafus et al. 2009, https://doi.org/10.2111/08-003, is a different quantity and was not adopted; ANPP regressions must not be substituted). [DERIVED] mean diameter 0.10 m implies B = (0.10/0.9)**(1/0.45) = 0.0075763685 kg dry AGB and height about 0.208 m (FEIS only supports plausibility of tens-of-cm stems)."
       },
       "roots": {
         "lateral_radius_multiplier": 3.0,
         "layer_fractions": [0.39639133268704063, 0.3360854884442371, 0.26752317886872223],
-        "notes": "lateral_radius_multiplier 3.0 = lower endpoint of the [USER] 3-5 x canopy-radius range (grass endpoint is an [AUTHOR] trial choice). layer_fractions [DERIVED] from the [LIT] Vito&Sala 2026 black grama combined-years tracer-uptake fit F(z)=1-beta**z (z in CENTIMETRES, beta=0.977) integrated over layer edges 0,20,50,120 cm: fraction=(beta**lo-beta**hi)/(1-beta**120); the conditional normalisation over the modelled 1.2 m omits a tail of 0.0612840765 of the fitted curve. Tracer absorption is an uptake proxy, not measured root density; fixed profile, no plasticity. Every layer is reached. HORIZONTAL law (current shared root builder): uniform weight per cell POSITIVELY overlapped by the root disk (including barely touched cells), clipped to the finite domain; NOT overlap-area weighting and NOT a measured radial root-density law; it multiplies these per-species vertical fractions. On CUDA daily demand/withdrawal run on-device, but the weekly geometry/root rebuild is host/compiled with explicit CSR uploads (not fully GPU-resident)."
+        "notes": "lateral_radius_multiplier 3.0 = lower endpoint of the [USER] 3-5 x canopy-radius range (grass endpoint is an [AUTHOR] trial choice). layer_fractions [DERIVED] from the [LIT] Vito & Sala 2026 (https://doi.org/10.1002/ecy.70384) black grama combined-years tracer-uptake fit F(z)=1-beta**z (z in CENTIMETRES, beta=0.977) integrated over layer edges 0,20,50,120 cm: fraction=(beta**lo-beta**hi)/(1-beta**120); the conditional normalisation over the modelled 1.2 m omits a tail of 0.0612840765 of the fitted curve. Tracer absorption is an uptake proxy, not measured root density; fixed profile, no plasticity. Every layer is reached. HORIZONTAL law (current shared root builder): uniform weight per cell POSITIVELY overlapped by the root disk (including barely touched cells), clipped to the finite domain; NOT overlap-area weighting and NOT a measured radial root-density law; it multiplies these per-species vertical fractions. On CUDA daily demand/withdrawal run on-device, but the weekly geometry/root rebuild is host/compiled with explicit CSR uploads (not fully GPU-resident)."
       },
       "porosity": {"value": 0.2, "status": "uncalibrated constant copied from the existing LEAF example fixture [EXAMPLE]; unused by LEAF ecology but consumed by native MAPLE wind"},
       "growth": {
         "law": "stepwat_requested_support_v1",
-        "status": "AUTHOR trial hypotheses within the native admitted ranges (rate 0..1 per year); STEPWAT2 (Palmquist 2018) is a structural precedent only and no STEP number is adopted; NOT a fit to the 295 per year Setaria diagnostic.",
+        "status": "intrinsic_rate_per_year 0.474 is a [MODEL-PROXY] annual rate from the pinned STEPWAT2 species.in row bogr (Bouteloua gracilis; header credits Bradford & Lauenroth 2006 Table A1.4, not checked), inside the native admitted range 0..1 per year and NOT a black grama field estimate; the other growth traits are [AUTHOR] hypotheses. NOT a fit to the 295 per year Setaria diagnostic and not the 26.28 per year whole-plant RGR of Fernandez & Reynolds 2000 (https://doi.org/10.1007/s004420050993; total dry mass incl. roots; not a native aboveground STEP-style rate).",
         "traits": {
           "mature_biomass_kg": 0.1,
-          "intrinsic_rate_per_year": 0.8,
+          "intrinsic_rate_per_year": 0.474,
           "biomass_support_kg_year_per_m3": 0.07024938531787846,
           "live_fraction": 0.6,
           "extra_growth_rate_per_year": 0.1,
@@ -39,48 +39,48 @@
           "temperature_max_c": 45.0
         },
         "units": {
-          "mature_biomass_kg": "kg dry aboveground [AUTHOR]",
-          "intrinsic_rate_per_year": "1/year [AUTHOR]",
-          "biomass_support_kg_year_per_m3": "kg dry AGB supported per m3 of water, in kg*year/m3 [DERIVED] k = live_fraction/(365*q) at reference PET, q=0.0234 m3/kg/day: a support-balance prior, NOT a production yield or WUE",
-          "live_fraction": "fraction of AGB that is live/transpiring [AUTHOR]",
-          "extra_growth_rate_per_year": "1/year [AUTHOR]",
-          "monthly_activity": "fraction 0..1, January..December [AUTHOR], inspired by FEIS qualitative summer-growth description only",
-          "temperature_min_c": "degC cardinal minimum [AUTHOR]",
-          "temperature_opt_c": "degC cardinal optimum [AUTHOR]",
-          "temperature_max_c": "degC cardinal maximum [AUTHOR]"
+          "mature_biomass_kg": "kg dry aboveground [AUTHOR]; GAP: the bogr maxbio 15.096 g is a model input for blue grama, not a demonstrated black grama maximum, and was not adopted",
+          "intrinsic_rate_per_year": "1/year [MODEL-PROXY] species.in bogr irate 0.474 (Bouteloua gracilis), pinned STEPWAT2 003cb9b4, https://github.com/DrylandEcology/STEPWAT2/blob/003cb9b4adbf13d64a39d6d62fd95280adac27fc/testing.sagebrush.master/Stepwat_Inputs/Input/species.in",
+          "biomass_support_kg_year_per_m3": "kg dry AGB supported per m3 of water, in kg*year/m3 [DERIVED] k = live_fraction/(365*q) = 0.6/(365*0.0234) at reference PET: a support-balance prior, NOT a production yield or WUE (unchanged)",
+          "live_fraction": "fraction of AGB that is live/transpiring [AUTHOR] (unchanged; no black grama estimate found)",
+          "extra_growth_rate_per_year": "1/year [AUTHOR] (unchanged; STEP ratep/vegprop probabilities have different semantics)",
+          "monthly_activity": "fraction 0..1, January..December [ASSUMED-SHAPE, not a measured coefficient], constrained only by FEIS (Simonin 2000, https://research.fs.usda.gov/feis/species-reviews/boueri, Chihuahuan Desert phenology) qualitative dates: growth begins late April-early May, flowering late Aug-early Sep, fruiting late Sep-early Oct; Jornada growth periods 0-176 days per year (1925-1935) set by rainfall, so a fixed calendar curve is a prior",
+          "temperature_min_c": "degC cardinal minimum [ASSUMED prior; no black grama measurement found]",
+          "temperature_opt_c": "degC cardinal optimum [ASSUMED prior; no black grama measurement found; C4 warm-season qualitative only]",
+          "temperature_max_c": "degC cardinal maximum [ASSUMED prior; no black grama measurement found]"
         },
-        "notes": "Temperature multiplier gates demand and growth; there is NO freezing-mortality or fire module in the model. The growth fraction U/D is applied once, in total across roots; unmet demand is not relocated. Water is owned and debited by SYRUP exactly once. Annual calendar normalization follows the native code."
+        "notes": "Temperature multiplier gates demand and growth; there is NO freezing-mortality or fire module in the model. The growth fraction U/D is applied once, in total across roots; unmet demand is not relocated. Water is owned and debited by SYRUP exactly once. Annual calendar normalization follows the native code. Grass live fraction, mature mass and extra growth remain gaps."
       },
       "water_use": {
         "law": "biomass_specific_pet_v1",
-        "status": "demand coefficient [PROXY] from a local descriptive reanalysis of moist-soil savanna grasses (Belovitch 2023 released data); reference PET [AUTHOR].",
+        "status": "demand coefficient [PROXY] from a local descriptive reanalysis of moist-soil savanna grasses (Belovitch 2023 released data, https://doi.org/10.1111/nph.18909); reference PET [AUTHOR]. Unchanged in rev2.",
         "traits": {"demand_m3_per_kg_day": 0.0234, "reference_pet_mm_per_day": 5.0},
         "units": {"demand_m3_per_kg_day": "m3 per kg of STANDING DRY AGB per day (23.4 L/kg/day, moist-bin median of 30 individual means, harvest mass not daily mass; not a printed universal coefficient)", "reference_pet_mm_per_day": "mm/day normalisation chosen by the AUTHOR; not a measured experimental or site mean PET"},
-        "notes": "Demand D = B * demand * (PET/reference_pet) * dt * activity * temperature_factor, applied per total dry AGB. Scaling by PET ratio, monthly activity and temperature is LEAF's chosen adaptation, not a source-calibrated equation. Not a Jornada adult black grama measurement."
+        "notes": "Demand D = B * demand * (PET/reference_pet) * dt * activity * temperature_factor, applied per total dry AGB (live_fraction is NOT applied again). Scaling by PET ratio, monthly activity and temperature is LEAF's chosen adaptation, not a source-calibrated equation. Not a Jornada adult black grama measurement."
       },
       "reproduction": {
         "law": "simple_seed_clonal_v1",
-        "status": "AUTHOR trial numbers; qualitative precedent only (FEIS: vegetative spread is important for black grama). Native reproduction requires a session reproduction_patch_size_m (5 m in case.toml, case root) only for species with a seed pathway.",
+        "status": "clonal.initial_agb_dry_kg 0.0015096 kg [MODEL-PROXY size] = one STEP seedling-sized unit (species.in bogr minbio 1.5096 g) transferred to one separately tracked daughter (a size proxy only, not STEP's biomass-added clonal algorithm); clonal.min_agb_dry_kg 0.015096 kg is [AUTHOR-DERIVED] = 10 x the daughter mass so that max_donation_fraction 0.1 affords one daughter (not a measured minimum reproductive mass; it numerically equals bogr maxbio 15.096 g only because that input is 10 x minbio, and it is not claimed as a maturity size). probability 0.1, max_daughters_per_parent 1, min_age_days, dispersal radius, attempts and the null seed pathway remain [AUTHOR]. FEIS stolon/rooted-set counts (Valentine 1970 via FEIS) and seedling-year frequencies (Neilson 1986 via FEIS) are not annual per-parent probabilities. Native reproduction requires a session reproduction_patch_size_m (5 m in case.toml, case root) only for species with a seed pathway.",
         "traits": {
           "seed": null,
           "clonal": {
             "min_age_days": 365.0,
-            "min_agb_dry_kg": 0.01,
+            "min_agb_dry_kg": 0.015096,
             "probability": 0.1,
             "max_daughters_per_parent": 1,
-            "initial_agb_dry_kg": 0.001,
+            "initial_agb_dry_kg": 0.0015096,
             "max_donation_fraction": 0.1,
             "dispersal_radius_m": 0.25,
             "max_attempts_per_daughter": 8
           }
         },
-        "units": {"min_age_days": "days", "min_agb_dry_kg": "kg dry aboveground", "probability": "per eligible live parent and annual opportunity", "max_daughters_per_parent": "integer count", "initial_agb_dry_kg": "kg dry aboveground per daughter, TRANSFERRED from the parent", "max_donation_fraction": "(0,1) of the parent's B", "dispersal_radius_m": "m, uniform in a disk, finite non-periodic domain", "max_attempts_per_daughter": "bounded rejection attempts"},
-        "notes": "Annual boundary is called once per year; daughters get new IDs and age 0 and are parent-funded. No seed bank, no water filter. Generation overlap=disallowed does not constrain later daughters."
+        "units": {"min_age_days": "days [AUTHOR]", "min_agb_dry_kg": "kg dry aboveground [AUTHOR-DERIVED] = 10 x initial_agb_dry_kg = 10 x 0.0015096 (ten times the daughter mass, so that max_donation_fraction 0.1 affords one daughter); not measured", "probability": "per eligible live parent and annual opportunity [AUTHOR]", "max_daughters_per_parent": "integer count [AUTHOR]", "initial_agb_dry_kg": "kg dry aboveground per daughter, TRANSFERRED from the parent [MODEL-PROXY] 1.5096 g = 0.0015096 kg (species.in bogr minbio, Bouteloua gracilis)", "max_donation_fraction": "(0,1) of the parent's B [AUTHOR]", "dispersal_radius_m": "m, uniform in a disk, finite non-periodic domain [AUTHOR]", "max_attempts_per_daughter": "bounded rejection attempts [AUTHOR]"},
+        "notes": "Annual boundary is called once per year; daughters get new IDs and age 0 and are parent-funded. No seed bank, no water filter. Generation overlap=disallowed does not constrain later daughters. Peters 2002 (https://doi.org/10.3732/ajb.89.10.1616) was read at abstract level only; no seed number adopted."
       },
-      "life_expectancy": {"mean": 15, "unit": "years", "notes": "[AUTHOR] nominal mean age-component lifespan, METADATA ONLY: it is not an age cutoff and no plant dies at this age."},
+      "life_expectancy": {"mean": 15, "unit": "years", "notes": "[AUTHOR] nominal age-component mean, also used by the initial-age draw (upper bound of the uniform age sampling); not a deterministic death age (no plant dies at this age). NOT measured and NOT validated. VALIDATION GAP: field clump-persistence demography is much shorter than 15 years: Wright 1972 (J. Range Manage. 25:476-478, https://journals.uair.arizona.edu/index.php/jrm/article/viewFile/6125/5735) Table 1 gives mean black grama clump persistence 2.2 yr (SD 2.4, n = 6528), maximum 27 yr (the OCR of the table's Latin name was ambiguous; actual page image not inspected); Smith et al. 2004 Gramas chapter p. 993 (https://www.ars.usda.gov/arsuserfiles/30300000/Publications/AgronMono45-975-1002MRH.pdf) distinguishes Wright & Van Dyne 1976 mean about 2 yr including all seedlings, about 4 yr conditional on first-year survival and maximum 28 yr. Those field values include drought, seedling and other mortality, so they are not an age-only hazard and were not substituted for the 15-year assumption. FEIS (Simonin 2000) calls black grama long-lived and ALSO describes multi-decade persistence through stolons; that does not establish a mean ramet/clump lifespan."},
       "mortality": {
         "law": "age_background_stress_v1",
-        "status": "AUTHOR uncalibrated assumptions for every exact number; STEPWAT2 (Palmquist 2018) and ECOTONE (Peters 2002, https://doi.org/10.1016/S0304-3800(01)00460-4) are structural precedents only and do not supply these coefficients. background hazard is 0 to isolate the explicit age law.",
+        "status": "AUTHOR uncalibrated assumptions for every exact number; STEPWAT2 (Palmquist 2018) and ECOTONE (Peters 2002, https://doi.org/10.1016/S0304-3800(01)00460-4) are structural precedents only and do not supply these coefficients. Agreement only: stress.limit_years 2 equals bogr slow2yr in species.in (model proxy; not evidence for the other support_ratio coefficients). background hazard is 0 to isolate the explicit age law.",
         "traits": {
           "age_hazard": {"weibull_shape": 2.0, "weibull_scale_years": 16.92568750643269},
           "background_hazard_per_year": 0.0,
@@ -94,12 +94,12 @@
             "biomass_loss_fraction": 0.2
           }
         },
-        "units": {"weibull_shape": "dimensionless [AUTHOR]", "weibull_scale_years": "years [DERIVED] = nominal mean 15 yr / Gamma(1.5)", "background_hazard_per_year": "1/year [AUTHOR]", "low_threshold": "ratio actual/required support, (0,1] [AUTHOR]", "exempt_until_age_days": "days [AUTHOR]", "limit_years": "years (integer) [AUTHOR]", "counter_cap_years": "years (integer) [AUTHOR]", "mortality_probability": "probability in a stressed year [AUTHOR]", "biomass_loss_fraction": "fraction of B lost by a surviving stressed plant [AUTHOR]"},
-        "notes": "Weibull mean = scale*Gamma(1+1/shape), so scale = 15/0.886226925 = 16.92568750643269. Full model lifespan can be shortened by stress and disturbance. No freezing mortality and no fire."
+        "units": {"weibull_shape": "dimensionless [AUTHOR]", "weibull_scale_years": "years [DERIVED] = nominal mean 15 yr / Gamma(1.5) (unchanged)", "background_hazard_per_year": "1/year [AUTHOR]", "low_threshold": "ratio actual/required support, (0,1] [AUTHOR]", "exempt_until_age_days": "days [AUTHOR]", "limit_years": "years (integer) [AUTHOR]; agrees with bogr slow2yr (model proxy)", "counter_cap_years": "years (integer) [AUTHOR]", "mortality_probability": "probability in a stressed year [AUTHOR]", "biomass_loss_fraction": "fraction of B lost by a surviving stressed plant [AUTHOR]"},
+        "notes": "Weibull mean = scale*Gamma(1+1/shape), so scale = 15/0.886226925 = 16.92568750643269. Full model lifespan can be shortened by stress and disturbance. No freezing mortality and no fire. STEP max age 35 yr (bogr) is a model input and is not used as a mean lifespan."
       },
       "disturbance": {
         "law": "mechanical_response_v1",
-        "status": "ALL exact thresholds are AUTHOR testable response hypotheses, not literature coefficients. Abrasion is explicitly disabled (null) until a dose unit and calibrated response exist; sediment flux is never equated with dose. Establishment ground anchor is retained forever; evolving surface-to-soil remapping is deferred.",
+        "status": "ALL exact thresholds are AUTHOR testable response hypotheses, not literature coefficients (no quantified burial/exposure/dislodgement response for black grama was verified). Abrasion is explicitly disabled (null) until a dose unit and calibrated response exist; sediment flux is never equated with dose. Establishment ground anchor is retained forever; evolving surface-to-soil remapping is deferred.",
         "traits": {
           "burial": {"increment_basis": "net", "scale": "height_fraction", "injury_threshold": 0.1, "injury_saturation": 0.8, "max_injury_fraction": 0.5, "curve": "linear", "lethal_depth_m": null, "lethal_height_fraction": 1.0},
           "exposure": {"increment_basis": "net", "injury_threshold_m": 0.02, "injury_saturation_m": 0.15, "max_injury_fraction": 0.5, "curve": "linear", "lethal_depth_m": null, "dislodgement_depth_m": 0.2},
@@ -112,29 +112,29 @@
     "PROGLA": {
       "functional_type": "shrub",
       "name": "honey mesquite proxy (Prosopis glandulosa), trial parameters",
-      "notes": "Honey mesquite proxy. Initial population (cover 0.10, diameter mean 1.0 m, SD 0.10 m) is a [USER] choice in generation.json (case root), not a measured field estimate. Allometry, growth, mortality, disturbance and reproduction numbers are [AUTHOR] trial hypotheses unless tagged otherwise. USDA FEIS (Steinberg 2001) supports qualitative statements only (southwest deciduous seasonality, seed establishment, deep roots) and supplies no exact LEAF coefficient. The water-use coefficient is a conditional velvet-mesquite seedling/pot proxy, NOT an adult honey mesquite calibration.",
-      "references": ["Steinberg2001_FEIS_PROGLA", "VitoSala2026", "PetersonNeofotis2004", "Palmquist2018_STEPWAT2", "Peters2002_ECOTONE", "CASE_AUTHOR_20261111"],
+      "notes": "Honey mesquite proxy. Initial population (cover 0.10, diameter mean 1.0 m, SD 0.10 m) is a [USER] choice in generation.json (case root), not a measured field estimate. REV2 numeric changes: allometry.diameter (a 1.1087951253470727, b 0.3351206434316354) from Northup et al. 2005 Table 7 (Prosopis glandulosa, La Copita, southern Texas); allometry.height (a 1.1015229296155495, b 0.2546916890080429) from McClaran et al. 2013 Table 2 (Prosopis velutina, Santa Rita Experimental Range, Arizona) composed with that law; growth.live_fraction 0.906 from Northup 2005 Table 1 and k recomputed 0.23867228661749212. These are published-fit or related-species-proxy geometry laws, NOT Jornada calibrations, and seedling sizes are below the McClaran 2013 height-fit canopy-area range (minimum CA 0.1 m2) while the Northup 2005 law's small-plant validity is unqualified. Mature biomass, lifespan, rates, activity levels, cardinal min/max, reproduction and disturbance numbers remain [AUTHOR] hypotheses; see their notes for gaps. USDA FEIS (Steinberg 2001) supports qualitative statements (southwest deciduous seasonality, seed establishment, deep roots). The water-use coefficient is a conditional velvet-mesquite seedling/pot proxy, NOT an adult honey mesquite calibration.",
+      "references": ["Steinberg2001_FEIS_PROGLA", "VitoSala2026", "PetersonNeofotis2004", "Northup2005_JAridEnv_62_23", "McClaran2013_JAridEnv_88_39", "Hanson1982_PROGLA_photosynthesis", "Palmquist2018_STEPWAT2", "Peters2002_ECOTONE", "CASE_AUTHOR_20261111"],
       "allometry": {
         "model": "power_law_v1",
-        "diameter": {"a": 1.6, "b": 0.4},
-        "height": {"a": 0.8, "b": 0.4},
+        "diameter": {"a": 1.1087951253470727, "b": 0.3351206434316354},
+        "height": {"a": 1.1015229296155495, "b": 0.2546916890080429},
         "units": {"a_d": "m kg^-b_d (diameter_m = a_d * B_kg_dry_AGB**b_d)", "b_d": "dimensionless", "a_h": "m kg^-b_h (height_m = a_h * B_kg_dry_AGB**b_h)", "b_h": "dimensionless"},
-        "notes": "[EXAMPLE]+[AUTHOR] diameter law a=1.6,b=0.4 follows the LEAF example fixture shrub law; height a=0.8,b=0.4 gives H = D/2 exactly, matching the MAPLE reference shrub geometry (radius = height). Not a published standing-AGB equation. [DERIVED] mean diameter 1.0 m implies B = (1.0/1.6)**(1/0.4) = 0.3088161778 kg dry AGB and height 0.5 m."
+        "notes": "[LIT-DERIVED] diameter: Northup, Zitzer, Archer, McMurtry & Boutton (2005) J. Arid Environ. 62:23-43, https://doi.org/10.1016/j.jaridenv.2004.09.019 , Table 7 (p. 34) Prosopis glandulosa: ln(TB_g) = 6.960 + 1.492 ln(CA_m2), n = 37 (df 36), R2 = 0.98; TB = TOTAL oven-dry (70 C) aboveground mass = leaves + live wood + standing dead wood, no roots; CA = projected elliptical CROWN area from longest and perpendicular axes (not basal diameter); La Copita Research Area near Alice, southern Texas, mean rain about 680 mm/yr, 1994-1995 (a wetter site than Jornada). The log-space median curve is used (the source retransformation factor 1.006 is intentionally NOT applied), B_kg = exp(6.960)/1000 * CA^1.492 = 1.0536335572423194 * CA^1.492. Native circular-equivalent D = sqrt(4 CA/pi) gives a_d = 1.1087951253470727, b_d = 1/2.984 = 0.3351206434316354; this algebraic inversion is a geometry approximation, not a separately fitted inverse regression. Checks: D = 1 m -> B = 0.7347907779912205 kg; D = 2 m -> 5.813493672465879 kg. [PROXY] height: McClaran, McMurtry & Archer (2013) J. Arid Environ. 88:39-42, https://doi.org/10.1016/j.jaridenv.2012.08.015 , Table 2 (p. 41): HT_m = exp(0.11) CA^0.38 (CF 1.00), R2 = 0.91, n = 31, ORIGINAL SPECIES Prosopis velutina (velvet mesquite), Santa Rita Experimental Range near Tucson, Arizona, 2004; sample CA 0.1-77 m2, H 0.5-6.9 m. Composition with the Northup law gives a_h = 1.1015229296155495, b_h = 0.38/1.492 = 0.2546916890080429; D = 1 m -> H = 1.0183722297676923 m; D = 2 m -> 1.7246038235919356 m. It is a mixed-study deterministic proxy (no target-species calibration; no longer H = D/2), and the sizes of future seedlings or of plants larger than the sampled ranges are not claimed qualified. Alternative not activated: McClaran 2013 Table 3 P. velutina total biomass B = exp(-0.59) CA^1.60 (factor-of-about-2 smaller, 0.3766258 kg at D = 1 m); see PARAMETERS.md candidate section. [DERIVED] mean diameter 1.0 m implies B = 0.7347907779912205 kg dry AGB and H = 1.0183722297676923 m (user covers/diameters unchanged)."
       },
       "roots": {
         "lateral_radius_multiplier": 5.0,
         "layer_fractions": [0.33283263377678235, 0.32719499000870794, 0.33997237621450965],
-        "notes": "lateral_radius_multiplier 5.0 = upper endpoint of the [USER] 3-5 x canopy-radius range (shrub endpoint is an [AUTHOR] trial choice). layer_fractions [DERIVED] from the [LIT] Vito&Sala 2026 honey mesquite combined-years tracer-uptake fit F(z)=1-beta**z (z in CENTIMETRES, beta=0.983) over layer edges 0,20,50,120 cm with conditional normalisation over 1.2 m (omitted tail 0.1277680127). This fitted-curve integration does not impose the paper's binned statement about uptake below 50 cm; do not confuse them. Tracer absorption is an uptake proxy, not root density; fixed profile; every layer is reached. HORIZONTAL law: uniform weight per cell positively overlapped by the root disk (including barely touched cells), clipped to the finite domain; not overlap-area weighting, not a measured radial density law; it multiplies these vertical fractions. On CUDA the weekly root rebuild is host/compiled with explicit CSR uploads (not fully GPU-resident)."
+        "notes": "lateral_radius_multiplier 5.0 = upper endpoint of the [USER] 3-5 x canopy-radius range (shrub endpoint is an [AUTHOR] trial choice). layer_fractions [DERIVED] from the [LIT] Vito & Sala 2026 (https://doi.org/10.1002/ecy.70384) honey mesquite combined-years tracer-uptake fit F(z)=1-beta**z (z in CENTIMETRES, beta=0.983) over layer edges 0,20,50,120 cm with conditional normalisation over 1.2 m (omitted tail 0.1277680127). This fitted-curve integration does not impose the paper's binned statement about uptake below 50 cm; do not confuse them. Tracer absorption is an uptake proxy, not root density; fixed profile; every layer is reached. HORIZONTAL law: uniform weight per cell positively overlapped by the root disk (including barely touched cells), clipped to the finite domain; not overlap-area weighting, not a measured radial density law; it multiplies these vertical fractions. On CUDA the weekly root rebuild is host/compiled with explicit CSR uploads (not fully GPU-resident)."
       },
       "porosity": {"value": 0.2, "status": "uncalibrated constant copied from the existing LEAF example fixture [EXAMPLE]; unused by LEAF ecology but consumed by native MAPLE wind"},
       "growth": {
         "law": "stepwat_requested_support_v1",
-        "status": "AUTHOR trial hypotheses within the native admitted ranges (rate 0..1 per year); STEPWAT2 (Palmquist 2018) is a structural precedent only; no STEP number is adopted.",
+        "status": "live_fraction 0.906 is [LIT-DERIVED] from Northup et al. 2005 Table 1 (Prosopis glandulosa, n = 37): the paper prints standing dead wood 9.4% of total oven-dry aboveground mass, and 0.906 is the complement 1 - 0.094 (not a printed value); it includes live WOOD and is NOT leaf area, a metabolically active tissue fraction or a measured transpiring fraction. k is [DERIVED] consistently. The remaining growth traits are [AUTHOR] hypotheses within the native admitted ranges (rate 0..1 per year); STEPWAT2 (Palmquist 2018) is a structural precedent only for the shrub; no STEP number is adopted for PROGLA.",
         "traits": {
           "mature_biomass_kg": 10.0,
           "intrinsic_rate_per_year": 0.2,
-          "biomass_support_kg_year_per_m3": 0.10537407797681772,
-          "live_fraction": 0.4,
+          "biomass_support_kg_year_per_m3": 0.23867228661749212,
+          "live_fraction": 0.906,
           "extra_growth_rate_per_year": 0.05,
           "monthly_activity": [0.0, 0.0, 0.0, 0.4, 0.8, 1.0, 1.0, 1.0, 0.8, 0.4, 0.05, 0.0],
           "temperature_min_c": 5.0,
@@ -142,36 +142,36 @@
           "temperature_max_c": 45.0
         },
         "units": {
-          "mature_biomass_kg": "kg dry aboveground [AUTHOR]",
+          "mature_biomass_kg": "kg dry aboveground [AUTHOR]; GAP: no compatible field estimate of a saturation mass was verified (inverting the Northup law gives B = 10 kg at CA about 4.5 m2, D about 2.4 m, H about 2.0 m, which is arithmetic only and not evidence for a saturation cap)",
           "intrinsic_rate_per_year": "1/year [AUTHOR]",
-          "biomass_support_kg_year_per_m3": "kg*year/m3 [DERIVED] k = live_fraction/(365*q) at reference PET, q=0.0104 m3/kg/day: a support-balance prior, NOT a production yield or WUE",
-          "live_fraction": "fraction [AUTHOR]",
+          "biomass_support_kg_year_per_m3": "kg*year/m3 [DERIVED] k = live_fraction/(365*q) = 0.906/(365*0.0104) = 0.23867228661749212 at reference PET, q=0.0104 m3/kg/day (unchanged): a support-balance prior, NOT a production yield or WUE",
+          "live_fraction": "fraction of total dry AGB that is not standing dead wood [LIT-DERIVED] complement 1 - 0.094 of the printed standing dead wood fraction (0.906 is not printed), Northup et al. 2005 Table 1 p. 28, https://doi.org/10.1016/j.jaridenv.2004.09.019 (leaves 10.1% + live stems 80.4% + standing dead wood 9.4%; rounds to 99.9%); size/site-specific constant approximation",
           "extra_growth_rate_per_year": "1/year [AUTHOR]",
-          "monthly_activity": "fraction 0..1, January..December [AUTHOR], inspired by FEIS seasonal descriptions only",
-          "temperature_min_c": "degC [AUTHOR]",
-          "temperature_opt_c": "degC [AUTHOR]",
-          "temperature_max_c": "degC [AUTHOR]"
+          "monthly_activity": "fraction 0..1, January..December [ASSUMED-SHAPE, not a measured coefficient], constrained by FEIS (Steinberg 2001, https://research.fs.usda.gov/feis/species-reviews/progla) western-Texas honey mesquite phenology table: dormant Nov-Mar, most beginning to leaf out 16 Apr, fully developed leaves 10 May, leaf drop generally Nov-Dec (often initiated by killing frost); these dates are Texas, not Jornada, observations",
+          "temperature_min_c": "degC [ASSUMED prior; no honey mesquite measurement found for a minimum cardinal]",
+          "temperature_opt_c": "degC [PROXY-CONSISTENT, shape ASSUMED] 30 equals the temperature of maximum net photosynthesis of the WEST-Texas honey mesquite population (20 degC for the east-Texas population), Hanson 1982 J. Range Manage. 35(4):455-458, https://doi.org/10.2307/3898604 (abstract https://rangelandsgateway.org/dlio/22027, reviewer-verified), controlled-environment measurements; a photosynthesis maximum is not a growth-rate cardinal optimum",
+          "temperature_max_c": "degC [ASSUMED prior]; 45 is an explicit assumption: no honey mesquite cardinal maximum was verified"
         },
-        "notes": "Same shared rules as BOER: temperature gates demand/growth, no freeze mortality or fire, growth fraction applied once, water debited once by SYRUP."
+        "notes": "Same shared rules as BOER: temperature gates demand/growth, no freeze mortality or fire, growth fraction applied once, water debited once by SYRUP. The demand coefficient q is per TOTAL B, so live_fraction is not multiplied into q again; live_fraction enters only the required-support and support terms. Mature mass, rates and activity levels remain gaps."
       },
       "water_use": {
         "law": "biomass_specific_pet_v1",
-        "status": "demand coefficient [PROXY] = conditional velvet-mesquite (Prosopis velutina) seedling/pot value from Peterson & Neofotis 2004 (10.3-10.5 L/kg dry AGB/day; 10.4 chosen as the central proxy by the AUTHOR); reference PET [AUTHOR].",
+        "status": "demand coefficient [PROXY] = conditional velvet-mesquite (Prosopis velutina) seedling/pot value from Peterson & Neofotis 2004 (https://doi.org/10.1007/s00442-004-1688-y; 10.3-10.5 L/kg dry AGB/day; 10.4 chosen as the central proxy by the AUTHOR); reference PET [AUTHOR]. Unchanged in rev2.",
         "traits": {"demand_m3_per_kg_day": 0.0104, "reference_pet_mm_per_day": 5.0},
         "units": {"demand_m3_per_kg_day": "m3 per kg of STANDING DRY AGB per day (10.4 L/kg/day; two seedlings in one pot treated as one virtual plant with AGB allocation assumptions; NOT adult honey mesquite)", "reference_pet_mm_per_day": "mm/day normalisation chosen by the AUTHOR; not a measured site mean"},
         "notes": "See PARAMETERS.md (case root). Adult shrub water use with substantial structural wood may differ strongly; treat as a trial proxy."
       },
       "reproduction": {
         "law": "simple_seed_clonal_v1",
-        "status": "AUTHOR trial numbers; qualitative precedent only (FEIS: seed establishment). clonal is null because resprouting is not equivalent to independent ramets. Requires the explicit session reproduction_patch_size_m (5 m in case.toml, case root).",
+        "status": "AUTHOR trial numbers (unchanged); qualitative precedent only (FEIS Steinberg 2001, https://research.fs.usda.gov/feis/species-reviews/progla : seed production by about age 3 yr, ~131 or 97 pods/tree, ~12 seeds/pod of which ~5 destroyed by bruchids, no seedling emergence from seeds deeper than 5 cm, one-year seedling survival 27% in clipped vs 9.4% in unclipped plots; not a per-patch annual establishment probability, so 0.05 stays [AUTHOR]). clonal is null because resprouting is not equivalent to independent ramets. Requires the explicit session reproduction_patch_size_m (5 m in case.toml, case root).",
         "traits": {
           "seed": {"establishment_probability": 0.05, "max_recruits_per_patch": 1, "initial_agb_dry_kg": 0.002, "initial_seasonal_fraction": 0.0},
           "clonal": null
         },
-        "units": {"establishment_probability": "per ecological patch, species and annual opportunity (NOT per hydraulic cell)", "max_recruits_per_patch": "integer, uniform 1..max on success", "initial_agb_dry_kg": "kg dry aboveground per seedling; an EXTERNAL establishment/seed-reserve credit", "initial_seasonal_fraction": "E/B of a seedling, [0,1]"},
-        "notes": "External-propagule assumption: no seed bank, no dispersal kernel, no water filter. New IDs, age 0, once per annual boundary."
+        "units": {"establishment_probability": "per ecological patch, species and annual opportunity (NOT per hydraulic cell) [AUTHOR]", "max_recruits_per_patch": "integer, uniform 1..max on success [AUTHOR]", "initial_agb_dry_kg": "kg dry aboveground per seedling; an EXTERNAL establishment/seed-reserve credit [AUTHOR]", "initial_seasonal_fraction": "E/B of a seedling, [0,1] [AUTHOR]"},
+        "notes": "External-propagule assumption: no seed bank, no dispersal kernel, no water filter. New IDs, age 0, once per annual boundary. Note: with the revised allometry a 0.002 kg seedling has D = 1.1087951253470727 * 0.002^0.3351206434316354, about 0.14 m, below the McClaran 2013 height-fit canopy-area range (minimum CA 0.1 m2); the validity of the Northup 2005 law for such small plants is not qualified (its sampled size range was not reported)."
       },
-      "life_expectancy": {"mean": 80, "unit": "years", "notes": "[AUTHOR] nominal mean age-component lifespan, METADATA ONLY: not an age cutoff."},
+      "life_expectancy": {"mean": 80, "unit": "years", "notes": "[AUTHOR] nominal age-component mean, also used by the initial-age draw (upper bound of the uniform age sampling); not a deterministic death age, not measured and not validated. GAP: FEIS (Steinberg 2001, https://research.fs.usda.gov/feis/species-reviews/progla) reports MAXIMUM stand ages of 40-110 years near Amarillo TX and 172-217 years in the Rio Grande Plains, with 89-93% of Rio Grande Plains plants under 100 years; maxima and age-structure truncation do not determine a mean lifespan, so 80 years is neither changed to them nor validated by them."},
       "mortality": {
         "law": "age_background_stress_v1",
         "status": "AUTHOR uncalibrated assumptions for every exact number; STEPWAT2 and ECOTONE (Peters 2002, https://doi.org/10.1016/S0304-3800(01)00460-4) are structural precedents only. background hazard 0 isolates the explicit age law.",
@@ -188,19 +188,19 @@
             "biomass_loss_fraction": 0.1
           }
         },
-        "units": {"weibull_shape": "dimensionless [AUTHOR]", "weibull_scale_years": "years [DERIVED] = nominal mean 80 yr / Gamma(1.5)", "background_hazard_per_year": "1/year [AUTHOR]", "low_threshold": "ratio actual/required support [AUTHOR]", "exempt_until_age_days": "days [AUTHOR]", "limit_years": "years (integer) [AUTHOR]", "counter_cap_years": "years (integer) [AUTHOR]", "mortality_probability": "probability in a stressed year [AUTHOR]", "biomass_loss_fraction": "fraction of B lost by a surviving stressed plant [AUTHOR]"},
-        "notes": "Weibull scale = 80/0.886226925 = 90.27033336764101. Full model lifespan can be shortened by stress and disturbance. No freezing mortality and no fire."
+        "units": {"weibull_shape": "dimensionless [AUTHOR]", "weibull_scale_years": "years [DERIVED] = nominal mean 80 yr / Gamma(1.5) (unchanged)", "background_hazard_per_year": "1/year [AUTHOR]", "low_threshold": "ratio actual/required support [AUTHOR]", "exempt_until_age_days": "days [AUTHOR]", "limit_years": "years (integer) [AUTHOR]", "counter_cap_years": "years (integer) [AUTHOR]", "mortality_probability": "probability in a stressed year [AUTHOR]", "biomass_loss_fraction": "fraction of B lost by a surviving stressed plant [AUTHOR]"},
+        "notes": "Weibull scale = 80/0.886226925 = 90.27033336764101. Full model lifespan can be shortened by stress and disturbance. No freezing mortality and no fire (FEIS fire/freeze mortality data therefore unused). Because live_fraction rose to 0.906 and k was recomputed consistently, the support ratio is evaluated with the new required support; the stress numbers were not re-tuned."
       },
       "disturbance": {
         "law": "mechanical_response_v1",
-        "status": "ALL exact thresholds are AUTHOR testable response hypotheses, not literature coefficients. Abrasion is explicitly disabled (null) until a dose unit and calibrated response exist; sediment flux is never equated with dose. Establishment ground anchor retained; surface-to-soil remapping deferred.",
+        "status": "ALL exact thresholds are AUTHOR testable response hypotheses, not literature coefficients (no quantified burial/exposure/dislodgement response for honey mesquite was verified; FEIS gives only seed burial depth limits). Abrasion is explicitly disabled (null) until a dose unit and calibrated response exist; sediment flux is never equated with dose. Establishment ground anchor retained; surface-to-soil remapping deferred.",
         "traits": {
           "burial": {"increment_basis": "net", "scale": "height_fraction", "injury_threshold": 0.1, "injury_saturation": 1.0, "max_injury_fraction": 0.5, "curve": "linear", "lethal_depth_m": null, "lethal_height_fraction": 1.5},
           "exposure": {"increment_basis": "net", "injury_threshold_m": 0.05, "injury_saturation_m": 0.5, "max_injury_fraction": 0.4, "curve": "linear", "lethal_depth_m": null, "dislodgement_depth_m": 0.6},
           "abrasion": null
         },
         "units": {"burial.injury_threshold": "fraction of plant height (scale height_fraction)", "burial.injury_saturation": "fraction of plant height", "burial.lethal_height_fraction": "fraction of plant height, absolute burial", "exposure.injury_threshold_m": "m of net erosion", "exposure.injury_saturation_m": "m", "exposure.dislodgement_depth_m": "m of absolute exposure", "max_injury_fraction": "[0,1) fraction of dry AGB lost at saturation"},
-        "notes": "Applied only after accepted wind/rain/recession transport diagnostics; never during growth."
+        "notes": "Applied only after accepted wind/rain/recession transport diagnostics; never during growth. Burial thresholds are fractions of height, so the revised (taller at a given biomass) PROGLA height law changes their absolute depths; they were not re-tuned."
       }
     }
   }

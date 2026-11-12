@@ -1,0 +1,38 @@
+{
+  "source": "McClaran et al. 2013 Tables 1-3, https://doi.org/10.1016/j.jaridenv.2012.08.015",
+  "convention": "Invert uncorrected log-space median curve B=exp(-0.59)*CA^1.60; do not apply CF, source notation conflicts; inverse fit is an approximation not a separately fitted D|B regression.",
+  "diameter_a": 1.3568383322848674,
+  "diameter_b": 0.3125,
+  "height_a": 1.284185929896694,
+  "height_b": 0.2375,
+  "live_fraction_ratio_of_means": 0.7831074035453597,
+  "support_from_same_q_and_ratio": 0.20629805151352995,
+  "sample_canopy_area_range_m2": [
+    0.1,
+    77.0
+  ],
+  "sample_total_dry_agb_range_kg": [
+    0.1,
+    435.0
+  ],
+  "for_D_0.5m": {
+    "canopy_area_m2": 0.19634954084936207,
+    "agb_dry_kg": 0.04098397516864727,
+    "height_m": 0.601345064979636
+  },
+  "for_D_1m": {
+    "canopy_area_m2": 0.7853981633974483,
+    "agb_dry_kg": 0.3766257988597156,
+    "height_m": 1.0183722297676923
+  },
+  "for_D_2m": {
+    "canopy_area_m2": 3.141592653589793,
+    "agb_dry_kg": 3.4610354847967963,
+    "height_m": 1.7246038235919356
+  },
+  "for_D_5m": {
+    "canopy_area_m2": 19.634954084936208,
+    "agb_dry_kg": 64.95522324478439,
+    "height_m": 3.4603796650989036
+  }
+}

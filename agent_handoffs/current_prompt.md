@@ -1,3 +1,3 @@
-# Idle — changes published
+# Idle — accepted; publication pending
 
-Plain CSV / external metadata and species-linked uniform initial ages [independently accepted](tasks/plain_plant_csv_20261111/final_review.md) and published in commit `dcb7a88ea38c4576984dac33d62d89e70a7d3b30` to origin/main. [Publication record](tasks/plain_plant_csv_20261111/publication.json). No active writer, model or scheduler; historical prompts are evidence, not assignments.
+[Literature scenario update](tasks/literature_parameters_20261111/final_review.md) accepted and installed; no Claude assignment remains. Codex is committing/pushing under standing authorization. No active writer, model or scheduler. Historical prompts are evidence, not assignments.

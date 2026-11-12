@@ -1,0 +1,13 @@
+{
+  "task_id": "literature_parameters_20261111",
+  "verdict": "accept",
+  "recorded_at_utc": "2026-11-12T02:10:51.140763+00:00",
+  "installed_checks": 70,
+  "accepted_catalog_hash": "sha256:16eaea01b6e5645a52f766fce7b093fd5c156fa698961a91ec7d0a1526a804ca",
+  "model_run": false,
+  "population_generation": false,
+  "rendering": false,
+  "all_cli_children_reaped": true,
+  "review": "final_review.md",
+  "publication_authority": "Standing user instruction: commit and push when done; automatic Codex-Claude/source-sharing enabled."
+}

@@ -5,6 +5,24 @@
 (The image is the preserved historical render of this case; see "The existing picture in this directory" below for how it
 relates to the plain-CSV layout and to the helper as it is written now.)
 
+**Frozen species catalog (added by task `literature_parameters_20261111`).** The saved preview population was initialised with the earlier catalog `jornada_grass05_shrub10_trial_20261111`, preserved here as [`species_at_initialization.json`](species_at_initialization.json) (a byte-for-byte copy of the case `species.json` before the literature edits; hash-verified by the reviewer against the baseline). The case's active `species.json` now has `catalog_id` `jornada_grass05_shrub10_litparam_rev2_20261111`, revised PROGLA allometry/live fraction/support and BOER rate/clonal numbers, so its catalog hash no longer matches the hash recorded in `initial_plants.metadata.json`. No historical preview file was modified and no new plants or plot were generated.
+
+**Reading the saved preview (use the frozen catalog).** The public reader is `leaf.state.read_plant_csv(path, catalog, *, domain=None, surface=None, time_days=None, provenance=None, metadata=None)`; the companion `initial_plants.metadata.json` beside the CSV is loaded automatically (it supplies domain/time) and the pair is verified against the catalog hash:
+
+```python
+from leaf.traits import SpeciesCatalog
+from leaf.state import read_plant_csv
+
+case = "cases/jornada_grass05_shrub10_256"
+frozen = SpeciesCatalog.from_file(f"{case}/preview/species_at_initialization.json")
+state = read_plant_csv(f"{case}/preview/initial_plants.csv", frozen)     # OK: catalog hash matches the companion
+
+active = SpeciesCatalog.from_file(f"{case}/species.json")
+# read_plant_csv(f"{case}/preview/initial_plants.csv", active)           # raises StateError: catalog hash mismatch
+```
+
+**Why the active catalog must not reinterpret the old plants.** Each plant row stores dry aboveground mass `agb_dry_kg`; crown diameter and height are *derived* from it by the catalog allometry. The saved PROGLA masses were generated from the user's diameters with the old law D = 1.6·B^0.4 (D = 1 m ⇔ B = 0.3088 kg). Applying the revised law D = 1.1087951253470727·B^0.3351206434316354 to those same masses would give D ≈ 0.75 m and H ≈ 0.82 m for that plant (instead of 1.0 m and 0.5 m), i.e. it would shrink the shrub cover and silently change the geometry, whereas a plant of D = 1 m under the revised law holds 0.735 kg. The saved plants also carry the old constant ages (730 d / 1825 d), not the uniform-age draw. The readers therefore refuse a hash mismatch by design; the revised species parameters require a **new initialization** (not run), which regenerates masses, positions and ages from the user diameters with the active catalog.
+
 **INITIALIZATION ONLY.** This is a scientific plan-view map of the *initial* LEAF population and the initial
 random surface of the `jornada_grass05_shrub10_256` trial case. No growth, hydrology, wind/water events,
 mortality, recruitment, evolution or any other ecological/transport simulation is run; simulation time is 0 d.

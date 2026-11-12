@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "file": "cases/jornada_grass05_shrub10_256/species.json",
+      "bytes": 35064,
+      "sha256": "cbf916391d917007261fcdc7f2c088c6725d0401d1fc886ce8c8f87b1ee81416"
+    },
+    {
+      "file": "cases/jornada_grass05_shrub10_256/soil.toml",
+      "bytes": 5815,
+      "sha256": "5d2d0f6f68d3a962050bc3198fd0466bba81f6ec311b691b2eafb796cf4402a9"
+    },
+    {
+      "file": "cases/jornada_grass05_shrub10_256/PARAMETERS.md",
+      "bytes": 44209,
+      "sha256": "6a9c4b1108c78c9e819b38e8eb03bf159f1ddde56718ce7926ec989f560b40c0"
+    },
+    {
+      "file": "cases/jornada_grass05_shrub10_256/SOURCES.md",
+      "bytes": 14168,
+      "sha256": "92b95bf6a0b7a5fb8b358845881f43257f59d85d2f5f5654070aa0c3c8732647"
+    },
+    {
+      "file": "cases/jornada_grass05_shrub10_256/README.md",
+      "bytes": 12127,
+      "sha256": "5bd5feddc30eb1300b04652db439118842ecf7a2c7610f506610fade8ec5b9dd"
+    },
+    {
+      "file": "cases/jornada_grass05_shrub10_256/preview/README.md",
+      "bytes": 10505,
+      "sha256": "156e4cf676b17d2ea48da0a320696d056278405ae50d161e18d0d35488e5e1cb"
+    },
+    {
+      "file": "cases/jornada_grass05_shrub10_256/preview/species_at_initialization.json",
+      "bytes": 21325,
+      "sha256": "9db3dace6a2a8e9212204d23aa7408414e1875a408ec3149d3e0233f7bd480e4"
+    }
+  ],
+  "operator": "Codex",
+  "writer": "Claude isolated candidate; all processes reaped",
+  "no_existing_changes_overwritten": true
+}

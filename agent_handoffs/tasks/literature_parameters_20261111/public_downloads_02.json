@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/testing.sagebrush.master/Stepwat_Inputs/Input/species.in",
+    "file": "stepwat_species.in",
+    "sha256": "c20a67b0a8095f4c9c920c3f73a711437ecc43039a934a1f4a351bc864bce2f3",
+    "bytes": 12079
+  },
+  {
+    "url": "https://raw.githubusercontent.com/DrylandEcology/STEPWAT2/003cb9b4adbf13d64a39d6d62fd95280adac27fc/testing.sagebrush.master/Stepwat_Inputs/Input/rgroup.in",
+    "file": "stepwat_rgroup.in",
+    "sha256": "3041e0fd1d6938f05caba45ec425cee10f513361e64957ea36b6dd7283d53755",
+    "bytes": 9323
+  }
+]

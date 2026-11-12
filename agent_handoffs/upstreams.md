@@ -104,3 +104,8 @@ Primary literature and current interface limitations are linked in the
 [assessment](../docs/individual-vegetation-feasibility.md). No portable ECOTONE
 baseline, STEPWAT2 executable, continuous-water integration or GPU performance
 qualification was produced by this source-only assessment.
+
+
+## Literature parameter update — 2026-11-11 local
+
+See case [source table](../cases/jornada_grass05_shrub10_256/SOURCES.md) and [checked evidence](tasks/literature_parameters_20261111/codex_checked_evidence_02.md). New primary inputs: Northup etal2005 DOI10.1016/j.jaridenv.2004.09.019 Tables1/7 (honey mesquite, southern Texas), McClaran etal2013 DOI10.1016/j.jaridenv.2012.08.015 Table2 (velvet mesquite, Santa Rita), FAO56 Chapter7 Table19/Example35. STEP model input `species.in` at003cb9b4adbf13d64a39d6d62fd95280adac27fc SHA256c20a67b0a8095f4c9c920c3f73a711437ecc43039a934a1f4a351bc864bce2f3 supplies blue-grama proxies only. Public source URL/hash receipts archived; raw downloaded PDFs ignored from Git. No upstream repository modified.

@@ -1,0 +1,18 @@
+{
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/literature_parameters_20261111/candidate",
+  "session_id": "06a62227-72c8-4350-87b8-a6676670d464",
+  "write_files": [
+    "cases/jornada_grass05_shrub10_256/species.json",
+    "cases/jornada_grass05_shrub10_256/soil.toml",
+    "cases/jornada_grass05_shrub10_256/PARAMETERS.md",
+    "cases/jornada_grass05_shrub10_256/SOURCES.md",
+    "cases/jornada_grass05_shrub10_256/README.md",
+    "cases/jornada_grass05_shrub10_256/preview/README.md",
+    "cases/jornada_grass05_shrub10_256/preview/species_at_initialization.json",
+    "literature_report.md",
+    "research_notes.md"
+  ],
+  "timeout_seconds": 2400,
+  "effort": "high",
+  "model": "sonnet"
+}

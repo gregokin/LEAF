@@ -1,0 +1,49 @@
+{
+  "results": [
+    {
+      "file": "claude_01.stdout.jsonl",
+      "type": "result",
+      "subtype": "success",
+      "is_error": false,
+      "num_turns": 103,
+      "duration_ms": 522067
+    },
+    {
+      "file": "claude_02.stdout.jsonl",
+      "type": "result",
+      "subtype": "success",
+      "is_error": false,
+      "num_turns": 21,
+      "duration_ms": 438990
+    },
+    {
+      "file": "claude_03.stdout.jsonl",
+      "type": "result",
+      "subtype": "success",
+      "is_error": false,
+      "num_turns": 48,
+      "duration_ms": 139565
+    }
+  ],
+  "tool_counts": {
+    "Edit": 84,
+    "Read": 21,
+    "WebFetch": 37,
+    "WebSearch": 19,
+    "Write": 8
+  },
+  "scope_violations": [],
+  "allowed_writes": [
+    "cases/jornada_grass05_shrub10_256/species.json",
+    "cases/jornada_grass05_shrub10_256/soil.toml",
+    "cases/jornada_grass05_shrub10_256/PARAMETERS.md",
+    "cases/jornada_grass05_shrub10_256/SOURCES.md",
+    "cases/jornada_grass05_shrub10_256/README.md",
+    "cases/jornada_grass05_shrub10_256/preview/README.md",
+    "cases/jornada_grass05_shrub10_256/preview/species_at_initialization.json",
+    "literature_report.md",
+    "research_notes.md"
+  ],
+  "all_cli_children_reaped": true,
+  "native_code_unchanged": true
+}

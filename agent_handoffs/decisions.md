@@ -384,3 +384,8 @@ Plant CSV files must contain only the canonical column header and individual pla
 ## Initial generated ages — user decision, 2026-11-11
 
 Normally generated individuals receive independent uniform ages from zero to their species nominal life expectancy, read from the species catalog. This is an initial-condition rule, not a deterministic death age or an age-biomass relationship. Supplied plant records, restart ages and age-zero recruits retain their explicit ages. Existing preview remains historical; the next requested initialization will use the new rule.
+
+
+## 2026-11-11 local — literature scenario parameters
+
+Accepted [literature update](tasks/literature_parameters_20261111/final_review.md). Case `jornada_grass05_shrub10_256` now uses Northup2005 honey-mesquite dry standing-mass/crown-area median allometry, McClaran2013 velvet-mesquite height proxy, live share0.906 and corresponding support k0.2386722866kg*yr/m3; blue-grama STEP input rate0.474/yr and daughter1.5096g dry AGB are explicit related-species MODEL proxies. FAO sandy-loam FC0.23 replaces the old assumed0.20. Preserve same-species origins versus site transfer versus proxy distinctions; support is not production WUE. Other parameters stay assumptions where definitions do not match literature. Grass field clump persistence2–4yr remains a validation gap against assumed15yr aging mean. Preserve saved preview with frozen original catalog; do not silently reinterpret historical dry masses under revised allometry. No new initialization/model run authorized by this parameter task.

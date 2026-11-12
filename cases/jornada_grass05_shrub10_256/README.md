@@ -65,6 +65,18 @@ Static-only verification note: the author reviewed these files manually (reading
 
 Other notes: the root-weighting law is uniform per cell positively overlapped by the root disk (not overlap-area weighting, not a measured radial density); on CUDA the weekly root rebuild is host/compiled with explicit CSR uploads, not fully GPU-resident. The MASY native `gap_policy` values are `refuse` and `idle` only.
 
+## Literature parameter update (task `literature_parameters_20261111`)
+
+The active `species.json` now has `catalog_id` `jornada_grass05_shrub10_litparam_rev2_20261111` (baseline `jornada_grass05_shrub10_trial_20261111`). The literature pass adopted published equations or model inputs for a **limited set of fields**, each with a direct source link in PARAMETERS.md (none is a Jornada field calibration):
+
+* PROGLA diameter law `D = 1.1087951253470727·B^0.3351206434316354` (was 1.6, 0.4): Northup et al. 2005 Table 7, *P. glandulosa* total oven-dry aboveground mass vs crown area, La Copita, southern Texas, algebraically converted (log-median curve, no retransformation factor).
+* PROGLA height law `H = 1.1015229296155495·B^0.2546916890080429` (was 0.8, 0.4, H = D/2): *P. velutina* proxy, McClaran et al. 2013 Table 2, Santa Rita, Arizona, composed with the Northup law. At the user's mean D = 1 m this gives B = 0.735 kg and H = 1.018 m (before: 0.309 kg, 0.5 m).
+* PROGLA `live_fraction` 0.906 (was 0.4), LIT-DERIVED as the complement 1 − 0.094 of the printed 9.4% standing dead wood (Northup 2005 Table 1; 0.906 is not printed; includes live wood, not a transpiring fraction) and k = 0.23867228661749212 (was 0.10537407797681772).
+* BOER `intrinsic_rate_per_year` 0.474 (was 0.8), clonal daughter mass 0.0015096 kg (was 0.001) from the pinned STEPWAT2 `species.in` row `bogr` (*Bouteloua gracilis*, a related grass; a model input, not black grama and not a field estimate), and clonal minimum parent mass 0.015096 kg (was 0.01; author-derived, 10 × daughter mass). With this threshold most initial BOER plants (0.0076 kg at D = 0.10 m) cannot yet produce daughters.
+* `soil.toml` `theta_field_capacity` 0.23 (was 0.20): FAO-56 Chapter 7 Table 19 / Example 35, sandy loam texture prior.
+
+All other numbers are unchanged. Mature masses and mean lifespans stay author assumptions with explicit gaps (BOER 15 yr stands against 2–4 yr field clump persistence in Wright 1972 and Smith et al. 2004; this is a validation target). Nothing was run. The exact pre-edit catalog is kept as `preview/species_at_initialization.json`; the saved preview was made with that frozen catalog at the old allometry and constant ages, its historical files are untouched, the active catalog has a different hash, and any run using the new catalog needs a new initialization (not run). See `preview/README.md`.
+
 ## Initial-vegetation preview (initialization only)
 
 Image: [`preview/vegetation_initial.png`](preview/vegetation_initial.png) · details and commands: [`preview/README.md`](preview/README.md).
