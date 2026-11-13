@@ -1,0 +1,10 @@
+{
+  "rng_seed": {
+    "changed_configuration_accepted": false,
+    "error": "the caller configuration differs from the saved biology configuration in ['rng_seed'] (RNG seed, ecological patch size, root overrides, canopy mask, cadence, catalog); a restart never changes them silently and a SourceOverride does not apply here"
+  },
+  "patch_size_m": {
+    "changed_configuration_accepted": false,
+    "error": "the caller configuration differs from the saved biology configuration in ['patch_size_m'] (RNG seed, ecological patch size, root overrides, canopy mask, cadence, catalog); a restart never changes them silently and a SourceOverride does not apply here"
+  }
+}

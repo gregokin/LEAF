@@ -93,6 +93,7 @@ TABLE_HOST_BYTES_PER_SPECIES = 8 * 10 + 8 * 12 + 4   # 10 f64 vectors + activity
 TABLE_DEVICE_BYTES_PER_SPECIES = 8 * 5 + 4           # 5 f64 grow vectors + int32 law code = 44
 NUMPY_CHUNK = 1 << 16
 NUMPY_DEMAND_CHUNK_BYTES_PER_PLANT = 128   # conservative bound on live chunk temporaries (see _demand_numpy)
+NUMPY_DEMAND_PP_CHUNK_BYTES_PER_PLANT = 256   # per-plant PET sibling: species gathers + both law products (conservative)
 NUMPY_GROW_CHUNK_BYTES_PER_PLANT = 512     # conservative bound on live chunk temporaries (see _grow_numpy)
 CUDA_THREADS = 256
 CUDA_MAX_BLOCKS = 256
@@ -532,7 +533,49 @@ def _numba_kernels():
             if resid > packet[16]:
                 packet[16] = resid
 
-    _KERNELS['numba'] = (demand_cpu, grow_cpu)
+    @njit(cache=False)
+    def demand_pp_cpu(B, area, sidx, live, pet, a, a0, ref, law, act, tf, dt, out, packet):
+        # same operation order as growth._rate (canopy: ((((a*lf)*(pet*0.001))*dt)*act)*tf; biomass:
+        # (((a0*(pet/ref))*dt)*act)*tf); `a` is demand_a * live_fraction precomputed exactly like the NumPy product
+        P = B.shape[0]
+        S = a.shape[0]
+        for p in range(P):
+            lv = live[p]
+            s = sidx[p]
+            bad_index = 0
+            if s < 0 or s >= S:
+                bad_index = 1
+                s = 0
+            bad_input = 0
+            dval = 0.0
+            if lv:
+                b = B[p]
+                q = pet[p]
+                if (not math.isfinite(b)) or b <= 0.0 or (not math.isfinite(q)) or q < 0.0:
+                    bad_input = 1
+                if law[s] == 0:
+                    ar = area[p]
+                    if (not math.isfinite(ar)) or ar < 0.0:
+                        bad_input = 1
+                    dval = ar * (a[s] * (q * 0.001) * dt * act[s] * tf[s])
+                else:
+                    dval = b * (a0[s] * (q / ref[s]) * dt * act[s] * tf[s])
+            bad_output = 0
+            if (not math.isfinite(dval)) or dval < 0.0:
+                bad_output = 1
+            out[p] = dval
+            packet[0] += bad_index
+            packet[1] += bad_input
+            packet[2] += bad_output
+            if lv:
+                packet[3] += 1.0
+            if dval > 0.0:
+                packet[4] += 1.0
+            packet[5] += dval
+            if dval > packet[6]:
+                packet[6] = dval
+
+    _KERNELS['numba'] = (demand_cpu, grow_cpu, demand_pp_cpu)
     return _KERNELS['numba']
 
 
@@ -693,6 +736,72 @@ __global__ void leaf_growth_grow(const double* B, const double* E, const int* si
 '''
 
 
+_CUDA_SRC_PP = r'''
+extern "C" {
+#define NT 256
+#define KD 7
+__device__ __forceinline__ bool fin(double x) { return (x - x) == 0.0; }
+
+__global__ void leaf_growth_demand_pp(const double* B, const double* area, const int* sidx,
+                                      const unsigned char* live, const double* pet, const double* a,
+                                      const double* a0, const double* ref, const int* law, const double* act,
+                                      const double* tf, const double dt, double* out, double* part, const int S,
+                                      const long long P) {
+    __shared__ double sh[NT];
+    double acc[KD];
+    for (int j = 0; j < KD; ++j) acc[j] = 0.0;
+    const long long stride = (long long)gridDim.x * blockDim.x;
+    for (long long p = (long long)blockIdx.x * blockDim.x + threadIdx.x; p < P; p += stride) {
+        const bool lv = live[p] != 0;
+        int s = sidx[p];
+        int bad_index = 0, bad_input = 0, bad_output = 0;
+        if (s < 0 || s >= S) { bad_index = 1; s = 0; }
+        double dval = 0.0;
+        if (lv) {
+            const double b = B[p];
+            const double q = pet[p];
+            if (!fin(b) || b <= 0.0 || !fin(q) || q < 0.0) bad_input = 1;
+            if (law[s] == 0) {
+                const double ar = area[p];
+                if (!fin(ar) || ar < 0.0) bad_input = 1;
+                dval = ar * (a[s] * (q * 0.001) * dt * act[s] * tf[s]);
+            } else {
+                dval = b * (a0[s] * (q / ref[s]) * dt * act[s] * tf[s]);
+            }
+        }
+        if (!fin(dval) || dval < 0.0) bad_output = 1;
+        out[p] = dval;
+        acc[0] += bad_index; acc[1] += bad_input; acc[2] += bad_output;
+        if (lv) acc[3] += 1.0;
+        if (dval > 0.0) acc[4] += 1.0;
+        acc[5] += dval;
+        if (dval > acc[6]) acc[6] = dval;
+    }
+    for (int j = 0; j < KD; ++j) {
+        sh[threadIdx.x] = acc[j];
+        __syncthreads();
+        for (int off = NT / 2; off > 0; off >>= 1) {
+            if (threadIdx.x < off) {
+                if (j == 6) sh[threadIdx.x] = fmax(sh[threadIdx.x], sh[threadIdx.x + off]);
+                else sh[threadIdx.x] += sh[threadIdx.x + off];
+            }
+            __syncthreads();
+        }
+        if (threadIdx.x == 0) part[(long long)blockIdx.x * KD + j] = sh[0];
+        __syncthreads();
+    }
+}
+}
+'''
+
+
+def _cuda_demand_pp_kernel(device):
+    key = ('cuda_pp', int(device))
+    if key not in _KERNELS:
+        _KERNELS[key] = _cupy().RawKernel(_CUDA_SRC_PP, 'leaf_growth_demand_pp', options=('-std=c++11', '--fmad=false'))
+    return _KERNELS[key]
+
+
 def _cuda_kernels(device):
     key = ('cuda', int(device))
     if key not in _KERNELS:
@@ -736,8 +845,8 @@ def memory_estimate(operation, n_plants, n_species, backend, *, has_canopy_area=
     Numba/NVRTC JIT, CUDA context, CuPy memory-pool rounding. Pure arithmetic; allocates nothing.
     operation 'response' (species_response) and 'integrals' (integral_increments) are S-sized host helpers:
     n_plants is ignored there; they cover the live tables, the returned S arrays and ALL simultaneous S scratch.'''
-    if operation not in ('demand', 'grow', 'response', 'integrals'):
-        raise GrowthError("operation must be 'demand', 'grow', 'response' or 'integrals'")
+    if operation not in ('demand', 'demand_per_plant', 'grow', 'response', 'integrals'):
+        raise GrowthError("operation must be 'demand', 'demand_per_plant', 'grow', 'response' or 'integrals'")
     P = _strict_int(n_plants, 'n_plants', 0)
     S = _strict_int(n_species, 'n_species', 1)
     res = _strict_int(extra_reserve_bytes, 'extra_reserve_bytes', 0)
@@ -767,20 +876,30 @@ def memory_estimate(operation, n_plants, n_species, backend, *, has_canopy_area=
                 'allocating_bytes': int(sum(i['bytes'] for i in items if i['kind'] in ('output', 'scratch', 'packet'))),
                 'exclusions': 'Python interpreter, JIT caches, CUDA context and memory-pool rounding are not counted'}
 
-    kk = len(DEMAND_PACKET) if operation == 'demand' else len(GROW_PACKET)
-    if operation == 'demand':
+    kk = len(DEMAND_PACKET) if operation in ('demand', 'demand_per_plant') else len(GROW_PACKET)
+    if operation in ('demand', 'demand_per_plant'):
         add('input B_kg (f64)', 8 * P, pw, 'resident_input')
+        if operation == 'demand_per_plant':
+            add('input pet_mm_per_day_per_plant (f64)', 8 * P, pw, 'resident_input')
         if has_canopy_area:
             add('input canopy_area_m2 (f64)', 8 * P, pw, 'resident_input')
         add('input species_index (i32)', 4 * P, pw, 'resident_input')
         add('input live (bool)', P, pw, 'resident_input')
         add('output requested_m3 (f64)', 8 * P, pw, 'output')
-        add('forcing S-vectors: activity, temperature_factor, krate (f64, host)', 24 * S, 'host', 'scratch')
-        add('forcing temporaries (response + demand-rate arithmetic, <= 16 x f64 [S], host)', 128 * S, 'host',
-            'scratch')
-        if gpu:
-            add('krate device copy (f64)', 8 * S, 'device', 'scratch')
-        chunk = NUMPY_DEMAND_CHUNK_BYTES_PER_PLANT
+        if operation == 'demand_per_plant':
+            add('per-plant rate S-vectors: activity, temperature_factor, a*live_fraction, a, reference PET (f64, host)',
+                40 * S, 'host', 'scratch')
+            add('forcing temporaries (response arithmetic, <= 16 x f64 [S], host)', 128 * S, 'host', 'scratch')
+            if gpu:
+                add('rate S-vector device copies (5 f64 [S])', 40 * S, 'device', 'scratch')
+            chunk = NUMPY_DEMAND_PP_CHUNK_BYTES_PER_PLANT
+        else:
+            add('forcing S-vectors: activity, temperature_factor, krate (f64, host)', 24 * S, 'host', 'scratch')
+            add('forcing temporaries (response + demand-rate arithmetic, <= 16 x f64 [S], host)', 128 * S, 'host',
+                'scratch')
+            if gpu:
+                add('krate device copy (f64)', 8 * S, 'device', 'scratch')
+            chunk = NUMPY_DEMAND_CHUNK_BYTES_PER_PLANT
     else:
         for n in ('B_kg', 'E_kg', 'requested_m3', 'delivered_m3'):
             add(f'input {n} (f64)', 8 * P, pw, 'resident_input')
@@ -1043,15 +1162,27 @@ def _unfinite(packet):
 
 
 # ------------------------------------------------------------------ demand
+def _reference_pet(h):
+    '''S-vector divisor of the biomass-specific law (1.0 for the canopy law, which has no reference PET).'''
+    return np.where(h['law_code'] == 1, h['demand_b'], 1.0)
+
+
+def _rate(code, a, lf, ref, pet, dt, act, tf):
+    '''The ONE demand-rate arithmetic (DEMAND_FORMULAS; this evaluation order is part of the contract). `pet` is
+    the scalar site PET with S-vectors (scalar `demand()` path) or a per-plant PET array with the species vectors
+    gathered per plant (`demand_per_plant`): elementwise identical IEEE operations, so a uniform PET array
+    reproduces the scalar result bit for bit. Returns the rate per m2 of canopy (canopy law) or per kg (biomass).'''
+    with np.errstate(all='ignore'):
+        canopy = a * lf * (pet * 0.001) * dt * act * tf
+        bio = a * (pet / ref) * dt * act * tf
+        return np.where(code == 0, canopy, bio)
+
+
 def _forcing(table, month, temperature_c, pet, dt):
     act, tf = _response(table, month, temperature_c)     # month/temperature already validated by demand()
     h = table.host
     code = h['law_code']
-    with np.errstate(all='ignore'):
-        canopy = h['demand_a'] * h['live_fraction'] * (pet * 0.001) * dt * act * tf
-        ref = np.where(code == 1, h['demand_b'], 1.0)
-        bio = h['demand_a'] * (pet / ref) * dt * act * tf
-        krate = np.where(code == 0, canopy, bio)
+    krate = _rate(code, h['demand_a'], h['live_fraction'], _reference_pet(h), pet, dt, act, tf)
     if not (np.all(np.isfinite(krate)) and float(krate.min()) >= 0.0):
         raise GrowthDataError('species demand rate is not finite/non-negative (overflow in PET*dt*coefficient)')
     return {'activity': act, 'temperature_factor': tf, 'krate': np.ascontiguousarray(krate)}
@@ -1146,6 +1277,111 @@ def demand(table, *, B_kg, canopy_area_m2, species_index, live, month, temperatu
         raise GrowthDataError('invalid demand input: ' + '; '.join(problems) + '; inputs unchanged, nothing returned')
     return {'requested_m3': out, 'packet': pk,
             'forcing': {'month': m, 'temperature_c': t, 'pet_mm_per_day': pet, 'dt_days': dt, **f},
+            'laws': dict(zip(table.species_ids, table.demand_laws)), 'formulas': dict(DEMAND_FORMULAS),
+            'memory': mem}
+
+
+def _demand_pp_numpy(table, B, area, sidx, live, pet, rv, dt, out):
+    S = table.n_species
+    code = table.host['law_code']
+    acc = np.zeros(len(DEMAND_PACKET))
+    P = B.shape[0]
+    for lo in range(0, P, NUMPY_CHUNK):
+        hi = min(P, lo + NUMPY_CHUNK)
+        b, a, si, lv, q = B[lo:hi], area[lo:hi], sidx[lo:hi], live[lo:hi], pet[lo:hi]
+        with np.errstate(all='ignore'):
+            bad_idx = (si < 0) | (si >= S)
+            s = np.where(bad_idx, 0, si)
+            is_canopy = code[s] == 0
+            bad_in = (lv & (~np.isfinite(b) | (b <= 0.0) | ~np.isfinite(q) | (q < 0.0))) \
+                | (lv & is_canopy & (~np.isfinite(a) | (a < 0.0)))
+            k = _rate(code[s], rv['a'][s], rv['lf'][s], rv['ref'][s], q, dt, rv['act'][s], rv['tf'][s])
+            d = np.where(lv, np.where(is_canopy, a, b) * k, 0.0)
+            bad_out = ~np.isfinite(d) | (d < 0.0)
+        out[lo:hi] = d
+        acc[0] += np.count_nonzero(bad_idx)
+        acc[1] += np.count_nonzero(bad_in)
+        acc[2] += np.count_nonzero(bad_out)
+        acc[3] += np.count_nonzero(lv)
+        acc[4] += np.count_nonzero(d > 0.0)
+        acc[5] += float(d.sum())
+        m = float(d.max())
+        if m > acc[6]:
+            acc[6] = m
+    return acc
+
+
+def demand_per_plant(table, *, B_kg, canopy_area_m2, species_index, live, month, temperature_c,
+                     pet_mm_per_day_per_plant, dt_days, max_bytes, extra_reserve_bytes=0):
+    '''Requested plant water D[p] (m3) like `demand()` but with ONE PET value per plant (explicit sibling; the scalar
+    `demand()` keeps its signature, defaults and results). `pet_mm_per_day_per_plant` is a (P,) float64 C-contiguous
+    array on the table's backend (host NumPy for numpy/numba, CuPy on the table's device for cuda; no implicit
+    transfer): the canopy-area-weighted terrain PET of each plant (`leaf.plant_pet.canopy_pet`) or any caller-owned
+    per-plant series. Demand laws are the SAME as `demand()` (linear in PET, DEMAND_FORMULAS): the canopy area is
+    the plant's own area and is never rescaled by the PET averaging; a uniform array equals the scalar result bit
+    for bit. Only live plants are read; their PET must be finite and >= 0, otherwise nothing is returned.'''
+    _check_table(table)
+    _require_current_device(table)
+    m = _month(month)
+    t = _temperature_c(temperature_c)
+    dt = _dt(dt_days)
+    mb = _strict_int(max_bytes, 'max_bytes', 1)
+    res = _strict_int(extra_reserve_bytes, 'extra_reserve_bytes', 0)
+    spec = [('B_kg', B_kg, np.float64), ('species_index', species_index, np.int32), ('live', live, np.bool_),
+            ('pet_mm_per_day_per_plant', pet_mm_per_day_per_plant, np.float64)]
+    if canopy_area_m2 is not None:
+        spec.append(('canopy_area_m2', canopy_area_m2, np.float64))
+    elif bool(np.any(table.host['law_code'] == 0)):
+        raise GrowthError('canopy_area_m2 is required: at least one species uses the canopy_pet_v1 demand law')
+    P = _check_population(table, spec)
+    mem = memory_estimate('demand_per_plant', P, table.n_species, table.backend,
+                          has_canopy_area=canopy_area_m2 is not None, extra_reserve_bytes=res)
+    _admit(mem, mb)
+    act, tf = _response(table, m, t)
+    h = table.host
+    rv = {'a': h['demand_a'], 'lf': h['live_fraction'], 'ref': _reference_pet(h), 'act': act, 'tf': tf}
+    area = B_kg if canopy_area_m2 is None else canopy_area_m2
+    pet = pet_mm_per_day_per_plant
+    if table.backend == 'cuda':
+        cp = _cupy()
+        out = cp.empty(P, dtype=cp.float64)
+        if P:
+            nb = _n_blocks(P)
+            part = cp.empty((nb, len(DEMAND_PACKET)), dtype=cp.float64)
+            a_lf = np.ascontiguousarray(rv['a'] * rv['lf'])
+            kd = _cuda_demand_pp_kernel(table.device)
+            kd((nb,), (CUDA_THREADS,), (B_kg, area, species_index, live, pet, cp.asarray(a_lf),
+                                        cp.asarray(np.ascontiguousarray(rv['a'])), cp.asarray(rv['ref']),
+                                        table.dev['law_code'], cp.asarray(act), cp.asarray(tf), np.float64(dt), out,
+                                        part, np.int32(table.n_species), np.int64(P)))
+            raw = _reduce_partials(part.get(), DEMAND_MAX_SLOTS)
+        else:
+            raw = np.zeros(len(DEMAND_PACKET))
+    else:
+        out = np.empty(P, dtype=np.float64)
+        if table.backend == 'numba':
+            raw = np.zeros(len(DEMAND_PACKET))
+            if P:
+                _numba_kernels()[2](B_kg, area, species_index, live, pet, np.ascontiguousarray(rv['a'] * rv['lf']),
+                                    np.ascontiguousarray(rv['a']), rv['ref'], h['law_code'], act, tf, dt, out, raw)
+        else:
+            raw = _demand_pp_numpy(table, B_kg, area, species_index, live, pet, rv, dt, out)
+    pk = _packet_dict(DEMAND_PACKET, raw)
+    problems = []
+    if pk['bad_species_index']:
+        problems.append(f"{pk['bad_species_index']} species_index value(s) outside [0, {table.n_species})")
+    if pk['bad_input']:
+        problems.append(f"{pk['bad_input']} live plant(s) with non-finite/non-positive B, invalid canopy area or "
+                        'non-finite/negative per-plant PET')
+    if pk['bad_output']:
+        problems.append(f"{pk['bad_output']} requested demand value(s) non-finite or negative (overflow?)")
+    if _unfinite(pk):
+        problems.append(f'aggregate packet not finite: {_unfinite(pk)}')
+    if problems:
+        raise GrowthDataError('invalid demand input: ' + '; '.join(problems) + '; inputs unchanged, nothing returned')
+    return {'requested_m3': out, 'packet': pk,
+            'forcing': {'month': m, 'temperature_c': t, 'pet_mm_per_day': 'per plant', 'dt_days': dt,
+                        'activity': act, 'temperature_factor': tf},
             'laws': dict(zip(table.species_ids, table.demand_laws)), 'formulas': dict(DEMAND_FORMULAS),
             'memory': mem}
 

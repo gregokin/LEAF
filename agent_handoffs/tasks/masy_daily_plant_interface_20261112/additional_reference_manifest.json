@@ -1,0 +1,185 @@
+{
+  "commit": "a5b8b18358e0d014fe13c9f48d00eb582710655a",
+  "paths": [
+    "tests/phase15_recharge",
+    "docs/manuals/examples/native_leaf_calendar_cli"
+  ],
+  "files": {
+    "tests/phase15_recharge/test_daily_corrections.py": {
+      "size": 13893,
+      "sha256": "85029e7bcba70a673fe15b6b651758d81ea51db18ae9ebed5e3e577c967d7fc1"
+    },
+    "tests/phase15_recharge/ncpcases.py": {
+      "size": 7783,
+      "sha256": "b61e1b10ab90c968d3bce7c0df1dedbe167ea86c69ee6188f42f4b4c484dcac4"
+    },
+    "tests/phase15_recharge/test_daily_time_origin.py": {
+      "size": 7492,
+      "sha256": "fc2fc46c6dbfa0c3df99aee0ea428b8f8cb7e996809cf5669f70175f40906d12"
+    },
+    "tests/phase15_recharge/test_checkpoint_v3.py": {
+      "size": 15011,
+      "sha256": "83f596464f397f0614e903feae199896646d368456181fdb96e0432abbf211a9"
+    },
+    "tests/phase15_recharge/test_recharge_plan.py": {
+      "size": 14851,
+      "sha256": "f8114ebd963a7839d65fec00eaf4ccf7320472c37e30210b2add0d5613cce2c8"
+    },
+    "tests/phase15_recharge/s4_cuda_worker.py": {
+      "size": 4424,
+      "sha256": "267c5786f66f96f877a010b85c97cb1471366ee01f5c83d98ab2d6bd33e4d445"
+    },
+    "tests/phase15_recharge/ncases.py": {
+      "size": 3653,
+      "sha256": "e77612abf7eabba25cbf37a064fe5088bee00588f93be9d59acab6549b5fe94d"
+    },
+    "tests/phase15_recharge/test_daily_file_case.py": {
+      "size": 12474,
+      "sha256": "7a06458fef489719b9a9e47d717b0f83a78cb8d63c1df4dbfe06fcbc7f9c0a31"
+    },
+    "tests/phase15_recharge/s4_worker.py": {
+      "size": 10867,
+      "sha256": "d878676768c2d120cee0e29a318a255c6a5c2888de22e84462c951f5cad9c729"
+    },
+    "tests/phase15_recharge/test_c1_cuda_v2_fixture.py": {
+      "size": 4195,
+      "sha256": "4fe3d6172e397be0ac07c848572e67784bb93ef199afb1c575206b4dd4837ff8"
+    },
+    "tests/phase15_recharge/test_daily_cuda.py": {
+      "size": 20952,
+      "sha256": "c2bbe9d5f89fbaf5c49c93770e990704b033327c693d9f2c3ffe44a24201fb9c"
+    },
+    "tests/phase15_recharge/pcases.py": {
+      "size": 2922,
+      "sha256": "22c300e7815252ac08e7a674aba3a72b6356f28b6161ab72c481d9dd90e6fab4"
+    },
+    "tests/phase15_recharge/test_shared_body_seam.py": {
+      "size": 4051,
+      "sha256": "513441a9c0ca7837b726d687979c66cbdb3e419515994cb52500c03082e9e9d2"
+    },
+    "tests/phase15_recharge/storm_cases.py": {
+      "size": 15092,
+      "sha256": "c797706be7b3e5ede9f2709fa578385194f6e23e64e151d846a327c11d4a15f4"
+    },
+    "tests/phase15_recharge/test_checkpoint_cuda_v3.py": {
+      "size": 11932,
+      "sha256": "6169e0f53ef4309d0e998218595afaa696293b011a61eb71e720764397a53c74"
+    },
+    "tests/phase15_recharge/dcases.py": {
+      "size": 2522,
+      "sha256": "8131f7f4ea6959d9e1299c443c631ee1ad8b6c3b1ec13c1b6d62e2d92b08152e"
+    },
+    "tests/phase15_recharge/gcases.py": {
+      "size": 6235,
+      "sha256": "067b0ca81ca1b9f0f5afd00f75647eceb6e6dc0411de820696dc84a2a427717c"
+    },
+    "tests/phase15_recharge/test_daily_known_answers.py": {
+      "size": 3611,
+      "sha256": "e94fd3c933666cb4b7bab58bb0833280502148a5236ab70177268824e0559e37"
+    },
+    "tests/phase15_recharge/test_cold_routing_source.py": {
+      "size": 6179,
+      "sha256": "868c27512bea1f0d7404c8193bfb783ec5f43ca8f5ac0ad6fda5f484c10a8703"
+    },
+    "tests/phase15_recharge/test_checkpoint_cuda_v3_cpu.py": {
+      "size": 18223,
+      "sha256": "51bac54590672b74263f3fa71acedcc8c0512a3b95910133737f6d29b1260783"
+    },
+    "tests/phase15_recharge/test_daily_cuda_plan.py": {
+      "size": 6186,
+      "sha256": "c957fe804ab825a01a7b933a2568939f96c3a10eda2e52a4cf7c18baaf06b71e"
+    },
+    "tests/phase15_recharge/conftest.py": {
+      "size": 942,
+      "sha256": "749beae3bc7c2fe9299838f35183cf7b470e743adf158e8797ae00092e599b1d"
+    },
+    "tests/phase15_recharge/test_daily_lifecycle.py": {
+      "size": 27863,
+      "sha256": "35a861e8065b683c5157e9a8e8572e9d4a3c4dde418d13c1ac55be64ec1b11b2"
+    },
+    "tests/phase15_recharge/test_pulse_column.py": {
+      "size": 18484,
+      "sha256": "d099b5d8b0793a1ad665740815779b74f7e5c7368b3f70b847d091ff9983c2c0"
+    },
+    "tests/phase15_recharge/fixtures/c1_cuda_v2_PROVENANCE.json": {
+      "size": 2935,
+      "sha256": "65b96f78bcbff8ea048960a53be09e1a68b6d49acc69613055f500217d9cbceb"
+    },
+    "tests/phase15_recharge/fixtures/README.md": {
+      "size": 490,
+      "sha256": "3aea5012e674f7ea2baaeae87dfdeba83facb75181374752b6a3d1bc75b2f49c"
+    },
+    "tests/phase15_recharge/fixtures/c1_cuda_v2/maple_state.npz": {
+      "size": 12052,
+      "sha256": "6c4da5840527565f0c6855bb7ff949d8dc69ac5f9ea1c0b6c4c5ecd653bc3e69"
+    },
+    "tests/phase15_recharge/fixtures/c1_cuda_v2/lifecycle_state.npz": {
+      "size": 43344,
+      "sha256": "cea3250662f00092d670a9c953de9445e160d6d7a9f2c7a2fe791b754d7a08ce"
+    },
+    "tests/phase15_recharge/fixtures/c1_cuda_v2/lifecycle_checkpoint_cuda_v2.json": {
+      "size": 11898,
+      "sha256": "4ec7bad29d8695479a41a2fbadcfdd21d27dfa891b15a7f7e733a6e66440a5cc"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/plants.metadata.json": {
+      "size": 2152,
+      "sha256": "31ed2240153c0d5f55bd8956ee29bbed4a68c27055895ebba7f263ad56860a74"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/plants.csv": {
+      "size": 140,
+      "sha256": "364cb94a62b7bf80219653a4a08625a16124108fca8a3e67a9bb6738975b5c08"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/fill_config.py": {
+      "size": 1569,
+      "sha256": "0c8884964c6fa12a8a8bf785fd8a601c046238464f1ee0abb1c3fa94941377dc"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/layered_water.yaml": {
+      "size": 1317,
+      "sha256": "5c7619b42a7a0067d1b804ed56518996f79e8629273f502a821c81ed8c0fb536"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/run.template.yaml": {
+      "size": 2248,
+      "sha256": "04b0766df019d05cbb1f525b116d5cf0566aee600e6438f7799cb71725265b0b"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/README.md": {
+      "size": 1778,
+      "sha256": "ea5ce3c32e204d52be4cd83c08cb3758bbd8ff23d304029cbba0a66d4cb448e8"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/catalog.json": {
+      "size": 1907,
+      "sha256": "05dd1ce31375bba64e75e743b6b9bceb609cfe23e6181f7f5340cfb8923ac050"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/case/case.yaml": {
+      "size": 886,
+      "sha256": "17c33fe833e1460f13900e1530ba9963bd18671d5d49db1a4634be3df71f5ceb"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/case/wind.yaml": {
+      "size": 168,
+      "sha256": "d7ba17977278e0792768f18092d838c495bf1af5b2a240620d95385b2ec3f766"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/case/model.yaml": {
+      "size": 772,
+      "sha256": "fa0081e22979f1975f8a233711f2e5237d7a539b35cebd3c32e18bda036fe5ed"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/scenario/scenario.json": {
+      "size": 957,
+      "sha256": "2655aa15930e9854a72be12a0b4a3e4a1f9afbc7d3eb566f52d6e689458bf886"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/scenario/weather.json": {
+      "size": 1478,
+      "sha256": "07872afd0d78378c3e67324e51112095014ba4e4cfa51426303db23060454bce"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/scenario/events/ie_b.json": {
+      "size": 166,
+      "sha256": "e5f50364f4d8a29f3b77f19404197ba2c7e1207b2335d0e4bd40958edec1c6dd"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/scenario/events/ie_a.json": {
+      "size": 166,
+      "sha256": "0af74878a9a0c88eeefedec656ddc28761ea7fd1875b64dd3979b28d3dfcdebf"
+    },
+    "docs/manuals/examples/native_leaf_calendar_cli/scenario/events/rain_a.json": {
+      "size": 208,
+      "sha256": "74dd75055fdb7f136ca42a4ce52da6f232c0183908b37a37bad6ad55587f59c4"
+    }
+  }
+}

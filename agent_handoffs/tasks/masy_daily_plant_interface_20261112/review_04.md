@@ -1,0 +1,6 @@
+# Independent review of revision 4 — CORRECT (test/documentation only)
+
+All reads/writes in scope, no tool errors; structured success, exit0 reaped. Frozen review_04 / candidate_04_manifest.
+659-test CPU suite PASSES (608 passed,51 skipped: optional CUDA + unconfigured native paths). Independent native eight-day CPU and Numba harnesses PASS, including nonuniform shared PET, checkpoint, rollback, onehydro/oneT perday and closure. CUDA full suite running; actual CUDA eightday revision3 passed and finalrerun pending.
+Native CPU thirteen-test suite has ONE test failure: the no-water-store assertion scans dir(session), now matching the valid PUBLIC METHOD stage_connect_water. That method stores only binding metadata, calls no water physics. Correct the test to check stored data / actual behavior rather than prohibit the word water in a method name. All twelve other tests pass, including real instance binding, mixed feedback, operator/date/run guards.
+Documentation needs two small changes: move reserve recomputation inside the per-day loop (example CLI already does this); final status should reference independent qualification rather than remain a candidate to be rerun. No implementation defect found in final source; no acceptance until checks finish.

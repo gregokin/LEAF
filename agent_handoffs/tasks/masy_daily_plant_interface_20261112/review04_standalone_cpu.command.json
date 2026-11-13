@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/review_04",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/review_04:/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_legacy/src",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/numba_cache",
+    "CUDA_VISIBLE_DEVICES": "-1"
+  }
+}

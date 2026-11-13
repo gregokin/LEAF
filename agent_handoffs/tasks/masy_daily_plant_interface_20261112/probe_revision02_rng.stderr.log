@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/probe_revision02_rng.py", line 14, in <module>
+    assert not any(v['changed_configuration_accepted'] for v in out.values()),'Biological restart failed to bind RNG seed or ecological patch config'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Biological restart failed to bind RNG seed or ecological patch config

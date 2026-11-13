@@ -109,3 +109,16 @@ qualification was produced by this source-only assessment.
 ## Literature parameter update — 2026-11-11 local
 
 See case [source table](../cases/jornada_grass05_shrub10_256/SOURCES.md) and [checked evidence](tasks/literature_parameters_20261111/codex_checked_evidence_02.md). New primary inputs: Northup etal2005 DOI10.1016/j.jaridenv.2004.09.019 Tables1/7 (honey mesquite, southern Texas), McClaran etal2013 DOI10.1016/j.jaridenv.2012.08.015 Table2 (velvet mesquite, Santa Rita), FAO56 Chapter7 Table19/Example35. STEP model input `species.in` at003cb9b4adbf13d64a39d6d62fd95280adac27fc SHA256c20a67b0a8095f4c9c920c3f73a711437ecc43039a934a1f4a351bc864bce2f3 supplies blue-grama proxies only. Public source URL/hash receipts archived; raw downloaded PDFs ignored from Git. No upstream repository modified.
+
+## MASY daily plant connection — 2026-11-12
+
+New native connection: SYRUP feature/subsurface-daily-recharge
+`a5b8b18358e0d014fe13c9f48d00eb582710655a`,114-file package
+`82e9c0111b9d883f857fd2f28a21f1d8bd8f13e22d473796e736ca4204f30107`.
+Actual qualified native MAPLE `9f466d2cfcd52991b24496cf67f4562d6268afa9`, package
+`fbc504bbcd1ec0c02e6a96089134a06187532455ef7ba5e6f146801c8313c02e`.
+Use the recorded immutable snapshot/materialized profiles, not an assumed live checkout.
+LEAF C1 reuse `52f39fe06166a91e768740b19d3c26d4ffceaf6e`: growth/PET exact;
+calendar extension only for shared root/canopy memory admission. Old standalone pairing unchanged.
+[Selection manifest](tasks/masy_daily_plant_interface_20261112/syrup_selection.json),
+[new lock](../dependencies/masy-daily-plant-interface.lock.json).

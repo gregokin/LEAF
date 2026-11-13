@@ -1,0 +1,2 @@
+# Preserve raw verification stream bytes; source and documentation keep normal whitespace checks.
+*.log -whitespace

@@ -1,0 +1,26 @@
+test_candidate_of_another_withdrawal_cannot_be_paired_with_this_successor (test_lifecycle_bridge.CapabilityAndResultTests.test_candidate_of_another_withdrawal_cannot_be_paired_with_this_successor) ... ok
+test_refusals (test_lifecycle_bridge.CapabilityAndResultTests.test_refusals) ... ok
+test_request_args_binds_the_read_instance (test_lifecycle_bridge.CapabilityAndResultTests.test_request_args_binds_the_read_instance) ... ok
+test_resource_identity_validates_the_actual_operator_association (test_lifecycle_bridge.CapabilityAndResultTests.test_resource_identity_validates_the_actual_operator_association) ... ok
+test_valid_successor_is_accepted_and_converted_once (test_lifecycle_bridge.CapabilityAndResultTests.test_valid_successor_is_accepted_and_converted_once) ... ok
+test_candidate_of_another_real_withdrawal_cannot_be_mixed (test_lifecycle_bridge.NativeDailyTests.test_candidate_of_another_real_withdrawal_cannot_be_mixed) ... ok
+test_real_alternate_physical_branches_with_equal_digests_are_refused (test_lifecycle_bridge.NativeDailyTests.test_real_alternate_physical_branches_with_equal_digests_are_refused) ... ok
+test_visible_daily_sequence_counts_water_closure_clock_and_shared_pet (test_lifecycle_bridge.NativeDailyTests.test_visible_daily_sequence_counts_water_closure_clock_and_shared_pet) ... FAIL
+test_wrong_nominal_day_run_and_ordinal_are_refused_by_the_session (test_lifecycle_bridge.NativeDailyTests.test_wrong_nominal_day_run_and_ordinal_are_refused_by_the_session) ... ok
+test_debit_identity_bounds (test_lifecycle_bridge.ValueObjectTests.test_debit_identity_bounds) ... ok
+test_identity_round_trip_and_closed_validation (test_lifecycle_bridge.ValueObjectTests.test_identity_round_trip_and_closed_validation) ... ok
+test_single_depth_volume_conversion_and_admission_before_allocation (test_lifecycle_bridge.ValueObjectTests.test_single_depth_volume_conversion_and_admission_before_allocation) ... ok
+test_source_selection_refuses_before_any_import_and_needs_a_verified_record (test_lifecycle_bridge.ValueObjectTests.test_source_selection_refuses_before_any_import_and_needs_a_verified_record) ... ok
+
+======================================================================
+FAIL: test_visible_daily_sequence_counts_water_closure_clock_and_shared_pet (test_lifecycle_bridge.NativeDailyTests.test_visible_daily_sequence_counts_water_closure_clock_and_shared_pet)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/review_04/tests/test_lifecycle_bridge.py", line 256, in test_visible_daily_sequence_counts_water_closure_clock_and_shared_pet
+    self.assertFalse([k for k in dir(obj) if 'water' in k.lower() or 'inventory' in k.lower() or 'soil' in k.lower()])
+AssertionError: ['stage_connect_water'] is not false
+
+----------------------------------------------------------------------
+Ran 13 tests in 6.140s
+
+FAILED (failures=1)

@@ -1,0 +1,8 @@
+{
+  "unpaired_extra_transpiration_accepted_for_next_fragment": true,
+  "unpaired_extra_transpiration_accepted_as_checkpoint_pair": true,
+  "next_error": null,
+  "save_error": null,
+  "consumed_T": 1,
+  "physical_T": 2
+}

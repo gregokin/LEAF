@@ -1,0 +1,34 @@
+{
+  "session_id": "37847909-f17c-4674-af37-323c9f8c6995",
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/candidate",
+  "model": "sonnet",
+  "effort": "high",
+  "timeout_seconds": 3600,
+  "write_files": [
+    "leaf/plant_pet.py",
+    "leaf/biocalendar.py",
+    "leaf/growth.py",
+    "leaf/plant_session.py",
+    "leaf/plant_checkpoint.py",
+    "leaf/lifecycle_bridge.py",
+    "tests/test_plant_session.py",
+    "tests/test_plant_checkpoint.py",
+    "tests/test_lifecycle_bridge.py",
+    "tests/test_plant_pet.py",
+    "tests/test_biocalendar.py",
+    "tests/native_leaf_fixture.py",
+    "docs/masy-daily-plant-interface.md",
+    "examples/masy_daily_plants.py",
+    "interface_report.md",
+    "tests/test_plant_boundaries.py"
+  ],
+  "read_roots": [
+    "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/candidate",
+    "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/leaf_qualified",
+    "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15",
+    "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/baseline.json",
+    "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/syrup_selection.json",
+    "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/qualified_leaf_reference.json",
+    "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/review_01.md"
+  ]
+}

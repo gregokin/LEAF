@@ -1,3 +1,5 @@
-# Idle — changes published
+# Idle — interface accepted
 
-[Literature scenario parameters](tasks/literature_parameters_20261111/final_review.md) accepted and published in `416ba95bdac825c9033343b932363da237b8fa8b` to origin/main. [Publication](tasks/literature_parameters_20261111/publication.json). No active writer, model or scheduler; historical prompts are evidence, not assignments.
+No implementation assignment is active. MASY daily plant interface accepted and installed;
+user-authorized commit/push is being completed by Codex. Phase3 resumption is the preserved
+[status report](tasks/masy_daily_plant_interface_20261112/phase3_status.md), not a new scientific law or trial run.

@@ -1,0 +1,656 @@
+{
+  "recorded_at": "2026-11-12T22:55:39.420362+00:00",
+  "head": "9fd4bbbe2faae907922ed7194f633caa1da3624f",
+  "status_porcelain_z": "",
+  "files": {
+    ".gitignore": {
+      "bytes": 1303,
+      "sha256": "38c6d3a1d1cfc512bd5fea81d72666d3b3a26a0b3f117353ee01ec45298025a7"
+    },
+    "AGENTS.md": {
+      "bytes": 2353,
+      "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+    },
+    "CLAUDE.md": {
+      "bytes": 374,
+      "sha256": "5ccf4233963ba0515e0872c2b441c046905e516905ce947ac1982936619e1eb4"
+    },
+    "README.md": {
+      "bytes": 18836,
+      "sha256": "ae7ec61441c6ae2ea1b372272e4f8ddb357a60f136933c74acb1e34f1a119ff1"
+    },
+    "agent_handoffs/AGENTS.md": {
+      "bytes": 8488,
+      "sha256": "e5f462e05585cf4978a2853742bad383941544952e04fe6e1056f6229cc5215f"
+    },
+    "agent_handoffs/README.md": {
+      "bytes": 6829,
+      "sha256": "6f15815026f3ec7eb4896b0f956e76d09bd1cb7d8c55e234fe8fc8d563f26d06"
+    },
+    "agent_handoffs/claude_report.md": {
+      "bytes": 511,
+      "sha256": "7d427e8425a654a677c2a38a18f648e26bc33205f392efa916dcddc1a1402b83"
+    },
+    "agent_handoffs/codex_review.md": {
+      "bytes": 628,
+      "sha256": "830065397a53dab0eb090963a5a6907dfcf1140176f176df2a6d425c2fc18e2f"
+    },
+    "agent_handoffs/current_prompt.md": {
+      "bytes": 360,
+      "sha256": "aef58bf2fc9cb007173ac7d4bf30e4c1b39f40a58c8e03d726754f8dde297c90"
+    },
+    "agent_handoffs/decisions.md": {
+      "bytes": 27359,
+      "sha256": "b7384ab39ac5c3e85efba884528e9c26a657552d4249f0414c5d364d6c9a628d"
+    },
+    "agent_handoffs/orchestration_state.md": {
+      "bytes": 797,
+      "sha256": "6a9f92f9e9119d6485f0767706b29b81a52b19152199106ada4f416ba34dcdc8"
+    },
+    "agent_handoffs/phase_plan_20261110.md": {
+      "bytes": 2154,
+      "sha256": "2ab9756f9095736252105213458836393f4908644abd2980439b2f668c86d848"
+    },
+    "agent_handoffs/project_brief.md": {
+      "bytes": 24461,
+      "sha256": "a31ed6b0019685cd69201c5d2283cd0844676c2b8c1309f7de34d36432eaebb9"
+    },
+    "agent_handoffs/templates/task_prompt.md": {
+      "bytes": 2860,
+      "sha256": "55843305e8477b24d6387f7dc4843ae3d6babc3dbeaf3810b86f23b17997ca48"
+    },
+    "agent_handoffs/templates/task_report.md": {
+      "bytes": 2426,
+      "sha256": "315f228f2c5b3eef89c2b7543aa402265d49e2ce23cdad02840568a8c020e724"
+    },
+    "agent_handoffs/upstreams.md": {
+      "bytes": 6839,
+      "sha256": "8fe2cf774f94cd6f8aec06c4e274e697730d5354b2f6d76500d4822d1688206d"
+    },
+    "agent_handoffs/verification.md": {
+      "bytes": 1855,
+      "sha256": "c34a6f8cf6ea921535d51be3bfc7d6def3df1165f20bfc8b9866ea9451a2e64b"
+    },
+    "analysis/study_parameterization/README.md": {
+      "bytes": 2812,
+      "sha256": "1c202c599203268c518a7db0c3fa258c7f8e4637d6dbad90834c7ea0668f59bc"
+    },
+    "analysis/study_parameterization/study_parameters.py": {
+      "bytes": 75560,
+      "sha256": "2314fcdfbc6893ef2770d7ff9c60c98d8aa1b8ef8943adc9256527ca046b0a85"
+    },
+    "analysis/study_parameterization/test_study_parameters.py": {
+      "bytes": 29159,
+      "sha256": "af85e62aa92c62cad857b14fc4a5de7160e5567d2c2603b3857e897cdfbf50b9"
+    },
+    "benchmarks/README.md": {
+      "bytes": 5595,
+      "sha256": "f66f20a4d400c94776c269b0e5b0efbe5fe607157768525cdaaf468da01b912d"
+    },
+    "benchmarks/daily-water-growth.md": {
+      "bytes": 12599,
+      "sha256": "18725e0b6261570de242b38dcb95675c0270beb7890942ad1edc1b7bde7d2bf1"
+    },
+    "benchmarks/daily_water_growth.py": {
+      "bytes": 79938,
+      "sha256": "82b75464877a665b612a04c428496249a18952d128213f545b4f86e9a793ce4f"
+    },
+    "benchmarks/results/daily_water_30year_20261030/calibration_cpu_02.json": {
+      "bytes": 15115,
+      "sha256": "16fd3c0b8fae9106f399fb77a4f9ca730b63191ec97ffb9396a58a7863dfd128"
+    },
+    "benchmarks/results/daily_water_30year_20261030/calibration_gpu_02.json": {
+      "bytes": 16084,
+      "sha256": "c4a6f170aa1297460d1ef5b7f2d2fbfec6233cc11ad12e24240e07e84b618857"
+    },
+    "benchmarks/results/daily_water_30year_20261030/cpu_june_hectare_3layers_roots3_final.json": {
+      "bytes": 34949,
+      "sha256": "03687f0c3f6b8f121b3c355e4ea481db267c970c2b98e8df486df0a5327aee5c"
+    },
+    "benchmarks/results/daily_water_30year_20261030/cpu_june_hectare_3layers_roots5_final.json": {
+      "bytes": 35126,
+      "sha256": "62c9bf1a1403fc022add893fb237858bd1decc122bc54b785b7c5199e290ab2f"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_bounded.json": {
+      "bytes": 39438,
+      "sha256": "438f54aee889e903fefda7e33a19702cfe4713595ee4dc19173de2b352afab09"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots3_final.json": {
+      "bytes": 39106,
+      "sha256": "e5e04f65b582defe4818d907b8a84d997c693da6bba3da7536471c41b41d5667"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_bounded.json": {
+      "bytes": 39124,
+      "sha256": "e0d424df27c00c532a60e63d5313451eb6249148a13852d0309a26835b16b8f7"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_grass_bound_hectare_3layers_roots5_final.json": {
+      "bytes": 38903,
+      "sha256": "803057344b5e6642616dbfb6b589b69552a7d6054a72cf712f9eaed224018973"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_512_3layers_roots5_bounded.json": {
+      "bytes": 39030,
+      "sha256": "d7a473a35a6d3a21a2835017b028fc5c69d11c006062ee7e0e6ae9662f3d7d1e"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_512_3layers_roots5_final.json": {
+      "bytes": 38567,
+      "sha256": "6f4733aeefabdb02a1efc3d234b5b93f40c2a508094793b8cd07c637d9639cc0"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_bounded.json": {
+      "bytes": 38958,
+      "sha256": "db369a0d7746f2c07977138cf96b37d2a4000062248bcd9de213a46315155aec"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_2layers_roots5_final.json": {
+      "bytes": 38594,
+      "sha256": "3eff0cc736ecb06d7fbb429d92915182014a8ea1fd6b3c2bdbe7b4d63345d771"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_bounded.json": {
+      "bytes": 39045,
+      "sha256": "5b9d4fbfd28d0d64cfcaeec5c2b786a00a215cfd4f155fbac5261220aa107186"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_3layers_roots3_final.json": {
+      "bytes": 38662,
+      "sha256": "d643de962c4dc060434fd9dd0666504efca6b125691393028601fe9ef9f81892"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_bounded.json": {
+      "bytes": 39088,
+      "sha256": "83b750e8b89bb51c19f77dbd8a9a7cbab8698dac4988221a276710711bc28857"
+    },
+    "benchmarks/results/daily_water_30year_20261030/gpu_june_hectare_3layers_roots5_final.json": {
+      "bytes": 38756,
+      "sha256": "73b6a049abfaed43c5c8e7f7346588af830e4c7a261f367e129908ec487810be"
+    },
+    "benchmarks/results/jornada_20261030/profiled_results.json": {
+      "bytes": 155305,
+      "sha256": "857f44f24ca5210fb3ab6bd204464121dd0ad68c0b94f2dad20436563c57066c"
+    },
+    "benchmarks/results/jornada_20261030/summary.csv": {
+      "bytes": 3004,
+      "sha256": "50a8d2ff8144cdd550a1fcad1d3d6321ae2669b044d704ca384e27e01eb15afd"
+    },
+    "benchmarks/results/root_radius_3_5_20261030/profiled_results.json": {
+      "bytes": 58409,
+      "sha256": "dba0671c07f6be60f2886c3dc499efff14c958e22c0a1138cc1d9f20990043a9"
+    },
+    "benchmarks/results/species_root_profiles_20261031/cpu_june_hectare_3layers_roots3_weighted.json": {
+      "bytes": 36742,
+      "sha256": "057093b21ca5751796e4b0593cdda08a492442cee6387f74c9c3567e0f5bc224"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots3_weighted.json": {
+      "bytes": 41789,
+      "sha256": "035e2986cf45ec42b24bb82f7d942501a90e44a121b720500fc720af4a7e73b5"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_grass_bound_hectare_3layers_roots5_weighted.json": {
+      "bytes": 41931,
+      "sha256": "556338cae957e0044a5ee946656b6f8ee87b85f5d8a14cdbbe3a64b7eaa9c969"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_june_512_3layers_roots5_weighted.json": {
+      "bytes": 41338,
+      "sha256": "d69298839c77306fa57e2fa5ff78e7fd0b5a662d9150dac98136dbd93ae1d5bb"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_june_hectare_2layers_roots5_weighted.json": {
+      "bytes": 41412,
+      "sha256": "cd1e52ee6961003870b2999726b57549e0364a148ecfe7b00234621dc3441838"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_june_hectare_3layers_roots3_weighted.json": {
+      "bytes": 41381,
+      "sha256": "355e2c125e2e667d70a038ea65d6ded547b7bf47c7e4cda5ee69b7ad4d42a604"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_june_hectare_3layers_roots5_weighted.json": {
+      "bytes": 41494,
+      "sha256": "862ae2ff4551c4cdaf1227667af79160108562f0b6bfb99e5e64c3e275028cc4"
+    },
+    "benchmarks/results/species_root_profiles_20261031/gpu_uniform_control_june_hectare_roots3_weighted.json": {
+      "bytes": 42035,
+      "sha256": "c5fe1bb70e9fab8481aecdd4e57b27ada03b12084edb8d5b63239ccc9cf07fd5"
+    },
+    "benchmarks/spatial_mapping.py": {
+      "bytes": 47260,
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5"
+    },
+    "cases/jornada_grass05_shrub10_256/PARAMETERS.md": {
+      "bytes": 44209,
+      "sha256": "6a9c4b1108c78c9e819b38e8eb03bf159f1ddde56718ce7926ec989f560b40c0"
+    },
+    "cases/jornada_grass05_shrub10_256/README.md": {
+      "bytes": 12127,
+      "sha256": "5bd5feddc30eb1300b04652db439118842ecf7a2c7610f506610fade8ec5b9dd"
+    },
+    "cases/jornada_grass05_shrub10_256/SOURCES.md": {
+      "bytes": 14168,
+      "sha256": "92b95bf6a0b7a5fb8b358845881f43257f59d85d2f5f5654070aa0c3c8732647"
+    },
+    "cases/jornada_grass05_shrub10_256/case.toml": {
+      "bytes": 10066,
+      "sha256": "83722c15f86bb1aea62923a001d6f3509aea2ccda333811ea2f0f03252392a6b"
+    },
+    "cases/jornada_grass05_shrub10_256/climate/monthly_normals.csv": {
+      "bytes": 1335,
+      "sha256": "a9764380ff79dea00731cbbd80a22407c877db5ec39bb84898032b0bfe89d6e3"
+    },
+    "cases/jornada_grass05_shrub10_256/climate/weather_2027.json": {
+      "bytes": 28856,
+      "sha256": "dccb90c0bef891463e1e13e26678e4e58c15649aa4d715d2cbcb197b6cd556e9"
+    },
+    "cases/jornada_grass05_shrub10_256/generation.json": {
+      "bytes": 3856,
+      "sha256": "b50ac249a47715162fd9024c3bf53aef85f2e7a1dd1df78bfa7c32ea983a1f38"
+    },
+    "cases/jornada_grass05_shrub10_256/inputs/README.md": {
+      "bytes": 1900,
+      "sha256": "9887d4e304cb3d05553f2661c7a31e4171ff4aa030dccd3950c9de137c8564ea"
+    },
+    "cases/jornada_grass05_shrub10_256/landscape.toml": {
+      "bytes": 4147,
+      "sha256": "c859d49dc6caba381a6b4a70aec58ee3c621ef585fe4f068a31e99c736ebfd3a"
+    },
+    "cases/jornada_grass05_shrub10_256/outputs/README.md": {
+      "bytes": 2226,
+      "sha256": "e56c06ee97507d67850d74b8eb427919d9d47bf5a6f12d3f5e8f741e0169e2b5"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/README.md": {
+      "bytes": 10505,
+      "sha256": "156e4cf676b17d2ea48da0a320696d056278405ae50d161e18d0d35488e5e1cb"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/initial_plants.csv": {
+      "bytes": 2615223,
+      "sha256": "169fe16fee30ea4f76f84832f0a161a2bb0791b92dfddf3be62e0ab4a6cacd08"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/initial_plants.metadata.json": {
+      "bytes": 5277,
+      "sha256": "e3eb6145e280eb8b52093f553b66c8d0d1366cf878a7fc2b109d28eebfe3cc0b"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/initial_surface.npy": {
+      "bytes": 524416,
+      "sha256": "a2966584858a9feb5e4d969d5a188ea32657bb97e7e6e3542ae700e7d79a48d5"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/initialization_report.json": {
+      "bytes": 8538,
+      "sha256": "6bfc85c954e470f7bd4039fe6318433999bf005ed47b7643fbb875d9b0fbd2d9"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/plant_files_migration.json": {
+      "bytes": 2443,
+      "sha256": "8527be393da3a3d8a5688b4bd8aef50c9fe84fb43d2334c53318c8989b8f6d25"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/preview_provenance.json": {
+      "bytes": 7913,
+      "sha256": "7c86db70cada45f6e8ddfc124dd653d603f37c8caf2fb95e320ebe28dd7daf15"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/render_preview.py": {
+      "bytes": 20411,
+      "sha256": "c6ad714b2eb75907c151abaef3752644e7389f86ade0242d39943e9980c610a1"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/species_at_initialization.json": {
+      "bytes": 21325,
+      "sha256": "9db3dace6a2a8e9212204d23aa7408414e1875a408ec3149d3e0233f7bd480e4"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/vegetation_initial.png": {
+      "bytes": 2004645,
+      "sha256": "d74491d018426ec06b28073af09644323c454ab0d022ec1352280e997f922f02"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/README.md": {
+      "bytes": 6852,
+      "sha256": "7fe4efb7edf344f9ee27cc5011253255296ac204c0dd3b3e9413ca017b84c3b0"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/annual_plan.csv": {
+      "bytes": 11116,
+      "sha256": "0e090dadadbaa4bf480abc342ba0b673df792907a73c586da68c1058ea2ab1b9"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/examples/interevent.json": {
+      "bytes": 168,
+      "sha256": "29b1c0933990f4216c9fae98cc797a4fdedf52da57056272af1efde3bc8badef"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/examples/rain.json": {
+      "bytes": 242,
+      "sha256": "a60bec5928dd1f93c362c1e3b4664189e4a880ca7d174ea4f3f9d6029d2957a6"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/examples/wind.json": {
+      "bytes": 284,
+      "sha256": "9019a9f26e766120a718cc38ccc2024e53a2c974ceae55c05ea1a9011dbac261"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/settings.toml": {
+      "bytes": 6443,
+      "sha256": "ef418c5cef7f0a990678051f137f77d176c28462dc0a9c69b8daee0480db563f"
+    },
+    "cases/jornada_grass05_shrub10_256/soil.toml": {
+      "bytes": 5815,
+      "sha256": "5d2d0f6f68d3a962050bc3198fd0466bba81f6ec311b691b2eafb796cf4402a9"
+    },
+    "cases/jornada_grass05_shrub10_256/species.json": {
+      "bytes": 35064,
+      "sha256": "cbf916391d917007261fcdc7f2c088c6725d0401d1fc886ce8c8f87b1ee81416"
+    },
+    "claude.md": {
+      "bytes": 2731,
+      "sha256": "4562dd3912f4ee14e1e537d087c6137dc5877a91b3c2ba3f71f04db915225714"
+    },
+    "dependencies/canopy-view.lock.json": {
+      "bytes": 4489,
+      "sha256": "58ed16a697bbfce35e63268f2746bb78ee305b4ddf8bdb672c6542b420903eb4"
+    },
+    "dependencies/phase0-vegetation.lock.json": {
+      "bytes": 17970,
+      "sha256": "4d6041045dfd3f5684dc21830644e86215c50829d287a5c4fa30914e76d4becb"
+    },
+    "dependencies/phase1-native-growth.lock.json": {
+      "bytes": 6025,
+      "sha256": "2e019af8c0138961402410e8bf45ab18cefa30b133bf07d2533d168e8c681cb7"
+    },
+    "dependencies/phase2-disturbance.lock.json": {
+      "bytes": 4576,
+      "sha256": "cb688d4fbeb5e0917602fed8f1ada6b65029ca2db0fce0b01496c3c86719a77a"
+    },
+    "dependencies/phase3-reproduction.lock.json": {
+      "bytes": 5040,
+      "sha256": "656e9b4a627b44ed0ec67b6b25f0bff9b4ed7d09324ce109ff05b442d6bd91f7"
+    },
+    "dependencies/stepwat-growth.lock.json": {
+      "bytes": 15752,
+      "sha256": "338dfd9ee8b9aa07c25e3c9c8ea0205e59c0ff3f1ff5dda64734fc4ea7247430"
+    },
+    "dependencies/syrup-subsurface.lock.json": {
+      "bytes": 14714,
+      "sha256": "1f2f5b466dd2cdffd7ae00ecc6dfb3f42a64b8784f95559f27821312e74b16fd"
+    },
+    "docs/biomass-specific-water-use.md": {
+      "bytes": 7243,
+      "sha256": "9508d50882788467cbbdab99d81657b206392c9350d527c06d2db5b878f05dda"
+    },
+    "docs/candidate-uptake-parameters.md": {
+      "bytes": 2275,
+      "sha256": "20aa37c02fcacda5582435e56721a0f7ca359008da69a5468acd0140f89c79b2"
+    },
+    "docs/coupled-transpiration.md": {
+      "bytes": 21400,
+      "sha256": "db37d4a0f00f83341f442993dc424c34a300719f8a5c2e48fe204bef8f94b4b5"
+    },
+    "docs/daily-water-30year.md": {
+      "bytes": 13043,
+      "sha256": "faa3cf553a38e51d97c1cf584280f58e9ec614d3c47a31107980348ce0c6ce3d"
+    },
+    "docs/individual-vegetation-feasibility.md": {
+      "bytes": 28289,
+      "sha256": "f725a104458d00bd18b765d595829d41e191611de26dd326dc83c9a2c69ede77"
+    },
+    "docs/jornada-capacity.md": {
+      "bytes": 14972,
+      "sha256": "6a4e1decf54804294f96e55e68b2cf51d373825a454118eb99de68bc87172c1f"
+    },
+    "docs/maple-leaf-integration.md": {
+      "bytes": 13023,
+      "sha256": "2f65d2c930ee2500cd6fbd6a0349afaef5c83b6d788dcba881905747f700a050"
+    },
+    "docs/paired-growth-water-data.md": {
+      "bytes": 8905,
+      "sha256": "70f8b7693104152c46b20bc641d6578f4e2eb0dd5c5d1c2fd0a96e8a9f0da53d"
+    },
+    "docs/phase0-vegetation.md": {
+      "bytes": 34304,
+      "sha256": "7dea347662c9b690ecb5e5be07d1e0055668a55a9efe427cab57e10c6e9db7c0"
+    },
+    "docs/phase1-growth.md": {
+      "bytes": 15500,
+      "sha256": "81fb72ea3203e98210de60ee0821f16901a7b13c2f638b59ee8a3c45200beaf3"
+    },
+    "docs/phase1-interevent.md": {
+      "bytes": 18147,
+      "sha256": "65bd0e91d99019a1bc3f26b9cd48d70e496232dbab66a075e85d2317a8db8c01"
+    },
+    "docs/phase1-native-water.md": {
+      "bytes": 13681,
+      "sha256": "f6c9c0c4c6cdaf16417ee2a3cdc886ccfbd06d88f5e8d69cb8c1e5d677abe03f"
+    },
+    "docs/phase1-water-contract.md": {
+      "bytes": 17373,
+      "sha256": "f78816f0b056a671f0d88a5ab85a299bb8865dffc6988a7da77573f4526cdc1f"
+    },
+    "docs/phase2-disturbance.md": {
+      "bytes": 21619,
+      "sha256": "b8e6286bfd638a2f5f63d8e6bd9fb958a7fd598af5a6db064ecd2eb8a113a92c"
+    },
+    "docs/phase3-reproduction.md": {
+      "bytes": 15654,
+      "sha256": "bbf25fd4e1ca6e1532c8a2fd9fee782ca73f9e1b45a15ea302c991ff36988c56"
+    },
+    "docs/shared-canopy.md": {
+      "bytes": 11231,
+      "sha256": "3e70f03326936d4998912f8386288977db4f15323ce9aba73a4b7e33f3bb3332"
+    },
+    "docs/species-root-profiles.md": {
+      "bytes": 11327,
+      "sha256": "a723a3508251b018fab22ad043002e1126a7f29f87d24907251022068eec941d"
+    },
+    "docs/stepwat-growth.md": {
+      "bytes": 14524,
+      "sha256": "6e4933b9e0e51fe22afde4e17996221231cb1de7d669aa168322a9c17712685b"
+    },
+    "docs/study-stepwat-parameters.md": {
+      "bytes": 7145,
+      "sha256": "8ecd818073dd26db1dfdb011d9341b7d1e68ce8b3c588a4c441aa4f71dcc233a"
+    },
+    "docs/validation-data.md": {
+      "bytes": 12371,
+      "sha256": "9f62557abd135f5464f49e3785484b58170b1613f96331e2190e5469f0d91399"
+    },
+    "docs/water-to-biomass-survey.md": {
+      "bytes": 20937,
+      "sha256": "40c6f4389dd8fbd22840e8a165665204b9f86b3a91e2b6c42f4f3dbda3fcbbbb"
+    },
+    "examples/phase0/generation.json": {
+      "bytes": 1518,
+      "sha256": "15a644eafb604e1383c467f2d722c07957c6cd0fa42c6400fd348bbc95029827"
+    },
+    "examples/phase0/plants.csv": {
+      "bytes": 362,
+      "sha256": "096152d40e381967fe464574952a8af1f9df2fe2c041cf4dbc93557b11a10b4b"
+    },
+    "examples/phase0/species.json": {
+      "bytes": 4371,
+      "sha256": "c6d11e5de4038006a43ca79220e5e06858c2c40d8b2b4c50e19cce8c82e443db"
+    },
+    "examples/phase1/run_interevent.py": {
+      "bytes": 7913,
+      "sha256": "4f4185811723222acec067444e067fd12be71a4d227920ef77fbcf4995747a92"
+    },
+    "examples/phase1/species.json": {
+      "bytes": 6889,
+      "sha256": "f8bf58cdc385566ad111574e3c5c3a45f5fcd11630079f384827b401e6ab72b0"
+    },
+    "examples/phase2/run_disturbance.py": {
+      "bytes": 10106,
+      "sha256": "5d5117f48c90554962527fdb1945491ad4fe2d1e02f2686d0bc525d8ec08ccf1"
+    },
+    "examples/phase2/species.json": {
+      "bytes": 8974,
+      "sha256": "5003f248452ca1f97408b0ec40d997d074f3428c47444e49c9ffce8f38ab71fb"
+    },
+    "examples/phase3/run_recruitment.py": {
+      "bytes": 8230,
+      "sha256": "c4718adc1d24a0e1c2e988665d1d385a70d29c27723ef4d41bd2e971510277af"
+    },
+    "examples/phase3/species.json": {
+      "bytes": 8711,
+      "sha256": "06e4e5df180c0518a9f20f830dde8ecd58be98c2fceb6bc51c0a4a1ace8cc626"
+    },
+    "leaf/__init__.py": {
+      "bytes": 3428,
+      "sha256": "e8d289c0c597dbaf987a94e1f53b036ebd5f1dc08f2900be7cc6b3aacb5e78b5"
+    },
+    "leaf/__main__.py": {
+      "bytes": 17616,
+      "sha256": "e1e40edddf48c656e0b55cf2b5d8bd8387bf8f581439d23609ffbc3d99b27294"
+    },
+    "leaf/canopy.py": {
+      "bytes": 33687,
+      "sha256": "6f16b97e7fbd248685495959b4e0322f44ef9b2ba950bb35ded0d70826adde0e"
+    },
+    "leaf/checkpoint.py": {
+      "bytes": 50699,
+      "sha256": "b59b555b475277f428d14f125c04e22ef13ac328df6f21436703e413867f935d"
+    },
+    "leaf/coupling.py": {
+      "bytes": 28207,
+      "sha256": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247"
+    },
+    "leaf/demography.py": {
+      "bytes": 35677,
+      "sha256": "7648b8f4a23016dc07196b9c790498bccb3cf18db0a20bbbda408974834dce1a"
+    },
+    "leaf/disturbance.py": {
+      "bytes": 45703,
+      "sha256": "38a9dfa4521cdcb2512b904a83d5f2af4fbad97fa1a0c972bb70b0cb6906f9c0"
+    },
+    "leaf/events.py": {
+      "bytes": 15605,
+      "sha256": "2ec912dac4a5bb4ae1f52a64ef99e74e973d7f7dc68993f0f083fceb3cbed98e"
+    },
+    "leaf/forcing.py": {
+      "bytes": 19206,
+      "sha256": "fa79d12f2c96a15aac8012d713976ece8b4c055ca567968251225635fa9d7474"
+    },
+    "leaf/growth.py": {
+      "bytes": 70330,
+      "sha256": "ce984de33fc8ec1154449706d8c59c8e31166b732ebedb6648bc47f68513998a"
+    },
+    "leaf/initialization.py": {
+      "bytes": 38252,
+      "sha256": "df3e2184e1c9e8c5483884b8e371472dac059cda50e549e27251f8f8caa52a19"
+    },
+    "leaf/interevent.py": {
+      "bytes": 134012,
+      "sha256": "ff7b9287c9ac810287dde89bcbb550af6b4f8380eeb5ee55d5a98d161f78ff5f"
+    },
+    "leaf/recording.py": {
+      "bytes": 8755,
+      "sha256": "49564345dd53505148de90de00b5bcb02d7d0e23b8b483e75ebac96af2ff9ef0"
+    },
+    "leaf/recruitment.py": {
+      "bytes": 42194,
+      "sha256": "a4918c363e84d10465fc9bea6d1c22664c6236eb05ad139d7daf4f925f99e632"
+    },
+    "leaf/roots.py": {
+      "bytes": 31951,
+      "sha256": "6cf7ab0fd2ee5c508d48ef6d8071022dd58faa67fcbc8de9974ad9d752601b50"
+    },
+    "leaf/runtime.py": {
+      "bytes": 22606,
+      "sha256": "abbea7b0f873d87139f92c9eb4a6989f657def504c2080379d728f7ceb121826"
+    },
+    "leaf/state.py": {
+      "bytes": 66604,
+      "sha256": "a9eefbc5520b094d0a5ec63b5ca5e8f1a1f2d0595595bb1b80a6ca33774a62cd"
+    },
+    "leaf/stepwat.py": {
+      "bytes": 32213,
+      "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a"
+    },
+    "leaf/syrup_water.py": {
+      "bytes": 65854,
+      "sha256": "baefec2a100b751cc35bda8739ea5d04339681f0d3f9d6b900972986161db215"
+    },
+    "leaf/traits.py": {
+      "bytes": 28196,
+      "sha256": "693b0a0b3093480e198a072240ea4d93177af66823929c6b8747464388db7b89"
+    },
+    "leaf/uptake.py": {
+      "bytes": 67742,
+      "sha256": "675e4bf4b9a9c202ae166f50444032c105d4d691f366f94479034814952bfe2d"
+    },
+    "parameters/candidates/jornada-uptake.json": {
+      "bytes": 3596,
+      "sha256": "6e47b8d080c5e286d6c7f21c36542332004da1fb38160d1b01b4f2175bb18d6b"
+    },
+    "parameters/candidates/study-stepwat.json": {
+      "bytes": 23416,
+      "sha256": "b769fa845290661e0edba9a01cd5f2b6559f3f8aca7f2e03b475ad7bacd1c23a"
+    },
+    "pyproject.toml": {
+      "bytes": 956,
+      "sha256": "76fae76c6026ab990d979349ffbc641059622d5bc44ac20aa9911c39df6e2216"
+    },
+    "tests/test_coupling.py": {
+      "bytes": 35905,
+      "sha256": "13dcea19c2137c3dde3e813beedf5efe76e5b2c26fdac5027d4e336ece5e7efb"
+    },
+    "tests/test_daily_water_growth.py": {
+      "bytes": 35234,
+      "sha256": "c73ae335a1a89d965e9af8dde83bfb8e252e39393154afabc26bda5ebf39deb4"
+    },
+    "tests/test_demography.py": {
+      "bytes": 33167,
+      "sha256": "4f1d5657770f228fd828ddb505d1dc5893057955b197d384ad4c8141464b737a"
+    },
+    "tests/test_disturbance.py": {
+      "bytes": 25597,
+      "sha256": "e20487b13a9010881b3d8b3ac2b525d840b583dade7abcaa5de7825c4e997db5"
+    },
+    "tests/test_forcing.py": {
+      "bytes": 13771,
+      "sha256": "98fdc620aebc72ba5ffbc7cf7802bce329b2c4a68e634ba96c52a4604d2772e5"
+    },
+    "tests/test_growth.py": {
+      "bytes": 51898,
+      "sha256": "7a849b2a5c995e3a83115438ec032f6b9f958b650683d08220d2c862baca5f08"
+    },
+    "tests/test_initial_ages.py": {
+      "bytes": 20746,
+      "sha256": "36f084538376d6830e2bac3078bea737473d96d59e602985784430ec84677d69"
+    },
+    "tests/test_interevent.py": {
+      "bytes": 152348,
+      "sha256": "fafc22f7bc49f994c39f3bab552c4959b9c25bf69f8b744cd4c2b4e201af26d5"
+    },
+    "tests/test_phase0.py": {
+      "bytes": 116329,
+      "sha256": "96380d313f1201a649e80e8a35048a01cdb3ee52c962c12577644287e0a3a91e"
+    },
+    "tests/test_plant_csv.py": {
+      "bytes": 47676,
+      "sha256": "0f1cb4b773f782f14586997f4ba8942f24ad9a520eaa36c7aea1482d091fd218"
+    },
+    "tests/test_recruitment.py": {
+      "bytes": 20525,
+      "sha256": "795bac6bd6e43d60bbaf2ff4dfec7fa815e22f863406cb0b696c31c484a26e7c"
+    },
+    "tests/test_roots.py": {
+      "bytes": 28575,
+      "sha256": "128b124e0c61a9bbd75be6bfc32e40a1f32dd8b31ee7a7807629155a68b6bd4f"
+    },
+    "tests/test_spatial_mapping.py": {
+      "bytes": 12394,
+      "sha256": "f8bfcc31e0fdf0298d640c7762c302492c0fe858c53d39595a6d092dea906cb0"
+    },
+    "tests/test_stepwat.py": {
+      "bytes": 45666,
+      "sha256": "5b41f10aa3b5b9eda7e05adb72b1166f00c6a802c3b03827f40563c12f89d609"
+    },
+    "tests/test_syrup_water.py": {
+      "bytes": 67280,
+      "sha256": "c48cefcc2e10a674c5d833290f6a7af846854b15db16d66ced1352e9bf91febd"
+    },
+    "tests/test_uptake.py": {
+      "bytes": 39824,
+      "sha256": "0fd6838f77e3da147e34c76542f28399a8c99325a279914a7f25a614e179621d"
+    }
+  },
+  "locks": [
+    "dependencies/canopy-view.lock.json",
+    "dependencies/phase0-vegetation.lock.json",
+    "dependencies/phase1-native-growth.lock.json",
+    "dependencies/phase2-disturbance.lock.json",
+    "dependencies/phase3-reproduction.lock.json",
+    "dependencies/stepwat-growth.lock.json",
+    "dependencies/syrup-subsurface.lock.json",
+    "pyproject.toml"
+  ],
+  "phase3_pause": {
+    "reason": "Prioritize MASY/SYRUP daily lifecycle plant interface, per user 2026-11-12",
+    "preserve": [
+      "leaf/reproduction.py",
+      "tests/test_reproduction.py",
+      "examples/phase3/",
+      "cases/jornada_grass05_shrub10_256/",
+      "agent_handoffs/tasks/leaf_phase3_20261111/"
+    ],
+    "resume": "Report Phase 3 mechanics and parameterization/validation gaps after this interface task is independently accepted, committed and pushed; no new ecological laws or trial run."
+  }
+}

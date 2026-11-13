@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-B",
+    "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/qualify_native_pipeline.py"
+  ],
+  "cwd": "/home/okin/leaf",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/review_03:/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cuda/objects/maple-materialized/53a3e569dff6fd9d62a73eec1f35627645b93401a4510d873d9f0bf24cfd4366/editable:/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cuda/objects/maple-materialized/53a3e569dff6fd9d62a73eec1f35627645b93401a4510d873d9f0bf24cfd4366/source/src:/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15/src",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/numba_cache",
+    "CUDA_VISIBLE_DEVICES": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "LEAF_NATIVE_BUNDLE": "/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cuda/objects/maple-materialized/53a3e569dff6fd9d62a73eec1f35627645b93401a4510d873d9f0bf24cfd4366",
+    "LEAF_NATIVE_CASE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15/docs/manuals/examples/native_leaf_calendar_cli",
+    "LEAF_NATIVE_BACKEND": "cuda",
+    "LEAF_NATIVE_DEVICE": "0",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/cupy_cache",
+    "LEAF_CHECK_ROOT": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/review_03",
+    "LEAF_CHECK_WORK": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/qualify03_cuda"
+  }
+}

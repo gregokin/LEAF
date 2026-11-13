@@ -1,0 +1,34 @@
+{
+  "recorded_at": "2026-11-12T23:20:47.481026+00:00",
+  "changed_files": [
+    "interface_report.md",
+    "leaf/lifecycle_bridge.py",
+    "leaf/plant_session.py",
+    "leaf/plant_pet.py",
+    "leaf/plant_checkpoint.py",
+    "leaf/growth.py",
+    "leaf/biocalendar.py",
+    "tests/native_leaf_fixture.py",
+    "tests/test_plant_session.py",
+    "tests/test_plant_checkpoint.py",
+    "tests/test_lifecycle_bridge.py",
+    "tests/test_plant_pet.py",
+    "tests/test_biocalendar.py",
+    "docs/masy-daily-plant-interface.md",
+    "examples/masy_daily_plants.py"
+  ],
+  "out_of_scope_changes": [],
+  "tool_counts": {
+    "Read": 40,
+    "Edit": 22,
+    "Write": 14
+  },
+  "out_of_scope_reads": [],
+  "out_of_scope_writes": [],
+  "structured_results": [
+    {
+      "is_error": false,
+      "subtype": "success"
+    }
+  ]
+}

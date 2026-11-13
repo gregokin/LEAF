@@ -403,3 +403,16 @@ biomass relationship does not select its recruitment pathway for a grama.
 The current BOER trial record already has `seed: null` and an enabled clonal
 pathway. This decision records the user's scenario policy; it does not supply
 measured recruitment probabilities or introduce another species into the case.
+
+## MASY daily plant lifecycle interface — 2026-11-12
+
+LEAF owns plants/roots/demand/allocation/biological growth; SYRUP owns every physical water update.
+MASY controls shared forcing, nominal calendar fragments, call order and combined acceptance/checkpoints.
+Use the water-free `PlantSession`, not the combined `IntereventSession`, after MASY calls native daily water.
+The visible zero-time native T transaction returns actual accepted uptake before biological staging.
+Bindings require nominal day/run, initial consumed resource cursor, exact parent capability and biological
+population/geometry/plan identity. No compensatory root uptake or new ecological law. Preserve the
+qualified explicit T-off/G-on refusal; T-on/G-off is real water with no later growth credit.
+
+New connection selects published N15 a5b8b18; historical c76c603 standalone locks/guards remain.
+Phase3 code, parameters and trial case unchanged. [Acceptance and source identities](tasks/masy_daily_plant_interface_20261112/final_review.md).

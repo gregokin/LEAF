@@ -1,3 +1,8 @@
-# Codex review — ACCEPT; published
+# Codex review — ACCEPT
 
-[Literature scenario update](tasks/literature_parameters_20261111/final_review.md) accepted after independent primary-source review and three bounded Claude revisions. Ten numeric parameters updated; per-parameter citations, original species/site, proxy and gap labels added. Candidate and installed tree each passed 70 schema/arithmetic/preservation checks. Historical preview preserved with exact frozen catalog. No model run or new initialization. Published commit `416ba95bdac825c9033343b932363da237b8fa8b`; [remote verification](tasks/literature_parameters_20261111/publication.json).
+Task [masy_daily_plant_interface_20261112](tasks/masy_daily_plant_interface_20261112/final_review.md).
+Accepted after independent review and CPU/Numba/actual CUDA verification. Exact source pair,
+commands, reaped exits and limitations: [qualification](tasks/masy_daily_plant_interface_20261112/qualification.json).
+Accepted implementation installed byte-for-byte; [installation checks](tasks/masy_daily_plant_interface_20261112/installed_manifest.json).
+This qualifies interface mechanics, not ecology or full MASY coupling. Trial case and existing Phase3 work preserved.
+User-authorized commit/push pending; Phase3 resumes with the [status report](tasks/masy_daily_plant_interface_20261112/phase3_status.md).

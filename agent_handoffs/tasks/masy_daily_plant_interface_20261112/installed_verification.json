@@ -1,0 +1,22 @@
+{
+  "focused": {
+    "returncode": 0,
+    "child_reaped": true,
+    "elapsed_seconds": 5.793067985912785,
+    "ended_at_utc": "2026-11-13T00:12:10.544720+00:00"
+  },
+  "focused_passed": 53,
+  "focused_subtests_passed": 36,
+  "public_example": {
+    "returncode": 0,
+    "child_reaped": true,
+    "elapsed_seconds": 6.549153612926602,
+    "ended_at_utc": "2026-11-13T00:12:11.301002+00:00"
+  },
+  "public_example_days": 3,
+  "evidence": [
+    "installed_focused.stdout.log",
+    "installed_example.stdout.log"
+  ],
+  "source_and_case_preservation": "preservation.json"
+}

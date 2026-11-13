@@ -1,0 +1,12 @@
+test_visible_daily_sequence_counts_water_closure_and_clock (test_lifecycle_bridge.NativeDailyTests.test_visible_daily_sequence_counts_water_closure_and_clock) ... ok
+test_refusals (test_lifecycle_bridge.ResultValidationTests.test_refusals) ... ok
+test_valid_successor_is_accepted_and_converted_once (test_lifecycle_bridge.ResultValidationTests.test_valid_successor_is_accepted_and_converted_once) ... ok
+test_debit_identity_bounds (test_lifecycle_bridge.ValueObjectTests.test_debit_identity_bounds) ... ok
+test_identity_round_trip_and_closed_validation (test_lifecycle_bridge.ValueObjectTests.test_identity_round_trip_and_closed_validation) ... ok
+test_single_depth_volume_conversion_per_direction (test_lifecycle_bridge.ValueObjectTests.test_single_depth_volume_conversion_per_direction) ... ok
+test_source_selection_refuses_other_packages_before_any_import (test_lifecycle_bridge.ValueObjectTests.test_source_selection_refuses_other_packages_before_any_import) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 4.936s
+
+OK

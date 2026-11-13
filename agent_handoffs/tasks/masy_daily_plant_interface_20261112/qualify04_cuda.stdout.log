@@ -1,0 +1,174 @@
+{
+  "backend": "cuda",
+  "source": "82e9c0111b9d883f857fd2f28a21f1d8bd8f13e22d473796e736ca4204f30107",
+  "native_maple_package": "fbc504bbcd1ec0c02e6a96089134a06187532455ef7ba5e6f146801c8313c02e",
+  "startup_wall_s": 5.294714485993609,
+  "rows": [
+    {
+      "day": 0,
+      "hydro_count": 1,
+      "n_requests": 1,
+      "t_s": 86400.0,
+      "T_actual_m3": 5.800969220285793e-05,
+      "closure_residual_m3": -1.3010426069826053e-18,
+      "closure_bound_m3": 7.49281630644607e-14,
+      "growth_updates": 0,
+      "wall_s": 0.30713709886185825,
+      "resident_array_bytes": 2827
+    },
+    {
+      "day": 1,
+      "hydro_count": 2,
+      "n_requests": 2,
+      "t_s": 172800.0,
+      "T_actual_m3": 5.800969220285793e-05,
+      "closure_residual_m3": -3.469446951953614e-18,
+      "closure_bound_m3": 1.4919715941250852e-13,
+      "growth_updates": 0,
+      "wall_s": 0.25128023512661457,
+      "resident_array_bytes": 2827
+    },
+    {
+      "day": 2,
+      "hydro_count": 3,
+      "n_requests": 3,
+      "t_s": 259200.0,
+      "T_actual_m3": 5.800969220285793e-05,
+      "closure_residual_m3": -5.204170427930421e-18,
+      "closure_bound_m3": 2.2798393951249696e-13,
+      "growth_updates": 0,
+      "wall_s": 0.3032032800838351,
+      "resident_array_bytes": 2827
+    },
+    {
+      "day": 3,
+      "hydro_count": 4,
+      "n_requests": 4,
+      "t_s": 345600.0,
+      "T_actual_m3": 5.800969220285793e-05,
+      "closure_residual_m3": -6.938893903907228e-18,
+      "closure_bound_m3": 3.107337502239866e-13,
+      "growth_updates": 0,
+      "wall_s": 0.2686088921036571,
+      "resident_array_bytes": 2827
+    },
+    {
+      "day": 4,
+      "hydro_count": 5,
+      "n_requests": 5,
+      "t_s": 432000.0,
+      "T_actual_m3": 5.800969220285793e-05,
+      "closure_residual_m3": -5.204170427930421e-18,
+      "closure_bound_m3": 3.953673429787183e-13,
+      "growth_updates": 0,
+      "wall_s": 0.22370950086042285,
+      "resident_array_bytes": 2827
+    },
+    {
+      "day": 5,
+      "hydro_count": 6,
+      "n_requests": 6,
+      "t_s": 518400.0,
+      "T_actual_m3": 5.800969220285793e-05,
+      "closure_residual_m3": 0.0,
+      "closure_bound_m3": 4.800862008617424e-13,
+      "growth_updates": 0,
+      "wall_s": 0.2680468789767474,
+      "resident_array_bytes": 2827
+    },
+    {
+      "day": 6,
+      "hydro_count": 7,
+      "n_requests": 7,
+      "t_s": 604800.0,
+      "T_actual_m3": 5.800969220285793e-05,
+      "closure_residual_m3": -3.469446951953614e-18,
+      "closure_bound_m3": 5.64890323873059e-13,
+      "growth_updates": 1,
+      "wall_s": 0.3616963739041239,
+      "resident_array_bytes": 2827
+    },
+    {
+      "day": 7,
+      "hydro_count": 8,
+      "n_requests": 8,
+      "t_s": 691200.0,
+      "T_actual_m3": 5.847936290571102e-05,
+      "closure_residual_m3": 1.0408340855860843e-17,
+      "closure_bound_m3": 6.497797366245995e-13,
+      "growth_updates": 1,
+      "wall_s": 0.2179990941658616,
+      "resident_array_bytes": 2827
+    }
+  ],
+  "model_days": 8,
+  "physical_seconds": 691200.0,
+  "one_hydro_and_one_T_each_day": true,
+  "late_geometry_rollback": true,
+  "pending_after_debit_resume_without_water_replay": true,
+  "closed_boundary_restart": true,
+  "final_counters": {
+    "days_dry": 0,
+    "days_open": 8,
+    "days_transport": 0,
+    "flushes": 0,
+    "geometry_rebuilds": 1,
+    "growth_updates": 1,
+    "season_turnovers": 0,
+    "withdrawals_accepted": 8,
+    "year_ends": 0
+  },
+  "growth_disabled_T_has_no_credit": true,
+  "final_dry_agb_kg": [
+    0.10082288740702948,
+    0.10097689737067808,
+    0.10089659748847492
+  ],
+  "final_seasonal_dry_agb_kg": [
+    3.024393330849874e-06,
+    0.00015703435697944857,
+    7.673447477628792e-05
+  ],
+  "final_age_days": [
+    108.0,
+    108.0,
+    108.0
+  ],
+  "byte_ledger": {
+    "reserve_bytes": 0,
+    "max_bytes": 268435456,
+    "accepted_items": {
+      "working_arrays_45_per_live": 135,
+      "live_rows_and_ids_16_per_live": 48,
+      "stress_and_annual_arrays": 0,
+      "species_tables_and_integrals": 480,
+      "phase2_3_tables": 0,
+      "base_population": 186,
+      "root_map": 1488,
+      "canopy_map": 304,
+      "retained_geometry_state": 186
+    },
+    "accepted_total": 2827,
+    "candidate_coexistence": 3874,
+    "stage_estimates": {
+      "demand_per_plant": 1087,
+      "grow": 1183,
+      "uptake_plan": 1664,
+      "uptake_feedback": 960,
+      "credit_increment": 155,
+      "rebuild_materialize_and_geometry": 1047,
+      "canopy_pet": 28
+    },
+    "start_lower_bound": 2978,
+    "definition": "structural conservative estimates of live bytes; interpreter, JIT, CUDA context and allocator pools excluded"
+  },
+  "max_bytes": 268435456,
+  "tracemalloc_current_bytes": 248776,
+  "tracemalloc_peak_bytes": 1449439,
+  "process_maxrss_kib": 708820,
+  "memory_scope": "tracemalloc includes Python and CPU allocations after initialization; RSS includes native/JIT/context peak. CUDA pool live peak includes native+LEAF and pool alignment, excludes context and cached free blocks. Synthetic three-plant 4x6 harness, no domain extrapolation.",
+  "cuda_pool_live_peak_bytes": 158720,
+  "cuda_pool_retained_bytes": 163328,
+  "cuda_allocation_calls": 8423,
+  "cuda_free_calls": 8379
+}

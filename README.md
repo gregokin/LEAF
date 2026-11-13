@@ -14,6 +14,17 @@ coupling is implemented. LEAF now publishes MAPLE-compatible canopy objects and
 accepts event diagnostics; MAPLE / SYRUP adoption and calibrated ecological laws remain future work (uncalibrated
 species injury and mortality responses are available from Phase 2 below).
 
+## MASY daily plant coordination
+
+The [daily plant interface](docs/masy-daily-plant-interface.md) exposes demand,
+root allocation, actual-uptake feedback, staged growth and biological restart
+while MASY sequences SYRUP's daily water lifecycle. SYRUP owns every physical
+water update; LEAF calls no additional hydrology or debit. The new connection
+selects the published SYRUP Phase 1.5 source explicitly and preserves the older
+standalone drivers and their source guards. CPU, Numba and CUDA interface checks
+are recorded in the [independent qualification](agent_handoffs/tasks/masy_daily_plant_interface_20261112/final_review.md).
+These are tested mechanics; ecological calibration and full MASY acceptance remain open.
+
 ## Phase 0: initialize and exchange vegetation
 
 The [Phase 0 guide](docs/phase0-vegetation.md) documents the implemented species

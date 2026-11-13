@@ -1,0 +1,9 @@
+{
+  "wind_context_accepted_as_interevent": false,
+  "wind_context_demand_m3": null,
+  "wind_error": "process_kind 'wind' is a wind/rain/water-event/recession step; LEAF interevent records never catch up over such steps (only interevent steps are admitted)",
+  "missing_day_mapping_accepts_unrelated_nominal_year": true,
+  "nominal_date": "2037-06-01",
+  "native_daily_ordinal": 0,
+  "unbound_error": null
+}

@@ -1,0 +1,66 @@
+{
+  "installed_at_utc": "2026-11-13T00:11:45.667548+00:00",
+  "files": {
+    "leaf/plant_pet.py": {
+      "sha256": "ec831f57d62655bbf9766c27e36dc17c7a89de96cf2b3e18a2bc0448af0d1b17",
+      "size_bytes": 43205
+    },
+    "leaf/biocalendar.py": {
+      "sha256": "0cdc8ce1088a126967d1251820f4caae66a82c1250d815a09bf237f418175973",
+      "size_bytes": 33261
+    },
+    "leaf/growth.py": {
+      "sha256": "6664c7194ca7df3f731fe82f9527cf6f60835c5517aca60dbc591cf719d2aa58",
+      "size_bytes": 82012
+    },
+    "leaf/plant_session.py": {
+      "sha256": "464bc5a18ebc519181ce224b229cd9371ba5de0ae2bdd4f2b6eb303e4fd77ea2",
+      "size_bytes": 103202
+    },
+    "leaf/plant_checkpoint.py": {
+      "sha256": "56a42071106a1e65676f86e44744c7c5841210ce4e29bcf366d6f6f838adbb48",
+      "size_bytes": 30761
+    },
+    "leaf/lifecycle_bridge.py": {
+      "sha256": "63896e6fe8ffd7e436790203006bf2ae248febb7f9cccd6f9cb98314d571cd91",
+      "size_bytes": 24530
+    },
+    "tests/test_plant_session.py": {
+      "sha256": "a141363f22d09ba8c12eae0fd19622625ce45a242cbf2667fdd0920877a491a2",
+      "size_bytes": 32290
+    },
+    "tests/test_plant_checkpoint.py": {
+      "sha256": "a4161114be78cc146b324a7041a23594b7ee57c6fab6680e5df0c2702a2376ae",
+      "size_bytes": 16328
+    },
+    "tests/test_lifecycle_bridge.py": {
+      "sha256": "72607af5ee8d41f4ce20296c3db0e227c6f1f7fa5d13e8e85a1aac8dda3dc3cd",
+      "size_bytes": 19066
+    },
+    "tests/test_plant_pet.py": {
+      "sha256": "e3339d1d87ffd365e08099a65dbfaeafd444714c2df66efcb73e7803901cf22a",
+      "size_bytes": 7861
+    },
+    "tests/test_biocalendar.py": {
+      "sha256": "4bcd285815ead157b10a4bb3d18d76180c1c8bd4bbc042aaa4293986e2f27c77",
+      "size_bytes": 4575
+    },
+    "tests/native_leaf_fixture.py": {
+      "sha256": "e61d2af55c8b7cb587fe091a2d847e4a9d05f66f8dc21cec19e9a69bdb584f5d",
+      "size_bytes": 12866
+    },
+    "docs/masy-daily-plant-interface.md": {
+      "sha256": "e7d100a98f7e16cd75976d2e2ae3c5ab6df13d1a94aa9c18e8de256bf6c5858a",
+      "size_bytes": 17204
+    },
+    "examples/masy_daily_plants.py": {
+      "sha256": "4a83735d2b7b387d598a5b53f2d804d6858964ce2cc9051a08908cec92999388",
+      "size_bytes": 8607
+    },
+    "tests/test_plant_boundaries.py": {
+      "sha256": "3e5596df79aad664f1fa1d757892a540913a0b8dd6647a33cbb33e7f3c049fd0",
+      "size_bytes": 14555
+    }
+  },
+  "matches_accepted_snapshot": true
+}

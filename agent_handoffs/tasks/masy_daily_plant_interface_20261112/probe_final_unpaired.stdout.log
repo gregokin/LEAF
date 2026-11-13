@@ -1,0 +1,8 @@
+{
+  "unpaired_extra_transpiration_accepted_for_next_fragment": false,
+  "unpaired_extra_transpiration_accepted_as_checkpoint_pair": false,
+  "next_error": "unhandled T history: the state has request sequence 2 / 2 requests but LEAF has consumed 1 / 1; a T debit without LEAF feedback is never silently adopted (hydrology / close / storm transitions with the SAME T counts are fine)",
+  "save_error": "unhandled T history: the external reference has 2 / 2 T requests but LEAF consumed 1 / 1; a T debit without feedback cannot be paired (supply the PendingStage of that debit)",
+  "consumed_T": 1,
+  "physical_T": 2
+}

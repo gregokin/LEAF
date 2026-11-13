@@ -1,0 +1,9 @@
+{
+  "wind_context_accepted_as_interevent": false,
+  "wind_context_demand_m3": null,
+  "wind_error": "process_kind 'wind' is a wind/rain/water-event/recession step; LEAF interevent records never catch up over such steps (only interevent steps are admitted)",
+  "missing_day_mapping_accepts_unrelated_nominal_year": false,
+  "nominal_date": "2037-06-01",
+  "native_daily_ordinal": 0,
+  "unbound_error": "water is not connected: the session needs an explicit DayBinding (nominal origin + SYRUP daily run) AND an initial resource cursor (start(..., day_binding=, initial_resource=) or stage_connect_water) before any proposal; a transport-only session cannot allocate"
+}

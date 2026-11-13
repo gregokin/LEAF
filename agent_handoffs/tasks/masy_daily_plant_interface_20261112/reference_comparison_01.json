@@ -1,0 +1,20 @@
+{
+  "growth.py": {
+    "same_bytes": true,
+    "candidate_sha256": "6664c7194ca7df3f731fe82f9527cf6f60835c5517aca60dbc591cf719d2aa58",
+    "reference_sha256": "6664c7194ca7df3f731fe82f9527cf6f60835c5517aca60dbc591cf719d2aa58",
+    "same_ast": true
+  },
+  "plant_pet.py": {
+    "same_bytes": true,
+    "candidate_sha256": "ec831f57d62655bbf9766c27e36dc17c7a89de96cf2b3e18a2bc0448af0d1b17",
+    "reference_sha256": "ec831f57d62655bbf9766c27e36dc17c7a89de96cf2b3e18a2bc0448af0d1b17",
+    "same_ast": true
+  },
+  "biocalendar.py": {
+    "same_bytes": true,
+    "candidate_sha256": "c2a911ad66e84b420fe948f40a1f80b4d286bd569bec065d10b468ad0570e8e5",
+    "reference_sha256": "c2a911ad66e84b420fe948f40a1f80b4d286bd569bec065d10b468ad0570e8e5",
+    "same_ast": true
+  }
+}

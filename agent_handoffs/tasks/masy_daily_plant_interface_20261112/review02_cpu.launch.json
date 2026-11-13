@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_plant_session.py",
+    "tests/test_plant_checkpoint.py",
+    "tests/test_plant_pet.py",
+    "tests/test_biocalendar.py",
+    "tests/test_lifecycle_bridge.py",
+    "tests/test_plant_boundaries.py",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/review_02",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/review_02:/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_legacy/src",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/numba_cache",
+    "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "pid": 8,
+  "start_ticks": "199848574",
+  "started_at_utc": "2026-11-12T23:44:54.043101+00:00"
+}

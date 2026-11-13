@@ -1,0 +1,38 @@
+{
+  "status": "ACCEPTED_BOUNDED_LEAF_LATEST_API_RECONCILIATION_CPU_GPU_NOT_COUPLED",
+  "utc": "2026-11-12T03:57:53.627946+00:00",
+  "baseline_git": "9fd4bbbe2faae907922ed7194f633caa1da3624f",
+  "candidate": "claude_author01_snapshot",
+  "leaf_package_sha256": "8da24af5a672138bab335d8fd1d4518c5a17ae90db9b400c5d211cc0c768fa4b",
+  "leaf_source_files": 23,
+  "manifest": "root_author01_manifest.json",
+  "original_modified": [
+    "leaf/growth.py",
+    "leaf/interevent.py"
+  ],
+  "new_production": [
+    "leaf/biocalendar.py",
+    "leaf/plant_pet.py"
+  ],
+  "other_original_files_exact": true,
+  "root_ast_review": "root_source_review.json",
+  "root_cpu_prior": "113passed9skipped9.51s",
+  "root_cpu_water109": "99passed23skipped8.82s",
+  "root_upstream_cpu_prior": "322passed27skipped57subtests16.51s",
+  "root_cpu_tool_session": "37761closed0/reaped",
+  "root_gpu": "8passed10deselected2.05s one invocation,14933closed0/reaped",
+  "gpu_run": "root_gpu_latest_api_native9f_20261112T035545877275Z",
+  "source_pair": {
+    "syrup": "afcad53691b9d295ed560116d313419c08fc5ffe9b227a4bdd9c922f93c52671",
+    "native": "fbc504bbcd1ec0c02e6a96089134a06187532455ef7ba5e6f146801c8313c02e",
+    "native_commit": "9f466d2cfcd52991b24496cf67f4562d6268afa9"
+  },
+  "limits": [
+    "No liveadoption/Gitcommit/push/wholephasecomplete",
+    "Current MASY candidate still pinsd4fe; needs NEWexplicitprofile/biologycodecversion with currentcanonicalCSV+metadata",
+    "No coupledcalendar/jointrestart/wind/field/scaling/RSS claim",
+    "Actualnative A/T speciesintegrals remainHOST, D/Ucompute backend; genericcreditGPUutility notnativecouplinglayout",
+    "Oldsourceprofiles/checkpoints not rebound; oldnativeSession stillcorrectly refuses water109 under strictguard",
+    "FullHEAD142trackedupstreamsymlinks retained bylinktarget, not traversed/copied live source; only package23 imported"
+  ]
+}

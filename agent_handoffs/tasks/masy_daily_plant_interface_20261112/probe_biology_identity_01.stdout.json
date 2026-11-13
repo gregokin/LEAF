@@ -1,0 +1,7 @@
+{
+  "different_plants_same_parent_token": true,
+  "foreign_plant_plan_accepted": true,
+  "caller_mutation_changed_accepted_locations": false,
+  "ordinary_one_day_restart_ok": true,
+  "restart_error": null
+}

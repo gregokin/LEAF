@@ -1,0 +1,9 @@
+{
+  "initial_cached_whitespace_check": "raw pytest logs contain literal trailing spaces; preserved unmodified",
+  "resolution": "task-local .gitattributes marks raw .log artifacts whitespace-exempt; code/docs retain checks",
+  "additional_staged_paths": [
+    "agent_handoffs/tasks/masy_daily_plant_interface_20261112/.gitattributes",
+    "agent_handoffs/tasks/masy_daily_plant_interface_20261112/publication_checks.json"
+  ],
+  "source_or_test_change": false
+}

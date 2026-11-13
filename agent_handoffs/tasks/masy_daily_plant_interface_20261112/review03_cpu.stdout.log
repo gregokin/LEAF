@@ -1,0 +1,19 @@
+...F........................................ [ 54%]
+.......................ssss..........                     [100%]
+=================================== FAILURES ===================================
+______ DailyFlowTests.test_transpiration_off_growth_off_is_calendar_only _______
+
+self = <test_plant_session.DailyFlowTests testMethod=test_transpiration_off_growth_off_is_calendar_only>
+
+    def test_transpiration_off_growth_off_is_calendar_only(self):
+        s, _ = fresh()
+        c, plan, prop, st = nf.run_day(s, nf.anchor(), 0, t=False, g=False)
+        self.assertIsNone(prop)
+        self.assertEqual(c.counters()['days_dry'], 1)
+>       self.assertIsNone(c.resource_cursor)
+E       AssertionError: ResourceIdentity(lop_sha256='cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc', parent_digest='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', revision=0, request_sequence=0, hydro_count=0, n_requests=0, t_s=0.0, role='interevent', daily_ordinal=None, daily_run='dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd', daily_pending=False) is not None
+
+tests/test_plant_session.py:125: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_plant_session.py::DailyFlowTests::test_transpiration_off_growth_off_is_calendar_only
+1 failed, 76 passed, 4 skipped, 43 subtests passed in 7.75s

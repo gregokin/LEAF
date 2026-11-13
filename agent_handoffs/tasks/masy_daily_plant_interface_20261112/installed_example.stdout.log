@@ -1,0 +1,62 @@
+{
+  "days": [
+    {
+      "date": "2027-06-01",
+      "day": 0,
+      "requested_m3": 5.1897914487094226e-05,
+      "delivered_m3": 5.189791448709424e-05,
+      "unmet_m3": 6.776263578034403e-21,
+      "n_plants_unsatisfied": 1,
+      "syrup_t_requests": 1,
+      "syrup_clock_s": 86400.0,
+      "syrup_hydro_count": 1,
+      "growth_updates": 0
+    },
+    {
+      "date": "2027-06-02",
+      "day": 1,
+      "requested_m3": 5.1897914487094226e-05,
+      "delivered_m3": 5.189791448709424e-05,
+      "unmet_m3": 6.776263578034403e-21,
+      "n_plants_unsatisfied": 1,
+      "syrup_t_requests": 2,
+      "syrup_clock_s": 172800.0,
+      "syrup_hydro_count": 2,
+      "growth_updates": 0
+    },
+    {
+      "date": "2027-06-03",
+      "day": 2,
+      "requested_m3": 5.1897914487094226e-05,
+      "delivered_m3": 5.189791448709424e-05,
+      "unmet_m3": 6.776263578034403e-21,
+      "n_plants_unsatisfied": 1,
+      "syrup_t_requests": 3,
+      "syrup_clock_s": 259200.0,
+      "syrup_hydro_count": 3,
+      "growth_updates": 0
+    }
+  ],
+  "counters": {
+    "days_open": 3,
+    "days_dry": 0,
+    "days_transport": 0,
+    "withdrawals_accepted": 3,
+    "growth_updates": 0,
+    "season_turnovers": 0,
+    "flushes": 0,
+    "year_ends": 0,
+    "geometry_rebuilds": 0
+  },
+  "due_boundaries": {
+    "annual_decision_due_year": null,
+    "transport_awaiting_disturbance": null,
+    "reproduction_opportunity_year": null,
+    "deferred_season_due": false
+  },
+  "syrup_closure": {
+    "residual_m3": -1.734723475976807e-18,
+    "bound_m3": 2.2801698187330517e-13,
+    "transpiration_m3": 0.0001556937434612827
+  }
+}

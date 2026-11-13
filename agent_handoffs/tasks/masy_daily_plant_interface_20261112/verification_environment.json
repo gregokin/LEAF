@@ -1,0 +1,11 @@
+{
+  "python": "/home/okin/MAPLE/.venv-cupy/bin/python",
+  "syrup_phase15_commit": "a5b8b18358e0d014fe13c9f48d00eb582710655a",
+  "legacy_standalone_syrup_commit": "c76c603dde4e8f79ec48b18d954a386580d8bc89",
+  "cpu_bundle": "/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cpu/objects/maple-materialized/5d850789f9e82dc456227cb1eb4dfcc255b3ee4dfb0ed74883813c93e98d0ab3",
+  "cuda_bundle": "/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cuda/objects/maple-materialized/53a3e569dff6fd9d62a73eec1f35627645b93401a4510d873d9f0bf24cfd4366",
+  "cuda_physical_uuid": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+  "gpu_observation": "Physical GPU1 had 11107MiB free, 0 percent utilization and no listed compute processes at setup; recheck before actual GPU tests",
+  "recorded_at": "2026-11-12T23:02:13.689703+00:00",
+  "source_guard_policy": "Historical c76 standalone and N15 native lifecycle are separate fresh processes, never a silent import rebind."
+}

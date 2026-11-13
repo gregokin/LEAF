@@ -1,0 +1,23 @@
+{
+  "commit": "52f39fe06166a91e768740b19d3c26d4ffceaf6e",
+  "branch": "feature/subsurface-phase1",
+  "files": {
+    "leaf/plant_pet.py": {
+      "size": 43205,
+      "sha256": "ec831f57d62655bbf9766c27e36dc17c7a89de96cf2b3e18a2bc0448af0d1b17"
+    },
+    "leaf/biocalendar.py": {
+      "size": 32627,
+      "sha256": "c2a911ad66e84b420fe948f40a1f80b4d286bd569bec065d10b468ad0570e8e5"
+    },
+    "leaf/growth.py": {
+      "size": 82012,
+      "sha256": "6664c7194ca7df3f731fe82f9527cf6f60835c5517aca60dbc591cf719d2aa58"
+    },
+    "leaf/interevent.py": {
+      "size": 133945,
+      "sha256": "50bbc6ea064862156c3391d0cc4a74e76c287de243bd366b2869aa2e4a88c4ac"
+    }
+  },
+  "status": "Published C1 reference; explicitly reuse qualified PET/calendar extension, requalify combined connection on current main. Preserve old source locks."
+}

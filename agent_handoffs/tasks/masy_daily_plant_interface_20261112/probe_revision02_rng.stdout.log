@@ -1,0 +1,10 @@
+{
+  "rng_seed": {
+    "changed_configuration_accepted": true,
+    "same_token": true
+  },
+  "patch_size_m": {
+    "changed_configuration_accepted": true,
+    "same_token": true
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "convention": "raw Claude stdout is preserved locally and ignored by existing .gitignore; manifests, bounded prompts, scopes, exits and final reports versioned",
+  "streams": {
+    "claude_01.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tracked": true
+    },
+    "claude_01.stdout.jsonl": {
+      "bytes": 3501346,
+      "sha256": "c2b9358121e522dd7cc299ff12923529a6d7f8bb47074733faba530d13e1f9ff",
+      "tracked": false
+    },
+    "claude_02.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tracked": true
+    },
+    "claude_02.stdout.jsonl": {
+      "bytes": 2500681,
+      "sha256": "a1ec79ecd706689b4091ec4a6b5c27290aff8c516f3e19b49c855224d78d5415",
+      "tracked": false
+    },
+    "claude_03.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tracked": true
+    },
+    "claude_03.stdout.jsonl": {
+      "bytes": 2057334,
+      "sha256": "ae477f2a7572b3898840d4d6ce5e1ef1f942ee48892e50105a59a668495db846",
+      "tracked": false
+    },
+    "claude_04.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tracked": true
+    },
+    "claude_04.stdout.jsonl": {
+      "bytes": 676138,
+      "sha256": "c99f887f9d0cef8c66327350744004bd3a50dc9af34399020e548046b82de42c",
+      "tracked": false
+    },
+    "claude_05.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tracked": true
+    },
+    "claude_05.stdout.jsonl": {
+      "bytes": 164570,
+      "sha256": "0635ba2bbfbe6e7eabd12a4a28ef2c7e761595c2ff0ee4fd293eed3863eb07e1",
+      "tracked": false
+    }
+  }
+}

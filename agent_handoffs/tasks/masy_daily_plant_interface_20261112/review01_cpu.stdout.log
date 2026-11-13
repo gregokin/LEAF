@@ -1,0 +1,47 @@
+...............F...................................s            [100%]
+=================================== FAILURES ===================================
+_ BoundaryTests.test_transport_needs_flush_then_advances_calendar_and_age_only _
+
+self = <test_plant_session.BoundaryTests testMethod=test_transport_needs_flush_then_advances_calendar_and_age_only>
+
+    def test_transport_needs_flush_then_advances_calendar_and_age_only(self):
+        s, _ = fresh()
+        a = nf.anchor()
+        s = nf.run_day(s, a, 0)[0]
+        tday = ps.TransportDay(a + dt.timedelta(days=1), 'rain')
+        with self.assertRaises(ps.PlantSessionBoundaryError):
+            s.stage_transport(tday)
+        self.assertTrue(s.flush_required(next_growth_enabled=True, next_is_transport=True))
+        fl = s.stage_flush()
+        s = s.publish(fl)
+        self.assertEqual(s.counters()['flushes'], 1)
+        self.assertFalse(s.needs_flush())
+        snap0 = s.snapshot_state()
+        t = s.publish(s.stage_transport(tday))
+        snap1 = t.snapshot_state()
+        self.assertEqual(t.counters()['days_transport'], 1)
+        np.testing.assert_allclose(snap1.age_days - snap0.age_days, 1.0)             # nominal calendar age, not native seconds
+        np.testing.assert_array_equal(snap1.agb_dry_kg, snap0.agb_dry_kg)            # no growth in transport
+        self.assertEqual(t.resource_cursor, s.resource_cursor)                       # no water, no resource change
+        with self.assertRaises(ps.PlantSessionBoundaryError):
+>           s.stage_flush()                                                          # nothing pending
+            ^^^^^^^^^^^^^^^
+
+tests/test_plant_session.py:232: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+leaf/plant_session.py:818: in stage_flush
+    self._check_token(self.token, 'flush')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_token(self, obj_token, what):
+        if obj_token != self.token:
+            raise PlantSessionStateError(f'{what} was prepared for another accepted parent (stale or foreign lineage); refused')
+        if self._succ:
+>           raise PlantSessionStateError('this parent already has a published successor; stage from the successor (duplicate '
+                                         'or stale use refused)')
+E           leaf.plant_session.PlantSessionStateError: this parent already has a published successor; stage from the successor (duplicate or stale use refused)
+
+leaf/plant_session.py:560: PlantSessionStateError
+=========================== short test summary info ============================
+FAILED tests/test_plant_session.py::BoundaryTests::test_transport_needs_flush_then_advances_calendar_and_age_only
+1 failed, 50 passed, 1 skipped, 9 subtests passed in 4.25s

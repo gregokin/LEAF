@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/probe_revision02_rng.py"
+  ],
+  "cwd": "/home/okin/leaf",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/review_02:/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_legacy/src",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/numba_cache",
+    "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "pid": 8,
+  "start_ticks": "199935700",
+  "started_at_utc": "2026-11-12T23:59:25.307838+00:00"
+}

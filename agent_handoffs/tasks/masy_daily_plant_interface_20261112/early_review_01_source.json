@@ -1,0 +1,10 @@
+{
+  "recorded_at": "2026-11-12T23:10:02.422252+00:00",
+  "file": "public_evidence/early_review_01/lifecycle_bridge.py",
+  "sha256": "5363c4f9d29ceb87d379260f68b40371cc92a3e02655175ff631a81bd19e8c6d",
+  "bytes": 16273,
+  "finding": "F1 wrong physical instance feedback accepted",
+  "source": "Claude revision 1 bridge draft; frozen copy for independent repro",
+  "probe": "probe_branch_identity_01.py",
+  "probe_exit_code": 1
+}

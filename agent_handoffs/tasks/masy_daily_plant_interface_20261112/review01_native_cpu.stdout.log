@@ -1,0 +1,46 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ NativeDailyTests.test_visible_daily_sequence_counts_water_closure_and_clock __
+
+self = <test_lifecycle_bridge.NativeDailyTests testMethod=test_visible_daily_sequence_counts_water_closure_and_clock>
+
+    def test_visible_daily_sequence_counts_water_closure_and_clock(self):
+        from maple_syrup import daily_water as dw
+        from maple_syrup import water_lifecycle as wl
+    
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, ignore_errors=True)
+        backend = nf.native_backend()
+>       lop, boundary, profile = nf.native_daily_harness(tmp)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_lifecycle_bridge.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/native_leaf_fixture.py:178: in native_daily_harness
+    profile = ncp.verify_source_profile(bundle, expected_syrup_digest=digest)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+target = '/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cpu/objects/maple-materialized/5d850789f9e82dc456227cb1eb4dfcc255b3ee4dfb0ed74883813c93e98d0ab3'
+expected_syrup_digest = '82e9c0111b9d883f857fd2f28a21f1d8bd8f13e22d473796e736ca4204f30107'
+profile = 'native_maple_9f_case_latitude_cpu_v1'
+
+    def verify_source_profile(target: str | os.PathLike, *, expected_syrup_digest: str | None = None,
+                              profile: str = PROFILE_NAME) -> NativeSourceProfile:
+        """Freshly verify the materialized 9f bundle AND that this process imported exactly it.
+    
+        Refuses (before any case work): not materialized/mutated bundle, wrong bundle/origin/revision/distribution/recipe,
+        a different package or pyproject digest, any imported ``maple.*`` module that is not the bundle's own byte-identical
+        file (or a verified namespace package), a ``cupy`` import (CPU-only profile), or a SYRUP tree that differs from
+        `expected_syrup_digest` when given. `profile` is one of the two literal names (default CPU, unchanged); only the CPU profile
+        refuses a process that imported cupy. The CUDA name is a source capability, not a claim that CuPy or a device is usable."""
+        if type(profile) is not str or profile not in _SOURCE_PROFILES:
+            raise NativeCaseProfileError(f"profile must be exactly one of {tuple(_SOURCE_PROFILES)}, got {profile!r}")
+        if not _SOURCE_PROFILES[profile] and "cupy" in sys.modules:
+>           raise NativeCaseProfileError("the CPU-only 9f case profile refuses a process that imported cupy")
+E           maple_syrup.native_case_profile.NativeCaseProfileError: the CPU-only 9f case profile refuses a process that imported cupy
+
+../syrup_phase15/src/maple_syrup/native_case_profile.py:303: NativeCaseProfileError
+=========================== short test summary info ============================
+FAILED tests/test_lifecycle_bridge.py::NativeDailyTests::test_visible_daily_sequence_counts_water_closure_and_clock
+1 failed, 6 deselected in 2.29s

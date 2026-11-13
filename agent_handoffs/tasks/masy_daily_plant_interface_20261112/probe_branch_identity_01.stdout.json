@@ -1,0 +1,7 @@
+{
+  "distinct_native_instances": true,
+  "same_native_digest": true,
+  "wrong_instance_feedback_accepted": true,
+  "error": null,
+  "accepted_m3": 1.5e-06
+}

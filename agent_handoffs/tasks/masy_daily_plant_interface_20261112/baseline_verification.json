@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-11-12T23:04:03.578363+00:00",
+  "baseline_cpu": {
+    "command": "env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/home/okin/leaf:<task>/public_evidence/syrup_legacy/src NUMBA_CACHE_DIR=<task>/public_evidence/numba_cache CUDA_VISIBLE_DEVICES=-1 /home/okin/MAPLE/.venv-cupy/bin/python -B -m unittest discover -s tests -v",
+    "cwd": "/home/okin/leaf",
+    "tests_run": 576,
+    "skipped": 45,
+    "passed": 531,
+    "exit_code": 0,
+    "completion_evidence": "exec session 29102 reaped by write_stdin, exit 0",
+    "stdout": "baseline_cpu.stdout.log",
+    "stderr": "baseline_cpu.stderr.log"
+  },
+  "native_preflight": {
+    "command": "env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=<cpu_bundle>/editable:<cpu_bundle>/source/src:<task>/public_evidence/syrup_phase15/src NUMBA_CACHE_DIR=<task>/public_evidence/numba_cache CUDA_VISIBLE_DEVICES=-1 /home/okin/MAPLE/.venv-cupy/bin/python -B <task>/public_evidence/syrup_phase15/docs/manuals/examples/native_daily_recharge/daily_recharge_example.py --bundle <cpu_bundle> --scenario recharge --p-mm 2 --i-mm-h 10 --t-mm 5 --pet-m-s 1e-8 --t-request-m 1e-6 --workdir <task>/public_evidence/native_preflight_cpu",
+    "exit_code": 0,
+    "completion_evidence": "exec session 46803 reaped by write_stdin, exit 0",
+    "stdout": "native_preflight_cpu.stdout.json",
+    "stderr": "native_preflight_cpu.stderr.log",
+    "scope": "Reference environment/actual factory preflight, NOT new LEAF API acceptance"
+  },
+  "placeholders": {
+    "task": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112",
+    "cpu_bundle": "/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cpu/objects/maple-materialized/5d850789f9e82dc456227cb1eb4dfcc255b3ee4dfb0ed74883813c93e98d0ab3"
+  }
+}

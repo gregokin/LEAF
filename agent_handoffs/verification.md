@@ -1,9 +1,19 @@
-# Verification — literature scenario parameters
+# Interface verification — PASS
 
-**PASS:** installed repository: 70 checks in [output](tasks/literature_parameters_20261111/installed_validation.stdout.json), [command/exit](tasks/literature_parameters_20261111/installed_validation.exit.json). Independent source arithmetic, strict catalogs/generation/TOML/JSON, all ecological trait table readers, frozen-preview read/refusal and preservation hashes passed. Candidate checks repeated after documentation corrections. git diff --check passed. [Environment](tasks/literature_parameters_20261111/verification_environment.json): existing MAPLE .venv-cupy Python3.12.3/NumPy2.5.3, NumPy parameter validation only.
+Independent [acceptance](tasks/masy_daily_plant_interface_20261112/final_review.md) and
+[machine-readable evidence](tasks/masy_daily_plant_interface_20261112/qualification.json).
 
-[Primary checked evidence](tasks/literature_parameters_20261111/codex_checked_evidence_02.md), [public source identities](tasks/literature_parameters_20261111/public_downloads_01.json), [pinned model inputs](tasks/literature_parameters_20261111/public_downloads_02.json), [FAO/Hanson sources](tasks/literature_parameters_20261111/public_downloads_03.json), [full scope audit](tasks/literature_parameters_20261111/scope_audit.json). All three Claude revisions structured success/is_error=false, exit0/reaped. Research HTTP/DNS/PDF-extraction limits were documented and alternative primary access supplied by Codex. Initial setup shell had no `python`; reran with existing python3, no mutation occurred from that failed pre-dispatch command. No task/session usage limit occurred.
+- Full frozen implementation: CPU659 run/608passed/51skipped; actual CUDA659 run/652passed/7skipped.
+- Final actual N15 native suite:13/13 CPU,13/13 CUDA. Native NumPy/Numba/CUDA eightday harness:
+  eight hydro+eight T,691200seconds, one weekly growth, actual uptake/closure, disabled-growth no credit,
+  late geometry failure rollback, pending-debit resume without replay and closed-boundary restart.
+- Installed focused checks:53passed plus36subtests, including pure case-config/helper checks omitted by
+  the isolated snapshot. Installed three-day public example passes and writes a biological-only checkpoint.
+- Final probes refuse unbound dates, unseen T and changed RNG/patch. Source hashes, memory measurements,
+  parity and exact argv/env/streams/reaped exits are in the task. Trial case never run/generated/recalibrated.
 
-No forward model, production initialization, image rendering, GPU benchmark, dependency install or upstream write occurred. Native source unchanged. Numerical/source checks are not field validation.
-
-Publication verified: code commit `416ba95bdac825c9033343b932363da237b8fa8b` pushed to origin/main; [push and independent ls-remote receipt](tasks/literature_parameters_20261111/publication.json).
+Earlier failures are retained and corrected (check_failed). Native CPU pytest initially triggered the
+correct no-CuPy source guard; isolated CPU unittest used the existing CPU environment. One revision2
+out-of-scope identical-string Edit was rejected without mutation (tool_error); all actual scope audits pass.
+No auth/network/rate-limit error or permission bypass. Publication and final preservation checks follow
+in separate task records; no historical evidence was rewritten.

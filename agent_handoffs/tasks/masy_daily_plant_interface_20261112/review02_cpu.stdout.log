@@ -1,0 +1,860 @@
+.....F.........F............................................ssss....FFF..                                           [100%]
+=================================== FAILURES ===================================
+_ DailyFlowTests.test_transpiration_without_growth_debits_but_credits_nothing __
+
+self = <test_plant_session.DailyFlowTests testMethod=test_transpiration_without_growth_debits_but_credits_nothing>
+
+    def test_transpiration_without_growth_debits_but_credits_nothing(self):
+        s, _ = fresh()
+        a = nf.anchor()
+        s1 = nf.run_day(s, a, 0)[0]
+        pend = s1.pending()
+        s2 = nf.run_day(s1, a, 1, g=False)[0]
+        self.assertEqual(s2.counters()['withdrawals_accepted'], 2)
+        for k in 'DUAT':
+            np.testing.assert_array_equal(s2.pending()[k], pend[k])                 # earned credit kept, none added
+        self.assertEqual(s2.schedule.pending_days, s1.schedule.pending_days)
+        self.assertEqual(s2.cursor, a + dt.timedelta(days=2))
+        # the earned credit is finished BEFORE the disabled period and never grows inside it
+        self.assertTrue(s1.flush_required(next_growth_enabled=False, next_is_transport=False))
+>       f = s1.publish(s1.stage_flush())
+                       ^^^^^^^^^^^^^^^^
+
+tests/test_plant_session.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+leaf/plant_session.py:1083: in stage_flush
+    self._check_token(self.token, 'flush')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PlantSession(config=SessionConfig(catalog=SpeciesCatalog(['grass', 'shrub'], L=2, sha256:e57605044f10...), table=<leaf...ccba3c362d64905996f4e5730863a6136723569a3', _succ=['6112ff79488a152aafa501d13d28afad05a5167815e2a9ba33085240601a56a5'])
+obj_token = 'c34c4c68c5ca7427985b42dccba3c362d64905996f4e5730863a6136723569a3'
+what = 'flush'
+
+    def _check_token(self, obj_token, what):
+        if obj_token != self.token:
+            raise PlantSessionStateError(f'{what} was prepared for another accepted parent (stale or foreign lineage); refused')
+        if self._succ:
+>           raise PlantSessionStateError('this parent already has a published successor; stage from the successor (duplicate or stale use refused)')
+E           leaf.plant_session.PlantSessionStateError: this parent already has a published successor; stage from the successor (duplicate or stale use refused)
+
+leaf/plant_session.py:800: PlantSessionStateError
+____ RefusalTests.test_reserve_and_tight_caps_are_refused_before_allocation ____
+
+self = <test_plant_session.RefusalTests testMethod=test_reserve_and_tight_caps_are_refused_before_allocation>
+
+    def test_reserve_and_tight_caps_are_refused_before_allocation(self):
+        cat = nf.make_catalog()
+        table = growth.compile_species(cat, 'numpy', nf.BIG)
+        with self.assertRaises(ps.PlantSessionAdmissionError):
+            ps.SessionConfig(cat, table, 'numpy', 10, 1000, 7, reserve_bytes=1001)
+        cfg = nf.make_config(cat, max_bytes=2000)
+        with mock.patch('leaf.biocalendar.rebuild_geometry', side_effect=AssertionError('allocated')):
+            with self.assertRaises(ps.PlantSessionAdmissionError):
+>               ps.PlantSession.start(nf.make_state(cat), cfg, anchor=nf.anchor())
+
+tests/test_plant_session.py:279: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+leaf/plant_session.py:582: in start
+    pop = cls._build_pop(config, laws, owned, rows, np.array(owned.agb_dry_kg[rows]), np.array(owned.seasonal_agb_dry_kg[rows]),
+leaf/plant_session.py:595: in _build_pop
+    geo = _bio.rebuild_geometry(base, cfg.catalog, B_host, E_host, elapsed_days=float(elapsed_days), max_edges=cfg.max_edges,
+/usr/lib/python3.12/unittest/mock.py:1134: in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/unittest/mock.py:1138: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _execute_mock_call(self, /, *args, **kwargs):
+        # separate from _increment_mock_call so that awaited functions are
+        # executed separately from their call, also AsyncMock overrides this method
+    
+        effect = self.side_effect
+        if effect is not None:
+            if _is_exception(effect):
+>               raise effect
+E               AssertionError: allocated
+
+/usr/lib/python3.12/unittest/mock.py:1193: AssertionError
+___ ReproductionTests.test_opportunity_is_gated_sequential_keyed_and_counted ___
+
+self = PlantSession(config=SessionConfig(catalog=SpeciesCatalog(['forb', 'grass', 'moss_inactive', 'shrub'], L=2, sha256:0833...d0c4f747c1daf6d3d885f0200bc482cc2', token='5ac98003f81466be0dae33557aa1f055b6773c6a49babec1531a037af172b7f5', _succ=[])
+year = 2027
+current_surface = array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+    ...0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+max_new_plants = 5, max_total_records = 100, max_attempts = 50
+
+    def stage_reproduction(self, year, current_surface, *, max_new_plants, max_total_records, max_attempts):
+        '''The annual reproduction boundary (`leaf.recruitment.evaluate`), after pending growth, the post-event decision, the deferred season and
+        the due annual decision. Keyed by (rng_seed, accepted-opportunity counter); newborns request water only from the NEXT open fragment;
+        existing plants keep id / location / age / status / overrides; donors lose exactly the transferred B / E.'''
+        try:
+            mx_new, mx_tot, mx_att = _rec.check_limits(max_new_plants, max_total_records, max_attempts)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        self._gate_boundary('the reproduction opportunity')
+        year = self._repro_year_gate(year, decline=False)
+        bio = dict(self.bio)
+        if bio['transport_pending'] is not None:
+            raise PlantSessionBoundaryError('a transport interval still awaits its disturbance decision: stage_surface_event first')
+        if bio['annual_due'] is not None:
+            raise PlantSessionBoundaryError(f'the annual decision for year {bio["annual_due"]} is outstanding: stage_annual_decision first')
+        if self.schedule.season_due:
+            raise PlantSessionBoundaryError('a deferred seasonal turnover is pending: stage_deferred_season first')
+        P, Pa, base = self.n_live, int(self.base.n), self.base
+        try:
+            est1, _ = _rec.preflight_bytes(self.laws.repro, self.laws.patch, base.domain, P)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        gather = (80 + (16 if self.config.backend == 'cuda' else 0)) * P
+        self._admit('reproduction_preflight', _nbytes(est1) + gather, candidate=True)
+        rows = self.pop.live_rows
+        if P:
+            B_h, E_h = _hostarr(self.pop.B), _hostarr(self.pop.E)
+            l_ids = np.ascontiguousarray(base.ids[rows], dtype=np.int64)
+            l_sp = np.ascontiguousarray(base.species_index[rows], dtype=np.int32)
+            l_age = np.ascontiguousarray(base.age_days[rows] + float(self.elapsed_days()), dtype=np.float64)
+            l_x, l_y = np.ascontiguousarray(base.x_m[rows], dtype=np.float64), np.ascontiguousarray(base.y_m[rows], dtype=np.float64)
+        else:
+            B_h = E_h = l_age = l_x = l_y = np.zeros(0, dtype=np.float64)
+            l_ids, l_sp = np.zeros(0, dtype=np.int64), np.zeros(0, dtype=np.int32)
+        counter = int(bio['n_reproduction'])
+        try:
+>           res = _rec.evaluate(self.laws.repro, self.laws.patch, base.domain, current_surface, live_ids=l_ids, live_species=l_sp,
+                                live_age_days=l_age, live_B=B_h, live_E=E_h, live_x=l_x, live_y=l_y,
+                                max_existing_id=int(base.ids.max()) if Pa else None, n_total_records=Pa, seed=self.laws.seed, counter=counter,
+                                max_new_plants=mx_new, max_total_records=mx_tot, max_attempts=mx_att, max_bytes=int(self.config.max_bytes),
+                                extra_reserve_bytes=self._live_other(gather))
+
+leaf/plant_session.py:1438: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+table = <leaf.recruitment.CompiledReproduction object at 0x75e1d7323140>
+patch = <leaf.recruitment.PatchConfig object at 0x75e1d7320430>
+domain = Domain(nx=12, ny=10, dx_m=1.0, dy_m=1.0, origin_x_m=0.0, origin_y_m=0.0)
+current_surface = array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+    ...0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+live_ids = array([11, 12, 13]), live_species = array([0, 0, 0], dtype=int32)
+live_age_days = array([101., 101., 101.]), live_B = array([0.05, 0.05, 0.05])
+live_E = array([0., 0., 0.]), live_x = array([3.5, 6.5, 8.5])
+live_y = array([3.5, 3.5, 6.5]), max_existing_id = 13, n_total_records = 3
+seed = 4242, counter = 0, max_new_plants = 5, max_total_records = 100
+max_attempts = 50, max_bytes = 268435456, extra_reserve_bytes = 6237
+
+    def evaluate(table, patch, domain, current_surface, *, live_ids, live_species, live_age_days, live_B, live_E, live_x,
+                 live_y, max_existing_id, n_total_records, seed, counter, max_new_plants, max_total_records, max_attempts,
+                 max_bytes, extra_reserve_bytes=0):
+        '''One annual reproduction opportunity (module docstring). PURE: nothing is mutated and no random state exists
+        beyond (seed, counter). `live_*` are the LIVE plants (any row order; results are by ID). `max_existing_id` is the
+        maximum ID of ALL records (None for an empty population) and `n_total_records` their count (dead / removed
+        included). Returns {'births': {...SoA...}, 'parent_rows': int64 indices into the live arrays of changed parents,
+        'parent_B_new', 'parent_E_new', 'diagnostics': {...}}.'''
+        if not isinstance(table, CompiledReproduction):
+            raise ReproductionError('table must come from leaf.recruitment.compile_species')
+        if not table.any_active:
+            raise ReproductionError('the catalog has no active reproduction law')
+        if not isinstance(domain, _state.Domain):
+            raise ReproductionError('domain must be a leaf.state.Domain')
+        mb = _int(max_bytes, 'max_bytes', 1)
+        rb = _int(extra_reserve_bytes, 'extra_reserve_bytes', 0)
+        max_new, max_total, max_att = check_limits(max_new_plants, max_total_records, max_attempts)
+        n_total = _int(n_total_records, 'n_total_records', 0)
+        if max_existing_id is not None:
+            max_existing_id = _int(max_existing_id, 'max_existing_id', -(1 << 63), INT64_MAX)
+        elif n_total:
+            raise ReproductionError('max_existing_id is required for a non-empty population')
+        try:
+            seed, counter = _demo.check_seed(seed), _demo.check_counter(counter)
+        except _demo.DemographyError as exc:
+            raise ReproductionError(str(exc)) from exc
+        # typed metadata only (an arbitrary list-like must never be materialised before admission)
+        if not isinstance(live_ids, np.ndarray) or live_ids.ndim != 1:
+            raise ReproductionError('live_ids must be a 1-D NumPy array (typed canonical int64 IDs)')
+        n_live = int(live_ids.shape[0])
+        if patch is not None and not isinstance(patch, PatchConfig):
+            raise ReproductionError(f'patch must be a leaf.recruitment.PatchConfig (or None without a seed law), got {type(patch).__name__}')
+        if n_total < n_live:
+            raise ReproductionError(f'n_total_records={n_total} is smaller than the {n_live} live records provided')
+        if n_total == 0 and max_existing_id is not None:
+            raise ReproductionError('max_existing_id must be None for an empty population (n_total_records == 0)')
+        est1, n_trials = preflight_bytes(table, patch, domain, n_live)
+        if est1['total_bytes'] + rb > mb:
+            raise ReproductionBudgetError(f'reproduction trials need ~{est1["total_bytes"] + rb} bytes (patch trials '
+                                          f'{n_trials}, live {n_live}) > max_bytes={mb}; refused before any array exists')
+        n_live = _check_arrays(table, domain, live_ids, live_species, live_age_days, live_B, live_E, live_x, live_y)
+        if n_live:
+            if int(np.unique(live_ids).shape[0]) != n_live:
+                raise ReproductionError('live_ids must be unique canonical int64 IDs (any sign, zero included)')
+            if max_existing_id is None or int(live_ids.max()) > int(max_existing_id):
+                raise ReproductionError('max_existing_id is inconsistent with the live IDs (it must be >= every existing ID); '
+                                        'refused to avoid ID collisions')
+        try:
+            surface = domain.check_field(current_surface, 'current surface')
+        except _state.StateError as exc:
+            raise ReproductionError(f'current surface refused: {exc}') from exc
+        S, f, i = table.n_species, table._f, table._i
+        u64 = np.uint64
+        diag = {'seed': {}, 'clonal': {}}
+        # ------------------------------------------------ seed trials (per patch and species; sorted species, row-major patch)
+        n_seed = 0
+        seed_trial = None
+        if table.any_seed:
+            seed_sp = np.flatnonzero(i['seed_on'] == 1).astype(np.int64)
+            nP = patch.n_patches(domain)
+            sp_t = np.repeat(seed_sp, nP)
+            pid_t = np.tile(np.arange(nP, dtype=np.int64), seed_sp.shape[0])
+            x0, x1, y0, y1 = patch_geometry(patch, domain, pid_t)
+            area = (x1 - x0) * (y1 - y0)
+            usable = area > 0.0
+            u = _u(stream_key(seed, counter, STREAM_SEED_TRIAL), pid_t.astype(u64), sp_t.astype(u64))
+            ok = usable & (u < f['seed_p'][sp_t])
+            sel = np.flatnonzero(ok)
+            mx = i['seed_max'][sp_t[sel]]
+            uc = _u(stream_key(seed, counter, STREAM_SEED_COUNT), pid_t[sel].astype(u64), sp_t[sel].astype(u64))
+            n_rec = _count_from_u(uc, mx)
+            n_seed = int(n_rec.sum())
+            seed_trial = (sel, n_rec, sp_t, pid_t, x0, x1, y0, y1)
+            d_tr = np.bincount(sp_t[usable], minlength=S)
+            d_ok = np.bincount(sp_t[sel], minlength=S)
+            d_rec = np.bincount(sp_t[sel], weights=n_rec, minlength=S).astype(np.int64)
+            diag['seed'] = {'trials': d_tr.tolist(), 'successes': d_ok.tolist(), 'failures': (d_tr - d_ok).tolist(),
+                            'recruits': d_rec.tolist()}
+        # ------------------------------------------------ clonal trials (live parents; keyed by ID)
+        n_req = 0
+        order = np.zeros(0, dtype=np.int64)
+        counts = np.zeros(0, dtype=np.int64)
+        sp_l = np.asarray(live_species, dtype=np.int64)
+        if table.any_clonal and n_live:
+            on = i['cl_on'][sp_l] == 1
+            agb_l = f['cl_agb'][sp_l]
+            elig = on & (live_age_days >= f['cl_min_age'][sp_l]) & (live_B >= f['cl_min_b'][sp_l]) \
+                & (f['cl_maxdon'][sp_l] * live_B >= agb_l)
+            ids_u = live_ids.astype(u64)
+            zero = np.zeros(n_live, dtype=np.uint64)
+            ut = _u(stream_key(seed, counter, STREAM_CLONAL_TRIAL), ids_u, zero)
+            succ = elig & (ut < f['cl_p'][sp_l])
+            uc = _u(stream_key(seed, counter, STREAM_CLONAL_COUNT), ids_u, zero)
+            mxd = i['cl_maxd'][sp_l]
+            draw = _count_from_u(uc, np.maximum(mxd, 1))
+            cap = np.floor(np.minimum(f['cl_maxdon'][sp_l] * live_B / np.where(agb_l > 0, agb_l, 1.0), mxd.astype(np.float64)))
+            nreq = np.where(succ, np.minimum(draw, cap.astype(np.int64)), 0)
+            sel = np.flatnonzero(nreq > 0)
+            order = sel[np.argsort(live_ids[sel], kind='stable')].astype(np.int64)     # stable ID order, row-order free
+            counts = nreq[order]
+            n_req = int(counts.sum())
+            diag['clonal'] = {'eligible_parents': np.bincount(sp_l[elig], minlength=S).tolist(),
+                              'trial_successes': np.bincount(sp_l[succ], minlength=S).tolist(),
+                              'trial_failures': (np.bincount(sp_l[elig], minlength=S)
+                                                 - np.bincount(sp_l[succ], minlength=S)).tolist(),
+                              'daughters_requested': np.bincount(sp_l[order], weights=counts, minlength=S).astype(np.int64).tolist()}
+        # ------------------------------------------------ explicit work limits (nothing truncated)
+        if n_seed + n_req > max_new:
+>           raise ReproductionLimitError(f'requested births {n_seed + n_req} (seed {n_seed}, daughters {n_req}) exceed '
+                                         f'max_new_plants={max_new}; nothing is truncated')
+E           leaf.recruitment.ReproductionLimitError: requested births 8 (seed 8, daughters 0) exceed max_new_plants=5; nothing is truncated
+
+leaf/recruitment.py:537: ReproductionLimitError
+
+The above exception was the direct cause of the following exception:
+
+self = <test_plant_boundaries.ReproductionTests testMethod=test_opportunity_is_gated_sequential_keyed_and_counted>
+
+    def test_opportunity_is_gated_sequential_keyed_and_counted(self):
+        s0, cat, a0 = build('phase3')
+        if not s0.laws.repro_on:
+            self.skipTest('phase3 example catalog has no active reproduction law')
+        self.assertEqual(s0.due_boundaries()['reproduction_opportunity_year'], None)
+        with self.assertRaises(ps.PlantSessionStateError):                             # not yet due (cursor has not crossed 1 Jan 2028)
+            s0.stage_reproduction(2027, np.zeros((10, 12)), max_new_plants=5, max_total_records=100, max_attempts=50)
+        c, a = self.to_next_year()
+        self.assertEqual(c.due_boundaries()['reproduction_opportunity_year'], 2027)
+        with self.assertRaises(ps.PlantSessionStateError):                             # skipped / replayed years are refused
+            c.stage_reproduction(2028, np.zeros((10, 12)), max_new_plants=5, max_total_records=100, max_attempts=50)
+        ids0 = list(c.base.ids)
+>       st = c.stage_reproduction(2027, np.zeros((10, 12)), max_new_plants=5, max_total_records=100, max_attempts=50)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_plant_boundaries.py:147: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PlantSession(config=SessionConfig(catalog=SpeciesCatalog(['forb', 'grass', 'moss_inactive', 'shrub'], L=2, sha256:0833...d0c4f747c1daf6d3d885f0200bc482cc2', token='5ac98003f81466be0dae33557aa1f055b6773c6a49babec1531a037af172b7f5', _succ=[])
+year = 2027
+current_surface = array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+    ...0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+max_new_plants = 5, max_total_records = 100, max_attempts = 50
+
+    def stage_reproduction(self, year, current_surface, *, max_new_plants, max_total_records, max_attempts):
+        '''The annual reproduction boundary (`leaf.recruitment.evaluate`), after pending growth, the post-event decision, the deferred season and
+        the due annual decision. Keyed by (rng_seed, accepted-opportunity counter); newborns request water only from the NEXT open fragment;
+        existing plants keep id / location / age / status / overrides; donors lose exactly the transferred B / E.'''
+        try:
+            mx_new, mx_tot, mx_att = _rec.check_limits(max_new_plants, max_total_records, max_attempts)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        self._gate_boundary('the reproduction opportunity')
+        year = self._repro_year_gate(year, decline=False)
+        bio = dict(self.bio)
+        if bio['transport_pending'] is not None:
+            raise PlantSessionBoundaryError('a transport interval still awaits its disturbance decision: stage_surface_event first')
+        if bio['annual_due'] is not None:
+            raise PlantSessionBoundaryError(f'the annual decision for year {bio["annual_due"]} is outstanding: stage_annual_decision first')
+        if self.schedule.season_due:
+            raise PlantSessionBoundaryError('a deferred seasonal turnover is pending: stage_deferred_season first')
+        P, Pa, base = self.n_live, int(self.base.n), self.base
+        try:
+            est1, _ = _rec.preflight_bytes(self.laws.repro, self.laws.patch, base.domain, P)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        gather = (80 + (16 if self.config.backend == 'cuda' else 0)) * P
+        self._admit('reproduction_preflight', _nbytes(est1) + gather, candidate=True)
+        rows = self.pop.live_rows
+        if P:
+            B_h, E_h = _hostarr(self.pop.B), _hostarr(self.pop.E)
+            l_ids = np.ascontiguousarray(base.ids[rows], dtype=np.int64)
+            l_sp = np.ascontiguousarray(base.species_index[rows], dtype=np.int32)
+            l_age = np.ascontiguousarray(base.age_days[rows] + float(self.elapsed_days()), dtype=np.float64)
+            l_x, l_y = np.ascontiguousarray(base.x_m[rows], dtype=np.float64), np.ascontiguousarray(base.y_m[rows], dtype=np.float64)
+        else:
+            B_h = E_h = l_age = l_x = l_y = np.zeros(0, dtype=np.float64)
+            l_ids, l_sp = np.zeros(0, dtype=np.int64), np.zeros(0, dtype=np.int32)
+        counter = int(bio['n_reproduction'])
+        try:
+            res = _rec.evaluate(self.laws.repro, self.laws.patch, base.domain, current_surface, live_ids=l_ids, live_species=l_sp,
+                                live_age_days=l_age, live_B=B_h, live_E=E_h, live_x=l_x, live_y=l_y,
+                                max_existing_id=int(base.ids.max()) if Pa else None, n_total_records=Pa, seed=self.laws.seed, counter=counter,
+                                max_new_plants=mx_new, max_total_records=mx_tot, max_attempts=mx_att, max_bytes=int(self.config.max_bytes),
+                                extra_reserve_bytes=self._live_other(gather))
+        except _rec.ReproductionBudgetError as exc:
+            raise PlantSessionAdmissionError(f'reproduction_evaluate: {exc}') from exc
+        except _rec.ReproductionError as exc:
+>           raise PlantSessionError(f'reproduction refused: {exc}') from exc
+E           leaf.plant_session.PlantSessionError: reproduction refused: requested births 8 (seed 8, daughters 0) exceed max_new_plants=5; nothing is truncated
+
+leaf/plant_session.py:1446: PlantSessionError
+_ ReproductionTests.test_phase2_3_state_round_trips_through_the_biological_checkpoint _
+
+self = PlantSession(config=SessionConfig(catalog=SpeciesCatalog(['forb', 'grass', 'moss_inactive', 'shrub'], L=2, sha256:0833...d0c4f747c1daf6d3d885f0200bc482cc2', token='384845810dea6a65f7ee81acee5702c6afacb0c94bdebf8d37355ea34f21343a', _succ=[])
+year = 2027
+current_surface = array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+    ...0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+max_new_plants = 5, max_total_records = 100, max_attempts = 50
+
+    def stage_reproduction(self, year, current_surface, *, max_new_plants, max_total_records, max_attempts):
+        '''The annual reproduction boundary (`leaf.recruitment.evaluate`), after pending growth, the post-event decision, the deferred season and
+        the due annual decision. Keyed by (rng_seed, accepted-opportunity counter); newborns request water only from the NEXT open fragment;
+        existing plants keep id / location / age / status / overrides; donors lose exactly the transferred B / E.'''
+        try:
+            mx_new, mx_tot, mx_att = _rec.check_limits(max_new_plants, max_total_records, max_attempts)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        self._gate_boundary('the reproduction opportunity')
+        year = self._repro_year_gate(year, decline=False)
+        bio = dict(self.bio)
+        if bio['transport_pending'] is not None:
+            raise PlantSessionBoundaryError('a transport interval still awaits its disturbance decision: stage_surface_event first')
+        if bio['annual_due'] is not None:
+            raise PlantSessionBoundaryError(f'the annual decision for year {bio["annual_due"]} is outstanding: stage_annual_decision first')
+        if self.schedule.season_due:
+            raise PlantSessionBoundaryError('a deferred seasonal turnover is pending: stage_deferred_season first')
+        P, Pa, base = self.n_live, int(self.base.n), self.base
+        try:
+            est1, _ = _rec.preflight_bytes(self.laws.repro, self.laws.patch, base.domain, P)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        gather = (80 + (16 if self.config.backend == 'cuda' else 0)) * P
+        self._admit('reproduction_preflight', _nbytes(est1) + gather, candidate=True)
+        rows = self.pop.live_rows
+        if P:
+            B_h, E_h = _hostarr(self.pop.B), _hostarr(self.pop.E)
+            l_ids = np.ascontiguousarray(base.ids[rows], dtype=np.int64)
+            l_sp = np.ascontiguousarray(base.species_index[rows], dtype=np.int32)
+            l_age = np.ascontiguousarray(base.age_days[rows] + float(self.elapsed_days()), dtype=np.float64)
+            l_x, l_y = np.ascontiguousarray(base.x_m[rows], dtype=np.float64), np.ascontiguousarray(base.y_m[rows], dtype=np.float64)
+        else:
+            B_h = E_h = l_age = l_x = l_y = np.zeros(0, dtype=np.float64)
+            l_ids, l_sp = np.zeros(0, dtype=np.int64), np.zeros(0, dtype=np.int32)
+        counter = int(bio['n_reproduction'])
+        try:
+>           res = _rec.evaluate(self.laws.repro, self.laws.patch, base.domain, current_surface, live_ids=l_ids, live_species=l_sp,
+                                live_age_days=l_age, live_B=B_h, live_E=E_h, live_x=l_x, live_y=l_y,
+                                max_existing_id=int(base.ids.max()) if Pa else None, n_total_records=Pa, seed=self.laws.seed, counter=counter,
+                                max_new_plants=mx_new, max_total_records=mx_tot, max_attempts=mx_att, max_bytes=int(self.config.max_bytes),
+                                extra_reserve_bytes=self._live_other(gather))
+
+leaf/plant_session.py:1438: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+table = <leaf.recruitment.CompiledReproduction object at 0x75e1d7eac680>
+patch = <leaf.recruitment.PatchConfig object at 0x75e1d7eaefb0>
+domain = Domain(nx=12, ny=10, dx_m=1.0, dy_m=1.0, origin_x_m=0.0, origin_y_m=0.0)
+current_surface = array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+    ...0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+live_ids = array([11, 12, 13]), live_species = array([0, 0, 0], dtype=int32)
+live_age_days = array([101., 101., 101.]), live_B = array([0.05, 0.05, 0.05])
+live_E = array([0., 0., 0.]), live_x = array([3.5, 6.5, 8.5])
+live_y = array([3.5, 3.5, 6.5]), max_existing_id = 13, n_total_records = 3
+seed = 4242, counter = 0, max_new_plants = 5, max_total_records = 100
+max_attempts = 50, max_bytes = 268435456, extra_reserve_bytes = 6237
+
+    def evaluate(table, patch, domain, current_surface, *, live_ids, live_species, live_age_days, live_B, live_E, live_x,
+                 live_y, max_existing_id, n_total_records, seed, counter, max_new_plants, max_total_records, max_attempts,
+                 max_bytes, extra_reserve_bytes=0):
+        '''One annual reproduction opportunity (module docstring). PURE: nothing is mutated and no random state exists
+        beyond (seed, counter). `live_*` are the LIVE plants (any row order; results are by ID). `max_existing_id` is the
+        maximum ID of ALL records (None for an empty population) and `n_total_records` their count (dead / removed
+        included). Returns {'births': {...SoA...}, 'parent_rows': int64 indices into the live arrays of changed parents,
+        'parent_B_new', 'parent_E_new', 'diagnostics': {...}}.'''
+        if not isinstance(table, CompiledReproduction):
+            raise ReproductionError('table must come from leaf.recruitment.compile_species')
+        if not table.any_active:
+            raise ReproductionError('the catalog has no active reproduction law')
+        if not isinstance(domain, _state.Domain):
+            raise ReproductionError('domain must be a leaf.state.Domain')
+        mb = _int(max_bytes, 'max_bytes', 1)
+        rb = _int(extra_reserve_bytes, 'extra_reserve_bytes', 0)
+        max_new, max_total, max_att = check_limits(max_new_plants, max_total_records, max_attempts)
+        n_total = _int(n_total_records, 'n_total_records', 0)
+        if max_existing_id is not None:
+            max_existing_id = _int(max_existing_id, 'max_existing_id', -(1 << 63), INT64_MAX)
+        elif n_total:
+            raise ReproductionError('max_existing_id is required for a non-empty population')
+        try:
+            seed, counter = _demo.check_seed(seed), _demo.check_counter(counter)
+        except _demo.DemographyError as exc:
+            raise ReproductionError(str(exc)) from exc
+        # typed metadata only (an arbitrary list-like must never be materialised before admission)
+        if not isinstance(live_ids, np.ndarray) or live_ids.ndim != 1:
+            raise ReproductionError('live_ids must be a 1-D NumPy array (typed canonical int64 IDs)')
+        n_live = int(live_ids.shape[0])
+        if patch is not None and not isinstance(patch, PatchConfig):
+            raise ReproductionError(f'patch must be a leaf.recruitment.PatchConfig (or None without a seed law), got {type(patch).__name__}')
+        if n_total < n_live:
+            raise ReproductionError(f'n_total_records={n_total} is smaller than the {n_live} live records provided')
+        if n_total == 0 and max_existing_id is not None:
+            raise ReproductionError('max_existing_id must be None for an empty population (n_total_records == 0)')
+        est1, n_trials = preflight_bytes(table, patch, domain, n_live)
+        if est1['total_bytes'] + rb > mb:
+            raise ReproductionBudgetError(f'reproduction trials need ~{est1["total_bytes"] + rb} bytes (patch trials '
+                                          f'{n_trials}, live {n_live}) > max_bytes={mb}; refused before any array exists')
+        n_live = _check_arrays(table, domain, live_ids, live_species, live_age_days, live_B, live_E, live_x, live_y)
+        if n_live:
+            if int(np.unique(live_ids).shape[0]) != n_live:
+                raise ReproductionError('live_ids must be unique canonical int64 IDs (any sign, zero included)')
+            if max_existing_id is None or int(live_ids.max()) > int(max_existing_id):
+                raise ReproductionError('max_existing_id is inconsistent with the live IDs (it must be >= every existing ID); '
+                                        'refused to avoid ID collisions')
+        try:
+            surface = domain.check_field(current_surface, 'current surface')
+        except _state.StateError as exc:
+            raise ReproductionError(f'current surface refused: {exc}') from exc
+        S, f, i = table.n_species, table._f, table._i
+        u64 = np.uint64
+        diag = {'seed': {}, 'clonal': {}}
+        # ------------------------------------------------ seed trials (per patch and species; sorted species, row-major patch)
+        n_seed = 0
+        seed_trial = None
+        if table.any_seed:
+            seed_sp = np.flatnonzero(i['seed_on'] == 1).astype(np.int64)
+            nP = patch.n_patches(domain)
+            sp_t = np.repeat(seed_sp, nP)
+            pid_t = np.tile(np.arange(nP, dtype=np.int64), seed_sp.shape[0])
+            x0, x1, y0, y1 = patch_geometry(patch, domain, pid_t)
+            area = (x1 - x0) * (y1 - y0)
+            usable = area > 0.0
+            u = _u(stream_key(seed, counter, STREAM_SEED_TRIAL), pid_t.astype(u64), sp_t.astype(u64))
+            ok = usable & (u < f['seed_p'][sp_t])
+            sel = np.flatnonzero(ok)
+            mx = i['seed_max'][sp_t[sel]]
+            uc = _u(stream_key(seed, counter, STREAM_SEED_COUNT), pid_t[sel].astype(u64), sp_t[sel].astype(u64))
+            n_rec = _count_from_u(uc, mx)
+            n_seed = int(n_rec.sum())
+            seed_trial = (sel, n_rec, sp_t, pid_t, x0, x1, y0, y1)
+            d_tr = np.bincount(sp_t[usable], minlength=S)
+            d_ok = np.bincount(sp_t[sel], minlength=S)
+            d_rec = np.bincount(sp_t[sel], weights=n_rec, minlength=S).astype(np.int64)
+            diag['seed'] = {'trials': d_tr.tolist(), 'successes': d_ok.tolist(), 'failures': (d_tr - d_ok).tolist(),
+                            'recruits': d_rec.tolist()}
+        # ------------------------------------------------ clonal trials (live parents; keyed by ID)
+        n_req = 0
+        order = np.zeros(0, dtype=np.int64)
+        counts = np.zeros(0, dtype=np.int64)
+        sp_l = np.asarray(live_species, dtype=np.int64)
+        if table.any_clonal and n_live:
+            on = i['cl_on'][sp_l] == 1
+            agb_l = f['cl_agb'][sp_l]
+            elig = on & (live_age_days >= f['cl_min_age'][sp_l]) & (live_B >= f['cl_min_b'][sp_l]) \
+                & (f['cl_maxdon'][sp_l] * live_B >= agb_l)
+            ids_u = live_ids.astype(u64)
+            zero = np.zeros(n_live, dtype=np.uint64)
+            ut = _u(stream_key(seed, counter, STREAM_CLONAL_TRIAL), ids_u, zero)
+            succ = elig & (ut < f['cl_p'][sp_l])
+            uc = _u(stream_key(seed, counter, STREAM_CLONAL_COUNT), ids_u, zero)
+            mxd = i['cl_maxd'][sp_l]
+            draw = _count_from_u(uc, np.maximum(mxd, 1))
+            cap = np.floor(np.minimum(f['cl_maxdon'][sp_l] * live_B / np.where(agb_l > 0, agb_l, 1.0), mxd.astype(np.float64)))
+            nreq = np.where(succ, np.minimum(draw, cap.astype(np.int64)), 0)
+            sel = np.flatnonzero(nreq > 0)
+            order = sel[np.argsort(live_ids[sel], kind='stable')].astype(np.int64)     # stable ID order, row-order free
+            counts = nreq[order]
+            n_req = int(counts.sum())
+            diag['clonal'] = {'eligible_parents': np.bincount(sp_l[elig], minlength=S).tolist(),
+                              'trial_successes': np.bincount(sp_l[succ], minlength=S).tolist(),
+                              'trial_failures': (np.bincount(sp_l[elig], minlength=S)
+                                                 - np.bincount(sp_l[succ], minlength=S)).tolist(),
+                              'daughters_requested': np.bincount(sp_l[order], weights=counts, minlength=S).astype(np.int64).tolist()}
+        # ------------------------------------------------ explicit work limits (nothing truncated)
+        if n_seed + n_req > max_new:
+>           raise ReproductionLimitError(f'requested births {n_seed + n_req} (seed {n_seed}, daughters {n_req}) exceed '
+                                         f'max_new_plants={max_new}; nothing is truncated')
+E           leaf.recruitment.ReproductionLimitError: requested births 8 (seed 8, daughters 0) exceed max_new_plants=5; nothing is truncated
+
+leaf/recruitment.py:537: ReproductionLimitError
+
+The above exception was the direct cause of the following exception:
+
+self = <test_plant_boundaries.ReproductionTests testMethod=test_phase2_3_state_round_trips_through_the_biological_checkpoint>
+
+    def test_phase2_3_state_round_trips_through_the_biological_checkpoint(self):
+        c, a = self.to_next_year()
+>       d = c.publish(c.stage_reproduction(2027, np.zeros((10, 12)), max_new_plants=5, max_total_records=100, max_attempts=50))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_plant_boundaries.py:175: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PlantSession(config=SessionConfig(catalog=SpeciesCatalog(['forb', 'grass', 'moss_inactive', 'shrub'], L=2, sha256:0833...d0c4f747c1daf6d3d885f0200bc482cc2', token='384845810dea6a65f7ee81acee5702c6afacb0c94bdebf8d37355ea34f21343a', _succ=[])
+year = 2027
+current_surface = array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+    ...0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+max_new_plants = 5, max_total_records = 100, max_attempts = 50
+
+    def stage_reproduction(self, year, current_surface, *, max_new_plants, max_total_records, max_attempts):
+        '''The annual reproduction boundary (`leaf.recruitment.evaluate`), after pending growth, the post-event decision, the deferred season and
+        the due annual decision. Keyed by (rng_seed, accepted-opportunity counter); newborns request water only from the NEXT open fragment;
+        existing plants keep id / location / age / status / overrides; donors lose exactly the transferred B / E.'''
+        try:
+            mx_new, mx_tot, mx_att = _rec.check_limits(max_new_plants, max_total_records, max_attempts)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        self._gate_boundary('the reproduction opportunity')
+        year = self._repro_year_gate(year, decline=False)
+        bio = dict(self.bio)
+        if bio['transport_pending'] is not None:
+            raise PlantSessionBoundaryError('a transport interval still awaits its disturbance decision: stage_surface_event first')
+        if bio['annual_due'] is not None:
+            raise PlantSessionBoundaryError(f'the annual decision for year {bio["annual_due"]} is outstanding: stage_annual_decision first')
+        if self.schedule.season_due:
+            raise PlantSessionBoundaryError('a deferred seasonal turnover is pending: stage_deferred_season first')
+        P, Pa, base = self.n_live, int(self.base.n), self.base
+        try:
+            est1, _ = _rec.preflight_bytes(self.laws.repro, self.laws.patch, base.domain, P)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        gather = (80 + (16 if self.config.backend == 'cuda' else 0)) * P
+        self._admit('reproduction_preflight', _nbytes(est1) + gather, candidate=True)
+        rows = self.pop.live_rows
+        if P:
+            B_h, E_h = _hostarr(self.pop.B), _hostarr(self.pop.E)
+            l_ids = np.ascontiguousarray(base.ids[rows], dtype=np.int64)
+            l_sp = np.ascontiguousarray(base.species_index[rows], dtype=np.int32)
+            l_age = np.ascontiguousarray(base.age_days[rows] + float(self.elapsed_days()), dtype=np.float64)
+            l_x, l_y = np.ascontiguousarray(base.x_m[rows], dtype=np.float64), np.ascontiguousarray(base.y_m[rows], dtype=np.float64)
+        else:
+            B_h = E_h = l_age = l_x = l_y = np.zeros(0, dtype=np.float64)
+            l_ids, l_sp = np.zeros(0, dtype=np.int64), np.zeros(0, dtype=np.int32)
+        counter = int(bio['n_reproduction'])
+        try:
+            res = _rec.evaluate(self.laws.repro, self.laws.patch, base.domain, current_surface, live_ids=l_ids, live_species=l_sp,
+                                live_age_days=l_age, live_B=B_h, live_E=E_h, live_x=l_x, live_y=l_y,
+                                max_existing_id=int(base.ids.max()) if Pa else None, n_total_records=Pa, seed=self.laws.seed, counter=counter,
+                                max_new_plants=mx_new, max_total_records=mx_tot, max_attempts=mx_att, max_bytes=int(self.config.max_bytes),
+                                extra_reserve_bytes=self._live_other(gather))
+        except _rec.ReproductionBudgetError as exc:
+            raise PlantSessionAdmissionError(f'reproduction_evaluate: {exc}') from exc
+        except _rec.ReproductionError as exc:
+>           raise PlantSessionError(f'reproduction refused: {exc}') from exc
+E           leaf.plant_session.PlantSessionError: reproduction refused: requested births 8 (seed 8, daughters 0) exceed max_new_plants=5; nothing is truncated
+
+leaf/plant_session.py:1446: PlantSessionError
+_ ReproductionTests.test_same_seed_same_births_and_decline_consumes_no_random_state _
+
+self = PlantSession(config=SessionConfig(catalog=SpeciesCatalog(['forb', 'grass', 'moss_inactive', 'shrub'], L=2, sha256:0833...d0c4f747c1daf6d3d885f0200bc482cc2', token='d02b758f7803145d2f61f755d47b5ba8fea65131dcb80081e02c3c1502178825', _succ=[])
+year = 2027
+current_surface = array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+    ...0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+max_new_plants = 5, max_total_records = 100, max_attempts = 50
+
+    def stage_reproduction(self, year, current_surface, *, max_new_plants, max_total_records, max_attempts):
+        '''The annual reproduction boundary (`leaf.recruitment.evaluate`), after pending growth, the post-event decision, the deferred season and
+        the due annual decision. Keyed by (rng_seed, accepted-opportunity counter); newborns request water only from the NEXT open fragment;
+        existing plants keep id / location / age / status / overrides; donors lose exactly the transferred B / E.'''
+        try:
+            mx_new, mx_tot, mx_att = _rec.check_limits(max_new_plants, max_total_records, max_attempts)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        self._gate_boundary('the reproduction opportunity')
+        year = self._repro_year_gate(year, decline=False)
+        bio = dict(self.bio)
+        if bio['transport_pending'] is not None:
+            raise PlantSessionBoundaryError('a transport interval still awaits its disturbance decision: stage_surface_event first')
+        if bio['annual_due'] is not None:
+            raise PlantSessionBoundaryError(f'the annual decision for year {bio["annual_due"]} is outstanding: stage_annual_decision first')
+        if self.schedule.season_due:
+            raise PlantSessionBoundaryError('a deferred seasonal turnover is pending: stage_deferred_season first')
+        P, Pa, base = self.n_live, int(self.base.n), self.base
+        try:
+            est1, _ = _rec.preflight_bytes(self.laws.repro, self.laws.patch, base.domain, P)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        gather = (80 + (16 if self.config.backend == 'cuda' else 0)) * P
+        self._admit('reproduction_preflight', _nbytes(est1) + gather, candidate=True)
+        rows = self.pop.live_rows
+        if P:
+            B_h, E_h = _hostarr(self.pop.B), _hostarr(self.pop.E)
+            l_ids = np.ascontiguousarray(base.ids[rows], dtype=np.int64)
+            l_sp = np.ascontiguousarray(base.species_index[rows], dtype=np.int32)
+            l_age = np.ascontiguousarray(base.age_days[rows] + float(self.elapsed_days()), dtype=np.float64)
+            l_x, l_y = np.ascontiguousarray(base.x_m[rows], dtype=np.float64), np.ascontiguousarray(base.y_m[rows], dtype=np.float64)
+        else:
+            B_h = E_h = l_age = l_x = l_y = np.zeros(0, dtype=np.float64)
+            l_ids, l_sp = np.zeros(0, dtype=np.int64), np.zeros(0, dtype=np.int32)
+        counter = int(bio['n_reproduction'])
+        try:
+>           res = _rec.evaluate(self.laws.repro, self.laws.patch, base.domain, current_surface, live_ids=l_ids, live_species=l_sp,
+                                live_age_days=l_age, live_B=B_h, live_E=E_h, live_x=l_x, live_y=l_y,
+                                max_existing_id=int(base.ids.max()) if Pa else None, n_total_records=Pa, seed=self.laws.seed, counter=counter,
+                                max_new_plants=mx_new, max_total_records=mx_tot, max_attempts=mx_att, max_bytes=int(self.config.max_bytes),
+                                extra_reserve_bytes=self._live_other(gather))
+
+leaf/plant_session.py:1438: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+table = <leaf.recruitment.CompiledReproduction object at 0x75e1d7eaed80>
+patch = <leaf.recruitment.PatchConfig object at 0x75e1d78219f0>
+domain = Domain(nx=12, ny=10, dx_m=1.0, dy_m=1.0, origin_x_m=0.0, origin_y_m=0.0)
+current_surface = array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+    ...0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+live_ids = array([11, 12, 13]), live_species = array([0, 0, 0], dtype=int32)
+live_age_days = array([101., 101., 101.]), live_B = array([0.05, 0.05, 0.05])
+live_E = array([0., 0., 0.]), live_x = array([3.5, 6.5, 8.5])
+live_y = array([3.5, 3.5, 6.5]), max_existing_id = 13, n_total_records = 3
+seed = 99, counter = 0, max_new_plants = 5, max_total_records = 100
+max_attempts = 50, max_bytes = 268435456, extra_reserve_bytes = 6237
+
+    def evaluate(table, patch, domain, current_surface, *, live_ids, live_species, live_age_days, live_B, live_E, live_x,
+                 live_y, max_existing_id, n_total_records, seed, counter, max_new_plants, max_total_records, max_attempts,
+                 max_bytes, extra_reserve_bytes=0):
+        '''One annual reproduction opportunity (module docstring). PURE: nothing is mutated and no random state exists
+        beyond (seed, counter). `live_*` are the LIVE plants (any row order; results are by ID). `max_existing_id` is the
+        maximum ID of ALL records (None for an empty population) and `n_total_records` their count (dead / removed
+        included). Returns {'births': {...SoA...}, 'parent_rows': int64 indices into the live arrays of changed parents,
+        'parent_B_new', 'parent_E_new', 'diagnostics': {...}}.'''
+        if not isinstance(table, CompiledReproduction):
+            raise ReproductionError('table must come from leaf.recruitment.compile_species')
+        if not table.any_active:
+            raise ReproductionError('the catalog has no active reproduction law')
+        if not isinstance(domain, _state.Domain):
+            raise ReproductionError('domain must be a leaf.state.Domain')
+        mb = _int(max_bytes, 'max_bytes', 1)
+        rb = _int(extra_reserve_bytes, 'extra_reserve_bytes', 0)
+        max_new, max_total, max_att = check_limits(max_new_plants, max_total_records, max_attempts)
+        n_total = _int(n_total_records, 'n_total_records', 0)
+        if max_existing_id is not None:
+            max_existing_id = _int(max_existing_id, 'max_existing_id', -(1 << 63), INT64_MAX)
+        elif n_total:
+            raise ReproductionError('max_existing_id is required for a non-empty population')
+        try:
+            seed, counter = _demo.check_seed(seed), _demo.check_counter(counter)
+        except _demo.DemographyError as exc:
+            raise ReproductionError(str(exc)) from exc
+        # typed metadata only (an arbitrary list-like must never be materialised before admission)
+        if not isinstance(live_ids, np.ndarray) or live_ids.ndim != 1:
+            raise ReproductionError('live_ids must be a 1-D NumPy array (typed canonical int64 IDs)')
+        n_live = int(live_ids.shape[0])
+        if patch is not None and not isinstance(patch, PatchConfig):
+            raise ReproductionError(f'patch must be a leaf.recruitment.PatchConfig (or None without a seed law), got {type(patch).__name__}')
+        if n_total < n_live:
+            raise ReproductionError(f'n_total_records={n_total} is smaller than the {n_live} live records provided')
+        if n_total == 0 and max_existing_id is not None:
+            raise ReproductionError('max_existing_id must be None for an empty population (n_total_records == 0)')
+        est1, n_trials = preflight_bytes(table, patch, domain, n_live)
+        if est1['total_bytes'] + rb > mb:
+            raise ReproductionBudgetError(f'reproduction trials need ~{est1["total_bytes"] + rb} bytes (patch trials '
+                                          f'{n_trials}, live {n_live}) > max_bytes={mb}; refused before any array exists')
+        n_live = _check_arrays(table, domain, live_ids, live_species, live_age_days, live_B, live_E, live_x, live_y)
+        if n_live:
+            if int(np.unique(live_ids).shape[0]) != n_live:
+                raise ReproductionError('live_ids must be unique canonical int64 IDs (any sign, zero included)')
+            if max_existing_id is None or int(live_ids.max()) > int(max_existing_id):
+                raise ReproductionError('max_existing_id is inconsistent with the live IDs (it must be >= every existing ID); '
+                                        'refused to avoid ID collisions')
+        try:
+            surface = domain.check_field(current_surface, 'current surface')
+        except _state.StateError as exc:
+            raise ReproductionError(f'current surface refused: {exc}') from exc
+        S, f, i = table.n_species, table._f, table._i
+        u64 = np.uint64
+        diag = {'seed': {}, 'clonal': {}}
+        # ------------------------------------------------ seed trials (per patch and species; sorted species, row-major patch)
+        n_seed = 0
+        seed_trial = None
+        if table.any_seed:
+            seed_sp = np.flatnonzero(i['seed_on'] == 1).astype(np.int64)
+            nP = patch.n_patches(domain)
+            sp_t = np.repeat(seed_sp, nP)
+            pid_t = np.tile(np.arange(nP, dtype=np.int64), seed_sp.shape[0])
+            x0, x1, y0, y1 = patch_geometry(patch, domain, pid_t)
+            area = (x1 - x0) * (y1 - y0)
+            usable = area > 0.0
+            u = _u(stream_key(seed, counter, STREAM_SEED_TRIAL), pid_t.astype(u64), sp_t.astype(u64))
+            ok = usable & (u < f['seed_p'][sp_t])
+            sel = np.flatnonzero(ok)
+            mx = i['seed_max'][sp_t[sel]]
+            uc = _u(stream_key(seed, counter, STREAM_SEED_COUNT), pid_t[sel].astype(u64), sp_t[sel].astype(u64))
+            n_rec = _count_from_u(uc, mx)
+            n_seed = int(n_rec.sum())
+            seed_trial = (sel, n_rec, sp_t, pid_t, x0, x1, y0, y1)
+            d_tr = np.bincount(sp_t[usable], minlength=S)
+            d_ok = np.bincount(sp_t[sel], minlength=S)
+            d_rec = np.bincount(sp_t[sel], weights=n_rec, minlength=S).astype(np.int64)
+            diag['seed'] = {'trials': d_tr.tolist(), 'successes': d_ok.tolist(), 'failures': (d_tr - d_ok).tolist(),
+                            'recruits': d_rec.tolist()}
+        # ------------------------------------------------ clonal trials (live parents; keyed by ID)
+        n_req = 0
+        order = np.zeros(0, dtype=np.int64)
+        counts = np.zeros(0, dtype=np.int64)
+        sp_l = np.asarray(live_species, dtype=np.int64)
+        if table.any_clonal and n_live:
+            on = i['cl_on'][sp_l] == 1
+            agb_l = f['cl_agb'][sp_l]
+            elig = on & (live_age_days >= f['cl_min_age'][sp_l]) & (live_B >= f['cl_min_b'][sp_l]) \
+                & (f['cl_maxdon'][sp_l] * live_B >= agb_l)
+            ids_u = live_ids.astype(u64)
+            zero = np.zeros(n_live, dtype=np.uint64)
+            ut = _u(stream_key(seed, counter, STREAM_CLONAL_TRIAL), ids_u, zero)
+            succ = elig & (ut < f['cl_p'][sp_l])
+            uc = _u(stream_key(seed, counter, STREAM_CLONAL_COUNT), ids_u, zero)
+            mxd = i['cl_maxd'][sp_l]
+            draw = _count_from_u(uc, np.maximum(mxd, 1))
+            cap = np.floor(np.minimum(f['cl_maxdon'][sp_l] * live_B / np.where(agb_l > 0, agb_l, 1.0), mxd.astype(np.float64)))
+            nreq = np.where(succ, np.minimum(draw, cap.astype(np.int64)), 0)
+            sel = np.flatnonzero(nreq > 0)
+            order = sel[np.argsort(live_ids[sel], kind='stable')].astype(np.int64)     # stable ID order, row-order free
+            counts = nreq[order]
+            n_req = int(counts.sum())
+            diag['clonal'] = {'eligible_parents': np.bincount(sp_l[elig], minlength=S).tolist(),
+                              'trial_successes': np.bincount(sp_l[succ], minlength=S).tolist(),
+                              'trial_failures': (np.bincount(sp_l[elig], minlength=S)
+                                                 - np.bincount(sp_l[succ], minlength=S)).tolist(),
+                              'daughters_requested': np.bincount(sp_l[order], weights=counts, minlength=S).astype(np.int64).tolist()}
+        # ------------------------------------------------ explicit work limits (nothing truncated)
+        if n_seed + n_req > max_new:
+>           raise ReproductionLimitError(f'requested births {n_seed + n_req} (seed {n_seed}, daughters {n_req}) exceed '
+                                         f'max_new_plants={max_new}; nothing is truncated')
+E           leaf.recruitment.ReproductionLimitError: requested births 20 (seed 20, daughters 0) exceed max_new_plants=5; nothing is truncated
+
+leaf/recruitment.py:537: ReproductionLimitError
+
+The above exception was the direct cause of the following exception:
+
+self = <test_plant_boundaries.ReproductionTests testMethod=test_same_seed_same_births_and_decline_consumes_no_random_state>
+
+    def test_same_seed_same_births_and_decline_consumes_no_random_state(self):
+        res = []
+        for _ in range(2):
+            c, a = self.to_next_year(seed=99)
+>           d = c.publish(c.stage_reproduction(2027, np.zeros((10, 12)), max_new_plants=5, max_total_records=100, max_attempts=50))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_plant_boundaries.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PlantSession(config=SessionConfig(catalog=SpeciesCatalog(['forb', 'grass', 'moss_inactive', 'shrub'], L=2, sha256:0833...d0c4f747c1daf6d3d885f0200bc482cc2', token='d02b758f7803145d2f61f755d47b5ba8fea65131dcb80081e02c3c1502178825', _succ=[])
+year = 2027
+current_surface = array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+    ...0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+max_new_plants = 5, max_total_records = 100, max_attempts = 50
+
+    def stage_reproduction(self, year, current_surface, *, max_new_plants, max_total_records, max_attempts):
+        '''The annual reproduction boundary (`leaf.recruitment.evaluate`), after pending growth, the post-event decision, the deferred season and
+        the due annual decision. Keyed by (rng_seed, accepted-opportunity counter); newborns request water only from the NEXT open fragment;
+        existing plants keep id / location / age / status / overrides; donors lose exactly the transferred B / E.'''
+        try:
+            mx_new, mx_tot, mx_att = _rec.check_limits(max_new_plants, max_total_records, max_attempts)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        self._gate_boundary('the reproduction opportunity')
+        year = self._repro_year_gate(year, decline=False)
+        bio = dict(self.bio)
+        if bio['transport_pending'] is not None:
+            raise PlantSessionBoundaryError('a transport interval still awaits its disturbance decision: stage_surface_event first')
+        if bio['annual_due'] is not None:
+            raise PlantSessionBoundaryError(f'the annual decision for year {bio["annual_due"]} is outstanding: stage_annual_decision first')
+        if self.schedule.season_due:
+            raise PlantSessionBoundaryError('a deferred seasonal turnover is pending: stage_deferred_season first')
+        P, Pa, base = self.n_live, int(self.base.n), self.base
+        try:
+            est1, _ = _rec.preflight_bytes(self.laws.repro, self.laws.patch, base.domain, P)
+        except _rec.ReproductionError as exc:
+            raise PlantSessionError(str(exc)) from exc
+        gather = (80 + (16 if self.config.backend == 'cuda' else 0)) * P
+        self._admit('reproduction_preflight', _nbytes(est1) + gather, candidate=True)
+        rows = self.pop.live_rows
+        if P:
+            B_h, E_h = _hostarr(self.pop.B), _hostarr(self.pop.E)
+            l_ids = np.ascontiguousarray(base.ids[rows], dtype=np.int64)
+            l_sp = np.ascontiguousarray(base.species_index[rows], dtype=np.int32)
+            l_age = np.ascontiguousarray(base.age_days[rows] + float(self.elapsed_days()), dtype=np.float64)
+            l_x, l_y = np.ascontiguousarray(base.x_m[rows], dtype=np.float64), np.ascontiguousarray(base.y_m[rows], dtype=np.float64)
+        else:
+            B_h = E_h = l_age = l_x = l_y = np.zeros(0, dtype=np.float64)
+            l_ids, l_sp = np.zeros(0, dtype=np.int64), np.zeros(0, dtype=np.int32)
+        counter = int(bio['n_reproduction'])
+        try:
+            res = _rec.evaluate(self.laws.repro, self.laws.patch, base.domain, current_surface, live_ids=l_ids, live_species=l_sp,
+                                live_age_days=l_age, live_B=B_h, live_E=E_h, live_x=l_x, live_y=l_y,
+                                max_existing_id=int(base.ids.max()) if Pa else None, n_total_records=Pa, seed=self.laws.seed, counter=counter,
+                                max_new_plants=mx_new, max_total_records=mx_tot, max_attempts=mx_att, max_bytes=int(self.config.max_bytes),
+                                extra_reserve_bytes=self._live_other(gather))
+        except _rec.ReproductionBudgetError as exc:
+            raise PlantSessionAdmissionError(f'reproduction_evaluate: {exc}') from exc
+        except _rec.ReproductionError as exc:
+>           raise PlantSessionError(f'reproduction refused: {exc}') from exc
+E           leaf.plant_session.PlantSessionError: reproduction refused: requested births 20 (seed 20, daughters 0) exceed max_new_plants=5; nothing is truncated
+
+leaf/plant_session.py:1446: PlantSessionError
+=========================== short test summary info ============================
+FAILED tests/test_plant_session.py::DailyFlowTests::test_transpiration_without_growth_debits_but_credits_nothing
+FAILED tests/test_plant_session.py::RefusalTests::test_reserve_and_tight_caps_are_refused_before_allocation
+FAILED tests/test_plant_boundaries.py::ReproductionTests::test_opportunity_is_gated_sequential_keyed_and_counted
+FAILED tests/test_plant_boundaries.py::ReproductionTests::test_phase2_3_state_round_trips_through_the_biological_checkpoint
+FAILED tests/test_plant_boundaries.py::ReproductionTests::test_same_seed_same_births_and_decline_consumes_no_random_state
+5 failed, 64 passed, 4 skipped, 29 subtests passed in 7.50s

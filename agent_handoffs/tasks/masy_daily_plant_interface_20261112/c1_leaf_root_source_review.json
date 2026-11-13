@@ -1,0 +1,10 @@
+{
+  "utc": "2026-11-12T03:55:21.020887+00:00",
+  "interevent_other_executable_AST_exact_latest": true,
+  "only_three_helper_delegations_plus_bc_import": true,
+  "preserved_latest_csv_v4_docs": true,
+  "root_whole_source_proof": "root_author01_manifest.json",
+  "status": "SOURCE_REVIEW_PASS_NOT_COMPLETE_QUALIFICATION",
+  "leaf_sha256": "8da24af5a672138bab335d8fd1d4518c5a17ae90db9b400c5d211cc0c768fa4b",
+  "initial_probe_error": "Root incorrectly filtered only top-level methods and relative import; actual _advance_boundary is a method and import is from leaf. Corrected recursive AST proof; not a product defect."
+}
