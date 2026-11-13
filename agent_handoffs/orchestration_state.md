@@ -1,7 +1,7 @@
 # Orchestration State
 
-Automatic Codex–Claude/source sharing remains explicitly authorized (user2026-11-12).
-Periodic_boundaries_20261112 revision4 independently ACCEPTED, exact source installed and verified. All Claude processes reaped; no live writer/assignment. Baseline85651c63003fcd0a66ba3a98af104003f64e818e.
-CPU/CUDA/native/standalone geometry, conservation, restart and memory checks pass; installed CPU730 tests/51 skips. Source/evidence: tasks/periodic_boundaries_20261112/final_review.md and qualification.json; additive dependencies/periodic-boundaries.lock.json.
-Codex owns authorized commit/push, currently publishing. Cases28, old locks8, AGENTS, existing tests and upstreams preserved. No trial run/regeneration or new environment.
-Phase3 science remains paused; resumption point: tasks/periodic_boundaries_20261112/phase3_preservation.md. No new recruitment law/parameter changes.
+Automatic Codex–Claude/source sharing remains explicitly authorized by the user (2026-11-12); no daemon or unattended process is running.
+Task periodic_boundaries_20261112 COMPLETE: revision4 independently accepted, exact source installed and checked, implementation dcfa47b32e7649098f5a731a60a2230e60baba2b pushed to gregokin/LEAF main. Publication receipt: tasks/periodic_boundaries_20261112/publication.json.
+All four Claude processes reaped; writer scopes released. No active assignment. CPU/CUDA/native/standalone geometry, conservation, restart and measured-memory checks pass; installed CPU730 tests (679 pass51 skip).
+New additive lock: dependencies/periodic-boundaries.lock.json. All28 case files,8 historical locks, AGENTS, existing tests and upstream sources preserved; no trial case run/regeneration, calibration or installation.
+Phase3 scientific work remains paused. Resume the already-recorded Phase3 status/parameterization/validation discussion from tasks/periodic_boundaries_20261112/phase3_preservation.md when requested; no new laws or assumptions were introduced here.
