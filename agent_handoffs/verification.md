@@ -17,3 +17,6 @@ correct no-CuPy source guard; isolated CPU unittest used the existing CPU enviro
 out-of-scope identical-string Edit was rejected without mutation (tool_error); all actual scope audits pass.
 No auth/network/rate-limit error or permission bypass. Publication and final preservation checks follow
 in separate task records; no historical evidence was rewritten.
+
+Implementation publication verified at `8d6c8849d219ae7e0449217db40de639bab5b590` on origin/main.
+[Receipt](tasks/masy_daily_plant_interface_20261112/publication.json); follow-up commit records completion.

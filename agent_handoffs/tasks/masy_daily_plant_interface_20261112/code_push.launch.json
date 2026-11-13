@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "git",
+    "push",
+    "origin",
+    "main"
+  ],
+  "cwd": "/home/okin/leaf",
+  "env": {},
+  "pid": 2862979,
+  "start_ticks": "200031219",
+  "started_at_utc": "2026-11-13T00:15:20.491884+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "git",
+    "ls-remote",
+    "origin",
+    "refs/heads/main"
+  ],
+  "cwd": "/home/okin/leaf",
+  "env": {},
+  "pid": 2863048,
+  "start_ticks": "200032139",
+  "started_at_utc": "2026-11-13T00:15:29.696638+00:00"
+}

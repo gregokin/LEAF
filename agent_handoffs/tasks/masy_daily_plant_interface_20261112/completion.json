@@ -1,0 +1,12 @@
+{
+  "status": "complete",
+  "code_commit": "8d6c8849d219ae7e0449217db40de639bab5b590",
+  "independent_acceptance": true,
+  "publication_verified": true,
+  "phase3_priority_pause": "closed at preserved report/resumption point; no new scientific implementation started",
+  "resumption_report": "phase3_status.md",
+  "active_claude_processes": 0,
+  "trial_case_unchanged": true,
+  "trial_case_run": false,
+  "note": "The follow-up metadata commit records this verified implementation publication; final remote receipt is local public_evidence/publication_final.json."
+}

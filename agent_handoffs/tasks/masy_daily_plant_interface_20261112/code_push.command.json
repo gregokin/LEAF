@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "git",
+    "push",
+    "origin",
+    "main"
+  ],
+  "cwd": "/home/okin/leaf",
+  "env": {}
+}

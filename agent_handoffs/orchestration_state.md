@@ -1,7 +1,8 @@
 # Orchestration State
 
 Automatic Codex–Claude/source-sharing preference remains enabled (explicit user authority, 2026-11-12).
-Task **masy_daily_plant_interface_20261112** is independently ACCEPTED and installed; publication pending.
+Task **masy_daily_plant_interface_20261112** is **COMPLETE, independently ACCEPTED and published**.
+Implementation commit `8d6c8849d219ae7e0449217db40de639bab5b590` on origin/main; [publication receipt](tasks/masy_daily_plant_interface_20261112/publication.json).
 [Final review](tasks/masy_daily_plant_interface_20261112/final_review.md),
 [qualification](tasks/masy_daily_plant_interface_20261112/qualification.json),
 [new source lock](../dependencies/masy-daily-plant-interface.lock.json).

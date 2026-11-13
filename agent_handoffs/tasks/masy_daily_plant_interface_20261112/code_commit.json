@@ -1,0 +1,5 @@
+{
+  "commit": "8d6c8849d219ae7e0449217db40de639bab5b590",
+  "subject": "Expose plant sessions for MASY daily water coordination",
+  "source_lock": "dependencies/masy-daily-plant-interface.lock.json"
+}
