@@ -1,18 +1,7 @@
 # Orchestration State
 
-Automatic Codex–Claude/source-sharing preference remains enabled (explicit user authority, 2026-11-12).
-Task **masy_daily_plant_interface_20261112** is **COMPLETE, independently ACCEPTED and published**.
-Implementation commit `8d6c8849d219ae7e0449217db40de639bab5b590` on origin/main; [publication receipt](tasks/masy_daily_plant_interface_20261112/publication.json).
-[Final review](tasks/masy_daily_plant_interface_20261112/final_review.md),
-[qualification](tasks/masy_daily_plant_interface_20261112/qualification.json),
-[new source lock](../dependencies/masy-daily-plant-interface.lock.json).
-
-All five Claude revisions exited, structured success and reaped. No active implementation writer,
-model, process or scheduler. Codex owns installation/orchestration/publication records only.
-Old locks and standalone sources are preserved; the new connection explicitly selects SYRUP
-Phase1.5 a5b8b18 / N15 82e9c011 and native MAPLE9f fbc504bb. No upstream edits or installations.
-
-Further Phase3 scientific/parameter work was paused for this priority and is preserved.
-Resume by reporting [where Phase3 stands](tasks/masy_daily_plant_interface_20261112/phase3_status.md):
-existing seed/clonal mechanics, outstanding defensible rates and validation. No new biology or
-trial run is authorized by this resumption. Entire Jornada case remains unchanged.
+Automatic Codex–Claude/source sharing remains explicitly authorized (user2026-11-12).
+Periodic_boundaries_20261112 revision4 independently ACCEPTED, exact source installed and verified. All Claude processes reaped; no live writer/assignment. Baseline85651c63003fcd0a66ba3a98af104003f64e818e.
+CPU/CUDA/native/standalone geometry, conservation, restart and memory checks pass; installed CPU730 tests/51 skips. Source/evidence: tasks/periodic_boundaries_20261112/final_review.md and qualification.json; additive dependencies/periodic-boundaries.lock.json.
+Codex owns authorized commit/push, currently publishing. Cases28, old locks8, AGENTS, existing tests and upstreams preserved. No trial run/regeneration or new environment.
+Phase3 science remains paused; resumption point: tasks/periodic_boundaries_20261112/phase3_preservation.md. No new recruitment law/parameter changes.

@@ -12,6 +12,17 @@ arithmetic serves builder='numpy'). It is NOT a measured root-density or area-we
 touched by the circle gets the same weight as the cell under the stem. Replace by rebuilding the map with
 a different law; do not reinterpret these weights as root biomass.
 
+Periodic axes (`Domain.periodic`). The SAME law applies to the toroidal footprint: on a periodic axis the root circle wraps across
+the seam (corners included) and only the nonperiodic axes are clipped. The footprint is the union / nearest-image support of the
+circle and all its images: a cell is reached iff the closest point of its closed square, taken from the NEAREST image of the centre,
+is strictly inside the circle (`leaf.periodic`). Every physical plant-cell-layer pair occurs ONCE (a cell reached by several images,
+a root wider than the domain, nx = 1 / ny = 1 all give unique cells that saturate at the domain's cells; no image copy is ever
+allocated), normalised ONCE over those unique cells, then multiplied by the unchanged layer fractions. Different plants' roots may
+overlap and compete across a seam exactly as inside the domain. Production uses the compiled periodic kernels
+(`leaf.periodic.kernels('numba')`; its pure-Python twin, kind 'python', is the slow exact reference selected by builder='numpy'); the
+legacy nonperiodic path and `benchmarks.spatial_mapping` are unchanged. Cells within one plant row follow the unwrapped footprint
+order (south to north, west to east across the seam), not ascending cell index. Roots are NOT limited by a canopy size rule.
+
 Vertical law. Each plant's horizontal weights are multiplied by its layer fractions (top layer first):
 the species `roots.layer_fractions` by default, or an explicitly ID-keyed override row per individual
 (`layer_fraction_overrides={plant_id: [L fractions]}`, all layers, finite, nonnegative, unit sum). Edges are
@@ -65,6 +76,7 @@ import math
 import numpy as np
 
 from leaf import canopy as _canopy
+from leaf import periodic as _periodic
 from leaf import state as _state
 from leaf import traits as _traits
 from leaf import uptake as _uptake
@@ -75,7 +87,11 @@ HORIZONTAL_LAW = 'uniform_positive_overlap_v1'
 HORIZONTAL_LAW_LABEL = ('existing simple geometric approximation: uniform weight over every raster cell the root circle '
                         'positively overlaps, clipped to the finite non-periodic domain, normalised once at build time; '
                         'NOT measured root density and NOT area weighting')
-VERTICAL_LAW_LABEL = ('species roots.layer_fractions (top first) or explicit ID-keyed per-individual override rows; '
+HORIZONTAL_LAW_LABEL_PERIODIC = ('existing simple geometric approximation on the TORUS: uniform weight over every UNIQUE raster cell the '
+                                 'root circle (or any periodic image of it) positively overlaps, wrapped across periodic axes and '
+                                 'clipped only on nonperiodic axes, normalised once over the unique cells; NOT measured root density '
+                                 'and NOT area weighting')
+VERTICAL_LAW_LABEL =('species roots.layer_fractions (top first) or explicit ID-keyed per-individual override rows; '
                       'weights = horizontal uniform weight x layer fraction; fixed until a new map is built')
 FIXED_WEIGHTS_NOTE = ('root weights are fixed during uptake: no plasticity, no compensation, no renormalisation of '
                       'dry / masked / unavailable cells (their requests stay unmet); growth-driven rebuilds create a '
@@ -274,6 +290,39 @@ def horizontal_edges_compiled(x, y, root_radius, nx, ny, dx, *, max_edges, max_b
             'builder': 'compiled', 'timings': dict(g.timings)}
 
 
+def horizontal_edges_periodic(x, y, root_radius, nx, ny, dx, periodic, *, builder, max_edges, max_bytes, resident_bytes=0):
+    '''Horizontal CSR (uniform weights 1/count over UNIQUE cells) for a domain with at least one periodic axis: offsets [P+1] int64,
+    cells [E] int64, weights [E] float64, counts [P]. x / y are domain-local metres in [0, L] (a periodic coordinate equal to L is
+    the same place as 0). builder 'compiled' = Numba kernels (production), 'numpy' = the exact pure-Python twin (slow reference).
+    Scratch is O(1) per plant (no bounding grid, no image copy), so only counts / offsets / edges are admitted: stage 1 counts (8P)
+    over `resident_bytes` BEFORE the count pass, stage 2 counts + offsets + cells + weights (8P + 8(P+1) + 16E) BEFORE the edge
+    arrays exist. The edge cap is checked after the count pass.'''
+    P = int(x.shape[0])
+    pxp, pyp = bool(periodic[0]), bool(periodic[1])
+    pre = {'stage': 'horizontal_periodic_count', 'n_edges': 0, 'total_bytes': 8 * P, 'transient': {'counts': 8 * P},
+           'scope': 'per-plant counts; the kernels keep O(1) scratch per plant (no bounding grid, no image copies)'}
+    _uptake.admit('roots.horizontal_periodic_count', pre, max_edges=max_edges, max_bytes=max_bytes, resident_bytes=resident_bytes)
+    try:
+        pk = _periodic.kernels('numba' if builder == 'compiled' else 'python')
+    except _periodic.PeriodicGeometryError as exc:
+        raise _uptake.BackendUnavailableError(f'periodic root builder unavailable: {exc}; use builder="numpy" explicitly') from exc
+    dummy = np.zeros(1, dtype=np.uint8)
+    counts = np.zeros(P, dtype=np.int64)
+    pk['count'](x, y, root_radius, int(nx), int(ny), float(dx), pxp, pyp, dummy, False, counts)
+    E = int(counts.sum())
+    est = {'stage': 'horizontal_periodic', 'n_edges': E, 'total_bytes': 8 * P + 8 * (P + 1) + 16 * E,
+           'transient': {'counts': 8 * P, 'offsets': 8 * (P + 1), 'cells': 8 * E, 'weights': 8 * E},
+           'scope': 'counts + offsets + int64 cells + float64 weights of the horizontal CSR'}
+    _uptake.admit('roots.horizontal_periodic', est, max_edges=max_edges, max_bytes=max_bytes, resident_bytes=resident_bytes)
+    offsets = np.zeros(P + 1, dtype=np.int64)
+    np.cumsum(counts, out=offsets[1:])
+    cells = np.empty(E, dtype=np.int64)
+    weights = np.empty(E, dtype=np.float64)
+    pk['fill_roots'](x, y, root_radius, int(nx), int(ny), float(dx), pxp, pyp, offsets, cells, weights)
+    return {'offsets': offsets, 'cells': cells, 'weights': weights, 'counts': counts, 'n_edges': E, 'estimate': est,
+            'builder': builder}
+
+
 # ------------------------------------------------------------------ layer expansion (vectorised, admitted first)
 def expansion_plan(h_counts, layer_table):
     '''(E, n_segments) of the layered map from P-sized inputs only: E = sum_p cells_p * positive_layers_p and
@@ -429,25 +478,39 @@ def build_root_map(state, catalog, *, max_edges, max_bytes, backend='numpy', bui
         del ov_idx, ov_rows
     # 4. horizontal CSR for the plants with a positive root radius (domain-local, clipped to the closed domain)
     Ka = int(np.count_nonzero(radius > 0.0))
-    led.admit('roots.horizontal_inputs', {
-        'active_index': 8 * Ka, 'active_rows': 8 * Ka, 'x_local': 8 * Ka, 'y_local': 8 * Ka,
-        'root_radius_active': 8 * Ka, 'radius_positive_mask': K})
+    h_inputs = {'active_index': 8 * Ka, 'active_rows': 8 * Ka, 'x_local': 8 * Ka, 'y_local': 8 * Ka,
+                'root_radius_active': 8 * Ka, 'radius_positive_mask': K}
+    if dom.any_periodic:       # upper-endpoint equality masks + rounding guards of the canonical local coordinates (periodic only)
+        h_inputs['periodic_alias_masks'] = 4 * Ka
+    led.admit('roots.horizontal_inputs', h_inputs)
     active = np.flatnonzero(radius > 0.0)
     led.hold('active_index', 8 * Ka)
     if Ka:
         W, H = float(dom.nx) * float(dom.dx_m), float(dom.ny) * float(dom.dx_m)
         sa = sel[active]
         xl = state.x_m[sa]
-        xl -= dom.origin_x_m
+        if dom.any_periodic:
+            # exact upper periodic endpoint == lower edge (landscape equality), local values kept in [0, L); one ID, stored record unchanged
+            yl = state.y_m[sa]
+            _periodic.localize_inplace(dom, xl, yl)
+        else:
+            xl -= dom.origin_x_m
         np.maximum(xl, 0.0, out=xl)
         np.minimum(xl, W, out=xl)
-        yl = state.y_m[sa]
-        yl -= dom.origin_y_m
+        if not dom.any_periodic:
+            yl = state.y_m[sa]
+            yl -= dom.origin_y_m
         np.maximum(yl, 0.0, out=yl)
         np.minimum(yl, H, out=yl)
         rr = radius[active]
         del sa
-        if builder == 'numpy':
+        if dom.any_periodic:
+            led.hold('x_local', 8 * Ka)
+            led.hold('y_local', 8 * Ka)
+            led.hold('root_radius_active', 8 * Ka)
+            h = horizontal_edges_periodic(xl, yl, rr, dom.nx, dom.ny, float(dom.dx_m), dom.periodic, builder=builder,
+                                          max_edges=me, max_bytes=mb, resident_bytes=led.live_bytes)
+        elif builder == 'numpy':
             led.hold('x_local', 8 * Ka)
             led.hold('y_local', 8 * Ka)
             led.hold('root_radius_active', 8 * Ka)
@@ -500,7 +563,8 @@ def build_root_map(state, catalog, *, max_edges, max_bytes, backend='numpy', bui
     led.hold('offsets', offsets.nbytes)
     led.hold('resources', resources.nbytes)
     led.hold('weights', weights.nbytes)
-    prov = {'builder': builder, 'horizontal_law': HORIZONTAL_LAW, 'horizontal_law_label': HORIZONTAL_LAW_LABEL,
+    prov = {'builder': builder, 'horizontal_law': HORIZONTAL_LAW,
+            'horizontal_law_label': HORIZONTAL_LAW_LABEL_PERIODIC if dom.any_periodic else HORIZONTAL_LAW_LABEL,
             'vertical_law': VERTICAL_LAW_LABEL, 'fixed_weights': FIXED_WEIGHTS_NOTE,
             'statuses': [_state.STATUS_NAMES[c] for c in codes], 'n_selected': K, 'n_with_roots': Ka,
             'n_inactive_rows': K - Ka, 'n_overrides': n_ov_applied, 'n_horizontal_edges': n_h_edges,
@@ -511,6 +575,8 @@ def build_root_map(state, catalog, *, max_edges, max_bytes, backend='numpy', bui
             'memory_scope': MEMORY_SCOPE,
             'admission': {'stages': led.reports, 'horizontal_builder': h_report, 'expand_layers': rep},
             'leaf_version': _traits.LEAF_VERSION}
+    if dom.any_periodic:
+        prov['boundary'] = _periodic.boundary_record(dom)
     if provenance:
         prov['caller'] = dict(provenance)
     # internal trusted ownership transfer: the 4 fresh arrays are live (counted); the map's own counts array is
@@ -521,6 +587,6 @@ def build_root_map(state, catalog, *, max_edges, max_bytes, backend='numpy', bui
 
 
 __all__ = ['VERSION', 'BUILDERS', 'HORIZONTAL_LAW', 'HORIZONTAL_LAW_LABEL', 'VERTICAL_LAW_LABEL', 'FIXED_WEIGHTS_NOTE',
-           'MEMORY_SCOPE', 'RootsError', 'numpy_bbox_scratch_bytes', 'horizontal_edges_numpy',
-           'horizontal_edges_compiled', 'expansion_plan', 'expanded_edge_count', 'expand_layer_edges',
+           'MEMORY_SCOPE', 'HORIZONTAL_LAW_LABEL_PERIODIC', 'RootsError', 'numpy_bbox_scratch_bytes', 'horizontal_edges_numpy',
+           'horizontal_edges_compiled', 'horizontal_edges_periodic', 'expansion_plan', 'expanded_edge_count', 'expand_layer_edges',
            'build_root_map']

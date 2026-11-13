@@ -36,6 +36,12 @@ integrals use the ACTUAL enabled duration) and `TransportDay` fragments (any dur
 Several open fragments may share ONE SYRUP daily operation: each needs a fresh availability read after the preceding T request (same daily
 ordinal, same hydrology count) - never a second hydrology step. The growth cadence is whole days 1..7 (weekly Euler envelope).
 
+Boundaries. The accepted plant `Domain` carries the per-axis `periodic` flags (`leaf.state.Domain`, docs/periodic-boundaries.md). Every
+geometry build of this session - start, growth / season rebuilds, Phase 2 / 3 rebinds, restore - reads them from that Domain through the
+shared builders (`biocalendar.rebuild_geometry`), so roots and canopy-area PET weights wrap across periodic seams consistently (the demand
+canopy area stays the nominal allometric pi r^2), and the population identity (`pop_sha256`) binds the Domain including its flags. A periodic daughter coordinate is wrapped by
+`leaf.recruitment` (the only recruitment change). No water, hydrology, schedule or forcing is added: SYRUP stays the sole water authority.
+
 Flags. transpiration_enabled=True / growth_enabled=False: real debit, per-plant actual feedback, NO new D / U / activity / temperature / time credit
 (earned credit kept; flush before the disabled period). transpiration_enabled=False with growth_enabled=True is REFUSED (the qualified C1 rule).
 '''
@@ -60,6 +66,7 @@ from leaf import events as _events
 from leaf import forcing as _forcing
 from leaf import growth as _growth
 from leaf import lifecycle_bridge as _lb
+from leaf import periodic as _periodic
 from leaf import plant_pet as _pp
 from leaf import recruitment as _rec
 from leaf import roots as _roots
@@ -811,16 +818,30 @@ class PlantSession:
         return (self.resident_bytes() - ROW_BYTES_PER_PLANT * int(self.base.n) + (MATERIALIZE_BYTES_PER_PLANT + GEOMETRY_BYTES_PER_PLANT
                                                                                     + ROW_BYTES_PER_PLANT) * int(self.base.n))
 
+    def boundary(self):
+        '''Boundary declaration of the session's plant domain (`leaf.periodic.boundary_record`): the per-axis `periodic` flags every
+        geometry rebuild (growth, season, rebind, restore) reads from the base `Domain`. Metadata only; nothing is allocated.'''
+        return _periodic.boundary_record(self.base.domain)
+
     def export_roots(self):
-        '''Accepted root information: the immutable `RootMap` (plant-major CSR, fixed weights), live ids, generation and content hash.'''
-        return {'root_map': self.pop.geometry.root_map, 'live_ids': self.live_ids(), 'generation': self.pop.generation,
-                'geometry_sha256': self.pop.geom_sha}
+        '''Accepted root information: the immutable `RootMap` (plant-major CSR, fixed weights), live ids, generation and content hash.
+        A periodic domain adds `boundary` (the wrapped footprints are already inside the map's unique plant-cell-layer edges).'''
+        out = {'root_map': self.pop.geometry.root_map, 'live_ids': self.live_ids(), 'generation': self.pop.generation,
+               'geometry_sha256': self.pop.geom_sha}
+        if self.base.domain.any_periodic:
+            out['boundary'] = self.boundary()
+        return out
 
     def export_canopy(self):
-        '''Accepted canopy information: per-live-plant canopy area [P] m2 (borrowed backend array), sparse `CanopyMap` (or None), live ids.'''
+        '''Accepted canopy information: per-live-plant canopy area [P] m2 (borrowed backend array), sparse `CanopyMap` (or None), live ids.
+        A periodic domain adds `boundary`. `canopy_area_m2` is the nominal allometric pi r^2 demand area (unchanged for every boundary);
+        the `canopy_map` areas / denominator are the physical (torus-union) PET support, one entry per plant-cell pair.'''
         g = self.pop.geometry
-        return {'canopy_area_m2': g.canopy_area_m2, 'canopy_map': g.canopy_map, 'live_ids': self.live_ids(),
-                'generation': self.pop.generation, 'geometry_sha256': self.pop.geom_sha}
+        out = {'canopy_area_m2': g.canopy_area_m2, 'canopy_map': g.canopy_map, 'live_ids': self.live_ids(),
+               'generation': self.pop.generation, 'geometry_sha256': self.pop.geom_sha}
+        if self.base.domain.any_periodic:
+            out['boundary'] = self.boundary()
+        return out
 
     def snapshot_state(self):
         '''Canonical PlantState at the cursor (explicit host copies of B / E; ages advanced by the exact calendar elapsed time).'''

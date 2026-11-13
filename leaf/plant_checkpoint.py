@@ -29,6 +29,14 @@ WITHOUT a second withdrawal. It is refused unless the saved external reference I
 
 Source identity. The sha256 of every LEAF module that defines the biology is saved; a difference is refused unless `SourceOverride` names exactly
 the differing modules with a justification. An override never relaxes the format, the water identity, catalog, geometry or population checks.
+The module set includes `leaf.periodic` (the shared boundary geometry); a checkpoint written before it existed differs in that module (and in
+the others edited for periodic boundaries) and needs the explicit override like any other source drift.
+
+Boundaries. The plant domain (and so its per-axis `periodic` flags) is saved in `plants.metadata.json`; a PERIODIC domain additionally records
+`boundary` in the manifest (`{"periodic": [px, py], ...}`; absent for the default nonperiodic domain, exactly as before). Restore refuses a
+plant file whose domain flags differ from the manifest (an old manifest without `boundary` means nonperiodic and is never silently
+reinterpreted as periodic), a caller `ExternalBindings.domain` with other flags (`leaf.state` domain equality), and a population / geometry
+identity that does not reproduce (`pop_sha256` binds the domain, `geometry_sha256` the wrapped roots / canopy). The format version is unchanged.
 '''
 from __future__ import annotations
 
@@ -57,7 +65,7 @@ ARRAYS = 'biology_arrays.npz'
 PLANTS = 'plants.csv'
 PLANTS_META = 'plants.metadata.json'
 SOURCE_MODULES = ('growth', 'uptake', 'roots', 'canopy', 'plant_pet', 'biocalendar', 'plant_session', 'plant_checkpoint', 'lifecycle_bridge',
-                  'demography', 'disturbance', 'recruitment', 'state', 'traits', 'forcing')
+                  'demography', 'disturbance', 'recruitment', 'state', 'traits', 'forcing', 'periodic')
 MAX_MANIFEST_BYTES = 1 << 20
 CSV_BYTES_PER_PLANT = 512          # conservative upper bound of one plain CSV row (nine fields)
 META_BYTES = 1 << 16
@@ -276,6 +284,9 @@ def save_biology(directory, session, *, external, limits, pending=None, provenan
                'last_stage_id': None if session.last_stage_id is None else session.last_stage_id.to_dict(), 'pending': pmeta,
                'water_saved': False,
                'files': {n: {'sha256': _sha_file(os.path.join(tmp, n)), 'bytes': sz} for n, sz in sizes.items()}}
+        if state.domain.any_periodic:        # absent for the default nonperiodic domain: the legacy manifest is unchanged
+            man['boundary'] = {'periodic': [bool(state.domain.periodic[0]), bool(state.domain.periodic[1])],
+                               'edges': state.domain.edge_convention}
         man['manifest_sha256'] = hashlib.sha256(_canon(man)).hexdigest()
         with open(os.path.join(tmp, MANIFEST), 'wb') as fh:
             fh.write(json.dumps(man, sort_keys=True, indent=1, allow_nan=False).encode())
@@ -419,6 +430,16 @@ def load_biology(directory, config, *, bindings, limits, day_binding_check=True)
     state = _state.read_plant_csv(os.path.join(directory, PLANTS), config.catalog, domain=bindings.domain)
     if int(state.n) != Pa:
         raise PlantCheckpointError('plant row count differs from the manifest')
+    saved_b = man.get('boundary')
+    try:
+        saved_periodic = (False, False) if saved_b is None else _state.check_periodic(
+            saved_b.get('periodic') if isinstance(saved_b, dict) else None, 'manifest boundary.periodic')
+    except _state.StateError as exc:
+        raise PlantCheckpointError(f'invalid saved boundary declaration: {exc}') from exc
+    if tuple(state.domain.periodic) != saved_periodic:
+        raise PlantCheckpointError(f'boundary mismatch: the manifest declares periodic={list(saved_periodic)} but the plant file domain has '
+                                   f'periodic={list(state.domain.periodic)}; the boundary choice is part of the accepted state and is never '
+                                   'reinterpreted on restore (an old manifest without `boundary` is nonperiodic)')
     sched = _schedule_from(man['schedule'])
     last = None if man['last_stage_id'] is None else _ps.StageId.from_dict(man['last_stage_id'])
     binding = None if man['day_binding'] is None else _ps.DayBinding(**man['day_binding'])

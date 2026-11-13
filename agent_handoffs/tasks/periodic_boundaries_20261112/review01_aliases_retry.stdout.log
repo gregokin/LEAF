@@ -1,0 +1,90 @@
+{
+  "cases": 48,
+  "failures": [
+    {
+      "kind": "public_center",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 0.1
+    },
+    {
+      "kind": "wrap",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 0.3,
+      "x": 0.30000000000000004,
+      "y": -0.3
+    },
+    {
+      "kind": "public_center",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 0.3
+    },
+    {
+      "kind": "mapper_refusal",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 0.3,
+      "error": "PlantPetError('plant positions must lie inside the closed domain')"
+    },
+    {
+      "kind": "public_center",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 0.4
+    },
+    {
+      "kind": "public_center",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 0.6
+    },
+    {
+      "kind": "sample",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 1.1,
+      "row": 1,
+      "col": 0
+    },
+    {
+      "kind": "wrap",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 1.1,
+      "x": 1.1,
+      "y": -0.9000000000000001
+    },
+    {
+      "kind": "public_center",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 1.1
+    },
+    {
+      "kind": "canopy_upper_alias",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 1.1
+    },
+    {
+      "kind": "sample",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 100000.1,
+      "row": 1,
+      "col": 0
+    },
+    {
+      "kind": "wrap",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 100000.1,
+      "x": 100000.1,
+      "y": -99999.90000000001
+    }
+  ],
+  "failure_count": 106,
+  "scope": "exact upper endpoint only; ordinary just-inside coordinates remain distinct"
+}

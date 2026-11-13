@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "-m",
+    "leaf",
+    "generate",
+    "--species",
+    "examples/phase0/species.json",
+    "--config",
+    "examples/periodic/generation.json",
+    "--surface-constant",
+    "0",
+    "--out",
+    "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review02_example/plants.csv",
+    "--report",
+    "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review02_example/report.json"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_02",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/numba_cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/cupy_cache",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_02",
+    "CUDA_VISIBLE_DEVICES": "-1"
+  }
+}

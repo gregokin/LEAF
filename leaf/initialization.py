@@ -43,6 +43,17 @@ Placement.
                       pairs. `max_attempts` bounds the total number of centre proposals over the whole
                       generation. Running out reports inability within these bounds (not infeasibility).
 
+Periodic boundaries (`Domain.periodic`, per axis; default nonperiodic = everything above unchanged). Centres are sampled across
+the FULL domain (no margin, no inset): a canopy near a periodic edge simply wraps across the seam and remains ONE plant with ONE
+centre. Exclusion rejects overlap by the SHORTEST WRAPPED centre distance on each periodic axis (ordinary distance on the other
+axes), with the same strict `< (ri + rj)^2` rule (tangency allowed). The spatial index uses exactly L / nb wide bins on a periodic
+axis (nb = floor(L / bin), no short last bin) and deduplicated modular neighbours, so it is correct for any ratio of L to the bin
+width and never compares a plant with its own image. A canopy whose diameter exceeds a periodic span would overlap itself: with
+overlap disallowed the generation REFUSES (GenerationError, before any placement; nothing is rescaled, dropped or buffered). With
+overlap allowed the independent uniform centres are kept and the cover is the correct torus union (`canopy.measure_cover`).
+The random draws are identical to the nonperiodic case (same uniform x / y proposals); only the overlap test and the cover
+measurement differ.
+
 Bounds max_plants, max_attempts, max_cover_cells, max_cover_bytes, max_working_bytes and max_iterations are
 explicit and checked before allocation/sampling; corrected counts are admitted before any new sample is
 drawn; per-species sample storage is compacted on truncation (no dead trial slots are retained). RNG:
@@ -57,6 +68,7 @@ import math
 import numpy as np
 
 from leaf import canopy as _canopy
+from leaf import periodic as _periodic
 from leaf import state as _state
 from leaf import traits as _traits
 
@@ -85,6 +97,17 @@ RNG_RECORD = {'constructor': 'numpy.random.default_rng(seed)', 'bit_generator': 
                                         'rng.uniform(min, max, k) draw)',
                              'disallowed': 'per species batch: diameters, ages (same age draw as above); then per placement '
                                            'pass, per candidate in descending size order, per proposal: x (uniform), y (uniform)'}}
+ORDERING_PERIODIC = {'allowed': ORDERING['allowed'] + '; periodic axes: centres over the full domain, cover = torus union',
+                     'disallowed': ORDERING['disallowed'] + '; periodic axes: exclusion by shortest wrapped centre distance '
+                                   '(minimum image per periodic axis, strict < (ri + rj)^2, tangency allowed)'}
+PLACEMENT_PERIODIC = ('large-canopy-first sequential uniform proposals over the FULL domain (no inset) with global cross-species '
+                      'canopy exclusion by shortest wrapped centre distance on periodic axes (roots may overlap); complete '
+                      're-placement after each count correction; sparse hashed bins (exact width L / nb on periodic axes, '
+                      'deduplicated modular neighbours), not all pairs; not a Poisson process')
+
+
+def _ordering(cfg):
+    return (ORDERING_PERIODIC if cfg['domain'].any_periodic else ORDERING)[cfg['overlap']]
 
 
 class GenerationError(RuntimeError):
@@ -300,7 +323,7 @@ def config_record(cfg):
 
 def derived_record(cfg):
     '''JSON-able derived quantities of a normalised configuration (not accepted as config input).'''
-    return {'ordering_convention': ORDERING[cfg['overlap']],
+    return {'ordering_convention': _ordering(cfg),
             'species': {sp['id']: {'diameter_distribution': ({'type': 'constant'} if sp['lognormal'] is None else
                                                              {'type': 'lognormal', 'mu': sp['lognormal'][0], 'sigma': sp['lognormal'][1],
                                                               'rule': 'sigma^2 = ln(1 + std^2/mean^2), mu = ln(mean) - sigma^2/2'}),
@@ -383,9 +406,16 @@ def _place_large_first(rng, domain, d_all, max_attempts, attempts_used):
     order = np.argsort(-d_all, kind='stable')
     if n == 0:
         return X, Y, order, attempts_used
+    try:
+        _periodic.check_no_self_overlap(domain, d_all, 'canopy')    # periodic axes only; before any proposal is drawn
+    except _periodic.PeriodicGeometryError as exc:
+        raise GenerationError(f'overlap disallowed: {exc}') from exc
     R = 0.5 * d_all
     size = max(float(d_all.max()), domain.dx_m, domain.dy_m)  # >= 2*r_max: conflicts only within adjacent bins
     x0, y0, x1, y1 = domain.x_min_m, domain.y_min_m, domain.x_max_m, domain.y_max_m
+    lay = _periodic.bin_layout(domain, size)     # nonperiodic axes: the legacy bin edge; periodic: exact L / nb bins
+    per_x, per_y = domain.periodic
+    Lx, Ly = float(domain.width_m), float(domain.height_m)
     bins = {}
     uniform = rng.uniform
     placed = 0
@@ -401,11 +431,11 @@ def _place_large_first(rng, domain, d_all, max_attempts, attempts_used):
             attempts_used += 1
             px = float(uniform(x0, x1))
             py = float(uniform(y0, y1))
-            bx = int((px - x0) // size)
-            by = int((py - y0) // size)
+            bx = _periodic.bin_key(px, x0, lay[0])
+            by = _periodic.bin_key(py, y0, lay[1])
             cand = []
-            for kx in (bx - 1, bx, bx + 1):
-                for ky in (by - 1, by, by + 1):
+            for kx in _periodic.bin_neighbours(bx, lay[0]):
+                for ky in _periodic.bin_neighbours(by, lay[1]):
                     lst = bins.get((kx, ky))
                     if lst:
                         cand.extend(lst)
@@ -413,6 +443,10 @@ def _place_large_first(rng, domain, d_all, max_attempts, attempts_used):
                 c = np.asarray(cand, dtype=np.int64)
                 ddx = X[c] - px
                 ddy = Y[c] - py
+                if per_x:
+                    ddx = _periodic.min_image(ddx, Lx)
+                if per_y:
+                    ddy = _periodic.min_image(ddy, Ly)
                 rr = R[c] + r
                 if bool(np.any(ddx * ddx + ddy * ddy < rr * rr)):
                     continue
@@ -573,15 +607,23 @@ def generate_population(catalog, config, *, surface=None):
               'sum_of_species_union_covers': final['sum_of_group_union_fractions'],
               'domain': domain.to_dict(), 'domain_area_m2': A, 'n_plants': P, 'limits': dict(limits), 'attempts': attempts,
               'placement_passes': passes, 'count_iterations_total': iterations_used,
-              'ordering_convention': ORDERING[cfg['overlap']],
+              'ordering_convention': _ordering(cfg),
               'placement': ('independent uniform centres conditioned on fitted count and cover acceptance (not an '
                             'unconditioned Poisson process)' if overlap else
-                            'large-canopy-first sequential uniform proposals with global cross-species canopy exclusion '
-                            '(roots may overlap); complete re-placement after each count correction; sparse hashed bins, '
-                            'not all pairs; not a Poisson process'),
+                            (PLACEMENT_PERIODIC if domain.any_periodic else
+                             'large-canopy-first sequential uniform proposals with global cross-species canopy exclusion '
+                             '(roots may overlap); complete re-placement after each count correction; sparse hashed bins, '
+                             'not all pairs; not a Poisson process')),
               'id_assignment': 'ids 1..P in final placement order',
               'establishment': 'resolved from the supplied initial surface' if surface is not None else 'SURFACE (unresolved)',
               'species': per_species, 'fixture_note': 'diameters/ages are configured fixtures, not calibrations'}
+    if domain.any_periodic:       # only a periodic run adds this block: nonperiodic reports keep their exact key set
+        report['boundary'] = dict(_periodic.boundary_record(domain),
+                                  centres='uniform over the FULL domain (no margin / inset)',
+                                  overlap_test=('shortest wrapped centre distance per periodic axis, strict < (ri + rj)^2'
+                                                if not overlap else 'none (overlap allowed); cover is the torus union'),
+                                  self_overlap=('refused (diameter > periodic span)' if not overlap else
+                                                'allowed; union cover counts a self-overlapping canopy once'))
     prov = {'generator': REPORT_SCHEMA, 'generator_version': REPORT_SCHEMA_VERSION, 'catalog_hash': catalog.hash,
             'generation_config': report['generation_config'], 'derived': report['derived'], 'rng': report['rng'],
             'species': {p['species']: {'target_cover': p['target_cover'], 'measured_union_cover': p['measured_union_cover'],

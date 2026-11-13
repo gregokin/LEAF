@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/verify_periodic_recruitment_memory.py"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_03",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/numba_cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/cupy_cache",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_03",
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "LEAF_CHECK_ROOT": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_03"
+  },
+  "pid": 8,
+  "start_ticks": "200665315",
+  "started_at_utc": "2026-11-13T02:01:01.455104+00:00"
+}

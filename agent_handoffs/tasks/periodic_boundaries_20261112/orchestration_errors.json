@@ -1,0 +1,34 @@
+{
+  "classification": "tool_error",
+  "recovered": true,
+  "entries": [
+    {
+      "error": "malformed Claude Read JSON and unsuccessful Edit match",
+      "evidence": [
+        "review_01.scope.json",
+        "review_02.scope.json"
+      ],
+      "resolution": "ordinary retry, no unauthorized access; final revision has no tool errors"
+    },
+    {
+      "error": "Codex audit initially treated malformed tool input as a path; three dependent spawns had no frozen cwd",
+      "evidence": [
+        "review01_cpu.error.json",
+        "review01_aliases.error.json",
+        "review01_canopy_union.error.json"
+      ],
+      "resolution": "parser corrected, actual snapshot captured, checks rerun under _retry names"
+    },
+    {
+      "error": "incidental inspection commands used nonexistent task control path/test filename or OS Python without expected packages",
+      "literal_examples": [
+        "python: command not found",
+        "ModuleNotFoundError: No module named numpy",
+        "Domain.__init__() got an unexpected keyword argument periodic (stdin used root before installation)"
+      ],
+      "resolution": "correct paths and existing venv/selected frozen cwd; not counted as verification passes"
+    }
+  ],
+  "separate_harness_check_failure": "standalone_harness_correction.json",
+  "implementation_check_failures": "review_01.md, review_02.md, review_03.md; corrected before final acceptance"
+}

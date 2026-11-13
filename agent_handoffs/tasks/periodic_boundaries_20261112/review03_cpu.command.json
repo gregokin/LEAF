@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_03",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/numba_cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/cupy_cache",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_03:/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_legacy/src",
+    "CUDA_VISIBLE_DEVICES": "-1"
+  }
+}

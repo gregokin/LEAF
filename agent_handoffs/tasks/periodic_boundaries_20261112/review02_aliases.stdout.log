@@ -1,0 +1,47 @@
+{
+  "cases": 48,
+  "failures": [
+    {
+      "kind": "wrap",
+      "nx": 3,
+      "dx": 0.1,
+      "origin": 0.3,
+      "x": 0.30000000000000004,
+      "y": -0.3
+    },
+    {
+      "kind": "wrap",
+      "nx": 3,
+      "dx": 0.2,
+      "origin": 0.6,
+      "x": 0.6000000000000001,
+      "y": -0.6
+    },
+    {
+      "kind": "wrap",
+      "nx": 3,
+      "dx": 0.3,
+      "origin": 0.6,
+      "x": 0.6000000000000001,
+      "y": -0.6
+    },
+    {
+      "kind": "wrap",
+      "nx": 7,
+      "dx": 0.2,
+      "origin": 0.4,
+      "x": 0.40000000000000024,
+      "y": -0.4
+    },
+    {
+      "kind": "wrap",
+      "nx": 7,
+      "dx": 0.7,
+      "origin": 1.1,
+      "x": 1.100000000000001,
+      "y": -1.1
+    }
+  ],
+  "failure_count": 5,
+  "scope": "exact upper endpoint only; ordinary just-inside coordinates remain distinct"
+}

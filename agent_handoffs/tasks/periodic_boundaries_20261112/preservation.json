@@ -1,0 +1,156 @@
+{
+  "checked_at_utc": "2026-11-13T02:16:16.917471+00:00",
+  "case_files": {
+    "cases/jornada_grass05_shrub10_256/PARAMETERS.md": {
+      "bytes": 44209,
+      "sha256": "6a9c4b1108c78c9e819b38e8eb03bf159f1ddde56718ce7926ec989f560b40c0"
+    },
+    "cases/jornada_grass05_shrub10_256/README.md": {
+      "bytes": 12127,
+      "sha256": "5bd5feddc30eb1300b04652db439118842ecf7a2c7610f506610fade8ec5b9dd"
+    },
+    "cases/jornada_grass05_shrub10_256/SOURCES.md": {
+      "bytes": 14168,
+      "sha256": "92b95bf6a0b7a5fb8b358845881f43257f59d85d2f5f5654070aa0c3c8732647"
+    },
+    "cases/jornada_grass05_shrub10_256/case.toml": {
+      "bytes": 10066,
+      "sha256": "83722c15f86bb1aea62923a001d6f3509aea2ccda333811ea2f0f03252392a6b"
+    },
+    "cases/jornada_grass05_shrub10_256/climate/monthly_normals.csv": {
+      "bytes": 1335,
+      "sha256": "a9764380ff79dea00731cbbd80a22407c877db5ec39bb84898032b0bfe89d6e3"
+    },
+    "cases/jornada_grass05_shrub10_256/climate/weather_2027.json": {
+      "bytes": 28856,
+      "sha256": "dccb90c0bef891463e1e13e26678e4e58c15649aa4d715d2cbcb197b6cd556e9"
+    },
+    "cases/jornada_grass05_shrub10_256/generation.json": {
+      "bytes": 3856,
+      "sha256": "b50ac249a47715162fd9024c3bf53aef85f2e7a1dd1df78bfa7c32ea983a1f38"
+    },
+    "cases/jornada_grass05_shrub10_256/inputs/README.md": {
+      "bytes": 1900,
+      "sha256": "9887d4e304cb3d05553f2661c7a31e4171ff4aa030dccd3950c9de137c8564ea"
+    },
+    "cases/jornada_grass05_shrub10_256/landscape.toml": {
+      "bytes": 4147,
+      "sha256": "c859d49dc6caba381a6b4a70aec58ee3c621ef585fe4f068a31e99c736ebfd3a"
+    },
+    "cases/jornada_grass05_shrub10_256/outputs/README.md": {
+      "bytes": 2226,
+      "sha256": "e56c06ee97507d67850d74b8eb427919d9d47bf5a6f12d3f5e8f741e0169e2b5"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/README.md": {
+      "bytes": 10505,
+      "sha256": "156e4cf676b17d2ea48da0a320696d056278405ae50d161e18d0d35488e5e1cb"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/initial_plants.csv": {
+      "bytes": 2615223,
+      "sha256": "169fe16fee30ea4f76f84832f0a161a2bb0791b92dfddf3be62e0ab4a6cacd08"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/initial_plants.metadata.json": {
+      "bytes": 5277,
+      "sha256": "e3eb6145e280eb8b52093f553b66c8d0d1366cf878a7fc2b109d28eebfe3cc0b"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/initial_surface.npy": {
+      "bytes": 524416,
+      "sha256": "a2966584858a9feb5e4d969d5a188ea32657bb97e7e6e3542ae700e7d79a48d5"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/initialization_report.json": {
+      "bytes": 8538,
+      "sha256": "6bfc85c954e470f7bd4039fe6318433999bf005ed47b7643fbb875d9b0fbd2d9"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/plant_files_migration.json": {
+      "bytes": 2443,
+      "sha256": "8527be393da3a3d8a5688b4bd8aef50c9fe84fb43d2334c53318c8989b8f6d25"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/preview_provenance.json": {
+      "bytes": 7913,
+      "sha256": "7c86db70cada45f6e8ddfc124dd653d603f37c8caf2fb95e320ebe28dd7daf15"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/render_preview.py": {
+      "bytes": 20411,
+      "sha256": "c6ad714b2eb75907c151abaef3752644e7389f86ade0242d39943e9980c610a1"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/species_at_initialization.json": {
+      "bytes": 21325,
+      "sha256": "9db3dace6a2a8e9212204d23aa7408414e1875a408ec3149d3e0233f7bd480e4"
+    },
+    "cases/jornada_grass05_shrub10_256/preview/vegetation_initial.png": {
+      "bytes": 2004645,
+      "sha256": "d74491d018426ec06b28073af09644323c454ab0d022ec1352280e997f922f02"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/README.md": {
+      "bytes": 6852,
+      "sha256": "7fe4efb7edf344f9ee27cc5011253255296ac204c0dd3b3e9413ca017b84c3b0"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/annual_plan.csv": {
+      "bytes": 11116,
+      "sha256": "0e090dadadbaa4bf480abc342ba0b673df792907a73c586da68c1058ea2ab1b9"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/examples/interevent.json": {
+      "bytes": 168,
+      "sha256": "29b1c0933990f4216c9fae98cc797a4fdedf52da57056272af1efde3bc8badef"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/examples/rain.json": {
+      "bytes": 242,
+      "sha256": "a60bec5928dd1f93c362c1e3b4664189e4a880ca7d174ea4f3f9d6029d2957a6"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/examples/wind.json": {
+      "bytes": 284,
+      "sha256": "9019a9f26e766120a718cc38ccc2024e53a2c974ceae55c05ea1a9011dbac261"
+    },
+    "cases/jornada_grass05_shrub10_256/scheduler/settings.toml": {
+      "bytes": 6443,
+      "sha256": "ef418c5cef7f0a990678051f137f77d176c28462dc0a9c69b8daee0480db563f"
+    },
+    "cases/jornada_grass05_shrub10_256/soil.toml": {
+      "bytes": 5815,
+      "sha256": "5d2d0f6f68d3a962050bc3198fd0466bba81f6ec311b691b2eafb796cf4402a9"
+    },
+    "cases/jornada_grass05_shrub10_256/species.json": {
+      "bytes": 35064,
+      "sha256": "cbf916391d917007261fcdc7f2c088c6725d0401d1fc886ce8c8f87b1ee81416"
+    }
+  },
+  "historical_locks": {
+    "dependencies/canopy-view.lock.json": {
+      "bytes": 4489,
+      "sha256": "58ed16a697bbfce35e63268f2746bb78ee305b4ddf8bdb672c6542b420903eb4"
+    },
+    "dependencies/masy-daily-plant-interface.lock.json": {
+      "bytes": 8797,
+      "sha256": "018f5fb2686d13ba5549d31fddc70625fce4645d75ede6fe2518afc61c0576da"
+    },
+    "dependencies/phase0-vegetation.lock.json": {
+      "bytes": 17970,
+      "sha256": "4d6041045dfd3f5684dc21830644e86215c50829d287a5c4fa30914e76d4becb"
+    },
+    "dependencies/phase1-native-growth.lock.json": {
+      "bytes": 6025,
+      "sha256": "2e019af8c0138961402410e8bf45ab18cefa30b133bf07d2533d168e8c681cb7"
+    },
+    "dependencies/phase2-disturbance.lock.json": {
+      "bytes": 4576,
+      "sha256": "cb688d4fbeb5e0917602fed8f1ada6b65029ca2db0fce0b01496c3c86719a77a"
+    },
+    "dependencies/phase3-reproduction.lock.json": {
+      "bytes": 5040,
+      "sha256": "656e9b4a627b44ed0ec67b6b25f0bff9b4ed7d09324ce109ff05b442d6bd91f7"
+    },
+    "dependencies/stepwat-growth.lock.json": {
+      "bytes": 15752,
+      "sha256": "338dfd9ee8b9aa07c25e3c9c8ea0205e59c0ff3f1ff5dda64734fc4ea7247430"
+    },
+    "dependencies/syrup-subsurface.lock.json": {
+      "bytes": 14714,
+      "sha256": "1f2f5b466dd2cdffd7ae00ecc6dfb3f42a64b8784f95559f27821312e74b16fd"
+    }
+  },
+  "AGENTS_md": {
+    "bytes": 2353,
+    "sha256": "90a8b6217553480283efd0dcba514306c5472809b35b1d5a0e80e3009e48ef31"
+  },
+  "phase3_resumption": "phase3_preservation.md"
+}

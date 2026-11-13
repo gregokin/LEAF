@@ -81,7 +81,7 @@ still readable, but are never written.
   `((col + 0.5)·dx, (row + 0.5)·dy)` for the same `nx, ny, dx, dy`. LEAF arrays are `(ny, nx)`.
 * **Surface code resolution**: the CSV token `SURFACE` (initial files only) is resolved by LEAF from MAPLE's
   *initial* surface with the containing-cell rule (`col = floor((x − x0)/dx)` clipped; upper edge in the
-  last cell). After that the establishment elevation is fixed and saved; later surfaces never rewrite it.
+  last cell; on a PERIODIC axis the exact upper endpoint `x == x_max` is the first cell). After that the establishment elevation is fixed and saved; later surfaces never rewrite it.
 * **Species file hash and table**: `view['meta']['catalog_hash']` (also in every plant file's companion
   `<stem>.metadata.json`). LEAF refuses to pair a state with a different catalog hash or a different (sorted) species table.
 * **Rasterization**: use MAPLE's existing rasterizer; LEAF does not copy it and does not define raster
@@ -114,13 +114,42 @@ view and applies only the native-MAPLE container policy:
 Burial/exposure diagnostics never imply dislodgement or mortality; `status` alone carries death/removal.
 If MAPLE's container is later extended, the adapter policy can be relaxed without touching the shared view.
 
-## 4. Boundaries: finite clipped cover vs a periodic raster
+## 4. Boundaries: finite clipped domain (default) or per-axis periodic domain
 
-LEAF's cover (`measure_cover`) and exclusion placement use a **finite, closed, non-periodic** domain:
-canopies are clipped at the edge for cover and the edge is a hard boundary for overlap. If a MAPLE raster
-interprets the boundary periodically, both the cover of edge plants and cross-boundary overlaps differ.
-The future adapter must either match LEAF's finite semantics or requalify cover/non-overlap under the
-periodic interpretation; it must not claim exact cover or guaranteed non-overlap across incompatible edges.
+A `leaf.state.Domain` is **finite, closed and non-periodic by default**: `measure_cover` and exclusion placement clip
+canopies at the edge and the edge is a hard boundary for overlap. Each axis can instead be declared **periodic**
+(`Domain(nx, ny, dx_m, ..., periodic=(True, True))`; see `docs/periodic-boundaries.md`). For a periodic axis LEAF itself
+wraps its canopy cover, exclusion placement, canopy-area PET weights and root footprints across the seam, and the shared
+view carries the declaration in `meta['domain']['periodic']` / `meta['boundary']`. If a MAPLE raster interprets the
+boundary periodically while LEAF's domain is nonperiodic, cover and cross-boundary overlap differ and nothing may be
+claimed about them: the two sides must use the SAME declaration.
+
+### 4.1 Periodic handoff (MAPLE developers — nothing here changes MAPLE or SYRUP)
+
+**Required adapter step (upstream, not done here).** `src/maple/case_tools/importers/leaf_vegetation.py::leaf_domain` builds the LEAF
+`Domain` without flags and `vegetation_from_leaf_population` compares `Domain` equality (periodicity is part of equality). Derive the strict
+`(x, y)` boolean flags from the `GeometrySpec` boundary kinds and pass `periodic=(px, py)` through that helper, the imports and the population
+comparisons; otherwise LEAF periodicity is dropped or rejected. No wind / rasterizer work is needed.
+
+MAPLE already wraps LEAF-imported canopy footprints and shelter across periodic seams, and a shrub at `x = 63.8, r = 0.5`
+on a 64 m domain remains ONE plant (one row, one `plant_id`) whose footprint appears on both sides. LEAF therefore exports
+**one object per plant with its stored centre inside the domain** — no image rows, no coordinate shift. Public periodic centers are
+canonical half-open `[0, L)`: a stored center exactly at the upper endpoint (the lower edge's alias) is exported as 0, because MAPLE's
+object container refuses upper centers; the stored LEAF record is unchanged:
+
+* generate or declare the population on the FULL periodic domain: `Domain(nx, ny, dx_m, periodic=(True, True))` (or the
+  `"periodic": [true, true]` key of the generation / domain JSON). **Do not inset the placement** (the old wrapper placed 60 x 60
+  inside 64 x 64 — a 2 m inset — because LEAF's exclusion was finite) and **do not apply an inner-area cover correction**: centres are
+  sampled over the whole domain and the measured cover is the periodic union;
+* one plant = one CSV row = one `plant_id`; `canopy_view` / `maple_vegetation_view` keep that (`meta['boundary']
+  ['one_record_per_plant']`); MAPLE's rasterizer wraps the footprint;
+* the same Domain flags must reach every LEAF consumer (MASY's common boundary config): LEAF rebuilds of roots and canopy
+  weights (growth, season, reproduction, restart) read them from the state's `Domain`; a plant file / checkpoint whose domain
+  flags differ is refused, and a source-hash difference needs the explicit override of `docs/masy-daily-plant-interface.md`;
+* when MAPLE chooses to regenerate a case, change ONLY the domain declaration and drop the wrapper inset; historical
+  populations are not rewritten here and the existing finite Jornada case is unchanged.
+
+MAPLE's old finite-domain populations stay valid under a nonperiodic `Domain`; their reading is unchanged.
 
 ## 5. Calendar and snapshots
 

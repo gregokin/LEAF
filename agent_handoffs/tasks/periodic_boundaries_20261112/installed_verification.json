@@ -1,0 +1,17 @@
+{
+  "checked_at_utc": "2026-11-13T02:19:55.439572+00:00",
+  "source_bytes_match_accepted": true,
+  "all_leaf_builder_hashes_match": true,
+  "tests": 730,
+  "passed": 679,
+  "skipped": 51,
+  "wall_seconds": 20.648643965134397,
+  "command": "installed_cpu.command.json",
+  "stdout": "installed_cpu.stdout.log",
+  "stderr": "installed_cpu.stderr.log",
+  "exit": "installed_cpu.exit.json",
+  "git_diff_check": 0,
+  "case_files_preserved": 28,
+  "historical_locks_preserved": 8,
+  "AGENTS_and_existing_tests_preserved": true
+}

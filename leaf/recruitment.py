@@ -39,7 +39,11 @@ Daughters. A LIVE parent is eligible when age >= min_age_days, B >= min_agb_dry_
 initial_agb_dry_kg. On a probability success it requests n = 1 + floor(u * max) daughters, capped so that the donation
 never exceeds max_donation_fraction * B (a parent therefore stays LIVE with B' >= (1 - fraction) B > 0). Each requested
 daughter draws up to `max_attempts_per_daughter` positions uniformly in a disk around the parent (r = R sqrt(u)); the first
-position inside the CLOSED, NON-PERIODIC domain is accepted (nothing is clipped, wrapped or forced). Only ACCEPTED daughters
+position inside the CLOSED domain is accepted. On a NONPERIODIC axis (the default) nothing is clipped, wrapped or forced: an
+outside position is rejected. On a PERIODIC axis (`Domain.periodic`) the newly computed coordinate is wrapped explicitly with
+`Domain.wrap_positions` (so it can never be outside on that axis); this is the ONLY change for periodic domains: same single
+daughter ID, age 0, current-surface sampling, parent-funded B / E, draws and attempt counting (a periodic daughter is always
+accepted at its first attempt unless the other axis is nonperiodic and outside). Only ACCEPTED daughters
 are paid for: parent B -= k * initial_agb_dry_kg and parent E -= k * initial_agb_dry_kg * (E / B); the daughter gets
 exactly that B and that E (<= B). Failed placements cause no donation. Daughters take a new ID, the parent's species, age 0
 and the current ground at their position. Parent / daughter canopies may overlap (documented, not tested).
@@ -103,6 +107,10 @@ CAVEATS = (
     'daughters are separately located plants funded by an exact transfer of parent AGB and E (no belowground pool, no '
     'costless clonal biomass); canopy overlap with parents and neighbours is allowed and not tested',
     'finite non-periodic domain: daughter positions outside the domain are rejected after bounded attempts, never wrapped',
+)
+CAVEATS_PERIODIC = CAVEATS[:-1] + (
+    'periodic axes (Domain.periodic): a daughter position beyond a periodic edge is wrapped to the other side (one plant, one ID); '
+    'nonperiodic axes still reject outside positions after bounded attempts; seeds are placed inside the closed domain unchanged',
 )
 
 
@@ -573,6 +581,7 @@ def evaluate(table, patch, domain, current_surface, *, live_ids, live_species, l
             rr = radius[idx] * np.sqrt(_u(key_r, a_ids[idx], bb))
             th = (2.0 * math.pi) * _u(key_t, a_ids[idx], bb)
             x, y = px[idx] + rr * np.cos(th), py[idx] + rr * np.sin(th)
+            x, y = domain.wrap_positions(x, y)           # periodic axes: explicit wrap; nonperiodic axes: unchanged (rejected below)
             inside = domain.contains(x, y)
             hit = idx[inside]
             cx[hit], cy[hit] = x[inside], y[inside]
@@ -694,13 +703,13 @@ def evaluate(table, patch, domain, current_surface, *, live_ids, live_species, l
                    'definition': 'old total dry AGB + external seed AGB = new retained total dry AGB; the clonal '
                                  'transfer (parent loss = daughter gain) cancels internally',
                    'closed': bool(abs(residual) <= bound)},
-        'caveats': list(CAVEATS), 'memory_estimate': est2})
+        'caveats': list(CAVEATS_PERIODIC if domain.any_periodic else CAVEATS), 'memory_estimate': est2})
     if not diag['ledger']['closed']:
         raise ReproductionError(f'dry AGB ledger does not close (residual {residual!r} kg, bound {bound!r} kg)')
     return {'births': births, 'parent_rows': parent_rows, 'parent_B_new': B_new_par, 'parent_E_new': E_new_par,
             'diagnostics': diag}
 
 
-__all__ = ['VERSION', 'LAW', 'STREAMS', 'CAVEATS', 'ReproductionError', 'ReproductionBudgetError',
+__all__ = ['VERSION', 'LAW', 'STREAMS', 'CAVEATS', 'CAVEATS_PERIODIC', 'ReproductionError', 'ReproductionBudgetError',
            'ReproductionLimitError', 'CompiledReproduction', 'PatchConfig', 'compile_species', 'check_limits',
            'stream_key', 'keyed_uniform_py', 'patch_geometry', 'memory_estimate', 'preflight_bytes', 'evaluate']

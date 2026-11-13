@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/verify_periodic_cover_memory.py", line 14, in <module>
+    assert peak<=declared+(32<<10),'Wrapped row tiles retain an extra mask beyond declared array memory'
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Wrapped row tiles retain an extra mask beyond declared array memory

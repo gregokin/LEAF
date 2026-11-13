@@ -27,6 +27,10 @@ integrates ENABLED time only and stays inside the weekly cadence envelope.
 Geometry: `materialize_state` / `rebuild_geometry` compose ONLY public functions (`PlantState`, `canopy.derive_geometry`,
 `roots.build_root_map`) exactly like `IntereventSession._materialize/_build_geometry`; optionally the sparse canopy CSR of
 `leaf.plant_pet` is built in the same cold rebuild. Phase 2 / 3 annual laws are NOT part of this module.
+Boundaries: the candidate state keeps the base `Domain` (so its per-axis `periodic` flags) and every builder reads it from the state:
+the growth-driven rebuild wraps roots and canopy PET weights across periodic seams exactly like the initial build. The per-live
+canopy area handed to demand stays the nominal allometric pi r^2 for EVERY boundary and radius (one demand law, identical to the
+standalone session); only the CanopyMap PET weights / denominator are the physical torus union.
 '''
 from __future__ import annotations
 
@@ -549,7 +553,7 @@ def rebuild_geometry(base, catalog, B_live, E_live, *, elapsed_days, max_edges, 
     geo = _canopy.derive_geometry(cand, catalog)
     radius = np.ascontiguousarray(geo['radius_m'][rows], dtype=np.float64)
     del geo
-    area_h = np.ascontiguousarray(np.pi * radius * radius, dtype=np.float64)
+    area_h = np.ascontiguousarray(np.pi * radius * radius, dtype=np.float64)     # the nominal allometric demand area, every boundary
     if cuda:
         import cupy as cp
         area = cp.asarray(area_h)

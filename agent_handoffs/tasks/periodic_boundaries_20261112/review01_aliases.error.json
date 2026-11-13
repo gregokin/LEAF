@@ -1,0 +1,8 @@
+{
+  "classification": "tool_error",
+  "step": "Codex verification runner spawn",
+  "literal_error": "FileNotFoundError: [Errno 2] No such file or directory: '/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_01'",
+  "child_started": false,
+  "cause": "audit helper treated a malformed Claude tool input as a filesystem read; no snapshot was created. Correct parser and retry under new record names.",
+  "recorded_at_utc": "2026-11-13T01:46:30.710989+00:00"
+}

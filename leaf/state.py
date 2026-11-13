@@ -4,13 +4,24 @@ Conventions (LEAF Phase 0)
   Domain      nx, ny cells of dx_m x dy_m metres, origin (origin_x_m, origin_y_m) at the south-west corner
               in the LANDSCAPE frame. Raster axes are (ny, nx): row = y (north), col = x (east). Cell
               centres are origin + (col + 0.5) * dx, origin + (row + 0.5) * dy. The domain is finite,
-              closed [x_min, x_max] x [y_min, y_max] and NON-periodic; nothing wraps. Domain objects are
+              closed [x_min, x_max] x [y_min, y_max]. DEFAULT: NON-periodic (nothing wraps). Domain objects are
               immutable (frozen after construction).
+  Boundaries  ONE immutable per-axis declaration `Domain(..., periodic=(px, py))` (x then y; strict bools, default
+              (False, False)). A periodic axis is a torus axis of length nx*dx (ny*dy): plant geometry (canopy,
+              roots, exclusion, cover) wraps across that seam while every plant stays ONE record with ONE ID and ONE
+              centre inside the closed domain (no image records, no coordinate shifts). Ordinary position input is still
+              validated against the closed domain on every axis (nothing is silently normalised); computed coordinates
+              (e.g. new daughter positions) are wrapped explicitly with `Domain.wrap_positions`. Mixed axes are
+              supported. A nonperiodic Domain serialises exactly as before (no new key); a periodic one adds
+              `periodic: [bool, bool]` and per-axis `edges` / `cell_sampling` texts. See docs/periodic-boundaries.md.
   Positions   x_m, y_m are landscape-frame coordinates in the SAME frame as the origin (NOT origin-relative);
               the MAPLE view subtracts the origin when it publishes domain-local centres.
   Sampling    CELL_SAMPLING_CONVENTION = 'containing_cell_closed_upper': a point samples the cell that
               contains it, col = floor((x - origin_x) / dx) clipped to [0, nx-1], so the upper domain edge
-              x == x_max belongs to the last column. No interpolation, no transpose, no wrapping.
+              x == x_max belongs to the last column. No interpolation, no transpose. On a PERIODIC axis the upper
+              edge is the SAME place as the lower edge: the EXACT endpoint x == x_max_m (equality on the landscape
+              coordinate, robust on decimal spacings / origins) samples column 0 (CELL_SAMPLING_PERIODIC); any other
+              position keeps floor((x - origin_x) / dx) clipped to [0, nx-1]; nonperiodic axes keep the closed-upper rule.
   Status      int8 codes 0 live, 1 dead_standing, 2 removed; the CSV carries the names. Removed/dead
               identities are retained forever (never compacted).
   Biomass     agb_dry_kg is THE aboveground dry mass state; seasonal_agb_dry_kg (E) is a subcomponent,
@@ -97,6 +108,23 @@ STATUS_NAMES = {v: k for k, v in STATUS_CODES.items()}
 CELL_SAMPLING_CONVENTION = 'containing_cell_closed_upper'
 AXES_CONVENTION = '(ny, nx): row = y north, col = x east'
 EDGE_CONVENTION = 'finite closed domain, non-periodic'
+CELL_SAMPLING_PERIODIC = ('containing_cell_periodic_axes_upper_edge_equals_lower_edge;'
+                          'nonperiodic_axes_closed_upper')
+
+
+def edge_convention(periodic=(False, False)):
+    '''Text of the `edges` metadata for a per-axis periodic declaration (legacy text when nothing is periodic).'''
+    px, py = periodic
+    if not (px or py):
+        return EDGE_CONVENTION
+    wrapped = '+'.join(a for a, p in (('x', px), ('y', py)) if p)
+    fixed = '+'.join(a for a, p in (('x', px), ('y', py)) if not p)
+    txt = f'periodic (torus) in {wrapped}'
+    if fixed:
+        txt += f'; finite closed non-periodic in {fixed}'
+    return txt
+
+
 COORDINATE_FRAME = 'landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)'
 UNITS = {'x_m': 'm, landscape-frame easting (same frame as origin_x_m; not origin-relative)',
          'y_m': 'm, landscape-frame northing (same frame as origin_y_m; not origin-relative)',
@@ -139,15 +167,25 @@ def _positive_int(v, name):
 
 
 # ------------------------------------------------------------------ domain
-class Domain:
-    '''Finite, closed, non-periodic rectangular raster domain (immutable). See the module docstring.'''
+def check_periodic(periodic, name='periodic'):
+    '''Strict per-axis boundary declaration -> (bool, bool) in x / y order. Only a list / tuple of exactly two real booleans
+    (bool or numpy.bool_) is accepted: no truthiness of ints / strings / None, no scalar broadcast.'''
+    if not isinstance(periodic, (list, tuple)) or len(periodic) != 2 \
+            or any(not isinstance(v, (bool, np.bool_)) for v in periodic):
+        raise StateError(f'{name} must be a [x, y] pair of booleans (true = periodic axis), got {periodic!r}')
+    return (bool(periodic[0]), bool(periodic[1]))
 
-    __slots__ = ('nx', 'ny', 'dx_m', 'dy_m', 'origin_x_m', 'origin_y_m')
+
+class Domain:
+    '''Finite, closed rectangular raster domain (immutable); each axis is nonperiodic (default) or periodic.
+    See the module docstring.'''
+
+    __slots__ = ('nx', 'ny', 'dx_m', 'dy_m', 'origin_x_m', 'origin_y_m', 'periodic')
     _DICT_KEYS = ('nx', 'ny', 'dx_m', 'dy_m', 'origin_x_m', 'origin_y_m')
     _DOC_KEYS = {'axes': AXES_CONVENTION, 'cell_sampling': CELL_SAMPLING_CONVENTION, 'edges': EDGE_CONVENTION,
                  'coordinate_frame': COORDINATE_FRAME}
 
-    def __init__(self, nx, ny, dx_m, dy_m=None, origin_x_m=0.0, origin_y_m=0.0):
+    def __init__(self, nx, ny, dx_m, dy_m=None, origin_x_m=0.0, origin_y_m=0.0, *, periodic=(False, False)):
         s = object.__setattr__
         s(self, 'nx', _positive_int(nx, 'nx'))
         s(self, 'ny', _positive_int(ny, 'ny'))
@@ -155,6 +193,7 @@ class Domain:
         s(self, 'dy_m', self.dx_m if dy_m is None else _positive_float(dy_m, 'dy_m'))
         s(self, 'origin_x_m', _finite_float(origin_x_m, 'origin_x_m'))
         s(self, 'origin_y_m', _finite_float(origin_y_m, 'origin_y_m'))
+        s(self, 'periodic', check_periodic(periodic))
         for name in ('width_m', 'height_m', 'x_max_m', 'y_max_m', 'area_m2'):
             if not math.isfinite(getattr(self, name)):
                 raise StateError(f'domain {name} is not finite')
@@ -208,6 +247,26 @@ class Domain:
     def square_cells(self):
         return self.dx_m == self.dy_m
 
+    @property
+    def periodic_x(self):
+        return self.periodic[0]
+
+    @property
+    def periodic_y(self):
+        return self.periodic[1]
+
+    @property
+    def any_periodic(self):
+        return bool(self.periodic[0] or self.periodic[1])
+
+    @property
+    def edge_convention(self):
+        return edge_convention(self.periodic)
+
+    @property
+    def cell_sampling_convention(self):
+        return CELL_SAMPLING_PERIODIC if self.any_periodic else CELL_SAMPLING_CONVENTION
+
     def cell_centers(self):
         '''(x_centers[nx], y_centers[ny]) in the landscape frame.'''
         xs = self.origin_x_m + (np.arange(self.nx, dtype=np.float64) + 0.5) * self.dx_m
@@ -216,39 +275,57 @@ class Domain:
 
     # ---- serialization / equality
     def to_dict(self):
+        '''JSON-able description. A fully nonperiodic domain serialises EXACTLY as before (no new key, legacy texts); a domain
+        with a periodic axis adds `periodic: [px, py]` and the matching per-axis `edges` / `cell_sampling` texts.'''
         d = {'nx': self.nx, 'ny': self.ny, 'dx_m': self.dx_m, 'dy_m': self.dy_m,
              'origin_x_m': self.origin_x_m, 'origin_y_m': self.origin_y_m}
         d.update(self._DOC_KEYS)
+        if self.any_periodic:
+            d['cell_sampling'] = self.cell_sampling_convention
+            d['edges'] = self.edge_convention
+            d['periodic'] = [self.periodic[0], self.periodic[1]]
         return d
 
     @classmethod
     def from_dict(cls, d):
+        '''Strict reader. Optional `periodic: [bool, bool]` (real JSON booleans only). The documentation keys `edges` /
+        `cell_sampling`, when present, must match the DECLARED periodicity: a legacy `edges: "periodic"` (or any periodic
+        text) without a valid `periodic` declaration is refused, as is a finite `edges` text beside `periodic: [true, ...]`.'''
         if not isinstance(d, dict):
             raise StateError('domain must be a JSON object / dict')
-        unknown = sorted(set(d) - set(cls._DICT_KEYS) - set(cls._DOC_KEYS) - {'notes'})
+        unknown = sorted(set(d) - set(cls._DICT_KEYS) - set(cls._DOC_KEYS) - {'notes', 'periodic'})
         if unknown:
             raise StateError(f'domain: unknown keys {unknown}')
         for k in ('nx', 'ny', 'dx_m'):
             if k not in d:
                 raise StateError(f'domain requires {k}')
-        for k, expected in cls._DOC_KEYS.items():
+        periodic = check_periodic(d['periodic'], 'domain periodic') if 'periodic' in d else (False, False)
+        expected_doc = dict(cls._DOC_KEYS)
+        if any(periodic):
+            expected_doc['cell_sampling'] = CELL_SAMPLING_PERIODIC
+            expected_doc['edges'] = edge_convention(periodic)
+        for k, expected in expected_doc.items():
             if k in d and d[k] != expected:
-                raise StateError(f'domain metadata {k!r} = {d[k]!r} conflicts with the LEAF convention {expected!r} '
-                                 '(e.g. periodic edges or another sampling rule are not supported)')
-        return cls(d['nx'], d['ny'], d['dx_m'], d.get('dy_m'), d.get('origin_x_m', 0.0), d.get('origin_y_m', 0.0))
+                raise StateError(f'domain metadata {k!r} = {d[k]!r} conflicts with the LEAF convention {expected!r} for the '
+                                 f'declared periodic={list(periodic)!r} (periodicity is declared ONLY by the explicit boolean '
+                                 '"periodic": [x, y] key; a periodic "edges" text without it, or another sampling rule, is refused)')
+        return cls(d['nx'], d['ny'], d['dx_m'], d.get('dy_m'), d.get('origin_x_m', 0.0), d.get('origin_y_m', 0.0),
+                   periodic=periodic)
 
     def __eq__(self, other):
-        return isinstance(other, Domain) and all(getattr(self, k) == getattr(other, k) for k in self._DICT_KEYS)
+        return isinstance(other, Domain) and self.periodic == other.periodic \
+            and all(getattr(self, k) == getattr(other, k) for k in self._DICT_KEYS)
 
     def __ne__(self, other):
         return not self.__eq__(other)
 
     def __hash__(self):
-        return hash(tuple(getattr(self, k) for k in self._DICT_KEYS))
+        return hash((tuple(getattr(self, k) for k in self._DICT_KEYS), self.periodic))
 
     def __repr__(self):
-        return (f'Domain(nx={self.nx}, ny={self.ny}, dx_m={self.dx_m!r}, dy_m={self.dy_m!r}, '
-                f'origin_x_m={self.origin_x_m!r}, origin_y_m={self.origin_y_m!r})')
+        base = (f'Domain(nx={self.nx}, ny={self.ny}, dx_m={self.dx_m!r}, dy_m={self.dy_m!r}, '
+                f'origin_x_m={self.origin_x_m!r}, origin_y_m={self.origin_y_m!r}')
+        return base + (f', periodic={self.periodic!r})' if self.any_periodic else ')')
 
     # ---- positions and sampling
     def contains(self, x_m, y_m):
@@ -273,13 +350,50 @@ class Domain:
                              f'(first: index {i}, x={x.flat[i]!r}, y={y.flat[i]!r}); no wrapping is applied')
         return x, y
 
+    def wrap_positions(self, x_m, y_m):
+        '''(x, y) float64 with every PERIODIC axis wrapped into the half-open [min, max): the EXACT upper endpoint (a value equal to
+        `x_max_m` / `y_max_m`, including a wrapped result that rounds onto it) is canonicalised to the lower edge by explicit
+        equality, never by a tolerance; a value already inside [min, max) is returned bit-for-bit unchanged, so a genuinely
+        just-inside value stays distinct. NONPERIODIC axes are returned unchanged (no
+        clipping, no wrapping, no range validation): this is the explicit step for NEWLY COMPUTED coordinates (e.g. daughter
+        positions); ordinary input positions are never silently wrapped (`check_positions` keeps refusing them). Non-finite input is
+        refused for every domain.'''
+        x = np.asarray(x_m, dtype=np.float64)
+        y = np.asarray(y_m, dtype=np.float64)
+        if not (np.all(np.isfinite(x)) and np.all(np.isfinite(y))):
+            raise StateError('wrap_positions: non-finite coordinate(s)')
+        if not self.any_periodic:
+            return x, y
+
+        def wrap(v, origin, length, vmax):
+            inside = (v >= origin) & (v < vmax)                 # already in the half-open range: returned bit-for-bit unchanged
+            w = np.mod(v - origin, length)
+            w = np.where(w >= length, 0.0, w)
+            res = origin + w
+            # the exact upper endpoint is the lower edge: decided on the ORIGINAL input (v - origin may round above the span before the
+            # modulo) and, as well, on a result that rounded onto it
+            res = np.where((v == vmax) | (res == vmax), origin, res)
+            return np.where(inside, v, res)
+        if self.periodic[0]:
+            x = wrap(x, self.origin_x_m, self.width_m, self.x_max_m)
+        if self.periodic[1]:
+            y = wrap(y, self.origin_y_m, self.height_m, self.y_max_m)
+        return x, y
+
     def cell_indices(self, x_m, y_m):
-        '''(row, col) int64 arrays of the containing cell (CELL_SAMPLING_CONVENTION).'''
+        '''(row, col) int64 arrays of the containing cell (`cell_sampling_convention`): closed upper edge on a nonperiodic axis
+        (clipped to the last cell). On a periodic axis the EXACT upper endpoint (`x == x_max_m`, decided by equality on the landscape
+        coordinate, so it holds on decimal spacings / origins where `x - origin` rounds below the span) samples index 0 (upper edge ==
+        lower edge); every other value is clipped to [0, n - 1], so a real just-inside position keeps its own (last) cell.'''
         x, y = self.check_positions(x_m, y_m)
         col = np.floor((x - self.origin_x_m) / self.dx_m).astype(np.int64)
         row = np.floor((y - self.origin_y_m) / self.dy_m).astype(np.int64)
         np.clip(col, 0, self.nx - 1, out=col)
         np.clip(row, 0, self.ny - 1, out=row)
+        if self.periodic[0]:
+            col[x == self.x_max_m] = 0
+        if self.periodic[1]:
+            row[y == self.y_max_m] = 0
         return row, col
 
     def check_field(self, field, name='surface'):
@@ -869,7 +983,7 @@ def plant_metadata(state, csv_text, *, initial=False, provenance=None, csv_file=
             'species_names': list(state.species_names), 'species_table_order': _traits.SPECIES_TABLE_ORDER,
             'domain': state.domain.to_dict(), 'units': dict(UNITS), 'coordinate_frame': COORDINATE_FRAME,
             'status_codes': dict(STATUS_CODES), 'establishment_resolved': state.establishment_resolved,
-            'initial': bool(initial), 'cell_sampling': CELL_SAMPLING_CONVENTION,
+            'initial': bool(initial), 'cell_sampling': state.domain.cell_sampling_convention,
             'provenance': dict(provenance) if provenance is not None else dict(state.provenance)}
 
 
@@ -1240,6 +1354,7 @@ def write_plant_csv(state, path, *, overwrite=False, initial=False, provenance=N
 __all__ = ['CSV_SCHEMA', 'CSV_SCHEMA_VERSION', 'METADATA_SCHEMA', 'METADATA_SCHEMA_VERSION', 'METADATA_SUFFIX',
            'CSV_COLUMNS', 'SURFACE_TOKEN', 'LIVE', 'DEAD_STANDING', 'REMOVED',
            'STATUS_CODES', 'STATUS_NAMES', 'CELL_SAMPLING_CONVENTION', 'AXES_CONVENTION', 'EDGE_CONVENTION',
+           'CELL_SAMPLING_PERIODIC', 'edge_convention', 'check_periodic',
            'COORDINATE_FRAME', 'UNITS', 'StateError', 'Domain', 'constant_surface', 'load_surface', 'status_codes',
            'PlantState', 'metadata_path', 'plant_csv_text', 'plant_metadata', 'plant_metadata_text', 'plant_metadata_size',
            'METADATA_SIZE_SLACK_BYTES', 'plant_files_text',

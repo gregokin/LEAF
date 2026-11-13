@@ -416,3 +416,9 @@ qualified explicit T-off/G-on refusal; T-on/G-off is real water with no later gr
 
 New connection selects published N15 a5b8b18; historical c76c603 standalone locks/guards remain.
 Phase3 code, parameters and trial case unchanged. [Acceptance and source identities](tasks/masy_daily_plant_interface_20261112/final_review.md).
+
+## 2026-11-12 — periodic canopy/root boundary correction
+
+One immutable per-axis Domain declaration now drives full-domain generator exclusion/union cover, exact canopy PET and unique layered root maps; default nonperiodic outputs remain reproducible. Roots may overlap even when canopy placement excludes overlap. Allometric demand and ecology/water laws are preserved; the shared exact circle integrator fixes a degenerate tangency numerical error. Cover row tiles release each mask before the next allocation, preserving the existing byte cap.
+
+[Independent acceptance/source identities](tasks/periodic_boundaries_20261112/final_review.md) and [MAPLE/MASY handoff](tasks/periodic_boundaries_20261112/developer_handoff.md). MAPLE already wraps canopies/shelter but its leaf_domain helper must propagate native boundary flags; remove wrapper inset/inner-cover correction only when authorized to regenerate. No upstream or user case modified. Phase3 science remains paused; existing seed/clonal mechanics and parameters preserved.

@@ -80,17 +80,28 @@ injury or damage physics; it ships species trait *sockets* and event diagnostics
 
 ### 2.1 Domain (immutable)
 
-`Domain(nx, ny, dx_m, dy_m=None, origin_x_m=0.0, origin_y_m=0.0)`
+`Domain(nx, ny, dx_m, dy_m=None, origin_x_m=0.0, origin_y_m=0.0, *, periodic=(False, False))`
 
+* **Boundary declaration (new, optional).** `periodic=(px, py)` is ONE immutable per-axis declaration (x then y; strict
+  booleans, default `(False, False)`). `Domain.from_dict` accepts an optional `"periodic": [bool, bool]` and refuses any
+  other type, and an `edges` / `cell_sampling` text that conflicts with the declaration (a legacy `edges: "periodic"`
+  without a valid declaration is refused, not reinterpreted). Equality, hash and repr distinguish periodicity. A fully
+  nonperiodic Domain serialises **exactly as before** (no new key, legacy texts); a periodic one adds `periodic` and the
+  matching per-axis `edges` / `cell_sampling`. Details: `docs/periodic-boundaries.md`.
 * Raster axes `(ny, nx)`: row = y (north), col = x (east). Cell centres `origin + (col + 0.5)·dx`,
   `origin + (row + 0.5)·dy`; non-square cells allowed; area must be finite and positive.
 * **Coordinates are landscape-frame**: `x_m`, `y_m` live in the same frame as the origin (they are *not*
   origin-relative). The MAPLE view subtracts the origin when publishing domain-local centres.
-* Finite, **closed** `[x_min, x_max] × [y_min, y_max]`, **non-periodic**; nothing wraps (placement, cover,
-  sampling). `to_dict()` records `axes`, `cell_sampling`, `edges` and `coordinate_frame`; `from_dict()`
-  refuses conflicting metadata (e.g. `edges: periodic`, another sampling rule).
+* Finite, **closed** `[x_min, x_max] × [y_min, y_max]`; **non-periodic by default** (nothing wraps: placement, cover,
+  sampling) — an axis wraps only when declared periodic. `to_dict()` records `axes`, `cell_sampling`, `edges` and
+  `coordinate_frame` (+ `periodic` when an axis is periodic); `from_dict()` refuses conflicting metadata (e.g. `edges:
+  periodic` without the declaration, another sampling rule).
 * Sampling convention **`containing_cell_closed_upper`**: `col = floor((x − origin_x)/dx)` clipped to
-  `[0, nx−1]`; the upper edge belongs to the last column; no interpolation/transpose.
+  `[0, nx−1]`; the upper edge belongs to the last column; no interpolation/transpose. On a **periodic** axis the upper edge
+  is the same place as the lower edge: the EXACT endpoint `x == x_max_m` (landscape equality, robust on decimal spacings / origins)
+  samples column 0, every other position keeps `floor((x − origin_x)/dx)` clipped to `[0, nx−1]` (`cell_sampling` text `containing_cell_periodic_axes_upper_edge_equals_lower_edge;nonperiodic_axes_closed_upper`).
+  Ordinary input positions are still validated against the closed domain (never silently wrapped); newly computed
+  coordinates use the explicit `Domain.wrap_positions(x, y)` (nonperiodic axes returned unchanged).
 * `Domain` objects are frozen (attribute assignment raises), so sharing them is safe.
 
 ### 2.2 Canonical population (`PlantState`)
@@ -268,15 +279,19 @@ These restrictions are MAPLE-specific; SYRUP calls `canopy_view` directly and do
 `docs/maple-leaf-integration.md`.
 
 `measure_cover(domain, x, y, radius, group_index, n_groups, subsamples=4, max_cover_cells, max_cover_bytes,
-max_working_bytes)` — per-group projected union cover clipped to the finite domain (same-group overlap
-once; cross-group overlap in each group; total union too), midpoint raster of resolution `dx/subsamples`.
+max_working_bytes)` — per-group projected union cover clipped to the finite domain, **wrapped across a periodic
+axis** when the Domain declares one (same-group overlap once, including a circle with its own wrapped image;
+cross-group overlap in each group; total union too), midpoint raster of resolution `dx/subsamples`.
 Sampled, never analytic (`relative_error_scale ≈ resolution / radius`). **Memory admission before any
 allocation** (`cover_admission`): `raster_bytes` (boolean union raster(s), bound `max_cover_bytes`) and
 `working_bytes` (1-D coordinate scratch + **row-tiled** footprint temporaries, bound `max_working_bytes`,
 default 1 MiB); the result reports both, the rows per chunk and the P-sized `index_bytes`. Never P×N.
 
-**Boundaries.** Cover and exclusion use the finite, clipped, non-periodic domain. A periodic MAPLE raster
-interpretation would change both cover and overlap; an adapter must requalify them, not assume equality.
+**Boundaries.** By default cover and exclusion use the finite, clipped, non-periodic domain. With a per-axis
+`Domain.periodic` declaration LEAF wraps cover, exclusion, canopy-area PET weights and root footprints across the
+declared seams itself (one plant, one record, one ID; `docs/periodic-boundaries.md`); the shared view then carries
+`meta['boundary']`. A MAPLE raster whose periodicity differs from the LEAF Domain changes both cover and overlap:
+both sides must use the same declaration, and nothing is assumed equal across mismatched edges.
 
 ---
 
@@ -333,6 +348,12 @@ gives a different range by design (its hash differs).
    small plants occupying the gaps large plants need made a modest mixed case cost >150 CPU s.
 5. Diameters are never rescaled, individuals never silently dropped, exclusion never relaxed, bounds never
    raised. IDs are `1..P` in final placement order; anchors `SURFACE` unless an initial surface is given.
+6. **Periodic domains** (`"domain": {..., "periodic": [true, true]}`): centres are drawn over the FULL domain (no
+   margin / inset); exclusion uses the shortest wrapped centre distance per periodic axis (same strict
+   `< (ri + rj)²`, tangency allowed) with bins of exact width `L / floor(L / bin)` and deduplicated modular neighbours;
+   a canopy whose diameter exceeds a periodic span refuses the exclusion generation (`GenerationError`, nothing
+   rescaled or dropped); overlap-allowed keeps independent uniform centres and the torus-union cover. Random draws
+   are identical to the nonperiodic case. A runnable tiny config is `examples/periodic/generation.json`.
 
 The report carries the **accepted source configuration** (`generation_config`: schema, domain, seed,
 overlap, tolerance, subsamples, iterations, limits, time, species target/diameter/age rules) which is
@@ -430,6 +451,9 @@ python -m leaf export-canopy --species S --plants veg0.csv --surface-constant 10
 below the surface of 100 m, so the first export is native-MAPLE-valid; the second command shows the explicit
 handling of a deposition that fully buries the grasses (refused by default).
 
+A periodic domain is declared through the generation config / a `--domain domain.json` file (`"periodic": [true, true]`); the
+`--nx --ny --dx-m` flags describe the default nonperiodic domain only. When a companion exists its domain (with the flags) is used.
+
 `init` and `generate` write a **plain CSV plus its companion** (`veg0.csv` + `veg0.metadata.json`,
 `gen.csv` + `gen.metadata.json`; the JSON output lists `written` and `metadata_written`). Every command that
 reads a plant CSV loads and verifies the companion automatically (no `--domain` is needed when one exists; a
@@ -447,7 +471,9 @@ existing files (including an existing companion, which may belong to another fil
 dead and removed rows), `generation.json` (128² cells of 0.25 m, grass 6 % at 0.15 ± 0.03 m, shrub 5 % at
 2.0 ± 0.3 m, overlap allowed, seed 20261110, initial ages uniform 0..life expectancy of each species via the selector). All
 numbers are fixtures. Generation is reproducible from the
-report's `generation_config` + catalog hash.
+report's `generation_config` + catalog hash. `examples/periodic/generation.json` is a tiny PERIODIC (torus) fixture
+(64² cells of 0.25 m, `"periodic": [true, true]`, exclusion placement) using the same species file; see
+`docs/periodic-boundaries.md`.
 
 ## 10. Limitations (Phase 0)
 

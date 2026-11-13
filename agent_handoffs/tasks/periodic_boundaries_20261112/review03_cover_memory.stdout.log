@@ -1,0 +1,13 @@
+{
+  "traced_peak_bytes": 6705429,
+  "declared_array_peak_bytes": 6291472,
+  "working_budget_bytes": 4194304,
+  "raster_bytes": 2097152,
+  "raster_shape": [
+    1024,
+    1024
+  ],
+  "rows_per_chunk": 448,
+  "cover": 1.0,
+  "scope": "tracemalloc includes Python metadata plus NumPy; 32KiB metadata tolerance; borrowed circle inputs excluded"
+}

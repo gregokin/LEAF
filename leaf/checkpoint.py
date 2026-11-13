@@ -60,6 +60,13 @@ reinterpreted (not even with allow_source_change=True, which only relaxes the mo
 directory (embedded metadata, no companion) is reported as an incomplete / unsupported older layout. The module source
 hashes include leaf.state, so a checkpoint is also tied to the writer that produced it. The two plant files and the other
 two files are published together as ONE directory rename: the pair inside a checkpoint is never visible half-written.
+BOUNDARIES. The plant `Domain` (and its per-axis `periodic` flags) is written into `plants.metadata.json` and into
+`restart.json` `config.domain` (a periodic domain adds `periodic: [px, py]`; the default nonperiodic domain serialises exactly as
+before, so the layout and SCHEMA VERSION are unchanged). Restore refuses a checkpoint whose plant-file flags differ from the manifest
+domain flags: an old nonperiodic checkpoint is never silently reinterpreted as periodic (nor the reverse). The shared module set now
+includes `leaf.periodic`, so a checkpoint written before it existed needs `allow_source_change=True` like any other source drift (this
+only relaxes the module-source comparison). Standalone `IntereventSession` geometry is rebuilt through `leaf.roots` from the restored
+domain, so roots wrap across periodic seams; its canopy area stays the nominal pi r^2 (see docs/periodic-boundaries.md).
 MEMORY: the companion JSON is accounted at its ACTUAL size, not a fixed guess. `estimate_save_bytes` counts it (streaming
 `json.JSONEncoder.iterencode`, whole provenance, no truncation) before the snapshot exists and `save_session` recounts it from
 the real snapshot provenance and re-admits against `max_bytes` BEFORE any CSV / companion text, npz buffer or file is created
@@ -94,7 +101,7 @@ CSV_NAME, NPZ_NAME, MANIFEST_NAME = 'plants.csv', 'restart_arrays.npz', 'restart
 META_NAME = _state.metadata_path(CSV_NAME)        # 'plants.metadata.json'
 FILE_NAMES = (CSV_NAME, META_NAME, NPZ_NAME, MANIFEST_NAME)
 SOURCE_MODULES = ('interevent', 'checkpoint', 'growth', 'roots', 'uptake', 'syrup_water', 'forcing', 'canopy',
-                  'state', 'traits', 'demography', 'disturbance', 'events', 'recruitment')
+                  'state', 'traits', 'demography', 'disturbance', 'events', 'recruitment', 'periodic')
 PHASE3_SCHEMA = 'leaf.phase3_state'
 PHASE3_KEYS = ('schema', 'reproduction_active', 'seed_active', 'clonal_active', 'patch_size_m', 'n_reproduction',
                'start_year', 'last_opportunity_year', 'last_reproduction')
@@ -456,6 +463,15 @@ def load_session(path, catalog, *, operator, backend, max_edges, max_bytes, rese
         raise CheckpointError(f'plants.csv / plants.metadata.json invalid: {exc}') from exc
     del csv_bytes, meta_bytes, plant_meta   # redundant once parsed (released before the session is initialised)
     plants.require_resolved('restoring a session')
+    if cfg.get('domain') is not None:
+        try:
+            saved_domain = _state.Domain.from_dict(cfg['domain'])
+        except _state.StateError as exc:
+            raise CheckpointError(f'manifest config.domain invalid: {exc}') from exc
+        if saved_domain.periodic != plants.domain.periodic:
+            raise CheckpointError(f'boundary mismatch: the manifest domain declares periodic={list(saved_domain.periodic)} but '
+                                  f'plants.metadata.json has periodic={list(plants.domain.periodic)}; the boundary choice is part of '
+                                  'the accepted state and is never reinterpreted on restore')
     if plants.n != cfg.get('n_plants_total') or plants.time_days != st.get('time_days'):
         raise CheckpointError('plants.csv population size / time differs from the manifest')
     live_rows = np.flatnonzero(plants.status == _state.LIVE).astype(np.int64)

@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "test_periodic_boundaries.NativePeriodicN15Tests",
+    "test_lifecycle_bridge.NativeDailyTests",
+    "-v"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_04",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_04:/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cpu/objects/maple-materialized/5d850789f9e82dc456227cb1eb4dfcc255b3ee4dfb0ed74883813c93e98d0ab3/editable:/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cpu/objects/maple-materialized/5d850789f9e82dc456227cb1eb4dfcc255b3ee4dfb0ed74883813c93e98d0ab3/source/src:/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15/src:/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_04/tests",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/numba_cache",
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "LEAF_NATIVE_BUNDLE": "/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cpu/objects/maple-materialized/5d850789f9e82dc456227cb1eb4dfcc255b3ee4dfb0ed74883813c93e98d0ab3",
+    "LEAF_NATIVE_CASE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15/docs/manuals/examples/native_leaf_calendar_cli",
+    "LEAF_NATIVE_BACKEND": "numpy",
+    "LEAF_CHECK_ROOT": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_04",
+    "LEAF_CHECK_WORK": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review04_native_pipeline_cpu",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/cupy_cache"
+  },
+  "pid": 8,
+  "start_ticks": "200714263",
+  "started_at_utc": "2026-11-13T02:09:10.928695+00:00"
+}

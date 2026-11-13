@@ -40,11 +40,19 @@ over plain arrays plus stable-ID sidecars and never imports MAPLE or SYRUP. SYRU
 calls canopy_view directly and does not inherit the MAPLE container restrictions.
 
 Cover (`measure_cover`). Each group's circles are rasterised onto a (ny*s, nx*s) boolean midpoint raster
-and the union fraction of the FINITE, CLIPPED, NON-PERIODIC domain is reported. It is a deterministic
+and the union fraction of the domain is reported. It is a deterministic
 SAMPLED approximation (resolution dx/s), never an exact analytic area. Memory is admitted before any
 allocation with two precisely scoped terms: raster bytes (one or two boolean rasters, bound
 `max_cover_bytes`) and working bytes (row-tiled footprint temporaries + 1-D coordinate scratch, bound
 `max_working_bytes`); P-sized index arrays are reported separately. Never P x N or P x P.
+Boundaries: on a NONPERIODIC axis (the default) circles are clipped at the domain edge and never wrap (numerically
+unchanged); on a PERIODIC axis (`Domain.periodic`) a midpoint is covered when its minimum-image distance to the centre is
+inside the circle, so seam fragments (corners included) are rasterised once into the union, however many images reach the
+cell. Mixed axes clip only the nonperiodic axis. The nominal sum of pi r^2 is reported separately and is NOT a claim about the
+physical torus union for circles wider than half a periodic span (`leaf.periodic`).
+The shared canopy view / MAPLE adapter publish ONE object per plant (the centre inside the domain) plus boundary metadata;
+MAPLE's own rasterizer wraps the physical footprint across periodic seams. Public periodic centres are canonical half-open
+[0, L): the exact stored upper endpoint is exported as 0.
 '''
 from __future__ import annotations
 
@@ -52,6 +60,7 @@ import math
 
 import numpy as np
 
+from leaf import periodic as _periodic
 from leaf import state as _state
 from leaf import traits as _traits
 
@@ -90,6 +99,21 @@ BOUNDARY_NOTE = ('finite closed non-periodic domain: canopies are clipped at the
                  'wrap; exclusion placement treats the edge as a hard boundary. A periodic MAPLE raster '
                  'interpretation would change both cover and overlap and must be requalified by the adapter, not '
                  'assumed equal')
+COVER_DEFINITION = ('per-group projected union ground cover clipped to the finite non-periodic domain '
+                    '(same-group overlap counted once; cross-group overlap counted in each group); nominal = sum '
+                    'of unclipped crown areas / domain area')
+COVER_DEFINITION_PERIODIC = ('per-group projected union ground cover of the domain with periodic axes wrapped (torus union: a '
+                             'midpoint is covered when its minimum-image distance to a centre is inside the circle; same-group '
+                             'overlap, including a circle with its own wrapped image, counted once; cross-group overlap counted in '
+                             'each group); nonperiodic axes are clipped; nominal = sum of unclipped crown areas / domain area, '
+                             'which may exceed the physical union')
+
+
+def boundary_note(domain):
+    '''Boundary note of this domain: the legacy finite-domain text when nothing is periodic, else the periodic description.'''
+    return _periodic.BOUNDARY_NOTE_PERIODIC if domain.any_periodic else BOUNDARY_NOTE
+
+
 GEOMETRY_UNITS = {'x_m': 'm (landscape frame)', 'y_m': 'm (landscape frame)', 'diameter_m': 'm', 'radius_m': 'm',
                   'height_m': 'm (intact allometric)', 'root_radius_m': 'm', 'establishment_ground_m': 'm elevation',
                   'porosity': 'fraction [0,1]', 'current_ground_m': 'm elevation',
@@ -141,7 +165,9 @@ def derive_geometry(state, catalog, *, current_surface=None):
            'height_definition': 'intact allometric height above establishment ground (not exposed height)',
            'canopy_shape': 'circle (semi_major == semi_minor == radius_m, orientation 0)',
            'porosity_note': 'constant per-species catalog value; unused by LEAF ecology, USED by native MAPLE wind',
-           'boundary_note': BOUNDARY_NOTE, 'units': dict(GEOMETRY_UNITS)}
+           'boundary_note': boundary_note(state.domain), 'units': dict(GEOMETRY_UNITS)}
+    if state.domain.any_periodic:
+        out['boundary'] = _periodic.boundary_record(state.domain)
     if current_surface is not None:
         state.require_resolved('burial/exposure diagnostics')
         cur = state.domain.sample(current_surface, state.x_m, state.y_m, 'current surface')
@@ -195,7 +221,13 @@ def canopy_view(state, catalog, current_surface, *, statuses=('live', 'dead_stan
     height = geo['exposed_height_m'] if height_mode == 'exposed' else geo['height_m']
     dom = state.domain
     # the ONE place where landscape positions become domain-local canopy fields
-    fields = {'center_x_m': geo['x_m'][sel] - dom.origin_x_m, 'center_y_m': geo['y_m'][sel] - dom.origin_y_m,
+    if dom.any_periodic:
+        # canonical PUBLIC centres: half-open [0, L) on a periodic axis (the exact stored upper endpoint is exported as 0, decided by
+        # landscape equality, so decimal spacings / origins behave); the stored PlantState record is not changed; <= 2 B / plant masks
+        cx, cy = _periodic.localize_inplace(dom, geo['x_m'][sel], geo['y_m'][sel])
+    else:
+        cx, cy = geo['x_m'][sel] - dom.origin_x_m, geo['y_m'][sel] - dom.origin_y_m
+    fields = {'center_x_m': cx, 'center_y_m': cy,
               'semi_major_m': geo['radius_m'][sel].copy(), 'semi_minor_m': geo['radius_m'][sel].copy(),
               'orientation_deg': np.zeros(k, dtype=np.float64), 'height_m': height[sel].copy(),
               'porosity': geo['porosity'][sel].copy(), 'drag_coefficient': np.full(k, drag, dtype=np.float64)}
@@ -252,11 +284,18 @@ def canopy_view(state, catalog, current_surface, *, statuses=('live', 'dead_stan
             'porosity_note': 'constant per-species catalog value; unused by LEAF ecology; native MAPLE wind uses it; '
                              'no hydrological interpretation is defined here',
             'drag_coefficient_note': 'uniform pass-through metadata value, not a LEAF trait',
-            'boundary_note': BOUNDARY_NOTE,
+            'boundary_note': boundary_note(dom),
             'rasterization': 'none here (O(P) arrays); a consumer that needs a raster derives it from these arrays '
                              'with its own rasterizer and keeps plant_id beside it',
             'consumers': 'shared representation for MAPLE and SYRUP (and any later consumer); no consumer-specific '
                          'filtering applied; MAPLE uses maple_vegetation_view for its container policy'}
+    if dom.any_periodic:
+        # ONE object per plant, centre inside the closed domain; the consumer wraps the footprint itself (no image records)
+        meta['boundary'] = _periodic.boundary_record(dom)
+        meta['boundary']['export'] = ('one object per plant (no wrapped copies, no image rows); centres are the stored positions in '
+                                      'domain-local metres, CANONICAL half-open [0, L) on a periodic axis: the exact stored upper '
+                                      'endpoint is exported as 0 (the MAPLE object container refuses upper centres); the consumer '
+                                      'wraps the physical canopy footprint across the periodic seams itself')
     return {'fields': fields, 'sidecar': sidecar, 'meta': meta}
 
 
@@ -319,12 +358,14 @@ def maple_vegetation_view(state, catalog, current_surface, *, statuses=('live', 
             'n_unsupported_flagged_kept': flagged_kept,
             'porosity_note': 'constant per-species catalog value; native MAPLE wind uses it, LEAF ecology does not',
             'drag_coefficient_note': 'uniform pass-through metadata value, not a LEAF trait',
-            'boundary_note': BOUNDARY_NOTE,
+            'boundary_note': boundary_note(dom),
             'rasterization': "performed by MAPLE's existing rasterizer; LEAF keeps plant_id sidecars beside it",
             'derived_from': {'schema': CANOPY_VIEW_SCHEMA, 'schema_version': CANOPY_VIEW_SCHEMA_VERSION,
                              'n_objects': sm['n_objects'],
                              'note': 'MAPLE-specific projection of the shared canopy_view: same geometry by plant_id; '
                                      'only the native-MAPLE unsupported policy and compatibility metadata are added here'}}
+    if dom.any_periodic:
+        meta['boundary'] = dict(sm['boundary'])
     return {'fields': fields, 'sidecar': sidecar, 'meta': meta}
 
 
@@ -335,6 +376,7 @@ def cover_admission(domain, subsamples, *, total=True, max_cover_cells=DEFAULT_M
 
     raster_bytes  = (2 if total else 1) * (ny*s) * (nx*s) boolean cells
     working_bytes = 16*(NX+NY) 1-D coordinate scratch + rows_per_chunk*NX*9 footprint temporaries
+                    (a domain with a periodic axis counts 32*(NX+NY): index, offset, rint and distance scratch)
     rows_per_chunk is the largest value fitting max_working_bytes (at least one raster row).'''
     if not isinstance(domain, _state.Domain):
         raise _state.StateError('domain must be a leaf.state.Domain')
@@ -345,7 +387,7 @@ def cover_admission(domain, subsamples, *, total=True, max_cover_cells=DEFAULT_M
     NX, NY = domain.nx * s, domain.ny * s
     cells = NX * NY
     raster_bytes = cells * (2 if total else 1)
-    coord_bytes = 16 * (NX + NY)
+    coord_bytes = (32 if domain.any_periodic else 16) * (NX + NY)
     rows = (mw - coord_bytes) // (_CHUNK_BYTES_PER_ELEMENT * NX)
     if cells > mc or raster_bytes > mb:
         raise ResourceBoundError(f'cover raster {NY}x{NX} = {cells} cells / {raster_bytes} bytes exceeds '
@@ -363,12 +405,57 @@ def cover_admission(domain, subsamples, *, total=True, max_cover_cells=DEFAULT_M
                      'index_bytes by measure_cover and scale with the population, not the grid'}
 
 
+def _cover_axis(p, r, origin, h, n, length, periodic):
+    '''One axis of a circle footprint on the midpoint raster: ([(raster_start, k0, k1), ...] contiguous runs, squared distances d2[k]
+    of the candidate midpoints to the (nearest image of the) centre), or (None, None) when empty. Nonperiodic: the legacy clipped
+    range and arithmetic. Periodic: the unwrapped range (all n columns when it spans the axis) mapped modulo n with the
+    minimum-image offset, so no column is listed twice.'''
+    if not periodic:
+        i0 = max(int(math.floor((p - r - origin) / h)), 0)
+        i1 = min(int(math.floor((p + r - origin) / h)), n - 1)
+        if i1 < i0:
+            return None, None
+        d = origin + (np.arange(i0, i1 + 1, dtype=np.float64) + 0.5) * h - p
+        return [(i0, 0, i1 - i0 + 1)], d * d
+    i0 = int(math.floor((p - r - origin) / h))
+    i1 = int(math.floor((p + r - origin) / h))
+    idx = np.arange(n, dtype=np.int64) if i1 - i0 + 1 >= n else np.arange(i0, i1 + 1, dtype=np.int64) % n
+    d = origin + (idx.astype(np.float64) + 0.5) * h - p
+    d -= length * np.rint(d / length)
+    brk = np.flatnonzero(np.diff(idx) != 1) + 1
+    starts = np.concatenate(([0], brk))
+    ends = np.concatenate((brk, [idx.shape[0]]))
+    return [(int(idx[a]), int(a), int(b)) for a, b in zip(starts, ends)], d * d
+
+
+def _paint_wrapped(raster, px, py, rp, x0, y0, hx, hy, NX, NY, Lx, Ly, per, rows_per_chunk):
+    '''OR the midpoints of one circle (and its periodic images) into the boolean raster: row tiles bound the footprint temporaries;
+    every raster cell is addressed by at most one segment pair per axis, so a cell is covered once however many images reach it.'''
+    xsegs, xd2 = _cover_axis(px, rp, x0, hx, NX, Lx, per[0])
+    ysegs, yd2 = _cover_axis(py, rp, y0, hy, NY, Ly, per[1])
+    if xd2 is None or yd2 is None:
+        return
+    r2 = rp * rp
+    for ja in range(0, yd2.shape[0], rows_per_chunk):
+        jb = min(ja + rows_per_chunk, yd2.shape[0])
+        mask = (xd2[None, :] + yd2[ja:jb, None]) < r2
+        for rs, k0, k1 in ysegs:
+            a, b = max(k0, ja), min(k1, jb)
+            if b <= a:
+                continue
+            for cs, c0, c1 in xsegs:
+                raster[rs + (a - k0):rs + (b - k0), cs:cs + (c1 - c0)] |= mask[a - ja:b - ja, c0:c1]
+        del mask        # release the tile BEFORE the next tile's float sum + mask are built (else 10, not the admitted 9, bytes / element)
+
+
 def measure_cover(domain, x_m, y_m, radius_m, group_index=None, n_groups=1, *, subsamples=4,
                   max_cover_cells=DEFAULT_MAX_COVER_CELLS, max_cover_bytes=DEFAULT_MAX_COVER_BYTES,
                   max_working_bytes=DEFAULT_MAX_WORKING_BYTES, total=True):
-    '''Per-group union ground cover of circles clipped to the finite domain (fraction of the domain area).
+    '''Per-group union ground cover of circles (fraction of the domain area): clipped at a nonperiodic edge, WRAPPED across a
+    periodic axis of `domain.periodic` (torus union, see the module docstring; the centre stays the single stored position).
 
-    Raster midpoints are origin + (i + 0.5) * dx / s; a midpoint is covered when strictly inside a circle.
+    Raster midpoints are origin + (i + 0.5) * dx / s; a midpoint is covered when strictly inside a circle (on a periodic axis:
+    strictly inside by its minimum-image distance).
     Same-group overlaps count once; different groups are measured independently (cross-group overlap adds
     to each group's cover). `total_union_fraction` is the union over all groups. Deterministic, O(P) work on
     row-tiled bounding boxes; memory admitted by cover_admission before allocation.'''
@@ -393,6 +480,9 @@ def measure_cover(domain, x_m, y_m, radius_m, group_index=None, n_groups=1, *, s
     raster = np.zeros((NY, NX), dtype=bool)
     union_all = np.zeros((NY, NX), dtype=bool) if total else None
     A = domain.area_m2
+    wrapped = domain.any_periodic              # False: the legacy clipped path below runs unchanged
+    per = domain.periodic
+    Lx, Ly = float(domain.width_m), float(domain.height_m)
     groups = []
     for gi in range(G):
         raster[...] = False
@@ -404,6 +494,9 @@ def measure_cover(domain, x_m, y_m, radius_m, group_index=None, n_groups=1, *, s
                 continue
             nominal += math.pi * rp * rp
             px, py = float(x[p]), float(y[p])
+            if wrapped:
+                _paint_wrapped(raster, px, py, rp, x0, y0, hx, hy, NX, NY, Lx, Ly, per, rows_per_chunk)
+                continue
             i0 = max(int(math.floor((px - rp - x0) / hx)), 0)
             i1 = min(int(math.floor((px + rp - x0) / hx)), NX - 1)
             j0 = max(int(math.floor((py - rp - y0) / hy)), 0)
@@ -428,18 +521,19 @@ def measure_cover(domain, x_m, y_m, radius_m, group_index=None, n_groups=1, *, s
                        'nominal_area_m2': nominal, 'nominal_fraction': nominal / A,
                        'mean_radius_m': float(rpos.mean()) if rpos.size else None,
                        'relative_error_scale': (float(max(hx, hy) / rpos.mean()) if rpos.size else None)})
-    return {'method': COVER_METHOD, 'subsamples': s, 'raster_shape': [NY, NX], 'resolution_m': [hx, hy],
-            'raster_cells': adm['raster_cells'], 'raster_bytes': adm['raster_bytes'], 'working_bytes': adm['working_bytes'],
-            'rows_per_chunk': rows_per_chunk, 'index_bytes': int(8 * n + g.nbytes), 'admission': adm,
-            'domain_area_m2': A, 'n_circles': n, 'groups': groups,
-            'total_union_fraction': (int(np.count_nonzero(union_all)) / adm['raster_cells']) if union_all is not None else None,
-            'sum_of_group_union_fractions': float(sum(gr['union_fraction'] for gr in groups)),
-            'definition': 'per-group projected union ground cover clipped to the finite non-periodic domain '
-                          '(same-group overlap counted once; cross-group overlap counted in each group); nominal = sum '
-                          'of unclipped crown areas / domain area',
-            'boundary_note': BOUNDARY_NOTE,
-            'error_basis': 'midpoint sampling at resolution dx/s: each circle boundary is resolved to about one '
-                           'raster cell, relative error per circle ~ resolution / radius; sampled, not analytic'}
+    out = {'method': COVER_METHOD, 'subsamples': s, 'raster_shape': [NY, NX], 'resolution_m': [hx, hy],
+           'raster_cells': adm['raster_cells'], 'raster_bytes': adm['raster_bytes'], 'working_bytes': adm['working_bytes'],
+           'rows_per_chunk': rows_per_chunk, 'index_bytes': int(8 * n + g.nbytes), 'admission': adm,
+           'domain_area_m2': A, 'n_circles': n, 'groups': groups,
+           'total_union_fraction': (int(np.count_nonzero(union_all)) / adm['raster_cells']) if union_all is not None else None,
+           'sum_of_group_union_fractions': float(sum(gr['union_fraction'] for gr in groups)),
+           'definition': COVER_DEFINITION_PERIODIC if wrapped else COVER_DEFINITION,
+           'boundary_note': boundary_note(domain),
+           'error_basis': 'midpoint sampling at resolution dx/s: each circle boundary is resolved to about one '
+                          'raster cell, relative error per circle ~ resolution / radius; sampled, not analytic'}
+    if wrapped:                                   # only a periodic measurement adds this key (the legacy key set is unchanged)
+        out['periodic'] = [bool(per[0]), bool(per[1])]
+    return out
 
 
 __all__ = ['COVER_METHOD', 'DEFAULT_MAX_COVER_CELLS', 'DEFAULT_MAX_COVER_BYTES', 'DEFAULT_MAX_WORKING_BYTES',

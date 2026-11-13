@@ -10,6 +10,10 @@ Geometry (exact, no sampling). For a circle of radius r at the origin and the re
 the integral over x in [x0, x1] ∩ [-r, r] of the chord length l(x) = max(0, min(y1, h) - max(y0, -h)), h = sqrt(r^2 - x^2).
 l is piecewise one of four closed forms whose breakpoints are x = ±sqrt(r^2 - y0^2), ±sqrt(r^2 - y1^2); every piece is
 integrated with the antiderivative I(x) = (x sqrt(r^2 - x^2) + r^2 asin(x / r)) / 2. Accuracy is FP64 roundoff.
+NUMERICAL CORRECTION (periodic_boundaries revision 2, same integrator and law): the breakpoint test now includes EQUALITY (y0 or y1 == +-r).
+Before, a circle tangent to a rectangle side (e.g. r = 0.5 in [-0.5, 0.5]^2) lacked the zero breakpoint, so one midpoint classified the
+whole interval and the area came out as the rectangle side product (1 instead of pi/4). Such exactly tangent cells now return the exact
+area; every other input is bit-unchanged. This rare legacy output correction changes this module's source and needs fresh qualification.
 Cells whose four corners lie strictly inside the circle take exactly dx * dy. Edges are the cells whose closest point is
 strictly inside the circle (the root-builder predicate), restricted to the valid-cell mask.
 
@@ -24,6 +28,19 @@ a canopy outside the closed domain is dropped from numerator and denominator.
 Backends: 'numpy' (reference: vectorised cell predicate + the scalar area), 'numba' (compiled count / fill / reduce) and
 'cuda' (host-built CSR retained on the device; device reduction kernel). CUDA code is authored for Root GPU0 and was not run by
 the author.
+
+Periodic axes (`Domain.periodic`). The SAME exact circle-rectangle integrator is applied to the TOROIDAL canopy: a canopy that crosses
+a periodic seam (corners included) is read across it, every cell it touches gets ONE sparse entry per physical plant-cell pair whose area
+is the SUM of the wrapped fragments inside that cell, and `area_total_m2` / the PET denominator are the actual represented physical canopy
+support (valid cells only). A circle wider than half a periodic span overlaps its own images: its area per cell is the UNION (the circle
+clipped to its nearest-image rectangle, `leaf.periodic`), never the double-counted sum, for ANY radius (no canopy size limit is needed).
+This union is the PET WEIGHT support only; the biological demand area handed to `growth.demand*` stays the nominal allometric pi r^2.
+The exact upper periodic endpoint is the lower edge: local coordinates are canonicalised by landscape equality (`leaf.periodic`), so an
+upper-endpoint plant gives the bit-identical map of its lower-endpoint twin.
+Mixed axes clip only the nonperiodic axis; masked cells stay excluded; the zero-valid-support refusal is unchanged; for a small circle on a
+fully periodic domain the row sum is pi r^2 to FP64 roundoff. The periodic build uses `leaf.periodic.kernels` (Numba count / fill for
+builder 'compiled', the exact pure-Python twin - slow, reference only - for builder 'numpy'); the nonperiodic code path and its arithmetic
+are unchanged. The per-plant PET reduction (`canopy_pet`) only reads the CSR and is identical for every boundary.
 '''
 from __future__ import annotations
 
@@ -33,6 +50,7 @@ import math
 import numpy as np
 
 from leaf import canopy as _canopy
+from leaf import periodic as _periodic
 from leaf import roots as _roots
 from leaf import state as _state
 from leaf import traits as _traits
@@ -99,8 +117,8 @@ def _make_core(jit):
         for k in range(4):                 # breakpoints -c0, +c0 (from y0) and -c1, +c1 (from y1)
             yy = y0 if k < 2 else y1
             c = -1.0
-            if yy > -r and yy < r:
-                c = math.sqrt(r * r - yy * yy)
+            if yy >= -r and yy <= r:       # EQUALITY included: at yy == +-r the chord touches the line at x = 0 (c = 0); without that
+                c = math.sqrt(r * r - yy * yy)   # breakpoint a single midpoint classified a whole interval (circle tangent to a side)
             if c >= 0.0:
                 v = c if (k % 2 == 1) else -c
                 if v > a and v < b:
@@ -614,6 +632,9 @@ def build_canopy_map(domain, ids, x_m, y_m, canopy_radius_m, *, max_edges, max_b
     lb = max(low['stages']['validate'], low['stages']['count'])
     if rb + lb > mb:
         raise PlantPetBudgetError('canopy_preflight', f'reserve {rb} + lower bound {lb} bytes exceed max_bytes={mb}')
+    if domain.any_periodic and rb + low['stages']['validate'] + 4 * P > mb:     # + upper-endpoint masks / rounding guards (4 B per plant)
+        raise PlantPetBudgetError('canopy_preflight', f'reserve {rb} + validate stage {low["stages"]["validate"]} + periodic alias '
+                                                      f'masks {4 * P} bytes exceed max_bytes={mb}')
     x = arrs['x_m'] - domain.origin_x_m
     y = arrs['y_m'] - domain.origin_y_m
     r = arrs['canopy_radius_m']
@@ -623,20 +644,43 @@ def build_canopy_map(domain, ids, x_m, y_m, canopy_radius_m, *, max_edges, max_b
         if float(r.min()) <= 0.0:
             raise PlantPetError('canopy radii must be > 0 (a plant without a canopy has no PET footprint)')
         W, H = float(domain.nx) * float(domain.dx_m), float(domain.ny) * float(domain.dx_m)
-        if float(x.min()) < 0.0 or float(x.max()) > W or float(y.min()) < 0.0 or float(y.max()) > H:
+        if domain.any_periodic:
+            # the exact upper periodic endpoint IS the lower edge (landscape equality); local values stay in [0, L). A periodic axis is
+            # validated on the LANDSCAPE coordinate (a legal upper point is never refused because x - origin rounded past the span)
+            # BOTH axes are validated on the ORIGINAL landscape coordinates against the Domain bounds BEFORE any canonicalisation or
+            # clipping can hide an outside point (a legal closed-upper position is never refused because x - origin rounded past the span)
+            if (float(arrs['x_m'].min()) < domain.x_min_m or float(arrs['x_m'].max()) > domain.x_max_m
+                    or float(arrs['y_m'].min()) < domain.y_min_m or float(arrs['y_m'].max()) > domain.y_max_m):
+                raise PlantPetError('plant positions must lie inside the closed domain')
+            _periodic.canonicalize_local(domain, arrs['x_m'], arrs['y_m'], x, y)
+            if not domain.periodic[0]:       # closed NONperiodic axis: harmless rounding of the local value past the span is clipped
+                np.minimum(x, W, out=x)
+            if not domain.periodic[1]:
+                np.minimum(y, H, out=y)
+        elif float(x.min()) < 0.0 or float(x.max()) > W or float(y.min()) < 0.0 or float(y.max()) > H:
             raise PlantPetError('plant positions must lie inside the closed domain')
     dx = float(domain.dx_m)
     bbox = 0
-    if builder == 'numpy' and P:
+    per = domain.any_periodic
+    pxp, pyp = bool(domain.periodic[0]), bool(domain.periodic[1])
+    if builder == 'numpy' and P and not per:      # the periodic kernels keep O(1) scratch per plant (no bounding grid)
         bbox = int(_roots.numpy_bbox_scratch_bytes(x, y, r, domain.nx, domain.ny, dx)[0])
         pre = estimate_canopy_map_bytes(P, 0, backend, builder=builder, bbox_scratch_bytes=bbox)['stages']['count']
         if rb + pre > mb:
             raise PlantPetBudgetError('canopy_count', f'reserve {rb} + count stage {pre} bytes exceed max_bytes={mb}')
     core = _core('numba' if builder == 'compiled' else 'python')
+    pk = None
+    if per:
+        try:
+            pk = _periodic.kernels('numba' if builder == 'compiled' else 'python', core['area'])
+        except _periodic.PeriodicGeometryError as exc:
+            raise PlantPetBackendError(str(exc)) from exc
     counts = np.zeros(P, dtype=np.int64)
     mk = mask_u8 if use_mask else np.zeros(1, np.uint8)
     if P:
-        if builder == 'compiled':
+        if per:
+            pk['count'](x, y, r, domain.nx, domain.ny, dx, pxp, pyp, mk, bool(use_mask), counts)
+        elif builder == 'compiled':
             core['count'](x, y, r, domain.nx, domain.ny, dx, mk, bool(use_mask), counts)
         else:
             _numpy_counts(x, y, r, domain, mask_u8, use_mask, counts)
@@ -660,7 +704,9 @@ def build_canopy_map(domain, ids, x_m, y_m, canopy_radius_m, *, max_edges, max_b
     areas = np.empty(E, dtype=np.float64)
     totals = np.zeros(P, dtype=np.float64)
     if P:
-        if builder == 'compiled':
+        if per:
+            pk['fill_canopy'](x, y, r, domain.nx, domain.ny, dx, pxp, pyp, mk, bool(use_mask), offsets, cells, areas, totals)
+        elif builder == 'compiled':
             core['fill'](x, y, r, domain.nx, domain.ny, dx, mk, bool(use_mask), offsets, cells, areas, totals)
         else:
             _numpy_fill(x, y, r, domain, mask_u8, use_mask, offsets, cells, areas, totals, core)
@@ -673,6 +719,8 @@ def build_canopy_map(domain, ids, x_m, y_m, canopy_radius_m, *, max_edges, max_b
             'valid_mask': 'whole domain' if mask_sha is None else 'explicit', 'zero_overlap': zero_overlap,
             'max_edges': me, 'max_bytes': mb, 'n_edges': E, 'admission': {'estimate': est, 'reserve_bytes': rb},
             'version': VERSION}
+    if per:
+        prov['boundary'] = _periodic.boundary_record(domain)
     cmap = _seal_map(domain, own, 'numba' if backend == 'numba' else 'numpy', None, prov, est['resident_host_bytes'])
     if backend == 'cuda':
         cmap = cmap.to_device(device=int(device), max_bytes=mb, reserve_bytes=rb)

@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv-cupy/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "test_periodic_boundaries.NativePeriodicN15Tests",
+    "test_lifecycle_bridge.NativeDailyTests",
+    "-v"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_02",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/numba_cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/cupy_cache",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_02:/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cuda/objects/maple-materialized/53a3e569dff6fd9d62a73eec1f35627645b93401a4510d873d9f0bf24cfd4366/editable:/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cuda/objects/maple-materialized/53a3e569dff6fd9d62a73eec1f35627645b93401a4510d873d9f0bf24cfd4366/source/src:/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15/src:/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_02/tests",
+    "CUDA_VISIBLE_DEVICES": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "LEAF_NATIVE_BUNDLE": "/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cuda/objects/maple-materialized/53a3e569dff6fd9d62a73eec1f35627645b93401a4510d873d9f0bf24cfd4366",
+    "LEAF_NATIVE_CASE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15/docs/manuals/examples/native_leaf_calendar_cli",
+    "LEAF_NATIVE_BACKEND": "cuda",
+    "LEAF_NATIVE_DEVICE": "0",
+    "LEAF_CHECK_ROOT": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_02",
+    "LEAF_CHECK_WORK": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review02_native_pipeline_cuda"
+  }
+}

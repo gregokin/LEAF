@@ -1,0 +1,434 @@
+{
+  "allowed": {
+    "n": 218,
+    "plants": {
+      "agb_dry_kg": {
+        "dtype": "float64",
+        "shape": [
+          218
+        ],
+        "sha256": "15d613d9ae958e45e449f957916fecea560e8a4c01f3f6fb9c2cd0654ad301e8"
+      },
+      "age_days": {
+        "dtype": "float64",
+        "shape": [
+          218
+        ],
+        "sha256": "6830130d62a904d4567f263c1971a61a82d7d4ad47566a9d21c77ac2a4fbeaec"
+      },
+      "establishment_ground_m": {
+        "dtype": "float64",
+        "shape": [
+          218
+        ],
+        "sha256": "6ead8212094a0f8ac69eaa9edffc0b97183340b4a702578f738b6fa1bcb887f2"
+      },
+      "establishment_unresolved": {
+        "dtype": "bool",
+        "shape": [
+          218
+        ],
+        "sha256": "ed9949015fee6260563cea958f1f6fcd9be0da8d2b0a03c52b0faef1a22e7df1"
+      },
+      "ids": {
+        "dtype": "int64",
+        "shape": [
+          218
+        ],
+        "sha256": "555fc5714896f874a8cbef6e3cc25335f0208cbc79a965724d984fca56dc5ede"
+      },
+      "seasonal_agb_dry_kg": {
+        "dtype": "float64",
+        "shape": [
+          218
+        ],
+        "sha256": "2df7244b4c2c10726911058b50c0602fdc399c69d26ca4551f1633ab02666068"
+      },
+      "species_index": {
+        "dtype": "int32",
+        "shape": [
+          218
+        ],
+        "sha256": "b2094a888192a78132c89c3f616367fb2a71a2ddf30427caaca6f836757c586d"
+      },
+      "status": {
+        "dtype": "int8",
+        "shape": [
+          218
+        ],
+        "sha256": "ed9949015fee6260563cea958f1f6fcd9be0da8d2b0a03c52b0faef1a22e7df1"
+      },
+      "x_m": {
+        "dtype": "float64",
+        "shape": [
+          218
+        ],
+        "sha256": "fe05c1a420b39af7d7fd16b29287c033d8e15dd49393562fa13569fbe56b1336"
+      },
+      "y_m": {
+        "dtype": "float64",
+        "shape": [
+          218
+        ],
+        "sha256": "eadbefaa323a5231e0bf1b91450640dfce9371c55eef010e287445e658b184e0"
+      }
+    },
+    "domain": {
+      "nx": 16,
+      "ny": 16,
+      "dx_m": 1.0,
+      "dy_m": 1.0,
+      "origin_x_m": 0.0,
+      "origin_y_m": 0.0,
+      "axes": "(ny, nx): row = y north, col = x east",
+      "cell_sampling": "containing_cell_closed_upper",
+      "edges": "finite closed domain, non-periodic",
+      "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)"
+    },
+    "roots": {
+      "counts": {
+        "dtype": "int64",
+        "shape": [
+          218
+        ],
+        "sha256": "ac7d8d23f78c87c5e1cab8162c8804bc6acfabc1a713cccd50981787829bc9ad"
+      },
+      "ids": {
+        "dtype": "int64",
+        "shape": [
+          218
+        ],
+        "sha256": "555fc5714896f874a8cbef6e3cc25335f0208cbc79a965724d984fca56dc5ede"
+      },
+      "offsets": {
+        "dtype": "int64",
+        "shape": [
+          219
+        ],
+        "sha256": "541ae666fbd7f7f8e986bd525806ed770e55dc0176d3d8b8ab7ad5593671919b"
+      },
+      "resources": {
+        "dtype": "int64",
+        "shape": [
+          1686
+        ],
+        "sha256": "a8caebad371af6df2c94c0313218b94fdb6f80334fb9262d6170a2b45378bed8"
+      },
+      "weights": {
+        "dtype": "float64",
+        "shape": [
+          1686
+        ],
+        "sha256": "a89dd6d00260737c361fda1502e5ae1cb58523e4d22dec0f232a7f7fc8fb4780"
+      }
+    },
+    "canopy": {
+      "area_total_m2": {
+        "dtype": "float64",
+        "shape": [
+          218
+        ],
+        "sha256": "9d305abcc04426c1dbab0c4e9daff90b5c4871988814f95276bb2effc6ecb77c"
+      },
+      "areas_m2": {
+        "dtype": "float64",
+        "shape": [
+          451
+        ],
+        "sha256": "43100b26aa6a0a8bd3c6b9fe4a7e1569eb1869b6c9986c1e3d2b2c148325a8e3"
+      },
+      "cells": {
+        "dtype": "int64",
+        "shape": [
+          451
+        ],
+        "sha256": "d5094afd540ee560e49e4ee65760ad82bc770b2f9dfc324d2602d6d86589954a"
+      },
+      "ids": {
+        "dtype": "int64",
+        "shape": [
+          218
+        ],
+        "sha256": "555fc5714896f874a8cbef6e3cc25335f0208cbc79a965724d984fca56dc5ede"
+      },
+      "offsets": {
+        "dtype": "int64",
+        "shape": [
+          219
+        ],
+        "sha256": "b2b106cfc294281f6898acd64be635120652d44ea6446a2f442e34f62aedbdc0"
+      }
+    },
+    "generation_config": {
+      "schema": "leaf.generation_config",
+      "schema_version": 1,
+      "domain": {
+        "nx": 16,
+        "ny": 16,
+        "dx_m": 1.0,
+        "dy_m": 1.0,
+        "origin_x_m": 0.0,
+        "origin_y_m": 0.0,
+        "axes": "(ny, nx): row = y north, col = x east",
+        "cell_sampling": "containing_cell_closed_upper",
+        "edges": "finite closed domain, non-periodic",
+        "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)"
+      },
+      "seed": 11,
+      "overlap": "allowed",
+      "cover_definition": "per_species_union",
+      "cover_tolerance": 0.01,
+      "cover_subsamples": 8,
+      "max_iterations": 12,
+      "limits": {
+        "max_plants": 5000,
+        "max_attempts": 100000,
+        "max_cover_cells": 64000000,
+        "max_cover_bytes": 128000000,
+        "max_working_bytes": 1048576
+      },
+      "time_days": 0.0,
+      "species": {
+        "grass": {
+          "target_cover": 0.1,
+          "diameter_mean_m": 0.4,
+          "diameter_std_m": 0.1,
+          "initial_age_days": {
+            "distribution": "constant",
+            "value_days": 730.0
+          }
+        },
+        "shrub": {
+          "target_cover": 0.05,
+          "diameter_mean_m": 1.0,
+          "diameter_std_m": 0.2,
+          "initial_age_days": {
+            "distribution": "uniform",
+            "min_days": 365.0,
+            "max_days": 3650.0
+          }
+        }
+      }
+    },
+    "measured_cover": [
+      0.09918212890625,
+      0.0595703125
+    ]
+  },
+  "disallowed": {
+    "n": 208,
+    "plants": {
+      "agb_dry_kg": {
+        "dtype": "float64",
+        "shape": [
+          208
+        ],
+        "sha256": "0c16d8c9134af5c27227ba5714c620b39eb2fac6791791b1df080120d5469bed"
+      },
+      "age_days": {
+        "dtype": "float64",
+        "shape": [
+          208
+        ],
+        "sha256": "182d161b74b3e1b8d0ecd62ad311966b1fb9d1bf98f1f73cd5dc41591fe2fe4a"
+      },
+      "establishment_ground_m": {
+        "dtype": "float64",
+        "shape": [
+          208
+        ],
+        "sha256": "1a34814cb136e79d320c00447ffa2030871a599de69cb73f63a338c89c650848"
+      },
+      "establishment_unresolved": {
+        "dtype": "bool",
+        "shape": [
+          208
+        ],
+        "sha256": "46f531b7ea0428fbf2c3ca2b60e8dc33d6bbfa000e0fd1b489c5e39140a47006"
+      },
+      "ids": {
+        "dtype": "int64",
+        "shape": [
+          208
+        ],
+        "sha256": "fa28ce0e955c9a7fc2c39b413cf8f8ca4d75bca978a35d1765d8ae8a71563bf2"
+      },
+      "seasonal_agb_dry_kg": {
+        "dtype": "float64",
+        "shape": [
+          208
+        ],
+        "sha256": "755ba9519eb08efb2d4c68ccfee9d69ceb372301b3a701ad6a3ac309ba37edb6"
+      },
+      "species_index": {
+        "dtype": "int32",
+        "shape": [
+          208
+        ],
+        "sha256": "444acb0f190f6efced85873a65c5f60082d83464b1cb4a54101e220c4dc57481"
+      },
+      "status": {
+        "dtype": "int8",
+        "shape": [
+          208
+        ],
+        "sha256": "46f531b7ea0428fbf2c3ca2b60e8dc33d6bbfa000e0fd1b489c5e39140a47006"
+      },
+      "x_m": {
+        "dtype": "float64",
+        "shape": [
+          208
+        ],
+        "sha256": "be86b3640cfac6bd97dec2a328010039a7f1940865c09bfea1e1f571caafea12"
+      },
+      "y_m": {
+        "dtype": "float64",
+        "shape": [
+          208
+        ],
+        "sha256": "b2ea126968aafb4b64dcbd7bad10a3cfb170f5e32bf0356d2d4306f65d3be509"
+      }
+    },
+    "domain": {
+      "nx": 16,
+      "ny": 16,
+      "dx_m": 1.0,
+      "dy_m": 1.0,
+      "origin_x_m": 0.0,
+      "origin_y_m": 0.0,
+      "axes": "(ny, nx): row = y north, col = x east",
+      "cell_sampling": "containing_cell_closed_upper",
+      "edges": "finite closed domain, non-periodic",
+      "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)"
+    },
+    "roots": {
+      "counts": {
+        "dtype": "int64",
+        "shape": [
+          208
+        ],
+        "sha256": "43a601272fe183f43ce3b1fd69d5aa451c7f14d5b5895791d445bb414ceac6de"
+      },
+      "ids": {
+        "dtype": "int64",
+        "shape": [
+          208
+        ],
+        "sha256": "fa28ce0e955c9a7fc2c39b413cf8f8ca4d75bca978a35d1765d8ae8a71563bf2"
+      },
+      "offsets": {
+        "dtype": "int64",
+        "shape": [
+          209
+        ],
+        "sha256": "1624442aa2fb82a2e5fd737ba7d7999f51a85e7c13b0577ec3007fda1e759df7"
+      },
+      "resources": {
+        "dtype": "int64",
+        "shape": [
+          1586
+        ],
+        "sha256": "2259f4a94024f36bbedd31d99e84bbfc701054ab9e9583f774202847f34823ae"
+      },
+      "weights": {
+        "dtype": "float64",
+        "shape": [
+          1586
+        ],
+        "sha256": "0d101f8d6a11c9d127ead81012709657e56845c0ea0626ed3cccd4f95d4c95de"
+      }
+    },
+    "canopy": {
+      "area_total_m2": {
+        "dtype": "float64",
+        "shape": [
+          208
+        ],
+        "sha256": "29f1d47b1e302941bb14b3430f5dae5e7798a2e04637b7338daf1f222d1f0c44"
+      },
+      "areas_m2": {
+        "dtype": "float64",
+        "shape": [
+          428
+        ],
+        "sha256": "adfe03a3435b95913ef9d56a852773a961bc1ed217ad8b8f6c67f9518006ea26"
+      },
+      "cells": {
+        "dtype": "int64",
+        "shape": [
+          428
+        ],
+        "sha256": "3c59f2c5e7ed567a6a3a5083675bc479848a13b93499860d265d882ab43079ed"
+      },
+      "ids": {
+        "dtype": "int64",
+        "shape": [
+          208
+        ],
+        "sha256": "fa28ce0e955c9a7fc2c39b413cf8f8ca4d75bca978a35d1765d8ae8a71563bf2"
+      },
+      "offsets": {
+        "dtype": "int64",
+        "shape": [
+          209
+        ],
+        "sha256": "bdb9c3ace0236f6c61407febb5ad697ab8df7f99d1bb20fa72f7271f0621a5aa"
+      }
+    },
+    "generation_config": {
+      "schema": "leaf.generation_config",
+      "schema_version": 1,
+      "domain": {
+        "nx": 16,
+        "ny": 16,
+        "dx_m": 1.0,
+        "dy_m": 1.0,
+        "origin_x_m": 0.0,
+        "origin_y_m": 0.0,
+        "axes": "(ny, nx): row = y north, col = x east",
+        "cell_sampling": "containing_cell_closed_upper",
+        "edges": "finite closed domain, non-periodic",
+        "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)"
+      },
+      "seed": 11,
+      "overlap": "disallowed",
+      "cover_definition": "per_species_union",
+      "cover_tolerance": 0.01,
+      "cover_subsamples": 8,
+      "max_iterations": 12,
+      "limits": {
+        "max_plants": 5000,
+        "max_attempts": 100000,
+        "max_cover_cells": 64000000,
+        "max_cover_bytes": 128000000,
+        "max_working_bytes": 1048576
+      },
+      "time_days": 0.0,
+      "species": {
+        "grass": {
+          "target_cover": 0.1,
+          "diameter_mean_m": 0.4,
+          "diameter_std_m": 0.1,
+          "initial_age_days": {
+            "distribution": "constant",
+            "value_days": 730.0
+          }
+        },
+        "shrub": {
+          "target_cover": 0.05,
+          "diameter_mean_m": 1.0,
+          "diameter_std_m": 0.2,
+          "initial_age_days": {
+            "distribution": "uniform",
+            "min_days": 365.0,
+            "max_days": 3650.0
+          }
+        }
+      }
+    },
+    "measured_cover": [
+      0.09930419921875,
+      0.0518798828125
+    ]
+  }
+}

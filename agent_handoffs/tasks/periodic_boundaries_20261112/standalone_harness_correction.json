@@ -1,0 +1,14 @@
+{
+  "classification": "check_failed",
+  "cause": "Codex harness used test helper run_days(first=3) after restore; helper reanchors to restored cursor, so the requested day was offset twice and correctly refused by the existing calendar guard.",
+  "literal_error": "IntereventStateError: interval start 2026-05-07T00:00:00+00:00 != cursor 2026-05-04T00:00:00+00:00: gap before the interval (no catch-up over missing time)",
+  "correction": "Use explicit original-calendar ti.day(i), as existing accepted restart test does; compare existing contract fields, exact physical arrays/roots/counters and age rtol1e-12. Do not compare incidental receipts. No implementation change.",
+  "records_preserved": [
+    "review04_standalone_cpu",
+    "review04_standalone_cuda"
+  ],
+  "retry_records": [
+    "review04_standalone_cpu_v2",
+    "review04_standalone_cuda_v2"
+  ]
+}

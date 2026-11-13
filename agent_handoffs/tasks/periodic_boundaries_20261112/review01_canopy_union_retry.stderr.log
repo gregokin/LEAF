@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/verify_periodic_canopy_union_v2.py", line 59, in <module>
+    got[a['cells']]=a['areas_m2'];np.testing.assert_allclose(got,expected,atol=4e-10,rtol=1e-9)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/MAPLE/.venv/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "/home/okin/MAPLE/.venv/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-09, atol=4e-10
+
+Mismatched elements: 1 / 1 (100%)
+Mismatch at index:
+ [0]: 0.25 (ACTUAL), 0.19634954084930528 (DESIRED)
+Max absolute difference among violations: 0.05365046
+Max relative difference among violations: 0.27323954
+ ACTUAL: array([0.25])
+ DESIRED: array([0.19635])

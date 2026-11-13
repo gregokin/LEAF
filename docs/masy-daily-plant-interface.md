@@ -108,6 +108,24 @@ stress + annual arrays, all Phase 2/3 counters, day binding, lineage, identities
 the ACTUAL `rng_seed`, `patch_size_m`, every root layer override (also for currently non-live plants) and the canopy mask hash. The caller must pass the same values to `load_biology`; any difference is refused and a `SourceOverride` never bypasses it. Byte / edge ceilings
 are caller-adjustable on restore; the backend is fixed by the compiled table the caller builds (no cross-backend claim beyond the geometry / state identity checks).
 
+## 7b. Periodic boundaries (common boundary config; revision `periodic_boundaries_20261112`)
+The plant `Domain` carries a per-axis declaration `periodic=(px, py)` (default `(False, False)` = the finite closed domain used so far; see `periodic-boundaries.md`).
+MASY supplies the SAME declaration to LEAF (the `Domain` of the base `PlantState`) and to the rest of the stack; nothing else changes in the call sequence of §3:
+* every geometry build of the session — `start`, weekly / year-end growth rebuilds, Phase 2/3 rebinds (births, deaths), restore — reads the flags from the state's `Domain`
+  through the shared builders, so roots (uniform unique-cell law, layer fractions unchanged) and canopy-area PET weights (the `CanopyMap` areas / denominator are the torus union) wrap across
+  periodic seams, while `canopy_area_m2` (the demand area) stays the nominal allometric `pi r^2` for every boundary and radius, exactly as in the standalone session;
+  `session.boundary()` and, for a periodic domain, the `boundary` key of `export_roots()` / `export_canopy()` report the declaration;
+* one plant = one record = one ID (no image rows); `canopy_view(session.snapshot_state(), ...)` carries `meta['boundary']` and one object per plant (periodic public centers are half-open
+  `[0, L)`: a stored exact upper endpoint is exported as 0, the stored record is unchanged); consumers wrap the footprint themselves. Pass and CHECK the same boundary flags as MAPLE / SYRUP (MAPLE's
+  `leaf_domain` import helper must carry them); the exact upper endpoint is the lower edge for sampling, roots and PET;
+* water is untouched: SYRUP stays the sole inventory; roots of different plants may overlap across a seam, allocation stays proportional with an equal fraction of requests, no species
+  priority and no compensation; the accepted summed uptake drives growth; the native debit stays visible at your call site and authoritative exactly once;
+* `pop_sha256` and `geometry_sha256` bind the flags; the checkpoint manifest records `boundary` for a periodic domain and `load_biology` refuses a plant file whose flags differ (an old
+  manifest without `boundary` is nonperiodic and is never reinterpreted as periodic); `leaf.periodic` is in `plant_checkpoint.SOURCE_MODULES`, so a checkpoint written before this revision
+  needs an explicit `SourceOverride` naming the differing modules (it never relaxes the format, water identity, catalog, geometry or population checks);
+* a periodic canopy that overlaps its own image (diameter above a periodic span) keeps working in the session (PET weights = union, demand area = nominal); a no-overlap GENERATION refuses such a canopy explicitly;
+* `plant_pet` also carries a numerical correction of the shared exact circle-rectangle integrator for a rectangle side exactly tangent to the circle (rare legacy output change; see `periodic-boundaries.md` §3.3).
+
 ## 8. Remaining limits
 `load_biology(..., day_binding_check=True)` keeps an existing keyword that currently has no behavioral effect (the saved binding is always restored and verified through the token); do not rely on it.
-T off / G on stays refused. Geometry restore assumes radii do not depend on age beyond the state (hash-checked). Phase 2/3 laws are the existing uncalibrated ones; they are exposed, not validated. The interface is qualified (by Codex) only on small fixtures.
+T off / G on stays refused. Periodic builders require square cells (like the finite ones); the boundary configuration is JSON / `Domain` only (no CLI flag). Geometry restore assumes radii do not depend on age beyond the state (hash-checked). Phase 2/3 laws are the existing uncalibrated ones; they are exposed, not validated. The interface is qualified (by Codex) only on small fixtures.

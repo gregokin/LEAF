@@ -1,0 +1,79 @@
+{
+  "installed_at_utc": "2026-11-13T02:17:46.463900+00:00",
+  "installer": "Codex exact-copy after independent acceptance; Claude writer reaped",
+  "accepted_manifest": "review_04.manifest.json",
+  "files": {
+    "leaf/state.py": {
+      "sha256": "a2bbf2472a6bbc32ed5db4f5ad45a47d9cb98099f8d7918a709367b5b01e2c25",
+      "size_bytes": 73829
+    },
+    "leaf/periodic.py": {
+      "sha256": "b960a27b07eb2c34a455e398255e1e7ffdf845c280fe4c959f9fd4ee467c6aa5",
+      "size_bytes": 17908
+    },
+    "leaf/initialization.py": {
+      "sha256": "a385b7f509871ad2d130564d1b07c5c04592ffb008ec2192bb96ff26c72b489b",
+      "size_bytes": 41891
+    },
+    "leaf/canopy.py": {
+      "sha256": "6cba03f4f59fac55ef430420d930ddc84f4e7a7adf36d44e685b01504dc87b07",
+      "size_bytes": 40125
+    },
+    "leaf/roots.py": {
+      "sha256": "c258de49e4d3da734bae0b9c7fa8d0c59bb1d6f91ac2ff5ceceb46ca12e80904",
+      "size_bytes": 37454
+    },
+    "leaf/plant_pet.py": {
+      "sha256": "50216355aab1be3a5dcaf6280d5ab00fd34395d1bb8e12be7ab66827de227acd",
+      "size_bytes": 47891
+    },
+    "leaf/biocalendar.py": {
+      "sha256": "f486bd3216612958a8205cbea31d7c11974972a4fd527c70cfd0c4f963b11544",
+      "size_bytes": 33805
+    },
+    "leaf/plant_session.py": {
+      "sha256": "562188cc9b9d9c80b61903d63549fd760326e9e385ba1ca1aa1a823e43343a14",
+      "size_bytes": 104909
+    },
+    "leaf/plant_checkpoint.py": {
+      "sha256": "17cd7dbae173b53796b114ddbe63b9425fe9f59e72f5d30c84350147cc5c3c2e",
+      "size_bytes": 32838
+    },
+    "leaf/checkpoint.py": {
+      "sha256": "a9db54616e3af273e5b001cbb0ef6e831ddb7a7a39b3296f564f53a000686056",
+      "size_bytes": 52274
+    },
+    "leaf/recruitment.py": {
+      "sha256": "235821ec613867706ed1971e8cd841b83104fe1bc1642054593e66a654fa6491",
+      "size_bytes": 43176
+    },
+    "tests/test_periodic_boundaries.py": {
+      "sha256": "0c0d154ebe1c8b03cefa9a9cb82da80133385ea3e834306b19bc00996db0279b",
+      "size_bytes": 95935
+    },
+    "docs/periodic-boundaries.md": {
+      "sha256": "c3b22917f14ff28b669a9d5cab440fbcbc09ebb5e5692aa8ff6ce0201e9f61f5",
+      "size_bytes": 18914
+    },
+    "docs/phase0-vegetation.md": {
+      "sha256": "dfbe6d2a83ac057ad8274ca875278542a650511d0237fc5d3937a57c7539eb0a",
+      "size_bytes": 37326
+    },
+    "docs/masy-daily-plant-interface.md": {
+      "sha256": "14e2b2783c62479a91607d954343ab407e9f6c7219a718b8748e43db8057f23b",
+      "size_bytes": 20223
+    },
+    "docs/maple-leaf-integration.md": {
+      "sha256": "054ca15143db77115734b4db3f808ee1e0ca3409b7a1f024b1cc25ffec9d4c0a",
+      "size_bytes": 15900
+    },
+    "docs/species-root-profiles.md": {
+      "sha256": "a8dd6d951ff03a0a876f530500a29f270940a82df262de832adb9a48535ec000",
+      "size_bytes": 12905
+    },
+    "examples/periodic/generation.json": {
+      "sha256": "a0111a2d0968c01a8922d44d3f404359574ad9b09399ec561ccf460174dd3925",
+      "size_bytes": 1626
+    }
+  }
+}

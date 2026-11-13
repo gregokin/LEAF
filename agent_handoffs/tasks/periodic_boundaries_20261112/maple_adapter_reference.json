@@ -1,0 +1,17 @@
+{
+  "purpose": "Read-only developer handoff inspection only; NOT the source combination used by native N15 tests",
+  "repository": "/home/okin/MAPLE",
+  "head": "1dca8539b87bf80e2b4bb72d4c6637d02013a305",
+  "tracked_dirty_paths": [
+    "src/maple/surface/topographic_commit/closed_windowed_commit.py"
+  ],
+  "inspected_file": "/home/okin/MAPLE/src/maple/case_tools/importers/leaf_vegetation.py",
+  "file_sha256": "0941f7322bc256db9eeeb04d3b2478d3a22b748c0ed2ff93c7c2edc68a4aee3f",
+  "source_findings": [
+    "leaf_domain creates LEAF Domain without per-axis periodic flags",
+    "vegetation_from_leaf_population compares Domain equality",
+    "native MAPLE canopy and shelter already wrap; propagate GeometrySpec flags at adapter; no wind physics work"
+  ],
+  "upstream_writes": false,
+  "observed_at_utc": "2026-11-13T01:51:49.745911+00:00"
+}

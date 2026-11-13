@@ -1,0 +1,33 @@
+{
+  "runs": [
+    {
+      "periodic": [
+        false,
+        false
+      ],
+      "live_parents": 1000,
+      "requested_daughters": 25079,
+      "placed_daughters": 25079,
+      "traced_peak_bytes": 8010228,
+      "admitted_array_estimate_bytes": 9085344,
+      "max_bytes": 67108864,
+      "ledger_closed": true,
+      "birth_array_sha256": "f91cb718bd96bb786f3d12a6bc1d4a70668c0a9cafec5460e72653648984e6bd"
+    },
+    {
+      "periodic": [
+        true,
+        true
+      ],
+      "live_parents": 1000,
+      "requested_daughters": 25079,
+      "placed_daughters": 25079,
+      "traced_peak_bytes": 6615095,
+      "admitted_array_estimate_bytes": 9085344,
+      "max_bytes": 67108864,
+      "ledger_closed": true,
+      "birth_array_sha256": "f91cb718bd96bb786f3d12a6bc1d4a70668c0a9cafec5460e72653648984e6bd"
+    }
+  ],
+  "scope": "synthetic fixed interior parents; existing reproduction law and tables, no model/case advancement; tracemalloc includes Python plus NumPy arrays during evaluation"
+}

@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-13T01:50:58.922267+00:00",
+  "query": "nvidia-smi --query-gpu=index,uuid,name,memory.used,memory.free,utilization.gpu --format=csv,noheader",
+  "selected": {
+    "physical_index": 1,
+    "uuid": "GPU-b02858c1-29c3-9ea9-33b1-831c33f8cf75",
+    "model": "NVIDIA GeForce GTX 1080 Ti",
+    "used_mib": 0,
+    "free_mib": 11107,
+    "utilization_percent": 0
+  },
+  "other_gpu_work": "GPU2 has1040MiB used and7% utilization; GPU3 has30MiB used; preserve all existing work.",
+  "selection": "CUDA_VISIBLE_DEVICES selected UUID; logical device0"
+}

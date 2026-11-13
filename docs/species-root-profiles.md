@@ -203,3 +203,22 @@ MAPLE/SYRUP/MASY event solver is added.
 The [benchmark guide](../benchmarks/daily-water-growth.md) documents the API and
 commands. The [historical report](daily-water-30year.md) retains the equal-layer
 v0.1 measurements; its source snapshots and results remain preserved.
+
+## Addendum: periodic domains (production `leaf.roots`, not this benchmark)
+
+Everything above describes the synthetic benchmark and its measurements, which use a **finite, closed, non-periodic**
+domain (`benchmarks/spatial_mapping.py`, unchanged). The production root map `leaf.roots.build_root_map` keeps exactly
+the same law — circular footprint of radius `lateral_radius_multiplier x canopy radius`, **uniform** horizontal weight over
+the **unique positively overlapped cells**, then multiplied by the species / individual vertical layer fractions above — and
+additionally supports a per-axis **periodic** `leaf.state.Domain`:
+
+* on a periodic axis the root circle wraps across the seam (corners included); only nonperiodic axes are clipped;
+* every physical plant-cell-layer pair occurs ONCE, normalised once over the unique reached cells (a cell reached by several
+  periodic images, a root wider than the domain, `nx = 1` or `ny = 1` all saturate at the domain's cells instead of
+  allocating image copies); layer fractions are unchanged and no canopy size limit applies to roots;
+* roots of different plants still overlap and compete across a seam with the unchanged proportional allocation (no species
+  priority, no compensation to wetter cells);
+* the builder runs on the CPU with compiled kernels (`leaf.periodic.kernels`) and the map is then resident on the
+  chosen uptake backend (NumPy / Numba / CUDA); no routine plant-sized transfer is added.
+
+See `docs/periodic-boundaries.md`. No benchmark number above is a periodic measurement and none is re-run here.

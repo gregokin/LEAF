@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/verify_periodic_canopy_union.py"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/preflight_01",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/preflight_01",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/numba_cache",
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "LEAF_CHECK_ROOT": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/preflight_01",
+    "LEAF_CHECK_BACKEND": "numpy"
+  }
+}

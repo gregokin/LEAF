@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/verify_periodic_mixed_endpoints.py", line 23, in <module>
+    assert not errors,'Legal mixed-boundary upper positions must build and respect only the periodic alias'
+           ^^^^^^^^^^
+AssertionError: Legal mixed-boundary upper positions must build and respect only the periodic alias

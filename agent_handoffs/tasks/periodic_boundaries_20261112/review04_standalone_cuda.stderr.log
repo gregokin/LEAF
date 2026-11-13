@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/verify_periodic_standalone.py", line 21, in <module>
+    ti.run_days(loaded,env,5,first=3)
+  File "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_04/tests/test_interevent.py", line 131, in run_days
+    out.append(session.step_interevent(day(i, start=session_start(session)), added_water_m=a,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_04/leaf/interevent.py", line 981, in step_interevent
+    self._check_times(b, record.start, record.end)
+  File "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_04/leaf/interevent.py", line 943, in _check_times
+    raise IntereventStateError(f'interval start {start.isoformat()} != cursor {b.cursor.isoformat()}: {why}')
+leaf.interevent.IntereventStateError: interval start 2026-05-07T00:00:00+00:00 != cursor 2026-05-04T00:00:00+00:00: gap before the interval (no catch-up over missing time)

@@ -1,0 +1,9 @@
+{
+  "backend": "cuda",
+  "legacy_source_guard_verified": true,
+  "model_days": 8,
+  "continuous_equals_day3_checkpoint_resume": true,
+  "unique_plant_cell_layer_edges": true,
+  "checkpoint_plain_csv_and_periodic_companion": true,
+  "wrong_boundary_refusal": "boundary mismatch: the manifest domain declares periodic=[False, False] but plants.metadata.json has periodic=[True, True]; the boundary choice is part of the accepted state and is never reinterpreted on restore"
+}

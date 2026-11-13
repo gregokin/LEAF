@@ -1,0 +1,20 @@
+{
+  "schema": "leaf.generation_config",
+  "schema_version": 1,
+  "notes": "FIXTURE example of a PERIODIC (torus) population: 64 x 64 cells of 0.25 m = 16 m x 16 m, periodic in x AND y, with canopy exclusion ('disallowed') by shortest wrapped centre distance across the seams. Centres are drawn over the FULL domain (no inset / border): a canopy near an edge wraps and stays ONE plant with ONE id. Use it with the existing species catalog, e.g. python -m leaf generate --species examples/phase0/species.json --config examples/periodic/generation.json --surface-constant 0 --out /tmp/periodic_plants.csv --report /tmp/periodic_report.json (the species traits are NOT duplicated here). The 'periodic' key is [x, y] real booleans; omit it (default [false, false]) for the legacy finite closed domain. Covers and diameters are illustrative fixtures, not calibrations.",
+  "domain": {"nx": 64, "ny": 64, "dx_m": 0.25, "periodic": [true, true]},
+  "seed": 20261112,
+  "overlap": "disallowed",
+  "cover_definition": "per_species_union",
+  "cover_tolerance": 0.005,
+  "cover_subsamples": 4,
+  "max_iterations": 12,
+  "limits": {"max_plants": 20000, "max_attempts": 2000000, "max_cover_cells": 4000000, "max_cover_bytes": 8000000, "max_working_bytes": 1048576},
+  "time_days": 0.0,
+  "species": {
+    "grass": {"target_cover": 0.04, "diameter_mean_m": 0.15, "diameter_std_m": 0.03,
+              "initial_age_days": {"distribution": "uniform_to_life_expectancy"}},
+    "shrub": {"target_cover": 0.06, "diameter_mean_m": 1.0, "diameter_std_m": 0.2,
+              "initial_age_days": {"distribution": "uniform_to_life_expectancy"}}
+  }
+}

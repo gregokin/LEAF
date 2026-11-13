@@ -1,0 +1,188 @@
+{
+  "backend": "numpy",
+  "domain": {
+    "nx": 6,
+    "ny": 4,
+    "dx_m": 0.25,
+    "dy_m": 0.25,
+    "origin_x_m": 0.0,
+    "origin_y_m": 0.0,
+    "axes": "(ny, nx): row = y north, col = x east",
+    "cell_sampling": "containing_cell_periodic_axes_upper_edge_equals_lower_edge;nonperiodic_axes_closed_upper",
+    "edges": "periodic (torus) in x+y",
+    "coordinate_frame": "landscape frame (same frame as origin_x_m/origin_y_m; NOT origin-relative)",
+    "periodic": [
+      true,
+      true
+    ]
+  },
+  "periodic_root_cells_unique": true,
+  "roots_reach_across_x_seam": true,
+  "source": "82e9c0111b9d883f857fd2f28a21f1d8bd8f13e22d473796e736ca4204f30107",
+  "native_maple_package": "fbc504bbcd1ec0c02e6a96089134a06187532455ef7ba5e6f146801c8313c02e",
+  "startup_wall_s": 6.449075930053368,
+  "rows": [
+    {
+      "day": 0,
+      "hydro_count": 1,
+      "n_requests": 1,
+      "t_s": 86400.0,
+      "T_actual_m3": 5.1822953130924236e-05,
+      "closure_residual_m3": 6.071532165918825e-18,
+      "closure_bound_m3": 7.492814657967632e-14,
+      "growth_updates": 0,
+      "wall_s": 0.05729152401909232,
+      "resident_array_bytes": 2835
+    },
+    {
+      "day": 1,
+      "hydro_count": 2,
+      "n_requests": 2,
+      "t_s": 172800.0,
+      "T_actual_m3": 5.1822953130924236e-05,
+      "closure_residual_m3": 4.336808689942018e-18,
+      "closure_bound_m3": 1.4920829213690395e-13,
+      "growth_updates": 0,
+      "wall_s": 0.06257514888420701,
+      "resident_array_bytes": 2835
+    },
+    {
+      "day": 2,
+      "hydro_count": 3,
+      "n_requests": 3,
+      "t_s": 259200.0,
+      "T_actual_m3": 5.1822953130924236e-05,
+      "closure_residual_m3": 1.734723475976807e-18,
+      "closure_bound_m3": 2.2801738714003646e-13,
+      "growth_updates": 0,
+      "wall_s": 0.10925251594744623,
+      "resident_array_bytes": 2835
+    },
+    {
+      "day": 3,
+      "hydro_count": 4,
+      "n_requests": 4,
+      "t_s": 345600.0,
+      "T_actual_m3": 5.1822953130924236e-05,
+      "closure_residual_m3": 3.469446951953614e-18,
+      "closure_bound_m3": 3.107909689106251e-13,
+      "growth_updates": 0,
+      "wall_s": 0.06070367293432355,
+      "resident_array_bytes": 2835
+    },
+    {
+      "day": 4,
+      "hydro_count": 5,
+      "n_requests": 5,
+      "t_s": 432000.0,
+      "T_actual_m3": 5.1822953130924236e-05,
+      "closure_residual_m3": 0.0,
+      "closure_bound_m3": 3.954323864430168e-13,
+      "growth_updates": 0,
+      "wall_s": 0.06322723906487226,
+      "resident_array_bytes": 2835
+    },
+    {
+      "day": 5,
+      "hydro_count": 6,
+      "n_requests": 6,
+      "t_s": 518400.0,
+      "T_actual_m3": 5.1822953130924236e-05,
+      "closure_residual_m3": 0.0,
+      "closure_bound_m3": 4.801590691037009e-13,
+      "growth_updates": 0,
+      "wall_s": 0.06262352014891803,
+      "resident_array_bytes": 2835
+    },
+    {
+      "day": 6,
+      "hydro_count": 7,
+      "n_requests": 7,
+      "t_s": 604800.0,
+      "T_actual_m3": 5.1822953130924236e-05,
+      "closure_residual_m3": 0.0,
+      "closure_bound_m3": 5.649710168926775e-13,
+      "growth_updates": 1,
+      "wall_s": 0.1301039441023022,
+      "resident_array_bytes": 2835
+    },
+    {
+      "day": 7,
+      "hydro_count": 8,
+      "n_requests": 8,
+      "t_s": 691200.0,
+      "T_actual_m3": 5.222882379588927e-05,
+      "closure_residual_m3": -6.938893903907228e-18,
+      "closure_bound_m3": 6.498682510785947e-13,
+      "growth_updates": 1,
+      "wall_s": 0.06122877891175449,
+      "resident_array_bytes": 2835
+    }
+  ],
+  "model_days": 8,
+  "physical_seconds": 691200.0,
+  "one_hydro_and_one_T_each_day": true,
+  "late_geometry_rollback": true,
+  "pending_after_debit_resume_without_water_replay": true,
+  "closed_boundary_restart": true,
+  "final_counters": {
+    "days_dry": 0,
+    "days_open": 8,
+    "days_transport": 0,
+    "flushes": 0,
+    "geometry_rebuilds": 1,
+    "growth_updates": 1,
+    "season_turnovers": 0,
+    "withdrawals_accepted": 8,
+    "year_ends": 0
+  },
+  "growth_disabled_T_has_no_credit": true,
+  "final_dry_agb_kg": [
+    0.10086544494804991,
+    0.10087509997072461,
+    0.10086922300040088
+  ],
+  "final_seasonal_dry_agb_kg": [
+    4.558193435128433e-05,
+    5.523695702597869e-05,
+    4.935998670225168e-05
+  ],
+  "final_age_days": [
+    108.0,
+    108.0,
+    108.0
+  ],
+  "byte_ledger": {
+    "reserve_bytes": 0,
+    "max_bytes": 268435456,
+    "accepted_items": {
+      "working_arrays_45_per_live": 135,
+      "live_rows_and_ids_16_per_live": 48,
+      "stress_and_annual_arrays": 0,
+      "species_tables_and_integrals": 392,
+      "phase2_3_tables": 0,
+      "base_population": 186,
+      "root_map": 1616,
+      "canopy_map": 272,
+      "retained_geometry_state": 186
+    },
+    "accepted_total": 2835,
+    "candidate_coexistence": 3882,
+    "stage_estimates": {
+      "demand_per_plant": 1631,
+      "grow": 2463,
+      "uptake_plan": 5450,
+      "uptake_feedback": 5946,
+      "credit_increment": 107,
+      "rebuild_materialize_and_geometry": 1047,
+      "canopy_pet": 192
+    },
+    "start_lower_bound": 2722,
+    "definition": "structural conservative estimates of live bytes; interpreter, JIT, CUDA context and allocator pools excluded"
+  },
+  "max_bytes": 268435456,
+  "tracemalloc_current_bytes": 183537,
+  "tracemalloc_peak_bytes": 1372001,
+  "process_maxrss_kib": 359072,
+  "memory_scope": "tracemalloc includes Python and CPU allocations after initialization; RSS includes native/JIT/context peak. CUDA pool live peak includes native+LEAF and pool alignment, excludes context and cached free blocks. Synthetic three-plant 4x6 harness, no domain extrapolation."
+}

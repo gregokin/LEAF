@@ -1,0 +1,6 @@
+{
+  "cases": 48,
+  "failures": [],
+  "failure_count": 0,
+  "scope": "exact upper endpoint only; ordinary just-inside coordinates remain distinct"
+}

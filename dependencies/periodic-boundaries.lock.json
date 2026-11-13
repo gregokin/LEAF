@@ -1,0 +1,226 @@
+{
+  "qualified_at_utc": "2026-11-13T02:16:16.917471+00:00",
+  "task": "periodic_boundaries_20261112",
+  "qualification_baseline": "85651c63003fcd0a66ba3a98af104003f64e818e",
+  "qualified_status": "periodic geometry and small native water-interface mechanics; no ecological or full coupled transport validation",
+  "selected_syrup": {
+    "branch": "feature/subsurface-daily-recharge",
+    "commit": "a5b8b18358e0d014fe13c9f48d00eb582710655a",
+    "package_sha256": "82e9c0111b9d883f857fd2f28a21f1d8bd8f13e22d473796e736ca4204f30107",
+    "source_manifest": "agent_handoffs/tasks/masy_daily_plant_interface_20261112/phase15_source_manifest.json",
+    "live_checkout_is_not_source": true
+  },
+  "native_maple": {
+    "commit": "9f466d2cfcd52991b24496cf67f4562d6268afa9",
+    "package_sha256": "fbc504bbcd1ec0c02e6a96089134a06187532455ef7ba5e6f146801c8313c02e"
+  },
+  "legacy_standalone": {
+    "commit": "c76c603dde4e8f79ec48b18d954a386580d8bc89",
+    "source_guard_retained": true,
+    "evidence": "agent_handoffs/tasks/periodic_boundaries_20261112/review04_standalone_cpu_v2.stdout.log"
+  },
+  "installed_files": {
+    "leaf/state.py": {
+      "sha256": "a2bbf2472a6bbc32ed5db4f5ad45a47d9cb98099f8d7918a709367b5b01e2c25",
+      "size_bytes": 73829
+    },
+    "leaf/periodic.py": {
+      "sha256": "b960a27b07eb2c34a455e398255e1e7ffdf845c280fe4c959f9fd4ee467c6aa5",
+      "size_bytes": 17908
+    },
+    "leaf/initialization.py": {
+      "sha256": "a385b7f509871ad2d130564d1b07c5c04592ffb008ec2192bb96ff26c72b489b",
+      "size_bytes": 41891
+    },
+    "leaf/canopy.py": {
+      "sha256": "6cba03f4f59fac55ef430420d930ddc84f4e7a7adf36d44e685b01504dc87b07",
+      "size_bytes": 40125
+    },
+    "leaf/roots.py": {
+      "sha256": "c258de49e4d3da734bae0b9c7fa8d0c59bb1d6f91ac2ff5ceceb46ca12e80904",
+      "size_bytes": 37454
+    },
+    "leaf/plant_pet.py": {
+      "sha256": "50216355aab1be3a5dcaf6280d5ab00fd34395d1bb8e12be7ab66827de227acd",
+      "size_bytes": 47891
+    },
+    "leaf/biocalendar.py": {
+      "sha256": "f486bd3216612958a8205cbea31d7c11974972a4fd527c70cfd0c4f963b11544",
+      "size_bytes": 33805
+    },
+    "leaf/plant_session.py": {
+      "sha256": "562188cc9b9d9c80b61903d63549fd760326e9e385ba1ca1aa1a823e43343a14",
+      "size_bytes": 104909
+    },
+    "leaf/plant_checkpoint.py": {
+      "sha256": "17cd7dbae173b53796b114ddbe63b9425fe9f59e72f5d30c84350147cc5c3c2e",
+      "size_bytes": 32838
+    },
+    "leaf/checkpoint.py": {
+      "sha256": "a9db54616e3af273e5b001cbb0ef6e831ddb7a7a39b3296f564f53a000686056",
+      "size_bytes": 52274
+    },
+    "leaf/recruitment.py": {
+      "sha256": "235821ec613867706ed1971e8cd841b83104fe1bc1642054593e66a654fa6491",
+      "size_bytes": 43176
+    },
+    "tests/test_periodic_boundaries.py": {
+      "sha256": "0c0d154ebe1c8b03cefa9a9cb82da80133385ea3e834306b19bc00996db0279b",
+      "size_bytes": 95935
+    },
+    "docs/periodic-boundaries.md": {
+      "sha256": "c3b22917f14ff28b669a9d5cab440fbcbc09ebb5e5692aa8ff6ce0201e9f61f5",
+      "size_bytes": 18914
+    },
+    "docs/phase0-vegetation.md": {
+      "sha256": "dfbe6d2a83ac057ad8274ca875278542a650511d0237fc5d3937a57c7539eb0a",
+      "size_bytes": 37326
+    },
+    "docs/masy-daily-plant-interface.md": {
+      "sha256": "14e2b2783c62479a91607d954343ab407e9f6c7219a718b8748e43db8057f23b",
+      "size_bytes": 20223
+    },
+    "docs/maple-leaf-integration.md": {
+      "sha256": "054ca15143db77115734b4db3f808ee1e0ca3409b7a1f024b1cc25ffec9d4c0a",
+      "size_bytes": 15900
+    },
+    "docs/species-root-profiles.md": {
+      "sha256": "a8dd6d951ff03a0a876f530500a29f270940a82df262de832adb9a48535ec000",
+      "size_bytes": 12905
+    },
+    "examples/periodic/generation.json": {
+      "sha256": "a0111a2d0968c01a8922d44d3f404359574ad9b09399ec561ccf460174dd3925",
+      "size_bytes": 1626
+    }
+  },
+  "leaf_and_builder_source_files": {
+    "leaf/__init__.py": {
+      "sha256": "e8d289c0c597dbaf987a94e1f53b036ebd5f1dc08f2900be7cc6b3aacb5e78b5",
+      "size_bytes": 3428
+    },
+    "leaf/__main__.py": {
+      "sha256": "e1e40edddf48c656e0b55cf2b5d8bd8387bf8f581439d23609ffbc3d99b27294",
+      "size_bytes": 17616
+    },
+    "leaf/biocalendar.py": {
+      "sha256": "f486bd3216612958a8205cbea31d7c11974972a4fd527c70cfd0c4f963b11544",
+      "size_bytes": 33805
+    },
+    "leaf/canopy.py": {
+      "sha256": "6cba03f4f59fac55ef430420d930ddc84f4e7a7adf36d44e685b01504dc87b07",
+      "size_bytes": 40125
+    },
+    "leaf/checkpoint.py": {
+      "sha256": "a9db54616e3af273e5b001cbb0ef6e831ddb7a7a39b3296f564f53a000686056",
+      "size_bytes": 52274
+    },
+    "leaf/coupling.py": {
+      "sha256": "2a9de99773f976d260617d1506be15f9b5950233880625dc40389e6d99e9b247",
+      "size_bytes": 28207
+    },
+    "leaf/demography.py": {
+      "sha256": "7648b8f4a23016dc07196b9c790498bccb3cf18db0a20bbbda408974834dce1a",
+      "size_bytes": 35677
+    },
+    "leaf/disturbance.py": {
+      "sha256": "38a9dfa4521cdcb2512b904a83d5f2af4fbad97fa1a0c972bb70b0cb6906f9c0",
+      "size_bytes": 45703
+    },
+    "leaf/events.py": {
+      "sha256": "2ec912dac4a5bb4ae1f52a64ef99e74e973d7f7dc68993f0f083fceb3cbed98e",
+      "size_bytes": 15605
+    },
+    "leaf/forcing.py": {
+      "sha256": "fa79d12f2c96a15aac8012d713976ece8b4c055ca567968251225635fa9d7474",
+      "size_bytes": 19206
+    },
+    "leaf/growth.py": {
+      "sha256": "6664c7194ca7df3f731fe82f9527cf6f60835c5517aca60dbc591cf719d2aa58",
+      "size_bytes": 82012
+    },
+    "leaf/initialization.py": {
+      "sha256": "a385b7f509871ad2d130564d1b07c5c04592ffb008ec2192bb96ff26c72b489b",
+      "size_bytes": 41891
+    },
+    "leaf/interevent.py": {
+      "sha256": "ff7b9287c9ac810287dde89bcbb550af6b4f8380eeb5ee55d5a98d161f78ff5f",
+      "size_bytes": 134012
+    },
+    "leaf/lifecycle_bridge.py": {
+      "sha256": "63896e6fe8ffd7e436790203006bf2ae248febb7f9cccd6f9cb98314d571cd91",
+      "size_bytes": 24530
+    },
+    "leaf/periodic.py": {
+      "sha256": "b960a27b07eb2c34a455e398255e1e7ffdf845c280fe4c959f9fd4ee467c6aa5",
+      "size_bytes": 17908
+    },
+    "leaf/plant_checkpoint.py": {
+      "sha256": "17cd7dbae173b53796b114ddbe63b9425fe9f59e72f5d30c84350147cc5c3c2e",
+      "size_bytes": 32838
+    },
+    "leaf/plant_pet.py": {
+      "sha256": "50216355aab1be3a5dcaf6280d5ab00fd34395d1bb8e12be7ab66827de227acd",
+      "size_bytes": 47891
+    },
+    "leaf/plant_session.py": {
+      "sha256": "562188cc9b9d9c80b61903d63549fd760326e9e385ba1ca1aa1a823e43343a14",
+      "size_bytes": 104909
+    },
+    "leaf/recording.py": {
+      "sha256": "49564345dd53505148de90de00b5bcb02d7d0e23b8b483e75ebac96af2ff9ef0",
+      "size_bytes": 8755
+    },
+    "leaf/recruitment.py": {
+      "sha256": "235821ec613867706ed1971e8cd841b83104fe1bc1642054593e66a654fa6491",
+      "size_bytes": 43176
+    },
+    "leaf/roots.py": {
+      "sha256": "c258de49e4d3da734bae0b9c7fa8d0c59bb1d6f91ac2ff5ceceb46ca12e80904",
+      "size_bytes": 37454
+    },
+    "leaf/runtime.py": {
+      "sha256": "abbea7b0f873d87139f92c9eb4a6989f657def504c2080379d728f7ceb121826",
+      "size_bytes": 22606
+    },
+    "leaf/state.py": {
+      "sha256": "a2bbf2472a6bbc32ed5db4f5ad45a47d9cb98099f8d7918a709367b5b01e2c25",
+      "size_bytes": 73829
+    },
+    "leaf/stepwat.py": {
+      "sha256": "981f9b04cd15421c889c923453957f3a7f77034d535aca2f8e4aa4f70858f76a",
+      "size_bytes": 32213
+    },
+    "leaf/syrup_water.py": {
+      "sha256": "baefec2a100b751cc35bda8739ea5d04339681f0d3f9d6b900972986161db215",
+      "size_bytes": 65854
+    },
+    "leaf/traits.py": {
+      "sha256": "693b0a0b3093480e198a072240ea4d93177af66823929c6b8747464388db7b89",
+      "size_bytes": 28196
+    },
+    "leaf/uptake.py": {
+      "sha256": "675e4bf4b9a9c202ae166f50444032c105d4d691f366f94479034814952bfe2d",
+      "size_bytes": 67742
+    },
+    "benchmarks/daily_water_growth.py": {
+      "sha256": "82b75464877a665b612a04c428496249a18952d128213f545b4f86e9a793ce4f",
+      "size_bytes": 79938
+    },
+    "benchmarks/spatial_mapping.py": {
+      "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+      "size_bytes": 47260
+    }
+  },
+  "boundary_declaration": "leaf.state.Domain(..., periodic=(bool_x,bool_y)); defaultFalse/False; JSON optional boolean pair",
+  "scientific_contracts": "existing nominal allometric demand, normalized root weights, local proportional competition, no compensatory uptake; SYRUP owns physical water",
+  "numerical_correction": "shared exact circle-rectangle tangency zero breakpoint; legacy random golden outputs unchanged",
+  "historical_locks": "all8 byte-identical; no old pairing silently rebound",
+  "biological_checkpoint": {
+    "format": "leaf.plant_biology_checkpoint",
+    "version": 2,
+    "standalone_layout": 4,
+    "new_helper_in_source_hash_sets": true
+  },
+  "evidence": "agent_handoffs/tasks/periodic_boundaries_20261112/qualification.json",
+  "frozen_manifest": "agent_handoffs/tasks/periodic_boundaries_20261112/review_04.manifest.json"
+}

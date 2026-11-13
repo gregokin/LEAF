@@ -1,0 +1,8 @@
+{
+  "full_check_returncode": 2,
+  "literal_diagnostic": "review01_canopy_union_retry.stderr.log:9: trailing whitespace. +AssertionError: ",
+  "cause": "preserved raw NumPy failure output contains a trailing space; do not rewrite primary evidence",
+  "source_and_document_check": "git diff --cached --check -- . ':(exclude)agent_handoffs/tasks/periodic_boundaries_20261112/*.log'",
+  "source_and_document_returncode": 0,
+  "raw_logs_preserved": true
+}

@@ -1,0 +1,10 @@
+test_periodic_leaf_session_on_the_native_periodic_grid_keeps_one_authoritative_debit (test_periodic_boundaries.NativePeriodicN15Tests.test_periodic_leaf_session_on_the_native_periodic_grid_keeps_one_authoritative_debit) ... ok
+test_candidate_of_another_real_withdrawal_cannot_be_mixed (test_lifecycle_bridge.NativeDailyTests.test_candidate_of_another_real_withdrawal_cannot_be_mixed) ... ok
+test_real_alternate_physical_branches_with_equal_digests_are_refused (test_lifecycle_bridge.NativeDailyTests.test_real_alternate_physical_branches_with_equal_digests_are_refused) ... ok
+test_visible_daily_sequence_counts_water_closure_clock_and_shared_pet (test_lifecycle_bridge.NativeDailyTests.test_visible_daily_sequence_counts_water_closure_clock_and_shared_pet) ... ok
+test_wrong_nominal_day_run_and_ordinal_are_refused_by_the_session (test_lifecycle_bridge.NativeDailyTests.test_wrong_nominal_day_run_and_ordinal_are_refused_by_the_session) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 10.272s
+
+OK

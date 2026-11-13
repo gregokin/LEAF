@@ -1,0 +1,6 @@
+{
+  "backend": "numpy",
+  "canopy_cell_union_cases": 90,
+  "max_absolute_cell_area_error_m2": 7.928935286116712e-13,
+  "oracle": "adaptive integration of independently merged vertical image intervals, per physical cell"
+}

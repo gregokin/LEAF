@@ -1,0 +1,8 @@
+{
+  "argv": [
+    "claude",
+    "--help"
+  ],
+  "returncode": 0,
+  "checked_at_utc": "2026-11-13T01:48:49.914995+00:00"
+}

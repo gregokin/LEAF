@@ -1,0 +1,9 @@
+{
+  "backend": "cuda",
+  "root_cases": 640,
+  "canopy_pet_cases": 32,
+  "sampled_cover_cases": 4,
+  "opposite_seam_delivered_m3": 0.1,
+  "normalized_unique_layered_roots": true,
+  "independent_oracles": "nine-image closest-point roots, analytic circle quadrants, minimum-image midpoint cover"
+}

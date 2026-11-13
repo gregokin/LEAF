@@ -1,0 +1,22 @@
+{
+  "syrup_phase15": {
+    "path": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15",
+    "present": true
+  },
+  "syrup_legacy": {
+    "path": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_legacy",
+    "present": true
+  },
+  "syrup_selection.json": {
+    "path": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/syrup_selection.json",
+    "sha256": "3bcaaadcf80453e375e2287331032433ec64a8481e45bbc74d24bd1c4ce1c00c"
+  },
+  "phase15_source_manifest.json": {
+    "path": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/phase15_source_manifest.json",
+    "sha256": "5cb1b01a7c76b3bb07a8bdc13cb698a65abf96f17f2d12260b6cbddadf8a4986"
+  },
+  "qualified_leaf_reference.json": {
+    "path": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/qualified_leaf_reference.json",
+    "sha256": "d63ec617646abc96a44accf9871d284a00504b30974ff730ee3cc8e619682135"
+  }
+}

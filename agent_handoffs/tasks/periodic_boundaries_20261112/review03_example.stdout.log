@@ -1,0 +1,27 @@
+{
+ "written": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review03_example/plants.csv",
+ "metadata_written": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review03_example/plants.metadata.json",
+ "report_written": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review03_example/report.json",
+ "n_plants": 576,
+ "establishment": "resolved from the supplied initial surface",
+ "initial": false,
+ "species": [
+  {
+   "species": "grass",
+   "target_cover": 0.04,
+   "measured_union_cover": 0.0406951904296875,
+   "count": 557,
+   "accepted": true
+  },
+  {
+   "species": "shrub",
+   "target_cover": 0.06,
+   "measured_union_cover": 0.064849853515625,
+   "count": 19,
+   "accepted": true
+  }
+ ],
+ "total_union_cover_all_species": 0.1055450439453125,
+ "attempts": 659,
+ "placement_passes": 1
+}

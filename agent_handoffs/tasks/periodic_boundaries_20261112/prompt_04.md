@@ -1,0 +1,9 @@
+# Periodic cover mask lifetime — revision4, same task/session
+
+Everything numerical passes: CPU729 tests, CUDA729 tests, real N15 CPU/CUDA daily pipelines and independent geometry/endpoint oracles. One NEW measured-memory check fails. Read ../review_03.md and ../verify_periodic_cover_memory.py (new explicitly approved READ ONLY). Original scope/tool rules remain: Read/Edit/Write only, no execution, agents, network, settings, Git, bypass; do not edit/execute Codex oracles or existing tests. Same19 allowed paths, but actual revision4 writes ONLY leaf/canopy.py, tests/test_periodic_boundaries.py, periodic_report.md. One writer: you. Leave uncommitted.
+
+Defect: `_paint_wrapped` assigns `mask = (xd2[None,:]+yd2[ja:jb,None]) < r2` each row iteration. The previous `mask` remains alive during the next RHS, so peak is float8 + oldbool1 + newbool1 per tile element, exceeding cover_admission's9. Independent one-circle256² domain/subsamples4/4MiB working budget: traced6,705,429 > declared6,291,472 (two1MiB rasters included). No actual user case/model generated/run.
+
+Minimal fix: `del mask` at the END of each row-tile iteration after ALL y/x segment ORs (correct indentation). No numerical painting change, no budgets/limits raised, no larger scratch estimates hiding retained work. Add a measured regression to the NEW test file: one oversized synthetic canopy, enough rows for several tiles, e.g. approved oracle's fixture. Compare traced peak with declared raster+working+index memory allowing at most32KiB for Python metadata (the first gap~414KiB, so it must fail before/fix pass after). Keep max_cover/cadence/traits unchanged.
+
+Update periodic_report.md as revision4 noting the lifetime fix and tests NOT RUN by author. No other edits, no new design. Codex independently executes on frozen final source and handles acceptance/installation/commit/push.

@@ -1,0 +1,10 @@
+{
+  "numpy": "2.5.3",
+  "numba": "0.67.0",
+  "PyYAML": "6.0.3",
+  "pytest": "9.1.1",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "executable": "/home/okin/MAPLE/.venv/bin/python",
+  "recorded_at_utc": "2026-11-13T01:20:50.298613+00:00",
+  "existing_cuda_environment": "/home/okin/MAPLE/.venv-cupy"
+}

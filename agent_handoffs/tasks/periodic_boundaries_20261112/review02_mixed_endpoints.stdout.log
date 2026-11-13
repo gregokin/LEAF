@@ -1,0 +1,51 @@
+{
+  "cases": 32,
+  "failure_count": 5,
+  "failures": [
+    {
+      "flags": [
+        true,
+        false
+      ],
+      "dx": 0.3,
+      "origin": 100000.1,
+      "error": "PlantPetError('plant positions must lie inside the closed domain')"
+    },
+    {
+      "flags": [
+        false,
+        true
+      ],
+      "dx": 0.1,
+      "origin": 0.3,
+      "error": "PlantPetError('plant positions must lie inside the closed domain')"
+    },
+    {
+      "flags": [
+        false,
+        true
+      ],
+      "dx": 0.1,
+      "origin": 100000.1,
+      "error": "PlantPetError('plant positions must lie inside the closed domain')"
+    },
+    {
+      "flags": [
+        false,
+        true
+      ],
+      "dx": 0.2,
+      "origin": 100000.1,
+      "error": "PlantPetError('plant positions must lie inside the closed domain')"
+    },
+    {
+      "flags": [
+        false,
+        true
+      ],
+      "dx": 0.7,
+      "origin": 100000.1,
+      "error": "PlantPetError('plant positions must lie inside the closed domain')"
+    }
+  ]
+}

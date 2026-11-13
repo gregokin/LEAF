@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "/home/okin/MAPLE/.venv/bin/python",
+    "-B",
+    "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/qualify_periodic_native.py"
+  ],
+  "cwd": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_03",
+  "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "NUMBA_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/numba_cache",
+    "CUPY_CACHE_DIR": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/cupy_cache",
+    "PYTHONPATH": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_03:/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cpu/objects/maple-materialized/5d850789f9e82dc456227cb1eb4dfcc255b3ee4dfb0ed74883813c93e98d0ab3/editable:/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cpu/objects/maple-materialized/5d850789f9e82dc456227cb1eb4dfcc255b3ee4dfb0ed74883813c93e98d0ab3/source/src:/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15/src:/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_03/tests",
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "LEAF_NATIVE_BUNDLE": "/home/okin/SYRUP/agent_handoffs/tasks/phase1_publication_c1_20261112/runs/runtime-store-cpu/objects/maple-materialized/5d850789f9e82dc456227cb1eb4dfcc255b3ee4dfb0ed74883813c93e98d0ab3",
+    "LEAF_NATIVE_CASE_DIR": "/home/okin/leaf/agent_handoffs/tasks/masy_daily_plant_interface_20261112/public_evidence/syrup_phase15/docs/manuals/examples/native_leaf_calendar_cli",
+    "LEAF_NATIVE_BACKEND": "numpy",
+    "LEAF_CHECK_ROOT": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review_03",
+    "LEAF_CHECK_WORK": "/home/okin/leaf/agent_handoffs/tasks/periodic_boundaries_20261112/public_evidence/review03_native_pipeline_cpu"
+  },
+  "pid": 8,
+  "start_ticks": "200660136",
+  "started_at_utc": "2026-11-13T02:00:09.660080+00:00"
+}

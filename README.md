@@ -25,6 +25,22 @@ standalone drivers and their source guards. CPU, Numba and CUDA interface checks
 are recorded in the [independent qualification](agent_handoffs/tasks/masy_daily_plant_interface_20261112/final_review.md).
 These are tested mechanics; ecological calibration and full MASY acceptance remain open.
 
+## Periodic canopy and root geometry
+
+Declare `Domain(..., periodic=(True, True))` or `"periodic": [true, true]` in the
+domain JSON; the default remains nonperiodic. Generated centers fill the entire
+domain. Canopy exclusion, cover, canopy PET averaging and roots wrap across the
+chosen axes, with one record per plant and unique soil resources. Roots from
+different plants can overlap and compete even when canopy overlap is disallowed.
+
+The [boundary guide](docs/periodic-boundaries.md) covers mixed axes, limits and
+restart. [Independent CPU/CUDA and native qualification](agent_handoffs/tasks/periodic_boundaries_20261112/final_review.md)
+and a [new source lock](dependencies/periodic-boundaries.lock.json) record this
+extension; historical locks are preserved. MAPLE already wraps footprints and
+shelter; its adapter must pass the boundary flags through as described in the
+[developer handoff](agent_handoffs/tasks/periodic_boundaries_20261112/developer_handoff.md).
+Existing case populations have not been regenerated.
+
 ## Phase 0: initialize and exchange vegetation
 
 The [Phase 0 guide](docs/phase0-vegetation.md) documents the implemented species
@@ -50,8 +66,8 @@ can still be read, but nothing writes that form. Details: the
 
 Generate multiple species from target cover and mean/standard-deviation canopy
 diameter, with seeded random placement and optional canopy exclusion. Cover is
-per-species union ground cover on a finite domain, measured at a declared sampling
-resolution and tolerance. Size draws are positive lognormal; exclusion places
+per-species union ground cover, clipped at nonperiodic edges and wrapped at periodic
+edges, measured at a declared sampling resolution and tolerance. Size draws are positive lognormal; exclusion places
 larger canopies first and refuses infeasible requests within explicit resource bounds. Initial ages are drawn
 independently and uniformly from 0 to each species' nominal life expectancy (read from its catalog record; the default
 when `initial_age_days` is omitted, selector `{"distribution": "uniform_to_life_expectancy"}`); this is an initial
