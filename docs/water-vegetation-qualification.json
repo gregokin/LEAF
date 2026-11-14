@@ -1,0 +1,27 @@
+{
+  "utc": "2026-11-14T03:55:22.425587+00:00",
+  "status": "independently accepted bounded pure LEAF projection+compact H1/H2/H3 helper extension; UNCOMMITTED",
+  "full_phase25_accepted": false,
+  "leaf_package": {
+    "files": 28,
+    "sha256": "38009872f8969f86b56c720adc1b5d9ffefc554fb9cacf90855d999db604530f",
+    "manifest": "root_compact_helpers_h3_manifest.json"
+  },
+  "external_helper": {
+    "path": "benchmarks/spatial_mapping.py",
+    "sha256": "333921bb645d984fa8e7449619d03114262ee333c7fea61a22493a878fd9ccc5",
+    "bytes": 47260
+  },
+  "verification": {
+    "root_cpu": "427passed12skip335subtests59.38s; actualMAPLEfbc412+Leaf380assertedbefore; separatepostrunleafhashreceipt; oldlauncherLeaf98alabelstale actualassert380governs",
+    "root_gpu": "4passed1two-visible-device-skip; actualGPU0strictfreeguard; source380",
+    "root_memory": "GPUwarmN20000011213209<=11265650B; exact100000speciesstream4000946<=4008192B; underbudgetrefused1997Bpreallocation; compactunderbudgetrefused2526B",
+    "source_after": "root_compact_helpers_h3_postrun_source_check.json"
+  },
+  "limits": [
+    "canonicalprojectionoutputHOSTaftercoldCUDAreduction; hydromapsstagedseparately",
+    "dataonlyH1/H3validationnotfile/head/producersessionproof",
+    "streamfixed8192B measuredPythonallowance; onlymostrecentyieldtracked; actualcallerheldarraysmustremainbudgeted",
+    "nativeS0/cachemodelsstillneedfinalH3requalification; wholePhase2.5/lifecycle/restartnotaccepted"
+  ]
+}

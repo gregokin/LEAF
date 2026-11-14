@@ -186,7 +186,7 @@ class TestCatalog(unittest.TestCase):
             with self.assertRaises(E):
                 traits.SpeciesCatalog(doc)
 
-        bad(lambda d: d.__setitem__('schema_version', 2))
+        bad(lambda d: d.__setitem__('schema_version', 3))    # 2 is now the explicit hydrology version (tests/test_species_hydrology_traits.py); 2.0, True and strings stay refused (tests/test_species_hydrology_traits.py)
         bad(lambda d: d.__setitem__('schema', 'other'))
         bad(lambda d: d.__setitem__('units', {'biomass': 'g', 'length': 'm', 'time': 'days'}))
         bad(lambda d: d['species']['grass']['allometry']['diameter'].__setitem__('a', True))
