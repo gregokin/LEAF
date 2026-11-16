@@ -9,6 +9,15 @@ biology; native seconds are recorded without conversion to biological datetimes.
 One complete nominal day and at most one T request per day are supported. A failed
 native/LEAF operation never becomes a completed bridge day. The caller retains its
 actual candidate and feedback; no rollback or combined physical restart is claimed.
+
+Backend factoring. The public functions of this module are the DEFAULT strict Dense
+NumPy CPU bridge: they bind only a CPU native source profile (device_runtime_capability
+False) and refuse every other column backend. The protocol itself (Source proof,
+connection cursor, day opening, read -> proposal -> native debit -> accepted feedback
+-> LEAF publication -> native close -> commit) lives in private backend-aware helpers
+taking a `_Backend` record first. `leaf.floating_lifecycle_bridge_cuda` supplies the
+Dense CUDA `_Backend`; both share the registries below and the genuine LEAF resource
+types of `lifecycle_bridge`. A record of one backend is refused by the other.
 """
 from __future__ import annotations
 
@@ -35,6 +44,8 @@ CHUNK_VALUES = 4096
 VALIDATION_BYTES_PER_VALUE = 64
 COLD_SOURCE_ALLOWANCE_BYTES = 4 << 20
 _HEX = frozenset('0123456789abcdef')
+# Registries are SHARED by every backend module: one lineage has one connection and
+# one read registry whichever backend produced it.
 _SOURCES = weakref.WeakKeyDictionary()
 _CONNECTIONS = weakref.WeakKeyDictionary()
 _LINEAGES = weakref.WeakKeyDictionary()
@@ -157,7 +168,12 @@ class FloatingSource(_Sealed):
         return dict(p['report'])
 
     def recheck(self, *, max_bytes, reserve_bytes=0):
-        """Admitted cold final check; caller prices all other live state in reserve."""
+        """Admitted cold final check; caller prices all other live state in reserve.
+
+        Host-only work on every backend: the native profile recheck re-hashes the
+        SYRUP tree inside the declared cold allowance and no device, held law or
+        daily context is read, copied or re-created.
+        """
         lb._admit(COLD_SOURCE_ALLOWANCE_BYTES, max_bytes, reserve_bytes, 'floating bridge Source recheck')
         p = _source(self)
         p['profile'].recheck()
@@ -193,8 +209,48 @@ class FloatingConnection(_Sealed):
         return None if p['day'] is None else p['day']['accepted']
 
 
-def _modules():
-    return {n: importlib.import_module('maple_syrup.' + n) for n in _MODULE_NAMES}
+# ---------------------------------------------------------------- backend binding
+@dataclasses.dataclass(frozen=True)
+class _Roster:
+    """Closed source-proof roster of one backend: modules, owning functions/classes/
+    methods (code identity), proof objects (identity) and module aliases."""
+    module_names: tuple
+    function_names: dict
+    class_names: dict
+    object_names: dict
+    method_names: dict
+    module_aliases: tuple
+
+
+@dataclasses.dataclass(frozen=True, eq=False)
+class _Backend:
+    """Private binding of the shared protocol to one array backend.
+
+    `ops` supplies the backend-specific pieces only: column/root metadata gate,
+    availability read + single volume conversion, proposal admission/conversion,
+    accepted-feedback admission, per-resource validation and the actual/unmet volume
+    conversion. Everything else (Source proof, cursors, day/commit protocol) is shared.
+    """
+    name: str
+    profile: str
+    source_type: type
+    connection_type: type
+    device_runtime_capability: bool
+    roster: _Roster
+    ops: object
+    report_extra: dict
+
+
+@dataclasses.dataclass(frozen=True)
+class _HostPool:
+    """The CPU bridge's single explicit host pool (LEAF cap/reserve + native reader)."""
+    max_bytes: object
+    reserve_bytes: object
+    available_bytes_fn: object
+
+
+def _modules(names):
+    return {n: importlib.import_module('maple_syrup.' + n) for n in names}
 
 
 def _origin(module, name, root):
@@ -226,26 +282,23 @@ def _verify_package(p):
         raise FloatingSourceError('the actual SYRUP package differs from the frozen profile/expected digest')
 
 
-def bind_source(profile, *, expected_syrup_digest, expected_syrup_commit,
-                expected_maple_commit, max_bytes, reserve_bytes=0):
-    """Cold Source binding; no provider, water operation or qualification verdict.
-
-    The caller prices this Source read beside all held state. A genuine new native
-    profile is indispensable; arbitrary expected hashes/commit labels are insufficient.
-    The SYRUP commit label is Root's frozen provenance, while the verified bytes and
-    native SourceProfile are the runtime authority (no self-referential package pin).
-    """
+def _bind_source(backend, profile, *, expected_syrup_digest, expected_syrup_commit,
+                 expected_maple_commit, max_bytes, reserve_bytes=0):
+    """Shared cold Source binding (see `bind_source`); `backend` fixes the required
+    native device-runtime capability, the proof roster and the record type."""
     want = _hex(expected_syrup_digest, 'expected_syrup_digest')
     sc = _hex(expected_syrup_commit, 'expected_syrup_commit', 40)
     mc = _hex(expected_maple_commit, 'expected_maple_commit', 40)
     lb._admit(COLD_SOURCE_ALLOWANCE_BYTES, max_bytes, reserve_bytes, 'floating bridge Source binding')
-    mods = _modules()
+    roster = backend.roster
+    mods = _modules(roster.module_names)
     ncp = mods['native_case_profile']
     if type(profile) is not ncp.NativeSourceProfile:
         raise FloatingSourceError('profile must be a genuinely factory-produced NativeSourceProfile')
     # Properties themselves authenticate the native registry; a forged object refuses.
-    if profile.device_runtime_capability or profile.maple_commit != mc or profile.syrup_package_digest != want:
-        raise FloatingSourceError('the genuine CPU profile does not name the selected committed Source pair')
+    if bool(profile.device_runtime_capability) != backend.device_runtime_capability or profile.maple_commit != mc or profile.syrup_package_digest != want:
+        raise FloatingSourceError(f'the genuine native profile does not name the selected committed Source pair with the '
+                                  f'{backend.name} device-runtime capability ({backend.device_runtime_capability})')
     profile.recheck()
     root = os.path.realpath(profile.syrup_package_root)
     package = sys.modules.get('maple_syrup')
@@ -253,17 +306,17 @@ def bind_source(profile, *, expected_syrup_digest, expected_syrup_commit,
     for short, mod in mods.items():
         name = 'maple_syrup.' + short
         path = _origin(mod, name, root)
-        for fn in _FUNCTION_NAMES[short]:
+        for fn in roster.function_names.get(short, ()):
             obj = getattr(mod, fn, None)
             if type(obj) is not types.FunctionType or obj.__module__ != name or obj.__globals__ is not vars(mod):
                 raise FloatingSourceError(f'{name}.{fn} is not the actual owning function')
             bindings.append((mod, fn, obj, obj.__code__))
-        for name in _CLASS_NAMES.get(short, ()):
+        for name in roster.class_names.get(short, ()):
             obj = getattr(mod, name, None)
             if type(obj) is not type or obj.__module__ != mod.__name__:
                 raise FloatingSourceError(f'{mod.__name__}.{name} is not the actual owning class')
             bindings.append((mod, name, obj, None))
-        for cls_name, names in _METHOD_NAMES.get(short, {}).items():
+        for cls_name, names in roster.method_names.get(short, {}).items():
             cls = getattr(mod, cls_name, None)
             if type(cls) is not type or cls.__module__ != mod.__name__:
                 raise FloatingSourceError(f'{mod.__name__}.{cls_name} is not the actual owning class')
@@ -273,32 +326,48 @@ def bind_source(profile, *, expected_syrup_digest, expected_syrup_commit,
                 if type(obj) is not types.FunctionType or obj.__module__ != mod.__name__ or obj.__globals__ is not vars(mod):
                     raise FloatingSourceError(f'{mod.__name__}.{cls_name}.{name} is not the actual owning method')
                 bindings.append((cls, name, obj, obj.__code__))
-        for name in _OBJECT_NAMES.get(short, ()):
+        for name in roster.object_names.get(short, ()):
             obj = getattr(mod, name, None)
             if obj is None:
                 raise FloatingSourceError(f'the native proof dependency {mod.__name__}.{name} is missing')
             bindings.append((mod, name, obj, None))
         bindings.append((mod, '__file__', mod.__file__, path))
-    for short, alias, target in _MODULE_ALIASES:
+    for short, alias, target in roster.module_aliases:
         if getattr(mods[short], alias, None) is not mods[target]:
             raise FloatingSourceError(f'the native module alias {short}.{alias} is foreign')
         bindings.append((mods[short], alias, mods[target], None))
-    p = {'profile': profile, 'root': root, 'package': package, 'modules': mods,
+    p = {'profile': profile, 'root': root, 'package': package, 'modules': mods, 'backend': backend,
          'bindings': tuple(bindings), 'report': {
-             'profile': PROFILE, 'native_profile': profile.profile, 'maple_commit': mc,
+             'profile': backend.profile, 'native_profile': profile.profile, 'maple_commit': mc,
              'maple_package_sha256': profile.package_digest, 'bundle_id': profile.bundle_id,
              'syrup_commit': sc, 'syrup_package_sha256': want, 'syrup_package_root': root,
-             'qualification': 'Source authentication only; Root code/physical acceptance required'}}
+             'qualification': 'Source authentication only; Root code/physical acceptance required',
+             **backend.report_extra}}
     _verify_package(p)
-    source = object.__new__(FloatingSource)
+    source = object.__new__(backend.source_type)
     _SOURCES[source] = p
     return source
 
 
-def _source(source):
-    p = _SOURCES.get(source) if type(source) is FloatingSource else None
-    if p is None:
-        raise FloatingSourceError('source is not a genuine bound FloatingSource')
+def bind_source(profile, *, expected_syrup_digest, expected_syrup_commit,
+                expected_maple_commit, max_bytes, reserve_bytes=0):
+    """Cold Source binding; no provider, water operation or qualification verdict.
+
+    The caller prices this Source read beside all held state. A genuine new native
+    profile is indispensable; arbitrary expected hashes/commit labels are insufficient.
+    The SYRUP commit label is Root's frozen provenance, while the verified bytes and
+    native SourceProfile are the runtime authority (no self-referential package pin).
+    This default factory requires a CPU profile (device_runtime_capability False).
+    """
+    return _bind_source(_CPU, profile, expected_syrup_digest=expected_syrup_digest,
+                        expected_syrup_commit=expected_syrup_commit, expected_maple_commit=expected_maple_commit,
+                        max_bytes=max_bytes, reserve_bytes=reserve_bytes)
+
+
+def _source(source, backend=None):
+    p = _SOURCES.get(source) if isinstance(source, FloatingSource) else None
+    if p is None or type(source) is not p['backend'].source_type or (backend is not None and p['backend'] is not backend):
+        raise FloatingSourceError('source is not a genuine bound FloatingSource of this bridge backend')
     if sys.modules.get('maple_syrup') is not p['package']:
         raise FloatingSourceError('SYRUP package mapping changed')
     for short, mod in p['modules'].items():
@@ -315,11 +384,11 @@ def _source(source):
     return p
 
 
-def _connection(connection):
-    p = _CONNECTIONS.get(connection) if type(connection) is FloatingConnection else None
-    if p is None:
-        raise FloatingCursorError('connection is not a genuine live floating bridge connection')
-    _source(p['source'])
+def _connection(connection, backend=None):
+    p = _CONNECTIONS.get(connection) if isinstance(connection, FloatingConnection) else None
+    if p is None or type(connection) is not p['backend'].connection_type or (backend is not None and p['backend'] is not backend):
+        raise FloatingCursorError('connection is not a genuine live floating bridge connection of this backend')
+    _source(p['source'], p['backend'])
     if p['lineage']() is None:
         raise FloatingCursorError('the native lineage is gone')
     return p
@@ -338,14 +407,10 @@ def _cpu_column(column, *, shape=None):
     return L, N, area
 
 
-def connect(source, lineage, initial_boundary, *, day_binding):
-    """Connect once at a genuine fresh native accepted boundary (no restore).
-
-    Use connection.resource_cursor as PlantSession.start(initial_resource=...). The
-    stable connection ID does not change with property/operator refresh after wind.
-    """
-    sp = _source(source)
-    lc = sp['modules']['floating_event_lifecycle']
+def _connect(backend, source, lineage, initial_boundary, *, day_binding):
+    sp = _source(source, backend)
+    m = sp['modules']
+    lc = m['floating_event_lifecycle']
     lc._expect(lineage, initial_boundary, lc.Boundary)
     if not isinstance(day_binding, ps.DayBinding):
         raise FloatingCursorError('day_binding must be a LEAF DayBinding')
@@ -359,16 +424,17 @@ def connect(source, lineage, initial_boundary, *, day_binding):
     prev = _LINEAGES.get(lineage)
     if prev is not None and prev() is not None:
         raise FloatingCursorError('this native lineage already has a bridge connection')
-    _cpu_column(initial_boundary.root.column, shape=initial_boundary.surface_depth_m.shape)
-    if sp['modules']['sediment_bed'].is_windowed_bed(initial_boundary.bed):
+    backend.ops.root(m, initial_boundary.root)
+    backend.ops.column(m, initial_boundary.root.column, shape=initial_boundary.surface_depth_m.shape)
+    if m['sediment_bed'].is_windowed_bed(initial_boundary.bed):
         raise FloatingBridgeError('the new bridge profile serves genuine Dense beds only')
-    ident = _digest({'profile': PROFILE, 'run': day_binding.to_dict(),
+    ident = _digest({'profile': backend.profile, 'run': day_binding.to_dict(),
                      'source': sp['report'], 'anchor': initial_boundary.root.source_witness,
                      'connection': uuid.uuid4().hex})
     resource = lb.ResourceIdentity(ident, _digest(['bridge-origin', ident]), 0, 0, 0, 0,
                                    float(initial_boundary.t_s), 'boundary', None, day_binding.run_digest, False)
-    obj = object.__new__(FloatingConnection)
-    _CONNECTIONS[obj] = {'source': source, 'lineage': weakref.ref(lineage), 'binding': day_binding,
+    obj = object.__new__(backend.connection_type)
+    _CONNECTIONS[obj] = {'source': source, 'backend': backend, 'lineage': weakref.ref(lineage), 'binding': day_binding,
                          'identity': ident, 'anchor': initial_boundary.root.source_witness,
                          'config': initial_boundary.root.config.sha256, 'ordinal': 0,
                          'requests': 0, 'revision': 0, 'resource': resource,
@@ -377,13 +443,23 @@ def connect(source, lineage, initial_boundary, *, day_binding):
     return obj
 
 
+def connect(source, lineage, initial_boundary, *, day_binding):
+    """Connect once at a genuine fresh native accepted boundary (no restore).
+
+    Use connection.resource_cursor as PlantSession.start(initial_resource=...). The
+    stable connection ID does not change with property/operator refresh after wind.
+    """
+    return _connect(_CPU, source, lineage, initial_boundary, day_binding=day_binding)
+
+
 def _leaf_cursor(p, cursor):
     if type(cursor) is not lb.ResourceIdentity or cursor != p['resource']:
         raise FloatingCursorError('the actual accepted LEAF resource cursor differs from this connection')
 
 
 def _daily(p, state, role):
-    m = _source(p['source'])['modules']
+    backend = p['backend']
+    m = _source(p['source'], backend)['modules']
     fd, lc = m['floating_daily'], m['floating_event_lifecycle']
     fd._check_parent(state, fd.expect_parent(state), role)
     m['floating_event_daily_bridge']._need_bridge_state(state)
@@ -393,21 +469,15 @@ def _daily(p, state, role):
         raise FloatingCursorError('foreign daily run, skipped nominal day or stale native cursor')
     if ctx.source_witness != p['anchor'] or ctx.config_sha256 != p['config']:
         raise FloatingCursorError('the native cold anchor/configuration changed')
-    sp = _source(p['source'])['report']
+    sp = _source(p['source'], backend)['report']
     if ctx.source_pair['maple_syrup_tree_sha256'] != sp['syrup_package_sha256'] or ctx.source_pair['maple_package_sha256'] != sp['maple_package_sha256']:
         raise FloatingSourceError('the native daily context carries a different actual Source pair')
-    _cpu_column(ctx.column, shape=ctx.shape)
+    backend.ops.column(m, ctx.column, shape=ctx.shape)
     return m
 
 
-def begin_day(connection, daily_boundary, *, leaf_resource_cursor):
-    """Check the genuine opening, including after hydrology returns interevent.
-
-    A matched full-storm route may replace a not-yet-read day opening. A read or
-    accepted T candidate cannot be silently abandoned. The original boundary must
-    remain live through this call so Native's own hold->parent proof can be checked.
-    """
-    p = _connection(connection)
+def _begin_day(backend, connection, daily_boundary, *, leaf_resource_cursor):
+    p = _connection(connection, backend)
     _leaf_cursor(p, leaf_resource_cursor)
     m = _daily(p, daily_boundary, 'boundary')
     ctx = daily_boundary.ctx
@@ -430,6 +500,16 @@ def begin_day(connection, daily_boundary, *, leaf_resource_cursor):
                 'ctx': ctx, 'read': None, 'accepted': None, 'postdebit_state': None,
                 'proposal_parent_token': None, 'proposal_plan_digest': None,
                 'native_start_t': float(native_parent.ledger.get('transpiration_m3', 0.0))}
+
+
+def begin_day(connection, daily_boundary, *, leaf_resource_cursor):
+    """Check the genuine opening, including after hydrology returns interevent.
+
+    A matched full-storm route may replace a not-yet-read day opening. A read or
+    accepted T candidate cannot be silently abandoned. The original boundary must
+    remain live through this call so Native's own hold->parent proof can be checked.
+    """
+    return _begin_day(_CPU, connection, daily_boundary, leaf_resource_cursor=leaf_resource_cursor)
 
 
 def estimate_bridge_bytes(n_layers, n_cells, *, operation):
@@ -479,14 +559,8 @@ def _read_proof(read):
     return item[1]
 
 
-def read_availability(connection, parent, *, leaf_resource_cursor, max_bytes,
-                      reserve_bytes=0, available_bytes_fn):
-    """Read native availability once, return PlantSession's genuine LEAF read type.
-
-    The native interevent cursor is the CURRENT ordinal (not ordinal-1 as in N15).
-    The projected cumulative fields are explicitly bridge-owned labels.
-    """
-    p = _connection(connection)
+def _read_availability(backend, connection, parent, *, leaf_resource_cursor, resources):
+    p = _connection(connection, backend)
     _leaf_cursor(p, leaf_resource_cursor)
     m, day = _interevent(p, parent)
     if day['read'] is not None or day['accepted'] is not None:
@@ -494,22 +568,13 @@ def read_availability(connection, parent, *, leaf_resource_cursor, max_bytes,
     if parent.request_sequence != 0 or parent.ledger.transpiration_m3 != 0.0 or parent.ledger.last_day_transpiration_m3 != 0.0:
         raise FloatingCursorError('unhandled native T before the bridge read')
     ctx = parent.ctx
-    L, N, area = _cpu_column(ctx.column, shape=ctx.shape)
-    e = estimate_bridge_bytes(L, N, operation='read')
-    ne = m['floating_transpiration'].estimate_floating_withdrawal_memory(L, N, backend='numpy', operation='availability')
-    lb._admit(max(e['total_bytes'], int(ne.required_bytes)), max_bytes, reserve_bytes, 'floating availability read')
-    depth = m['floating_transpiration'].floating_layer_availability_m(ctx.column, parent.water,
-                memory_budget_bytes=max_bytes, reserve_bytes=reserve_bytes, available_bytes_fn=available_bytes_fn)
-    _array(depth, 'availability', (L, N))
-    supply = depth * area
-    del depth
-    _array(supply, 'availability volume', (L, N))
-    supply.flags.writeable = False
+    L, N, area = backend.ops.column(m, ctx.column, shape=ctx.shape)
+    supply = backend.ops.availability(m, ctx, parent.water, L, N, area, resources)
     ident = lb.ResourceIdentity(p['identity'], parent.digest, p['revision'] + 1, p['requests'],
                                  p['ordinal'] + 1, p['requests'], parent.t_s, 'interevent',
                                  p['ordinal'], p['binding'].run_digest, False)
     expected = m['floating_daily'].expect_parent(parent)
-    read = lb.AvailabilityRead(ident, supply, area, L, N, 'numpy', weakref.ref(parent), expected, connection)
+    read = lb.AvailabilityRead(ident, supply, area, L, N, backend.name, weakref.ref(parent), expected, connection)
     key = id(read)
     proof = {'connection': weakref.ref(connection), 'parent': weakref.ref(parent), 'request': None}
     _READS[key] = (weakref.ref(read, lambda _r, key=key: _READS.pop(key, None)), proof)
@@ -517,22 +582,36 @@ def read_availability(connection, parent, *, leaf_resource_cursor, max_bytes,
     return read
 
 
-def request_args(read, connection, parent):
-    """Native request keywords, bound to the exact read parent and native seq=0."""
-    p = _connection(connection)
+def read_availability(connection, parent, *, leaf_resource_cursor, max_bytes,
+                      reserve_bytes=0, available_bytes_fn):
+    """Read native availability once, return PlantSession's genuine LEAF read type.
+
+    The native interevent cursor is the CURRENT ordinal (not ordinal-1 as in N15).
+    The projected cumulative fields are explicitly bridge-owned labels.
+    """
+    return _read_availability(_CPU, connection, parent, leaf_resource_cursor=leaf_resource_cursor,
+                              resources=_HostPool(max_bytes, reserve_bytes, available_bytes_fn))
+
+
+def _request_args(backend, read, connection, parent):
+    p = _connection(connection, backend)
     proof = _read_proof(read)
     if proof['connection']() is not connection or proof['parent']() is not parent or read._parent_ref() is not parent:
         raise FloatingCursorError('the read names another connection/parent instance')
     _interevent(p, parent)
     if p['day']['accepted'] is not None or parent.request_sequence != 0:
         raise FloatingCursorError('one withdrawal per nominal day; duplicate/stale request refused')
-    fd = _source(p['source'])['modules']['floating_daily']
+    fd = _source(p['source'], backend)['modules']['floating_daily']
     fd._check_parent(parent, read._expected, 'interevent')
     return {'expected_parent': read._expected, 'expected_sequence': parent.request_sequence}
 
 
-def request_depth_m(read, proposed_m3, *, max_bytes, reserve_bytes=0):
-    """One volume->depth conversion; retain that actual request for feedback proof."""
+def request_args(read, connection, parent):
+    """Native request keywords, bound to the exact read parent and native seq=0."""
+    return _request_args(_CPU, read, connection, parent)
+
+
+def _request_depth_m(backend, read, proposed_m3, *, resources):
     proof = _read_proof(read)
     connection = proof['connection']()
     if connection is None:
@@ -540,20 +619,20 @@ def request_depth_m(read, proposed_m3, *, max_bytes, reserve_bytes=0):
     parent = proof['parent']()
     if parent is None:
         raise FloatingCursorError('the exact native read parent is gone')
-    request_args(read, connection, parent)
-    shape = (read.n_layers * read.n_cells,)
-    if type(proposed_m3) is not np.ndarray or proposed_m3.shape not in (shape, (read.n_layers, read.n_cells)):
-        raise FloatingBridgeError('proposal must be the layer-major aggregate volume array')
-    lb._admit(estimate_bridge_bytes(read.n_layers, read.n_cells, operation='request')['total_bytes'],
-              max_bytes, reserve_bytes, 'floating request conversion')
-    _array(proposed_m3, 'proposal', proposed_m3.shape)
+    _request_args(backend, read, connection, parent)
+    m = _source(_connection(connection, backend)['source'], backend)['modules']
+    column = parent.ctx.column
+    backend.ops.check_proposal(m, column, read, proposed_m3, resources)
     if proof['request'] is not None:
         raise FloatingCursorError('this read already has a converted request')
-    request = (proposed_m3 / read.cell_area_m2).reshape(read.n_layers, read.n_cells)
-    _array(request, 'request depth', request.shape)
-    request.flags.writeable = False
+    request = backend.ops.to_depth(m, column, read, proposed_m3)
     proof['request'] = request
     return request
+
+
+def request_depth_m(read, proposed_m3, *, max_bytes, reserve_bytes=0):
+    """One volume->depth conversion; retain that actual request for feedback proof."""
+    return _request_depth_m(_CPU, read, proposed_m3, resources=_HostPool(max_bytes, reserve_bytes, None))
 
 
 def _producer(fd, state, parent, kind):
@@ -574,12 +653,9 @@ def _sum_active(a, active):
     return total
 
 
-def _validate_feedback(m, parent, outcome, request, proposed, area):
-    """Native producer/ledger proof plus bounded per-cell and global comparisons.
-
-    The ONLY comparison law is Native volume_roundoff_bound_m3, using the actual
-    owning withdrawal term count and genuine before/request reservoir operands.
-    """
+def _feedback_proof(m, parent, outcome):
+    """Backend-neutral scalar proof of ONE native debit: genuine outcome type, exact
+    successor identity, producer receipt, ledger advance. Returns (child, n_terms)."""
     fd = m['floating_daily']
     if type(outcome) is not fd.WithdrawalOutcome:
         raise FloatingCursorError('outcome must be the actual native WithdrawalOutcome')
@@ -597,14 +673,8 @@ def _validate_feedback(m, parent, outcome, request, proposed, area):
     if receipt != {'kind': 'withdrawal', 'seq': 0, 'requested': float(outcome.requested_m3).hex(), 'actual': float(outcome.actual_m3).hex()}:
         raise FloatingCursorError('the outcome scalars differ from the native producer receipt')
     ctx = parent.ctx
-    L, N = ctx.n_layers, ctx.n_cells
-    shape = (L, N)
-    for name, a in (('actual', outcome.actual_m), ('unmet', outcome.unmet_m), ('scale', outcome.scale),
-                    ('before W', parent.water.water_m), ('after W', child.water.water_m)):
-        _array(a, name, shape)
     col = ctx.column
-    active = col._maps['active']
-    terms = 3 * L * int(N if col.n_active is None else col.n_active) + m['floating_transpiration'].st._PACKET
+    terms = 3 * ctx.n_layers * int(ctx.n_cells if col.n_active is None else col.n_active) + m['floating_transpiration'].st._PACKET
     b0, b1 = parent.ledger, child.ledger
     if b1.n_terms != b0.n_terms + terms or b1.day_n_terms != b0.day_n_terms + terms:
         raise FloatingCursorError('the native component term count did not advance exactly once')
@@ -616,6 +686,24 @@ def _validate_feedback(m, parent, outcome, request, proposed, area):
         raise FloatingCursorError('native T accounting differs from the actual withdrawal')
     if not (math.isfinite(b1.bound_m3) and b1.bound_m3 >= b0.bound_m3 and math.isfinite(b1.day_bound_m3) and b1.day_bound_m3 >= b0.day_bound_m3):
         raise FloatingCursorError('native component bounds moved backwards or became nonfinite')
+    return child, terms
+
+
+def _validate_feedback(m, parent, outcome, request, proposed, area):
+    """Native producer/ledger proof plus bounded per-cell and global comparisons.
+
+    The ONLY comparison law is Native volume_roundoff_bound_m3, using the actual
+    owning withdrawal term count and genuine before/request reservoir operands.
+    """
+    child, terms = _feedback_proof(m, parent, outcome)
+    ctx = parent.ctx
+    L, N = ctx.n_layers, ctx.n_cells
+    shape = (L, N)
+    for name, a in (('actual', outcome.actual_m), ('unmet', outcome.unmet_m), ('scale', outcome.scale),
+                    ('before W', parent.water.water_m), ('after W', child.water.water_m)):
+        _array(a, name, shape)
+    col = ctx.column
+    active = col._maps['active']
     before = _sum_active(parent.water.water_m, active) * area
     scale = before + float(outcome.requested_m3)
     comparison = m['conservation'].volume_roundoff_bound_m3(terms, scale)
@@ -645,14 +733,8 @@ def _validate_feedback(m, parent, outcome, request, proposed, area):
         raise FloatingCursorError('native outcome/global W/T/request closure mismatch')
 
 
-def accepted_withdrawal(connection, proposal, outcome, *, max_bytes, reserve_bytes=0):
-    """Validate ONE real native debit; return PlantSession's accepted feedback type.
-
-    Bookkeeping is staged, not consumed until commit_day validates the published
-    PlantSession and real native close/handback. pending_feedback remains available
-    if later staging/close fails; no second debit is necessary or permitted here.
-    """
-    p = _connection(connection)
+def _accepted_withdrawal(backend, connection, proposal, outcome, *, resources):
+    p = _connection(connection, backend)
     if type(proposal) is not ps.WithdrawalProposal:
         raise FloatingCursorError('proposal must be the actual PlantSession WithdrawalProposal')
     read = proposal.read
@@ -660,7 +742,7 @@ def accepted_withdrawal(connection, proposal, outcome, *, max_bytes, reserve_byt
     parent = proof['parent']()
     if parent is None:
         raise FloatingCursorError('the exact native read parent is gone')
-    request_args(read, connection, parent)
+    _request_args(backend, read, connection, parent)
     m, day = _interevent(p, parent)
     if proof['connection']() is not connection or proof['request'] is None:
         raise FloatingCursorError('the proposal has no converted native request for this connection')
@@ -668,30 +750,24 @@ def accepted_withdrawal(connection, proposal, outcome, *, max_bytes, reserve_byt
     if proposal.parent_token != proposal.plan.parent_token or proposal.plan._used:
         raise FloatingCursorError('stale or already-published LEAF proposal')
     lb.debit_identity(proposal.identity)
-    lb._admit(estimate_bridge_bytes(read.n_layers, read.n_cells, operation='accept')['total_bytes'],
-              max_bytes, reserve_bytes, 'floating accepted feedback')
-    proposed = proposal.uptake_plan.proposed
-    _array(proposed, 'LEAF aggregate proposal', (read.n_layers * read.n_cells,))
-    rm = proposal.uptake_plan.root_map
-    if (rm.n_layers, rm.n_cells, rm.backend) != (read.n_layers, read.n_cells, 'numpy'):
-        raise FloatingCursorError('the actual proposal root map differs from the native resource shape/backend')
-    domain = rm.provenance.get('domain')
     ctx = parent.ctx
+    backend.ops.admit_accept(m, ctx.column, read, resources)
+    proposed = proposal.uptake_plan.proposed
+    backend.ops.check_proposed(m, ctx.column, read, proposed)
+    rm = proposal.uptake_plan.root_map
+    backend.ops.root_map(m, rm, read, ctx)
+    domain = rm.provenance.get('domain')
     if not isinstance(domain, dict) or (domain.get('ny'), domain.get('nx')) != tuple(ctx.shape):
         raise FloatingCursorError('the proposal root-map domain differs from native shape/cell area')
     dx = _finite(domain.get('dx_m'), 'root-map dx_m')
     dy = _finite(domain.get('dy_m'), 'root-map dy_m')
     if dx <= 0 or dy <= 0 or dx * dy != read.cell_area_m2:
         raise FloatingCursorError('the proposal root-map domain differs from native shape/cell area')
-    _validate_feedback(m, parent, outcome, proof['request'], proposed, read.cell_area_m2)
+    backend.ops.validate_feedback(m, parent, outcome, proof['request'], proposed, read.cell_area_m2, resources)
     after = lb.ResourceIdentity(p['identity'], outcome.state.digest, p['revision'] + 2, p['requests'] + 1,
                                  p['ordinal'] + 1, p['requests'] + 1, outcome.state.t_s,
                                  'interevent', p['ordinal'], p['binding'].run_digest, False)
-    actual = outcome.actual_m * read.cell_area_m2
-    unmet = outcome.unmet_m * read.cell_area_m2
-    _array(actual, 'actual volume', actual.shape)
-    _array(unmet, 'unmet volume', unmet.shape)
-    actual.flags.writeable = unmet.flags.writeable = False
+    actual, unmet = backend.ops.accepted_volumes(m, ctx.column, outcome, read.cell_area_m2)
     accepted = lb.AcceptedWithdrawal(proposal.identity, read.identity, after, actual, unmet,
                                       outcome.requested_m3, outcome.actual_m3, outcome.unmet_m3, read.cell_area_m2)
     day['accepted'] = accepted  # two L*N float64 volume arrays, retained until commit
@@ -702,16 +778,19 @@ def accepted_withdrawal(connection, proposal, outcome, *, max_bytes, reserve_byt
     return accepted
 
 
-def commit_day(connection, interevent, closed_daily, native_boundary, *, session):
-    """Consume bridge accounting LAST after native close/handback and LEAF publish.
+def accepted_withdrawal(connection, proposal, outcome, *, max_bytes, reserve_bytes=0):
+    """Validate ONE real native debit; return PlantSession's accepted feedback type.
 
-    Pass the exact final interevent too: no-T days are validated without inventing a
-    debit, and the native close's exact parent is checked without a history census.
-    Nothing here closes a day, adopts Native water or publishes LEAF. A refusal keeps
-    the connection's prior committed cursor and exposes its pending actual feedback.
+    Bookkeeping is staged, not consumed until commit_day validates the published
+    PlantSession and real native close/handback. pending_feedback remains available
+    if later staging/close fails; no second debit is necessary or permitted here.
     """
-    p = _connection(connection)
-    sp = _source(p['source'])
+    return _accepted_withdrawal(_CPU, connection, proposal, outcome, resources=_HostPool(max_bytes, reserve_bytes, None))
+
+
+def _commit_day(backend, connection, interevent, closed_daily, native_boundary, *, session):
+    p = _connection(connection, backend)
+    sp = _source(p['source'], backend)
     m = sp['modules']
     fd, lc = m['floating_daily'], m['floating_event_lifecycle']
     day = p['day']
@@ -760,6 +839,93 @@ def commit_day(connection, interevent, closed_daily, native_boundary, *, session
     p['plant_lineage'] = session.lineage
     p['day'] = None  # release all prior native states/requests/feedback; no history list
     return connection.cursor
+
+
+def commit_day(connection, interevent, closed_daily, native_boundary, *, session):
+    """Consume bridge accounting LAST after native close/handback and LEAF publish.
+
+    Pass the exact final interevent too: no-T days are validated without inventing a
+    debit, and the native close's exact parent is checked without a history census.
+    Nothing here closes a day, adopts Native water or publishes LEAF. A refusal keeps
+    the connection's prior committed cursor and exposes its pending actual feedback.
+    """
+    return _commit_day(_CPU, connection, interevent, closed_daily, native_boundary, session=session)
+
+
+# ---------------------------------------------------------------- the default CPU backend
+def _cpu_column_op(m, column, *, shape=None):
+    return _cpu_column(column, shape=shape)
+
+
+def _cpu_root_op(m, root):
+    return None
+
+
+def _cpu_availability(m, ctx, water, L, N, area, pool):
+    e = estimate_bridge_bytes(L, N, operation='read')
+    ne = m['floating_transpiration'].estimate_floating_withdrawal_memory(L, N, backend='numpy', operation='availability')
+    lb._admit(max(e['total_bytes'], int(ne.required_bytes)), pool.max_bytes, pool.reserve_bytes, 'floating availability read')
+    depth = m['floating_transpiration'].floating_layer_availability_m(ctx.column, water,
+                memory_budget_bytes=pool.max_bytes, reserve_bytes=pool.reserve_bytes, available_bytes_fn=pool.available_bytes_fn)
+    _array(depth, 'availability', (L, N))
+    supply = depth * area
+    del depth
+    _array(supply, 'availability volume', (L, N))
+    supply.flags.writeable = False
+    return supply
+
+
+def _cpu_check_proposal(m, column, read, proposed_m3, pool):
+    shape = (read.n_layers * read.n_cells,)
+    if type(proposed_m3) is not np.ndarray or proposed_m3.shape not in (shape, (read.n_layers, read.n_cells)):
+        raise FloatingBridgeError('proposal must be the layer-major aggregate volume array')
+    lb._admit(estimate_bridge_bytes(read.n_layers, read.n_cells, operation='request')['total_bytes'],
+              pool.max_bytes, pool.reserve_bytes, 'floating request conversion')
+    _array(proposed_m3, 'proposal', proposed_m3.shape)
+
+
+def _cpu_to_depth(m, column, read, proposed_m3):
+    request = (proposed_m3 / read.cell_area_m2).reshape(read.n_layers, read.n_cells)
+    _array(request, 'request depth', request.shape)
+    request.flags.writeable = False
+    return request
+
+
+def _cpu_admit_accept(m, column, read, pool):
+    lb._admit(estimate_bridge_bytes(read.n_layers, read.n_cells, operation='accept')['total_bytes'],
+              pool.max_bytes, pool.reserve_bytes, 'floating accepted feedback')
+
+
+def _cpu_check_proposed(m, column, read, proposed):
+    _array(proposed, 'LEAF aggregate proposal', (read.n_layers * read.n_cells,))
+
+
+def _cpu_root_map(m, rm, read, ctx):
+    if (rm.n_layers, rm.n_cells, rm.backend) != (read.n_layers, read.n_cells, 'numpy'):
+        raise FloatingCursorError('the actual proposal root map differs from the native resource shape/backend')
+
+
+def _cpu_validate_feedback(m, parent, outcome, request, proposed, area, pool):
+    _validate_feedback(m, parent, outcome, request, proposed, area)
+
+
+def _cpu_accepted_volumes(m, column, outcome, area):
+    actual = outcome.actual_m * area
+    unmet = outcome.unmet_m * area
+    _array(actual, 'actual volume', actual.shape)
+    _array(unmet, 'unmet volume', unmet.shape)
+    actual.flags.writeable = unmet.flags.writeable = False
+    return actual, unmet
+
+
+_CPU_OPS = types.SimpleNamespace(column=_cpu_column_op, root=_cpu_root_op, availability=_cpu_availability,
+                                 check_proposal=_cpu_check_proposal, to_depth=_cpu_to_depth,
+                                 admit_accept=_cpu_admit_accept, check_proposed=_cpu_check_proposed,
+                                 root_map=_cpu_root_map, validate_feedback=_cpu_validate_feedback,
+                                 accepted_volumes=_cpu_accepted_volumes)
+_CPU = _Backend('numpy', PROFILE, FloatingSource, FloatingConnection, False,
+                _Roster(_MODULE_NAMES, _FUNCTION_NAMES, _CLASS_NAMES, _OBJECT_NAMES, _METHOD_NAMES, _MODULE_ALIASES),
+                _CPU_OPS, {})
 
 
 __all__ = ['VERSION', 'PROFILE', 'FloatingBridgeError', 'FloatingSourceError', 'FloatingCursorError',
