@@ -59,6 +59,23 @@ explicit and checked before allocation/sampling; corrected counts are admitted b
 drawn; per-species sample storage is compacted on truncation (no dead trial slots are retained). RNG:
 numpy.random.default_rng(seed) (PCG64); the draw order is recorded in the report together with the NumPy
 version, so a run is reproducible from the report's `generation_config` + catalog hash.
+
+Active footprint (`generate_population(..., active_mask=...)`, optional keyword; default None = everything above unchanged, draw for
+draw and key for key). A genuine host numpy bool (ny, nx) array marks the ACTIVE (valid) cells of an irregular raster footprint inside
+the rectangular domain (e.g. MAPLE's valid cells; True = active, False = inactive / NoData; `canopy.check_active_mask`). Centres are
+proposed ONLY inside active cells and uniformly over the active area: one uniformly chosen active cell (from the valid-cell index:
+int64 flat indices, 8 B per active cell, admitted with the raster(s) and the coarse mask against max_cover_bytes BEFORE allocation)
+plus a uniform offset inside it, x = x0 + (col + u) dx, y = y0 + (row + v) dy. Every proposal is re-checked through the Domain
+containing-cell convention; one whose containing cell is inactive (floating-point rounding onto a cell edge) is REJECTED and redrawn,
+and EVERY proposal of either mode counts against `max_attempts`, so no sampling is unbounded. Canopies are NOT clipped, buffered or
+kept away from the footprint edge: a canopy may extend over inactive cells, the cross-species exclusion rule (strict < (ri + rj)^2)
+and the periodic geometry are unchanged, and nothing fills NoData. Targets, N0, every count correction and the final acceptance use
+the ACTIVE area n_active*dx*dy and the active-area cover of `canopy.measure_cover` (fine raster masked in place; denominator
+n_active*subsamples^2), never the bounding rectangle. The physical initial `surface` is REQUIRED with a mask and must be finite on
+the active cells (NoData outside the footprint is never read, filled or modified): every plant's establishment anchor is the
+surface of its own (active) cell, so no NaN / placeholder anchor is ever stored. A masked report adds `active_mask` (sha256 / shape /
+active area / placement and cover meaning); the unmasked report keeps its exact key set. The mask is NOT part of the generation
+config schema: replaying a masked run needs the same mask, identified by its sha256 in the report.
 '''
 from __future__ import annotations
 
@@ -96,7 +113,16 @@ RNG_RECORD = {'constructor': 'numpy.random.default_rng(seed)', 'bit_generator': 
                                         'ages (constant: none; uniform / uniform_to_life_expectancy: one vector '
                                         'rng.uniform(min, max, k) draw)',
                              'disallowed': 'per species batch: diameters, ages (same age draw as above); then per placement '
-                                           'pass, per candidate in descending size order, per proposal: x (uniform), y (uniform)'}}
+                                           'pass, per candidate in descending size order, per proposal: x (uniform), y (uniform)'},
+              'draw_order_masked': {'allowed': 'per species batch: diameters (lognormal or none); centre proposals in bounded redraw '
+                                               'rounds: active cell (rng.integers(0, n_active, k) into the valid-cell index), u '
+                                               '(rng.uniform(0, 1, k)), v (rng.uniform(0, 1, k)) -> x = x0 + (col + u) dx, y = y0 + '
+                                               '(row + v) dy, redrawing only proposals whose containing cell is inactive; then ages '
+                                               '(constant: none; uniform / uniform_to_life_expectancy: one vector draw)',
+                                    'disallowed': 'per species batch: diameters, ages (as unmasked); then per placement pass, per '
+                                                  'candidate in descending size order, per proposal: active cell (rng.integers(0, '
+                                                  'n_active)), u (uniform 0..1), v (uniform 0..1) -> x = x0 + (col + u) dx, '
+                                                  'y = y0 + (row + v) dy'}}
 ORDERING_PERIODIC = {'allowed': ORDERING['allowed'] + '; periodic axes: centres over the full domain, cover = torus union',
                      'disallowed': ORDERING['disallowed'] + '; periodic axes: exclusion by shortest wrapped centre distance '
                                    '(minimum image per periodic axis, strict < (ri + rj)^2, tangency allowed)'}
@@ -360,6 +386,97 @@ def _stats(d):
     return {'n': int(d.size), 'mean': float(d.mean()), 'std': float(d.std()), 'min': float(d.min()), 'max': float(d.max())}
 
 
+class _ActiveCells:
+    '''Valid-cell index of a provided active mask (module docstring, "Active footprint"): the C-contiguous coarse (ny, nx) bool mask
+    and the int64 flat indices of its active cells (`index_bytes_for` bytes, admitted by the caller BEFORE construction). Centre
+    proposals are uniform over the active area (uniform active cell, uniform offset inside it) and are re-checked with the Domain
+    containing-cell arithmetic; a proposal that lands in an inactive cell (floating-point rounding onto a cell edge) is rejected.'''
+
+    def __init__(self, domain, mask, n_active):
+        self.domain = domain
+        self.mask = np.ascontiguousarray(mask)
+        self.n_active = int(n_active)
+        self.cells = np.flatnonzero(self.mask)            # int64 flat indices (row * nx + col), the ONLY per-cell storage
+        self.index_bytes = int(self.cells.nbytes)
+        self.area_m2 = self.n_active * domain.dx_m * domain.dy_m
+
+    @staticmethod
+    def index_bytes_for(n_active):
+        return 8 * int(n_active)
+
+    def _cell(self, px, py):
+        '''Scalar containing cell: the SAME arithmetic as Domain.cell_indices (floor, clip, periodic upper edge -> 0).'''
+        d = self.domain
+        col = min(max(math.floor((px - d.origin_x_m) / d.dx_m), 0), d.nx - 1)
+        row = min(max(math.floor((py - d.origin_y_m) / d.dy_m), 0), d.ny - 1)
+        if d.periodic[0] and px == d.x_max_m:
+            col = 0
+        if d.periodic[1] and py == d.y_max_m:
+            row = 0
+        return row, col
+
+    def propose(self, rng):
+        '''One scalar proposal (draw order: active cell, u, v) -> (x, y, active).'''
+        d = self.domain
+        c = int(self.cells[int(rng.integers(0, self.n_active))])
+        u = float(rng.uniform(0.0, 1.0))
+        v = float(rng.uniform(0.0, 1.0))
+        row, col = divmod(c, d.nx)
+        px = d.origin_x_m + (col + u) * d.dx_m
+        py = d.origin_y_m + (row + v) * d.dy_m
+        r2, c2 = self._cell(px, py)
+        return px, py, bool(self.mask[r2, c2])
+
+    def sample(self, rng, k, attempts, max_attempts):
+        '''k uniform centres over the active area in bounded redraw rounds (draw order per round: active cells, u, v); every
+        proposal counts against max_attempts. Returns (x, y, attempts). Temporaries are O(k), never larger.'''
+        d = self.domain
+        x = np.empty(k, dtype=np.float64)
+        y = np.empty(k, dtype=np.float64)
+        todo = np.arange(k, dtype=np.int64)
+        while todo.size:
+            m = int(todo.size)
+            if attempts + m > max_attempts:
+                raise GenerationError(f'max_attempts {max_attempts} would be exceeded by {m} masked centre proposal(s) '
+                                      f'({attempts} already used); the request is not attainable within the declared bounds; '
+                                      'aborted without output')
+            attempts += m
+            c = self.cells[rng.integers(0, self.n_active, m)]
+            u = rng.uniform(0.0, 1.0, m)
+            v = rng.uniform(0.0, 1.0, m)
+            row, col = np.divmod(c, d.nx)
+            px = d.origin_x_m + (col + u) * d.dx_m
+            py = d.origin_y_m + (row + v) * d.dy_m
+            x[todo] = px
+            y[todo] = py
+            r2, c2 = d.cell_indices(px, py)
+            todo = todo[~self.mask[r2, c2]]
+        return x, y, attempts
+
+
+def _masked_surface(domain, surface, mask):
+    '''The provided physical initial surface as a float64 (ny, nx) array that is finite on every ACTIVE cell. Inactive (NoData)
+    cells may hold NaN / fill values: they are never read, filled or modified (Domain.check_field would refuse them; this is its
+    masked counterpart). Raises StateError like check_field.'''
+    E = _state.StateError
+    if isinstance(surface, (bool, str, bytes)) or surface is None:
+        raise E('initial surface must be a numeric (ny, nx) array')
+    a = np.asarray(surface)
+    if a.dtype.kind not in 'fiu':
+        raise E(f'initial surface must have a real numeric dtype, got {a.dtype}')
+    if a.shape != domain.shape:
+        hint = ' (looks transposed: arrays are (ny, nx))' if a.shape == (domain.nx, domain.ny) else ''
+        raise E(f'initial surface shape {a.shape} differs from domain shape {domain.shape}{hint}')
+    a = np.asarray(a, dtype=np.float64)
+    bad = np.isfinite(a)                      # one coarse (ny, nx) bool temporary
+    np.logical_not(bad, out=bad)
+    bad &= mask
+    if bad.any():
+        raise E(f'initial surface has {int(bad.sum())} non-finite value(s) on ACTIVE cells of active_mask; NoData is allowed only '
+                'on inactive cells and is never filled')
+    return a
+
+
 class _Samples:
     '''Per-species candidate samples (compact arrays, no dead slots).'''
 
@@ -374,32 +491,39 @@ class _Samples:
     def n(self):
         return int(self.d.shape[0])
 
-    def set_count(self, rng, domain, spec, n_new):
-        '''Grow by sampling (draw order documented in RNG_RECORD) or truncate/compact to n_new.'''
+    def set_count(self, rng, domain, spec, n_new, cells=None, attempts=0, max_attempts=None):
+        '''Grow by sampling (draw order documented in RNG_RECORD) or truncate/compact to n_new. With an active-cell index `cells`
+        the centres come from cells.sample (bounded by max_attempts); returns the updated attempts count (unchanged otherwise).'''
         cur = self.n
         if n_new == cur:
-            return
+            return attempts
         if n_new < cur:
             self.d, self.age = self.d[:n_new].copy(), self.age[:n_new].copy()
             if self.overlap:
                 self.x, self.y = self.x[:n_new].copy(), self.y[:n_new].copy()
-            return
+            return attempts
         k = n_new - cur
         d = _sample_diameters(rng, spec, k)
         if self.overlap:
-            x = rng.uniform(domain.x_min_m, domain.x_max_m, k)
-            y = rng.uniform(domain.y_min_m, domain.y_max_m, k)
+            if cells is None:
+                x = rng.uniform(domain.x_min_m, domain.x_max_m, k)
+                y = rng.uniform(domain.y_min_m, domain.y_max_m, k)
+            else:
+                x, y, attempts = cells.sample(rng, k, attempts, max_attempts)
         age = _sample_ages(rng, spec, k)
         self.d = np.concatenate([self.d, d])
         self.age = np.concatenate([self.age, age])
         if self.overlap:
             self.x = np.concatenate([self.x, x])
             self.y = np.concatenate([self.y, y])
+        return attempts
 
 
-def _place_large_first(rng, domain, d_all, max_attempts, attempts_used):
+def _place_large_first(rng, domain, d_all, max_attempts, attempts_used, cells=None):
     '''Sequential exclusion placement of ALL candidates in descending size order (see module docstring).
-    Returns (X, Y, order, attempts_used); raises GenerationError when max_attempts is exhausted.'''
+    Returns (X, Y, order, attempts_used); raises GenerationError when max_attempts is exhausted. With an active-cell index
+    `cells` every proposal is an active-cell centre (cells.propose); a proposal rejected for an inactive containing cell counts
+    as an attempt like an overlap rejection. The exclusion test itself is unchanged.'''
     n = int(d_all.shape[0])
     X = np.empty(n, dtype=np.float64)
     Y = np.empty(n, dtype=np.float64)
@@ -429,8 +553,13 @@ def _place_large_first(rng, domain, d_all, max_attempts, attempts_used):
                                       'request is not attainable within the declared bounds of this algorithm (this does '
                                       'not prove that no packing exists); aborted without output')
             attempts_used += 1
-            px = float(uniform(x0, x1))
-            py = float(uniform(y0, y1))
+            if cells is None:
+                px = float(uniform(x0, x1))
+                py = float(uniform(y0, y1))
+            else:
+                px, py, ok = cells.propose(rng)
+                if not ok:
+                    continue
             bx = _periodic.bin_key(px, x0, lay[0])
             by = _periodic.bin_key(py, y0, lay[1])
             cand = []
@@ -458,23 +587,48 @@ def _place_large_first(rng, domain, d_all, max_attempts, attempts_used):
 
 
 # ------------------------------------------------------------------ generator
-def generate_population(catalog, config, *, surface=None):
-    '''Generate a PlantState (ids 1..P in final placement order) and a report. See the module docstring.'''
+def generate_population(catalog, config, *, surface=None, active_mask=None):
+    '''Generate a PlantState (ids 1..P in final placement order) and a report. See the module docstring.
+    `active_mask` (optional host bool (ny, nx), True = active cell) restricts centres and cover to an irregular footprint
+    ("Active footprint" in the module docstring); it then REQUIRES the physical initial `surface` (finite on active cells).'''
     cfg = validate_generation_config(config, catalog)
     domain, limits, overlap = cfg['domain'], cfg['limits'], cfg['overlap'] == 'allowed'
     tol, sub, max_it = cfg['cover_tolerance'], cfg['cover_subsamples'], cfg['max_iterations']
     cover_kw = {'subsamples': sub, 'max_cover_cells': limits['max_cover_cells'], 'max_cover_bytes': limits['max_cover_bytes'],
                 'max_working_bytes': limits['max_working_bytes']}
+    mask_arr, n_active, cells = None, None, None
+    if active_mask is not None:
+        mask_arr, n_active = _canopy.check_active_mask(domain, active_mask)     # StateError, like an invalid surface
+        cover_kw['active_mask'] = mask_arr
     try:
         admission = _canopy.cover_admission(domain, sub, total=True, max_cover_cells=limits['max_cover_cells'],
-                                            max_cover_bytes=limits['max_cover_bytes'], max_working_bytes=limits['max_working_bytes'])
+                                            max_cover_bytes=limits['max_cover_bytes'], max_working_bytes=limits['max_working_bytes'],
+                                            active_mask=mask_arr)
     except _canopy.ResourceBoundError as exc:
         raise GenerationError(f'cover measurement not admitted: {exc}; nothing allocated') from exc
-    if surface is not None:
+    species = cfg['species']
+    if mask_arr is not None:
+        # the valid-cell index (8 B per active cell) is admitted with the raster(s) and the coarse mask BEFORE it is allocated
+        index_bytes = _ActiveCells.index_bytes_for(n_active)
+        resident = admission['raster_bytes'] + admission['active_mask']['mask_bytes'] + index_bytes
+        if resident > limits['max_cover_bytes']:
+            raise GenerationError(f'cover raster(s) {admission["raster_bytes"]} B + coarse active mask '
+                                  f'{admission["active_mask"]["mask_bytes"]} B + valid-cell index {index_bytes} B = {resident} B exceed '
+                                  f'max_cover_bytes {limits["max_cover_bytes"]}; nothing allocated')
+        admission['active_mask']['valid_cell_index_bytes'] = index_bytes
+        admission['active_mask']['resident_bytes_checked'] = resident
+        if surface is None:
+            raise _state.StateError('generate_population with active_mask requires the physical initial surface (ny, nx): every '
+                                    'establishment anchor is sampled from it on the plant\'s active cell and is never left as a '
+                                    'NaN / placeholder value')
+        surface = _masked_surface(domain, surface, mask_arr)
+        cells = _ActiveCells(domain, mask_arr, n_active)
+        for sp in species:          # count estimates over the ACTIVE area, not the bounding rectangle (derived record follows)
+            sp['initial_count_estimate'] = initial_count(cells.area_m2, sp['target_cover'], sp['expected_crown_area_m2'], overlap)
+    elif surface is not None:
         surface = domain.check_field(surface, 'initial surface')
     rng = np.random.default_rng(cfg['seed'])
     A = domain.area_m2
-    species = cfg['species']
     S = len(species)
     counts = [sp['initial_count_estimate'] for sp in species]
     if sum(counts) > limits['max_plants']:
@@ -494,7 +648,7 @@ def generate_population(catalog, config, *, surface=None):
     if overlap:
         for si, spec in enumerate(species):
             smp = samples[si]
-            smp.set_count(rng, domain, spec, counts[si])
+            attempts = smp.set_count(rng, domain, spec, counts[si], cells, attempts, limits['max_attempts'])
             for it in range(max_it + 1):
                 if smp.n:
                     c = _canopy.measure_cover(domain, smp.x, smp.y, 0.5 * smp.d, None, 1, total=False, **cover_kw)['groups'][0]['union_fraction']
@@ -511,7 +665,7 @@ def generate_population(catalog, config, *, surface=None):
                 probe = list(s.n for s in samples)
                 probe[si] = new
                 admit_counts(probe)
-                smp.set_count(rng, domain, spec, new)
+                attempts = smp.set_count(rng, domain, spec, new, cells, attempts, limits['max_attempts'])
             counts[si] = smp.n
         order_x = np.concatenate([s.x for s in samples]) if S else np.zeros(0)
         order_y = np.concatenate([s.y for s in samples]) if S else np.zeros(0)
@@ -526,7 +680,7 @@ def generate_population(catalog, config, *, surface=None):
             d_all = np.concatenate([s.d for s in samples]) if S else np.zeros(0)
             age_all = np.concatenate([s.age for s in samples]) if S else np.zeros(0)
             sp_all = np.concatenate([np.full(s.n, si, dtype=np.int64) for si, s in enumerate(samples)]) if S else np.zeros(0, np.int64)
-            Xp, Yp, order, attempts = _place_large_first(rng, domain, d_all, limits['max_attempts'], attempts)
+            Xp, Yp, order, attempts = _place_large_first(rng, domain, d_all, limits['max_attempts'], attempts, cells)
             passes += 1
             if d_all.size:
                 m = _canopy.measure_cover(domain, Xp, Yp, 0.5 * d_all, sp_all, max(S, 1), total=False, **cover_kw)
@@ -572,7 +726,8 @@ def generate_population(catalog, config, *, surface=None):
         per_species.append({'species': spec['id'], 'target_cover': spec['target_cover'], 'measured_union_cover': g['union_fraction'],
                             'nominal_crown_area_fraction': g['nominal_fraction'], 'count': int(m.sum()),
                             'initial_count_estimate': spec['initial_count_estimate'],
-                            'count_formula': ('N0 = -A ln(1-f) / E[A_c]' if overlap else 'N0 = A f / E[A_c]') + ', E[A_c] = pi/4 (mean^2 + std^2)',
+                            'count_formula': ('N0 = -A ln(1-f) / E[A_c]' if overlap else 'N0 = A f / E[A_c]') + ', E[A_c] = pi/4 (mean^2 + std^2)'
+                            + (', A = ACTIVE area n_active dx dy' if cells is not None else ''),
                             'expected_crown_area_m2': spec['expected_crown_area_m2'],
                             'diameter_requested': {'mean_m': spec['diameter_mean_m'], 'std_m': spec['diameter_std_m'],
                                                    'distribution': 'constant' if spec['lognormal'] is None else 'lognormal'},
@@ -597,7 +752,8 @@ def generate_population(catalog, config, *, surface=None):
                                   'relation',
               'derived': derived_record(cfg),
               'rng': {'seed': cfg['seed'], 'constructor': RNG_RECORD['constructor'], 'bit_generator': RNG_RECORD['bit_generator'],
-                      'numpy_version': np.__version__, 'draw_order': RNG_RECORD['draw_order'][cfg['overlap']]},
+                      'numpy_version': np.__version__,
+                      'draw_order': RNG_RECORD['draw_order_masked' if cells is not None else 'draw_order'][cfg['overlap']]},
               'seed': cfg['seed'], 'overlap': cfg['overlap'], 'cover_definition': 'per_species_union', 'cover_tolerance': tol,
               'cover_measurement': {k: final[k] for k in ('method', 'subsamples', 'raster_shape', 'resolution_m', 'raster_cells',
                                                          'raster_bytes', 'working_bytes', 'rows_per_chunk', 'index_bytes',
@@ -628,13 +784,48 @@ def generate_population(catalog, config, *, surface=None):
             'generation_config': report['generation_config'], 'derived': report['derived'], 'rng': report['rng'],
             'species': {p['species']: {'target_cover': p['target_cover'], 'measured_union_cover': p['measured_union_cover'],
                                        'count': p['count']} for p in per_species}}
-    est = np.full(P, np.nan)
+    if cells is not None:         # only a masked run adds these keys: unmasked reports keep their exact key set
+        mrec = final['active_mask']
+        report['cover_measurement']['active_mask'] = dict(mrec)
+        report['active_mask'] = dict(
+            mrec, valid_cell_index_bytes=cells.index_bytes,
+            centres='proposed ONLY inside active cells, uniform over the ACTIVE area: one uniformly chosen active cell (valid-cell '
+                    'index) plus a uniform offset inside it; a proposal whose containing cell is inactive (floating-point rounding '
+                    'onto a cell edge) is rejected and redrawn; no buffer / edge-cell exclusion; NoData cells are never filled',
+            cover='per-species union cover over the ACTIVE area only: the midpoint raster is masked in place (inactive-cell '
+                  'subpixels excluded), denominator n_active * subsamples^2, area n_active * dx * dy; canopy fragments above '
+                  'inactive cells do not count toward the target',
+            count_estimates='N0 and every count correction use the active area and the active-area measurement, not the '
+                            'bounding rectangle (derived.species.<id>.initial_count_estimate is the active-area estimate)',
+            exclusion=('none (overlap allowed)' if overlap else
+                       'unchanged cross-species canopy exclusion on the full circle geometry (strict < (ri + rj)^2, tangency '
+                       'allowed); canopies may extend over inactive cells and across periodic seams as before'),
+            surface='establishment anchors sampled from the provided initial surface at each plant\'s (active) cell; the surface '
+                    'must be finite on active cells, NoData outside the footprint is never read or filled; no NaN anchors',
+            attempts='every centre proposal of either overlap mode (batch draws included) counts against max_attempts',
+            replay='the mask is not part of generation_config: replay needs the same mask (this sha256) and surface')
+        report['establishment'] = ('resolved from the supplied initial surface at each plant\'s active cell (NoData outside the '
+                                   'footprint untouched)')
+        report['placement'] += '; centres proposed only inside active_mask cells, uniform over the active area (see active_mask)'
+        report['generation_config_note'] += ('; this run used an active_mask (not part of the config schema): replay needs the '
+                                             'same mask, identified by active_mask.sha256, and the same surface')
+        prov['active_mask'] = {'sha256': mrec['sha256'], 'shape': mrec['shape'], 'n_active': mrec['n_active'],
+                               'active_area_m2': mrec['active_area_m2']}
+        row, col = domain.cell_indices(X, Y)                 # every centre lies in an active cell (validated by measure_cover)
+        est = surface[row, col]
+        if P and not np.all(np.isfinite(est)):
+            raise GenerationError('internal inconsistency: a sampled establishment anchor is not finite although every centre '
+                                  'lies in an active cell with a finite surface; no output')
+        unresolved = np.zeros(P, dtype=bool)
+    else:
+        est = np.full(P, np.nan)
+        unresolved = np.ones(P, dtype=bool)
     state = _state.PlantState(domain, catalog.species_ids, catalog.hash, ids=np.arange(1, P + 1, dtype=np.int64),
                               species_index=species_index.astype(np.int32), x_m=X, y_m=Y, establishment_ground_m=est,
-                              establishment_unresolved=np.ones(P, dtype=bool), agb_dry_kg=B,
+                              establishment_unresolved=unresolved, agb_dry_kg=B,
                               seasonal_agb_dry_kg=np.zeros(P), age_days=age_all, status=np.zeros(P, dtype=np.int8),
                               time_days=cfg['time_days'], provenance=prov)
-    if surface is not None:
+    if surface is not None and cells is None:
         state.resolve_establishment(surface)
     return state, report
 

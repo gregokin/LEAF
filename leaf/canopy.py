@@ -53,9 +53,20 @@ physical torus union for circles wider than half a periodic span (`leaf.periodic
 The shared canopy view / MAPLE adapter publish ONE object per plant (the centre inside the domain) plus boundary metadata;
 MAPLE's own rasterizer wraps the physical footprint across periodic seams. Public periodic centres are canonical half-open
 [0, L): the exact stored upper endpoint is exported as 0.
+
+Active footprint (`measure_cover(..., active_mask=...)`, optional; default None = the behaviour above, unchanged). A genuine host
+numpy bool (ny, nx) array marks the ACTIVE (valid) cells of an irregular raster footprint inside the rectangular domain (True =
+active, False = inactive / NoData; at least one active cell; no dtype coercion, no transposition, nothing filled). Circles are
+rasterised exactly as before (clipped / wrapped per axis, no buffer, no edge-cell exclusion); afterwards the SAME boolean bitmap is
+masked IN PLACE through a (ny, s, nx, s) reshape view broadcast against the coarse mask, so inactive-cell subpixels are excluded
+without allocating a fine-resolution mask. Every fraction is then over the ACTIVE area n_active*dx*dy (denominator n_active*s^2
+fine cells): canopy fragments above inactive cells do not count. A circle whose CENTRE lies in an inactive cell is refused.
+Admission counts the resident coarse mask with the raster bytes against `max_cover_bytes`. The masked result adds an `active_mask`
+block (sha256 / shape / active area / meaning); the unmasked result keeps its exact key set.
 '''
 from __future__ import annotations
 
+import hashlib
 import math
 
 import numpy as np
@@ -107,6 +118,13 @@ COVER_DEFINITION_PERIODIC = ('per-group projected union ground cover of the doma
                              'overlap, including a circle with its own wrapped image, counted once; cross-group overlap counted in '
                              'each group); nonperiodic axes are clipped; nominal = sum of unclipped crown areas / domain area, '
                              'which may exceed the physical union')
+ACTIVE_MASK_CONVENTION = ('host numpy bool array of the domain shape (ny, nx); True = ACTIVE (valid footprint) cell, False = inactive / '
+                          'NoData cell; at least one active cell; no dtype coercion, no transposition, no filling of NoData')
+COVER_DEFINITION_ACTIVE = ('; ACTIVE-MASK restriction: the union raster is masked in place to the active cells (inactive-cell subpixels '
+                           'excluded) and every fraction is over the ACTIVE area n_active * dx * dy (denominator n_active * s^2 fine '
+                           'cells); canopy fragments above inactive cells do not count; circles are neither buffered nor kept away '
+                           'from the footprint edge; a circle centre in an inactive cell is refused; nominal = sum of unclipped crown '
+                           'areas / active area')
 
 
 def boundary_note(domain):
@@ -369,40 +387,93 @@ def maple_vegetation_view(state, catalog, current_surface, *, statuses=('live', 
     return {'fields': fields, 'sidecar': sidecar, 'meta': meta}
 
 
+# ------------------------------------------------------------------ active footprint mask
+def check_active_mask(domain, active_mask, name='active_mask'):
+    '''Validated active footprint mask -> (the SAME array object, n_active). Only a genuine host numpy bool array (exact type
+    numpy.ndarray, dtype bool) of the exact domain shape (ny, nx) with at least one True cell is accepted: no dtype coercion of
+    int / float / NoData codes, no transposition, no device or masked arrays. Nothing is copied or allocated here (the coarse
+    mask may be made C-contiguous by the consumer AFTER admission). Raises StateError.'''
+    if not isinstance(domain, _state.Domain):
+        raise _state.StateError('domain must be a leaf.state.Domain')
+    if type(active_mask) is not np.ndarray:
+        raise _state.StateError(f'{name} must be a genuine host numpy bool array of shape {domain.shape} (True = active), got '
+                                f'{type(active_mask).__name__}; convert explicitly, nothing is coerced here')
+    if active_mask.dtype != np.bool_:
+        raise _state.StateError(f'{name} must have dtype bool (True = active), got {active_mask.dtype}; int / float / NoData codes '
+                                'are not coerced')
+    if active_mask.shape != domain.shape:
+        hint = ' (looks transposed: masks are (ny, nx))' if active_mask.shape == (domain.nx, domain.ny) else ''
+        raise _state.StateError(f'{name} shape {active_mask.shape} differs from domain shape {domain.shape}{hint}')
+    n_active = int(np.count_nonzero(active_mask))
+    if n_active == 0:
+        raise _state.StateError(f'{name} has no active cell (all False): an empty footprint has no area to place on or measure')
+    return active_mask, n_active
+
+
+def active_mask_record(domain, active_mask):
+    '''JSON-able identity of a validated active mask: "sha256:<hex>" over its ny*nx C-order bytes (0 / 1), shape, counts and the
+    ACTIVE area n_active * dx * dy beside the rectangle area. One streaming hash pass; a non-contiguous mask is compacted once
+    (coarse ny*nx bytes).'''
+    mask, n_active = check_active_mask(domain, active_mask)
+    digest = hashlib.sha256(np.ascontiguousarray(mask).reshape(-1).view(np.uint8)).hexdigest()
+    cells = domain.ncells
+    cell_area = domain.dx_m * domain.dy_m
+    return {'sha256': 'sha256:' + digest, 'hash_basis': 'sha256 over the ny*nx C-order bytes (0 / 1) of the bool mask',
+            'shape': [domain.ny, domain.nx], 'dtype': 'bool', 'n_cells': cells, 'n_active': n_active,
+            'n_inactive': cells - n_active, 'active_fraction': n_active / cells, 'cell_area_m2': cell_area,
+            'active_area_m2': n_active * cell_area, 'rectangle_area_m2': domain.area_m2, 'convention': ACTIVE_MASK_CONVENTION}
+
+
 # ------------------------------------------------------------------ cover measurement
 def cover_admission(domain, subsamples, *, total=True, max_cover_cells=DEFAULT_MAX_COVER_CELLS,
-                    max_cover_bytes=DEFAULT_MAX_COVER_BYTES, max_working_bytes=DEFAULT_MAX_WORKING_BYTES):
+                    max_cover_bytes=DEFAULT_MAX_COVER_BYTES, max_working_bytes=DEFAULT_MAX_WORKING_BYTES, active_mask=None):
     '''Precisely scoped memory estimate for measure_cover, checked BEFORE any allocation.
 
     raster_bytes  = (2 if total else 1) * (ny*s) * (nx*s) boolean cells
     working_bytes = 16*(NX+NY) 1-D coordinate scratch + rows_per_chunk*NX*9 footprint temporaries
                     (a domain with a periodic axis counts 32*(NX+NY): index, offset, rint and distance scratch)
-    rows_per_chunk is the largest value fitting max_working_bytes (at least one raster row).'''
+    rows_per_chunk is the largest value fitting max_working_bytes (at least one raster row).
+    active_mask   (optional) the validated coarse (ny, nx) bool mask: its resident bytes (twice when it is not C-contiguous, for
+                  the one compaction copy) are counted WITH raster_bytes against max_cover_bytes; no fine-resolution mask exists.
+                  Only a masked admission carries the extra `active_mask` block (the unmasked result is unchanged).'''
     if not isinstance(domain, _state.Domain):
         raise _state.StateError('domain must be a leaf.state.Domain')
     s = _traits.strict_int(subsamples, 'subsamples', 1)
     mc = _traits.strict_int(max_cover_cells, 'max_cover_cells', 1)
     mb = _traits.strict_int(max_cover_bytes, 'max_cover_bytes', 1)
     mw = _traits.strict_int(max_working_bytes, 'max_working_bytes', 1)
+    mask_bytes, n_active = 0, None
+    if active_mask is not None:
+        mask, n_active = check_active_mask(domain, active_mask)
+        mask_bytes = int(mask.nbytes) * (1 if mask.flags.c_contiguous else 2)
     NX, NY = domain.nx * s, domain.ny * s
     cells = NX * NY
     raster_bytes = cells * (2 if total else 1)
     coord_bytes = (32 if domain.any_periodic else 16) * (NX + NY)
     rows = (mw - coord_bytes) // (_CHUNK_BYTES_PER_ELEMENT * NX)
-    if cells > mc or raster_bytes > mb:
-        raise ResourceBoundError(f'cover raster {NY}x{NX} = {cells} cells / {raster_bytes} bytes exceeds '
+    if cells > mc or raster_bytes + mask_bytes > mb:
+        extra = f' + coarse active mask {mask_bytes} bytes' if active_mask is not None else ''
+        raise ResourceBoundError(f'cover raster {NY}x{NX} = {cells} cells / {raster_bytes} bytes{extra} exceeds '
                                  f'max_cover_cells={mc} / max_cover_bytes={mb}; lower subsamples or raise the bound explicitly')
     if rows < 1:
         raise ResourceBoundError(f'max_working_bytes={mw} cannot hold one raster row footprint '
                                  f'({coord_bytes + _CHUNK_BYTES_PER_ELEMENT * NX} bytes needed)')
     rows = int(min(rows, NY))
     working_bytes = coord_bytes + rows * NX * _CHUNK_BYTES_PER_ELEMENT
-    return {'subsamples': s, 'raster_shape': [NY, NX], 'raster_cells': cells, 'raster_bytes': raster_bytes,
-            'working_bytes': working_bytes, 'rows_per_chunk': rows, 'total_bytes': raster_bytes + working_bytes,
-            'max_cover_cells': mc, 'max_cover_bytes': mb, 'max_working_bytes': mw,
-            'scope': 'raster_bytes: boolean union raster(s); working_bytes: 1-D coordinate scratch + row-tiled '
-                     'footprint temporaries (float64 distance + bool mask). P-sized index arrays are reported as '
-                     'index_bytes by measure_cover and scale with the population, not the grid'}
+    out = {'subsamples': s, 'raster_shape': [NY, NX], 'raster_cells': cells, 'raster_bytes': raster_bytes,
+           'working_bytes': working_bytes, 'rows_per_chunk': rows, 'total_bytes': raster_bytes + working_bytes + mask_bytes,
+           'max_cover_cells': mc, 'max_cover_bytes': mb, 'max_working_bytes': mw,
+           'scope': 'raster_bytes: boolean union raster(s); working_bytes: 1-D coordinate scratch + row-tiled '
+                    'footprint temporaries (float64 distance + bool mask). P-sized index arrays are reported as '
+                    'index_bytes by measure_cover and scale with the population, not the grid'}
+    if active_mask is not None:       # only a masked admission adds this block: the unmasked key set is unchanged
+        out['active_mask'] = {'shape': [domain.ny, domain.nx], 'n_cells': domain.ncells, 'n_active': n_active, 'mask_bytes': mask_bytes,
+                              'active_cells': n_active * s * s, 'active_area_m2': n_active * domain.dx_m * domain.dy_m,
+                              'scope': 'mask_bytes: the caller-provided coarse (ny, nx) bool mask, resident during the measurement and '
+                                       'counted with raster_bytes against max_cover_bytes (doubled when a non-contiguous mask must be '
+                                       'compacted once); the fine union raster is masked IN PLACE through a (ny, s, nx, s) reshape view '
+                                       'broadcast, so no fine-resolution mask is ever allocated; active_cells is the fraction denominator'}
+    return out
 
 
 def _cover_axis(p, r, origin, h, n, length, periodic):
@@ -450,7 +521,7 @@ def _paint_wrapped(raster, px, py, rp, x0, y0, hx, hy, NX, NY, Lx, Ly, per, rows
 
 def measure_cover(domain, x_m, y_m, radius_m, group_index=None, n_groups=1, *, subsamples=4,
                   max_cover_cells=DEFAULT_MAX_COVER_CELLS, max_cover_bytes=DEFAULT_MAX_COVER_BYTES,
-                  max_working_bytes=DEFAULT_MAX_WORKING_BYTES, total=True):
+                  max_working_bytes=DEFAULT_MAX_WORKING_BYTES, total=True, active_mask=None):
     '''Per-group union ground cover of circles (fraction of the domain area): clipped at a nonperiodic edge, WRAPPED across a
     periodic axis of `domain.periodic` (torus union, see the module docstring; the centre stays the single stored position).
 
@@ -458,9 +529,17 @@ def measure_cover(domain, x_m, y_m, radius_m, group_index=None, n_groups=1, *, s
     strictly inside by its minimum-image distance).
     Same-group overlaps count once; different groups are measured independently (cross-group overlap adds
     to each group's cover). `total_union_fraction` is the union over all groups. Deterministic, O(P) work on
-    row-tiled bounding boxes; memory admitted by cover_admission before allocation.'''
+    row-tiled bounding boxes; memory admitted by cover_admission before allocation.
+
+    active_mask (optional, default None = unchanged): a validated host bool (ny, nx) footprint (`check_active_mask`). The circles
+    are rasterised exactly as above, then the SAME bitmap is masked in place (a (ny, s, nx, s) reshape view ANDed with the broadcast
+    coarse mask; no fine-resolution mask is allocated), so every fraction is over the ACTIVE area n_active*dx*dy with denominator
+    n_active*s^2. A circle centre inside an inactive cell is refused (StateError). The result adds an `active_mask` block.'''
+    mask = None
+    if active_mask is not None:
+        mask, n_active = check_active_mask(domain, active_mask)
     adm = cover_admission(domain, subsamples, total=total, max_cover_cells=max_cover_cells,
-                          max_cover_bytes=max_cover_bytes, max_working_bytes=max_working_bytes)
+                          max_cover_bytes=max_cover_bytes, max_working_bytes=max_working_bytes, active_mask=mask)
     s = adm['subsamples']
     G = _traits.strict_int(n_groups, 'n_groups', 1)
     x = _state._coerce_float(x_m, 'x_m')
@@ -477,9 +556,25 @@ def measure_cover(domain, x_m, y_m, radius_m, group_index=None, n_groups=1, *, s
     rows_per_chunk = adm['rows_per_chunk']
     hx, hy = domain.dx_m / s, domain.dy_m / s
     x0, y0 = domain.origin_x_m, domain.origin_y_m
+    A = domain.area_m2
+    denominator = adm['raster_cells']
+    mask4 = None
+    if mask is not None:
+        mask = np.ascontiguousarray(mask)            # admitted above (coarse ny*nx bytes, doubled for a non-contiguous input)
+        if n:
+            row, col = domain.cell_indices(x, y)     # the Domain containing-cell convention (periodic upper edge included)
+            inactive = ~mask[row, col]
+            if inactive.any():
+                i = int(np.flatnonzero(inactive)[0])
+                raise _state.StateError(f'circle centres: {int(inactive.sum())} centre(s) lie in inactive (NoData) cells of active_mask '
+                                        f'(first: index {i}, x={x[i]!r}, y={y[i]!r}, row {int(row[i])}, col {int(col[i])}); a masked '
+                                        'measurement refuses them, nothing is moved or dropped')
+        mask4 = mask[:, None, :, None]               # broadcast view of the coarse mask over the (ny, s, nx, s) fine layout
+        A = n_active * domain.dx_m * domain.dy_m
+        denominator = n_active * s * s
     raster = np.zeros((NY, NX), dtype=bool)
     union_all = np.zeros((NY, NX), dtype=bool) if total else None
-    A = domain.area_m2
+    fine = raster.reshape(domain.ny, s, domain.nx, s) if mask is not None else None   # a VIEW of the same bitmap (C-contiguous)
     wrapped = domain.any_periodic              # False: the legacy clipped path below runs unchanged
     per = domain.periodic
     Lx, Ly = float(domain.width_m), float(domain.height_m)
@@ -511,33 +606,40 @@ def measure_cover(domain, x_m, y_m, radius_m, group_index=None, n_groups=1, *, s
             for ja in range(0, ys2.shape[0], rows_per_chunk):   # row tiling bounds the footprint temporaries
                 jb = min(ja + rows_per_chunk, ys2.shape[0])
                 raster[j0 + ja:j0 + jb, i0:i1 + 1] |= (xs2[None, :] + ys2[ja:jb, None]) < r2
+        if fine is not None:
+            fine &= mask4                 # IN PLACE on the reshape view: inactive-cell subpixels cleared, no fine mask allocated
         covered = int(np.count_nonzero(raster))
         if union_all is not None:
             union_all |= raster
         rr = r[sel]
         rpos = rr[rr > 0.0]
         groups.append({'group': gi, 'count': int(sel.shape[0]), 'covered_cells': covered,
-                       'union_fraction': covered / adm['raster_cells'], 'union_area_m2': covered / adm['raster_cells'] * A,
+                       'union_fraction': covered / denominator, 'union_area_m2': covered / denominator * A,
                        'nominal_area_m2': nominal, 'nominal_fraction': nominal / A,
                        'mean_radius_m': float(rpos.mean()) if rpos.size else None,
                        'relative_error_scale': (float(max(hx, hy) / rpos.mean()) if rpos.size else None)})
     out = {'method': COVER_METHOD, 'subsamples': s, 'raster_shape': [NY, NX], 'resolution_m': [hx, hy],
            'raster_cells': adm['raster_cells'], 'raster_bytes': adm['raster_bytes'], 'working_bytes': adm['working_bytes'],
-           'rows_per_chunk': rows_per_chunk, 'index_bytes': int(8 * n + g.nbytes), 'admission': adm,
-           'domain_area_m2': A, 'n_circles': n, 'groups': groups,
-           'total_union_fraction': (int(np.count_nonzero(union_all)) / adm['raster_cells']) if union_all is not None else None,
+           'rows_per_chunk': rows_per_chunk, 'index_bytes': int(8 * n + g.nbytes + (16 * n if mask is not None else 0)),
+           'admission': adm, 'domain_area_m2': domain.area_m2, 'n_circles': n, 'groups': groups,
+           'total_union_fraction': (int(np.count_nonzero(union_all)) / denominator) if union_all is not None else None,
            'sum_of_group_union_fractions': float(sum(gr['union_fraction'] for gr in groups)),
-           'definition': COVER_DEFINITION_PERIODIC if wrapped else COVER_DEFINITION,
+           'definition': (COVER_DEFINITION_PERIODIC if wrapped else COVER_DEFINITION) + (COVER_DEFINITION_ACTIVE if mask is not None else ''),
            'boundary_note': boundary_note(domain),
            'error_basis': 'midpoint sampling at resolution dx/s: each circle boundary is resolved to about one '
                           'raster cell, relative error per circle ~ resolution / radius; sampled, not analytic'}
     if wrapped:                                   # only a periodic measurement adds this key (the legacy key set is unchanged)
         out['periodic'] = [bool(per[0]), bool(per[1])]
+    if mask is not None:                          # only a masked measurement adds this key (the legacy key set is unchanged)
+        out['active_mask'] = dict(active_mask_record(domain, mask), active_cells=denominator, denominator_cells=denominator,
+                                  area_basis='fractions and union areas are over the ACTIVE area (active_area_m2), not the rectangle '
+                                             '(domain_area_m2); index_bytes includes the 16 B / circle centre-cell check')
     return out
 
 
 __all__ = ['COVER_METHOD', 'DEFAULT_MAX_COVER_CELLS', 'DEFAULT_MAX_COVER_BYTES', 'DEFAULT_MAX_WORKING_BYTES',
            'CANOPY_FIELDS', 'MAPLE_FIELDS', 'CANOPY_VIEW_SCHEMA', 'CANOPY_VIEW_SCHEMA_VERSION', 'MAPLE_VIEW_SCHEMA',
            'MAPLE_VIEW_SCHEMA_VERSION', 'CANOPY_FIELD_UNITS', 'CANOPY_SIDECAR_UNITS', 'HEIGHT_MODES',
-           'UNSUPPORTED_POLICIES', 'BOUNDARY_NOTE', 'GEOMETRY_UNITS', 'ResourceBoundError', 'derive_geometry',
-           'canopy_view', 'maple_vegetation_view', 'cover_admission', 'measure_cover']
+           'UNSUPPORTED_POLICIES', 'BOUNDARY_NOTE', 'GEOMETRY_UNITS', 'ACTIVE_MASK_CONVENTION', 'ResourceBoundError',
+           'derive_geometry', 'canopy_view', 'maple_vegetation_view', 'check_active_mask', 'active_mask_record',
+           'cover_admission', 'measure_cover']
